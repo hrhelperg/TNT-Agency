@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-  <!-- ① CookieYes — Consent Management Platform (MUST load before Google Analytics)
-       Sign up at cookieyes.com, then replace the src below with your CookieYes script URL.
+  <!-- ① CookieYes — must load BEFORE Google Analytics
   <script id="cookieyes" type="text/javascript"
     src="https://cdn-cookieyes.com/client_data/YOUR_COOKIEYES_ID/script.js"></script>
   -->
 
-  <!-- ② Google Consent Mode v2 — deny by default until user grants consent -->
+  <!-- ② Google Consent Mode v2 defaults -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -23,72 +23,60 @@
     });
   </script>
 
-  <!-- ③ Google tag (gtag.js) — replace G-XXXXXXXXXX with your Measurement ID -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- ③ Google Analytics — replace G-XXXXXXXXXX with your Measurement ID
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-XXXXXXXXXX');
-  </script> -->
+  </script>
+  -->
 
   <!-- Primary SEO -->
-  <title>TNT Agency — Digital Strategy, Web & Brand Growth</title>
-  <meta name="description" content="TNT Agency is a full-service digital agency specializing in strategy, web development, branding, and growth marketing. We build digital presence that detonates results.">
-  <meta name="keywords" content="digital agency, web development, brand strategy, SEO, digital marketing, mobile apps, TNT Agency">
+  <title>TNT Agency — Employment &amp; Staffing Agency | Find Top Talent</title>
+  <meta name="description" content="TNT Agency is a professional employment and staffing agency. We connect companies with top talent for permanent placement, executive search, and flexible staffing — across all industries.">
+  <meta name="keywords" content="employment agency, staffing agency, recruitment agency, permanent placement, executive search, temporary staffing, HR outsourcing, talent acquisition">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://tntgency.org/">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
   <!-- Open Graph -->
-  <meta property="og:type"        content="website">
-  <meta property="og:url"         content="https://tntgency.org/">
-  <meta property="og:site_name"   content="TNT Agency">
-  <meta property="og:title"       content="TNT Agency — Digital Strategy, Web & Brand Growth">
-  <meta property="og:description" content="Full-service digital agency specializing in strategy, web development, branding, and growth marketing. We build digital presence that detonates results.">
-  <meta property="og:image"       content="https://tntgency.org/assets/og.jpg">
+  <meta property="og:type"         content="website">
+  <meta property="og:url"          content="https://tntgency.org/">
+  <meta property="og:site_name"    content="TNT Agency">
+  <meta property="og:title"        content="TNT Agency — Employment &amp; Staffing Agency">
+  <meta property="og:description"  content="Your trusted recruitment partner for permanent, temporary, and executive staffing. We connect the right people with the right companies.">
+  <meta property="og:image"        content="https://tntgency.org/assets/og.jpg">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:locale"      content="en_US">
+  <meta property="og:locale"       content="en_US">
 
   <!-- Twitter / X Cards -->
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:site"        content="@tntgency">
-  <meta name="twitter:title"       content="TNT Agency — Digital Strategy, Web & Brand Growth">
-  <meta name="twitter:description" content="Full-service digital agency. Strategy, web development, branding, and growth. We build digital presence that detonates results.">
+  <meta name="twitter:title"       content="TNT Agency — Employment &amp; Staffing Agency">
+  <meta name="twitter:description" content="Your trusted recruitment partner. Permanent placement, executive search, and flexible staffing across all industries.">
   <meta name="twitter:image"       content="https://tntgency.org/assets/og.jpg">
 
-  <!-- Structured Data — Organization -->
+  <!-- Structured Data — EmploymentAgency -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "EmploymentAgency",
     "name": "TNT Agency",
     "url": "https://tntgency.org",
-    "logo": "https://tntgency.org/assets/logo.png",
-    "description": "TNT Agency is a full-service digital agency specializing in digital strategy, web development, brand identity, and growth marketing.",
+    "logo": "https://tntgency.org/favicon.svg",
+    "description": "TNT Agency is a professional employment and staffing agency connecting companies with top talent for permanent, temporary, and executive positions across all industries.",
     "contactPoint": {
       "@type": "ContactPoint",
-      "contactType": "customer service",
+      "contactType": "recruitment",
       "email": "hello@tntgency.org"
     },
     "sameAs": [
-      "https://x.com/tntgency",
+      "https://www.linkedin.com/company/tntgency",
       "https://www.instagram.com/tntgency",
-      "https://www.linkedin.com/company/tntgency"
+      "https://x.com/tntgency"
     ]
-  }
-  </script>
-
-  <!-- Structured Data — WebSite with SearchAction -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "url": "https://tntgency.org/",
-    "name": "TNT Agency"
   }
   </script>
 
@@ -96,31 +84,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <!-- ======================================================
-     HEADER / NAV
+     HEADER
      ====================================================== -->
 <header class="header" id="header">
   <div class="container">
     <div class="header__inner">
-      <a href="/" class="logo" aria-label="TNT Agency Home">
+      <a href="/" class="logo" aria-label="TNT Agency">
         <span class="logo__mark">TNT</span>
-        <span class="logo__text">Agency</span>
+        <span class="logo__name">Agency</span>
       </a>
 
       <nav class="nav" aria-label="Main navigation">
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
+        <a href="#employers">For Employers</a>
+        <a href="#candidates">For Candidates</a>
+        <a href="#industries">Industries</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
 
       <div class="header__right">
-        <a href="#contact" class="btn btn-primary btn-sm">Get a Quote</a>
+        <a href="#contact" class="btn btn-primary btn-sm">Start Hiring</a>
         <button class="hamburger" id="burger" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -129,152 +117,166 @@
   </div>
 </header>
 
-<!-- Mobile nav -->
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
-  <a href="#services">Services</a>
-  <a href="#work">Work</a>
+  <a href="#employers">For Employers</a>
+  <a href="#candidates">For Candidates</a>
+  <a href="#industries">Industries</a>
   <a href="#about">About</a>
   <a href="#contact">Contact</a>
-  <a href="#contact" class="btn btn-primary">Get a Quote</a>
+  <a href="#contact" class="btn btn-primary">Start Hiring</a>
 </nav>
 
 <!-- ======================================================
      HERO
      ====================================================== -->
 <section class="hero" id="home">
-  <div class="hero__bg-grid" aria-hidden="true"></div>
   <div class="container">
     <div class="hero__inner">
 
       <div class="hero__badge fi">
-        <span class="badge-dot"></span>
-        Now Accepting New Clients — 2026
+        <span class="badge-pulse" aria-hidden="true"></span>
+        Employment Agency &nbsp;·&nbsp; Talent. Network. Trust.
       </div>
 
-      <h1 class="hero__h1 fi d1">
-        We Build<br>
-        Digital Presence<br>
-        <span class="hero__accent">That <em>Detonates</em>.</span>
+      <h1 class="fi d1">
+        We Connect<br>
+        the Right People<br>
+        with the Right <span class="text-accent">Companies.</span>
       </h1>
 
       <p class="hero__sub fi d2">
-        TNT Agency is a full-service digital studio. We turn brands into forces — through strategy, design, development, and performance marketing that actually moves the needle.
+        TNT Agency is your trusted recruitment partner — delivering qualified candidates for permanent roles, executive positions, and flexible staffing needs across all industries.
       </p>
 
-      <div class="hero__actions fi d3">
-        <a href="#services" class="btn btn-primary btn-lg">Explore Services</a>
-        <a href="#contact"  class="btn btn-ghost  btn-lg">Start a Project</a>
-      </div>
-
-      <div class="hero__stats fi d4">
-        <div class="stat">
-          <strong>50+</strong>
-          <span>Projects Delivered</span>
-        </div>
-        <div class="stat__divider" aria-hidden="true"></div>
-        <div class="stat">
-          <strong>98%</strong>
-          <span>Client Satisfaction</span>
-        </div>
-        <div class="stat__divider" aria-hidden="true"></div>
-        <div class="stat">
-          <strong>12+</strong>
-          <span>Countries Reached</span>
-        </div>
+      <div class="hero__ctas fi d3">
+        <a href="#employers" class="btn btn-accent btn-lg">I'm Looking for Talent</a>
+        <a href="#candidates" class="btn btn-outline-white btn-lg">I'm Looking for a Job</a>
       </div>
 
     </div>
   </div>
 
-  <!-- Decorative elements -->
-  <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
-  <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
+  <!-- Wave transition to white -->
+  <div class="hero__wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 L0,72 Z" fill="#ffffff"/>
+    </svg>
+  </div>
 </section>
 
 <!-- ======================================================
-     SERVICES
+     STATS STRIP
      ====================================================== -->
-<section class="section services" id="services">
+<section class="stats-strip" aria-label="Agency by the numbers">
+  <div class="container">
+    <div class="stats-grid fi">
+      <div class="stat-item">
+        <strong>500+</strong>
+        <span>Successful Placements</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <strong>100+</strong>
+        <span>Partner Companies</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <strong>12+</strong>
+        <span>Industries Covered</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <strong>24 h</strong>
+        <span>First Candidates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     SERVICES — FOR EMPLOYERS
+     ====================================================== -->
+<section class="section services" id="employers">
   <div class="container">
 
     <div class="section-head fi">
-      <div class="eyebrow">What We Do</div>
-      <h2>Full-Service Digital<br>Agency Capabilities</h2>
-      <p>From concept to launch and beyond — we cover every dimension of your digital growth.</p>
+      <div class="eyebrow">For Employers</div>
+      <h2>Recruitment Services<br>Built Around Your Business</h2>
+      <p>From a single hire to building entire departments — we have a solution that fits your hiring needs and timeline.</p>
     </div>
 
     <div class="services-grid">
 
       <article class="svc-card fi d1">
-        <div class="svc-card__icon" aria-hidden="true">⚡</div>
-        <h3>Digital Strategy</h3>
-        <p>We define your digital roadmap — audience research, competitive analysis, positioning, and a measurable growth plan built to win.</p>
-        <ul class="svc-card__list">
-          <li>Market & Competitor Research</li>
-          <li>Brand Positioning</li>
-          <li>Go-to-Market Planning</li>
-          <li>KPI & Growth Frameworks</li>
+        <div class="svc-card__top">
+          <div class="svc-card__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Permanent Placement</h3>
+        </div>
+        <p>Full-cycle recruitment for long-term positions. We handle everything from job briefing to final offer — with a 90-day replacement guarantee.</p>
+        <ul class="svc-list">
+          <li>Detailed job briefing &amp; candidate profile</li>
+          <li>Active sourcing from our talent network</li>
+          <li>Curated shortlist of 3–5 candidates</li>
+          <li>Interview coordination &amp; reference checks</li>
+          <li>90-day free replacement guarantee</li>
         </ul>
+        <a href="#contact" class="svc-link">Get started →</a>
       </article>
 
       <article class="svc-card fi d2">
-        <div class="svc-card__icon" aria-hidden="true">🖥️</div>
-        <h3>Web Development</h3>
-        <p>High-performance websites and web applications built with clean code, blazing speed, and conversion-focused architecture.</p>
-        <ul class="svc-card__list">
-          <li>Landing Pages & Websites</li>
-          <li>E-commerce Platforms</li>
-          <li>Web Applications & SaaS</li>
-          <li>CMS & Headless Solutions</li>
+        <div class="svc-card__top">
+          <div class="svc-card__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h3>Executive Search</h3>
+        </div>
+        <p>Confidential headhunting for senior managers, directors, and C-level executives. We reach the passive candidates others can't access.</p>
+        <ul class="svc-list">
+          <li>Market mapping &amp; competitor analysis</li>
+          <li>Direct approach to passive candidates</li>
+          <li>Comprehensive executive assessment</li>
+          <li>Salary benchmarking &amp; package advice</li>
+          <li>Full discretion &amp; confidentiality guaranteed</li>
         </ul>
+        <a href="#contact" class="svc-link">Get started →</a>
       </article>
 
       <article class="svc-card fi d3">
-        <div class="svc-card__icon" aria-hidden="true">📱</div>
-        <h3>Mobile Applications</h3>
-        <p>Native and cross-platform mobile apps that users love — from MVP to full-featured product, iOS and Android.</p>
-        <ul class="svc-card__list">
-          <li>iOS & Android Apps</li>
-          <li>React Native / Flutter</li>
-          <li>App Store Optimization</li>
-          <li>API & Backend Integration</li>
+        <div class="svc-card__top">
+          <div class="svc-card__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Temporary Staffing</h3>
+        </div>
+        <p>Flexible workforce for seasonal peaks, project work, maternity cover, or short-term capacity needs. Ready to work within days.</p>
+        <ul class="svc-list">
+          <li>Pre-screened, job-ready candidates</li>
+          <li>Available within 24–72 hours</li>
+          <li>Full payroll &amp; HR administration handled</li>
+          <li>Easy extension or permanent conversion</li>
+          <li>Volume staffing capability</li>
         </ul>
+        <a href="#contact" class="svc-link">Get started →</a>
       </article>
 
-      <article class="svc-card fi d1">
-        <div class="svc-card__icon" aria-hidden="true">🎨</div>
-        <h3>Brand Identity</h3>
-        <p>Strategic branding that builds trust and recognition. We create visual identities that are unmistakable and built to scale.</p>
-        <ul class="svc-card__list">
-          <li>Logo & Visual Identity</li>
-          <li>Brand Guidelines</li>
-          <li>UI/UX Design Systems</li>
-          <li>Marketing Collateral</li>
+      <article class="svc-card fi d4">
+        <div class="svc-card__top">
+          <div class="svc-card__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3>HR Consulting &amp; RPO</h3>
+        </div>
+        <p>Outsource part or all of your recruitment process. Our HR experts help you design hiring processes, employer branding, and workforce strategy.</p>
+        <ul class="svc-list">
+          <li>Recruitment Process Outsourcing (RPO)</li>
+          <li>HR policy &amp; process design</li>
+          <li>Employer branding strategy</li>
+          <li>Onboarding programme development</li>
+          <li>Compensation &amp; benefits benchmarking</li>
         </ul>
-      </article>
-
-      <article class="svc-card fi d2">
-        <div class="svc-card__icon" aria-hidden="true">📈</div>
-        <h3>SEO & Content</h3>
-        <p>Dominate search rankings with technical SEO, content strategy, and authority-building that drives compounding organic growth.</p>
-        <ul class="svc-card__list">
-          <li>Technical SEO Audits</li>
-          <li>On-Page Optimization</li>
-          <li>Content Strategy & Writing</li>
-          <li>Link Building</li>
-        </ul>
-      </article>
-
-      <article class="svc-card fi d3">
-        <div class="svc-card__icon" aria-hidden="true">🚀</div>
-        <h3>Performance Marketing</h3>
-        <p>Paid media campaigns engineered for ROI — Meta, Google, TikTok, and beyond. We scale what works and cut what doesn't.</p>
-        <ul class="svc-card__list">
-          <li>Google & Meta Ads</li>
-          <li>Conversion Rate Optimization</li>
-          <li>Analytics & Attribution</li>
-          <li>Social Media Management</li>
-        </ul>
+        <a href="#contact" class="svc-link">Get started →</a>
       </article>
 
     </div>
@@ -282,45 +284,251 @@
 </section>
 
 <!-- ======================================================
-     HOW WE WORK
+     HOW IT WORKS
      ====================================================== -->
-<section class="section process section--alt" id="work">
+<section class="section process section--alt" id="process">
   <div class="container">
 
     <div class="section-head fi">
-      <div class="eyebrow">Our Process</div>
-      <h2>From Brief to<br>Launch — Fast.</h2>
-      <p>A proven 4-step process that eliminates guesswork and delivers results on time, every time.</p>
+      <div class="eyebrow">How It Works</div>
+      <h2>From Brief to Hire<br>in Three Steps</h2>
+      <p>A clear, efficient process that respects your time and delivers results — every time.</p>
     </div>
 
     <div class="process-steps">
       <div class="process-step fi d1">
         <div class="process-step__num" aria-hidden="true">01</div>
-        <div class="process-step__content">
-          <h3>Discovery</h3>
-          <p>We deep-dive into your business, audience, and goals. No assumptions — only insights that drive the right strategy.</p>
+        <div class="process-step__line" aria-hidden="true"></div>
+        <div class="process-step__icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
+        <h3>Brief Us</h3>
+        <p>Schedule a free 30-minute consultation. Tell us about your company culture, the role, required skills, and your ideal candidate profile. The clearer your brief, the faster we deliver.</p>
       </div>
       <div class="process-step fi d2">
         <div class="process-step__num" aria-hidden="true">02</div>
-        <div class="process-step__content">
-          <h3>Strategy & Design</h3>
-          <p>We map the roadmap, create wireframes, and design systems that align with your brand and conversion goals.</p>
+        <div class="process-step__line" aria-hidden="true"></div>
+        <div class="process-step__icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </div>
+        <h3>We Search</h3>
+        <p>Our recruiters immediately activate our talent network and database of 50,000+ profiles. We combine data-driven sourcing with direct headhunting to find people who are genuinely the right fit.</p>
       </div>
       <div class="process-step fi d3">
         <div class="process-step__num" aria-hidden="true">03</div>
-        <div class="process-step__content">
-          <h3>Build & Launch</h3>
-          <p>Clean code, tested thoroughly. We ship fast without cutting corners — and handle deployment end to end.</p>
+        <div class="process-step__line process-step__line--last" aria-hidden="true"></div>
+        <div class="process-step__icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>You Hire</h3>
+        <p>We present a curated shortlist of 3–5 pre-vetted candidates, coordinate all interviews, support salary negotiation, and ensure a smooth onboarding start. Your hire comes with our guarantee.</p>
+      </div>
+    </div>
+
+    <div class="process-cta fi d4">
+      <a href="#contact" class="btn btn-primary btn-lg">Book a Free Consultation</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================================================
+     INDUSTRIES
+     ====================================================== -->
+<section class="section industries" id="industries">
+  <div class="container">
+
+    <div class="section-head fi">
+      <div class="eyebrow">Industries</div>
+      <h2>We Recruit Across<br>All Key Sectors</h2>
+      <p>Deep specialization in each sector means faster results, better candidates, and smarter market insights for your business.</p>
+    </div>
+
+    <div class="industries-grid">
+      <div class="ind-card fi d1">
+        <div class="ind-card__icon" aria-hidden="true">🏭</div>
+        <span>Manufacturing</span>
+      </div>
+      <div class="ind-card fi d2">
+        <div class="ind-card__icon" aria-hidden="true">💻</div>
+        <span>IT &amp; Technology</span>
+      </div>
+      <div class="ind-card fi d3">
+        <div class="ind-card__icon" aria-hidden="true">💰</div>
+        <span>Finance &amp; Banking</span>
+      </div>
+      <div class="ind-card fi d1">
+        <div class="ind-card__icon" aria-hidden="true">🏥</div>
+        <span>Healthcare &amp; Pharma</span>
+      </div>
+      <div class="ind-card fi d2">
+        <div class="ind-card__icon" aria-hidden="true">⚙️</div>
+        <span>Engineering</span>
+      </div>
+      <div class="ind-card fi d3">
+        <div class="ind-card__icon" aria-hidden="true">🚛</div>
+        <span>Logistics &amp; Supply Chain</span>
+      </div>
+      <div class="ind-card fi d1">
+        <div class="ind-card__icon" aria-hidden="true">🛒</div>
+        <span>Retail &amp; E-commerce</span>
+      </div>
+      <div class="ind-card fi d2">
+        <div class="ind-card__icon" aria-hidden="true">🏗️</div>
+        <span>Construction</span>
+      </div>
+      <div class="ind-card fi d3">
+        <div class="ind-card__icon" aria-hidden="true">⚖️</div>
+        <span>Legal &amp; Compliance</span>
+      </div>
+      <div class="ind-card fi d1">
+        <div class="ind-card__icon" aria-hidden="true">⚡</div>
+        <span>Energy &amp; Utilities</span>
+      </div>
+      <div class="ind-card fi d2">
+        <div class="ind-card__icon" aria-hidden="true">🎓</div>
+        <span>Education &amp; Training</span>
+      </div>
+      <div class="ind-card fi d3">
+        <div class="ind-card__icon" aria-hidden="true">🏨</div>
+        <span>Hospitality &amp; Tourism</span>
+      </div>
+    </div>
+
+    <p class="industries-note fi">Don't see your industry? <a href="#contact">Get in touch</a> — we place candidates across many more sectors.</p>
+
+  </div>
+</section>
+
+<!-- ======================================================
+     FOR CANDIDATES
+     ====================================================== -->
+<section class="section candidates section--navy" id="candidates">
+  <div class="container">
+    <div class="candidates__inner">
+
+      <div class="fi">
+        <div class="eyebrow eyebrow--light">For Candidates</div>
+        <h2>Looking for Your<br>Next Career Move?</h2>
+        <p>Join thousands of professionals we've successfully placed across Europe. Our service is completely <strong>free</strong> for candidates — always.</p>
+
+        <div class="cand-benefits">
+          <div class="cand-benefit">
+            <div class="cand-benefit__icon" aria-hidden="true">✓</div>
+            <div>
+              <strong>Free service — no fees, ever</strong>
+              <p>We are paid by employers. You never pay a single cent.</p>
+            </div>
+          </div>
+          <div class="cand-benefit">
+            <div class="cand-benefit__icon" aria-hidden="true">✓</div>
+            <div>
+              <strong>Confidential &amp; discreet</strong>
+              <p>Your CV is never shared without your explicit permission.</p>
+            </div>
+          </div>
+          <div class="cand-benefit">
+            <div class="cand-benefit__icon" aria-hidden="true">✓</div>
+            <div>
+              <strong>One CV — multiple opportunities</strong>
+              <p>We match your profile across all our active vacancies automatically.</p>
+            </div>
+          </div>
+          <div class="cand-benefit">
+            <div class="cand-benefit__icon" aria-hidden="true">✓</div>
+            <div>
+              <strong>Career support &amp; coaching</strong>
+              <p>CV review, interview preparation, and honest salary advice.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cand-ctas">
+          <a href="mailto:hello@tntgency.org?subject=Job%20Application" class="btn btn-accent btn-lg">Send Your CV</a>
+          <a href="#contact" class="btn btn-outline-white btn-lg">Talk to a Recruiter</a>
         </div>
       </div>
-      <div class="process-step fi d4">
-        <div class="process-step__num" aria-hidden="true">04</div>
-        <div class="process-step__content">
-          <h3>Grow & Optimize</h3>
-          <p>Post-launch isn't the end. We monitor, analyze, and iterate — ensuring your results compound over time.</p>
+
+      <div class="cand-visual fi d2" aria-hidden="true">
+        <div class="cand-card">
+          <div class="cand-card__label">Currently recruiting for</div>
+          <div class="cand-card__roles">
+            <div class="cand-role">
+              <span class="cand-role__dot" style="background:#f05a28;"></span>
+              Production Manager · Manufacturing
+            </div>
+            <div class="cand-role">
+              <span class="cand-role__dot" style="background:#3b82f6;"></span>
+              Senior Software Engineer · IT
+            </div>
+            <div class="cand-role">
+              <span class="cand-role__dot" style="background:#22c55e;"></span>
+              Financial Controller · Finance
+            </div>
+            <div class="cand-role">
+              <span class="cand-role__dot" style="background:#a855f7;"></span>
+              Logistics Coordinator · Supply Chain
+            </div>
+            <div class="cand-role">
+              <span class="cand-role__dot" style="background:#f0b429;"></span>
+              HR Business Partner · HR
+            </div>
+            <div class="cand-role">
+              <span class="cand-role__dot" style="background:#14b8a6;"></span>
+              Sales Director · Retail
+            </div>
+          </div>
+          <a href="mailto:hello@tntgency.org?subject=Job%20Application" class="cand-card__cta">View all positions →</a>
         </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     WHY TNT AGENCY
+     ====================================================== -->
+<section class="section why" id="about">
+  <div class="container">
+
+    <div class="section-head fi">
+      <div class="eyebrow">Why TNT Agency</div>
+      <h2>We Don't Just Fill Positions.<br>We Build Lasting Teams.</h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card fi d1">
+        <div class="why-card__num" aria-hidden="true">01</div>
+        <div class="why-card__icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>Speed Without Compromise</h3>
+        <p>First qualified candidates delivered within 24 hours of receiving your brief. We move fast because we maintain an active, pre-screened talent pipeline — not a static CV database.</p>
+      </div>
+      <div class="why-card fi d2">
+        <div class="why-card__num" aria-hidden="true">02</div>
+        <div class="why-card__icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>90-Day Guarantee</h3>
+        <p>Every permanent placement comes with a 90-day free replacement guarantee. If the hire doesn't work out within the guarantee period, we find a replacement — at no additional cost.</p>
+      </div>
+      <div class="why-card fi d3">
+        <div class="why-card__num" aria-hidden="true">03</div>
+        <div class="why-card__icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3>Deep Industry Knowledge</h3>
+        <p>Each of our recruiters specializes in specific sectors. This means we understand the roles we recruit for, speak the language of your industry, and know exactly what good looks like.</p>
+      </div>
+      <div class="why-card fi d1">
+        <div class="why-card__num" aria-hidden="true">04</div>
+        <div class="why-card__icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </div>
+        <h3>Transparent Process</h3>
+        <p>No black-box recruitment. You get regular updates, candidate profiles with honest assessments, and a dedicated consultant who answers your calls — not a ticketing system.</p>
       </div>
     </div>
 
@@ -328,49 +536,52 @@
 </section>
 
 <!-- ======================================================
-     ABOUT
+     TESTIMONIALS
      ====================================================== -->
-<section class="section about" id="about">
+<section class="section testimonials section--alt" id="testimonials">
   <div class="container">
-    <div class="about__inner">
 
-      <div class="about__text fi">
-        <div class="eyebrow">About Us</div>
-        <h2>We Are TNT Agency.</h2>
-        <p>TNT Agency is an independent digital studio built for brands that refuse to be invisible. We combine strategic thinking with exceptional execution — no bloated teams, no politics, just focused work that delivers impact.</p>
-        <p>Whether you're a startup finding product-market fit, a scale-up expanding internationally, or an established brand needing a digital refresh — we bring the firepower to make it happen.</p>
+    <div class="section-head fi">
+      <div class="eyebrow">Client Reviews</div>
+      <h2>What Our Clients Say</h2>
+    </div>
 
-        <div class="about__pillars">
-          <div class="pillar">
-            <strong>Transparent</strong>
-            <span>No hidden costs. No vague timelines. You always know where things stand.</span>
-          </div>
-          <div class="pillar">
-            <strong>Nimble</strong>
-            <span>Senior talent only. We move fast because there are no layers of bureaucracy.</span>
-          </div>
-          <div class="pillar">
-            <strong>Results-first</strong>
-            <span>We measure success by your outcomes — traffic, conversions, revenue, growth.</span>
+    <div class="testi-grid">
+
+      <!-- Replace placeholder text with real client testimonials -->
+      <div class="testi-card fi d1">
+        <div class="testi-stars" aria-label="5 stars" aria-hidden="true">★★★★★</div>
+        <blockquote>"Add your client testimonial here. Describe how TNT Agency helped your company find the right candidate quickly and professionally."</blockquote>
+        <div class="testi-author">
+          <div class="testi-author__avatar" aria-hidden="true">?</div>
+          <div>
+            <strong>[Client Name]</strong>
+            <span>[Position] · [Company]</span>
           </div>
         </div>
       </div>
 
-      <div class="about__visual fi d2" aria-hidden="true">
-        <div class="about__card about__card--1">
-          <div class="about__card-icon">🎯</div>
-          <strong>Strategy First</strong>
-          <p>Every decision is anchored to your business objective — not trends or ego.</p>
+      <div class="testi-card fi d2">
+        <div class="testi-stars" aria-label="5 stars" aria-hidden="true">★★★★★</div>
+        <blockquote>"Add your second client testimonial here. Highlight speed of delivery, quality of candidates, or the personal service your team provided."</blockquote>
+        <div class="testi-author">
+          <div class="testi-author__avatar" aria-hidden="true">?</div>
+          <div>
+            <strong>[Client Name]</strong>
+            <span>[Position] · [Company]</span>
+          </div>
         </div>
-        <div class="about__card about__card--2">
-          <div class="about__card-icon">⚡</div>
-          <strong>Fast Execution</strong>
-          <p>Most projects go from brief to live in 4–8 weeks without sacrificing quality.</p>
-        </div>
-        <div class="about__card about__card--3">
-          <div class="about__card-icon">📊</div>
-          <strong>Data-Driven</strong>
-          <p>We track everything and iterate relentlessly based on real performance data.</p>
+      </div>
+
+      <div class="testi-card fi d3">
+        <div class="testi-stars" aria-label="5 stars" aria-hidden="true">★★★★★</div>
+        <blockquote>"Add your third client testimonial here. Mention the specific service (executive search, temp staffing, etc.) and the result achieved."</blockquote>
+        <div class="testi-author">
+          <div class="testi-author__avatar" aria-hidden="true">?</div>
+          <div>
+            <strong>[Client Name]</strong>
+            <span>[Position] · [Company]</span>
+          </div>
         </div>
       </div>
 
@@ -386,68 +597,116 @@
     <div class="contact__inner">
 
       <div class="contact__left fi">
-        <div class="eyebrow eyebrow--light">Get In Touch</div>
-        <h2>Ready to<br><span class="accent">Detonate<br>Your Growth?</span></h2>
-        <p>Tell us about your project. We'll get back to you within 24 hours with a clear plan and honest timeline.</p>
+        <div class="eyebrow">Get In Touch</div>
+        <h2>Ready to Find<br>Your Next Great Hire?</h2>
+        <p>Tell us about your open role. We'll get back to you within 2 hours during business hours with a clear plan and honest timeline.</p>
 
-        <div class="contact__info">
-          <div class="contact__info-item">
-            <span class="contact__info-icon" aria-hidden="true">✉️</span>
-            <a href="mailto:hello@tntgency.org">hello@tntgency.org</a>
+        <div class="contact-info">
+
+          <!-- ===================================================
+               REPLACE WITH YOUR REAL CONTACT DETAILS
+               =================================================== -->
+          <div class="contact-info__item">
+            <div class="contact-info__icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></svg>
+            </div>
+            <div>
+              <span class="contact-info__label">Phone</span>
+              <a href="tel:+XXXXXXXXXX">+XX XXX XXX XXX</a>
+            </div>
           </div>
-          <div class="contact__info-item">
-            <span class="contact__info-icon" aria-hidden="true">🌐</span>
-            <span>tntgency.org</span>
+
+          <div class="contact-info__item">
+            <div class="contact-info__icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <span class="contact-info__label">Email</span>
+              <a href="mailto:hello@tntgency.org">hello@tntgency.org</a>
+            </div>
           </div>
+
+          <div class="contact-info__item">
+            <div class="contact-info__icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <span class="contact-info__label">Office</span>
+              <span>[Your Office Address]</span>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <div class="contact-info__icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <span class="contact-info__label">Business Hours</span>
+              <span>Mon–Fri: 8:00 – 17:00</span>
+            </div>
+          </div>
+
         </div>
 
-        <div class="contact__socials">
-          <a href="https://x.com/tntgency" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TNT Agency on X / Twitter">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <div class="contact-socials">
+          <a href="https://www.linkedin.com/company/tntgency" target="_blank" rel="noopener noreferrer" class="soc-btn" aria-label="LinkedIn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
           </a>
-          <a href="https://www.instagram.com/tntgency" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TNT Agency on Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <a href="https://www.instagram.com/tntgency" target="_blank" rel="noopener noreferrer" class="soc-btn" aria-label="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
           </a>
-          <a href="https://www.linkedin.com/company/tntgency" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TNT Agency on LinkedIn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <a href="https://www.facebook.com/tntgency" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TNT Agency on Facebook">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <a href="https://x.com/tntgency" target="_blank" rel="noopener noreferrer" class="soc-btn" aria-label="X / Twitter">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X / Twitter
           </a>
         </div>
       </div>
 
       <div class="contact__form-wrap fi d2">
         <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="John Smith" required autocomplete="name">
+          <h3>Send Us a Brief</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Your Name *</label>
+              <input type="text" id="fname" name="name" placeholder="John Smith" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="fcompany">Company *</label>
+              <input type="text" id="fcompany" name="company" placeholder="Company Ltd." required autocomplete="organization">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="femail">Email Address *</label>
+              <input type="email" id="femail" name="email" placeholder="john@company.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="fphone">Phone Number</label>
+              <input type="tel" id="fphone" name="phone" placeholder="+1 234 567 890" autocomplete="tel">
+            </div>
           </div>
           <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="john@company.com" required autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label for="service">Service Needed</label>
-            <select id="service" name="service">
+            <label for="fservice">Service Needed</label>
+            <select id="fservice" name="service">
               <option value="" disabled selected>Select a service…</option>
-              <option value="strategy">Digital Strategy</option>
-              <option value="web">Web Development</option>
-              <option value="mobile">Mobile Application</option>
-              <option value="brand">Brand Identity</option>
-              <option value="seo">SEO &amp; Content</option>
-              <option value="marketing">Performance Marketing</option>
+              <option value="permanent">Permanent Placement</option>
+              <option value="executive">Executive Search</option>
+              <option value="temp">Temporary Staffing</option>
+              <option value="rpo">HR Consulting / RPO</option>
+              <option value="candidate">I'm a Candidate</option>
               <option value="other">Other / Not sure yet</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="message">Tell Us About Your Project</label>
-            <textarea id="message" name="message" rows="4" placeholder="Describe your project, goals, and timeline…" required></textarea>
+            <label for="fmessage">Tell Us About the Role *</label>
+            <textarea id="fmessage" name="message" rows="4" placeholder="Job title, key requirements, timeline, and any other relevant details…" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
-            Send Message
+            Send Brief →
           </button>
-          <p class="form-note">We respond within 24 hours. No spam, ever.</p>
+          <p class="form-note">We respond within 2 business hours. 100% confidential.</p>
         </form>
       </div>
 
@@ -463,35 +722,38 @@
     <div class="footer__inner">
 
       <div class="footer__brand">
-        <a href="/" class="logo" aria-label="TNT Agency">
+        <a href="/" class="logo logo--light" aria-label="TNT Agency">
           <span class="logo__mark">TNT</span>
-          <span class="logo__text">Agency</span>
+          <span class="logo__name">Agency</span>
         </a>
-        <p>Full-service digital agency. We build digital presence that detonates results.</p>
+        <p>Your trusted employment and staffing partner. Connecting the right people with the right companies since day one.</p>
+        <address>
+          <!-- Replace with your real address -->
+          [Your Office Address]
+        </address>
       </div>
 
       <nav class="footer__nav" aria-label="Footer navigation">
         <div class="footer__col">
-          <div class="footer__col-title">Services</div>
-          <a href="#services">Digital Strategy</a>
-          <a href="#services">Web Development</a>
-          <a href="#services">Mobile Apps</a>
-          <a href="#services">Brand Identity</a>
-          <a href="#services">SEO &amp; Content</a>
-          <a href="#services">Performance Marketing</a>
+          <div class="footer__col-title">For Employers</div>
+          <a href="#employers">Permanent Placement</a>
+          <a href="#employers">Executive Search</a>
+          <a href="#employers">Temporary Staffing</a>
+          <a href="#employers">HR Consulting &amp; RPO</a>
         </div>
         <div class="footer__col">
           <div class="footer__col-title">Company</div>
-          <a href="#about">About</a>
-          <a href="#work">Our Process</a>
+          <a href="#about">About Us</a>
+          <a href="#industries">Industries</a>
+          <a href="#candidates">For Candidates</a>
           <a href="#contact">Contact</a>
           <a href="mailto:hello@tntgency.org">hello@tntgency.org</a>
         </div>
         <div class="footer__col">
-          <div class="footer__col-title">Follow</div>
-          <a href="https://x.com/tntgency" target="_blank" rel="noopener noreferrer">X / Twitter</a>
-          <a href="https://www.instagram.com/tntgency" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <div class="footer__col-title">Follow Us</div>
           <a href="https://www.linkedin.com/company/tntgency" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.instagram.com/tntgency" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://x.com/tntgency" target="_blank" rel="noopener noreferrer">X / Twitter</a>
           <a href="https://www.facebook.com/tntgency" target="_blank" rel="noopener noreferrer">Facebook</a>
         </div>
       </nav>
@@ -500,7 +762,7 @@
 
     <div class="footer__bottom">
       <span>© 2026 TNT Agency. All rights reserved.</span>
-      <div class="footer__bottom-links">
+      <div class="footer__legal">
         <a href="terms.html">Terms</a>
         <a href="privacy.html">Privacy</a>
         <a href="cookies.html">Cookies</a>
