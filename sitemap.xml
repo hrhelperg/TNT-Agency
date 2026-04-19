@@ -4,101 +4,101 @@
 
   <!-- Main page (multilingual, served at root) -->
   <url>
-    <loc>https://tntgency.org/</loc>
+    <loc>https://manpower-tnt.agency/</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en"        href="https://tntgency.org/"/>
-    <xhtml:link rel="alternate" hreflang="cs"        href="https://tntgency.org/"/>
-    <xhtml:link rel="alternate" hreflang="de"        href="https://tntgency.org/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://tntgency.org/"/>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/"/>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://manpower-tnt.agency/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/"/>
   </url>
 
   <!-- Terms of Service -->
   <url>
-    <loc>https://tntgency.org/terms.html</loc>
+    <loc>https://manpower-tnt.agency/terms.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/terms-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/terms-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/terms-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/terms-de.html"/>
   </url>
   <url>
-    <loc>https://tntgency.org/terms-cs.html</loc>
+    <loc>https://manpower-tnt.agency/terms-cs.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/terms-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/terms-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/terms-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/terms-de.html"/>
   </url>
   <url>
-    <loc>https://tntgency.org/terms-de.html</loc>
+    <loc>https://manpower-tnt.agency/terms-de.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/terms-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/terms-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/terms-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/terms-de.html"/>
   </url>
 
   <!-- Privacy Policy -->
   <url>
-    <loc>https://tntgency.org/privacy.html</loc>
+    <loc>https://manpower-tnt.agency/privacy.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/privacy-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/privacy-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/privacy-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
   </url>
   <url>
-    <loc>https://tntgency.org/privacy-cs.html</loc>
+    <loc>https://manpower-tnt.agency/privacy-cs.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/privacy-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/privacy-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/privacy-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
   </url>
   <url>
-    <loc>https://tntgency.org/privacy-de.html</loc>
+    <loc>https://manpower-tnt.agency/privacy-de.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/privacy-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/privacy-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/privacy-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
   </url>
 
   <!-- Cookie Policy -->
   <url>
-    <loc>https://tntgency.org/cookies.html</loc>
+    <loc>https://manpower-tnt.agency/cookies.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/cookies.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/cookies-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/cookies-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/cookies-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/cookies-de.html"/>
   </url>
   <url>
-    <loc>https://tntgency.org/cookies-cs.html</loc>
+    <loc>https://manpower-tnt.agency/cookies-cs.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/cookies.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/cookies-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/cookies-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/cookies-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/cookies-de.html"/>
   </url>
   <url>
-    <loc>https://tntgency.org/cookies-de.html</loc>
+    <loc>https://manpower-tnt.agency/cookies-de.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tntgency.org/cookies.html"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://tntgency.org/cookies-cs.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://tntgency.org/cookies-de.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/cookies-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/cookies-de.html"/>
   </url>
 
 </urlset>

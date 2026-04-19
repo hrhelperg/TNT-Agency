@@ -1,0 +1,36 @@
+[build]
+  publish = "."
+
+# ──────────────────────────────────────────────
+# Redirect old domain to new primary domain
+# NOTE: tntgency.org must also be added as a
+# domain alias in the Netlify dashboard and its
+# DNS A/CNAME records must point to Netlify for
+# this rule to execute.
+# ──────────────────────────────────────────────
+[[redirects]]
+  from   = "https://tntgency.org/*"
+  to     = "https://manpower-tnt.agency/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.tntgency.org/*"
+  to     = "https://manpower-tnt.agency/:splat"
+  status = 301
+  force  = true
+
+# www → apex
+[[redirects]]
+  from   = "https://www.manpower-tnt.agency/*"
+  to     = "https://manpower-tnt.agency/:splat"
+  status = 301
+  force  = true
+
+[[headers]]
+  for = "/*"
+    [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"

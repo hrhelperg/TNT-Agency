@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /assets/private/
 
-Sitemap: https://tntgency.org/sitemap.xml
+Sitemap: https://manpower-tnt.agency/sitemap.xml
