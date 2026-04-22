@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Main page (multilingual, served at root) -->
+  <!-- MAIN PAGE -->
   <url>
     <loc>https://manpower-tnt.agency/</loc>
     <lastmod>2026-04-16</lastmod>
@@ -14,7 +14,17 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/"/>
   </url>
 
-  <!-- Terms of Service -->
+  <!-- BLOG ARTICLE: Agenturní pracovníci vs. interní zaměstnanci -->
+  <url>
+    <loc>https://manpower-tnt.agency/blog/agenturni-pracovnici-vs-interni-zamestnanci.html</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/blog/agenturni-pracovnici-vs-interni-zamestnanci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/blog/agenturni-pracovnici-vs-interni-zamestnanci.html"/>
+  </url>
+
+  <!-- TERMS OF SERVICE -->
   <url>
     <loc>https://manpower-tnt.agency/terms.html</loc>
     <lastmod>2026-04-16</lastmod>
@@ -43,7 +53,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/terms-de.html"/>
   </url>
 
-  <!-- Privacy Policy -->
+  <!-- PRIVACY POLICY -->
   <url>
     <loc>https://manpower-tnt.agency/privacy.html</loc>
     <lastmod>2026-04-16</lastmod>
@@ -72,7 +82,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
   </url>
 
-  <!-- Cookie Policy -->
+  <!-- COOKIE POLICY -->
   <url>
     <loc>https://manpower-tnt.agency/cookies.html</loc>
     <lastmod>2026-04-16</lastmod>
