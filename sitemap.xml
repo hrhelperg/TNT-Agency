@@ -82,6 +82,16 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
   </url>
 
+  <!-- BLOG ARTICLE: Nezaměstnanost ČR březen 2026 -->
+  <url>
+    <loc>https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html"/>
+  </url>
+
   <!-- COOKIE POLICY -->
   <url>
     <loc>https://manpower-tnt.agency/cookies.html</loc>
