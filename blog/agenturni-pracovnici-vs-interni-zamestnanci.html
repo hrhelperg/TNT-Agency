@@ -96,6 +96,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../cookie-consent.css">
 
   <style>
     /* Article-specific styles */
@@ -688,7 +689,9 @@
           <a href="https://manpower-tnt.agency/terms-cs.html">Podmínky</a>
           <a href="https://manpower-tnt.agency/privacy-cs.html">Soukromí</a>
           <a href="https://manpower-tnt.agency/cookies-cs.html">Cookies</a>
-        </div>
+        
+        <button type="button" class="cookie-settings-btn" onclick="window.openCookieSettings()">Cookie settings</button>
+      </div>
       </div>
     </div>
   </footer>
@@ -712,5 +715,6 @@
     })();
   </script>
 
+<script src="../cookie-consent.js"></script>
 </body>
 </html>

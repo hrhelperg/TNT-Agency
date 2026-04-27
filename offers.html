@@ -58,6 +58,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body>
 
@@ -249,11 +250,14 @@
         <a href="terms.html" data-i18n="footer.terms">Terms</a>
         <a href="privacy.html" data-i18n="footer.priv">Privacy</a>
         <a href="cookies.html" data-i18n="footer.cook">Cookies</a>
+      
+        <button type="button" class="cookie-settings-btn" onclick="window.openCookieSettings()">Cookie settings</button>
       </div>
     </div>
   </div>
 </footer>
 
 <script src="script.js"></script>
+<script src="cookie-consent.js"></script>
 </body>
 </html>
