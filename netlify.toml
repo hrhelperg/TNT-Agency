@@ -52,6 +52,11 @@
   to     = "/submit-offer.html"
   status = 200
 
+[[redirects]]
+  from   = "/contact"
+  to     = "/contact.html"
+  status = 200
+
 [[headers]]
   for = "/*"
     [headers.values]
