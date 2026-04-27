@@ -1411,3 +1411,173 @@ p  { color: var(--text-2); line-height: 1.8; }
   .cta-duo__card { padding: 32px 24px; }
   .submit-wrap .contact-form { padding: 28px 20px; }
 }
+
+/* ══════════════════════════════════════════════════════════
+   COOKIE CONSENT BANNER
+   ══════════════════════════════════════════════════════════ */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #0d1e3d;
+  color: #fff;
+  box-shadow: 0 -4px 32px rgba(0,0,0,.25);
+  padding: 18px 24px;
+}
+.cookie-banner__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.cookie-banner__text {
+  flex: 1;
+  min-width: 220px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+  opacity: .92;
+}
+.cookie-banner__text a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.cookie-banner__actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.cookie-btn {
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: opacity .15s, transform .1s;
+  white-space: nowrap;
+  line-height: 1;
+}
+.cookie-btn:hover  { opacity: .82; }
+.cookie-btn:active { transform: scale(.97); }
+.cookie-btn--accept {
+  background: var(--accent, #f05a28);
+  color: #fff;
+}
+.cookie-btn--reject {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,.35);
+}
+@media (max-width: 600px) {
+  .cookie-banner__actions { width: 100%; }
+  .cookie-btn { flex: 1; text-align: center; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   GDPR CONSENT CHECKBOX (form variant)
+   ══════════════════════════════════════════════════════════ */
+.form-check--gdpr {
+  background: rgba(240, 90, 40, .04);
+  border: 1px solid rgba(240, 90, 40, .25);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  align-items: flex-start;
+}
+.form-check--gdpr input[type="checkbox"] {
+  margin-top: 2px;
+}
+.form-check--gdpr .form-check__label a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.form-check--gdpr .form-check__label a:hover {
+  color: var(--accent-dark, #c94718);
+}
+
+/* ══════════════════════════════════════════════════════════
+   LEGAL / PRIVACY POLICY PAGE
+   ══════════════════════════════════════════════════════════ */
+.legal-content {
+  max-width: 780px;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+.legal-intro {
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.legal-content h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 44px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--border);
+}
+.legal-content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 24px 0 8px;
+}
+.legal-content p  { margin-bottom: 16px; }
+.legal-content ul {
+  margin: 8px 0 20px 20px;
+  list-style: disc;
+}
+.legal-content ul li { margin-bottom: 6px; }
+.legal-content a  { color: var(--accent); text-decoration: underline; }
+.legal-content a:hover { color: var(--navy); }
+.legal-content strong { color: var(--text); font-weight: 600; }
+.legal-content code {
+  font-family: monospace;
+  background: var(--bg-alt);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: .88em;
+}
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 28px;
+  font-size: 0.9rem;
+}
+.legal-table th,
+.legal-table td {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  vertical-align: top;
+  text-align: left;
+}
+.legal-table thead th {
+  background: var(--bg-alt);
+  font-weight: 600;
+  color: var(--text);
+}
+.legal-table tbody tr:nth-child(even) td { background: var(--bg-alt); }
+.legal-table th:first-child { white-space: nowrap; }
+.legal-address {
+  font-style: normal;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 12px 0 24px;
+  line-height: 1.8;
+}
+@media (max-width: 768px) {
+  .legal-table { font-size: 0.82rem; }
+  .legal-table th, .legal-table td { padding: 8px 10px; }
+}

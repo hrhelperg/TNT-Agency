@@ -189,6 +189,14 @@ export default function Contact() {
                   <label htmlFor="fmessage" data-i18n="form.message">Tell Us About the Role *</label>
                   <textarea id="fmessage" name="message" rows={4} data-i18n-ph="form.messagePh" placeholder="Job title, key requirements, timeline, and any other relevant details…" required></textarea>
                 </div>
+                <label className="form-check form-check--gdpr">
+                  <input type="checkbox" id="contactGdprConsent" name="gdpr-consent" required />
+                  <span className="form-check__label">
+                    I agree to the processing of my personal data in accordance with the{' '}
+                    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. *
+                  </span>
+                </label>
+
                 <button type="submit" className="btn btn-primary btn-lg btn-full" id="submitBtn" data-i18n="form.submit">
                   Send Brief →
                 </button>

@@ -47,6 +47,7 @@ export default function SubmitAgency() {
       const email = (document.getElementById('agencyEmail') as HTMLInputElement).value.trim()
       const location = (document.getElementById('agencyLocation') as HTMLInputElement).value.trim()
       const lookingForClients = (document.getElementById('lookingForClients') as HTMLInputElement).checked ? 'Yes' : 'No'
+      const gdprConsent = (document.getElementById('agencyGdprConsent') as HTMLInputElement).checked
 
       if (!name) { showError('Agency Name is required.'); return }
       if (!website) { showError('Website URL is required.'); return }
@@ -55,6 +56,10 @@ export default function SubmitAgency() {
       if (desc.length > 1000) { showError('Description must not exceed 1000 characters.'); return }
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showError('Please enter a valid contact email address.')
+        return
+      }
+      if (!gdprConsent) {
+        showError('Please accept the Privacy Policy before submitting.')
         return
       }
 
@@ -248,6 +253,14 @@ export default function SubmitAgency() {
               <label className="form-check">
                 <input type="checkbox" id="lookingForClients" name="looking-for-clients" value="Yes" />
                 <span className="form-check__label">We are actively looking for new clients</span>
+              </label>
+
+              <label className="form-check form-check--gdpr">
+                <input type="checkbox" id="agencyGdprConsent" name="gdpr-consent" required />
+                <span className="form-check__label">
+                  I agree to the processing of my personal data in accordance with the{' '}
+                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. *
+                </span>
               </label>
 
               <button type="submit" className="btn btn-accent btn-lg btn-full" id="submitBtn">

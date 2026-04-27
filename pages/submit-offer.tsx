@@ -40,11 +40,16 @@ export default function SubmitOffer() {
       const budget = (document.getElementById('offerBudget') as HTMLInputElement).value.trim()
       const timeline = (document.getElementById('offerTimeline') as HTMLInputElement).value.trim()
       const needAgencyTeam = (document.getElementById('needAgency') as HTMLInputElement).checked ? 'Yes' : 'No'
+      const gdprConsent = (document.getElementById('offerGdprConsent') as HTMLInputElement).checked
 
       if (!company) { showError('Company Name is required.'); return }
       if (!request) { showError('Please describe what you need.'); return }
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showError('Please enter a valid contact email address.')
+        return
+      }
+      if (!gdprConsent) {
+        showError('Please accept the Privacy Policy before submitting.')
         return
       }
 
@@ -232,6 +237,14 @@ export default function SubmitOffer() {
               <label className="form-check">
                 <input type="checkbox" id="needAgency" name="need-agency-team" value="Yes" />
                 <span className="form-check__label">I specifically need an agency or team (not individual freelancers)</span>
+              </label>
+
+              <label className="form-check form-check--gdpr">
+                <input type="checkbox" id="offerGdprConsent" name="gdpr-consent" required />
+                <span className="form-check__label">
+                  I agree to the processing of my personal data in accordance with the{' '}
+                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. *
+                </span>
               </label>
 
               <button type="submit" className="btn btn-accent btn-lg btn-full" id="submitBtn">

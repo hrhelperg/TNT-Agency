@@ -46,7 +46,7 @@ export default function Footer() {
           <span data-i18n="footer.copy">© 2026 TNT Agency s.r.o. All rights reserved.</span>
           <div className="footer__legal">
             <a href="/terms.html" data-i18n="footer.terms">Terms</a>
-            <a href="/privacy.html" data-i18n="footer.priv">Privacy</a>
+            <a href="/privacy-policy" data-i18n="footer.priv">Privacy</a>
             <a href="/cookies.html" data-i18n="footer.cook">Cookies</a>
           </div>
         </div>

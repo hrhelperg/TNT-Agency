@@ -142,6 +142,16 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html"/>
   </url>
 
+  <!-- PRIVACY POLICY (Next.js page) -->
+  <url>
+    <loc>https://manpower-tnt.agency/privacy-policy</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/privacy-policy"/>
+  </url>
+
   <!-- COOKIE POLICY -->
   <url>
     <loc>https://manpower-tnt.agency/cookies.html</loc>

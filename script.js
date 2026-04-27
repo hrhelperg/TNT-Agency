@@ -1057,6 +1057,8 @@ if (form) {
 
     if (!name || !email || !msg) { showFormMsg(ft.errorFields, 'error'); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showFormMsg(ft.errorEmail, 'error'); return; }
+    const gdprEl = form.querySelector('[name="gdpr-consent"]');
+    if (gdprEl && !gdprEl.checked) { showFormMsg('Please accept the Privacy Policy before submitting.', 'error'); return; }
 
     submitBtn.disabled    = true;
     submitBtn.textContent = ft.sending;
