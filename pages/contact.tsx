@@ -151,7 +151,7 @@ export default function Contact() {
             </div>
 
             <div className="contact__form-wrap fi d2">
-              <form className="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" noValidate>
+              <form className="contact-form" id="contactForm" noValidate>
                 <h3 data-i18n="form.h3">Send Us a Brief</h3>
                 <div className="form-row">
                   <div className="form-group">

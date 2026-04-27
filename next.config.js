@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output: 'export' removed — API routes require a server runtime
   trailingSlash: false,
   images: {
     unoptimized: true,

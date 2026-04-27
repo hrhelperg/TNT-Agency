@@ -36,6 +36,10 @@ export default function SubmitOffer() {
       const company = (document.getElementById('companyName') as HTMLInputElement).value.trim()
       const request = (document.getElementById('offerRequest') as HTMLTextAreaElement).value.trim()
       const email = (document.getElementById('offerEmail') as HTMLInputElement).value.trim()
+      const website = (document.getElementById('companyWebsite') as HTMLInputElement).value.trim()
+      const budget = (document.getElementById('offerBudget') as HTMLInputElement).value.trim()
+      const timeline = (document.getElementById('offerTimeline') as HTMLInputElement).value.trim()
+      const needAgencyTeam = (document.getElementById('needAgency') as HTMLInputElement).checked ? 'Yes' : 'No'
 
       if (!company) { showError('Company Name is required.'); return }
       if (!request) { showError('Please describe what you need.'); return }
@@ -44,31 +48,37 @@ export default function SubmitOffer() {
         return
       }
 
-      const emailSubject = document.getElementById('emailSubject') as HTMLInputElement | null
-      if (emailSubject) emailSubject.value = 'New Client Offer Submission - ' + company
-
       submitBtn!.disabled = true
       submitBtn!.textContent = 'Sending…'
 
-      const data = new FormData(form!)
-      fetch('/', {
+      fetch('/api/send-email', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data as any).toString(),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'offer',
+          companyName: company,
+          website,
+          request,
+          budget,
+          timeline,
+          contactEmail: email,
+          needAgencyTeam,
+        }),
       })
-        .then((res) => {
+        .then(async (res) => {
+          const json = await res.json()
           if (res.ok) {
             form!.style.display = 'none'
             success!.style.display = 'block'
             success!.scrollIntoView({ behavior: 'smooth', block: 'start' })
           } else {
-            throw new Error('Server error ' + res.status)
+            throw new Error(json.error || 'Server error ' + res.status)
           }
         })
-        .catch(() => {
+        .catch((err: Error) => {
           submitBtn!.disabled = false
           submitBtn!.textContent = 'Submit Offer →'
-          showError('Something went wrong. Please email us directly at jobbohemiacz@gmail.com')
+          showError(err.message || 'Something went wrong. Please email us directly at jobbohemiacz@gmail.com')
         })
     }
 
@@ -138,15 +148,8 @@ export default function SubmitOffer() {
             <form
               className="contact-form"
               id="offerForm"
-              name="submit-offer"
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
               noValidate
             >
-              <input type="hidden" name="form-name" value="submit-offer" />
-              <input type="hidden" name="_subject" id="emailSubject" value="New Client Offer Submission" />
-              <input type="hidden" name="bot-field" style={{ display: 'none' }} />
 
               <h3>Your Requirement</h3>
 

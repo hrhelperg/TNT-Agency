@@ -45,6 +45,8 @@ export default function SubmitAgency() {
       const services = (document.getElementById('agencyServices') as HTMLInputElement).value.trim()
       const desc = descArea!.value.trim()
       const email = (document.getElementById('agencyEmail') as HTMLInputElement).value.trim()
+      const location = (document.getElementById('agencyLocation') as HTMLInputElement).value.trim()
+      const lookingForClients = (document.getElementById('lookingForClients') as HTMLInputElement).checked ? 'Yes' : 'No'
 
       if (!name) { showError('Agency Name is required.'); return }
       if (!website) { showError('Website URL is required.'); return }
@@ -56,31 +58,37 @@ export default function SubmitAgency() {
         return
       }
 
-      const emailSubject = document.getElementById('emailSubject') as HTMLInputElement | null
-      if (emailSubject) emailSubject.value = 'New Agency Submission - ' + name
-
       submitBtn!.disabled = true
       submitBtn!.textContent = 'Sending…'
 
-      const data = new FormData(form!)
-      fetch('/', {
+      fetch('/api/send-email', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data as any).toString(),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'agency',
+          agencyName: name,
+          website,
+          services,
+          description: desc,
+          location,
+          contactEmail: email,
+          lookingForClients,
+        }),
       })
-        .then((res) => {
+        .then(async (res) => {
+          const json = await res.json()
           if (res.ok) {
             form!.style.display = 'none'
             success!.style.display = 'block'
             success!.scrollIntoView({ behavior: 'smooth', block: 'start' })
           } else {
-            throw new Error('Server error ' + res.status)
+            throw new Error(json.error || 'Server error ' + res.status)
           }
         })
-        .catch(() => {
+        .catch((err: Error) => {
           submitBtn!.disabled = false
           submitBtn!.textContent = 'Submit Agency →'
-          showError('Something went wrong. Please email us directly at jobbohemiacz@gmail.com')
+          showError(err.message || 'Something went wrong. Please email us directly at jobbohemiacz@gmail.com')
         })
     }
 
@@ -152,15 +160,8 @@ export default function SubmitAgency() {
             <form
               className="contact-form"
               id="agencyForm"
-              name="submit-agency"
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
               noValidate
             >
-              <input type="hidden" name="form-name" value="submit-agency" />
-              <input type="hidden" name="_subject" id="emailSubject" value="New Agency Submission" />
-              <input type="hidden" name="bot-field" style={{ display: 'none' }} />
 
               <h3>Agency Details</h3>
 

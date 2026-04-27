@@ -1062,16 +1062,28 @@ if (form) {
     submitBtn.textContent = ft.sending;
 
     try {
-      const res = await fetch(form.action, {
-        method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
+      const payload = {
+        type:    'contact',
+        name:    form.name    ? form.name.value.trim()    : '',
+        company: form.company ? form.company.value.trim() : '',
+        email:   form.email   ? form.email.value.trim()   : '',
+        phone:   form.phone   ? form.phone.value.trim()   : '',
+        service: form.service ? form.service.value        : '',
+        message: form.message ? form.message.value.trim() : '',
+      };
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
+      const json = await res.json();
       if (res.ok) {
         form.reset();
         showFormMsg(ft.successMsg, 'success');
         submitBtn.textContent = ft.sent;
-      } else throw new Error();
-    } catch {
-      showFormMsg(ft.errorMsg, 'error');
+      } else throw new Error(json.error || 'Failed');
+    } catch (err) {
+      showFormMsg(err.message || ft.errorMsg, 'error');
       submitBtn.disabled    = false;
       submitBtn.textContent = ft.submit;
     }
