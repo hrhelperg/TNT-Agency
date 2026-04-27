@@ -1239,3 +1239,175 @@ p  { color: var(--text-2); line-height: 1.8; }
 @media (max-width: 900px) {
   .lang-switcher:not(.lang-switcher--mobile) { display: none; }
 }
+
+/* ----------------------------------------------------------------
+   PAGE HERO (inner pages)
+   ---------------------------------------------------------------- */
+.page-hero {
+  background: var(--bg-dark);
+  padding: 120px 0 80px;
+  color: var(--text-inv);
+  position: relative;
+}
+.page-hero .eyebrow--light { margin-bottom: 16px; }
+.page-hero h1 {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 800;
+  color: var(--text-inv);
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+.page-hero__sub {
+  font-size: 1.05rem;
+  color: var(--text-inv-2);
+  max-width: 560px;
+  line-height: 1.7;
+}
+.page-hero__wave {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 56px;
+  overflow: hidden;
+}
+.page-hero__wave svg { width: 100%; height: 100%; }
+
+/* ----------------------------------------------------------------
+   LISTING PLACEHOLDER
+   ---------------------------------------------------------------- */
+.listing-placeholder {
+  text-align: center;
+  padding: 72px 40px;
+  background: var(--bg-alt);
+  border-radius: var(--radius-xl);
+  border: 2px dashed var(--border-2);
+  max-width: 580px;
+  margin: 0 auto 48px;
+}
+.listing-placeholder__icon { font-size: 2.8rem; margin-bottom: 20px; }
+.listing-placeholder h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.listing-placeholder p {
+  font-size: 0.95rem;
+  color: var(--text-2);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+.listing-cta-note {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-2);
+  margin-top: 12px;
+}
+.listing-cta-note a { color: var(--accent); font-weight: 600; }
+.listing-cta-note a:hover { text-decoration: underline; }
+
+/* ----------------------------------------------------------------
+   DUAL CTA SECTION (homepage marketplace block)
+   ---------------------------------------------------------------- */
+.cta-duo__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 48px;
+}
+.cta-duo__card {
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  padding: 44px 36px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--tr), transform var(--tr);
+}
+.cta-duo__card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.cta-duo__icon { font-size: 2.4rem; margin-bottom: 18px; }
+.cta-duo__card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.cta-duo__card p {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  margin-bottom: 26px;
+  line-height: 1.7;
+}
+@media (max-width: 680px) {
+  .cta-duo__grid { grid-template-columns: 1fr; }
+}
+
+/* ----------------------------------------------------------------
+   FORM SUBMIT PAGES
+   ---------------------------------------------------------------- */
+.submit-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.submit-wrap .contact-form { box-shadow: var(--shadow-md); }
+.submit-wrap .contact-form h3 { font-size: 1.3rem; }
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.form-check input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.form-check__label {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 48px 32px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.form-success__icon { font-size: 3rem; margin-bottom: 20px; }
+.form-success h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.form-success p {
+  font-size: 0.95rem;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.form-error-msg {
+  background: #fff0ef;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .page-hero { padding: 100px 0 64px; }
+  .listing-placeholder { padding: 48px 24px; }
+  .cta-duo__card { padding: 32px 24px; }
+  .submit-wrap .contact-form { padding: 28px 20px; }
+}

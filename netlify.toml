@@ -27,6 +27,31 @@
   status = 301
   force  = true
 
+# ──────────────────────────────────────────────
+# Clean URLs — serve .html files at path-only URLs
+# status = 200 (rewrite, not redirect) keeps the
+# URL clean in the browser address bar.
+# ──────────────────────────────────────────────
+[[redirects]]
+  from   = "/agencies"
+  to     = "/agencies.html"
+  status = 200
+
+[[redirects]]
+  from   = "/submit-agency"
+  to     = "/submit-agency.html"
+  status = 200
+
+[[redirects]]
+  from   = "/offers"
+  to     = "/offers.html"
+  status = 200
+
+[[redirects]]
+  from   = "/submit-offer"
+  to     = "/submit-offer.html"
+  status = 200
+
 [[headers]]
   for = "/*"
     [headers.values]

@@ -97,6 +97,22 @@
   }
   </script>
 
+  <!-- Structured Data — WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "TNT Agency",
+    "url": "https://manpower-tnt.agency",
+    "description": "Employment and staffing agency connecting talent with opportunity across all industries.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://manpower-tnt.agency/?s={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -121,6 +137,8 @@
         <a href="#candidates" data-i18n="nav.candidates">For Candidates</a>
         <a href="#industries" data-i18n="nav.industries">Industries</a>
         <a href="#about"      data-i18n="nav.about">About</a>
+        <a href="/agencies">Agencies</a>
+        <a href="/offers">Offers</a>
         <a href="#contact"    data-i18n="nav.contact">Contact</a>
       </nav>
 
@@ -145,6 +163,8 @@
   <a href="#candidates" data-i18n="mnav.candidates">For Candidates</a>
   <a href="#industries" data-i18n="mnav.industries">Industries</a>
   <a href="#about"      data-i18n="mnav.about">About</a>
+  <a href="/agencies">Agencies</a>
+  <a href="/offers">Offers</a>
   <a href="#contact"    data-i18n="mnav.contact">Contact</a>
   <div class="lang-switcher lang-switcher--mobile" aria-label="Language selector">
     <button class="lang-btn" data-lang="en">EN</button>
@@ -349,6 +369,36 @@
 </section>
 
 <!-- ======================================================
+     MARKETPLACE CTA
+     ====================================================== -->
+<section class="section section--navy" id="marketplace">
+  <div class="container">
+
+    <div class="section-head fi">
+      <div class="eyebrow eyebrow--light">Marketplace</div>
+      <h2>🚀 Get Clients or Find Agencies</h2>
+      <p>Whether you run a recruitment agency or need one — this is your place. Submit your profile or post your requirement in minutes.</p>
+    </div>
+
+    <div class="cta-duo__grid">
+      <div class="cta-duo__card fi d1">
+        <div class="cta-duo__icon">🏢</div>
+        <h3>Are You an Agency?</h3>
+        <p>Get discovered by companies actively looking for recruitment and staffing partners. Submit your profile and reach new clients.</p>
+        <a href="/submit-agency" class="btn btn-accent btn-lg">Publish Your Agency</a>
+      </div>
+      <div class="cta-duo__card fi d2">
+        <div class="cta-duo__icon">🔍</div>
+        <h3>Looking for an Agency?</h3>
+        <p>Post your requirements and let qualified agencies find you. Free, fast, and fully moderated before going live.</p>
+        <a href="/submit-offer" class="btn btn-primary btn-lg">Post Your Offer</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================================================
      CONTACT
      ====================================================== -->
 <section class="section contact" id="contact">
@@ -495,6 +545,8 @@
           <a href="#about"      data-i18n="footer.about">About Us</a>
           <a href="#industries" data-i18n="footer.industries">Industries</a>
           <a href="#candidates" data-i18n="footer.candidates">For Candidates</a>
+          <a href="/agencies">Agencies</a>
+          <a href="/offers">Offers</a>
           <a href="#contact"    data-i18n="footer.contact">Contact</a>
           <a href="/blog/agenturni-pracovnici-vs-interni-zamestnanci.html">Blog</a>
           <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>

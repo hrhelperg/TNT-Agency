@@ -82,6 +82,46 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
   </url>
 
+  <!-- AGENCIES DIRECTORY -->
+  <url>
+    <loc>https://manpower-tnt.agency/agencies</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/agencies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/agencies"/>
+  </url>
+
+  <!-- SUBMIT AGENCY -->
+  <url>
+    <loc>https://manpower-tnt.agency/submit-agency</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/submit-agency"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/submit-agency"/>
+  </url>
+
+  <!-- OFFERS / CLIENT REQUESTS -->
+  <url>
+    <loc>https://manpower-tnt.agency/offers</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/offers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/offers"/>
+  </url>
+
+  <!-- SUBMIT OFFER -->
+  <url>
+    <loc>https://manpower-tnt.agency/submit-offer</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/submit-offer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/submit-offer"/>
+  </url>
+
   <!-- BLOG ARTICLE: Nezaměstnanost ČR březen 2026 -->
   <url>
     <loc>https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html</loc>
