@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- MAIN PAGE -->
+  <url>
+    <loc>https://manpower-tnt.agency/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/"/>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://manpower-tnt.agency/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/"/>
+  </url>
+
+  <!-- BLOG ARTICLE: Agenturní pracovníci vs. interní zaměstnanci -->
+  <url>
+    <loc>https://manpower-tnt.agency/blog/agenturni-pracovnici-vs-interni-zamestnanci.html</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/blog/agenturni-pracovnici-vs-interni-zamestnanci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/blog/agenturni-pracovnici-vs-interni-zamestnanci.html"/>
+  </url>
+
+  <!-- TERMS OF SERVICE -->
+  <url>
+    <loc>https://manpower-tnt.agency/terms.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/terms-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/terms-de.html"/>
+  </url>
+  <url>
+    <loc>https://manpower-tnt.agency/terms-cs.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/terms-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/terms-de.html"/>
+  </url>
+  <url>
+    <loc>https://manpower-tnt.agency/terms-de.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/terms-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/terms-de.html"/>
+  </url>
+
+  <!-- PRIVACY POLICY -->
+  <url>
+    <loc>https://manpower-tnt.agency/privacy.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/privacy-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
+  </url>
+  <url>
+    <loc>https://manpower-tnt.agency/privacy-cs.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/privacy-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
+  </url>
+  <url>
+    <loc>https://manpower-tnt.agency/privacy-de.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/privacy-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/privacy-de.html"/>
+  </url>
+
+  <!-- AGENCIES DIRECTORY -->
+  <url>
+    <loc>https://manpower-tnt.agency/agencies</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/agencies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/agencies"/>
+  </url>
+
+  <!-- SUBMIT AGENCY -->
+  <url>
+    <loc>https://manpower-tnt.agency/submit-agency</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/submit-agency"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/submit-agency"/>
+  </url>
+
+  <!-- OFFERS / CLIENT REQUESTS -->
+  <url>
+    <loc>https://manpower-tnt.agency/offers</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/offers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/offers"/>
+  </url>
+
+  <!-- SUBMIT OFFER -->
+  <url>
+    <loc>https://manpower-tnt.agency/submit-offer</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/submit-offer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/submit-offer"/>
+  </url>
+
+  <!-- CONTACT -->
+  <url>
+    <loc>https://manpower-tnt.agency/contact</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/contact"/>
+  </url>
+
+  <!-- BLOG ARTICLE: Nezaměstnanost ČR březen 2026 -->
+  <url>
+    <loc>https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html"/>
+  </url>
+
+  <!-- COOKIE POLICY -->
+  <url>
+    <loc>https://manpower-tnt.agency/cookies.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/cookies-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/cookies-de.html"/>
+  </url>
+  <url>
+    <loc>https://manpower-tnt.agency/cookies-cs.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/cookies-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/cookies-de.html"/>
+  </url>
+  <url>
+    <loc>https://manpower-tnt.agency/cookies-de.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://manpower-tnt.agency/cookies-cs.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://manpower-tnt.agency/cookies-de.html"/>
+  </url>
+
+</urlset>

@@ -1,12 +1,9 @@
 [build]
-  publish = "."
+  command = "npm install && npm run build"
+  publish = "out"
 
 # ──────────────────────────────────────────────
 # Redirect old domain to new primary domain
-# NOTE: tntgency.org must also be added as a
-# domain alias in the Netlify dashboard and its
-# DNS A/CNAME records must point to Netlify for
-# this rule to execute.
 # ──────────────────────────────────────────────
 [[redirects]]
   from   = "https://tntgency.org/*"
@@ -26,36 +23,6 @@
   to     = "https://manpower-tnt.agency/:splat"
   status = 301
   force  = true
-
-# ──────────────────────────────────────────────
-# Clean URLs — serve .html files at path-only URLs
-# status = 200 (rewrite, not redirect) keeps the
-# URL clean in the browser address bar.
-# ──────────────────────────────────────────────
-[[redirects]]
-  from   = "/agencies"
-  to     = "/agencies.html"
-  status = 200
-
-[[redirects]]
-  from   = "/submit-agency"
-  to     = "/submit-agency.html"
-  status = 200
-
-[[redirects]]
-  from   = "/offers"
-  to     = "/offers.html"
-  status = 200
-
-[[redirects]]
-  from   = "/submit-offer"
-  to     = "/submit-offer.html"
-  status = 200
-
-[[redirects]]
-  from   = "/contact"
-  to     = "/contact.html"
-  status = 200
 
 [[headers]]
   for = "/*"
