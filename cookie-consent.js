@@ -89,7 +89,7 @@ console.log('Stored cookie consent:', localStorage.getItem('cookieConsent'));
         '<div class="cookie-banner__text">' +
           '<strong>We use cookies</strong>' +
           '<p>We use cookies to improve your experience and analyse site traffic, in accordance with our ' +
-          '<a href="cookies.html">Cookie Policy</a>. You can accept all, reject all, or customise your preferences.</p>' +
+          '<a href="/cookies.html">Cookie Policy</a>. You can accept all, reject all, or customise your preferences.</p>' +
         '</div>' +
         '<div class="cookie-banner__actions">' +
           '<button type="button" id="cc-reject-banner"    class="cookie-btn cookie-btn--reject">Reject all</button>' +
