@@ -128,7 +128,7 @@ export default async function handler(
     const { error } = await resend.emails.send({
       from: `TNT Agency <${EMAIL_FROM}>`,
       to: [EMAIL_TO],
-      reply_to: replyTo,
+      replyTo,
       subject,
       html,
     })
