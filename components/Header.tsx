@@ -17,6 +17,7 @@ export default function Header({ activePage }: HeaderProps) {
               <a href="/" className={activePage === 'home' ? 'active' : undefined}>Home</a>
               <a href="/agencies" className={activePage === 'agencies' ? 'active' : undefined}>Agencies</a>
               <a href="/offers" className={activePage === 'offers' ? 'active' : undefined}>Offers</a>
+              <a href="/socialni-zdravotni-dane-2026" className={activePage === 'article' ? 'active' : undefined}>Article</a>
               <a href="/submit-agency" className={activePage === 'submit-agency' ? 'active' : undefined}>Submit Agency</a>
               <a href="/submit-offer" className={activePage === 'submit-offer' ? 'active' : undefined}>Post Offer</a>
               <a href="/contact" className={activePage === 'contact' ? 'active' : undefined}>Contact</a>
@@ -41,6 +42,7 @@ export default function Header({ activePage }: HeaderProps) {
         <a href="/">Home</a>
         <a href="/agencies">Agencies</a>
         <a href="/offers">Offers</a>
+        <a href="/socialni-zdravotni-dane-2026">Article</a>
         <a href="/submit-agency">Submit Agency</a>
         <a href="/submit-offer">Post Offer</a>
         <a href="/contact">Contact</a>

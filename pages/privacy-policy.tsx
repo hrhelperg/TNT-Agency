@@ -12,6 +12,8 @@ export default function PrivacyPolicy() {
           content="TNT Agency privacy policy — how we collect, use, and protect your personal data in compliance with GDPR and Czech data protection law."
         />
         <meta name="robots" content="index, follow" />
+        <meta name="last-modified" content="2026-05-03" />
+        <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
         <link rel="canonical" href="https://manpower-tnt.agency/privacy-policy" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://manpower-tnt.agency/privacy-policy" />

@@ -28,6 +28,7 @@ export default function Footer() {
               <a href="/submit-agency">Submit Agency</a>
               <a href="/submit-offer">Post Offer</a>
               <a href="/contact">Contact</a>
+              <a href="/socialni-zdravotni-dane-2026">Sociální a zdravotní daně 2026</a>
               <a href="/blog/agenturni-pracovnici-vs-interni-zamestnanci.html">Blog</a>
             </div>
             <div className="footer__col">
