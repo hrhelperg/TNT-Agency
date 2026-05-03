@@ -23,6 +23,18 @@
   status = 301
   force  = true
 
+[[redirects]]
+  from   = "https://manpowertnt.agency/*"
+  to     = "https://manpower-tnt.agency/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.manpowertnt.agency/*"
+  to     = "https://manpower-tnt.agency/:splat"
+  status = 301
+  force  = true
+
 [[headers]]
   for = "/*"
     [headers.values]

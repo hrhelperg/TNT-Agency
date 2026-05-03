@@ -31,6 +31,8 @@ export default function Contact() {
         <meta name="description" content="Contact TNT Agency for a free recruitment consultation. Tell us about your open role and we'll respond within 2 business hours with a clear plan. Based in Pardubice, Czech Republic." />
         <meta name="keywords" content="contact TNT Agency, recruitment consultation, staffing inquiry, employment agency contact" />
         <meta name="robots" content="index, follow" />
+        <meta name="last-modified" content="2026-05-03" />
+        <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
         <link rel="canonical" href="https://manpower-tnt.agency/contact" />
         <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/contact" />
         <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/contact" />

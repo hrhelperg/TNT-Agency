@@ -19,6 +19,8 @@ export default function Offers() {
         <meta name="description" content="Browse open job offers and client requests from companies looking for recruitment support. Find your next role or post your staffing requirement. TNT Agency — free for candidates, always." />
         <meta name="keywords" content="job offers, client requests, staffing requirements, find agency, recruitment needs, job opportunities Czech Republic" />
         <meta name="robots" content="index, follow" />
+        <meta name="last-modified" content="2026-05-03" />
+        <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
         <link rel="canonical" href="https://manpower-tnt.agency/offers" />
         <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/offers" />
         <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/offers" />

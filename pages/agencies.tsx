@@ -19,6 +19,8 @@ export default function Agencies() {
         <meta name="description" content="Explore TNT Agency's recruitment and staffing services: permanent placement, executive search, temporary staffing, and HR consulting. Browse the agency directory or submit your own agency profile." />
         <meta name="keywords" content="recruitment agencies, staffing services, permanent placement, executive search, temporary staffing, HR consulting, agency directory" />
         <meta name="robots" content="index, follow" />
+        <meta name="last-modified" content="2026-05-03" />
+        <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
         <link rel="canonical" href="https://manpower-tnt.agency/agencies" />
         <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/agencies" />
         <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/agencies" />
