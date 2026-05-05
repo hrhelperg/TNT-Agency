@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
-const PAGE_URL = 'https://manpowertnt.agency/zamestnavani-cizincu'
+const PAGE_URL = 'https://manpower-tnt.agency/zamestnavani-cizincu'
 const SOURCE_URL = 'https://up.gov.cz/zamestnavani-cizincu'
 const MODIFIED_DATE = '2026-04-30'
 const MODIFIED_TIME = '2026-04-30T00:00:00Z'
@@ -16,15 +16,15 @@ const articleSchema = {
   author: {
     '@type': 'Organization',
     name: 'TNT Agency',
-    url: 'https://manpowertnt.agency',
+    url: 'https://manpower-tnt.agency',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TNT Agency',
-    url: 'https://manpowertnt.agency',
+    url: 'https://manpower-tnt.agency',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://manpowertnt.agency/favicon.svg',
+      url: 'https://manpower-tnt.agency/favicon.svg',
     },
   },
   mainEntityOfPage: {
@@ -46,7 +46,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Domů',
-      item: 'https://manpowertnt.agency/',
+      item: 'https://manpower-tnt.agency/',
     },
     {
       '@type': 'ListItem',
@@ -84,7 +84,7 @@ export default function ZamestnavaniCizincu() {
           property="og:description"
           content="Přehled pravidel pro zaměstnávání cizinců v ČR podle země původu, typu oprávnění a povinností zaměstnavatele."
         />
-        <meta property="og:image" content="https://manpowertnt.agency/assets/og.jpg" />
+        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
         <meta property="og:locale" content="cs_CZ" />
         <meta property="article:published_time" content="2026-03-31T00:00:00+02:00" />
         <meta property="article:modified_time" content={MODIFIED_TIME} />
@@ -96,7 +96,7 @@ export default function ZamestnavaniCizincu() {
           name="twitter:description"
           content="Přehled pravidel pro zaměstnávání cizinců v ČR podle země původu, typu oprávnění a povinností zaměstnavatele."
         />
-        <meta name="twitter:image" content="https://manpowertnt.agency/assets/og.jpg" />
+        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
 
         <script key="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
         <script key="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
