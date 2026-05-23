@@ -1139,7 +1139,7 @@ p  { color: var(--text-2); line-height: 1.8; }
 
 .footer__nav {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 32px;
 }
 .footer__col { display: flex; flex-direction: column; gap: 10px; }
@@ -1630,4 +1630,190 @@ p  { color: var(--text-2); line-height: 1.8; }
 @media (max-width: 768px) {
   .legal-table { font-size: 0.82rem; }
   .legal-table th, .legal-table td { padding: 8px 10px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SEO content pages (SeoArticle layout) + deterministic generator blocks.
+   Global so styles also apply to the dangerouslySetInnerHTML generator output
+   (FAQ / sources / methodology / internal links), which styled-jsx cannot reach.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.seo-hero {
+  padding: 150px 0 64px;
+  background: linear-gradient(135deg, #0d1e3d 0%, #162c5a 58%, #21406f 100%);
+  color: #fff;
+}
+.seo-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 22px;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+.seo-breadcrumb a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.seo-hero h1 {
+  max-width: 880px;
+  margin-bottom: 18px;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+.seo-hero__sub {
+  max-width: 780px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+.seo-article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  align-items: center;
+  margin-top: 26px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.seo-article {
+  padding: 64px 0 88px;
+  background: #fff;
+}
+.seo-layout {
+  display: grid;
+  grid-template-columns: minmax(180px, 250px) minmax(0, 820px);
+  gap: 54px;
+  align-items: start;
+}
+.seo-layout--full {
+  grid-template-columns: minmax(0, 860px);
+  justify-content: center;
+}
+.seo-sidebar {
+  position: sticky;
+  top: 104px;
+  display: grid;
+  gap: 9px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-alt);
+}
+.seo-sidebar__title {
+  margin-bottom: 4px;
+  font-weight: 800;
+  color: var(--text);
+}
+.seo-sidebar a {
+  color: var(--text-2);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.seo-sidebar a:hover { color: var(--accent); }
+
+.seo-body { min-width: 0; }
+.seo-body p,
+.seo-body li {
+  color: var(--text-2);
+  font-size: 1rem;
+  line-height: 1.85;
+}
+.seo-body p { margin-bottom: 18px; }
+.seo-intro {
+  font-size: 1.12rem;
+  color: var(--text);
+  line-height: 1.8;
+}
+.seo-body h2 {
+  margin: 46px 0 16px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: clamp(1.4rem, 2.4vw, 1.95rem);
+  color: var(--text);
+}
+.seo-body h3 { margin: 28px 0 12px; font-size: 1.16rem; color: var(--text); }
+.seo-body ul { margin: 0 0 22px 20px; list-style: disc; }
+.seo-body li { margin-bottom: 9px; padding-left: 4px; }
+.seo-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Generator block: FAQ */
+.seo-body .faq { margin-top: 46px; }
+.seo-body .faq h2 { margin-bottom: 18px; }
+.seo-body .faq details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-alt);
+  padding: 4px 18px;
+  margin-bottom: 12px;
+}
+.seo-body .faq summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text);
+  padding: 12px 0;
+  line-height: 1.5;
+}
+.seo-body .faq details[open] summary { color: var(--accent); }
+.seo-body .faq p { margin: 0 0 14px; }
+
+/* Generator block: methodology + sources + data notes */
+.seo-body .methodology,
+.seo-body .sources {
+  margin-top: 34px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-alt);
+}
+.seo-body .methodology h2,
+.seo-body .sources h2 {
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+  font-size: 1.3rem;
+}
+.seo-body .sources ul,
+.seo-body .methodology ul { margin: 0 0 0 20px; }
+.seo-body .data-note {
+  font-size: 0.94rem;
+  color: var(--text-2);
+  font-style: italic;
+}
+.seo-body .obligations { margin-top: 14px; }
+
+/* Generator block: internal links */
+.seo-body .internal-links {
+  margin-top: 34px;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: #fff;
+}
+.seo-body .internal-links h2 {
+  margin: 0 0 14px;
+  padding: 0;
+  border: 0;
+  font-size: 1.3rem;
+}
+.seo-body .internal-links ul { margin: 0; list-style: none; }
+.seo-body .internal-links li { margin-bottom: 10px; padding-left: 0; }
+
+@media (max-width: 900px) {
+  .seo-layout { grid-template-columns: 1fr; gap: 32px; }
+  .seo-sidebar { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .seo-sidebar__title { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .seo-hero { padding: 124px 0 48px; }
+  .seo-article { padding: 48px 0 64px; }
+  .seo-sidebar { grid-template-columns: 1fr; padding: 18px; }
 }

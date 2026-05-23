@@ -32,6 +32,14 @@ export default function Footer() {
               <a href="/blog/agenturni-pracovnici-vs-interni-zamestnanci.html">Blog</a>
             </div>
             <div className="footer__col">
+              <div className="footer__col-title">Průvodci</div>
+              <a href="/zamestnavani-cizincu">Zaměstnávání cizinců</a>
+              <a href="/pracovni-povoleni-cr">Pracovní povolení v ČR</a>
+              <a href="/nabor-zahranicnich-pracovniku">Nábor zahraničních pracovníků</a>
+              <a href="/minimalni-mzda-2026">Minimální mzda 2026</a>
+              <a href="/faq-zamestnavani-pracovniku">Časté dotazy</a>
+            </div>
+            <div className="footer__col">
               <div className="footer__col-title" data-i18n="footer.colFollow">Follow Us</div>
               <a href="https://www.linkedin.com/company/tntgency" target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a href="https://www.instagram.com/tntgency" target="_blank" rel="noopener noreferrer">Instagram</a>

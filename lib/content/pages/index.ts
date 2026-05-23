@@ -1,0 +1,26 @@
+// Aggregated registry of all SeoArticle-driven SEO pages, grouped by tier so
+// the sitemap helper and any future index page can reason about priority.
+
+import type { SeoPage } from '../seo-page'
+import { CORNERSTONE_PAGES } from './cornerstone'
+import { SUPPORT_PAGES } from './support'
+import { GEO_PAGES } from './geo'
+
+export * from './cornerstone'
+export * from './support'
+export * from './geo'
+
+export const SEO_PAGE_TIERS = {
+  cornerstone: CORNERSTONE_PAGES,
+  support: SUPPORT_PAGES,
+  geo: GEO_PAGES,
+} as const
+
+export const SEO_PAGES: ReadonlyArray<SeoPage> = [
+  ...CORNERSTONE_PAGES,
+  ...SUPPORT_PAGES,
+  ...GEO_PAGES,
+]
+
+export const findSeoPage = (slug: string): SeoPage | undefined =>
+  SEO_PAGES.find((p) => p.slug === slug)

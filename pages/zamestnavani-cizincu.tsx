@@ -57,6 +57,35 @@ const breadcrumbSchema = {
   ],
 }
 
+const faqItems = [
+  {
+    q: 'Potřebuje cizinec ze třetí země pracovní povolení?',
+    a: 'Zpravidla ano, pokud nemá volný vstup na trh práce. Občané třetích zemí obvykle potřebují platné pobytové i pracovní oprávnění (například zaměstnaneckou nebo modrou kartu). Některé skupiny, jako osoby s trvalým pobytem, mají volný vstup.',
+  },
+  {
+    q: 'Mají občané EU volný vstup na český trh práce?',
+    a: 'Ano. Občané EU, EHP (Norsko, Island, Lichtenštejnsko) a Švýcarska a jejich rodinní příslušníci mají volný vstup na trh práce a pracovní povolení nepotřebují. Zaměstnavatel má vůči Úřadu práce ČR ohlašovací a evidenční povinnost.',
+  },
+  {
+    q: 'Jaký je rozdíl mezi zaměstnaneckou a modrou kartou?',
+    a: 'Zaměstnanecká karta je obecné duální oprávnění k pobytu i zaměstnání. Modrá karta cílí na vysoce kvalifikované pozice a je součástí evropského schématu. Obě vydává Ministerstvo vnitra ČR (Odbor azylové a migrační politiky).',
+  },
+  {
+    q: 'Jaké povinnosti má zaměstnavatel při zaměstnání cizince?',
+    a: 'Ověřit platnost oprávnění před nástupem, plnit informační a oznamovací povinnosti vůči Úřadu práce ČR, vést evidenci a hlídat termíny prodloužení. Práci lze zahájit až po nabytí platnosti oprávnění.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+}
+
 export default function ZamestnavaniCizincu() {
   return (
     <>
@@ -100,6 +129,7 @@ export default function ZamestnavaniCizincu() {
 
         <script key="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
         <script key="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        <script key="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </Head>
 
       <Header activePage="zamestnavani-cizincu" />
@@ -140,6 +170,7 @@ export default function ZamestnavaniCizincu() {
               <a href="#ict-karta">ICT karta</a>
               <a href="#lex-ukrajina">Dočasná ochrana</a>
               <a href="#informace-a-nabidky">Informace a nabídky</a>
+              <a href="#caste-dotazy">Časté dotazy</a>
             </aside>
 
             <article className="legal-article-body">
@@ -258,6 +289,14 @@ export default function ZamestnavaniCizincu() {
                 <li>oznamování volných pracovních míst Úřadu práce ČR.</li>
               </ul>
 
+              <h2 id="caste-dotazy">Časté dotazy</h2>
+              {faqItems.map((item) => (
+                <details key={item.q} className="legal-faq">
+                  <summary>{item.q}</summary>
+                  <p>{item.a}</p>
+                </details>
+              ))}
+
               <div className="legal-source">
                 <p>
                   <strong>Zdroj:</strong>{' '}
@@ -269,11 +308,19 @@ export default function ZamestnavaniCizincu() {
               </div>
 
               <div className="legal-related">
-                <h2>Praktické další kroky</h2>
+                <h2>Související informace</h2>
                 <p>
-                  Potřebujete řešit nábor nebo obsazení pracovních pozic? Prohlédněte si služby TNT Agency pro
-                  zaměstnavatele nebo nás kontaktujte.
+                  Pokračujte na podrobnější stránky o povoleních, kartách a praktické stránce zaměstnávání cizinců:
                 </p>
+                <ul className="legal-related__list">
+                  <li><a href="/pracovni-povoleni-cr">Pracovní povolení v ČR</a></li>
+                  <li><a href="/zamestnanecka-karta-2026">Zaměstnanecká karta 2026</a></li>
+                  <li><a href="/modra-karta-cr">Modrá karta</a></li>
+                  <li><a href="/dokumenty-pro-zamestnani-cizincu">Dokumenty pro zaměstnání cizinců</a></li>
+                  <li><a href="/nabor-zahranicnich-pracovniku">Nábor zahraničních pracovníků</a></li>
+                  <li><a href="/legalizace-prace-cizincu">Legalizace práce cizinců</a></li>
+                  <li><a href="/faq-zamestnavani-pracovniku">Časté dotazy k zaměstnávání pracovníků</a></li>
+                </ul>
                 <div className="legal-related__links">
                   <a href="/" className="btn btn-ghost">
                     Domů
@@ -472,6 +519,35 @@ export default function ZamestnavaniCizincu() {
           flex-wrap: wrap;
           gap: 12px;
           margin-top: 24px;
+        }
+
+        .legal-faq {
+          border: 1px solid var(--border);
+          border-radius: 8px;
+          background: var(--bg-alt);
+          padding: 4px 18px;
+          margin-bottom: 12px;
+        }
+
+        .legal-faq summary {
+          cursor: pointer;
+          font-weight: 700;
+          color: var(--text);
+          padding: 12px 0;
+          line-height: 1.5;
+        }
+
+        .legal-faq[open] summary {
+          color: var(--accent);
+        }
+
+        .legal-related__list {
+          margin: 0 0 18px 20px;
+          list-style: disc;
+        }
+
+        .legal-related__list li {
+          margin-bottom: 8px;
         }
 
         @media (max-width: 900px) {
