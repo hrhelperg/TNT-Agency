@@ -306,6 +306,7 @@ export const NABOR_ZAHRANICNICH_PRACOVNIKU: SeoPage = {
     { href: '/jak-funguje-pracovni-agentura', label: 'Jak funguje pracovní agentura' },
     { href: '/ubytovani-pro-pracovniky', label: 'Ubytování pro pracovníky' },
     { href: '/chyby-pri-zamestnavani-cizincu', label: 'Nejčastější chyby při zaměstnávání cizinců' },
+    { href: '/nedostatek-pracovniku-v-cr', label: 'Nedostatek pracovníků v ČR' },
   ],
   cta: {
     eyebrow: 'Nábor pracovníků',

@@ -337,6 +337,9 @@ export const FAQ_ZAMESTNAVANI_PRACOVNIKU: SeoPage = {
     { href: '/agentura-prace-brno', label: 'Agentura práce Brno' },
     { href: '/prace-pro-cizince-praha', label: 'Práce pro cizince Praha' },
     { href: '/prace-pro-cizince-brno', label: 'Práce pro cizince Brno' },
+    { href: '/naklady-na-zamestnance-pardubice', label: 'Náklady na zaměstnance v Pardubicích' },
+    { href: '/nedostatek-pracovniku-v-cr', label: 'Nedostatek pracovníků v ČR' },
+    { href: '/trh-prace-pardubickykraj', label: 'Trh práce v Pardubickém kraji' },
   ],
   cta: {
     eyebrow: 'Nenašli jste odpověď?',

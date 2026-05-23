@@ -312,6 +312,7 @@ export const NAKLADY_NA_ZAMESTNANCE_CR: SeoPage = {
     { href: '/minimalni-mzda-2026', label: 'Minimální mzda 2026' },
     { href: '/povinnosti-zamestnavatele', label: 'Povinnosti zaměstnavatele' },
     { href: '/jak-funguje-pracovni-agentura', label: 'Jak funguje pracovní agentura' },
+    { href: '/naklady-na-zamestnance-pardubice', label: 'Náklady na zaměstnance v Pardubicích' },
     faqHubLink,
   ],
   cta: consultCta,

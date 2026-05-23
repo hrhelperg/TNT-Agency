@@ -382,4 +382,35 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/faq-zamestnavani-pracovniku"/>
   </url>
 
+  <!-- ───────── PHASE 4: EMPLOYER INTELLIGENCE LAYER ───────── -->
+  <!-- EMPLOYER INTEL: Náklady na zaměstnance Pardubice -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-pardubice</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-pardubice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-pardubice"/>
+  </url>
+
+  <!-- EMPLOYER INTEL: Nedostatek pracovníků v ČR -->
+  <url>
+    <loc>https://manpower-tnt.agency/nedostatek-pracovniku-v-cr</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nedostatek-pracovniku-v-cr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nedostatek-pracovniku-v-cr"/>
+  </url>
+
+  <!-- EMPLOYER INTEL: Trh práce Pardubický kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-pardubickykraj</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-pardubickykraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-pardubickykraj"/>
+  </url>
+
 </urlset>
