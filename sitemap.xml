@@ -413,4 +413,45 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-pardubickykraj"/>
   </url>
 
+  <!-- ───────── PHASE 5: EMPLOYER INTELLIGENCE GEO EXPANSION ───────── -->
+  <!-- EMPLOYER INTEL: Náklady Hradec Králové -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-hradec-kralove</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-hradec-kralove"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-hradec-kralove"/>
+  </url>
+
+  <!-- EMPLOYER INTEL: Trh práce Královéhradecký kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-kralovehradecky-kraj</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-kralovehradecky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-kralovehradecky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL: Náklady Střední Čechy -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-stredni-cechy</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-stredni-cechy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-stredni-cechy"/>
+  </url>
+
+  <!-- EMPLOYER INTEL: Trh práce Středočeský kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-stredocesky-kraj</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-stredocesky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-stredocesky-kraj"/>
+  </url>
+
 </urlset>

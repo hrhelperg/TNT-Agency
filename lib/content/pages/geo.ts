@@ -340,6 +340,10 @@ export const FAQ_ZAMESTNAVANI_PRACOVNIKU: SeoPage = {
     { href: '/naklady-na-zamestnance-pardubice', label: 'Náklady na zaměstnance v Pardubicích' },
     { href: '/nedostatek-pracovniku-v-cr', label: 'Nedostatek pracovníků v ČR' },
     { href: '/trh-prace-pardubickykraj', label: 'Trh práce v Pardubickém kraji' },
+    { href: '/naklady-na-zamestnance-hradec-kralove', label: 'Náklady na zaměstnance v Hradci Králové' },
+    { href: '/trh-prace-kralovehradecky-kraj', label: 'Trh práce v Královéhradeckém kraji' },
+    { href: '/naklady-na-zamestnance-stredni-cechy', label: 'Náklady na zaměstnance ve Středních Čechách' },
+    { href: '/trh-prace-stredocesky-kraj', label: 'Trh práce ve Středočeském kraji' },
   ],
   cta: {
     eyebrow: 'Nenašli jste odpověď?',
