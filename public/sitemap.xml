@@ -5,7 +5,7 @@
   <!-- MAIN PAGE -->
   <url>
     <loc>https://manpower-tnt.agency/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/"/>
@@ -17,7 +17,7 @@
   <!-- BLOG ARTICLE: Agenturní pracovníci vs. interní zaměstnanci -->
   <url>
     <loc>https://manpower-tnt.agency/blog/agenturni-pracovnici-vs-interni-zamestnanci.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/blog/agenturni-pracovnici-vs-interni-zamestnanci.html"/>
@@ -27,7 +27,7 @@
   <!-- LEGAL INFORMATION: Zaměstnávání cizinců -->
   <url>
     <loc>https://manpower-tnt.agency/zamestnavani-cizincu</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/zamestnavani-cizincu"/>
@@ -37,7 +37,7 @@
   <!-- TERMS OF SERVICE -->
   <url>
     <loc>https://manpower-tnt.agency/terms.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
@@ -46,7 +46,7 @@
   </url>
   <url>
     <loc>https://manpower-tnt.agency/terms-cs.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
@@ -55,7 +55,7 @@
   </url>
   <url>
     <loc>https://manpower-tnt.agency/terms-de.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/terms.html"/>
@@ -66,7 +66,7 @@
   <!-- PRIVACY POLICY -->
   <url>
     <loc>https://manpower-tnt.agency/privacy.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
@@ -75,7 +75,7 @@
   </url>
   <url>
     <loc>https://manpower-tnt.agency/privacy-cs.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
@@ -84,7 +84,7 @@
   </url>
   <url>
     <loc>https://manpower-tnt.agency/privacy-de.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy.html"/>
@@ -95,7 +95,7 @@
   <!-- AGENCIES DIRECTORY -->
   <url>
     <loc>https://manpower-tnt.agency/agencies</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/agencies"/>
@@ -105,7 +105,7 @@
   <!-- SUBMIT AGENCY -->
   <url>
     <loc>https://manpower-tnt.agency/submit-agency</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/submit-agency"/>
@@ -115,7 +115,7 @@
   <!-- OFFERS / CLIENT REQUESTS -->
   <url>
     <loc>https://manpower-tnt.agency/offers</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/offers"/>
@@ -125,7 +125,7 @@
   <!-- SUBMIT OFFER -->
   <url>
     <loc>https://manpower-tnt.agency/submit-offer</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/submit-offer"/>
@@ -135,7 +135,7 @@
   <!-- CONTACT -->
   <url>
     <loc>https://manpower-tnt.agency/contact</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en"        href="https://manpower-tnt.agency/contact"/>
@@ -145,7 +145,7 @@
   <!-- BLOG ARTICLE: Nezaměstnanost ČR březen 2026 -->
   <url>
     <loc>https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/blog/nezamestnanost-brezen-2026.html"/>
@@ -155,7 +155,7 @@
   <!-- PRIVACY POLICY (Next.js page) -->
   <url>
     <loc>https://manpower-tnt.agency/privacy-policy</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/privacy-policy"/>
@@ -165,7 +165,7 @@
   <!-- COOKIE POLICY -->
   <url>
     <loc>https://manpower-tnt.agency/cookies.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
@@ -174,7 +174,7 @@
   </url>
   <url>
     <loc>https://manpower-tnt.agency/cookies-cs.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
@@ -183,7 +183,7 @@
   </url>
   <url>
     <loc>https://manpower-tnt.agency/cookies-de.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://manpower-tnt.agency/cookies.html"/>
@@ -194,7 +194,7 @@
   <!-- SEO ARTICLE: Sociální a zdravotní daně 2026 -->
   <url>
     <loc>https://manpower-tnt.agency/socialni-zdravotni-dane-2026</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/socialni-zdravotni-dane-2026"/>
@@ -205,7 +205,7 @@
   <!-- CORNERSTONE: Pracovní povolení v ČR -->
   <url>
     <loc>https://manpower-tnt.agency/pracovni-povoleni-cr</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovni-povoleni-cr"/>
@@ -215,7 +215,7 @@
   <!-- CORNERSTONE: Minimální mzda 2026 -->
   <url>
     <loc>https://manpower-tnt.agency/minimalni-mzda-2026</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/minimalni-mzda-2026"/>
@@ -225,7 +225,7 @@
   <!-- CORNERSTONE: Nábor zahraničních pracovníků -->
   <url>
     <loc>https://manpower-tnt.agency/nabor-zahranicnich-pracovniku</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zahranicnich-pracovniku"/>
@@ -235,7 +235,7 @@
   <!-- SUPPORT: Modrá karta -->
   <url>
     <loc>https://manpower-tnt.agency/modra-karta-cr</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/modra-karta-cr"/>
@@ -245,7 +245,7 @@
   <!-- SUPPORT: Zaměstnanecká karta 2026 -->
   <url>
     <loc>https://manpower-tnt.agency/zamestnanecka-karta-2026</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/zamestnanecka-karta-2026"/>
@@ -255,7 +255,7 @@
   <!-- SUPPORT: Dokumenty pro zaměstnání cizinců -->
   <url>
     <loc>https://manpower-tnt.agency/dokumenty-pro-zamestnani-cizincu</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/dokumenty-pro-zamestnani-cizincu"/>
@@ -265,7 +265,7 @@
   <!-- SUPPORT: Povinnosti zaměstnavatele -->
   <url>
     <loc>https://manpower-tnt.agency/povinnosti-zamestnavatele</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/povinnosti-zamestnavatele"/>
@@ -275,7 +275,7 @@
   <!-- SUPPORT: Náklady na zaměstnance -->
   <url>
     <loc>https://manpower-tnt.agency/naklady-na-zamestnance-cr</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-cr"/>
@@ -285,7 +285,7 @@
   <!-- SUPPORT: Jak funguje pracovní agentura -->
   <url>
     <loc>https://manpower-tnt.agency/jak-funguje-pracovni-agentura</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/jak-funguje-pracovni-agentura"/>
@@ -295,7 +295,7 @@
   <!-- SUPPORT: Chyby při zaměstnávání cizinců -->
   <url>
     <loc>https://manpower-tnt.agency/chyby-pri-zamestnavani-cizincu</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/chyby-pri-zamestnavani-cizincu"/>
@@ -305,7 +305,7 @@
   <!-- SUPPORT: Legalizace práce cizinců -->
   <url>
     <loc>https://manpower-tnt.agency/legalizace-prace-cizincu</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/legalizace-prace-cizincu"/>
@@ -315,7 +315,7 @@
   <!-- SUPPORT: Dočasné přidělení zaměstnanců -->
   <url>
     <loc>https://manpower-tnt.agency/docasne-prideleni-zamestnancu</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/docasne-prideleni-zamestnancu"/>
@@ -325,7 +325,7 @@
   <!-- SUPPORT: Ubytování pro pracovníky -->
   <url>
     <loc>https://manpower-tnt.agency/ubytovani-pro-pracovniky</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/ubytovani-pro-pracovniky"/>
@@ -335,7 +335,7 @@
   <!-- GEO: Agentura práce Praha -->
   <url>
     <loc>https://manpower-tnt.agency/agentura-prace-praha</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/agentura-prace-praha"/>
@@ -345,7 +345,7 @@
   <!-- GEO: Agentura práce Brno -->
   <url>
     <loc>https://manpower-tnt.agency/agentura-prace-brno</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/agentura-prace-brno"/>
@@ -355,7 +355,7 @@
   <!-- GEO: Práce pro cizince Praha -->
   <url>
     <loc>https://manpower-tnt.agency/prace-pro-cizince-praha</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/prace-pro-cizince-praha"/>
@@ -365,7 +365,7 @@
   <!-- GEO: Práce pro cizince Brno -->
   <url>
     <loc>https://manpower-tnt.agency/prace-pro-cizince-brno</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/prace-pro-cizince-brno"/>
@@ -375,7 +375,7 @@
   <!-- FAQ HUB: Zaměstnávání pracovníků -->
   <url>
     <loc>https://manpower-tnt.agency/faq-zamestnavani-pracovniku</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/faq-zamestnavani-pracovniku"/>
@@ -386,7 +386,7 @@
   <!-- EMPLOYER INTEL: Náklady na zaměstnance Pardubice -->
   <url>
     <loc>https://manpower-tnt.agency/naklady-na-zamestnance-pardubice</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-pardubice"/>
@@ -396,7 +396,7 @@
   <!-- EMPLOYER INTEL: Nedostatek pracovníků v ČR -->
   <url>
     <loc>https://manpower-tnt.agency/nedostatek-pracovniku-v-cr</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nedostatek-pracovniku-v-cr"/>
@@ -406,7 +406,7 @@
   <!-- EMPLOYER INTEL: Trh práce Pardubický kraj -->
   <url>
     <loc>https://manpower-tnt.agency/trh-prace-pardubickykraj</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-pardubickykraj"/>
@@ -417,7 +417,7 @@
   <!-- EMPLOYER INTEL: Náklady Hradec Králové -->
   <url>
     <loc>https://manpower-tnt.agency/naklady-na-zamestnance-hradec-kralove</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-hradec-kralove"/>
@@ -427,7 +427,7 @@
   <!-- EMPLOYER INTEL: Trh práce Královéhradecký kraj -->
   <url>
     <loc>https://manpower-tnt.agency/trh-prace-kralovehradecky-kraj</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-kralovehradecky-kraj"/>
@@ -437,7 +437,7 @@
   <!-- EMPLOYER INTEL: Náklady Střední Čechy -->
   <url>
     <loc>https://manpower-tnt.agency/naklady-na-zamestnance-stredni-cechy</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-stredni-cechy"/>
@@ -447,11 +447,232 @@
   <!-- EMPLOYER INTEL: Trh práce Středočeský kraj -->
   <url>
     <loc>https://manpower-tnt.agency/trh-prace-stredocesky-kraj</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-stredocesky-kraj"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-stredocesky-kraj"/>
+  </url>
+
+  <!-- ───────── PHASE 6: EMPLOYER INTELLIGENCE REGIONAL EXPANSION ───────── -->
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-praha -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-praha</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-praha"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-praha"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-praha -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-praha</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-praha"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-praha"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-jihomoravsky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-jihomoravsky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-jihomoravsky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-jihomoravsky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-jihomoravsky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-jihomoravsky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-jihomoravsky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-jihomoravsky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-moravskoslezsky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-moravskoslezsky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-moravskoslezsky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-moravskoslezsky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-moravskoslezsky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-moravskoslezsky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-moravskoslezsky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-moravskoslezsky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-olomoucky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-olomoucky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-olomoucky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-olomoucky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-olomoucky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-olomoucky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-olomoucky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-olomoucky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-zlinsky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-zlinsky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-zlinsky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-zlinsky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-zlinsky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-zlinsky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-zlinsky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-zlinsky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-vysocina -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-vysocina</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-vysocina"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-vysocina"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-vysocina -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-vysocina</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-vysocina"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-vysocina"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-jihocesky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-jihocesky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-jihocesky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-jihocesky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-jihocesky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-jihocesky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-jihocesky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-jihocesky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-plzensky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-plzensky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-plzensky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-plzensky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-plzensky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-plzensky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-plzensky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-plzensky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-karlovarsky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-karlovarsky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-karlovarsky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-karlovarsky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-karlovarsky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-karlovarsky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-karlovarsky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-karlovarsky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-ustecky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-ustecky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-ustecky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-ustecky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-ustecky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-ustecky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-ustecky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-ustecky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: naklady-na-zamestnance-liberecky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/naklady-na-zamestnance-liberecky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/naklady-na-zamestnance-liberecky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/naklady-na-zamestnance-liberecky-kraj"/>
+  </url>
+
+  <!-- EMPLOYER INTEL GEO: trh-prace-liberecky-kraj -->
+  <url>
+    <loc>https://manpower-tnt.agency/trh-prace-liberecky-kraj</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/trh-prace-liberecky-kraj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/trh-prace-liberecky-kraj"/>
   </url>
 
 </urlset>

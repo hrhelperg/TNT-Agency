@@ -226,6 +226,7 @@ export const NEDOSTATEK_PRACOVNIKU_V_CR: SeoPage = {
     { href: '/jak-funguje-pracovni-agentura', label: 'Jak funguje pracovní agentura' },
     { href: '/trh-prace-kralovehradecky-kraj', label: 'Trh práce v Královéhradeckém kraji' },
     { href: '/trh-prace-stredocesky-kraj', label: 'Trh práce ve Středočeském kraji' },
+    { href: '/trh-prace-praha', label: 'Trh práce v Praze' },
     faqHubLink,
   ],
   cta: {

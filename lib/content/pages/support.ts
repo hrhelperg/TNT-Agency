@@ -315,6 +315,7 @@ export const NAKLADY_NA_ZAMESTNANCE_CR: SeoPage = {
     { href: '/naklady-na-zamestnance-pardubice', label: 'Náklady na zaměstnance v Pardubicích' },
     { href: '/naklady-na-zamestnance-hradec-kralove', label: 'Náklady na zaměstnance v Hradci Králové' },
     { href: '/naklady-na-zamestnance-stredni-cechy', label: 'Náklady na zaměstnance ve Středních Čechách' },
+    { href: '/naklady-na-zamestnance-praha', label: 'Náklady na zaměstnance v Praze' },
     faqHubLink,
   ],
   cta: consultCta,

@@ -5,6 +5,7 @@
 
 import type { SeoPage } from '../seo-page'
 import { SRC } from '../sources'
+import { REGION_FAQ_LINKS } from './regions'
 
 const TODAY = '2026-05-23'
 const meta = {
@@ -344,6 +345,7 @@ export const FAQ_ZAMESTNAVANI_PRACOVNIKU: SeoPage = {
     { href: '/trh-prace-kralovehradecky-kraj', label: 'Trh práce v Královéhradeckém kraji' },
     { href: '/naklady-na-zamestnance-stredni-cechy', label: 'Náklady na zaměstnance ve Středních Čechách' },
     { href: '/trh-prace-stredocesky-kraj', label: 'Trh práce ve Středočeském kraji' },
+    ...REGION_FAQ_LINKS,
   ],
   cta: {
     eyebrow: 'Nenašli jste odpověď?',
