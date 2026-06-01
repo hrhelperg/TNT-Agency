@@ -320,6 +320,7 @@ export const FAQ_ZAMESTNAVANI_PRACOVNIKU: SeoPage = {
   sources: [SRC.zakonOZamestnanosti, SRC.zakonOPobytuCizincu, SRC.mpsv, SRC.cssz, SRC.mvcr, SRC.upcr],
   internalLinks: [
     { href: '/zamestnavani-cizincu', label: 'Zaměstnávání cizinců v ČR' },
+    { href: '/faq-zamestnavani-cizincu', label: 'FAQ: zaměstnávání cizinců v ČR' },
     { href: '/pracovni-povoleni-cr', label: 'Pracovní povolení v ČR' },
     { href: '/socialni-zdravotni-dane-2026', label: 'Sociální a zdravotní daně 2026' },
     { href: '/minimalni-mzda-2026', label: 'Minimální mzda 2026' },

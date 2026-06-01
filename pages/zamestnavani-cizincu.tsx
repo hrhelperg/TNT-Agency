@@ -315,11 +315,15 @@ export default function ZamestnavaniCizincu() {
                 <ul className="legal-related__list">
                   <li><a href="/pracovni-povoleni-cr">Pracovní povolení v ČR</a></li>
                   <li><a href="/zamestnanecka-karta-2026">Zaměstnanecká karta 2026</a></li>
-                  <li><a href="/modra-karta-cr">Modrá karta</a></li>
+                  <li><a href="/jak-ziskat-zamestnaneckou-kartu">Jak získat zaměstnaneckou kartu</a></li>
+                  <li><a href="/modra-karta-vs-zamestnanecka-karta">Modrá karta vs zaměstnanecká karta</a></li>
                   <li><a href="/dokumenty-pro-zamestnani-cizincu">Dokumenty pro zaměstnání cizinců</a></li>
+                  <li><a href="/povinnosti-pri-zamestnavani-cizincu">Povinnosti při zaměstnávání cizinců</a></li>
                   <li><a href="/nabor-zahranicnich-pracovniku">Nábor zahraničních pracovníků</a></li>
                   <li><a href="/legalizace-prace-cizincu">Legalizace práce cizinců</a></li>
-                  <li><a href="/faq-zamestnavani-pracovniku">Časté dotazy k zaměstnávání pracovníků</a></li>
+                  <li><a href="/prace-pro-ukrajince-v-cr">Práce pro Ukrajince v ČR</a></li>
+                  <li><a href="/faq-zamestnavani-cizincu">FAQ: zaměstnávání cizinců v ČR</a></li>
+                  <li><a href="/kde-overit-informace-pro-cizince">Kde ověřit informace pro cizince</a></li>
                 </ul>
                 <div className="legal-related__links">
                   <a href="/" className="btn btn-ghost">

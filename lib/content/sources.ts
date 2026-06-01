@@ -35,6 +35,18 @@ export const SRC = {
     name: 'Zákon č. 309/2006 Sb., o zajištění dalších podmínek bezpečnosti a ochrany zdraví při práci',
     publisher: 'Sbírka zákonů ČR',
   },
+  zakonInspekcePrace: {
+    name: 'Zákon č. 251/2005 Sb., o inspekci práce',
+    publisher: 'Sbírka zákonů ČR',
+  },
+  zakonDaneZPrijmu: {
+    name: 'Zákon č. 586/1992 Sb., o daních z příjmů',
+    publisher: 'Sbírka zákonů ČR',
+  },
+  lexUkrajina: {
+    name: 'Zákon č. 65/2022 Sb. (tzv. Lex Ukrajina) a navazující předpisy o dočasné ochraně',
+    publisher: 'Sbírka zákonů ČR',
+  },
   blueCardSmernice: {
     name: 'Směrnice EU 2021/1883 o podmínkách vstupu a pobytu vysoce kvalifikovaných pracovníků (modrá karta EU)',
     publisher: 'Evropská unie',
@@ -57,6 +69,18 @@ export const SRC = {
     name: 'Ministerstvo vnitra ČR – Odbor azylové a migrační politiky (pobyt cizinců)',
     publisher: 'MV ČR',
     url: 'https://www.mvcr.cz/',
+    retrieved: RETRIEVED,
+  },
+  mzv: {
+    name: 'Ministerstvo zahraničních věcí ČR – víza a konzulární informace',
+    publisher: 'MZV ČR',
+    url: 'https://www.mzv.cz/',
+    retrieved: RETRIEVED,
+  },
+  suip: {
+    name: 'Státní úřad inspekce práce (SÚIP)',
+    publisher: 'SÚIP',
+    url: 'https://www.suip.cz/',
     retrieved: RETRIEVED,
   },
   cssz: {
