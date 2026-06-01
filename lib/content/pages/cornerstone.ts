@@ -307,6 +307,8 @@ export const NABOR_ZAHRANICNICH_PRACOVNIKU: SeoPage = {
     { href: '/ubytovani-pro-pracovniky', label: 'Ubytování pro pracovníky' },
     { href: '/chyby-pri-zamestnavani-cizincu', label: 'Nejčastější chyby při zaměstnávání cizinců' },
     { href: '/nedostatek-pracovniku-v-cr', label: 'Nedostatek pracovníků v ČR' },
+    { href: '/pro-zamestnavatele', label: 'Pro zaměstnavatele: nábor a personální zázemí' },
+    { href: '/planovani-naboru', label: 'Plánování náboru' },
   ],
   cta: {
     eyebrow: 'Nábor pracovníků',

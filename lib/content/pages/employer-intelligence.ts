@@ -227,6 +227,11 @@ export const NEDOSTATEK_PRACOVNIKU_V_CR: SeoPage = {
     { href: '/trh-prace-kralovehradecky-kraj', label: 'Trh práce v Královéhradeckém kraji' },
     { href: '/trh-prace-stredocesky-kraj', label: 'Trh práce ve Středočeském kraji' },
     { href: '/trh-prace-praha', label: 'Trh práce v Praze' },
+    { href: '/pro-zamestnavatele', label: 'Pro zaměstnavatele: rozcestník' },
+    { href: '/nedostatek-pracovniku-ve-vyrobe', label: 'Nedostatek pracovníků ve výrobě' },
+    { href: '/nedostatek-pracovniku-v-logistice', label: 'Nedostatek pracovníků v logistice' },
+    { href: '/nedostatek-pracovniku-ve-skladech', label: 'Nedostatek pracovníků ve skladech' },
+    { href: '/nedostatek-pracovniku-ve-stavebnictvi', label: 'Nedostatek pracovníků ve stavebnictví' },
     faqHubLink,
   ],
   cta: {

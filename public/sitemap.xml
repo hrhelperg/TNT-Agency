@@ -876,4 +876,225 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/kde-overit-informace-pro-cizince"/>
   </url>
 
+  <!-- ───────── EMPLOYER OPERATIONS AUTHORITY CLUSTER ───────── -->
+  <!-- EMPLOYER OPS: pro-zamestnavatele (cluster hub) -->
+  <url>
+    <loc>https://manpower-tnt.agency/pro-zamestnavatele</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pro-zamestnavatele"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pro-zamestnavatele"/>
+  </url>
+
+  <!-- EMPLOYER OPS: nabor-pracovniku -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-pracovniku</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-pracovniku"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-pracovniku"/>
+  </url>
+
+  <!-- EMPLOYER OPS: nabor-zamestnancu -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu"/>
+  </url>
+
+  <!-- EMPLOYER OPS: jak-najit-pracovniky -->
+  <url>
+    <loc>https://manpower-tnt.agency/jak-najit-pracovniky</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/jak-najit-pracovniky"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/jak-najit-pracovniky"/>
+  </url>
+
+  <!-- EMPLOYER OPS: planovani-naboru -->
+  <url>
+    <loc>https://manpower-tnt.agency/planovani-naboru</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/planovani-naboru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/planovani-naboru"/>
+  </url>
+
+  <!-- EMPLOYER OPS: fluktuace-zamestnancu -->
+  <url>
+    <loc>https://manpower-tnt.agency/fluktuace-zamestnancu</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/fluktuace-zamestnancu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/fluktuace-zamestnancu"/>
+  </url>
+
+  <!-- EMPLOYER OPS: priciny-fluktuace-zamestnancu -->
+  <url>
+    <loc>https://manpower-tnt.agency/priciny-fluktuace-zamestnancu</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/priciny-fluktuace-zamestnancu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/priciny-fluktuace-zamestnancu"/>
+  </url>
+
+  <!-- EMPLOYER OPS: jak-snizit-fluktuaci -->
+  <url>
+    <loc>https://manpower-tnt.agency/jak-snizit-fluktuaci</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/jak-snizit-fluktuaci"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/jak-snizit-fluktuaci"/>
+  </url>
+
+  <!-- EMPLOYER OPS: retence-zamestnancu -->
+  <url>
+    <loc>https://manpower-tnt.agency/retence-zamestnancu</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/retence-zamestnancu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/retence-zamestnancu"/>
+  </url>
+
+  <!-- EMPLOYER OPS: onboarding-zamestnancu -->
+  <url>
+    <loc>https://manpower-tnt.agency/onboarding-zamestnancu</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/onboarding-zamestnancu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/onboarding-zamestnancu"/>
+  </url>
+
+  <!-- EMPLOYER OPS: adaptace-zamestnancu -->
+  <url>
+    <loc>https://manpower-tnt.agency/adaptace-zamestnancu</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/adaptace-zamestnancu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/adaptace-zamestnancu"/>
+  </url>
+
+  <!-- EMPLOYER OPS: checklist-pro-nove-zamestnance -->
+  <url>
+    <loc>https://manpower-tnt.agency/checklist-pro-nove-zamestnance</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/checklist-pro-nove-zamestnance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/checklist-pro-nove-zamestnance"/>
+  </url>
+
+  <!-- EMPLOYER OPS: nedostatek-pracovniku-ve-vyrobe -->
+  <url>
+    <loc>https://manpower-tnt.agency/nedostatek-pracovniku-ve-vyrobe</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nedostatek-pracovniku-ve-vyrobe"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nedostatek-pracovniku-ve-vyrobe"/>
+  </url>
+
+  <!-- EMPLOYER OPS: nedostatek-pracovniku-v-logistice -->
+  <url>
+    <loc>https://manpower-tnt.agency/nedostatek-pracovniku-v-logistice</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nedostatek-pracovniku-v-logistice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nedostatek-pracovniku-v-logistice"/>
+  </url>
+
+  <!-- EMPLOYER OPS: nedostatek-pracovniku-ve-skladech -->
+  <url>
+    <loc>https://manpower-tnt.agency/nedostatek-pracovniku-ve-skladech</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nedostatek-pracovniku-ve-skladech"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nedostatek-pracovniku-ve-skladech"/>
+  </url>
+
+  <!-- EMPLOYER OPS: nedostatek-pracovniku-ve-stavebnictvi -->
+  <url>
+    <loc>https://manpower-tnt.agency/nedostatek-pracovniku-ve-stavebnictvi</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nedostatek-pracovniku-ve-stavebnictvi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nedostatek-pracovniku-ve-stavebnictvi"/>
+  </url>
+
+  <!-- EMPLOYER OPS: skutecne-naklady-na-zamestnance -->
+  <url>
+    <loc>https://manpower-tnt.agency/skutecne-naklady-na-zamestnance</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/skutecne-naklady-na-zamestnance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/skutecne-naklady-na-zamestnance"/>
+  </url>
+
+  <!-- EMPLOYER OPS: kolik-stoji-zamestnanec -->
+  <url>
+    <loc>https://manpower-tnt.agency/kolik-stoji-zamestnanec</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/kolik-stoji-zamestnanec"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/kolik-stoji-zamestnanec"/>
+  </url>
+
+  <!-- EMPLOYER OPS: neprime-naklady-na-zamestnance -->
+  <url>
+    <loc>https://manpower-tnt.agency/neprime-naklady-na-zamestnance</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/neprime-naklady-na-zamestnance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/neprime-naklady-na-zamestnance"/>
+  </url>
+
+  <!-- EMPLOYER OPS: faq-pro-zamestnavatele (cluster FAQ hub) -->
+  <url>
+    <loc>https://manpower-tnt.agency/faq-pro-zamestnavatele</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/faq-pro-zamestnavatele"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/faq-pro-zamestnavatele"/>
+  </url>
+
+  <!-- EMPLOYER OPS: nejcastejsi-chyby-zamestnavatelu -->
+  <url>
+    <loc>https://manpower-tnt.agency/nejcastejsi-chyby-zamestnavatelu</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nejcastejsi-chyby-zamestnavatelu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nejcastejsi-chyby-zamestnavatelu"/>
+  </url>
+
+  <!-- EMPLOYER OPS: slovnik-pojmu-pro-zamestnavatele -->
+  <url>
+    <loc>https://manpower-tnt.agency/slovnik-pojmu-pro-zamestnavatele</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/slovnik-pojmu-pro-zamestnavatele"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/slovnik-pojmu-pro-zamestnavatele"/>
+  </url>
+
 </urlset>

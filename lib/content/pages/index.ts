@@ -8,6 +8,7 @@ import { GEO_PAGES } from './geo'
 import { EMPLOYER_INTELLIGENCE_PAGES } from './employer-intelligence'
 import { REGION_PAGES } from './regions'
 import { FOREIGN_WORKER_PAGES } from './foreign-workers'
+import { EMPLOYER_OPERATIONS_PAGES } from './employer-operations'
 
 export * from './cornerstone'
 export * from './support'
@@ -15,6 +16,7 @@ export * from './geo'
 export * from './employer-intelligence'
 export * from './regions'
 export * from './foreign-workers'
+export * from './employer-operations'
 
 export const SEO_PAGE_TIERS = {
   cornerstone: CORNERSTONE_PAGES,
@@ -22,6 +24,7 @@ export const SEO_PAGE_TIERS = {
   geo: GEO_PAGES,
   employerIntelligence: [...EMPLOYER_INTELLIGENCE_PAGES, ...REGION_PAGES],
   foreignWorkers: FOREIGN_WORKER_PAGES,
+  employerOperations: EMPLOYER_OPERATIONS_PAGES,
 } as const
 
 export const SEO_PAGES: ReadonlyArray<SeoPage> = [
@@ -31,6 +34,7 @@ export const SEO_PAGES: ReadonlyArray<SeoPage> = [
   ...EMPLOYER_INTELLIGENCE_PAGES,
   ...REGION_PAGES,
   ...FOREIGN_WORKER_PAGES,
+  ...EMPLOYER_OPERATIONS_PAGES,
 ]
 
 export const findSeoPage = (slug: string): SeoPage | undefined =>
