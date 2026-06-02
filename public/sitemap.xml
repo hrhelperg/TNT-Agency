@@ -1338,4 +1338,205 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/montazni-linky-pracovnici"/>
   </url>
 
+  <!-- ───────── CITY RECRUITMENT AUTHORITY CLUSTER ───────── -->
+  <!-- CITY: pracovnici-praha -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-praha</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-praha"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-praha"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-praha -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-praha</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-praha"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-praha"/>
+  </url>
+
+  <!-- CITY: pracovnici-brno -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-brno</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-brno"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-brno"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-brno -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-brno</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-brno"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-brno"/>
+  </url>
+
+  <!-- CITY: pracovnici-ostrava -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-ostrava</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-ostrava"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-ostrava"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-ostrava -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-ostrava</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-ostrava"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-ostrava"/>
+  </url>
+
+  <!-- CITY: pracovnici-plzen -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-plzen</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-plzen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-plzen"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-plzen -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-plzen</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-plzen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-plzen"/>
+  </url>
+
+  <!-- CITY: pracovnici-pardubice -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-pardubice</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-pardubice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-pardubice"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-pardubice -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-pardubice</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-pardubice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-pardubice"/>
+  </url>
+
+  <!-- CITY: pracovnici-hradec-kralove -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-hradec-kralove</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-hradec-kralove"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-hradec-kralove"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-hradec-kralove -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-hradec-kralove</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-hradec-kralove"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-hradec-kralove"/>
+  </url>
+
+  <!-- CITY: pracovnici-liberec -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-liberec</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-liberec"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-liberec"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-liberec -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-liberec</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-liberec"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-liberec"/>
+  </url>
+
+  <!-- CITY: pracovnici-usti-nad-labem -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-usti-nad-labem</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-usti-nad-labem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-usti-nad-labem"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-usti-nad-labem -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-usti-nad-labem</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-usti-nad-labem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-usti-nad-labem"/>
+  </url>
+
+  <!-- CITY: pracovnici-olomouc -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-olomouc</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-olomouc"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-olomouc"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-olomouc -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-olomouc</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-olomouc"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-olomouc"/>
+  </url>
+
+  <!-- CITY: pracovnici-zlin -->
+  <url>
+    <loc>https://manpower-tnt.agency/pracovnici-zlin</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/pracovnici-zlin"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/pracovnici-zlin"/>
+  </url>
+
+  <!-- CITY: nabor-zamestnancu-zlin -->
+  <url>
+    <loc>https://manpower-tnt.agency/nabor-zamestnancu-zlin</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs"        href="https://manpower-tnt.agency/nabor-zamestnancu-zlin"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manpower-tnt.agency/nabor-zamestnancu-zlin"/>
+  </url>
+
 </urlset>
