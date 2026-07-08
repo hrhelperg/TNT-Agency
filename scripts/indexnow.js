@@ -2,14 +2,31 @@
 const https = require('https');
 
 const HOST = 'manpower-tnt.agency';
-const KEY = '782b9d75b2104f97a302868b55930222';
-const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 
+// The IndexNow key is NEVER hard-coded. It is read from the environment so the
+// same value can be managed in Netlify env vars and GitHub Secrets. The value
+// MUST match the committed public key file (public/<INDEXNOW_KEY>.txt), which is
+// what IndexNow fetches from keyLocation to verify ownership.
 function submitToIndexNow(urlList) {
+  // .trim() guards against a stray trailing newline/space in the env var or
+  // GitHub Secret, which would otherwise corrupt keyLocation and cause a 403.
+  const key = (process.env.INDEXNOW_KEY || '').trim();
+
+  if (!key) {
+    console.warn('IndexNow: INDEXNOW_KEY is not set — skipping IndexNow submission.');
+    return Promise.resolve({ skipped: true, reason: 'missing-key' });
+  }
+
+  if (!Array.isArray(urlList) || urlList.length === 0) {
+    console.warn('IndexNow: no URLs to submit — skipping IndexNow submission.');
+    return Promise.resolve({ skipped: true, reason: 'no-urls' });
+  }
+
+  const keyLocation = `https://${HOST}/${key}.txt`;
   const body = JSON.stringify({
     host: HOST,
-    key: KEY,
-    keyLocation: KEY_LOCATION,
+    key,
+    keyLocation,
     urlList,
   });
 
@@ -39,6 +56,12 @@ function submitToIndexNow(urlList) {
     });
 
     req.on('error', reject);
+    // Guard against a stalled endpoint (connection accepted, no response):
+    // without this the Promise never settles and the CI job would hang until
+    // the 6-hour job timeout. Destroying rejects -> caller treats non-fatal.
+    req.setTimeout(10000, () => {
+      req.destroy(new Error('IndexNow request timed out after 10s'));
+    });
     req.write(body);
     req.end();
   });

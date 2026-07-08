@@ -27,6 +27,11 @@ jobs:
 
       - name: Run post-deploy indexing pipeline
         run: node scripts/post-deploy.js
+        env:
+          # Same value as the Netlify env var and the committed public key file
+          # (public/<INDEXNOW_KEY>.txt). If this secret is not configured the
+          # script logs a warning, skips IndexNow, and still exits 0.
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
 
       - name: Commit updated sitemap back to repo
         run: |
