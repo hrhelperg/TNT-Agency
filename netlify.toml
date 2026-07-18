@@ -1,6 +1,13 @@
 [build]
   command = "npm install && npm run build"
 
+# Serve the Next.js app via the Netlify Next.js runtime (SSR/SSG pages, public/
+# static assets at the web root, and API routes such as /api/send-email as
+# functions). Without this the site was published as static repo-root HTML and
+# Next routes (e.g. the calculator) were not served.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 # ──────────────────────────────────────────────
 # Canonical host: talentpartnerid.com
 # Permanent, path-preserving 301 redirects from every legacy host and from the
