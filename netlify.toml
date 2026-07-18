@@ -1,5 +1,9 @@
 [build]
   command = "npm install && npm run build"
+  # Publish the Next.js build output (NOT the repo root). Without this Netlify
+  # defaulted publish to the base dir, which served static root HTML and made
+  # @netlify/plugin-nextjs fail ("publish directory cannot be the base directory").
+  publish = ".next"
 
 # Serve the Next.js app via the Netlify Next.js runtime (SSR/SSG pages, public/
 # static assets at the web root, and API routes such as /api/send-email as
