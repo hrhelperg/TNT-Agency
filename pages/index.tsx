@@ -54,7 +54,7 @@ export default function Home() {
     <>
       <Head>
         <title>TalentPartnerID — Employment &amp; Staffing Agency | Pardubice, Czech Republic</title>
-        <meta name="description" content="TNT agency s.r.o. — your trusted recruitment partner for permanent placement, executive search, and flexible staffing across all industries. Based in Pardubice, Czech Republic." />
+        <meta name="description" content="TalentPartnerID — your trusted recruitment partner for permanent placement, executive search, and flexible staffing across all industries. Based in Pardubice, Czech Republic. Provozovatel: TNT agency s.r.o." />
         <meta name="keywords" content="personální agentura, pracovní agentura, zprostředkování zaměstnání, executive search, agenturní zaměstnávání, Pardubice, employment agency" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
