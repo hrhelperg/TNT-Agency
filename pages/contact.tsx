@@ -5,12 +5,13 @@ import Footer from '../components/Footer'
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
-  name: 'Contact TNT Agency',
-  description: 'Contact page for TNT Agency recruitment and staffing services',
-  url: 'https://manpower-tnt.agency/contact',
+  name: 'Contact TalentPartnerID',
+  description: 'Contact page for TalentPartnerID recruitment and staffing services',
+  url: 'https://talentpartnerid.com/contact',
   mainEntity: {
     '@type': 'EmploymentAgency',
-    name: 'TNT agency s.r.o.',
+    name: 'TalentPartnerID',
+    legalName: 'TNT agency s.r.o.',
     telephone: '+420776858284',
     email: 'jobbohemiacz@gmail.com',
     address: {
@@ -27,25 +28,25 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact TNT Agency | Get a Free Recruitment Consultation</title>
-        <meta name="description" content="Contact TNT Agency for a free recruitment consultation. Tell us about your open role and we'll respond within 2 business hours with a clear plan. Based in Pardubice, Czech Republic." />
-        <meta name="keywords" content="contact TNT Agency, recruitment consultation, staffing inquiry, employment agency contact" />
+        <title>Contact TalentPartnerID | Get a Free Recruitment Consultation</title>
+        <meta name="description" content="Contact TalentPartnerID for a free recruitment consultation. Tell us about your open role and we'll respond within 2 business hours with a clear plan. Based in Pardubice, Czech Republic." />
+        <meta name="keywords" content="contact TalentPartnerID, recruitment consultation, staffing inquiry, employment agency contact" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
-        <link rel="canonical" href="https://manpower-tnt.agency/contact" />
-        <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/contact" />
-        <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/contact" />
+        <link rel="canonical" href="https://talentpartnerid.com/contact" />
+        <link rel="alternate" hrefLang="en" href="https://talentpartnerid.com/contact" />
+        <link rel="alternate" hrefLang="x-default" href="https://talentpartnerid.com/contact" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://manpower-tnt.agency/contact" />
-        <meta property="og:site_name" content="TNT Agency" />
-        <meta property="og:title" content="Contact TNT Agency | Free Recruitment Consultation" />
-        <meta property="og:description" content="Get in touch with TNT Agency. Send us your brief and receive a response within 2 business hours." />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:url" content="https://talentpartnerid.com/contact" />
+        <meta property="og:site_name" content="TalentPartnerID" />
+        <meta property="og:title" content="Contact TalentPartnerID | Free Recruitment Consultation" />
+        <meta property="og:description" content="Get in touch with TalentPartnerID. Send us your brief and receive a response within 2 business hours." />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact TNT Agency | Free Recruitment Consultation" />
+        <meta name="twitter:title" content="Contact TalentPartnerID | Free Recruitment Consultation" />
         <meta name="twitter:description" content="Contact our team for permanent placement, executive search, or staffing inquiries." />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
         <script key="schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </Head>
 
@@ -132,24 +133,9 @@ export default function Contact() {
 
               </div>
 
-              <div className="contact-socials">
-                <a href="https://www.linkedin.com/company/tntgency" target="_blank" rel="noopener noreferrer" className="soc-btn" aria-label="LinkedIn">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                    <rect x="2" y="9" width="4" height="12" />
-                    <circle cx="4" cy="4" r="2" />
-                  </svg>
-                  LinkedIn
-                </a>
-                <a href="https://www.instagram.com/tntgency" target="_blank" rel="noopener noreferrer" className="soc-btn" aria-label="Instagram">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <rect x="2" y="2" width="20" height="20" rx="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                  </svg>
-                  Instagram
-                </a>
-              </div>
+              {/* Social links intentionally omitted: no confirmed TalentPartnerID
+                  social profiles exist yet. Add confirmed URLs to SITE.social
+                  (lib/content/rules.ts) to surface them; do not reuse old handles. */}
             </div>
 
             <div className="contact__form-wrap fi d2">

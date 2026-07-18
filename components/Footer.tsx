@@ -1,3 +1,12 @@
+import { SITE } from '../lib/content/rules'
+
+/** Human label for a social profile URL (e.g. "linkedin.com/company/x" → "LinkedIn"). */
+function socialLabel(url: string): string {
+  const host = url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]
+  const name = host.split('.')[0]
+  return name.charAt(0).toUpperCase() + name.slice(1)
+}
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -5,11 +14,11 @@ export default function Footer() {
         <div className="footer__inner">
 
           <div className="footer__brand">
-            <a href="/" className="logo logo--light" aria-label="TNT Agency">
-              <span className="logo__mark">TNT</span>
-              <span className="logo__name">Agency</span>
+            <a href="/" className="logo logo--light" aria-label="TalentPartnerID">
+              <span className="logo__mark">Talent</span>
+              <span className="logo__name">PartnerID</span>
             </a>
-            <p data-i18n="footer.tagline">Your trusted employment and staffing partner. Connecting the right people with the right companies since day one.</p>
+            <p data-i18n="footer.tagline">Partner pro nábor, agenturní zaměstnávání a řízení nákladů na pracovní sílu.</p>
             <address>Na Spravedlnosti 1533, Zelené Předměstí, 530 02 Pardubice</address>
           </div>
 
@@ -40,10 +49,15 @@ export default function Footer() {
               <a href="/faq-zamestnavani-pracovniku">Časté dotazy</a>
             </div>
             <div className="footer__col">
-              <div className="footer__col-title" data-i18n="footer.colFollow">Follow Us</div>
-              <a href="https://www.linkedin.com/company/tntgency" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a href="https://www.instagram.com/tntgency" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="https://www.facebook.com/tntgency" target="_blank" rel="noopener noreferrer">Facebook</a>
+              <div className="footer__col-title" data-i18n="footer.colFollow">Kontakt</div>
+              {/* Social links render only when a confirmed profile URL is added to
+                  SITE.social in lib/content/rules.ts. No confirmed TalentPartnerID
+                  profiles exist yet, so nothing is shown (no empty links). */}
+              {SITE.social.map((url) => (
+                <a key={url} href={url} target="_blank" rel="noopener noreferrer">
+                  {socialLabel(url)}
+                </a>
+              ))}
               <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
               <a href="tel:+420776858284">+420 776 858 284</a>
             </div>
@@ -52,7 +66,7 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <span data-i18n="footer.copy">© 2026 TNT Agency s.r.o. All rights reserved.</span>
+          <span data-i18n="footer.copy">© 2026 TalentPartnerID · Provozovatel: TNT agency s.r.o.</span>
           <div className="footer__legal">
             <a href="/terms.html" data-i18n="footer.terms">Terms</a>
             <a href="/privacy-policy" data-i18n="footer.priv">Privacy</a>

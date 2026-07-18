@@ -10,6 +10,7 @@ import type {
   LegalTopic,
   RecruitmentService,
 } from './types'
+import { SITE } from './rules'
 import { DISCLAIMER_CS, FALLBACK_DATA_CS } from './tone'
 
 const escapeHtml = (s: string): string =>
@@ -149,16 +150,17 @@ export const articleSchemaTemplate = (input: {
     description: input.description,
     author: {
       '@type': 'Organization',
-      name: 'TNT Agency',
-      url: 'https://manpower-tnt.agency',
+      name: SITE.brand,
+      url: SITE.baseUrl,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'TNT Agency',
-      url: 'https://manpower-tnt.agency',
+      name: SITE.brand,
+      legalName: SITE.legalName,
+      url: SITE.baseUrl,
       logo: {
         '@type': 'ImageObject',
-        url: 'https://manpower-tnt.agency/favicon.svg',
+        url: `${SITE.baseUrl}/favicon.svg`,
       },
     },
     datePublished: input.datePublished,

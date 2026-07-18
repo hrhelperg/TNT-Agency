@@ -15,6 +15,9 @@ import {
   slugifyHeading,
   type SeoPage,
 } from '../lib/content/seo-page'
+import { SITE } from '../lib/content/rules'
+
+const OG_IMAGE = `${SITE.baseUrl}/assets/og.svg`
 
 // Reusable server-rendered layout for every long-form SEO content page.
 //
@@ -62,7 +65,7 @@ export default function SeoArticle({ page, activePage = 'guides' }: SeoArticlePr
   return (
     <>
       <Head>
-        <title>{`${page.title} | TNT Agency`}</title>
+        <title>{`${page.title} | ${SITE.brand}`}</title>
         <meta name="description" content={page.description} />
         <meta name="keywords" content={page.keywords.join(', ')} />
         <meta
@@ -76,19 +79,19 @@ export default function SeoArticle({ page, activePage = 'guides' }: SeoArticlePr
 
         <meta property="og:type" content="article" />
         <meta property="og:url" content={url} />
-        <meta property="og:site_name" content="TNT Agency" />
+        <meta property="og:site_name" content={SITE.brand} />
         <meta property="og:title" content={page.title} />
         <meta property="og:description" content={page.description} />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:image" content={OG_IMAGE} />
         <meta property="og:locale" content="cs_CZ" />
         <meta property="article:published_time" content={`${page.datePublished}T00:00:00+02:00`} />
         <meta property="article:modified_time" content={`${page.dateModified}T00:00:00Z`} />
-        <meta property="article:author" content="TNT Agency" />
+        <meta property="article:author" content={SITE.brand} />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={page.title} />
         <meta name="twitter:description" content={page.description} />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:image" content={OG_IMAGE} />
 
         <script
           key="schema-article"
@@ -122,7 +125,7 @@ export default function SeoArticle({ page, activePage = 'guides' }: SeoArticlePr
           <h1>{page.title}</h1>
           <p className="seo-hero__sub">{page.heroSubtitle}</p>
           <div className="seo-article-meta">
-            <span>TNT Agency</span>
+            <span>{SITE.brand}</span>
             <span>Aktualizováno {page.dateModified}</span>
             <span>Obecné informace, nejedná se o právní poradenství</span>
           </div>

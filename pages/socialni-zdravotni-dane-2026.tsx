@@ -11,7 +11,7 @@ import {
   generateSourceBlock,
 } from '../lib/content'
 
-const PAGE_URL = 'https://manpower-tnt.agency/socialni-zdravotni-dane-2026'
+const PAGE_URL = 'https://talentpartnerid.com/socialni-zdravotni-dane-2026'
 const PAGE_PATH = '/socialni-zdravotni-dane-2026'
 
 const stripScriptTags = (s: string): string =>
@@ -38,7 +38,7 @@ export default function SocialniZdravotniDane2026() {
   return (
     <>
       <Head>
-        <title>{`${article.title} | TNT Agency`}</title>
+        <title>{`${article.title} | TalentPartnerID`}</title>
         <meta name="description" content={article.description} />
         <meta name="keywords" content={article.keywords.join(', ')} />
         <meta name="robots" content="index, follow" />
@@ -49,19 +49,19 @@ export default function SocialniZdravotniDane2026() {
 
         <meta property="og:type" content="article" />
         <meta property="og:url" content={PAGE_URL} />
-        <meta property="og:site_name" content="TNT Agency" />
+        <meta property="og:site_name" content="TalentPartnerID" />
         <meta property="og:title" content={article.title} />
         <meta property="og:description" content={article.description} />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta property="og:locale" content="cs_CZ" />
         <meta property="article:published_time" content={`${article.datePublished}T00:00:00+02:00`} />
         <meta property="article:modified_time" content={`${article.dateModified}T00:00:00Z`} />
-        <meta property="article:author" content="TNT Agency" />
+        <meta property="article:author" content="TalentPartnerID" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={article.title} />
         <meta name="twitter:description" content={article.description} />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
 
         <script
           key="schema-article"
@@ -89,7 +89,7 @@ export default function SocialniZdravotniDane2026() {
             u oficiálních institucí.
           </p>
           <div className="article-meta">
-            <span>TNT Agency</span>
+            <span>TalentPartnerID</span>
             <span>Aktualizováno {article.dateModified}</span>
             <span>Obecné informace, nejedná se o právní poradenství</span>
           </div>

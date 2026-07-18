@@ -1,7 +1,7 @@
 // Sends a batch of URLs to IndexNow (Bing/Yandex/etc.)
 const https = require('https');
 
-const HOST = 'manpower-tnt.agency';
+const HOST = 'talentpartnerid.com';
 
 // The IndexNow key is NEVER hard-coded. It is read from the environment so the
 // same value can be managed in Netlify env vars and GitHub Secrets. The value

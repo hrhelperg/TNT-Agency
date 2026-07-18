@@ -2,6 +2,14 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+// Email identity is intentionally decoupled from the domain/brand migration.
+// - Public recipient stays jobbohemiacz@gmail.com (approved), overridable via EMAIL_TO.
+// - The sender keeps its currently working default and is overridable via EMAIL_FROM.
+//   A talentpartnerid.com sender (e.g. noreply@talentpartnerid.com) can be adopted
+//   LATER by setting EMAIL_FROM — but only once talentpartnerid.com is DNS-verified
+//   with the email provider (Resend). Do not switch the default to an unverified
+//   new-domain sender, as that would break delivery in production.
 const EMAIL_TO = process.env.EMAIL_TO || 'jobbohemiacz@gmail.com'
 const EMAIL_FROM = process.env.EMAIL_FROM || 'noreply@manpower-tnt.agency'
 
@@ -126,7 +134,7 @@ export default async function handler(
     }
 
     const { error } = await resend.emails.send({
-      from: `TNT Agency <${EMAIL_FROM}>`,
+      from: `TalentPartnerID <${EMAIL_FROM}>`,
       to: [EMAIL_TO],
       replyTo,
       subject,

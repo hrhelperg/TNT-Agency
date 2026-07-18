@@ -308,6 +308,7 @@ export const NAKLADY_NA_ZAMESTNANCE_CR: SeoPage = {
   ],
   sources: [SRC.zakonSocialni, SRC.zakonZdravotni, SRC.cssz, SRC.financniSprava, SRC.vzp],
   internalLinks: [
+    { href: '/kalkulacka-mzdy-agenturniho-zamestnance', label: 'Kalkulačka mzdy a nákladů 2026' },
     { href: '/socialni-zdravotni-dane-2026', label: 'Přehled odvodů v roce 2026' },
     { href: '/minimalni-mzda-2026', label: 'Minimální mzda 2026' },
     { href: '/povinnosti-zamestnavatele', label: 'Povinnosti zaměstnavatele' },

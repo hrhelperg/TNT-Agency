@@ -1099,6 +1099,7 @@ export const SKUTECNE_NAKLADY_NA_ZAMESTNANCE: SeoPage = {
   sources: [SRC.zakonikPrace, SRC.zakonSocialni, SRC.zakonZdravotni, SRC.cssz, SRC.financniSprava],
   internalLinks: [
     employerHubLink,
+    { href: '/kalkulacka-mzdy-agenturniho-zamestnance', label: 'Kalkulačka mzdy a nákladů 2026' },
     { href: '/naklady-na-zamestnance-cr', label: 'Náklady na zaměstnance v ČR' },
     { href: '/kolik-stoji-zamestnanec', label: 'Kolik stojí zaměstnanec' },
     { href: '/neprime-naklady-na-zamestnance', label: 'Nepřímé náklady na zaměstnance' },
@@ -1159,6 +1160,7 @@ export const KOLIK_STOJI_ZAMESTNANEC: SeoPage = {
   sources: [SRC.zakonSocialni, SRC.zakonZdravotni, SRC.cssz, SRC.financniSprava, SRC.vzp],
   internalLinks: [
     employerHubLink,
+    { href: '/kalkulacka-mzdy-agenturniho-zamestnance', label: 'Kalkulačka mzdy a nákladů 2026' },
     { href: '/skutecne-naklady-na-zamestnance', label: 'Skutečné náklady na zaměstnance' },
     { href: '/neprime-naklady-na-zamestnance', label: 'Nepřímé náklady na zaměstnance' },
     { href: '/naklady-na-zamestnance-cr', label: 'Náklady na zaměstnance v ČR' },

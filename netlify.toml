@@ -2,36 +2,57 @@
   command = "npm install && npm run build"
 
 # ──────────────────────────────────────────────
-# Redirect old domain to new primary domain
+# Canonical host: talentpartnerid.com
+# Permanent, path-preserving 301 redirects from every legacy host and from the
+# www subdomain of the new domain. Netlify appends the original query string
+# automatically. The apex talentpartnerid.com is intentionally NOT redirected
+# (no self-redirect / loop), and each source points directly to the apex
+# (single hop, no chains).
 # ──────────────────────────────────────────────
+
+# Legacy primary domain (current) → new canonical
 [[redirects]]
-  from   = "https://tntgency.org/*"
-  to     = "https://manpower-tnt.agency/:splat"
+  from   = "https://manpower-tnt.agency/*"
+  to     = "https://talentpartnerid.com/:splat"
   status = 301
   force  = true
 
-[[redirects]]
-  from   = "https://www.tntgency.org/*"
-  to     = "https://manpower-tnt.agency/:splat"
-  status = 301
-  force  = true
-
-# www → apex
 [[redirects]]
   from   = "https://www.manpower-tnt.agency/*"
-  to     = "https://manpower-tnt.agency/:splat"
+  to     = "https://talentpartnerid.com/:splat"
   status = 301
   force  = true
 
+# Legacy no-hyphen variant → new canonical
 [[redirects]]
   from   = "https://manpowertnt.agency/*"
-  to     = "https://manpower-tnt.agency/:splat"
+  to     = "https://talentpartnerid.com/:splat"
   status = 301
   force  = true
 
 [[redirects]]
   from   = "https://www.manpowertnt.agency/*"
-  to     = "https://manpower-tnt.agency/:splat"
+  to     = "https://talentpartnerid.com/:splat"
+  status = 301
+  force  = true
+
+# Legacy tntgency.org → new canonical
+[[redirects]]
+  from   = "https://tntgency.org/*"
+  to     = "https://talentpartnerid.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.tntgency.org/*"
+  to     = "https://talentpartnerid.com/:splat"
+  status = 301
+  force  = true
+
+# www of the new domain → apex canonical
+[[redirects]]
+  from   = "https://www.talentpartnerid.com/*"
+  to     = "https://talentpartnerid.com/:splat"
   status = 301
   force  = true
 

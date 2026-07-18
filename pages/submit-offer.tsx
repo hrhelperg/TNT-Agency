@@ -8,7 +8,7 @@ const schema = {
   '@type': 'WebPage',
   name: 'Post Your Offer',
   description: 'Submit a client offer or staffing request to be matched with recruitment and staffing agencies',
-  url: 'https://manpower-tnt.agency/submit-offer',
+  url: 'https://talentpartnerid.com/submit-offer',
 }
 
 export default function SubmitOffer() {
@@ -96,25 +96,25 @@ export default function SubmitOffer() {
   return (
     <>
       <Head>
-        <title>Post Your Offer | TNT Agency</title>
+        <title>Post Your Offer | TalentPartnerID</title>
         <meta name="description" content="Post your recruitment or staffing requirement and get matched with the right agency. Tell us what you need — budget, timeline, and team size — and we'll take it from there. Reviewed manually, never auto-published." />
         <meta name="keywords" content="post offer, hiring request, find recruitment agency, staffing requirement, client offer" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
-        <link rel="canonical" href="https://manpower-tnt.agency/submit-offer" />
-        <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/submit-offer" />
-        <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/submit-offer" />
+        <link rel="canonical" href="https://talentpartnerid.com/submit-offer" />
+        <link rel="alternate" hrefLang="en" href="https://talentpartnerid.com/submit-offer" />
+        <link rel="alternate" hrefLang="x-default" href="https://talentpartnerid.com/submit-offer" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://manpower-tnt.agency/submit-offer" />
-        <meta property="og:site_name" content="TNT Agency" />
-        <meta property="og:title" content="Post Your Offer | TNT Agency" />
+        <meta property="og:url" content="https://talentpartnerid.com/submit-offer" />
+        <meta property="og:site_name" content="TalentPartnerID" />
+        <meta property="og:title" content="Post Your Offer | TalentPartnerID" />
         <meta property="og:description" content="Describe your hiring needs and get matched with recruitment agencies. Free, fast, and manually reviewed." />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Post Your Offer | TNT Agency" />
+        <meta name="twitter:title" content="Post Your Offer | TalentPartnerID" />
         <meta name="twitter:description" content="Post your staffing requirement and get matched with the right agency partner." />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
         <script key="schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </Head>
 

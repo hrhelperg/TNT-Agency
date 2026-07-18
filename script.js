@@ -21,7 +21,7 @@ const T = {
       h1b:    'the Right People',
       h1c:    'with the Right',
       h1accent: 'Companies.',
-      sub:    'TNT Agency is your trusted recruitment partner — delivering qualified candidates for permanent roles, executive positions, and flexible staffing needs across all industries.',
+      sub:    'TalentPartnerID is your trusted recruitment partner — delivering qualified candidates for permanent roles, executive positions, and flexible staffing needs across all industries.',
       cta1:   'I\'m Looking for Talent',
       cta2:   'I\'m Looking for a Job',
     },
@@ -152,7 +152,7 @@ const T = {
       },
     },
     why: {
-      eyebrow: 'Why TNT Agency',
+      eyebrow: 'Why TalentPartnerID',
       h2:      'We Don\'t Just Fill Positions.<br>We Build Lasting Teams.',
       cards: [
         { num: '01', title: 'Speed Without Compromise',   desc: 'First qualified candidates delivered within 24 hours of receiving your brief. We move fast because we maintain an active, pre-screened talent pipeline — not a static CV database.' },
@@ -165,7 +165,7 @@ const T = {
       eyebrow: 'Client Reviews',
       h2:      'What Our Clients Say',
       items: [
-        { quote: 'Add your client testimonial here. Describe how TNT Agency helped your company find the right candidate quickly and professionally.', name: '[Client Name]', role: '[Position] · [Company]' },
+        { quote: 'Add your client testimonial here. Describe how TalentPartnerID helped your company find the right candidate quickly and professionally.', name: '[Client Name]', role: '[Position] · [Company]' },
         { quote: 'Add your second client testimonial here. Highlight speed of delivery, quality of candidates, or the personal service your team provided.',  name: '[Client Name]', role: '[Position] · [Company]' },
         { quote: 'Add your third client testimonial here. Mention the specific service (executive search, temp staffing, etc.) and the result achieved.',      name: '[Client Name]', role: '[Position] · [Company]' },
       ],
@@ -226,7 +226,7 @@ const T = {
         candidates: 'For Candidates',
         contact:    'Contact',
       },
-      copy:  '© 2026 TNT Agency s.r.o. All rights reserved.',
+      copy:  '© 2026 TNT agency s.r.o. All rights reserved.',
       terms: 'Terms',
       priv:  'Privacy',
       cook:  'Cookies',
@@ -382,7 +382,7 @@ const T = {
       },
     },
     why: {
-      eyebrow: 'Proč TNT Agency',
+      eyebrow: 'Proč TalentPartnerID',
       h2:      'Neobsazujeme jen pozice.<br>Budujeme trvalé týmy.',
       cards: [
         { num: '01', title: 'Rychlost bez kompromisů',       desc: 'První kvalifikovaní kandidáti dodáni do 24 hodin od obdržení zadání. Jsme rychlí, protože udržujeme aktivní, předem prověřený talent pipeline — ne statickou databázi životopisů.' },
@@ -395,7 +395,7 @@ const T = {
       eyebrow: 'Hodnocení klientů',
       h2:      'Co říkají naši klienti',
       items: [
-        { quote: 'Přidejte první referencí klienta. Popište, jak TNT Agency pomohla vaší firmě rychle a profesionálně najít správného kandidáta.', name: '[Jméno klienta]', role: '[Pozice] · [Firma]' },
+        { quote: 'Přidejte první referencí klienta. Popište, jak TalentPartnerID pomohla vaší firmě rychle a profesionálně najít správného kandidáta.', name: '[Jméno klienta]', role: '[Pozice] · [Firma]' },
         { quote: 'Přidejte druhou referencí klienta. Zdůrazněte rychlost dodání, kvalitu kandidátů nebo osobní přístup vašeho týmu.',              name: '[Jméno klienta]', role: '[Pozice] · [Firma]' },
         { quote: 'Přidejte třetí referencí klienta. Zmiňte konkrétní službu (executive search, agenturní zaměstnávání apod.) a dosažený výsledek.', name: '[Jméno klienta]', role: '[Pozice] · [Firma]' },
       ],
@@ -481,7 +481,7 @@ const T = {
       h1b:      'die richtigen Menschen',
       h1c:      'mit den richtigen',
       h1accent: 'Unternehmen.',
-      sub:      'TNT Agency ist Ihr zuverlässiger Rekrutierungspartner — wir liefern qualifizierte Kandidaten für Festanstellungen, Führungspositionen und flexible Personalbedürfnisse in allen Branchen.',
+      sub:      'TalentPartnerID ist Ihr zuverlässiger Rekrutierungspartner — wir liefern qualifizierte Kandidaten für Festanstellungen, Führungspositionen und flexible Personalbedürfnisse in allen Branchen.',
       cta1:     'Ich suche Talente',
       cta2:     'Ich suche einen Job',
     },
@@ -612,7 +612,7 @@ const T = {
       },
     },
     why: {
-      eyebrow: 'Warum TNT Agency',
+      eyebrow: 'Warum TalentPartnerID',
       h2:      'Wir besetzen nicht nur Stellen.<br>Wir bauen dauerhafte Teams.',
       cards: [
         { num: '01', title: 'Geschwindigkeit ohne Kompromisse', desc: 'Erste qualifizierte Kandidaten innerhalb von 24 Stunden nach Erhalt Ihres Briefings. Wir sind schnell, weil wir eine aktive, vorgeprüfte Talentpipeline pflegen.' },
@@ -625,7 +625,7 @@ const T = {
       eyebrow: 'Kundenbewertungen',
       h2:      'Was unsere Kunden sagen',
       items: [
-        { quote: 'Fügen Sie hier Ihr erstes Kundentestimonial hinzu. Beschreiben Sie, wie TNT Agency Ihrem Unternehmen half, schnell und professionell den richtigen Kandidaten zu finden.', name: '[Kundenname]', role: '[Position] · [Unternehmen]' },
+        { quote: 'Fügen Sie hier Ihr erstes Kundentestimonial hinzu. Beschreiben Sie, wie TalentPartnerID Ihrem Unternehmen half, schnell und professionell den richtigen Kandidaten zu finden.', name: '[Kundenname]', role: '[Position] · [Unternehmen]' },
         { quote: 'Fügen Sie hier Ihr zweites Kundentestimonial hinzu. Betonen Sie Liefergeschwindigkeit, Kandidatenqualität oder den persönlichen Service.',                                name: '[Kundenname]', role: '[Position] · [Unternehmen]' },
         { quote: 'Fügen Sie hier Ihr drittes Kundentestimonial hinzu. Erwähnen Sie den spezifischen Service und das erzielte Ergebnis.',                                                  name: '[Kundenname]', role: '[Position] · [Unternehmen]' },
       ],
@@ -686,7 +686,7 @@ const T = {
         candidates: 'Für Bewerber',
         contact:    'Kontakt',
       },
-      copy:  '© 2026 TNT Agency s.r.o. Alle Rechte vorbehalten.',
+      copy:  '© 2026 TNT agency s.r.o. Alle Rechte vorbehalten.',
       terms: 'AGB',
       priv:  'Datenschutz',
       cook:  'Cookies',

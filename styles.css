@@ -1817,3 +1817,212 @@ p  { color: var(--text-2); line-height: 1.8; }
   .seo-article { padding: 48px 0 64px; }
   .seo-sidebar { grid-template-columns: 1fr; padding: 18px; }
 }
+
+/* ── Payroll calculator (kalkulacka-mzdy-agenturniho-zamestnance) ───────────── */
+.pcalc-methodology {
+  background: var(--accent-tint);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+}
+.pcalc-modes-wrap { margin-bottom: 22px; }
+.pcalc-fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px 22px;
+  margin: 0 0 18px;
+  background: var(--bg);
+}
+.pcalc-fieldset > legend {
+  font-weight: 700;
+  color: var(--navy);
+  padding: 0 8px;
+  font-size: 0.98rem;
+}
+.pcalc__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.pcalc__results {
+  position: sticky;
+  top: 90px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+}
+.pcalc-results__title { margin: 0 0 14px; font-size: 1.3rem; color: var(--navy); }
+.pcalc-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.pcalc-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 6px; }
+.pcalc-field > label { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.pcalc-field__input { display: flex; align-items: stretch; }
+.pcalc-field input,
+.pcalc-field select {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+}
+.pcalc-field input:focus,
+.pcalc-field select:focus,
+.pcalc-mode-btn:focus-visible,
+.pcalc-preset:focus-visible,
+.pcalc-line summary:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+.pcalc-field__suffix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  margin-left: -1px;
+  border: 1px solid var(--border);
+  border-left: none;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--bg-alt);
+  font-size: 0.82rem;
+  color: var(--navy);
+  white-space: nowrap;
+}
+.pcalc-field__hint { font-size: 0.76rem; color: #5a6b82; line-height: 1.4; }
+.pcalc-toggle { display: flex; align-items: flex-start; gap: 9px; margin: 8px 0; font-size: 0.88rem; }
+.pcalc-toggle input { margin-top: 2px; width: 17px; height: 17px; flex: none; }
+.pcalc-modes { display: flex; flex-wrap: wrap; gap: 8px; }
+.pcalc-modes--sm { margin-bottom: 12px; }
+.pcalc-mode-btn {
+  flex: 1 1 auto;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--navy);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--tr);
+}
+.pcalc-mode-btn.is-active { background: var(--navy); color: var(--text-inv); border-color: var(--navy); }
+.pcalc-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.pcalc-preset {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pcalc-preset.is-active { background: var(--accent); color: var(--text-inv); border-color: var(--accent); }
+.pcalc-note { font-size: 0.8rem; color: #5a6b82; line-height: 1.5; margin: 8px 0 0; }
+.pcalc-center { text-align: center; }
+.pcalc-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.pcalc-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pcalc-card__label { font-size: 0.76rem; color: #5a6b82; line-height: 1.3; }
+.pcalc-card__value { font-size: 1.18rem; font-weight: 800; color: var(--navy); }
+.pcalc-card--accent { border-color: var(--accent); background: var(--accent-tint); }
+.pcalc-card--accent .pcalc-card__value { color: var(--accent-dark); }
+.pcalc-card--total { grid-column: 1 / -1; background: var(--navy); border-color: var(--navy); }
+.pcalc-card--total .pcalc-card__label { color: #b9c6dc; }
+.pcalc-card--total .pcalc-card__value { color: var(--text-inv); font-size: 1.4rem; }
+.pcalc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 20px; }
+.pcalc-actions .btn-outline-white { border-color: var(--navy); color: var(--navy); }
+.pcalc-sub { font-size: 1.02rem; color: var(--navy); margin: 18px 0 8px; }
+.pcalc-lines { display: flex; flex-direction: column; gap: 4px; }
+.pcalc-line { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); }
+.pcalc-line > summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.pcalc-line > summary::-webkit-details-marker { display: none; }
+.pcalc-line__label { color: var(--text); }
+.pcalc-line__amount { font-weight: 700; color: var(--navy); white-space: nowrap; }
+.pcalc-line__detail { padding: 4px 12px 12px; font-size: 0.82rem; color: #47566b; border-top: 1px solid var(--border); }
+.pcalc-line__detail p { margin: 8px 0 0; }
+.pcalc-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.pcalc-badge--statutory { background: #e3f0e3; color: #256b25; }
+.pcalc-badge--user-entered { background: #e3eaf5; color: #2a4a86; }
+.pcalc-badge--estimated { background: #fbeecd; color: #8a5a12; }
+.pcalc-badge--derived { background: #eee; color: #555; }
+.pcalc-warnings {
+  background: #fff7e6;
+  border: 1px solid #f0d089;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px 10px 28px;
+  font-size: 0.8rem;
+  color: #7a5a10;
+  margin: 0 0 14px;
+}
+.pcalc-warnings li { margin: 4px 0; }
+.pcalc-warning-box { background: #fde8e8; border: 1px solid #f0a9a9; border-radius: var(--radius-sm); padding: 14px; color: #a12626; }
+.pcalc-table-wrap { overflow-x: auto; }
+.pcalc-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.pcalc-table th,
+.pcalc-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: right; }
+.pcalc-table thead th { text-align: right; color: var(--navy); border-bottom: 2px solid var(--border); }
+.pcalc-table th[scope="row"] { text-align: left; font-weight: 600; color: var(--text); }
+.pcalc-table tr.is-summary { background: var(--accent-tint); }
+.pcalc-table tr.is-summary th,
+.pcalc-table tr.is-summary td { font-weight: 800; color: var(--navy); }
+.pcalc-scenario { display: grid; gap: 8px; }
+.pcalc-scenario > div { display: flex; justify-content: space-between; padding: 9px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.88rem; }
+.pcalc-scenario strong { color: var(--navy); }
+.pcalc-disclaimer {
+  margin: 26px 0 0;
+  padding: 16px 18px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: #47566b;
+  line-height: 1.6;
+}
+.pcalc-faq details { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; background: var(--bg); }
+.pcalc-faq summary { padding: 12px 14px; cursor: pointer; font-weight: 600; color: var(--navy); }
+.pcalc-faq p { padding: 0 14px 14px; margin: 0; color: var(--text); }
+.pcalc-sources { font-size: 0.86rem; line-height: 1.7; }
+.pcalc-visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+@media (max-width: 900px) {
+  .pcalc__grid { grid-template-columns: 1fr; }
+  .pcalc__results { position: static; }
+}
+@media (max-width: 560px) {
+  .pcalc-grid-2 { grid-template-columns: 1fr; }
+  .pcalc-cards { grid-template-columns: 1fr; }
+}
+@media print {
+  .header, .footer, .pcalc__panel, .pcalc-actions, .pcalc-modes-wrap, .btn { display: none !important; }
+  .pcalc__grid { grid-template-columns: 1fr; }
+  .pcalc__results { position: static; border: none; background: none; }
+}

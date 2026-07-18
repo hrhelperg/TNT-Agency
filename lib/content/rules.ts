@@ -20,8 +20,16 @@ export const REQUIRED_FIELDS = {
 }
 
 export const SITE = {
-  domain: 'manpower-tnt.agency',
-  baseUrl: 'https://manpower-tnt.agency',
-  brand: 'TNT Agency',
+  domain: 'talentpartnerid.com',
+  baseUrl: 'https://talentpartnerid.com',
+  // Public product/agency brand.
+  brand: 'TalentPartnerID',
+  // Registered legal operator — unchanged. Shown as "Provozovatel: TNT agency s.r.o."
   legalName: 'TNT agency s.r.o.',
+  // Short Czech positioning used wherever a brand description is needed.
+  positioning: 'Partner pro nábor, agenturní zaměstnávání a řízení nákladů na pracovní sílu.',
+  // Official social profiles. Empty until confirmed URLs exist — the footer and
+  // JSON-LD sameAs render nothing while empty. Add confirmed https URLs here to
+  // surface them. Do NOT reuse the previous brand's social handles as if official.
+  social: [] as readonly string[],
 } as const

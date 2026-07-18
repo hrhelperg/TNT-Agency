@@ -8,9 +8,9 @@ export default function Header({ activePage }: HeaderProps) {
       <header className="header" id="header">
         <div className="container">
           <div className="header__inner">
-            <a href="/" className="logo" aria-label="TNT Agency">
-              <span className="logo__mark">TNT</span>
-              <span className="logo__name">Agency</span>
+            <a href="/" className="logo" aria-label="TalentPartnerID">
+              <span className="logo__mark">Talent</span>
+              <span className="logo__name">PartnerID</span>
             </a>
 
             <nav className="nav" aria-label="Main navigation">

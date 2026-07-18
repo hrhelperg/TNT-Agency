@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
-const PAGE_URL = 'https://manpower-tnt.agency/zamestnavani-cizincu'
+const PAGE_URL = 'https://talentpartnerid.com/zamestnavani-cizincu'
 const SOURCE_URL = 'https://up.gov.cz/zamestnavani-cizincu'
 const MODIFIED_DATE = '2026-04-30'
 const MODIFIED_TIME = '2026-04-30T00:00:00Z'
@@ -15,16 +15,16 @@ const articleSchema = {
     'Přehled pravidel pro zaměstnávání cizinců v ČR podle země původu, typu oprávnění a povinností zaměstnavatele.',
   author: {
     '@type': 'Organization',
-    name: 'TNT Agency',
-    url: 'https://manpower-tnt.agency',
+    name: 'TalentPartnerID',
+    url: 'https://talentpartnerid.com',
   },
   publisher: {
     '@type': 'Organization',
-    name: 'TNT Agency',
-    url: 'https://manpower-tnt.agency',
+    name: 'TalentPartnerID',
+    url: 'https://talentpartnerid.com',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://manpower-tnt.agency/favicon.svg',
+      url: 'https://talentpartnerid.com/favicon.svg',
     },
   },
   mainEntityOfPage: {
@@ -46,7 +46,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Domů',
-      item: 'https://manpower-tnt.agency/',
+      item: 'https://talentpartnerid.com/',
     },
     {
       '@type': 'ListItem',
@@ -107,17 +107,17 @@ export default function ZamestnavaniCizincu() {
 
         <meta property="og:type" content="article" />
         <meta property="og:url" content={PAGE_URL} />
-        <meta property="og:site_name" content="TNT Agency" />
+        <meta property="og:site_name" content="TalentPartnerID" />
         <meta property="og:title" content="Zaměstnávání cizinců v ČR: pravidla pro zaměstnavatele" />
         <meta
           property="og:description"
           content="Přehled pravidel pro zaměstnávání cizinců v ČR podle země původu, typu oprávnění a povinností zaměstnavatele."
         />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta property="og:locale" content="cs_CZ" />
         <meta property="article:published_time" content="2026-03-31T00:00:00+02:00" />
         <meta property="article:modified_time" content={MODIFIED_TIME} />
-        <meta property="article:author" content="TNT Agency" />
+        <meta property="article:author" content="TalentPartnerID" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Zaměstnávání cizinců v ČR: pravidla pro zaměstnavatele" />
@@ -125,7 +125,7 @@ export default function ZamestnavaniCizincu() {
           name="twitter:description"
           content="Přehled pravidel pro zaměstnávání cizinců v ČR podle země původu, typu oprávnění a povinností zaměstnavatele."
         />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
 
         <script key="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
         <script key="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />

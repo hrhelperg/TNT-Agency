@@ -6,8 +6,8 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Agencies Directory',
-  description: 'Directory of recruitment and staffing agencies on TNT Agency',
-  url: 'https://manpower-tnt.agency/agencies',
+  description: 'Directory of recruitment and staffing agencies on TalentPartnerID',
+  url: 'https://talentpartnerid.com/agencies',
   numberOfItems: 0,
 }
 
@@ -15,25 +15,25 @@ export default function Agencies() {
   return (
     <>
       <Head>
-        <title>Agencies &amp; Recruitment Services | TNT Agency</title>
-        <meta name="description" content="Explore TNT Agency's recruitment and staffing services: permanent placement, executive search, temporary staffing, and HR consulting. Browse the agency directory or submit your own agency profile." />
+        <title>Agencies &amp; Recruitment Services | TalentPartnerID</title>
+        <meta name="description" content="Explore TalentPartnerID's recruitment and staffing services: permanent placement, executive search, temporary staffing, and HR consulting. Browse the agency directory or submit your own agency profile." />
         <meta name="keywords" content="recruitment agencies, staffing services, permanent placement, executive search, temporary staffing, HR consulting, agency directory" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
-        <link rel="canonical" href="https://manpower-tnt.agency/agencies" />
-        <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/agencies" />
-        <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/agencies" />
+        <link rel="canonical" href="https://talentpartnerid.com/agencies" />
+        <link rel="alternate" hrefLang="en" href="https://talentpartnerid.com/agencies" />
+        <link rel="alternate" hrefLang="x-default" href="https://talentpartnerid.com/agencies" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://manpower-tnt.agency/agencies" />
-        <meta property="og:site_name" content="TNT Agency" />
-        <meta property="og:title" content="Agencies &amp; Recruitment Services | TNT Agency" />
+        <meta property="og:url" content="https://talentpartnerid.com/agencies" />
+        <meta property="og:site_name" content="TalentPartnerID" />
+        <meta property="og:title" content="Agencies &amp; Recruitment Services | TalentPartnerID" />
         <meta property="og:description" content="Explore recruitment services, browse verified agencies, or submit your own agency to get discovered by new clients." />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Agencies &amp; Recruitment Services | TNT Agency" />
-        <meta name="twitter:description" content="Find verified agencies and learn about TNT Agency's recruitment services across all industries." />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:title" content="Agencies &amp; Recruitment Services | TalentPartnerID" />
+        <meta name="twitter:description" content="Find verified agencies and learn about TalentPartnerID's recruitment services across all industries." />
+        <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
         <script key="schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </Head>
 
@@ -45,7 +45,7 @@ export default function Agencies() {
           <div className="eyebrow eyebrow--light fi">Agency Directory &amp; Services</div>
           <h1 className="fi d1">Find the Right<br />Agency Partner</h1>
           <p className="page-hero__sub fi d2">
-            Browse verified recruitment and staffing agencies, explore our services, and discover how TNT Agency can fill your next role — fast.
+            Browse verified recruitment and staffing agencies, explore our services, and discover how TalentPartnerID can fill your next role — fast.
           </p>
         </div>
         <div className="page-hero__wave" aria-hidden="true">
@@ -119,7 +119,7 @@ export default function Agencies() {
       <section className="section why" id="about">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="why.eyebrow">Why TNT Agency</div>
+            <div className="eyebrow" data-i18n="why.eyebrow">Why TalentPartnerID</div>
             <h2 data-i18n="why.h2">We Don&apos;t Just Fill Positions.<br />We Build Lasting Teams.</h2>
           </div>
           {/* Rendered by script.js */}

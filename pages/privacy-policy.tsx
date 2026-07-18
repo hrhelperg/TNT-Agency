@@ -6,20 +6,20 @@ export default function PrivacyPolicy() {
   return (
     <>
       <Head>
-        <title>Privacy Policy | TNT Agency</title>
+        <title>Privacy Policy | TalentPartnerID</title>
         <meta
           name="description"
-          content="TNT Agency privacy policy — how we collect, use, and protect your personal data in compliance with GDPR and Czech data protection law."
+          content="TalentPartnerID privacy policy — how we collect, use, and protect your personal data in compliance with GDPR and Czech data protection law."
         />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
-        <link rel="canonical" href="https://manpower-tnt.agency/privacy-policy" />
+        <link rel="canonical" href="https://talentpartnerid.com/privacy-policy" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://manpower-tnt.agency/privacy-policy" />
-        <meta property="og:title" content="Privacy Policy | TNT Agency" />
-        <meta property="og:description" content="How TNT Agency collects, uses and protects your personal data." />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:url" content="https://talentpartnerid.com/privacy-policy" />
+        <meta property="og:title" content="Privacy Policy | TalentPartnerID" />
+        <meta property="og:description" content="How TalentPartnerID collects, uses and protects your personal data." />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
       </Head>
 
       <Header />
@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
             <p className="legal-intro">
               This Privacy Policy explains how TNT agency s.r.o. (&ldquo;we&rdquo;, &ldquo;us&rdquo;,
               &ldquo;our&rdquo;) collects, uses, stores, and protects your personal data when you use
-              our website at <strong>manpower-tnt.agency</strong> or submit any form. We comply with
+              our website at <strong>talentpartnerid.com</strong> or submit any form. We comply with
               Regulation (EU) 2016/679 (GDPR) and Act No. 110/2019 Coll. on personal data
               processing.
             </p>

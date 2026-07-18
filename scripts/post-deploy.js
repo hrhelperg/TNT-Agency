@@ -4,7 +4,7 @@ const { updateSitemap } = require('./update-sitemap');
 const { submitToIndexNow } = require('./indexnow');
 
 function pingBing() {
-  const sitemapUrl = encodeURIComponent('https://manpower-tnt.agency/sitemap.xml');
+  const sitemapUrl = encodeURIComponent('https://talentpartnerid.com/sitemap.xml');
   return new Promise((resolve) => {
     const options = {
       hostname: 'www.bing.com',

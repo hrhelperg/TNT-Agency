@@ -6,8 +6,8 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Job Offers & Client Requests',
-  description: 'Open positions and client staffing requests on TNT Agency',
-  url: 'https://manpower-tnt.agency/offers',
+  description: 'Open positions and client staffing requests on TalentPartnerID',
+  url: 'https://talentpartnerid.com/offers',
   numberOfItems: 0,
 }
 
@@ -15,25 +15,25 @@ export default function Offers() {
   return (
     <>
       <Head>
-        <title>Job Offers &amp; Client Requests | TNT Agency</title>
-        <meta name="description" content="Browse open job offers and client requests from companies looking for recruitment support. Find your next role or post your staffing requirement. TNT Agency — free for candidates, always." />
+        <title>Job Offers &amp; Client Requests | TalentPartnerID</title>
+        <meta name="description" content="Browse open job offers and client requests from companies looking for recruitment support. Find your next role or post your staffing requirement. TalentPartnerID — free for candidates, always." />
         <meta name="keywords" content="job offers, client requests, staffing requirements, find agency, recruitment needs, job opportunities Czech Republic" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
-        <link rel="canonical" href="https://manpower-tnt.agency/offers" />
-        <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/offers" />
-        <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/offers" />
+        <link rel="canonical" href="https://talentpartnerid.com/offers" />
+        <link rel="alternate" hrefLang="en" href="https://talentpartnerid.com/offers" />
+        <link rel="alternate" hrefLang="x-default" href="https://talentpartnerid.com/offers" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://manpower-tnt.agency/offers" />
-        <meta property="og:site_name" content="TNT Agency" />
-        <meta property="og:title" content="Job Offers &amp; Client Requests | TNT Agency" />
+        <meta property="og:url" content="https://talentpartnerid.com/offers" />
+        <meta property="og:site_name" content="TalentPartnerID" />
+        <meta property="og:title" content="Job Offers &amp; Client Requests | TalentPartnerID" />
         <meta property="og:description" content="Browse open positions and client offers or post your own staffing requirement to get matched with the right agency." />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Job Offers &amp; Client Requests | TNT Agency" />
-        <meta name="twitter:description" content="Find your next role or post your hiring requirement. TNT Agency connects talent with companies." />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:title" content="Job Offers &amp; Client Requests | TalentPartnerID" />
+        <meta name="twitter:description" content="Find your next role or post your hiring requirement. TalentPartnerID connects talent with companies." />
+        <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
         <script key="schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </Head>
 

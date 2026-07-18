@@ -5,10 +5,10 @@ import Footer from '../components/Footer'
 const employmentAgencySchema = {
   '@context': 'https://schema.org',
   '@type': 'EmploymentAgency',
-  name: 'TNT agency s.r.o.',
+  name: 'TalentPartnerID',
   legalName: 'TNT agency s.r.o.',
-  url: 'https://manpower-tnt.agency',
-  logo: 'https://manpower-tnt.agency/favicon.svg',
+  url: 'https://talentpartnerid.com',
+  logo: 'https://talentpartnerid.com/favicon.svg',
   description: 'TNT agency s.r.o. je personální agentura se sídlem v Pardubicích. Zprostředkujeme zaměstnání dle §14 zákona č. 435/2004 Sb., o zaměstnanosti.',
   address: {
     '@type': 'PostalAddress',
@@ -39,12 +39,12 @@ const employmentAgencySchema = {
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'TNT Agency',
-  url: 'https://manpower-tnt.agency',
+  name: 'TalentPartnerID',
+  url: 'https://talentpartnerid.com',
   description: 'Employment and staffing agency connecting talent with opportunity across all industries.',
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://manpower-tnt.agency/?s={search_term_string}',
+    target: 'https://talentpartnerid.com/?s={search_term_string}',
     'query-input': 'required name=search_term_string',
   },
 }
@@ -53,32 +53,32 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>TNT Agency — Employment &amp; Staffing Agency | Pardubice, Czech Republic</title>
-        <meta name="description" content="TNT Agency s.r.o. — your trusted recruitment partner for permanent placement, executive search, and flexible staffing across all industries. Based in Pardubice, Czech Republic." />
+        <title>TalentPartnerID — Employment &amp; Staffing Agency | Pardubice, Czech Republic</title>
+        <meta name="description" content="TNT agency s.r.o. — your trusted recruitment partner for permanent placement, executive search, and flexible staffing across all industries. Based in Pardubice, Czech Republic." />
         <meta name="keywords" content="personální agentura, pracovní agentura, zprostředkování zaměstnání, executive search, agenturní zaměstnávání, Pardubice, employment agency" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
-        <link rel="canonical" href="https://manpower-tnt.agency/" />
-        <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/" />
-        <link rel="alternate" hrefLang="cs" href="https://manpower-tnt.agency/" />
-        <link rel="alternate" hrefLang="de" href="https://manpower-tnt.agency/" />
-        <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/" />
+        <link rel="canonical" href="https://talentpartnerid.com/" />
+        <link rel="alternate" hrefLang="en" href="https://talentpartnerid.com/" />
+        <link rel="alternate" hrefLang="cs" href="https://talentpartnerid.com/" />
+        <link rel="alternate" hrefLang="de" href="https://talentpartnerid.com/" />
+        <link rel="alternate" hrefLang="x-default" href="https://talentpartnerid.com/" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://manpower-tnt.agency/" />
-        <meta property="og:site_name" content="TNT Agency" />
-        <meta property="og:title" content="TNT Agency — Employment &amp; Staffing Agency" />
+        <meta property="og:url" content="https://talentpartnerid.com/" />
+        <meta property="og:site_name" content="TalentPartnerID" />
+        <meta property="og:title" content="TalentPartnerID — Employment &amp; Staffing Agency" />
         <meta property="og:description" content="Your trusted recruitment partner for permanent, temporary, and executive staffing. We connect the right people with the right companies." />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="cs_CZ" />
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:locale:alternate" content="de_DE" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="TNT Agency — Employment &amp; Staffing Agency" />
+        <meta name="twitter:title" content="TalentPartnerID — Employment &amp; Staffing Agency" />
         <meta name="twitter:description" content="Your trusted recruitment partner. Permanent placement, executive search, and flexible staffing across all industries." />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
         <script key="schema-agency" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(employmentAgencySchema) }} />
         <script key="schema-website" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       </Head>
@@ -99,7 +99,7 @@ export default function Home() {
               <span data-i18n="hero.h1c">with the Right</span> <span className="text-accent" data-i18n="hero.h1accent">Companies.</span>
             </h1>
             <p className="hero__sub fi d2" data-i18n="hero.sub">
-              TNT Agency is your trusted recruitment partner — delivering qualified candidates for permanent roles, executive positions, and flexible staffing needs across all industries.
+              TalentPartnerID is your trusted recruitment partner — delivering qualified candidates for permanent roles, executive positions, and flexible staffing needs across all industries.
             </p>
             <div className="hero__ctas fi d3">
               <a href="/agencies" className="btn btn-accent btn-lg" data-i18n="hero.cta1">I&apos;m Looking for Talent</a>

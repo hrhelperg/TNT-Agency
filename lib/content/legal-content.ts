@@ -144,7 +144,7 @@ export const ARTICLE_SOCIALNI_ZDRAVOTNI_DANE_2026: ArticleData = {
       heading: 'Shrnutí',
       body: [
         'Sociální a zdravotní pojištění představuje pro zaměstnavatele i zaměstnance pravidelnou administrativní povinnost s přímým dopadem na čistou mzdu i na rozpočet firmy. V roce 2026 se vyplatí mít přehled o aktuálních sazbách, evidenci kvalitně vést a v případě nejistoty raději ověřit konkrétní situaci u oficiálních institucí, případně u personální či účetní firmy.',
-        'TNT Agency jako personální agentura se sídlem v Pardubicích pomáhá zaměstnavatelům i pracovníkům orientovat se v náboru a v základním rámci pracovněprávních povinností. Pro konkrétní výpočty a přesné sazby vždy doporučujeme oficiální zdroje uvedené níže.',
+        'TalentPartnerID jako personální agentura se sídlem v Pardubicích pomáhá zaměstnavatelům i pracovníkům orientovat se v náboru a v základním rámci pracovněprávních povinností. Pro konkrétní výpočty a přesné sazby vždy doporučujeme oficiální zdroje uvedené níže.',
       ],
     },
   ],

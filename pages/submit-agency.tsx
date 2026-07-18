@@ -7,8 +7,8 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   name: 'Submit Your Agency',
-  description: 'Submit your recruitment or staffing agency to the TNT Agency directory',
-  url: 'https://manpower-tnt.agency/submit-agency',
+  description: 'Submit your recruitment or staffing agency to the TalentPartnerID directory',
+  url: 'https://talentpartnerid.com/submit-agency',
 }
 
 export default function SubmitAgency() {
@@ -108,25 +108,25 @@ export default function SubmitAgency() {
   return (
     <>
       <Head>
-        <title>Submit Your Agency | TNT Agency</title>
-        <meta name="description" content="Submit your recruitment or staffing agency to the TNT Agency directory. Get discovered by companies looking for your services. Every submission is reviewed manually before publication." />
+        <title>Submit Your Agency | TalentPartnerID</title>
+        <meta name="description" content="Submit your recruitment or staffing agency to the TalentPartnerID directory. Get discovered by companies looking for your services. Every submission is reviewed manually before publication." />
         <meta name="keywords" content="submit agency, list agency, agency directory, recruitment agency submission" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
-        <link rel="canonical" href="https://manpower-tnt.agency/submit-agency" />
-        <link rel="alternate" hrefLang="en" href="https://manpower-tnt.agency/submit-agency" />
-        <link rel="alternate" hrefLang="x-default" href="https://manpower-tnt.agency/submit-agency" />
+        <link rel="canonical" href="https://talentpartnerid.com/submit-agency" />
+        <link rel="alternate" hrefLang="en" href="https://talentpartnerid.com/submit-agency" />
+        <link rel="alternate" hrefLang="x-default" href="https://talentpartnerid.com/submit-agency" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://manpower-tnt.agency/submit-agency" />
-        <meta property="og:site_name" content="TNT Agency" />
-        <meta property="og:title" content="Submit Your Agency | TNT Agency" />
+        <meta property="og:url" content="https://talentpartnerid.com/submit-agency" />
+        <meta property="og:site_name" content="TalentPartnerID" />
+        <meta property="og:title" content="Submit Your Agency | TalentPartnerID" />
         <meta property="og:description" content="List your recruitment or staffing agency and get discovered by new clients. Free submission, manually reviewed." />
-        <meta property="og:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Submit Your Agency | TNT Agency" />
+        <meta name="twitter:title" content="Submit Your Agency | TalentPartnerID" />
         <meta name="twitter:description" content="Get your agency listed and start receiving new client inquiries. Free and manually moderated." />
-        <meta name="twitter:image" content="https://manpower-tnt.agency/assets/og.jpg" />
+        <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
         <script key="schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </Head>
 
