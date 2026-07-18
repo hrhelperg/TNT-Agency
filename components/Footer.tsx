@@ -15,8 +15,12 @@ export default function Footer() {
 
           <div className="footer__brand">
             <a href="/" className="logo logo--light" aria-label="TalentPartnerID">
-              <span className="logo__mark">Talent</span>
-              <span className="logo__name">PartnerID</span>
+              <svg className="logo__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="40" height="40" rx="9.5" fill="#ffffff" />
+                <text x="20" y="20.5" fontFamily="Inter, Arial, sans-serif" fontSize="15" fontWeight="800" fill="#0d1e3d" textAnchor="middle" letterSpacing="-0.5">TP</text>
+                <text x="20" y="31.5" fontFamily="Inter, Arial, sans-serif" fontSize="7.5" fontWeight="700" fill="#f05a28" textAnchor="middle" letterSpacing="1.5">id</text>
+              </svg>
+              <span className="logo__word">TalentPartner<span className="id">ID</span></span>
             </a>
             <p data-i18n="footer.tagline">Partner pro nábor, agenturní zaměstnávání a řízení nákladů na pracovní sílu.</p>
             <address>Na Spravedlnosti 1533, Zelené Předměstí, 530 02 Pardubice</address>

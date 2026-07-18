@@ -9,8 +9,12 @@ export default function Header({ activePage }: HeaderProps) {
         <div className="container">
           <div className="header__inner">
             <a href="/" className="logo" aria-label="TalentPartnerID">
-              <span className="logo__mark">Talent</span>
-              <span className="logo__name">PartnerID</span>
+              <svg className="logo__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="40" height="40" rx="9.5" fill="#0d1e3d" />
+                <text x="20" y="20.5" fontFamily="Inter, Arial, sans-serif" fontSize="15" fontWeight="800" fill="#ffffff" textAnchor="middle" letterSpacing="-0.5">TP</text>
+                <text x="20" y="31.5" fontFamily="Inter, Arial, sans-serif" fontSize="7.5" fontWeight="700" fill="#f05a28" textAnchor="middle" letterSpacing="1.5">id</text>
+              </svg>
+              <span className="logo__word">TalentPartner<span className="id">ID</span></span>
             </a>
 
             <nav className="nav" aria-label="Main navigation">
