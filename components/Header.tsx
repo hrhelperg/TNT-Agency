@@ -10,9 +10,9 @@ export default function Header({ activePage }: HeaderProps) {
           <div className="header__inner">
             <a href="/" className="logo" aria-label="TalentPartnerID">
               <svg className="logo__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect width="40" height="40" rx="9.5" fill="#0d1e3d" />
-                <text x="20" y="20.5" fontFamily="Inter, Arial, sans-serif" fontSize="15" fontWeight="800" fill="#ffffff" textAnchor="middle" letterSpacing="-0.5">TP</text>
-                <text x="20" y="31.5" fontFamily="Inter, Arial, sans-serif" fontSize="7.5" fontWeight="700" fill="#f05a28" textAnchor="middle" letterSpacing="1.5">id</text>
+                <rect width="40" height="40" rx="10" fill="#0d1e3d" />
+                <text x="19.5" y="24.5" fontFamily="Inter, Arial, sans-serif" fontSize="19.5" fontWeight="800" fill="#ffffff" textAnchor="middle" letterSpacing="-1.3">TP</text>
+                <text x="33.5" y="34" fontFamily="Inter, Arial, sans-serif" fontSize="8.5" fontWeight="700" fill="#f05a28" textAnchor="end" letterSpacing="-0.2">id</text>
               </svg>
               <span className="logo__word">TalentPartner<span className="id">ID</span></span>
             </a>
@@ -50,12 +50,15 @@ export default function Header({ activePage }: HeaderProps) {
         <a href="/submit-agency">Submit Agency</a>
         <a href="/submit-offer">Post Offer</a>
         <a href="/contact">Contact</a>
-        <div className="lang-switcher lang-switcher--mobile" aria-label="Language selector">
-          <button className="lang-btn" data-lang="en">EN</button>
-          <button className="lang-btn" data-lang="cs">CS</button>
-          <button className="lang-btn" data-lang="de">DE</button>
+        <div className="lang-select" role="group" aria-label="Website language">
+          <span className="lang-select__label">Language</span>
+          <div className="lang-switcher lang-switcher--mobile">
+            <button className="lang-btn active" data-lang="en" aria-label="English">EN</button>
+            <button className="lang-btn" data-lang="cs" aria-label="Čeština">CS</button>
+            <button className="lang-btn" data-lang="de" aria-label="Deutsch">DE</button>
+          </div>
         </div>
-        <a href="/contact" className="btn btn-primary">Contact Us</a>
+        <a href="/contact" className="btn btn-primary btn-lg">Contact Us</a>
       </nav>
     </>
   )
