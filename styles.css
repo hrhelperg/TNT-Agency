@@ -28,7 +28,7 @@
   /* Text — calmer body, restrained hierarchy */
   --text:         #0d1e3d;
   --text-2:       #48576d;
-  --text-3:       #8a97ab;
+  --text-3:       #64748b;
   --text-inv:     #ffffff;
   --text-inv-2:   rgba(255, 255, 255, 0.72);
 
@@ -125,7 +125,9 @@ summary:focus-visible {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  /* max() keeps 24px on normal screens and only insets on notched devices
+     (landscape safe-area) once viewport-fit=cover is set — no visual change otherwise. */
+  padding: 0 max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
 }
 
 /* ----------------------------------------------------------------
@@ -443,7 +445,11 @@ p  { color: var(--text-2); line-height: 1.7; }
 .hamburger {
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
+  width: 44px;
+  height: 44px;
   padding: 6px;
   border-radius: var(--radius-sm);
   transition: background var(--tr);
@@ -467,11 +473,18 @@ p  { color: var(--text-2); line-height: 1.7; }
   inset: 0;
   z-index: 99;
   background: rgba(255,255,255,0.97);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
+  justify-content: flex-start;
+  gap: 20px;
+  /* Clear the fixed header, respect the notch/home-indicator, and let the menu
+     scroll so the CTA is always reachable on short screens. */
+  padding: calc(88px + env(safe-area-inset-top)) 24px calc(32px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--tr);
@@ -512,9 +525,9 @@ p  { color: var(--text-2); line-height: 1.7; }
 .hero::after {
   content: '';
   position: absolute;
-  width: 480px; height: 480px;
-  background: radial-gradient(circle, rgba(240,90,40,0.05), transparent 62%);
-  top: -80px; right: -60px;
+  width: 640px; height: 640px;
+  background: radial-gradient(circle, rgba(240,90,40,0.06), transparent 60%);
+  top: -140px; right: -120px;
   pointer-events: none;
 }
 
@@ -532,7 +545,7 @@ p  { color: var(--text-2); line-height: 1.7; }
   border: 1px solid rgba(255,255,255,0.11);
   padding: 7px 15px 7px 12px;
   border-radius: 100px;
-  margin-bottom: 30px;
+  margin-bottom: var(--s4);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
@@ -836,6 +849,13 @@ p  { color: var(--text-2); line-height: 1.7; }
   grid-template-columns: 1fr 1fr;
   gap: 72px;
   align-items: center;
+}
+/* Homepage "For Candidates" has a single column (no cand-visual) — collapse the
+   grid so it reads as an intentional focused band instead of an empty right half.
+   Progressive enhancement: browsers without :has() keep the two-column grid. */
+.candidates__inner:has(> .fi:only-child) {
+  grid-template-columns: 1fr;
+  max-width: 760px;
 }
 
 .candidates .eyebrow--light { margin-bottom: 18px; }
@@ -1238,7 +1258,7 @@ p  { color: var(--text-2); line-height: 1.7; }
 }
 .footer__brand address {
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.46);
+  color: rgba(255,255,255,0.62);
   line-height: 1.7;
 }
 
@@ -1269,7 +1289,7 @@ p  { color: var(--text-2); line-height: 1.7; }
   justify-content: space-between;
   padding: 24px 0;
   font-size: 0.8rem;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.62);
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -1295,8 +1315,8 @@ p  { color: var(--text-2); line-height: 1.7; }
 }
 
 @media (max-width: 768px) {
-  .section { padding: 80px 0; }
-  .section-head { margin-bottom: 40px; }
+  .section { padding: var(--s10) 0; }
+  .section-head { margin-bottom: var(--s5); }
   .section-head p { font-size: 1.05rem; }
 
   .nav, .header__right .btn { display: none; }
@@ -1384,7 +1404,7 @@ p  { color: var(--text-2); line-height: 1.7; }
   font-weight: 700;
   letter-spacing: 0.03em;
   padding: 0 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background var(--tr), color var(--tr), transform var(--tr), box-shadow var(--tr);
   line-height: 1;
@@ -1607,7 +1627,8 @@ p  { color: var(--text-2); line-height: 1.7; }
   background: #0d1e3d;
   color: #fff;
   box-shadow: 0 -4px 32px rgba(0,0,0,.25);
-  padding: 18px 24px;
+  /* Keep buttons clear of the notch/home-indicator once viewport-fit=cover is set */
+  padding: 18px max(24px, env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
 }
 .cookie-banner__inner {
   max-width: 1200px;
@@ -1761,7 +1782,12 @@ p  { color: var(--text-2); line-height: 1.7; }
   line-height: 1.8;
 }
 @media (max-width: 768px) {
-  .legal-table { font-size: 0.82rem; }
+  .legal-table {
+    font-size: 0.82rem;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   .legal-table th, .legal-table td { padding: 8px 10px; }
 }
 
@@ -1851,11 +1877,20 @@ p  { color: var(--text-2); line-height: 1.7; }
 .seo-sidebar a:hover { color: var(--accent); }
 
 .seo-body { min-width: 0; }
+/* Offset the fixed .header (~60px, taller unscrolled) so hash / TOC / breadcrumb
+   jumps to section ids and #faq don't land the heading under the sticky header. */
+.seo-body [id],
+.seo-body h2,
+.article-content h2,
+.article-content [id] { scroll-margin-top: 88px; }
 .seo-body p,
 .seo-body li {
   color: var(--text-2);
   font-size: 1rem;
   line-height: 1.85;
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 .seo-body p { margin-bottom: 18px; }
 .seo-intro {
@@ -1880,6 +1915,42 @@ p  { color: var(--text-2); line-height: 1.7; }
   text-underline-offset: 3px;
 }
 
+/* Generator / markdown tables — scroll inside themselves on narrow screens
+   (no wrapper div is emitted, so the scroll container lives on the table). */
+.seo-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-collapse: collapse;
+  margin: 0 0 24px;
+  font-size: 0.94rem;
+}
+.seo-body th,
+.seo-body td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.seo-body thead th {
+  color: var(--text);
+  font-weight: 700;
+  border-bottom: 2px solid var(--border-2);
+  white-space: nowrap;
+}
+.seo-body tbody tr:nth-child(even) td { background: var(--bg-alt); }
+
+/* Pull-quote treatment for any blockquote in generator prose */
+.seo-body blockquote {
+  margin: 0 0 22px;
+  padding: 4px 0 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+  font-size: 1.04rem;
+}
+.seo-body blockquote p:last-child { margin-bottom: 0; }
+
 /* Generator block: FAQ */
 .seo-body .faq { margin-top: 46px; }
 .seo-body .faq h2 { margin-bottom: 18px; }
@@ -1897,7 +1968,12 @@ p  { color: var(--text-2); line-height: 1.7; }
   padding: 12px 0;
   line-height: 1.5;
 }
-.seo-body .faq details[open] summary { color: var(--accent); }
+.seo-body .faq details[open] summary {
+  color: var(--accent);
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
 .seo-body .faq p { margin: 0 0 14px; }
 
 /* Generator block: methodology + sources + data notes */
@@ -2175,11 +2251,26 @@ p  { color: var(--text-2); line-height: 1.7; }
 .contact-cta-card--wide { max-width: 640px; margin: 0 auto; }
 .contact-cta-card h3 { margin: 0 0 10px; color: var(--navy); }
 .contact-cta-card > p { color: var(--text); margin: 0 0 20px; line-height: 1.6; }
-.contact-cta-card__btn { margin-bottom: 18px; }
-.contact-cta-card__line { font-size: 0.95rem; color: var(--text); margin: 6px 0; }
-.contact-cta-card__line a { color: var(--accent-dark); font-weight: 600; }
-.contact-cta-card a:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
+.contact-cta-card__btn { margin-bottom: 24px; }
+/* Hairline break: primary email CTA above, secondary contact lines below */
+.contact-cta-card__btn + .contact-cta-card__line {
+  margin-top: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.contact-cta-card__line { font-size: 0.95rem; color: var(--text); margin: 2px 0; }
+/* Selectable email/phone text with a comfortable (~36px) hit area */
+.contact-cta-card__line a {
+  display: inline-block;
+  padding: 7px 8px;
+  color: var(--accent-dark);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+}
+.contact-cta-card__line a:hover { color: var(--accent); }
+/* Scope the override to the text links so the primary CTA keeps the standard .btn ring */
+.contact-cta-card__line a:focus-visible {
+  outline: 3px solid var(--accent-ring);
+  outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
