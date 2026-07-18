@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
@@ -12,99 +11,6 @@ const schema = {
 }
 
 export default function SubmitAgency() {
-  useEffect(() => {
-    const form = document.getElementById('agencyForm') as HTMLFormElement | null
-    const success = document.getElementById('formSuccess') as HTMLElement | null
-    const errorBox = document.getElementById('formError') as HTMLElement | null
-    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null
-    const descArea = document.getElementById('agencyDescription') as HTMLTextAreaElement | null
-    const descCount = document.getElementById('descCount') as HTMLElement | null
-
-    if (!form || !success || !errorBox || !submitBtn || !descArea || !descCount) return
-
-    function showError(msg: string) {
-      errorBox!.textContent = msg
-      errorBox!.style.display = 'block'
-      errorBox!.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }
-    function clearError() {
-      errorBox!.style.display = 'none'
-      errorBox!.textContent = ''
-    }
-    function handleInput() {
-      const len = descArea!.value.length
-      descCount!.textContent = len + ' / 1000'
-      descCount!.style.color = len < 200 || len > 1000 ? '#991b1b' : 'var(--text-3)'
-    }
-    function handleSubmit(e: Event) {
-      e.preventDefault()
-      clearError()
-
-      const name = (document.getElementById('agencyName') as HTMLInputElement).value.trim()
-      const website = (document.getElementById('agencyWebsite') as HTMLInputElement).value.trim()
-      const services = (document.getElementById('agencyServices') as HTMLInputElement).value.trim()
-      const desc = descArea!.value.trim()
-      const email = (document.getElementById('agencyEmail') as HTMLInputElement).value.trim()
-      const location = (document.getElementById('agencyLocation') as HTMLInputElement).value.trim()
-      const lookingForClients = (document.getElementById('lookingForClients') as HTMLInputElement).checked ? 'Yes' : 'No'
-      const gdprConsent = (document.getElementById('agencyGdprConsent') as HTMLInputElement).checked
-
-      if (!name) { showError('Agency Name is required.'); return }
-      if (!website) { showError('Website URL is required.'); return }
-      if (!services) { showError('Services field is required.'); return }
-      if (desc.length < 200) { showError('Description must be at least 200 characters (currently ' + desc.length + ').'); return }
-      if (desc.length > 1000) { showError('Description must not exceed 1000 characters.'); return }
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showError('Please enter a valid contact email address.')
-        return
-      }
-      if (!gdprConsent) {
-        showError('Please accept the Privacy Policy before submitting.')
-        return
-      }
-
-      submitBtn!.disabled = true
-      submitBtn!.textContent = 'Sending…'
-
-      fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'agency',
-          agencyName: name,
-          website,
-          services,
-          description: desc,
-          location,
-          contactEmail: email,
-          lookingForClients,
-        }),
-      })
-        .then(async (res) => {
-          const json = await res.json()
-          if (res.ok) {
-            form!.style.display = 'none'
-            success!.style.display = 'block'
-            success!.scrollIntoView({ behavior: 'smooth', block: 'start' })
-          } else {
-            throw new Error(json.error || 'Server error ' + res.status)
-          }
-        })
-        .catch((err: Error) => {
-          submitBtn!.disabled = false
-          submitBtn!.textContent = 'Submit Agency →'
-          showError(err.message || 'Something went wrong. Please email us directly at jobbohemiacz@gmail.com')
-        })
-    }
-
-    descArea.addEventListener('input', handleInput)
-    form.addEventListener('submit', handleSubmit)
-    return () => {
-      descArea.removeEventListener('input', handleInput)
-      form.removeEventListener('submit', handleSubmit)
-    }
-  }, [])
-
   return (
     <>
       <Head>
@@ -153,123 +59,25 @@ export default function SubmitAgency() {
         <div className="container">
           <div className="submit-wrap">
 
-            {/* Success message */}
-            <div className="form-success" id="formSuccess" role="alert" style={{ display: 'none' }}>
-              <div className="form-success__icon">✅</div>
-              <h3>Submission Received!</h3>
+            <div className="contact-cta-card contact-cta-card--wide">
+              <h3>Registrace agentury</h3>
               <p>
-                Thank you. Your agency submission has been sent to our team for review. We&apos;ll be in touch if your profile is approved for publication.<br /><br />
-                <a href="/agencies" style={{ color: 'var(--accent)', fontWeight: 600 }}>Browse the agency directory →</a>
+                Napište nám e-mail a uveďte název agentury, web, nabízené služby, lokalitu
+                a krátký popis. Ozveme se vám.
+              </p>
+              <a
+                className="btn btn-primary btn-lg contact-cta-card__btn"
+                href="mailto:jobbohemiacz@gmail.com?subject=Registrace%20agentury%20%E2%80%93%20TalentPartnerID"
+              >
+                Napsat e-mail
+              </a>
+              <p className="contact-cta-card__line">
+                E-mail: <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
+              </p>
+              <p className="contact-cta-card__line">
+                Telefon: <a href="tel:+420776858284">+420 776 858 284</a>
               </p>
             </div>
-
-            {/* Form */}
-            <form
-              className="contact-form"
-              id="agencyForm"
-              noValidate
-            >
-
-              <h3>Agency Details</h3>
-
-              <div className="form-error-msg" id="formError" role="alert" style={{ display: 'none' }}></div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="agencyName">Agency Name *</label>
-                  <input
-                    type="text"
-                    id="agencyName"
-                    name="agency-name"
-                    placeholder="e.g. Acme Recruitment Ltd."
-                    required
-                    autoComplete="organization"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="agencyWebsite">Website URL *</label>
-                  <input
-                    type="url"
-                    id="agencyWebsite"
-                    name="website"
-                    placeholder="https://youragency.com"
-                    required
-                    autoComplete="url"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="agencyServices">Services *</label>
-                <input
-                  type="text"
-                  id="agencyServices"
-                  name="services"
-                  placeholder="e.g. Permanent Placement, Executive Search, Temp Staffing"
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="agencyDescription">
-                  Description * <span style={{ fontWeight: 400, color: 'var(--text-3)' }}>(200–1000 characters)</span>
-                </label>
-                <textarea
-                  id="agencyDescription"
-                  name="description"
-                  rows={5}
-                  placeholder="Describe your agency: specializations, industries you serve, typical client profile, years in business..."
-                  required
-                  minLength={200}
-                  maxLength={1000}
-                ></textarea>
-                <span id="descCount" style={{ fontSize: '0.78rem', color: 'var(--text-3)', marginTop: '4px', display: 'block' }}>0 / 1000</span>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="agencyLocation">
-                    Location <span style={{ fontWeight: 400, color: 'var(--text-3)' }}>(optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="agencyLocation"
-                    name="location"
-                    placeholder="e.g. Prague, Czech Republic"
-                    autoComplete="address-level2"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="agencyEmail">Contact Email *</label>
-                  <input
-                    type="email"
-                    id="agencyEmail"
-                    name="contact-email"
-                    placeholder="contact@youragency.com"
-                    required
-                    autoComplete="email"
-                  />
-                </div>
-              </div>
-
-              <label className="form-check">
-                <input type="checkbox" id="lookingForClients" name="looking-for-clients" value="Yes" />
-                <span className="form-check__label">We are actively looking for new clients</span>
-              </label>
-
-              <label className="form-check form-check--gdpr">
-                <input type="checkbox" id="agencyGdprConsent" name="gdpr-consent" required />
-                <span className="form-check__label">
-                  I agree to the processing of my personal data in accordance with the{' '}
-                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. *
-                </span>
-              </label>
-
-              <button type="submit" className="btn btn-accent btn-lg btn-full" id="submitBtn">
-                Submit Agency →
-              </button>
-              <p className="form-note">Submissions are reviewed manually. Nothing is published automatically. We may contact you for additional details.</p>
-            </form>
 
           </div>
         </div>

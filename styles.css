@@ -2026,3 +2026,24 @@ p  { color: var(--text-2); line-height: 1.8; }
   .pcalc__grid { grid-template-columns: 1fr; }
   .pcalc__results { position: static; border: none; background: none; }
 }
+
+/* ── Static contact CTA card (replaces the removed server-submitted forms) ──── */
+.contact-cta-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.contact-cta-card--wide { max-width: 640px; margin: 0 auto; }
+.contact-cta-card h3 { margin: 0 0 10px; color: var(--navy); }
+.contact-cta-card > p { color: var(--text); margin: 0 0 20px; line-height: 1.6; }
+.contact-cta-card__btn { margin-bottom: 18px; }
+.contact-cta-card__line { font-size: 0.95rem; color: var(--text); margin: 6px 0; }
+.contact-cta-card__line a { color: var(--accent-dark); font-weight: 600; }
+.contact-cta-card a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}

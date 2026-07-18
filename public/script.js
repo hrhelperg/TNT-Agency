@@ -173,7 +173,7 @@ const T = {
     contact: {
       eyebrow:     'Get In Touch',
       h2:          'Ready to Find<br>Your Next Great Hire?',
-      sub:         'Tell us about your open role. We\'ll get back to you within 2 hours during business hours with a clear plan and honest timeline.',
+      sub:         'Tell us about your open role. We\'ll get back to you on business days.',
       labelPhone:  'Phone',
       labelEmail:  'Email',
       labelOffice: 'Office',
@@ -202,7 +202,7 @@ const T = {
         message:    'Tell Us About the Role *',
         messagePh:  'Job title, key requirements, timeline, and any other relevant details…',
         submit:     'Send Brief →',
-        note:       'We respond within 2 business hours. 100% confidential.',
+        note:       '100% confidential.',
         sending:    'Sending…',
         sent:       'Sent ✓',
         successMsg: 'Message sent! We\'ll be in touch within 24 hours.',
@@ -403,7 +403,7 @@ const T = {
     contact: {
       eyebrow:     'Kontaktujte nás',
       h2:          'Připraveni najít<br>vašeho ideálního kandidáta?',
-      sub:         'Řekněte nám o volné pozici. Ozveme se do 2 hodin v pracovní době s jasným plánem a reálným harmonogramem.',
+      sub:         'Řekněte nám o volné pozici. Na zprávy odpovídáme v pracovní dny.',
       labelPhone:  'Telefon',
       labelEmail:  'E-mail',
       labelOffice: 'Kancelář',
@@ -432,7 +432,7 @@ const T = {
         message:    'Popište pozici *',
         messagePh:  'Název pozice, klíčové požadavky, časový rámec a další relevantní informace…',
         submit:     'Odeslat zadání →',
-        note:       'Odpovídáme do 2 pracovních hodin. 100% diskrétní.',
+        note:       '100% diskrétní.',
         sending:    'Odesílám…',
         sent:       'Odesláno ✓',
         successMsg: 'Zpráva odeslána! Ozveme se vám do 24 hodin.',
@@ -633,7 +633,7 @@ const T = {
     contact: {
       eyebrow:     'Kontakt aufnehmen',
       h2:          'Bereit, Ihren nächsten<br>Top-Mitarbeiter zu finden?',
-      sub:         'Erzählen Sie uns von Ihrer offenen Stelle. Wir melden uns innerhalb von 2 Stunden während der Geschäftszeiten mit einem klaren Plan.',
+      sub:         'Erzählen Sie uns von Ihrer offenen Stelle. Wir antworten an Werktagen.',
       labelPhone:  'Telefon',
       labelEmail:  'E-Mail',
       labelOffice: 'Büro',
@@ -662,7 +662,7 @@ const T = {
         message:    'Beschreiben Sie die Stelle *',
         messagePh:  'Jobtitel, Anforderungen, Zeitplan und weitere relevante Details…',
         submit:     'Briefing senden →',
-        note:       'Wir antworten innerhalb von 2 Geschäftsstunden. 100% vertraulich.',
+        note:       '100% vertraulich.',
         sending:    'Wird gesendet…',
         sent:       'Gesendet ✓',
         successMsg: 'Nachricht gesendet! Wir melden uns innerhalb von 24 Stunden.',
@@ -1040,70 +1040,6 @@ document.addEventListener('click', e => {
     window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - headerH - 16, behavior: 'smooth' });
   }
 });
-
-/* ----------------------------------------------------------------
-   CONTACT FORM
-   ---------------------------------------------------------------- */
-const form      = document.getElementById('contactForm');
-const submitBtn = document.getElementById('submitBtn');
-
-if (form) {
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const ft    = window._formT || T.en.contact.form;
-    const name  = form.name.value.trim();
-    const email = form.email.value.trim();
-    const msg   = form.message.value.trim();
-
-    if (!name || !email || !msg) { showFormMsg(ft.errorFields, 'error'); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showFormMsg(ft.errorEmail, 'error'); return; }
-    const gdprEl = form.querySelector('[name="gdpr-consent"]');
-    if (gdprEl && !gdprEl.checked) { showFormMsg('Please accept the Privacy Policy before submitting.', 'error'); return; }
-
-    submitBtn.disabled    = true;
-    submitBtn.textContent = ft.sending;
-
-    try {
-      const payload = {
-        type:    'contact',
-        name:    form.name    ? form.name.value.trim()    : '',
-        company: form.company ? form.company.value.trim() : '',
-        email:   form.email   ? form.email.value.trim()   : '',
-        phone:   form.phone   ? form.phone.value.trim()   : '',
-        service: form.service ? form.service.value        : '',
-        message: form.message ? form.message.value.trim() : '',
-      };
-      const res = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const json = await res.json();
-      if (res.ok) {
-        form.reset();
-        showFormMsg(ft.successMsg, 'success');
-        submitBtn.textContent = ft.sent;
-      } else throw new Error(json.error || 'Failed');
-    } catch (err) {
-      showFormMsg(err.message || ft.errorMsg, 'error');
-      submitBtn.disabled    = false;
-      submitBtn.textContent = ft.submit;
-    }
-  });
-}
-
-function showFormMsg(text, type) {
-  const existing = form.querySelector('.form-msg');
-  if (existing) existing.remove();
-  const msg = document.createElement('p');
-  msg.className  = 'form-msg';
-  msg.textContent = text;
-  msg.style.cssText = `font-size:.85rem;font-weight:600;text-align:center;padding:12px;border-radius:8px;
-    color:${type==='success'?'#22c55e':'#ef4444'};
-    background:${type==='success'?'rgba(34,197,94,.1)':'rgba(239,68,68,.1)'};
-    border:1px solid ${type==='success'?'rgba(34,197,94,.25)':'rgba(239,68,68,.25)'};`;
-  form.appendChild(msg);
-}
 
 /* ----------------------------------------------------------------
    ACTIVE NAV LINK

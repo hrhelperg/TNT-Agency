@@ -156,14 +156,6 @@ export default function PrivacyPolicy() {
             <p>We do <strong>not</strong> sell your personal data. We may share data with:</p>
             <ul>
               <li>
-                <strong>Resend (email infrastructure)</strong> — processes form submission data to
-                deliver notification emails to us. Resend is GDPR-compliant and processes data within
-                the EU/EEA. See{' '}
-                <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">
-                  resend.com/legal/privacy-policy
-                </a>.
-              </li>
-              <li>
                 <strong>Google Analytics</strong> — only if you have given explicit consent via the
                 cookie banner. Data may be transferred to the USA under Google&apos;s Standard
                 Contractual Clauses. See{' '}

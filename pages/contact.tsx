@@ -29,7 +29,7 @@ export default function Contact() {
     <>
       <Head>
         <title>Contact TalentPartnerID | Get a Free Recruitment Consultation</title>
-        <meta name="description" content="Contact TalentPartnerID for a free recruitment consultation. Tell us about your open role and we'll respond within 2 business hours with a clear plan. Based in Pardubice, Czech Republic." />
+        <meta name="description" content="Contact TalentPartnerID for a free recruitment consultation. Tell us about your open role and we'll respond with a clear plan. Based in Pardubice, Czech Republic." />
         <meta name="keywords" content="contact TalentPartnerID, recruitment consultation, staffing inquiry, employment agency contact" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
@@ -41,7 +41,7 @@ export default function Contact() {
         <meta property="og:url" content="https://talentpartnerid.com/contact" />
         <meta property="og:site_name" content="TalentPartnerID" />
         <meta property="og:title" content="Contact TalentPartnerID | Free Recruitment Consultation" />
-        <meta property="og:description" content="Get in touch with TalentPartnerID. Send us your brief and receive a response within 2 business hours." />
+        <meta property="og:description" content="Get in touch with TalentPartnerID. Send us your brief and we'll be in touch." />
         <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Contact TalentPartnerID | Free Recruitment Consultation" />
@@ -58,7 +58,7 @@ export default function Contact() {
           <div className="eyebrow eyebrow--light fi" data-i18n="contact.eyebrow">Get In Touch</div>
           <h1 className="fi d1">Ready to Find<br />Your Next Great Hire?</h1>
           <p className="page-hero__sub fi d2">
-            Tell us about your open role. We&apos;ll get back to you within 2 business hours with a clear plan and honest timeline.
+            Tell us about your open role. Na zprávy odpovídáme v pracovní dny.
           </p>
         </div>
         <div className="page-hero__wave" aria-hidden="true">
@@ -76,7 +76,7 @@ export default function Contact() {
             <div className="contact__left fi">
               <div className="eyebrow" data-i18n="contact.eyebrow">Get In Touch</div>
               <h2 data-i18n="contact.h2">Ready to Find<br />Your Next Great Hire?</h2>
-              <p data-i18n="contact.sub">Tell us about your open role. We&apos;ll get back to you within 2 hours during business hours with a clear plan and honest timeline.</p>
+              <p data-i18n="contact.sub">Tell us about your open role. Na zprávy odpovídáme v pracovní dny.</p>
 
               <div className="contact-info">
 
@@ -139,57 +139,22 @@ export default function Contact() {
             </div>
 
             <div className="contact__form-wrap fi d2">
-              <form className="contact-form" id="contactForm" noValidate>
-                <h3 data-i18n="form.h3">Send Us a Brief</h3>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="fname" data-i18n="form.name">Your Name *</label>
-                    <input type="text" id="fname" name="name" data-i18n-ph="form.namePh" placeholder="John Smith" required autoComplete="name" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="fcompany" data-i18n="form.company">Company *</label>
-                    <input type="text" id="fcompany" name="company" data-i18n-ph="form.companyPh" placeholder="Company Ltd." required autoComplete="organization" />
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="femail" data-i18n="form.email">Email Address *</label>
-                    <input type="email" id="femail" name="email" data-i18n-ph="form.emailPh" placeholder="john@company.com" required autoComplete="email" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="fphone" data-i18n="form.phone">Phone Number</label>
-                    <input type="tel" id="fphone" name="phone" data-i18n-ph="form.phonePh" placeholder="+420 776 858 284" autoComplete="tel" />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="fservice" data-i18n="form.service">Service Needed</label>
-                  <select id="fservice" name="service" defaultValue="">
-                    <option value="" disabled>Select a service…</option>
-                    <option value="permanent">Permanent Placement</option>
-                    <option value="executive">Executive Search</option>
-                    <option value="temp">Temporary Staffing</option>
-                    <option value="rpo">HR Consulting / RPO</option>
-                    <option value="candidate">I&apos;m a Candidate</option>
-                    <option value="other">Other / Not sure yet</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="fmessage" data-i18n="form.message">Tell Us About the Role *</label>
-                  <textarea id="fmessage" name="message" rows={4} data-i18n-ph="form.messagePh" placeholder="Job title, key requirements, timeline, and any other relevant details…" required></textarea>
-                </div>
-                <label className="form-check form-check--gdpr">
-                  <input type="checkbox" id="contactGdprConsent" name="gdpr-consent" required />
-                  <span className="form-check__label">
-                    I agree to the processing of my personal data in accordance with the{' '}
-                    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. *
-                  </span>
-                </label>
-
-                <button type="submit" className="btn btn-primary btn-lg btn-full" id="submitBtn" data-i18n="form.submit">
-                  Send Brief →
-                </button>
-                <p className="form-note" data-i18n="form.note">We respond within 2 business hours. 100% confidential.</p>
-              </form>
+              <div className="contact-cta-card">
+                <h3>Napište nám</h3>
+                <p>Popište nám pozici nebo poptávku e-mailem a co nejdříve se vám ozveme.</p>
+                <a
+                  className="btn btn-primary btn-lg btn-full contact-cta-card__btn"
+                  href="mailto:jobbohemiacz@gmail.com?subject=Popt%C3%A1vka%20%E2%80%93%20TalentPartnerID"
+                >
+                  Napsat e-mail
+                </a>
+                <p className="contact-cta-card__line">
+                  E-mail: <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
+                </p>
+                <p className="contact-cta-card__line">
+                  Telefon: <a href="tel:+420776858284">+420 776 858 284</a>
+                </p>
+              </div>
             </div>
 
           </div>

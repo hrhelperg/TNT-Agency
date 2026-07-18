@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
@@ -12,87 +11,6 @@ const schema = {
 }
 
 export default function SubmitOffer() {
-  useEffect(() => {
-    const form = document.getElementById('offerForm') as HTMLFormElement | null
-    const success = document.getElementById('formSuccess') as HTMLElement | null
-    const errorBox = document.getElementById('formError') as HTMLElement | null
-    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null
-
-    if (!form || !success || !errorBox || !submitBtn) return
-
-    function showError(msg: string) {
-      errorBox!.textContent = msg
-      errorBox!.style.display = 'block'
-      errorBox!.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }
-    function clearError() {
-      errorBox!.style.display = 'none'
-      errorBox!.textContent = ''
-    }
-    function handleSubmit(e: Event) {
-      e.preventDefault()
-      clearError()
-
-      const company = (document.getElementById('companyName') as HTMLInputElement).value.trim()
-      const request = (document.getElementById('offerRequest') as HTMLTextAreaElement).value.trim()
-      const email = (document.getElementById('offerEmail') as HTMLInputElement).value.trim()
-      const website = (document.getElementById('companyWebsite') as HTMLInputElement).value.trim()
-      const budget = (document.getElementById('offerBudget') as HTMLInputElement).value.trim()
-      const timeline = (document.getElementById('offerTimeline') as HTMLInputElement).value.trim()
-      const needAgencyTeam = (document.getElementById('needAgency') as HTMLInputElement).checked ? 'Yes' : 'No'
-      const gdprConsent = (document.getElementById('offerGdprConsent') as HTMLInputElement).checked
-
-      if (!company) { showError('Company Name is required.'); return }
-      if (!request) { showError('Please describe what you need.'); return }
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showError('Please enter a valid contact email address.')
-        return
-      }
-      if (!gdprConsent) {
-        showError('Please accept the Privacy Policy before submitting.')
-        return
-      }
-
-      submitBtn!.disabled = true
-      submitBtn!.textContent = 'Sending…'
-
-      fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'offer',
-          companyName: company,
-          website,
-          request,
-          budget,
-          timeline,
-          contactEmail: email,
-          needAgencyTeam,
-        }),
-      })
-        .then(async (res) => {
-          const json = await res.json()
-          if (res.ok) {
-            form!.style.display = 'none'
-            success!.style.display = 'block'
-            success!.scrollIntoView({ behavior: 'smooth', block: 'start' })
-          } else {
-            throw new Error(json.error || 'Server error ' + res.status)
-          }
-        })
-        .catch((err: Error) => {
-          submitBtn!.disabled = false
-          submitBtn!.textContent = 'Submit Offer →'
-          showError(err.message || 'Something went wrong. Please email us directly at jobbohemiacz@gmail.com')
-        })
-    }
-
-    form.addEventListener('submit', handleSubmit)
-    return () => {
-      form.removeEventListener('submit', handleSubmit)
-    }
-  }, [])
-
   return (
     <>
       <Head>
@@ -140,121 +58,25 @@ export default function SubmitOffer() {
       <section className="section" id="form">
         <div className="container">
           <div className="submit-wrap">
-
-            {/* Success message */}
-            <div className="form-success" id="formSuccess" role="alert" style={{ display: 'none' }}>
-              <div className="form-success__icon">✅</div>
-              <h3>Offer Submitted!</h3>
+            <div className="contact-cta-card contact-cta-card--wide">
+              <h3>Poptávka pracovníků</h3>
               <p>
-                Thank you. Your offer has been sent to our team for review. If approved, it will be published in the offers directory and relevant agencies will be notified.<br /><br />
-                <a href="/offers" style={{ color: 'var(--accent)', fontWeight: 600 }}>Browse current offers →</a>
+                Napište nám e-mail a uveďte firmu, o jaké pracovníky máte zájem, počet,
+                lokalitu, směnový model a požadovaný termín nástupu. Ozveme se vám.
+              </p>
+              <a
+                className="btn btn-primary btn-lg contact-cta-card__btn"
+                href="mailto:jobbohemiacz@gmail.com?subject=Popt%C3%A1vka%20%E2%80%93%20TalentPartnerID"
+              >
+                Napsat e-mail
+              </a>
+              <p className="contact-cta-card__line">
+                E-mail: <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
+              </p>
+              <p className="contact-cta-card__line">
+                Telefon: <a href="tel:+420776858284">+420 776 858 284</a>
               </p>
             </div>
-
-            {/* Form */}
-            <form
-              className="contact-form"
-              id="offerForm"
-              noValidate
-            >
-
-              <h3>Your Requirement</h3>
-
-              <div className="form-error-msg" id="formError" role="alert" style={{ display: 'none' }}></div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="companyName">Company Name *</label>
-                  <input
-                    type="text"
-                    id="companyName"
-                    name="company-name"
-                    placeholder="e.g. Acme Corp s.r.o."
-                    required
-                    autoComplete="organization"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="companyWebsite">
-                    Website <span style={{ fontWeight: 400, color: 'var(--text-3)' }}>(optional)</span>
-                  </label>
-                  <input
-                    type="url"
-                    id="companyWebsite"
-                    name="website"
-                    placeholder="https://yourcompany.com"
-                    autoComplete="url"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="offerRequest">What do you need? *</label>
-                <textarea
-                  id="offerRequest"
-                  name="request"
-                  rows={5}
-                  placeholder="Describe your requirement: role(s), number of positions, industry, skills needed, working conditions, etc."
-                  required
-                ></textarea>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="offerBudget">
-                    Budget Range <span style={{ fontWeight: 400, color: 'var(--text-3)' }}>(optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="offerBudget"
-                    name="budget"
-                    placeholder="e.g. €5,000–€10,000/month"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="offerTimeline">
-                    Timeline <span style={{ fontWeight: 400, color: 'var(--text-3)' }}>(optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="offerTimeline"
-                    name="timeline"
-                    placeholder="e.g. ASAP, within 4 weeks, Q3 2026"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="offerEmail">Contact Email *</label>
-                <input
-                  type="email"
-                  id="offerEmail"
-                  name="contact-email"
-                  placeholder="you@yourcompany.com"
-                  required
-                  autoComplete="email"
-                />
-              </div>
-
-              <label className="form-check">
-                <input type="checkbox" id="needAgency" name="need-agency-team" value="Yes" />
-                <span className="form-check__label">I specifically need an agency or team (not individual freelancers)</span>
-              </label>
-
-              <label className="form-check form-check--gdpr">
-                <input type="checkbox" id="offerGdprConsent" name="gdpr-consent" required />
-                <span className="form-check__label">
-                  I agree to the processing of my personal data in accordance with the{' '}
-                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>. *
-                </span>
-              </label>
-
-              <button type="submit" className="btn btn-accent btn-lg btn-full" id="submitBtn">
-                Submit Offer →
-              </button>
-              <p className="form-note">Submissions are reviewed manually. Nothing is published automatically. We may contact you before your offer goes live.</p>
-            </form>
-
           </div>
         </div>
       </section>
