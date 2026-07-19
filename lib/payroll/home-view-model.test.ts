@@ -108,6 +108,21 @@ describe('homepage payroll calculator — shared engine & view-model', () => {
     expect(fs.readFileSync(FOOTER, 'utf8')).toContain(CALC_ROUTE);
   });
 
+  it('health recipient is the employee\'s insurer, not universally VZP ČR', () => {
+    const health = view.routes.filter((r) => r.key.endsWith('-health'));
+    expect(health).toHaveLength(2);
+    for (const r of health) {
+      expect(r.recipientCs).toBe('Příslušná zdravotní pojišťovna zaměstnance');
+      expect(r.recipientCs).not.toBe('VZP ČR');
+      // VZP remains a reference source/authority, not the recipient.
+      expect(r.institution).toBe('VZP ČR');
+    }
+    // Social/tax recipients are the actual collecting authorities.
+    const byKey = Object.fromEntries(view.routes.map((r) => [r.key, r.recipientCs]));
+    expect(byKey['employee-social']).toBe('ČSSZ');
+    expect(byKey['employee-tax']).toBe('Finanční správa ČR');
+  });
+
   it('adapter maps monthly gross verbatim (no G/H rounding) and stays a direct scenario', () => {
     const input = buildHomeInput(37500);
     expect(input.mode).toBe('direct');

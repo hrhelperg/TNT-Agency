@@ -60,11 +60,17 @@ export interface PaymentRoute {
   readonly ratePercent: number;
   readonly base: Halere;
   readonly amount: Halere;
-  readonly institution: string; // authoritative name from the source registry
+  readonly institution: string; // authoritative reference/source — NOT always the recipient
+  readonly recipientCs: string; // who actually receives the payment
   readonly legalBasis: string;
   readonly sourceUrl: string;
   readonly purposeCs: string;
 }
+
+// Health insurance is not paid to one universal insurer: each employee's premiums
+// go to their own chosen health insurance company. VZP is only the reference
+// authority for the rate, never presented as the universal recipient.
+const HEALTH_RECIPIENT = 'Příslušná zdravotní pojišťovna zaměstnance';
 
 export interface HomeCalcView {
   readonly ok: boolean;
@@ -97,7 +103,7 @@ export interface HomeCalcView {
 // basis come from the source registry (PAYROLL_SOURCES).
 const PURPOSE_CS: Record<'social' | 'health' | 'tax', string> = {
   social: 'Důchodové a nemocenské pojištění a státní politika zaměstnanosti.',
-  health: 'Veřejné zdravotní pojištění – úhrada zdravotní péče (odváděno zdravotní pojišťovně zaměstnance).',
+  health: 'Veřejné zdravotní pojištění – úhrada zdravotní péče.',
   tax: 'Daň z příjmů fyzických osob odváděná do státního rozpočtu.',
 };
 
@@ -162,6 +168,7 @@ export function computeHomeView(grossMonthlyCzk: number): HomeCalcView {
       base: emp.contributions.socialBase,
       amount: emp.contributions.social,
       institution: socialSrc.authority,
+      recipientCs: socialSrc.authority,
       legalBasis: socialSrc.legalBasis,
       sourceUrl: socialSrc.url,
       purposeCs: PURPOSE_CS.social,
@@ -174,6 +181,7 @@ export function computeHomeView(grossMonthlyCzk: number): HomeCalcView {
       base: emp.contributions.healthBase,
       amount: emp.contributions.health,
       institution: healthSrc.authority,
+      recipientCs: HEALTH_RECIPIENT,
       legalBasis: healthSrc.legalBasis,
       sourceUrl: healthSrc.url,
       purposeCs: PURPOSE_CS.health,
@@ -186,6 +194,7 @@ export function computeHomeView(grossMonthlyCzk: number): HomeCalcView {
       base: emp.tax.taxBase,
       amount: taxHalere,
       institution: taxSrc.authority,
+      recipientCs: taxSrc.authority,
       legalBasis: taxSrc.legalBasis,
       sourceUrl: taxSrc.url,
       purposeCs: PURPOSE_CS.tax,
@@ -198,6 +207,7 @@ export function computeHomeView(grossMonthlyCzk: number): HomeCalcView {
       base: emp.contributions.socialBase,
       amount: er.social,
       institution: erSocialSrc.authority,
+      recipientCs: erSocialSrc.authority,
       legalBasis: erSocialSrc.legalBasis,
       sourceUrl: erSocialSrc.url,
       purposeCs: PURPOSE_CS.social,
@@ -210,6 +220,7 @@ export function computeHomeView(grossMonthlyCzk: number): HomeCalcView {
       base: emp.contributions.healthBase,
       amount: er.health,
       institution: erHealthSrc.authority,
+      recipientCs: HEALTH_RECIPIENT,
       legalBasis: erHealthSrc.legalBasis,
       sourceUrl: erHealthSrc.url,
       purposeCs: PURPOSE_CS.health,
