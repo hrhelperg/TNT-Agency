@@ -230,6 +230,23 @@ const T = {
       colEmployers: 'For Employers',
       colCompany:   'Company',
       colFollow:    'Follow Us',
+      colServices:  'Our services',
+      colNavigate:  'Navigate',
+      colGuides:    'Guides',
+      colContact:   'Contact',
+      navAgencies:  'Agencies',
+      navOffers:    'Offers',
+      navCalc:      'Payroll calculator',
+      navSubmitAgency: 'List your agency',
+      navPostOffer: 'Post a request',
+      navContact:   'Contact',
+      navTaxes:     'Social & health contributions 2026',
+      navBlog:      'Blog',
+      guide1: 'Employing foreigners',
+      guide2: 'Work permit in the Czech Republic',
+      guide3: 'Recruiting foreign workers',
+      guide4: 'Minimum wage 2026',
+      guide5: 'Frequently asked questions',
       links: {
         permanent:  'Permanent Placement',
         executive:  'Executive Search',
@@ -474,6 +491,23 @@ const T = {
       colEmployers: 'Pro zaměstnavatele',
       colCompany:   'Společnost',
       colFollow:    'Sledujte nás',
+      colServices:  'Naše služby',
+      colNavigate:  'Navigace',
+      colGuides:    'Průvodci',
+      colContact:   'Kontakt',
+      navAgencies:  'Agentury',
+      navOffers:    'Nabídky',
+      navCalc:      'Kalkulačka mezd',
+      navSubmitAgency: 'Registrovat agenturu',
+      navPostOffer: 'Zadat poptávku',
+      navContact:   'Kontakt',
+      navTaxes:     'Sociální a zdravotní odvody 2026',
+      navBlog:      'Blog',
+      guide1: 'Zaměstnávání cizinců',
+      guide2: 'Pracovní povolení v ČR',
+      guide3: 'Nábor zahraničních pracovníků',
+      guide4: 'Minimální mzda 2026',
+      guide5: 'Časté dotazy',
       links: {
         permanent:  'Přímé umístění',
         executive:  'Executive Search',
@@ -718,6 +752,23 @@ const T = {
       colEmployers: 'Für Arbeitgeber',
       colCompany:   'Unternehmen',
       colFollow:    'Folgen Sie uns',
+      colServices:  'Unsere Leistungen',
+      colNavigate:  'Navigation',
+      colGuides:    'Ratgeber',
+      colContact:   'Kontakt',
+      navAgencies:  'Agenturen',
+      navOffers:    'Angebote',
+      navCalc:      'Lohnrechner',
+      navSubmitAgency: 'Agentur eintragen',
+      navPostOffer: 'Anfrage stellen',
+      navContact:   'Kontakt',
+      navTaxes:     'Sozial- und Krankenversicherung 2026',
+      navBlog:      'Blog',
+      guide1: 'Ausländer beschäftigen',
+      guide2: 'Arbeitserlaubnis in Tschechien',
+      guide3: 'Rekrutierung ausländischer Arbeitskräfte',
+      guide4: 'Mindestlohn 2026',
+      guide5: 'Häufige Fragen',
       links: {
         permanent:  'Direktvermittlung',
         executive:  'Executive Search',
@@ -977,17 +1028,27 @@ function renderAll(lang) {
 
   /* — Footer — */
   qs('[data-i18n="footer.tagline"]',      t.footer.tagline);
-  qs('[data-i18n="footer.colEmployers"]', t.footer.colEmployers);
-  qs('[data-i18n="footer.colCompany"]',   t.footer.colCompany);
-  qs('[data-i18n="footer.colFollow"]',    t.footer.colFollow);
-  qs('[data-i18n="footer.permanent"]',    t.footer.links.permanent);
-  qs('[data-i18n="footer.executive"]',    t.footer.links.executive);
-  qs('[data-i18n="footer.temp"]',         t.footer.links.temp);
-  qs('[data-i18n="footer.rpo"]',          t.footer.links.rpo);
-  qs('[data-i18n="footer.about"]',        t.footer.links.about);
-  qs('[data-i18n="footer.industries"]',   t.footer.links.industries);
-  qs('[data-i18n="footer.candidates"]',   t.footer.links.candidates);
-  qs('[data-i18n="footer.contact"]',      t.footer.links.contact);
+  qs('[data-i18n="footer.colServices"]',  t.footer.colServices);
+  qs('[data-i18n="footer.colNavigate"]',  t.footer.colNavigate);
+  qs('[data-i18n="footer.colGuides"]',    t.footer.colGuides);
+  qs('[data-i18n="footer.colContact"]',   t.footer.colContact);
+  qs('[data-i18n="footer.links.permanent"]', t.footer.links.permanent);
+  qs('[data-i18n="footer.links.executive"]', t.footer.links.executive);
+  qs('[data-i18n="footer.links.temp"]',   t.footer.links.temp);
+  qs('[data-i18n="footer.links.rpo"]',    t.footer.links.rpo);
+  qs('[data-i18n="footer.navAgencies"]',  t.footer.navAgencies);
+  qs('[data-i18n="footer.navOffers"]',    t.footer.navOffers);
+  qs('[data-i18n="footer.navCalc"]',      t.footer.navCalc);
+  qs('[data-i18n="footer.navSubmitAgency"]', t.footer.navSubmitAgency);
+  qs('[data-i18n="footer.navPostOffer"]', t.footer.navPostOffer);
+  qs('[data-i18n="footer.navContact"]',   t.footer.navContact);
+  qs('[data-i18n="footer.navTaxes"]',     t.footer.navTaxes);
+  qs('[data-i18n="footer.navBlog"]',      t.footer.navBlog);
+  qs('[data-i18n="footer.guide1"]',       t.footer.guide1);
+  qs('[data-i18n="footer.guide2"]',       t.footer.guide2);
+  qs('[data-i18n="footer.guide3"]',       t.footer.guide3);
+  qs('[data-i18n="footer.guide4"]',       t.footer.guide4);
+  qs('[data-i18n="footer.guide5"]',       t.footer.guide5);
   qs('[data-i18n="footer.copy"]',         t.footer.copy);
   qs('[data-i18n="footer.terms"]',        t.footer.terms);
   qs('[data-i18n="footer.priv"]',         t.footer.priv);

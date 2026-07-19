@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import ArticleLanguageNotice from '../components/ArticleLanguageNotice'
 
 const PAGE_URL = 'https://talentpartnerid.com/zamestnavani-cizincu'
 const SOURCE_URL = 'https://up.gov.cz/zamestnavani-cizincu'
@@ -173,7 +174,8 @@ export default function ZamestnavaniCizincu() {
               <a href="#caste-dotazy">Časté dotazy</a>
             </aside>
 
-            <article className="legal-article-body">
+            <article className="legal-article-body" lang="cs">
+              <ArticleLanguageNotice />
               <div className="legal-notice">
                 <strong>Upozornění:</strong> Informace mají obecný informační charakter a nenahrazují individuální
                 právní poradenství.

@@ -28,33 +28,33 @@ export default function Footer() {
 
           <nav className="footer__nav" aria-label="Footer navigation">
             <div className="footer__col">
-              <div className="footer__col-title">Our Services</div>
-              <a href="/agencies">Permanent Placement</a>
-              <a href="/agencies">Executive Search</a>
-              <a href="/agencies">Temporary Staffing</a>
-              <a href="/agencies">HR Consulting &amp; RPO</a>
+              <div className="footer__col-title" data-i18n="footer.colServices">Naše služby</div>
+              <a href="/agencies" data-i18n="footer.links.permanent">Přímé umístění</a>
+              <a href="/agencies" data-i18n="footer.links.executive">Executive Search</a>
+              <a href="/agencies" data-i18n="footer.links.temp">Agenturní zaměstnávání</a>
+              <a href="/agencies" data-i18n="footer.links.rpo">Personální poradenství a RPO</a>
             </div>
             <div className="footer__col">
-              <div className="footer__col-title">Navigate</div>
-              <a href="/agencies">Agencies</a>
-              <a href="/offers">Offers</a>
-              <a href="/kalkulacka-mzdy-agenturniho-zamestnance">Kalkulačka mezd</a>
-              <a href="/submit-agency">Submit Agency</a>
-              <a href="/submit-offer">Post Offer</a>
-              <a href="/contact">Contact</a>
-              <a href="/socialni-zdravotni-dane-2026">Sociální a zdravotní daně 2026</a>
-              <a href="/blog/agenturni-pracovnici-vs-interni-zamestnanci.html">Blog</a>
+              <div className="footer__col-title" data-i18n="footer.colNavigate">Navigace</div>
+              <a href="/agencies" data-i18n="footer.navAgencies">Agentury</a>
+              <a href="/offers" data-i18n="footer.navOffers">Nabídky</a>
+              <a href="/kalkulacka-mzdy-agenturniho-zamestnance" data-i18n="footer.navCalc">Kalkulačka mezd</a>
+              <a href="/submit-agency" data-i18n="footer.navSubmitAgency">Registrovat agenturu</a>
+              <a href="/submit-offer" data-i18n="footer.navPostOffer">Zadat poptávku</a>
+              <a href="/contact" data-i18n="footer.navContact">Kontakt</a>
+              <a href="/socialni-zdravotni-dane-2026" data-i18n="footer.navTaxes">Sociální a zdravotní odvody 2026</a>
+              <a href="/blog/agenturni-pracovnici-vs-interni-zamestnanci.html" data-i18n="footer.navBlog">Blog</a>
             </div>
             <div className="footer__col">
-              <div className="footer__col-title">Průvodci</div>
-              <a href="/zamestnavani-cizincu">Zaměstnávání cizinců</a>
-              <a href="/pracovni-povoleni-cr">Pracovní povolení v ČR</a>
-              <a href="/nabor-zahranicnich-pracovniku">Nábor zahraničních pracovníků</a>
-              <a href="/minimalni-mzda-2026">Minimální mzda 2026</a>
-              <a href="/faq-zamestnavani-pracovniku">Časté dotazy</a>
+              <div className="footer__col-title" data-i18n="footer.colGuides">Průvodci</div>
+              <a href="/zamestnavani-cizincu" data-i18n="footer.guide1">Zaměstnávání cizinců</a>
+              <a href="/pracovni-povoleni-cr" data-i18n="footer.guide2">Pracovní povolení v ČR</a>
+              <a href="/nabor-zahranicnich-pracovniku" data-i18n="footer.guide3">Nábor zahraničních pracovníků</a>
+              <a href="/minimalni-mzda-2026" data-i18n="footer.guide4">Minimální mzda 2026</a>
+              <a href="/faq-zamestnavani-pracovniku" data-i18n="footer.guide5">Časté dotazy</a>
             </div>
             <div className="footer__col">
-              <div className="footer__col-title" data-i18n="footer.colFollow">Kontakt</div>
+              <div className="footer__col-title" data-i18n="footer.colContact">Kontakt</div>
               {/* Social links render only when a confirmed profile URL is added to
                   SITE.social in lib/content/rules.ts. No confirmed TalentPartnerID
                   profiles exist yet, so nothing is shown (no empty links). */}
