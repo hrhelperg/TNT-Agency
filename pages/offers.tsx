@@ -66,7 +66,7 @@ export default function Offers() {
             </p>
             <a href="/submit-offer" className="btn btn-accent btn-lg" data-i18n="pages.offersListBtn">Post Your Offer</a>
           </div>
-          <p className="listing-cta-note fi d1">
+          <p className="listing-cta-note fi d1" data-i18n="pages.offersCtaNote">
             Are you an agency? <a href="/agencies">Browse the agency directory</a> or <a href="/submit-agency">submit your profile</a>.
           </p>
         </div>

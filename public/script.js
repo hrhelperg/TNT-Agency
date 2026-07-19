@@ -68,6 +68,8 @@ const T = {
       submitAgCardBody: 'Send us an e-mail with your agency name, website, services offered, location and a short description. We will get back to you.',
       submitOffCardTitle: 'Worker request',
       submitOffCardBody: 'Send us an e-mail with your company, the workers you need, the number, location, shift model and required start date. We will get back to you.',
+      offersCtaNote: 'Are you an agency? <a href="/agencies">Browse the agency directory</a> or <a href="/submit-agency">submit your profile</a>.',
+      agenciesCtaNote: 'Are you a client looking for an agency? <a href="/submit-offer">Post your offer</a> and let agencies come to you.',
     },
     hero: {
       badge:  'Employment Agency · Talent. Network. Trust.',
@@ -369,6 +371,8 @@ const T = {
       submitAgCardBody: 'Napište nám e-mail a uveďte název agentury, web, nabízené služby, lokalitu a krátký popis. Ozveme se vám.',
       submitOffCardTitle: 'Poptávka pracovníků',
       submitOffCardBody: 'Napište nám e-mail a uveďte firmu, o jaké pracovníky máte zájem, počet, lokalitu, směnový model a požadovaný termín nástupu. Ozveme se vám.',
+      offersCtaNote: 'Jste agentura? <a href="/agencies">Projděte katalog agentur</a> nebo <a href="/submit-agency">zadejte svůj profil</a>.',
+      agenciesCtaNote: 'Jste klient a hledáte agenturu? <a href="/submit-offer">Zadejte poptávku</a> a nechte agentury přijít za vámi.',
     },
     hero: {
       badge:    'Personální agentura · Talent. Síť. Důvěra.',
@@ -670,6 +674,8 @@ const T = {
       submitAgCardBody: 'Senden Sie uns eine E-Mail mit Agenturname, Website, angebotenen Leistungen, Standort und einer kurzen Beschreibung. Wir melden uns.',
       submitOffCardTitle: 'Personalanfrage',
       submitOffCardBody: 'Senden Sie uns eine E-Mail mit Ihrem Unternehmen, den benötigten Mitarbeitern, der Anzahl, dem Standort, dem Schichtmodell und dem gewünschten Eintrittstermin. Wir melden uns.',
+      offersCtaNote: 'Sind Sie eine Agentur? <a href="/agencies">Durchsuchen Sie das Agenturverzeichnis</a> oder <a href="/submit-agency">reichen Sie Ihr Profil ein</a>.',
+      agenciesCtaNote: 'Sind Sie ein Kunde auf der Suche nach einer Agentur? <a href="/submit-offer">Stellen Sie Ihre Anfrage</a> und lassen Sie Agenturen auf Sie zukommen.',
     },
     hero: {
       badge:    'Personalvermittlung · Talent. Netzwerk. Vertrauen.',
@@ -976,7 +982,9 @@ function renderAll(lang) {
 
   /* — Transactional pages (only the relevant page's elements exist per route) — */
   Object.keys(t.pages).forEach((k) => {
-    qsa(`[data-i18n="pages.${k}"]`, (el) => { el.textContent = t.pages[k]; });
+    const v = t.pages[k];
+    if (v.indexOf('<') !== -1) qsHTML(`[data-i18n="pages.${k}"]`, v); // cross-link notes carry markup
+    else qsa(`[data-i18n="pages.${k}"]`, (el) => { el.textContent = v; });
   });
 
   /* — Hero — */
