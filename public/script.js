@@ -14,6 +14,14 @@ const T = {
       about:       'About',
       contact:     'Contact',
       calc:        'Payroll calculator',
+      home:        'Home',
+      agencies:    'Agencies',
+      offers:      'Offers',
+      article:     'Guide',
+      submitAgency:'List your agency',
+      postOffer:   'Post a request',
+      contactCta:  'Contact us',
+      language:    'Language',
       cta:         'Start Hiring',
     },
     hero: {
@@ -245,6 +253,14 @@ const T = {
       about:      'O nás',
       contact:    'Kontakt',
       calc:       'Kalkulačka mezd',
+      home:        'Úvod',
+      agencies:    'Agentury',
+      offers:      'Nabídky',
+      article:     'Průvodce',
+      submitAgency:'Registrovat agenturu',
+      postOffer:   'Zadat poptávku',
+      contactCta:  'Kontaktujte nás',
+      language:    'Jazyk',
       cta:        'Hledám pracovníky',
     },
     hero: {
@@ -476,6 +492,14 @@ const T = {
       about:      'Über uns',
       contact:    'Kontakt',
       calc:       'Lohnrechner',
+      home:        'Startseite',
+      agencies:    'Agenturen',
+      offers:      'Angebote',
+      article:     'Ratgeber',
+      submitAgency:'Agentur eintragen',
+      postOffer:   'Anfrage stellen',
+      contactCta:  'Kontakt aufnehmen',
+      language:    'Sprache',
       cta:        'Mitarbeiter finden',
     },
     hero: {
@@ -733,6 +757,14 @@ function renderAll(lang) {
   qs('[data-i18n="nav.about"]',      t.nav.about);
   qs('[data-i18n="nav.contact"]',    t.nav.contact);
   qs('[data-i18n="nav.calc"]',       t.nav.calc);
+  qs('[data-i18n="nav.home"]',        t.nav.home);
+  qs('[data-i18n="nav.agencies"]',    t.nav.agencies);
+  qs('[data-i18n="nav.offers"]',      t.nav.offers);
+  qs('[data-i18n="nav.article"]',     t.nav.article);
+  qs('[data-i18n="nav.submitAgency"]', t.nav.submitAgency);
+  qs('[data-i18n="nav.postOffer"]',   t.nav.postOffer);
+  qsa('[data-i18n="nav.contactCta"]', el => el.textContent = t.nav.contactCta);
+  qs('[data-i18n="nav.language"]',    t.nav.language);
   qsa('[data-i18n="nav.cta"]', el => el.textContent = t.nav.cta);
 
   /* mobile nav mirror */
@@ -742,6 +774,13 @@ function renderAll(lang) {
   qs('[data-i18n="mnav.about"]',      t.nav.about);
   qs('[data-i18n="mnav.contact"]',    t.nav.contact);
   qs('[data-i18n="mnav.calc"]',       t.nav.calc);
+  qs('[data-i18n="mnav.home"]',        t.nav.home);
+  qs('[data-i18n="mnav.agencies"]',    t.nav.agencies);
+  qs('[data-i18n="mnav.offers"]',      t.nav.offers);
+  qs('[data-i18n="mnav.article"]',     t.nav.article);
+  qs('[data-i18n="mnav.submitAgency"]', t.nav.submitAgency);
+  qs('[data-i18n="mnav.postOffer"]',   t.nav.postOffer);
+  qsa('[data-i18n="mnav.contactCta"]', el => el.textContent = t.nav.contactCta);
   qs('[data-i18n="mnav.cta"]',        t.nav.cta);
 
   /* — Hero — */
