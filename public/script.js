@@ -13,6 +13,7 @@ const T = {
       industries:  'Industries',
       about:       'About',
       contact:     'Contact',
+      calc:        'Payroll calculator',
       cta:         'Start Hiring',
     },
     hero: {
@@ -243,6 +244,7 @@ const T = {
       industries: 'Odvětví',
       about:      'O nás',
       contact:    'Kontakt',
+      calc:       'Kalkulačka mezd',
       cta:        'Hledám pracovníky',
     },
     hero: {
@@ -473,6 +475,7 @@ const T = {
       industries: 'Branchen',
       about:      'Über uns',
       contact:    'Kontakt',
+      calc:       'Lohnrechner',
       cta:        'Mitarbeiter finden',
     },
     hero: {
@@ -729,6 +732,7 @@ function renderAll(lang) {
   qs('[data-i18n="nav.industries"]', t.nav.industries);
   qs('[data-i18n="nav.about"]',      t.nav.about);
   qs('[data-i18n="nav.contact"]',    t.nav.contact);
+  qs('[data-i18n="nav.calc"]',       t.nav.calc);
   qsa('[data-i18n="nav.cta"]', el => el.textContent = t.nav.cta);
 
   /* mobile nav mirror */
@@ -737,6 +741,7 @@ function renderAll(lang) {
   qs('[data-i18n="mnav.industries"]', t.nav.industries);
   qs('[data-i18n="mnav.about"]',      t.nav.about);
   qs('[data-i18n="mnav.contact"]',    t.nav.contact);
+  qs('[data-i18n="mnav.calc"]',       t.nav.calc);
   qs('[data-i18n="mnav.cta"]',        t.nav.cta);
 
   /* — Hero — */

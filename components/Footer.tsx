@@ -38,6 +38,7 @@ export default function Footer() {
               <div className="footer__col-title">Navigate</div>
               <a href="/agencies">Agencies</a>
               <a href="/offers">Offers</a>
+              <a href="/kalkulacka-mzdy-agenturniho-zamestnance">Kalkulačka mezd</a>
               <a href="/submit-agency">Submit Agency</a>
               <a href="/submit-offer">Post Offer</a>
               <a href="/contact">Contact</a>

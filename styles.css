@@ -2274,3 +2274,209 @@ p  { color: var(--text-2); line-height: 1.7; }
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
+
+/* ================================================================
+   HOMEPAGE PAYROLL CALCULATOR (.hpc) — flagship compact calculator
+   ================================================================ */
+.hpc { width: 100%; }
+.hpc__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: var(--s4);
+  align-items: start;
+}
+.hpc__panel,
+.hpc__results {
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--s5);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Primary salary input */
+.hpc-field { margin-bottom: var(--s3); }
+.hpc-field__label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.hpc-field__control { display: flex; align-items: stretch; }
+.hpc-field__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 54px;
+  padding: 0 16px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  background: var(--bg-alt);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  font-variant-numeric: tabular-nums;
+}
+.hpc-field__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+.hpc-field__suffix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-2);
+  background: var(--bg-alt);
+  border: 1px solid var(--border-2);
+  border-left: none;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.hpc-field__hint { font-size: 0.82rem; color: var(--text-3); margin-top: 8px; line-height: 1.5; }
+.hpc-field__error { font-size: 0.82rem; color: #b42318; font-weight: 600; margin-top: 8px; line-height: 1.5; }
+
+.hpc-context {
+  font-size: 0.86rem;
+  color: var(--text-2);
+  line-height: 1.6;
+  padding: 12px 14px;
+  background: var(--bg-alt);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--s3);
+}
+.hpc-context__en { color: var(--text-3); }
+
+.hpc__cta { width: 100%; margin-bottom: var(--s2); }
+.hpc-meta { font-size: 0.8rem; color: var(--text-3); line-height: 1.6; margin-bottom: 10px; }
+.hpc-meta a { color: var(--accent-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.hpc-disclaimer { font-size: 0.76rem; color: var(--text-3); line-height: 1.6; margin: 0; }
+
+/* Headline results */
+.hpc-heads { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+.hpc-head {
+  min-width: 0;
+  background: var(--bg-tint);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s3) var(--s3);
+}
+.hpc-head--primary {
+  grid-column: 1 / -1;
+  background: var(--navy);
+  border-color: var(--navy);
+}
+.hpc-head--cost { border-left: 3px solid var(--accent); }
+.hpc-head__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+.hpc-head--primary .hpc-head__label { color: rgba(255,255,255,0.72); }
+.hpc-head__value {
+  display: block;
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--navy);
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+.hpc-head--primary .hpc-head__value { color: #fff; font-size: clamp(1.9rem, 4.6vw, 2.6rem); }
+.hpc-head__note { display: block; font-size: 0.78rem; color: var(--text-3); margin-top: 6px; line-height: 1.4; }
+.hpc-head--primary .hpc-head__note { color: rgba(255,255,255,0.66); }
+.hpc-empty { font-size: 0.95rem; color: var(--text-2); padding: var(--s3); text-align: center; }
+
+/* Breakdown */
+.hpc-break {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s3);
+  margin-top: var(--s4);
+}
+.hpc-break__col { min-width: 0; }
+.hpc-break__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+.hpc-lines { margin: 0; }
+.hpc-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.hpc-line dt { color: var(--text-2); overflow-wrap: anywhere; }
+.hpc-line dd { margin: 0; font-weight: 600; color: var(--text); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hpc-line--total { border-bottom: none; border-top: 2px solid var(--border-2); margin-top: 4px; padding-top: 10px; }
+.hpc-line--total dt { color: var(--text); font-weight: 700; }
+.hpc-line--total dd { color: var(--navy); font-weight: 800; }
+
+.hpc-state {
+  margin-top: var(--s3);
+  padding: var(--s3);
+  background: var(--bg-alt);
+  border-radius: var(--radius-sm);
+}
+.hpc-state__row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.9rem; color: var(--text-2); }
+.hpc-state__row strong { color: var(--text); font-variant-numeric: tabular-nums; }
+.hpc-state__row--total { border-top: 1px solid var(--border-2); margin-top: 4px; padding-top: 10px; }
+.hpc-state__row--total span { font-weight: 700; color: var(--text); }
+.hpc-state__row--total strong { color: var(--navy); font-weight: 800; }
+
+/* "Kam odvody směřují?" */
+.hpc-routes { margin-top: var(--s3); border-top: 1px solid var(--border); padding-top: var(--s2); }
+.hpc-routes__summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--navy);
+  padding: 8px 0;
+  font-size: 0.95rem;
+  list-style: none;
+}
+.hpc-routes__summary::-webkit-details-marker { display: none; }
+.hpc-routes__summary::before { content: '＋'; color: var(--accent); margin-right: 8px; font-weight: 700; }
+.hpc-routes[open] .hpc-routes__summary::before { content: '－'; }
+.hpc-routes__summary:focus-visible { outline: 3px solid var(--accent-ring); outline-offset: 2px; border-radius: var(--radius-sm); }
+.hpc-routes__list { margin: 8px 0 0; display: flex; flex-direction: column; gap: 10px; }
+.hpc-route { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; }
+.hpc-route__head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.hpc-route__name { font-weight: 600; color: var(--text); overflow-wrap: anywhere; }
+.hpc-route__amount { font-weight: 800; color: var(--navy); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hpc-route__meta { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-top: 6px; font-size: 0.82rem; color: var(--text-3); }
+.hpc-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(13, 30, 61, 0.06);
+  color: var(--navy);
+}
+.hpc-route__purpose { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; margin: 8px 0 0; }
+.hpc-route__purpose a { color: var(--accent-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
+.hpc-route__basis { color: var(--text-3); }
+
+@media (max-width: 900px) {
+  .hpc__grid { grid-template-columns: 1fr; gap: var(--s3); }
+}
+@media (max-width: 560px) {
+  .hpc__panel, .hpc__results { padding: var(--s3); }
+  .hpc-heads { grid-template-columns: 1fr; }
+  .hpc-break { grid-template-columns: 1fr; gap: var(--s2); }
+  .hpc-head--cost { grid-column: auto; }
+}
