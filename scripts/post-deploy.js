@@ -1,6 +1,8 @@
-// Runs after every deploy: updates sitemap, pings IndexNow, pings Bing.
+// Runs after every deploy: validates the sitemap, pings IndexNow, pings Bing.
+// The sitemap is a static, hand-curated file — this pipeline no longer mutates
+// it; it only reads and validates it to obtain the canonical URL list.
 const https = require('https');
-const { updateSitemap } = require('./update-sitemap');
+const { getSitemapUrls } = require('./update-sitemap');
 const { submitToIndexNow } = require('./indexnow');
 
 function pingBing() {
@@ -55,8 +57,8 @@ async function submitIndexNowStep(urls) {
 async function main() {
   console.log('=== Post-deploy indexing pipeline ===\n');
 
-  console.log('[1/3] Updating sitemap...');
-  const urls = updateSitemap();
+  console.log('[1/3] Reading & validating sitemap...');
+  const urls = getSitemapUrls();
 
   console.log('\n[2/3] Submitting URLs to IndexNow...');
   await submitIndexNowStep(urls);
