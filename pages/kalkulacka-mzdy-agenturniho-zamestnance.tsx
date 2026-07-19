@@ -3,8 +3,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ArticleLanguageNotice from '../components/ArticleLanguageNotice';
+import ResponsibilityMatrix from '../components/ResponsibilityMatrix';
 import { useLang } from '../lib/i18n/react';
 import { DCALC } from '../lib/i18n/dedicated-calculator-copy';
+import { AGENCY_VALUE } from '../lib/agency-value/copy';
 import {
   calculate,
   createDefaultInput,
@@ -308,6 +310,7 @@ const WORKER_PRESETS = [1, 5, 10, 25, 50, 100];
 export default function PayrollCalculatorPage() {
   const lang = useLang();
   const t = DCALC[lang];
+  const av = AGENCY_VALUE[lang];
   const [inp, setInp] = useState<PayrollInput>(() => createDefaultInput());
 
   // Restore shared query-state (?d=) on mount — client only, no hydration mismatch.
@@ -318,6 +321,11 @@ export default function PayrollCalculatorPage() {
       if (d) {
         const decoded = JSON.parse(decodeURIComponent(escape(atob(d)))) as PayrollInput;
         setInp((prev) => ({ ...prev, ...decoded }));
+      }
+      // Non-sensitive mode hint (e.g. from the homepage "compare" CTA). No salary.
+      const mode = params.get('mode');
+      if (mode === 'agency' || mode === 'direct' || mode === 'comparison') {
+        setInp((prev) => ({ ...prev, mode }));
       }
     } catch {
       /* ignore malformed state */
@@ -409,6 +417,20 @@ export default function PayrollCalculatorPage() {
   }, [comparison]);
 
   const diffPct = comparison?.differencePercent;
+
+  // Qualified difference state — derived only from entered values, never labelled
+  // as guaranteed savings. differenceCzk = agency − direct (economic).
+  const directOpSum = comparison ? Object.values(inp.direct).reduce((a, b) => a + b, 0) : 0;
+  const diffCzk = comparison ? toCzkNumber(comparison.differenceCzk) : 0;
+  const diffState = !comparison
+    ? ''
+    : directOpSum === 0
+      ? av.stateInsufficient
+      : Math.abs(diffCzk) < 1
+        ? av.stateBreakEven
+        : diffCzk > 0
+          ? av.stateDirectCheaper
+          : av.stateAgencyCheaper;
 
   return (
     <>
@@ -808,6 +830,11 @@ export default function PayrollCalculatorPage() {
                           </tbody>
                         </table>
                       </div>
+                      <div className="pcalc-diff" role="note">
+                        <span className="pcalc-diff__label">{av.diffLabel}</span>
+                        <strong className="pcalc-diff__state">{diffState}</strong>
+                        <p className="pcalc-diff__note">{av.diffNote}</p>
+                      </div>
                     </>
                   ) : null}
 
@@ -828,6 +855,25 @@ export default function PayrollCalculatorPage() {
           <p className="pcalc-disclaimer">{t.disclaimer.replace('{d}', LAST_VERIFIED)}</p>
         </div>
       </main>
+
+      {/* Agency value: responsibility matrix + benefits (agency / comparison modes) */}
+      {(inp.mode === 'agency' || inp.mode === 'comparison') && (
+        <section className="section" id="odpovednosti" lang={lang}>
+          <div className="container">
+            <ResponsibilityMatrix />
+            <div className="agv-benefits">
+              <h3 className="agv-benefits__title">{av.benefitsTitle}</h3>
+              <ul className="agv-benefits__list">
+                {av.benefits.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
+              <p className="agv-benefits__note">{av.benefitsNote}</p>
+            </div>
+            <p className="pcalc-note pcalc-center">{av.context}</p>
+          </div>
+        </section>
+      )}
 
       {/* SSR explanatory content */}
       <section className="section section--alt" lang="cs">
