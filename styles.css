@@ -288,7 +288,7 @@ p  { color: var(--text-2); line-height: 1.7; }
   text-align: center;
 }
 .section-head .eyebrow { margin-left: auto; margin-right: auto; }
-.section-head h2 { margin-bottom: var(--s2); }
+.section-head h2 { margin-bottom: var(--s2); overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; }
 .section-head p  {
   font-size: 1.14rem;
   color: var(--text-2);
@@ -568,6 +568,9 @@ p  { color: var(--text-2); line-height: 1.7; }
   font-size: clamp(2.5rem, 5.2vw, 3.8rem);
   line-height: 1.035;
   letter-spacing: -0.04em;
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 .hero h1 .text-accent { color: var(--accent); }
 
@@ -2586,6 +2589,8 @@ p  { color: var(--text-2); line-height: 1.7; }
 }
 .agv__benefits-note { font-size: 0.82rem; color: var(--text-3); line-height: 1.55; margin: 0; }
 .agv__cta-wrap { text-align: center; }
+/* Long German CTA labels must wrap on narrow screens (btn base is nowrap) */
+.agv__cta-wrap .btn { white-space: normal; max-width: 100%; }
 
 /* Responsibility matrix */
 .resp { width: 100%; max-width: 900px; margin: 0 auto; }
