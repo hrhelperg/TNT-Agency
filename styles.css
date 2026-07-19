@@ -2233,6 +2233,19 @@ p  { color: var(--text-2); line-height: 1.7; }
   .pcalc-grid-2 { grid-template-columns: 1fr; }
   .pcalc-cards { grid-template-columns: 1fr; }
 }
+/* Overflow safety for long German labels on narrow screens */
+.article-hero h1, .article-hero .page-hero__sub, .article-hero .eyebrow {
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+.pcalc__panel, .pcalc__results { min-width: 0; max-width: 100%; }
+.pcalc-mode-btn { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+.pcalc-card__label, .pcalc-card__value,
+.pcalc-line__label, .pcalc-field > label,
+.pcalc-toggle label, .pcalc-field__hint,
+.pcalc-scenario span, .pcalc-state span { overflow-wrap: anywhere; min-width: 0; }
+.pcalc-line > summary { flex-wrap: wrap; }
 @media print {
   .header, .footer, .pcalc__panel, .pcalc-actions, .pcalc-modes-wrap, .btn { display: none !important; }
   .pcalc__grid { grid-template-columns: 1fr; }
