@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import HomePayrollCalculator from '../components/HomePayrollCalculator'
+import HomeAgencyValue from '../components/HomeAgencyValue'
 
 const employmentAgencySchema = {
   '@context': 'https://schema.org',
@@ -151,6 +152,13 @@ export default function Home() {
             <p data-i18n="calc.sub">Zjistěte čistou mzdu zaměstnance, zákonné odvody a celkové měsíční náklady zaměstnavatele podle pravidel platných v České republice.</p>
           </div>
           <HomePayrollCalculator />
+        </div>
+      </section>
+
+      {/* AGENCY VALUE — statutory payroll is not the whole staffing cost */}
+      <section className="section section--alt" id="agenturni-hodnota">
+        <div className="container">
+          <HomeAgencyValue />
         </div>
       </section>
 

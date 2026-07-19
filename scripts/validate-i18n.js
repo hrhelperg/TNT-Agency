@@ -186,6 +186,29 @@ function validate() {
     errors.push('DCALC registry file (lib/i18n/dedicated-calculator-copy.ts) not found');
   }
 
+  // 6. Phase B agency-value registry: cs/en/de objects present + no forbidden
+  //    guaranteed-savings / lower-contribution claims.
+  try {
+    const av = fs.readFileSync(path.join(ROOT, 'lib', 'agency-value', 'copy.ts'), 'utf8');
+    for (const lang of LANGS) {
+      if (!new RegExp(`const ${lang}: AgencyValueCopy = \\{`).test(av)) {
+        errors.push(`AGENCY_VALUE registry missing the "${lang}" object`);
+      }
+    }
+    const forbidden = [
+      /guaranteed saving/i, /always cheaper/i, /zaručen[éá] úspor/i, /vždy levnější/i,
+      /garantierte einsparung/i, /immer günstiger/i, /nižší odvody/i, /lower (statutory )?contribution/i,
+    ];
+    for (const re of forbidden) {
+      if (re.test(av)) errors.push(`Forbidden savings/claim phrase in agency-value copy: ${re}`);
+    }
+  } catch {
+    // Agency-value copy is Phase B; only enforce if the branch includes it.
+    if (fs.existsSync(path.join(ROOT, 'components', 'HomeAgencyValue.tsx'))) {
+      errors.push('HomeAgencyValue present but lib/agency-value/copy.ts registry not found');
+    }
+  }
+
   return { dicts, used, errors, namespaces: [...allNs] };
 }
 

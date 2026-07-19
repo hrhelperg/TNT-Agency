@@ -2530,3 +2530,144 @@ p  { color: var(--text-2); line-height: 1.7; }
 }
 .article-lang-notice__btn:hover { background: var(--navy-2); }
 .article-lang-notice__btn:focus-visible { outline: 3px solid var(--accent-ring); outline-offset: 2px; }
+
+/* ================================================================
+   PHASE B — AGENCY VALUE (.agv) + RESPONSIBILITY MATRIX (.resp)
+   ================================================================ */
+.agv { width: 100%; }
+.agv__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--s4);
+  align-items: start;
+  margin-bottom: var(--s4);
+}
+.agv__points { display: flex; flex-direction: column; gap: 14px; margin: 0; }
+.agv__points li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--text-2);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.agv__points li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.agv__benefits {
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--s4);
+  box-shadow: var(--shadow-sm);
+}
+.agv__benefits-title { font-size: 1.05rem; margin-bottom: 14px; letter-spacing: -0.02em; }
+.agv__benefits-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.agv__benefits-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 0.92rem;
+  color: var(--text-2);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.agv__benefits-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--navy);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+.agv__benefits-note { font-size: 0.82rem; color: var(--text-3); line-height: 1.55; margin: 0; }
+.agv__cta-wrap { text-align: center; }
+
+/* Responsibility matrix */
+.resp { width: 100%; max-width: 900px; margin: 0 auto; }
+.resp__title { font-size: 1.25rem; margin-bottom: 8px; letter-spacing: -0.02em; }
+.resp__intro { font-size: 0.95rem; color: var(--text-2); margin-bottom: var(--s3); line-height: 1.6; }
+.resp__wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.resp__table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.resp__table th[scope="col"] {
+  text-align: left;
+  padding: 10px 14px;
+  color: var(--text-2);
+  font-weight: 700;
+  border-bottom: 2px solid var(--border-2);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.resp__table th[scope="row"] {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+.resp__table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.resp-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.resp-badge--agency  { background: var(--navy); color: #fff; }
+.resp-badge--client  { background: var(--accent-tint); color: var(--accent-dark); border-color: rgba(240,90,40,0.25); }
+.resp-badge--shared  { background: rgba(13,30,61,0.06); color: var(--navy); }
+.resp-badge--depends { background: var(--bg-alt); color: var(--text-2); border-color: var(--border-2); }
+.resp__disclaimer { font-size: 0.82rem; color: var(--text-3); line-height: 1.6; margin: var(--s3) 0 0; }
+
+/* Qualified difference banner (comparison mode) */
+.pcalc-diff {
+  margin: var(--s2) 0 0;
+  padding: 14px 16px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+.pcalc-diff__label { display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3); }
+.pcalc-diff__state { display: block; font-size: 1.05rem; color: var(--navy); margin: 4px 0 6px; }
+.pcalc-diff__note { font-size: 0.84rem; color: var(--text-2); line-height: 1.55; margin: 0; }
+
+/* Agency benefits block on the dedicated page */
+.agv-benefits { max-width: 900px; margin: var(--s5) auto 0; }
+.agv-benefits__title { font-size: 1.1rem; margin-bottom: 14px; }
+.agv-benefits__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 20px;
+  margin-bottom: 12px;
+}
+.agv-benefits__list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 0.92rem;
+  color: var(--text-2);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.agv-benefits__list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--navy); font-weight: 800; font-size: 0.85rem; }
+.agv-benefits__note { font-size: 0.82rem; color: var(--text-3); line-height: 1.55; margin: 0; }
+
+@media (max-width: 720px) {
+  .agv__grid { grid-template-columns: 1fr; gap: var(--s3); }
+  .agv-benefits__list { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .resp__table, .resp__table thead, .resp__table tbody, .resp__table tr, .resp__table th, .resp__table td { display: block; }
+  .resp__table thead { display: none; }
+  .resp__table tr { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; padding: 6px 10px; }
+  .resp__table th[scope="row"] { border: none; padding: 6px 4px 2px; }
+  .resp__table td { border: none; padding: 2px 4px 6px; }
+}
