@@ -146,9 +146,9 @@ export default function Home() {
       <section className="section" id="kalkulacka-mezd" aria-labelledby="kalkulacka-mezd-title">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow">Kalkulačka nákladů zaměstnance</div>
-            <h2 id="kalkulacka-mezd-title">Spočítejte skutečné náklady na zaměstnance</h2>
-            <p>Zjistěte čistou mzdu zaměstnance, zákonné odvody a celkové měsíční náklady zaměstnavatele podle pravidel platných v České republice.</p>
+            <div className="eyebrow" data-i18n="calc.eyebrow">Kalkulačka nákladů zaměstnance</div>
+            <h2 id="kalkulacka-mezd-title" data-i18n="calc.heading">Spočítejte skutečné náklady na zaměstnance</h2>
+            <p data-i18n="calc.sub">Zjistěte čistou mzdu zaměstnance, zákonné odvody a celkové měsíční náklady zaměstnavatele podle pravidel platných v České republice.</p>
           </div>
           <HomePayrollCalculator />
         </div>

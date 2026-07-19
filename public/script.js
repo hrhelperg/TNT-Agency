@@ -24,6 +24,53 @@ const T = {
       language:    'Language',
       cta:         'Start Hiring',
     },
+    calc: {
+      eyebrow: 'Employee cost calculator',
+      heading: 'Calculate the true cost of an employee',
+      sub:     'See the employee’s net salary, statutory contributions and the total monthly employer cost under the rules of the Czech Republic.',
+    },
+    pages: {
+      contactH1: 'Ready to find your next great hire?',
+      contactSub: 'Tell us about your open role. We reply on business days.',
+      contactHours: 'Mon–Fri: 8:00 – 17:00',
+      offersEyebrow: 'Offers & opportunities',
+      offersH1: 'Browse offers and find your next role',
+      offersSub: 'Client requests from companies seeking staffing support, plus open positions for candidates. All reviewed manually before going live.',
+      offersListTitle: 'Offers coming soon',
+      offersListBody: 'Companies are posting their requirements and we review them before they appear here. Be first to get matched — post your offer today.',
+      offersListBtn: 'Post your offer',
+      offersPostEyebrow: 'Post your requirement',
+      offersPostH2: 'Looking for a recruitment or staffing agency?',
+      offersPostSub: 'Tell us what you need and qualified agencies will be able to review your offer. Free, fast, and fully moderated.',
+      offersPostBtn: 'Post your offer →',
+      agenciesEyebrow: 'Agency directory & services',
+      agenciesH1: 'Find the right agency partner',
+      agenciesSub: 'Browse verified recruitment and staffing agencies, explore our services, and discover how TalentPartnerID can fill your next role — fast.',
+      agenciesListTitle: 'Agency listings coming soon',
+      agenciesListBody: 'We are building this directory. Agencies are submitted by their owners and reviewed manually before appearing here. Be among the first to get listed.',
+      agenciesListBtn: 'Submit your agency',
+      agGetEyebrow: 'Get listed',
+      agGetH2: 'Are you a recruitment or staffing agency?',
+      agGetSub: 'Submit your profile and start getting discovered by companies looking for your exact services. Free, fast, and no account needed.',
+      agGetBtn: 'Submit your agency →',
+      submitAgEyebrow: 'Agency submission',
+      submitAgH1: 'Submit your agency',
+      submitAgSub: 'Get your agency in front of companies looking for recruitment and staffing services. Every submission is reviewed manually — nothing is published automatically.',
+      submitOffEyebrow: 'Client offer',
+      submitOffH1: 'Post your offer',
+      submitOffSub: 'Tell us what you need and we will forward your request to relevant agencies. All submissions go to the site owner for manual review — nothing is published automatically.',
+      cardBtn: 'Write an e-mail',
+      cardEmailLabel: 'E-mail:',
+      cardPhoneLabel: 'Phone:',
+      contactCardTitle: 'Write to us',
+      contactCardBody: 'Describe the position or request by e-mail and we will get back to you as soon as possible.',
+      submitAgCardTitle: 'Agency registration',
+      submitAgCardBody: 'Send us an e-mail with your agency name, website, services offered, location and a short description. We will get back to you.',
+      submitOffCardTitle: 'Worker request',
+      submitOffCardBody: 'Send us an e-mail with your company, the workers you need, the number, location, shift model and required start date. We will get back to you.',
+      offersCtaNote: 'Are you an agency? <a href="/agencies">Browse the agency directory</a> or <a href="/submit-agency">submit your profile</a>.',
+      agenciesCtaNote: 'Are you a client looking for an agency? <a href="/submit-offer">Post your offer</a> and let agencies come to you.',
+    },
     hero: {
       badge:  'Employment Agency · Talent. Network. Trust.',
       h1a:    'We Connect',
@@ -225,6 +272,23 @@ const T = {
       colEmployers: 'For Employers',
       colCompany:   'Company',
       colFollow:    'Follow Us',
+      colServices:  'Our services',
+      colNavigate:  'Navigate',
+      colGuides:    'Guides',
+      colContact:   'Contact',
+      navAgencies:  'Agencies',
+      navOffers:    'Offers',
+      navCalc:      'Payroll calculator',
+      navSubmitAgency: 'List your agency',
+      navPostOffer: 'Post a request',
+      navContact:   'Contact',
+      navTaxes:     'Social & health contributions 2026',
+      navBlog:      'Blog',
+      guide1: 'Employing foreigners',
+      guide2: 'Work permit in the Czech Republic',
+      guide3: 'Recruiting foreign workers',
+      guide4: 'Minimum wage 2026',
+      guide5: 'Frequently asked questions',
       links: {
         permanent:  'Permanent Placement',
         executive:  'Executive Search',
@@ -262,6 +326,53 @@ const T = {
       contactCta:  'Kontaktujte nás',
       language:    'Jazyk',
       cta:        'Hledám pracovníky',
+    },
+    calc: {
+      eyebrow: 'Kalkulačka nákladů zaměstnance',
+      heading: 'Spočítejte skutečné náklady na zaměstnance',
+      sub:     'Zjistěte čistou mzdu zaměstnance, zákonné odvody a celkové měsíční náklady zaměstnavatele podle pravidel platných v České republice.',
+    },
+    pages: {
+      contactH1: 'Chcete najít skvělého zaměstnance?',
+      contactSub: 'Napište nám o vaší volné pozici. Na zprávy odpovídáme v pracovní dny.',
+      contactHours: 'Po–Pá: 8:00 – 17:00',
+      offersEyebrow: 'Nabídky a příležitosti',
+      offersH1: 'Procházejte nabídky a najděte novou roli',
+      offersSub: 'Poptávky firem hledajících personální podporu i otevřené pozice pro uchazeče. Vše ručně kontrolujeme před zveřejněním.',
+      offersListTitle: 'Nabídky již brzy',
+      offersListBody: 'Firmy vkládají své poptávky a my je před zveřejněním kontrolujeme. Buďte první, koho spojíme – zadejte svou poptávku ještě dnes.',
+      offersListBtn: 'Zadat poptávku',
+      offersPostEyebrow: 'Zadejte poptávku',
+      offersPostH2: 'Hledáte personální nebo pracovní agenturu?',
+      offersPostSub: 'Napište nám, co potřebujete, a kvalifikované agentury si vaši poptávku budou moci prohlédnout. Zdarma, rychle a plně moderované.',
+      offersPostBtn: 'Zadat poptávku →',
+      agenciesEyebrow: 'Katalog agentur a služby',
+      agenciesH1: 'Najděte správného agenturního partnera',
+      agenciesSub: 'Procházejte ověřené personální a pracovní agentury, prozkoumejte naše služby a zjistěte, jak vám TalentPartnerID rychle obsadí další pozici.',
+      agenciesListTitle: 'Seznam agentur již brzy',
+      agenciesListBody: 'Katalog teprve budujeme. Agentury zadávají jejich majitelé a před zveřejněním je ručně kontrolujeme. Buďte mezi prvními v seznamu.',
+      agenciesListBtn: 'Registrovat agenturu',
+      agGetEyebrow: 'Zviditelněte se',
+      agGetH2: 'Jste personální nebo pracovní agentura?',
+      agGetSub: 'Zadejte svůj profil a začněte být vidět u firem, které hledají přesně vaše služby. Zdarma, rychle a bez registrace účtu.',
+      agGetBtn: 'Registrovat agenturu →',
+      submitAgEyebrow: 'Registrace agentury',
+      submitAgH1: 'Registrujte svou agenturu',
+      submitAgSub: 'Zviditelněte svou agenturu u firem, které hledají personální a náborové služby. Každou registraci kontrolujeme ručně – nic se nezveřejňuje automaticky.',
+      submitOffEyebrow: 'Poptávka klienta',
+      submitOffH1: 'Zadejte poptávku',
+      submitOffSub: 'Napište nám, co potřebujete, a my vaši poptávku předáme relevantním agenturám. Vše prochází ruční kontrolou provozovatele – nic se nezveřejňuje automaticky.',
+      cardBtn: 'Napsat e-mail',
+      cardEmailLabel: 'E-mail:',
+      cardPhoneLabel: 'Telefon:',
+      contactCardTitle: 'Napište nám',
+      contactCardBody: 'Popište nám pozici nebo poptávku e-mailem a co nejdříve se vám ozveme.',
+      submitAgCardTitle: 'Registrace agentury',
+      submitAgCardBody: 'Napište nám e-mail a uveďte název agentury, web, nabízené služby, lokalitu a krátký popis. Ozveme se vám.',
+      submitOffCardTitle: 'Poptávka pracovníků',
+      submitOffCardBody: 'Napište nám e-mail a uveďte firmu, o jaké pracovníky máte zájem, počet, lokalitu, směnový model a požadovaný termín nástupu. Ozveme se vám.',
+      offersCtaNote: 'Jste agentura? <a href="/agencies">Projděte katalog agentur</a> nebo <a href="/submit-agency">zadejte svůj profil</a>.',
+      agenciesCtaNote: 'Jste klient a hledáte agenturu? <a href="/submit-offer">Zadejte poptávku</a> a nechte agentury přijít za vámi.',
     },
     hero: {
       badge:    'Personální agentura · Talent. Síť. Důvěra.',
@@ -464,6 +575,23 @@ const T = {
       colEmployers: 'Pro zaměstnavatele',
       colCompany:   'Společnost',
       colFollow:    'Sledujte nás',
+      colServices:  'Naše služby',
+      colNavigate:  'Navigace',
+      colGuides:    'Průvodci',
+      colContact:   'Kontakt',
+      navAgencies:  'Agentury',
+      navOffers:    'Nabídky',
+      navCalc:      'Kalkulačka mezd',
+      navSubmitAgency: 'Registrovat agenturu',
+      navPostOffer: 'Zadat poptávku',
+      navContact:   'Kontakt',
+      navTaxes:     'Sociální a zdravotní odvody 2026',
+      navBlog:      'Blog',
+      guide1: 'Zaměstnávání cizinců',
+      guide2: 'Pracovní povolení v ČR',
+      guide3: 'Nábor zahraničních pracovníků',
+      guide4: 'Minimální mzda 2026',
+      guide5: 'Časté dotazy',
       links: {
         permanent:  'Přímé umístění',
         executive:  'Executive Search',
@@ -501,6 +629,53 @@ const T = {
       contactCta:  'Kontakt aufnehmen',
       language:    'Sprache',
       cta:        'Mitarbeiter finden',
+    },
+    calc: {
+      eyebrow: 'Rechner für Mitarbeiterkosten',
+      heading: 'Berechnen Sie die tatsächlichen Kosten eines Mitarbeiters',
+      sub:     'Sehen Sie den Nettolohn des Arbeitnehmers, die gesetzlichen Beiträge und die gesamten monatlichen Arbeitgeberkosten nach den Regeln der Tschechischen Republik.',
+    },
+    pages: {
+      contactH1: 'Möchten Sie Ihre nächste Fachkraft finden?',
+      contactSub: 'Erzählen Sie uns von Ihrer offenen Stelle. Wir antworten an Werktagen.',
+      contactHours: 'Mo–Fr: 8:00 – 17:00',
+      offersEyebrow: 'Angebote & Möglichkeiten',
+      offersH1: 'Angebote durchsuchen und Ihre nächste Rolle finden',
+      offersSub: 'Anfragen von Unternehmen, die Personalunterstützung suchen, sowie offene Stellen für Bewerber. Alles wird vor der Veröffentlichung manuell geprüft.',
+      offersListTitle: 'Angebote bald verfügbar',
+      offersListBody: 'Unternehmen stellen ihre Anfragen ein und wir prüfen sie, bevor sie hier erscheinen. Seien Sie der Erste – stellen Sie Ihre Anfrage noch heute ein.',
+      offersListBtn: 'Anfrage stellen',
+      offersPostEyebrow: 'Stellen Sie Ihre Anfrage',
+      offersPostH2: 'Suchen Sie eine Personal- oder Zeitarbeitsagentur?',
+      offersPostSub: 'Sagen Sie uns, was Sie brauchen, und qualifizierte Agenturen können Ihre Anfrage prüfen. Kostenlos, schnell und vollständig moderiert.',
+      offersPostBtn: 'Anfrage stellen →',
+      agenciesEyebrow: 'Agenturverzeichnis & Leistungen',
+      agenciesH1: 'Finden Sie den richtigen Agenturpartner',
+      agenciesSub: 'Durchsuchen Sie geprüfte Personal- und Zeitarbeitsagenturen, entdecken Sie unsere Leistungen und erfahren Sie, wie TalentPartnerID Ihre nächste Stelle schnell besetzt.',
+      agenciesListTitle: 'Agenturliste bald verfügbar',
+      agenciesListBody: 'Wir bauen dieses Verzeichnis auf. Agenturen werden von ihren Inhabern eingetragen und vor der Veröffentlichung manuell geprüft. Seien Sie unter den Ersten.',
+      agenciesListBtn: 'Agentur eintragen',
+      agGetEyebrow: 'Eintragen lassen',
+      agGetH2: 'Sind Sie eine Personal- oder Zeitarbeitsagentur?',
+      agGetSub: 'Reichen Sie Ihr Profil ein und werden Sie von Unternehmen gefunden, die genau Ihre Leistungen suchen. Kostenlos, schnell und ohne Konto.',
+      agGetBtn: 'Agentur eintragen →',
+      submitAgEyebrow: 'Agentureintrag',
+      submitAgH1: 'Tragen Sie Ihre Agentur ein',
+      submitAgSub: 'Präsentieren Sie Ihre Agentur Unternehmen, die Personal- und Vermittlungsleistungen suchen. Jeder Eintrag wird manuell geprüft – nichts wird automatisch veröffentlicht.',
+      submitOffEyebrow: 'Kundenanfrage',
+      submitOffH1: 'Stellen Sie Ihre Anfrage',
+      submitOffSub: 'Sagen Sie uns, was Sie brauchen, und wir leiten Ihre Anfrage an passende Agenturen weiter. Alle Einsendungen werden vom Betreiber manuell geprüft – nichts wird automatisch veröffentlicht.',
+      cardBtn: 'E-Mail schreiben',
+      cardEmailLabel: 'E-Mail:',
+      cardPhoneLabel: 'Telefon:',
+      contactCardTitle: 'Schreiben Sie uns',
+      contactCardBody: 'Beschreiben Sie die Position oder Anfrage per E-Mail und wir melden uns so schnell wie möglich.',
+      submitAgCardTitle: 'Agentur-Registrierung',
+      submitAgCardBody: 'Senden Sie uns eine E-Mail mit Agenturname, Website, angebotenen Leistungen, Standort und einer kurzen Beschreibung. Wir melden uns.',
+      submitOffCardTitle: 'Personalanfrage',
+      submitOffCardBody: 'Senden Sie uns eine E-Mail mit Ihrem Unternehmen, den benötigten Mitarbeitern, der Anzahl, dem Standort, dem Schichtmodell und dem gewünschten Eintrittstermin. Wir melden uns.',
+      offersCtaNote: 'Sind Sie eine Agentur? <a href="/agencies">Durchsuchen Sie das Agenturverzeichnis</a> oder <a href="/submit-agency">reichen Sie Ihr Profil ein</a>.',
+      agenciesCtaNote: 'Sind Sie ein Kunde auf der Suche nach einer Agentur? <a href="/submit-offer">Stellen Sie Ihre Anfrage</a> und lassen Sie Agenturen auf Sie zukommen.',
     },
     hero: {
       badge:    'Personalvermittlung · Talent. Netzwerk. Vertrauen.',
@@ -703,6 +878,23 @@ const T = {
       colEmployers: 'Für Arbeitgeber',
       colCompany:   'Unternehmen',
       colFollow:    'Folgen Sie uns',
+      colServices:  'Unsere Leistungen',
+      colNavigate:  'Navigation',
+      colGuides:    'Ratgeber',
+      colContact:   'Kontakt',
+      navAgencies:  'Agenturen',
+      navOffers:    'Angebote',
+      navCalc:      'Lohnrechner',
+      navSubmitAgency: 'Agentur eintragen',
+      navPostOffer: 'Anfrage stellen',
+      navContact:   'Kontakt',
+      navTaxes:     'Sozial- und Krankenversicherung 2026',
+      navBlog:      'Blog',
+      guide1: 'Ausländer beschäftigen',
+      guide2: 'Arbeitserlaubnis in Tschechien',
+      guide3: 'Rekrutierung ausländischer Arbeitskräfte',
+      guide4: 'Mindestlohn 2026',
+      guide5: 'Häufige Fragen',
       links: {
         permanent:  'Direktvermittlung',
         executive:  'Executive Search',
@@ -782,6 +974,18 @@ function renderAll(lang) {
   qs('[data-i18n="mnav.postOffer"]',   t.nav.postOffer);
   qsa('[data-i18n="mnav.contactCta"]', el => el.textContent = t.nav.contactCta);
   qs('[data-i18n="mnav.cta"]',        t.nav.cta);
+
+  /* — Homepage calculator section head — */
+  qs('[data-i18n="calc.eyebrow"]', t.calc.eyebrow);
+  qs('[data-i18n="calc.heading"]', t.calc.heading);
+  qs('[data-i18n="calc.sub"]',     t.calc.sub);
+
+  /* — Transactional pages (only the relevant page's elements exist per route) — */
+  Object.keys(t.pages).forEach((k) => {
+    const v = t.pages[k];
+    if (v.indexOf('<') !== -1) qsHTML(`[data-i18n="pages.${k}"]`, v); // cross-link notes carry markup
+    else qsa(`[data-i18n="pages.${k}"]`, (el) => { el.textContent = v; });
+  });
 
   /* — Hero — */
   qs('[data-i18n="hero.badge"]',    t.hero.badge);
@@ -957,17 +1161,27 @@ function renderAll(lang) {
 
   /* — Footer — */
   qs('[data-i18n="footer.tagline"]',      t.footer.tagline);
-  qs('[data-i18n="footer.colEmployers"]', t.footer.colEmployers);
-  qs('[data-i18n="footer.colCompany"]',   t.footer.colCompany);
-  qs('[data-i18n="footer.colFollow"]',    t.footer.colFollow);
-  qs('[data-i18n="footer.permanent"]',    t.footer.links.permanent);
-  qs('[data-i18n="footer.executive"]',    t.footer.links.executive);
-  qs('[data-i18n="footer.temp"]',         t.footer.links.temp);
-  qs('[data-i18n="footer.rpo"]',          t.footer.links.rpo);
-  qs('[data-i18n="footer.about"]',        t.footer.links.about);
-  qs('[data-i18n="footer.industries"]',   t.footer.links.industries);
-  qs('[data-i18n="footer.candidates"]',   t.footer.links.candidates);
-  qs('[data-i18n="footer.contact"]',      t.footer.links.contact);
+  qs('[data-i18n="footer.colServices"]',  t.footer.colServices);
+  qs('[data-i18n="footer.colNavigate"]',  t.footer.colNavigate);
+  qs('[data-i18n="footer.colGuides"]',    t.footer.colGuides);
+  qs('[data-i18n="footer.colContact"]',   t.footer.colContact);
+  qs('[data-i18n="footer.links.permanent"]', t.footer.links.permanent);
+  qs('[data-i18n="footer.links.executive"]', t.footer.links.executive);
+  qs('[data-i18n="footer.links.temp"]',   t.footer.links.temp);
+  qs('[data-i18n="footer.links.rpo"]',    t.footer.links.rpo);
+  qs('[data-i18n="footer.navAgencies"]',  t.footer.navAgencies);
+  qs('[data-i18n="footer.navOffers"]',    t.footer.navOffers);
+  qs('[data-i18n="footer.navCalc"]',      t.footer.navCalc);
+  qs('[data-i18n="footer.navSubmitAgency"]', t.footer.navSubmitAgency);
+  qs('[data-i18n="footer.navPostOffer"]', t.footer.navPostOffer);
+  qs('[data-i18n="footer.navContact"]',   t.footer.navContact);
+  qs('[data-i18n="footer.navTaxes"]',     t.footer.navTaxes);
+  qs('[data-i18n="footer.navBlog"]',      t.footer.navBlog);
+  qs('[data-i18n="footer.guide1"]',       t.footer.guide1);
+  qs('[data-i18n="footer.guide2"]',       t.footer.guide2);
+  qs('[data-i18n="footer.guide3"]',       t.footer.guide3);
+  qs('[data-i18n="footer.guide4"]',       t.footer.guide4);
+  qs('[data-i18n="footer.guide5"]',       t.footer.guide5);
   qs('[data-i18n="footer.copy"]',         t.footer.copy);
   qs('[data-i18n="footer.terms"]',        t.footer.terms);
   qs('[data-i18n="footer.priv"]',         t.footer.priv);
@@ -1009,6 +1223,9 @@ function setLang(lang) {
   if (!T[lang]) lang = 'en';
   localStorage.setItem('tnt-lang', lang);
   renderAll(lang);
+  // Notify React islands (e.g. the payroll calculator) that own their own
+  // content and cannot be updated by the [data-i18n] DOM swap.
+  window.dispatchEvent(new CustomEvent('tnt-lang', { detail: lang }));
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {

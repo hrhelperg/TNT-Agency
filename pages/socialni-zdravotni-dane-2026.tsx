@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import ArticleLanguageNotice from '../components/ArticleLanguageNotice'
 import {
   ARTICLE_SOCIALNI_ZDRAVOTNI_DANE_2026 as article,
   generateArticleSchema,
@@ -97,7 +98,8 @@ export default function SocialniZdravotniDane2026() {
       </section>
 
       <main className="section">
-        <article className="container article-content">
+        <article className="container article-content" lang="cs">
+          <ArticleLanguageNotice />
           <p>{article.intro}</p>
 
           {article.sections.map((section) => (

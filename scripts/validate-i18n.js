@@ -134,7 +134,11 @@ function validate() {
     const baseNs = resolveNs(ns);
     const has = LANGS.every((l) => dicts[l][baseNs] && dicts[l][baseNs].has(key));
     if (!has) errors.push(`data-i18n="${full}" has no matching cs/en/de dictionary key (namespace ${baseNs})`);
-    if (!text.includes(`data-i18n="${full}"`)) {
+    // Wired either by a literal qs('[data-i18n="ns.key"]', ...) call OR by a
+    // dynamic per-namespace loop qsa('[data-i18n="ns.${k}"]', ...).
+    const wiredLiteral = text.includes(`data-i18n="${full}"`);
+    const wiredDynamic = text.includes('data-i18n="' + ns + '.${');
+    if (!wiredLiteral && !wiredDynamic) {
       errors.push(`data-i18n="${full}" is used in source but not wired in script.js apply()`);
     }
   }
@@ -149,6 +153,37 @@ function validate() {
     for (const m of regions[l].matchAll(/jobbohemiacz@[\w.]+/g)) {
       if (m[0] !== CONTACT_EMAIL) errors.push(`Altered contact email "${m[0]}" in ${l}`);
     }
+  }
+
+  // 4. Editorial Strategy-2: the shared SeoArticle template (all 133 editorial
+  //    pages) must render the availability notice and mark the Czech body lang.
+  const seo = fs.readFileSync(path.join(ROOT, 'components', 'SeoArticle.tsx'), 'utf8');
+  if (!seo.includes('ArticleLanguageNotice')) {
+    errors.push('SeoArticle is missing the Strategy-2 <ArticleLanguageNotice/>');
+  }
+  if (!/className="seo-body" lang="cs"/.test(seo)) {
+    errors.push('SeoArticle Czech body is missing lang="cs"');
+  }
+
+  // 5. Dedicated calculator must be localized via the bridge + typed registry,
+  //    with Strategy-2 on its long-form Czech legal editorial.
+  const dcalc = fs.readFileSync(path.join(ROOT, 'pages', 'kalkulacka-mzdy-agenturniho-zamestnance.tsx'), 'utf8');
+  if (!dcalc.includes('useLang') || !dcalc.includes('DCALC')) {
+    errors.push('Dedicated calculator page is not wired to useLang + the DCALC registry');
+  }
+  if (!dcalc.includes('ArticleLanguageNotice')) {
+    errors.push('Dedicated calculator editorial section is missing the Strategy-2 notice');
+  }
+  // Its typed registry must have cs/en/de parity (structural, not regex).
+  try {
+    const registry = fs.readFileSync(path.join(ROOT, 'lib', 'i18n', 'dedicated-calculator-copy.ts'), 'utf8');
+    for (const lang of LANGS) {
+      if (!new RegExp(`const ${lang}: DCalcCopy = \\{`).test(registry)) {
+        errors.push(`DCALC registry missing the "${lang}" object`);
+      }
+    }
+  } catch {
+    errors.push('DCALC registry file (lib/i18n/dedicated-calculator-copy.ts) not found');
   }
 
   return { dicts, used, errors, namespaces: [...allNs] };
