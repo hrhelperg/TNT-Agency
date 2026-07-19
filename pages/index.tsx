@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import HomePayrollCalculator from '../components/HomePayrollCalculator'
 
 const employmentAgencySchema = {
   '@context': 'https://schema.org',
@@ -138,6 +139,18 @@ export default function Home() {
               <span data-i18n="stats.s4">First Candidates</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* PAYROLL CALCULATOR — flagship */}
+      <section className="section" id="kalkulacka-mezd" aria-labelledby="kalkulacka-mezd-title">
+        <div className="container">
+          <div className="section-head fi">
+            <div className="eyebrow">Kalkulačka nákladů zaměstnance</div>
+            <h2 id="kalkulacka-mezd-title">Spočítejte skutečné náklady na zaměstnance</h2>
+            <p>Zjistěte čistou mzdu zaměstnance, zákonné odvody a celkové měsíční náklady zaměstnavatele podle pravidel platných v České republice.</p>
+          </div>
+          <HomePayrollCalculator />
         </div>
       </section>
 

@@ -196,6 +196,10 @@ export const ARTICLE_SOCIALNI_ZDRAVOTNI_DANE_2026: ArticleData = {
   ],
   internalLinks: [
     {
+      href: '/kalkulacka-mzdy-agenturniho-zamestnance',
+      label: 'Kalkulačka čisté mzdy a nákladů zaměstnavatele 2026',
+    },
+    {
       href: '/agencies',
       label: 'Podívejte se na služby pracovní agentury',
     },
