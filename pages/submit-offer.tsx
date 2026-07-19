@@ -41,9 +41,9 @@ export default function SubmitOffer() {
       {/* PAGE HERO */}
       <section className="page-hero" id="home">
         <div className="container">
-          <div className="eyebrow eyebrow--light fi">Client Offer</div>
-          <h1 className="fi d1">Post Your Offer</h1>
-          <p className="page-hero__sub fi d2">
+          <div className="eyebrow eyebrow--light fi" data-i18n="pages.submitOffEyebrow">Client Offer</div>
+          <h1 className="fi d1" data-i18n="pages.submitOffH1">Post Your Offer</h1>
+          <p className="page-hero__sub fi d2" data-i18n="pages.submitOffSub">
             Tell us what you need and we&apos;ll forward your request to relevant agencies. All submissions go to the site owner for manual review — nothing is published automatically.
           </p>
         </div>
@@ -59,22 +59,23 @@ export default function SubmitOffer() {
         <div className="container">
           <div className="submit-wrap">
             <div className="contact-cta-card contact-cta-card--wide">
-              <h3>Poptávka pracovníků</h3>
-              <p>
+              <h3 data-i18n="pages.submitOffCardTitle">Poptávka pracovníků</h3>
+              <p data-i18n="pages.submitOffCardBody">
                 Napište nám e-mail a uveďte firmu, o jaké pracovníky máte zájem, počet,
                 lokalitu, směnový model a požadovaný termín nástupu. Ozveme se vám.
               </p>
               <a
                 className="btn btn-primary btn-lg contact-cta-card__btn"
+                data-i18n="pages.cardBtn"
                 href="mailto:jobbohemiacz@gmail.com?subject=Popt%C3%A1vka%20%E2%80%93%20TalentPartnerID"
               >
                 Napsat e-mail
               </a>
               <p className="contact-cta-card__line">
-                E-mail: <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
+                <span data-i18n="pages.cardEmailLabel">E-mail:</span> <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
               </p>
               <p className="contact-cta-card__line">
-                Telefon: <a href="tel:+420776858284">+420 776 858 284</a>
+                <span data-i18n="pages.cardPhoneLabel">Telefon:</span> <a href="tel:+420776858284">+420 776 858 284</a>
               </p>
             </div>
           </div>

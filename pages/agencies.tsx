@@ -42,9 +42,9 @@ export default function Agencies() {
       {/* PAGE HERO */}
       <section className="page-hero" id="home">
         <div className="container">
-          <div className="eyebrow eyebrow--light fi">Agency Directory &amp; Services</div>
-          <h1 className="fi d1">Find the Right<br />Agency Partner</h1>
-          <p className="page-hero__sub fi d2">
+          <div className="eyebrow eyebrow--light fi" data-i18n="pages.agenciesEyebrow">Agency Directory &amp; Services</div>
+          <h1 className="fi d1" data-i18n="pages.agenciesH1">Find the Right Agency Partner</h1>
+          <p className="page-hero__sub fi d2" data-i18n="pages.agenciesSub">
             Browse verified recruitment and staffing agencies, explore our services, and discover how TalentPartnerID can fill your next role — fast.
           </p>
         </div>
@@ -60,11 +60,11 @@ export default function Agencies() {
         <div className="container">
           <div className="listing-placeholder fi">
             <div className="listing-placeholder__icon">🏢</div>
-            <h3>Agency Listings Coming Soon</h3>
-            <p>
+            <h3 data-i18n="pages.agenciesListTitle">Agency Listings Coming Soon</h3>
+            <p data-i18n="pages.agenciesListBody">
               We&apos;re building this directory. Agencies are submitted by their owners and reviewed manually before appearing here. Be among the first to get listed.
             </p>
-            <a href="/submit-agency" className="btn btn-accent btn-lg">Submit Your Agency</a>
+            <a href="/submit-agency" className="btn btn-accent btn-lg" data-i18n="pages.agenciesListBtn">Submit Your Agency</a>
           </div>
           <p className="listing-cta-note fi d1">
             Are you a client looking for an agency? <a href="/submit-offer">Post your offer</a> and let agencies come to you.
@@ -143,12 +143,12 @@ export default function Agencies() {
       <section className="section">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow">Get Listed</div>
-            <h2>Are You a Recruitment<br />or Staffing Agency?</h2>
-            <p>Submit your profile and start getting discovered by companies looking for your exact services. Free, fast, and no account needed.</p>
+            <div className="eyebrow" data-i18n="pages.agGetEyebrow">Get Listed</div>
+            <h2 data-i18n="pages.agGetH2">Are You a Recruitment or Staffing Agency?</h2>
+            <p data-i18n="pages.agGetSub">Submit your profile and start getting discovered by companies looking for your exact services. Free, fast, and no account needed.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
-            <a href="/submit-agency" className="btn btn-accent btn-lg">Submit Your Agency →</a>
+            <a href="/submit-agency" className="btn btn-accent btn-lg" data-i18n="pages.agGetBtn">Submit Your Agency →</a>
           </div>
         </div>
       </section>

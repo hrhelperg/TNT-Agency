@@ -42,9 +42,9 @@ export default function Offers() {
       {/* PAGE HERO */}
       <section className="page-hero" id="home">
         <div className="container">
-          <div className="eyebrow eyebrow--light fi">Offers &amp; Opportunities</div>
-          <h1 className="fi d1">Browse Offers &amp;<br />Find Your Next Role</h1>
-          <p className="page-hero__sub fi d2">
+          <div className="eyebrow eyebrow--light fi" data-i18n="pages.offersEyebrow">Offers &amp; Opportunities</div>
+          <h1 className="fi d1" data-i18n="pages.offersH1">Browse Offers &amp; Find Your Next Role</h1>
+          <p className="page-hero__sub fi d2" data-i18n="pages.offersSub">
             Client requests from companies seeking staffing support, plus open positions for candidates. All reviewed manually before going live.
           </p>
         </div>
@@ -60,11 +60,11 @@ export default function Offers() {
         <div className="container">
           <div className="listing-placeholder fi">
             <div className="listing-placeholder__icon">🔍</div>
-            <h3>Offers Coming Soon</h3>
-            <p>
+            <h3 data-i18n="pages.offersListTitle">Offers Coming Soon</h3>
+            <p data-i18n="pages.offersListBody">
               Companies are posting their requirements and we review them before they appear here. Be first to get matched — post your offer today.
             </p>
-            <a href="/submit-offer" className="btn btn-accent btn-lg">Post Your Offer</a>
+            <a href="/submit-offer" className="btn btn-accent btn-lg" data-i18n="pages.offersListBtn">Post Your Offer</a>
           </div>
           <p className="listing-cta-note fi d1">
             Are you an agency? <a href="/agencies">Browse the agency directory</a> or <a href="/submit-agency">submit your profile</a>.
@@ -103,12 +103,12 @@ export default function Offers() {
       <section className="section section--alt">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow">Post Your Requirement</div>
-            <h2>Looking for a Recruitment<br />or Staffing Agency?</h2>
-            <p>Tell us what you need and qualified agencies will be able to review your offer. Free, fast, and fully moderated.</p>
+            <div className="eyebrow" data-i18n="pages.offersPostEyebrow">Post Your Requirement</div>
+            <h2 data-i18n="pages.offersPostH2">Looking for a Recruitment or Staffing Agency?</h2>
+            <p data-i18n="pages.offersPostSub">Tell us what you need and qualified agencies will be able to review your offer. Free, fast, and fully moderated.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
-            <a href="/submit-offer" className="btn btn-accent btn-lg">Post Your Offer →</a>
+            <a href="/submit-offer" className="btn btn-accent btn-lg" data-i18n="pages.offersPostBtn">Post Your Offer →</a>
           </div>
         </div>
       </section>

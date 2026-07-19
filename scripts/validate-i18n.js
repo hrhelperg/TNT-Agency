@@ -134,7 +134,11 @@ function validate() {
     const baseNs = resolveNs(ns);
     const has = LANGS.every((l) => dicts[l][baseNs] && dicts[l][baseNs].has(key));
     if (!has) errors.push(`data-i18n="${full}" has no matching cs/en/de dictionary key (namespace ${baseNs})`);
-    if (!text.includes(`data-i18n="${full}"`)) {
+    // Wired either by a literal qs('[data-i18n="ns.key"]', ...) call OR by a
+    // dynamic per-namespace loop qsa('[data-i18n="ns.${k}"]', ...).
+    const wiredLiteral = text.includes(`data-i18n="${full}"`);
+    const wiredDynamic = text.includes('data-i18n="' + ns + '.${');
+    if (!wiredLiteral && !wiredDynamic) {
       errors.push(`data-i18n="${full}" is used in source but not wired in script.js apply()`);
     }
   }

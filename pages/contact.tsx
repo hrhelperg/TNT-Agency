@@ -56,9 +56,9 @@ export default function Contact() {
       <section className="page-hero" id="home">
         <div className="container">
           <div className="eyebrow eyebrow--light fi" data-i18n="contact.eyebrow">Get In Touch</div>
-          <h1 className="fi d1">Ready to Find<br />Your Next Great Hire?</h1>
-          <p className="page-hero__sub fi d2">
-            Tell us about your open role. Na zprávy odpovídáme v pracovní dny.
+          <h1 className="fi d1" data-i18n="pages.contactH1">Ready to Find Your Next Great Hire?</h1>
+          <p className="page-hero__sub fi d2" data-i18n="pages.contactSub">
+            Tell us about your open role. We reply on business days.
           </p>
         </div>
         <div className="page-hero__wave" aria-hidden="true">
@@ -140,19 +140,20 @@ export default function Contact() {
 
             <div className="contact__form-wrap fi d2">
               <div className="contact-cta-card">
-                <h3>Napište nám</h3>
-                <p>Popište nám pozici nebo poptávku e-mailem a co nejdříve se vám ozveme.</p>
+                <h3 data-i18n="pages.contactCardTitle">Napište nám</h3>
+                <p data-i18n="pages.contactCardBody">Popište nám pozici nebo poptávku e-mailem a co nejdříve se vám ozveme.</p>
                 <a
                   className="btn btn-primary btn-lg btn-full contact-cta-card__btn"
+                  data-i18n="pages.cardBtn"
                   href="mailto:jobbohemiacz@gmail.com?subject=Popt%C3%A1vka%20%E2%80%93%20TalentPartnerID"
                 >
                   Napsat e-mail
                 </a>
                 <p className="contact-cta-card__line">
-                  E-mail: <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
+                  <span data-i18n="pages.cardEmailLabel">E-mail:</span> <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
                 </p>
                 <p className="contact-cta-card__line">
-                  Telefon: <a href="tel:+420776858284">+420 776 858 284</a>
+                  <span data-i18n="pages.cardPhoneLabel">Telefon:</span> <a href="tel:+420776858284">+420 776 858 284</a>
                 </p>
               </div>
             </div>

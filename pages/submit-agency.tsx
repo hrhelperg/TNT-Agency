@@ -41,9 +41,9 @@ export default function SubmitAgency() {
       {/* PAGE HERO */}
       <section className="page-hero" id="home">
         <div className="container">
-          <div className="eyebrow eyebrow--light fi">Agency Submission</div>
-          <h1 className="fi d1">Submit Your Agency</h1>
-          <p className="page-hero__sub fi d2">
+          <div className="eyebrow eyebrow--light fi" data-i18n="pages.submitAgEyebrow">Agency Submission</div>
+          <h1 className="fi d1" data-i18n="pages.submitAgH1">Submit Your Agency</h1>
+          <p className="page-hero__sub fi d2" data-i18n="pages.submitAgSub">
             Get your agency in front of companies looking for recruitment and staffing services. Every submission is reviewed manually — nothing is published automatically.
           </p>
         </div>
@@ -60,22 +60,23 @@ export default function SubmitAgency() {
           <div className="submit-wrap">
 
             <div className="contact-cta-card contact-cta-card--wide">
-              <h3>Registrace agentury</h3>
-              <p>
+              <h3 data-i18n="pages.submitAgCardTitle">Registrace agentury</h3>
+              <p data-i18n="pages.submitAgCardBody">
                 Napište nám e-mail a uveďte název agentury, web, nabízené služby, lokalitu
                 a krátký popis. Ozveme se vám.
               </p>
               <a
                 className="btn btn-primary btn-lg contact-cta-card__btn"
+                data-i18n="pages.cardBtn"
                 href="mailto:jobbohemiacz@gmail.com?subject=Registrace%20agentury%20%E2%80%93%20TalentPartnerID"
               >
                 Napsat e-mail
               </a>
               <p className="contact-cta-card__line">
-                E-mail: <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
+                <span data-i18n="pages.cardEmailLabel">E-mail:</span> <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
               </p>
               <p className="contact-cta-card__line">
-                Telefon: <a href="tel:+420776858284">+420 776 858 284</a>
+                <span data-i18n="pages.cardPhoneLabel">Telefon:</span> <a href="tel:+420776858284">+420 776 858 284</a>
               </p>
             </div>
 
