@@ -169,7 +169,7 @@ export default function HomePayrollCalculator() {
                         <span>Sazba {formatRate(r.ratePercent)} ze základu {formatCzk(r.base)}</span>
                       </div>
                       <p className="hpc-route__purpose">
-                        {r.purposeCs} Příjemce:{' '}
+                        {r.purposeCs} Příjemce: <strong>{r.recipientCs}</strong>. Ověřený zdroj:{' '}
                         <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer">{r.institution}</a>{' '}
                         <span className="hpc-route__basis">({r.legalBasis})</span>
                       </p>
