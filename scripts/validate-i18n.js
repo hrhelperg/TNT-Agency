@@ -161,6 +161,27 @@ function validate() {
     errors.push('SeoArticle Czech body is missing lang="cs"');
   }
 
+  // 5. Dedicated calculator must be localized via the bridge + typed registry,
+  //    with Strategy-2 on its long-form Czech legal editorial.
+  const dcalc = fs.readFileSync(path.join(ROOT, 'pages', 'kalkulacka-mzdy-agenturniho-zamestnance.tsx'), 'utf8');
+  if (!dcalc.includes('useLang') || !dcalc.includes('DCALC')) {
+    errors.push('Dedicated calculator page is not wired to useLang + the DCALC registry');
+  }
+  if (!dcalc.includes('ArticleLanguageNotice')) {
+    errors.push('Dedicated calculator editorial section is missing the Strategy-2 notice');
+  }
+  // Its typed registry must have cs/en/de parity (structural, not regex).
+  try {
+    const registry = fs.readFileSync(path.join(ROOT, 'lib', 'i18n', 'dedicated-calculator-copy.ts'), 'utf8');
+    for (const lang of LANGS) {
+      if (!new RegExp(`const ${lang}: DCalcCopy = \\{`).test(registry)) {
+        errors.push(`DCALC registry missing the "${lang}" object`);
+      }
+    }
+  } catch {
+    errors.push('DCALC registry file (lib/i18n/dedicated-calculator-copy.ts) not found');
+  }
+
   return { dicts, used, errors, namespaces: [...allNs] };
 }
 

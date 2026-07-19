@@ -2,6 +2,9 @@ import Head from 'next/head';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ArticleLanguageNotice from '../components/ArticleLanguageNotice';
+import { useLang } from '../lib/i18n/react';
+import { DCALC } from '../lib/i18n/dedicated-calculator-copy';
 import {
   calculate,
   createDefaultInput,
@@ -246,14 +249,15 @@ function Toggle(props: { id: string; label: string; checked: boolean; onChange: 
 }
 
 function LineRow({ line }: { line: LineItem }) {
+  const t = DCALC[useLang()];
   const originLabel =
     line.origin === 'statutory'
-      ? 'zákonné'
+      ? t.originStatutory
       : line.origin === 'user-entered'
-        ? 'zadané'
+        ? t.originUser
         : line.origin === 'estimated'
-          ? 'odhad'
-          : 'odvozené';
+          ? t.originEstimated
+          : t.originDerived;
   const source = line.sourceId ? PAYROLL_SOURCES.find((s) => s.id === line.sourceId) : undefined;
   return (
     <details className="pcalc-line">
@@ -265,21 +269,21 @@ function LineRow({ line }: { line: LineItem }) {
       </summary>
       <div className="pcalc-line__detail">
         <p>
-          <strong>Vzorec:</strong> {line.formula}
+          <strong>{t.lFormula}</strong> {line.formula}
         </p>
         {line.rateNote ? (
           <p>
-            <strong>Sazba / základ:</strong> {line.rateNote}
+            <strong>{t.lRateBase}</strong> {line.rateNote}
             {line.baseNote ? ` — ${line.baseNote}` : ''}
           </p>
         ) : line.baseNote ? (
           <p>
-            <strong>Základ:</strong> {line.baseNote}
+            <strong>{t.lBase}</strong> {line.baseNote}
           </p>
         ) : null}
         {line.roundingNote ? (
           <p>
-            <strong>Zaokrouhlení:</strong> {line.roundingNote}
+            <strong>{t.lRounding}</strong> {line.roundingNote}
           </p>
         ) : null}
         <p>
@@ -288,7 +292,7 @@ function LineRow({ line }: { line: LineItem }) {
             <>
               {' '}
               <a href={source.url} target="_blank" rel="noopener noreferrer">
-                Zdroj: {source.authority} ({source.legalBasis})
+                {t.lSource} {source.authority} ({source.legalBasis})
               </a>
             </>
           ) : null}
@@ -302,6 +306,8 @@ const WORKER_PRESETS = [1, 5, 10, 25, 50, 100];
 
 // ── Main page ───────────────────────────────────────────────────────────────
 export default function PayrollCalculatorPage() {
+  const lang = useLang();
+  const t = DCALC[lang];
   const [inp, setInp] = useState<PayrollInput>(() => createDefaultInput());
 
   // Restore shared query-state (?d=) on mount — client only, no hydration mismatch.
@@ -447,44 +453,35 @@ export default function PayrollCalculatorPage() {
 
       <Header activePage="article" />
 
-      <section className="article-hero" lang="cs">
+      <section className="article-hero" lang={lang}>
         <div className="container">
           <nav className="seo-breadcrumb" aria-label="Drobečková navigace">
-            <a href="/">Domů</a> <span aria-hidden="true">›</span> <span>Kalkulačka mezd 2026</span>
+            <a href="/">{t.breadcrumbHome}</a> <span aria-hidden="true">›</span> <span>{t.breadcrumbCurrent}</span>
           </nav>
-          <div className="eyebrow">Mzdy a náklady · Pravidla ČR 2026</div>
-          <h1>{PAGE_TITLE}</h1>
-          <p className="page-hero__sub">
-            Spočítejte hrubou a čistou mzdu, přesčasy a příplatky, odvody zaměstnance, náklady
-            zaměstnavatele, agenturní marži a celkovou cenu pracovníka – a porovnejte agenturního
-            zaměstnance s kmenovým. Orientační výpočet, pravidla ČR 2026.
-          </p>
+          <div className="eyebrow">{t.eyebrow}</div>
+          <h1>{t.h1}</h1>
+          <p className="page-hero__sub">{t.heroSub}</p>
           <div className="article-meta">
-            <span>Orientační výpočet</span>
-            <span>Pravidla ČR 2026</span>
-            <span>Naposledy ověřeno {LAST_VERIFIED}</span>
+            <span>{t.metaEstimate}</span>
+            <span>{t.metaRules}</span>
+            <span>{t.metaVerified.replace('{d}', LAST_VERIFIED)}</span>
           </div>
         </div>
       </section>
 
-      <main className="section" lang="cs">
+      <main className="section" lang={lang}>
         <div className="container">
-          <p className="pcalc-methodology">
-            <strong>Metodika:</strong> Kalkulačka počítá výhradně ve vašem prohlížeči (client-side).
-            Žádné mzdové údaje se neodesílají na server ani do analytiky. Výpočet je orientační a
-            nenahrazuje mzdovou účtárnu ani daňové poradenství. Sazby vycházejí z oficiálních zdrojů
-            pro rok 2026 (viz sekce Zdroje).
-          </p>
+          <p className="pcalc-methodology">{t.methodology}</p>
 
           {/* Mode selector */}
           <fieldset className="pcalc-fieldset pcalc-modes-wrap">
-            <legend>1 · Režim výpočtu</legend>
-            <div className="pcalc-modes" role="tablist" aria-label="Režim výpočtu">
+            <legend>{t.legMode}</legend>
+            <div className="pcalc-modes" role="tablist" aria-label={t.legMode}>
               {(
                 [
-                  ['agency', 'Agenturní zaměstnanec'],
-                  ['direct', 'Kmenový zaměstnanec'],
-                  ['comparison', 'Porovnání obou variant'],
+                  ['agency', t.modeAgency],
+                  ['direct', t.modeDirect],
+                  ['comparison', t.modeComparison],
                 ] as [CalculationMode, string][]
               ).map(([m, label]) => (
                 <button
@@ -505,33 +502,33 @@ export default function PayrollCalculatorPage() {
             {/* ── Inputs ── */}
             <div className="pcalc__panel">
               <fieldset className="pcalc-fieldset">
-                <legend>2 · Období a fond hodin</legend>
+                <legend>{t.legPeriod}</legend>
                 <div className="pcalc-grid-2">
                   <NumberField
                     id="month"
-                    label="Měsíc"
+                    label={t.month}
                     value={inp.period.month}
                     onChange={(n) => setPeriod({ month: Math.min(12, Math.max(1, Math.round(n))) })}
                     min={1}
                   />
                   <NumberField
                     id="fund"
-                    label="Měsíční fond hodin"
+                    label={t.hoursFund}
                     value={inp.period.monthlyHoursFund}
                     onChange={(n) => setPeriod({ monthlyHoursFund: n })}
                     suffix="h"
-                    hint="Výchozí scénář 160 h. Skutečný fond závisí na měsíci, svátcích a rozvrhu směn."
+                    hint={t.hoursFundHint}
                   />
                 </div>
               </fieldset>
 
               <fieldset className="pcalc-fieldset">
-                <legend>3 · Mzda</legend>
+                <legend>{t.legWage}</legend>
                 <div className="pcalc-modes pcalc-modes--sm">
                   {(
                     [
-                      ['hourly', 'Hodinová mzda'],
-                      ['monthly', 'Měsíční mzda'],
+                      ['hourly', t.wageHourly],
+                      ['monthly', t.wageMonthly],
                     ] as [WageInputMode, string][]
                   ).map(([m, label]) => (
                     <button
@@ -549,7 +546,7 @@ export default function PayrollCalculatorPage() {
                   {inp.wage.mode === 'hourly' ? (
                     <NumberField
                       id="hourlyWage"
-                      label="Hodinová mzda"
+                      label={t.wageHourly}
                       value={inp.wage.hourlyWageCzk}
                       onChange={(n) => setWage({ hourlyWageCzk: n })}
                       suffix="Kč/h"
@@ -558,7 +555,7 @@ export default function PayrollCalculatorPage() {
                   ) : (
                     <NumberField
                       id="monthlyWage"
-                      label="Měsíční mzda"
+                      label={t.wageMonthly}
                       value={inp.wage.monthlyWageCzk}
                       onChange={(n) => setWage({ monthlyWageCzk: n })}
                       suffix="Kč"
@@ -567,51 +564,47 @@ export default function PayrollCalculatorPage() {
                   )}
                   <NumberField
                     id="avgEarnings"
-                    label="Průměrný výdělek pro příplatky"
+                    label={t.avgEarnings}
                     value={inp.wage.averageHourlyEarningsCzk}
                     onChange={(n) => setWage({ averageHourlyEarningsCzk: n, useWageAsAverageEstimate: false })}
                     suffix="Kč/h"
                     step={0.5}
-                    hint="Zákonná veličina z předchozího čtvrtletí – nemusí se rovnat smluvní mzdě."
+                    hint={t.avgEarningsHint}
                   />
                 </div>
                 <Toggle
                   id="useEstimate"
-                  label="Použít základní hodinovou mzdu jako orientační průměrný výdělek (odhad)"
+                  label={t.useEstimate}
                   checked={inp.wage.useWageAsAverageEstimate}
                   onChange={(b) => setWage({ useWageAsAverageEstimate: b })}
                 />
               </fieldset>
 
               <fieldset className="pcalc-fieldset">
-                <legend>4 · Odpracovaný čas</legend>
+                <legend>{t.legWorked}</legend>
                 <div className="pcalc-grid-2">
-                  <NumberField id="regular" label="Řádné hodiny" value={inp.workedTime.regularHours} onChange={(n) => setWorked({ regularHours: n })} suffix="h" />
-                  <NumberField id="overtime" label="Přesčas" value={inp.workedTime.overtimeHours} onChange={(n) => setWorked({ overtimeHours: n })} suffix="h" />
-                  <NumberField id="night" label="Noční hodiny" value={inp.workedTime.nightHours} onChange={(n) => setWorked({ nightHours: n })} suffix="h" />
-                  <NumberField id="sat" label="Sobota" value={inp.workedTime.saturdayHours} onChange={(n) => setWorked({ saturdayHours: n })} suffix="h" />
-                  <NumberField id="sun" label="Neděle" value={inp.workedTime.sundayHours} onChange={(n) => setWorked({ sundayHours: n })} suffix="h" />
-                  <NumberField id="holiday" label="Svátek" value={inp.workedTime.holidayHours} onChange={(n) => setWorked({ holidayHours: n })} suffix="h" />
-                  <NumberField id="difficult" label="Ztížené prostředí" value={inp.workedTime.difficultEnvironmentHours} onChange={(n) => setWorked({ difficultEnvironmentHours: n })} suffix="h" />
+                  <NumberField id="regular" label={t.regularHours} value={inp.workedTime.regularHours} onChange={(n) => setWorked({ regularHours: n })} suffix="h" />
+                  <NumberField id="overtime" label={t.overtime} value={inp.workedTime.overtimeHours} onChange={(n) => setWorked({ overtimeHours: n })} suffix="h" />
+                  <NumberField id="night" label={t.nightHours} value={inp.workedTime.nightHours} onChange={(n) => setWorked({ nightHours: n })} suffix="h" />
+                  <NumberField id="sat" label={t.saturday} value={inp.workedTime.saturdayHours} onChange={(n) => setWorked({ saturdayHours: n })} suffix="h" />
+                  <NumberField id="sun" label={t.sunday} value={inp.workedTime.sundayHours} onChange={(n) => setWorked({ sundayHours: n })} suffix="h" />
+                  <NumberField id="holiday" label={t.holiday} value={inp.workedTime.holidayHours} onChange={(n) => setWorked({ holidayHours: n })} suffix="h" />
+                  <NumberField id="difficult" label={t.difficult} value={inp.workedTime.difficultEnvironmentHours} onChange={(n) => setWorked({ difficultEnvironmentHours: n })} suffix="h" />
                 </div>
-                <p className="pcalc-note">
-                  Kategorie se mohou překrývat – jedna hodina může být zároveň přesčas, noční i
-                  víkendová. Zadávejte je samostatně; nesmí ale překročit celkový počet odpracovaných
-                  hodin.
-                </p>
+                <p className="pcalc-note">{t.workedNote}</p>
               </fieldset>
 
               <fieldset className="pcalc-fieldset">
-                <legend>5 · Příplatky</legend>
+                <legend>{t.legPremiums}</legend>
                 <div className="pcalc-grid-2">
-                  <NumberField id="pOvertime" label="Přesčas (% prům. výdělku)" value={inp.premiums.overtime.percent} onChange={(n) => setPremPct('overtime', n)} suffix="%" />
-                  <NumberField id="pNight" label="Noc (%)" value={inp.premiums.night.percent} onChange={(n) => setPremPct('night', n)} suffix="%" />
-                  <NumberField id="pSat" label="Sobota (%)" value={inp.premiums.saturday.percent} onChange={(n) => setPremPct('saturday', n)} suffix="%" />
-                  <NumberField id="pSun" label="Neděle (%)" value={inp.premiums.sunday.percent} onChange={(n) => setPremPct('sunday', n)} suffix="%" />
-                  <NumberField id="pHoliday" label="Svátek (%)" value={inp.premiums.holiday.percent} onChange={(n) => setPremPct('holiday', n)} suffix="%" />
+                  <NumberField id="pOvertime" label={t.pOvertime} value={inp.premiums.overtime.percent} onChange={(n) => setPremPct('overtime', n)} suffix="%" />
+                  <NumberField id="pNight" label={t.pNight} value={inp.premiums.night.percent} onChange={(n) => setPremPct('night', n)} suffix="%" />
+                  <NumberField id="pSat" label={t.pSat} value={inp.premiums.saturday.percent} onChange={(n) => setPremPct('saturday', n)} suffix="%" />
+                  <NumberField id="pSun" label={t.pSun} value={inp.premiums.sunday.percent} onChange={(n) => setPremPct('sunday', n)} suffix="%" />
+                  <NumberField id="pHoliday" label={t.pHoliday} value={inp.premiums.holiday.percent} onChange={(n) => setPremPct('holiday', n)} suffix="%" />
                   <NumberField
                     id="pDifficult"
-                    label="Ztížené prostředí"
+                    label={t.pDifficult}
                     value={inp.premiums.difficultEnvironment.czkPerHour}
                     onChange={(n) =>
                       setPrem({
@@ -620,108 +613,108 @@ export default function PayrollCalculatorPage() {
                     }
                     suffix="Kč/h"
                     step={0.5}
-                    hint="Zákonné minimum 13,44 Kč/h (10 % minimální mzdy)."
+                    hint={t.pDifficultHint}
                   />
                 </div>
-                <Toggle id="otLeave" label="Přesčas řešen náhradním volnem (bez příplatku)" checked={inp.premiums.overtimeCompensatoryLeave} onChange={(b) => setPrem({ overtimeCompensatoryLeave: b })} />
-                <Toggle id="holLeave" label="Svátek řešen náhradním volnem (bez příplatku 100 %)" checked={inp.premiums.holidayCompensatoryLeave} onChange={(b) => setPrem({ holidayCompensatoryLeave: b })} />
+                <Toggle id="otLeave" label={t.otLeave} checked={inp.premiums.overtimeCompensatoryLeave} onChange={(b) => setPrem({ overtimeCompensatoryLeave: b })} />
+                <Toggle id="holLeave" label={t.holLeave} checked={inp.premiums.holidayCompensatoryLeave} onChange={(b) => setPrem({ holidayCompensatoryLeave: b })} />
               </fieldset>
 
               <fieldset className="pcalc-fieldset">
-                <legend>6 · Odměny a srážky</legend>
+                <legend>{t.legAdjust}</legend>
                 <div className="pcalc-grid-2">
-                  <NumberField id="perfBonus" label="Výkonnostní bonus" value={inp.adjustments.performanceBonus} onChange={(n) => setAdj({ performanceBonus: n })} suffix="Kč" step={500} />
-                  <NumberField id="attBonus" label="Docházkový bonus" value={inp.adjustments.attendanceBonus} onChange={(n) => setAdj({ attendanceBonus: n })} suffix="Kč" step={500} />
-                  <NumberField id="prodBonus" label="Výrobní bonus" value={inp.adjustments.productionBonus} onChange={(n) => setAdj({ productionBonus: n })} suffix="Kč" step={500} />
-                  <NumberField id="persBonus" label="Osobní ohodnocení" value={inp.adjustments.personalBonus} onChange={(n) => setAdj({ personalBonus: n })} suffix="Kč" step={500} />
-                  <NumberField id="accDed" label="Srážka za ubytování" value={inp.adjustments.accommodationDeduction} onChange={(n) => setAdj({ accommodationDeduction: n })} suffix="Kč" step={100} />
-                  <NumberField id="transDed" label="Srážka za dopravu" value={inp.adjustments.transportDeduction} onChange={(n) => setAdj({ transportDeduction: n })} suffix="Kč" step={100} />
+                  <NumberField id="perfBonus" label={t.perfBonus} value={inp.adjustments.performanceBonus} onChange={(n) => setAdj({ performanceBonus: n })} suffix="Kč" step={500} />
+                  <NumberField id="attBonus" label={t.attBonus} value={inp.adjustments.attendanceBonus} onChange={(n) => setAdj({ attendanceBonus: n })} suffix="Kč" step={500} />
+                  <NumberField id="prodBonus" label={t.prodBonus} value={inp.adjustments.productionBonus} onChange={(n) => setAdj({ productionBonus: n })} suffix="Kč" step={500} />
+                  <NumberField id="persBonus" label={t.persBonus} value={inp.adjustments.personalBonus} onChange={(n) => setAdj({ personalBonus: n })} suffix="Kč" step={500} />
+                  <NumberField id="accDed" label={t.accDed} value={inp.adjustments.accommodationDeduction} onChange={(n) => setAdj({ accommodationDeduction: n })} suffix="Kč" step={100} />
+                  <NumberField id="transDed" label={t.transDed} value={inp.adjustments.transportDeduction} onChange={(n) => setAdj({ transportDeduction: n })} suffix="Kč" step={100} />
                 </div>
-                <p className="pcalc-note">Bonusy jsou zdanitelné a vstupují do hrubé mzdy. Srážky se odečítají z čisté mzdy.</p>
+                <p className="pcalc-note">{t.adjustNote}</p>
               </fieldset>
 
               <fieldset className="pcalc-fieldset">
-                <legend>7 · Daňový profil</legend>
-                <Toggle id="signed" label="Podepsané prohlášení poplatníka" checked={inp.taxProfile.signedDeclaration} onChange={(b) => setTax({ signedDeclaration: b })} />
-                <Toggle id="basic" label="Uplatnit základní slevu na poplatníka (2 570 Kč/měs)" checked={inp.taxProfile.applyBasicCredit} onChange={(b) => setTax({ applyBasicCredit: b })} />
+                <legend>{t.legTax}</legend>
+                <Toggle id="signed" label={t.signed} checked={inp.taxProfile.signedDeclaration} onChange={(b) => setTax({ signedDeclaration: b })} />
+                <Toggle id="basic" label={t.basicCredit} checked={inp.taxProfile.applyBasicCredit} onChange={(b) => setTax({ applyBasicCredit: b })} />
                 <div className="pcalc-grid-2">
                   <div className="pcalc-field">
-                    <label htmlFor="disability">Invalidita</label>
+                    <label htmlFor="disability">{t.disability}</label>
                     <div className="pcalc-field__input">
                       <select id="disability" value={inp.taxProfile.disability} onChange={(e) => setTax({ disability: e.target.value as PayrollInput['taxProfile']['disability'] })}>
-                        <option value="none">Žádná</option>
-                        <option value="first_second">1. / 2. stupeň (210 Kč)</option>
-                        <option value="third">3. stupeň (420 Kč)</option>
+                        <option value="none">{t.disNone}</option>
+                        <option value="first_second">{t.disFirst}</option>
+                        <option value="third">{t.disThird}</option>
                       </select>
                     </div>
                   </div>
                   <div className="pcalc-field">
-                    <label htmlFor="residency">Daňové rezidentství</label>
+                    <label htmlFor="residency">{t.residency}</label>
                     <div className="pcalc-field__input">
                       <select id="residency" value={inp.taxProfile.residency} onChange={(e) => setTax({ residency: e.target.value as PayrollInput['taxProfile']['residency'] })}>
-                        <option value="resident">Rezident ČR</option>
-                        <option value="non_resident">Nerezident</option>
+                        <option value="resident">{t.resResident}</option>
+                        <option value="non_resident">{t.resNon}</option>
                       </select>
                     </div>
                   </div>
-                  <NumberField id="children" label="Počet dětí" value={inp.taxProfile.children.length} onChange={(n) => setChildren(Math.max(0, Math.round(n)))} />
+                  <NumberField id="children" label={t.childrenCount} value={inp.taxProfile.children.length} onChange={(n) => setChildren(Math.max(0, Math.round(n)))} />
                 </div>
-                <Toggle id="ztpp" label="Držitel ZTP/P (1 345 Kč/měs)" checked={inp.taxProfile.ztpp} onChange={(b) => setTax({ ztpp: b })} />
+                <Toggle id="ztpp" label={t.ztpp} checked={inp.taxProfile.ztpp} onChange={(b) => setTax({ ztpp: b })} />
                 {inp.taxProfile.children.map((c, i) => (
-                  <Toggle key={i} id={`child-${i}`} label={`${i + 1}. dítě – ZTP/P (dvojnásobek)`} checked={c.ztpp} onChange={(b) => toggleChildZtpp(i, b)} />
+                  <Toggle key={i} id={`child-${i}`} label={t.childZtpp.replace('{n}', String(i + 1))} checked={c.ztpp} onChange={(b) => toggleChildZtpp(i, b)} />
                 ))}
                 {inp.taxProfile.residency === 'non_resident' ? (
-                  <p className="pcalc-note">Nerezident uplatní měsíčně jen základní slevu; ostatní slevy a zvýhodnění jen v ročním přiznání za zákonných podmínek.</p>
+                  <p className="pcalc-note">{t.nonResidentNote}</p>
                 ) : null}
               </fieldset>
 
               {(inp.mode === 'agency' || inp.mode === 'comparison') && (
                 <fieldset className="pcalc-fieldset">
-                  <legend>8 · Náklady agentury</legend>
+                  <legend>{t.legAgency}</legend>
                   <div className="pcalc-field">
-                    <label htmlFor="feeModel">Model poplatku</label>
+                    <label htmlFor="feeModel">{t.feeModel}</label>
                     <div className="pcalc-field__input">
                       <select id="feeModel" value={inp.agency.feeModel} onChange={(e) => setAgency({ feeModel: e.target.value as PayrollInput['agency']['feeModel'] })}>
-                        <option value="percent_of_payroll">% z mzdových nákladů</option>
-                        <option value="per_hour">Kč za odpracovanou hodinu</option>
-                        <option value="fixed_monthly">Fixní měsíční poplatek</option>
-                        <option value="combined">Kombinovaný</option>
+                        <option value="percent_of_payroll">{t.feePercentOpt}</option>
+                        <option value="per_hour">{t.feePerHourOpt}</option>
+                        <option value="fixed_monthly">{t.feeFixedOpt}</option>
+                        <option value="combined">{t.feeCombinedOpt}</option>
                       </select>
                     </div>
                   </div>
                   <div className="pcalc-grid-2">
-                    <NumberField id="feePct" label="Marže (%)" value={inp.agency.feePercentOfPayroll} onChange={(n) => setAgency({ feePercentOfPayroll: n })} suffix="%" step={0.5} />
-                    <NumberField id="feeHour" label="Poplatek (Kč/h)" value={inp.agency.feePerHour} onChange={(n) => setAgency({ feePerHour: n })} suffix="Kč/h" />
-                    <NumberField id="feeFixed" label="Fixní poplatek" value={inp.agency.feeFixedMonthly} onChange={(n) => setAgency({ feeFixedMonthly: n })} suffix="Kč" step={500} />
-                    <NumberField id="vat" label="Sazba DPH" value={inp.agency.vatRatePercent} onChange={(n) => setAgency({ vatRatePercent: n })} suffix="%" />
-                    <NumberField id="agAcc" label="Ubytování" value={inp.agency.operational.accommodation} onChange={(n) => setAgencyOp({ accommodation: n })} suffix="Kč" step={500} />
-                    <NumberField id="agTrans" label="Doprava" value={inp.agency.operational.transport} onChange={(n) => setAgencyOp({ transport: n })} suffix="Kč" step={500} />
-                    <NumberField id="agRec" label="Nábor" value={inp.agency.operational.recruitment} onChange={(n) => setAgencyOp({ recruitment: n })} suffix="Kč" step={500} />
-                    <NumberField id="agOnb" label="Jednorázový nástup" value={inp.agency.operational.oneTimeOnboarding} onChange={(n) => setAgencyOp({ oneTimeOnboarding: n })} suffix="Kč" step={500} />
+                    <NumberField id="feePct" label={t.feePct} value={inp.agency.feePercentOfPayroll} onChange={(n) => setAgency({ feePercentOfPayroll: n })} suffix="%" step={0.5} />
+                    <NumberField id="feeHour" label={t.feeHour} value={inp.agency.feePerHour} onChange={(n) => setAgency({ feePerHour: n })} suffix="Kč/h" />
+                    <NumberField id="feeFixed" label={t.feeFixed} value={inp.agency.feeFixedMonthly} onChange={(n) => setAgency({ feeFixedMonthly: n })} suffix="Kč" step={500} />
+                    <NumberField id="vat" label={t.vat} value={inp.agency.vatRatePercent} onChange={(n) => setAgency({ vatRatePercent: n })} suffix="%" />
+                    <NumberField id="agAcc" label={t.agAcc} value={inp.agency.operational.accommodation} onChange={(n) => setAgencyOp({ accommodation: n })} suffix="Kč" step={500} />
+                    <NumberField id="agTrans" label={t.agTrans} value={inp.agency.operational.transport} onChange={(n) => setAgencyOp({ transport: n })} suffix="Kč" step={500} />
+                    <NumberField id="agRec" label={t.agRec} value={inp.agency.operational.recruitment} onChange={(n) => setAgencyOp({ recruitment: n })} suffix="Kč" step={500} />
+                    <NumberField id="agOnb" label={t.agOnb} value={inp.agency.operational.oneTimeOnboarding} onChange={(n) => setAgencyOp({ oneTimeOnboarding: n })} suffix="Kč" step={500} />
                   </div>
-                  <Toggle id="vatDeduct" label="Firma je plátce DPH a může DPH odečíst" checked={inp.agency.companyCanDeductVat} onChange={(b) => setAgency({ companyCanDeductVat: b })} />
+                  <Toggle id="vatDeduct" label={t.vatDeduct} checked={inp.agency.companyCanDeductVat} onChange={(b) => setAgency({ companyCanDeductVat: b })} />
                 </fieldset>
               )}
 
               {(inp.mode === 'direct' || inp.mode === 'comparison') && (
                 <fieldset className="pcalc-fieldset">
-                  <legend>9 · Náklady kmenového zaměstnance</legend>
+                  <legend>{t.legDirect}</legend>
                   <div className="pcalc-grid-2">
-                    <NumberField id="dRec" label="Nábor" value={inp.direct.recruitment} onChange={(n) => setDirect({ recruitment: n })} suffix="Kč" step={500} />
-                    <NumberField id="dOnb" label="Onboarding" value={inp.direct.onboarding} onChange={(n) => setDirect({ onboarding: n })} suffix="Kč" step={500} />
-                    <NumberField id="dHr" label="HR administrativa (měs)" value={inp.direct.hrAdministration} onChange={(n) => setDirect({ hrAdministration: n })} suffix="Kč" step={100} />
-                    <NumberField id="dPay" label="Mzdová agenda (měs)" value={inp.direct.payrollProcessing} onChange={(n) => setDirect({ payrollProcessing: n })} suffix="Kč" step={100} />
-                    <NumberField id="dAcc" label="Ubytování (měs)" value={inp.direct.accommodation} onChange={(n) => setDirect({ accommodation: n })} suffix="Kč" step={500} />
-                    <NumberField id="dTrans" label="Doprava (měs)" value={inp.direct.transport} onChange={(n) => setDirect({ transport: n })} suffix="Kč" step={500} />
-                    <NumberField id="dMed" label="Lékařská prohlídka" value={inp.direct.medicalExam} onChange={(n) => setDirect({ medicalExam: n })} suffix="Kč" step={100} />
-                    <NumberField id="dTrain" label="Školení" value={inp.direct.training} onChange={(n) => setDirect({ training: n })} suffix="Kč" step={500} />
-                    <NumberField id="dTurn" label="Fluktuace / náhrada (volitelné)" value={inp.direct.turnoverReplacementCost} onChange={(n) => setDirect({ turnoverReplacementCost: n })} suffix="Kč" step={500} hint="Kalkulačka nevymýšlí žádnou míru fluktuace." />
+                    <NumberField id="dRec" label={t.dRec} value={inp.direct.recruitment} onChange={(n) => setDirect({ recruitment: n })} suffix="Kč" step={500} />
+                    <NumberField id="dOnb" label={t.dOnb} value={inp.direct.onboarding} onChange={(n) => setDirect({ onboarding: n })} suffix="Kč" step={500} />
+                    <NumberField id="dHr" label={t.dHr} value={inp.direct.hrAdministration} onChange={(n) => setDirect({ hrAdministration: n })} suffix="Kč" step={100} />
+                    <NumberField id="dPay" label={t.dPay} value={inp.direct.payrollProcessing} onChange={(n) => setDirect({ payrollProcessing: n })} suffix="Kč" step={100} />
+                    <NumberField id="dAcc" label={t.dAcc} value={inp.direct.accommodation} onChange={(n) => setDirect({ accommodation: n })} suffix="Kč" step={500} />
+                    <NumberField id="dTrans" label={t.dTrans} value={inp.direct.transport} onChange={(n) => setDirect({ transport: n })} suffix="Kč" step={500} />
+                    <NumberField id="dMed" label={t.dMed} value={inp.direct.medicalExam} onChange={(n) => setDirect({ medicalExam: n })} suffix="Kč" step={100} />
+                    <NumberField id="dTrain" label={t.dTrain} value={inp.direct.training} onChange={(n) => setDirect({ training: n })} suffix="Kč" step={500} />
+                    <NumberField id="dTurn" label={t.dTurn} value={inp.direct.turnoverReplacementCost} onChange={(n) => setDirect({ turnoverReplacementCost: n })} suffix="Kč" step={500} hint={t.dTurnHint} />
                   </div>
                 </fieldset>
               )}
 
               <fieldset className="pcalc-fieldset">
-                <legend>10 · Počet pracovníků</legend>
+                <legend>{t.legWorkers}</legend>
                 <div className="pcalc-presets">
                   {WORKER_PRESETS.map((n) => (
                     <button key={n} type="button" className={`pcalc-preset ${inp.workerCount === n ? 'is-active' : ''}`} onClick={() => setInp((p) => ({ ...p, workerCount: n }))}>
@@ -729,13 +722,13 @@ export default function PayrollCalculatorPage() {
                     </button>
                   ))}
                 </div>
-                <NumberField id="workers" label="Vlastní počet" value={inp.workerCount} onChange={(n) => setInp((p) => ({ ...p, workerCount: Math.max(1, Math.round(n)) }))} min={1} />
+                <NumberField id="workers" label={t.workersCustom} value={inp.workerCount} onChange={(n) => setInp((p) => ({ ...p, workerCount: Math.max(1, Math.round(n)) }))} min={1} />
               </fieldset>
             </div>
 
             {/* ── Results ── */}
             <div className="pcalc__results" aria-live="polite">
-              <h2 className="pcalc-results__title">Souhrn výsledků</h2>
+              <h2 className="pcalc-results__title">{t.resultsTitle}</h2>
 
               {result.warnings.length > 0 && (
                 <ul className="pcalc-warnings" role="status">
@@ -748,32 +741,32 @@ export default function PayrollCalculatorPage() {
               {employee && employer && primary ? (
                 <>
                   <div className="pcalc-cards">
-                    <div className="pcalc-card"><span className="pcalc-card__label">Hrubá mzda</span><span className="pcalc-card__value"><Money value={employee.gross.grossWage} /></span></div>
-                    <div className="pcalc-card pcalc-card--accent"><span className="pcalc-card__label">Čistá mzda</span><span className="pcalc-card__value"><Money value={employee.netWage} /></span></div>
-                    <div className="pcalc-card"><span className="pcalc-card__label">Odvody zaměstnance</span><span className="pcalc-card__value"><Money value={employee.contributions.total} /></span></div>
-                    <div className="pcalc-card"><span className="pcalc-card__label">Zákonné náklady zaměstnavatele</span><span className="pcalc-card__value"><Money value={employer.statutoryTotal} /></span></div>
-                    <div className="pcalc-card"><span className="pcalc-card__label">Agenturní poplatek</span><span className="pcalc-card__value">{agency ? <Money value={agency.serviceFee} /> : '—'}</span></div>
-                    <div className="pcalc-card pcalc-card--total"><span className="pcalc-card__label">Celkový měsíční náklad (ekonomický)</span><span className="pcalc-card__value"><Money value={primary.totalEconomicCost} /></span></div>
-                    <div className="pcalc-card"><span className="pcalc-card__label">Náklad / odpracovaná hodina</span><span className="pcalc-card__value"><Money value={primary.effectiveHourly.costPerWorkedHour} /></span></div>
-                    <div className="pcalc-card"><span className="pcalc-card__label">Rozdíl oproti kmenovému</span><span className="pcalc-card__value">{comparison ? (<><Money value={comparison.differenceCzk} />{diffPct != null ? ` (${formatPercent(Math.round(diffPct * 10) / 10)})` : ''}</>) : '—'}</span></div>
+                    <div className="pcalc-card"><span className="pcalc-card__label">{t.cGross}</span><span className="pcalc-card__value"><Money value={employee.gross.grossWage} /></span></div>
+                    <div className="pcalc-card pcalc-card--accent"><span className="pcalc-card__label">{t.cNet}</span><span className="pcalc-card__value"><Money value={employee.netWage} /></span></div>
+                    <div className="pcalc-card"><span className="pcalc-card__label">{t.cEmpDeductions}</span><span className="pcalc-card__value"><Money value={employee.contributions.total} /></span></div>
+                    <div className="pcalc-card"><span className="pcalc-card__label">{t.cErStatutory}</span><span className="pcalc-card__value"><Money value={employer.statutoryTotal} /></span></div>
+                    <div className="pcalc-card"><span className="pcalc-card__label">{t.cAgencyFee}</span><span className="pcalc-card__value">{agency ? <Money value={agency.serviceFee} /> : '—'}</span></div>
+                    <div className="pcalc-card pcalc-card--total"><span className="pcalc-card__label">{t.cTotalEconomic}</span><span className="pcalc-card__value"><Money value={primary.totalEconomicCost} /></span></div>
+                    <div className="pcalc-card"><span className="pcalc-card__label">{t.cPerHour}</span><span className="pcalc-card__value"><Money value={primary.effectiveHourly.costPerWorkedHour} /></span></div>
+                    <div className="pcalc-card"><span className="pcalc-card__label">{t.cVsDirect}</span><span className="pcalc-card__value">{comparison ? (<><Money value={comparison.differenceCzk} />{diffPct != null ? ` (${formatPercent(Math.round(diffPct * 10) / 10)})` : ''}</>) : '—'}</span></div>
                   </div>
 
                   <div className="pcalc-actions">
-                    <button type="button" className="btn btn-sm btn-outline-white" onClick={reset}>Reset</button>
-                    <button type="button" className="btn btn-sm btn-outline-white" onClick={doPrint}>Tisk / PDF</button>
-                    <button type="button" className="btn btn-sm btn-outline-white" onClick={copySummary}>Kopírovat souhrn</button>
-                    <button type="button" className="btn btn-sm btn-outline-white" onClick={copyLink}>Kopírovat odkaz</button>
-                    {comparison ? (<button type="button" className="btn btn-sm btn-outline-white" onClick={downloadCsv}>Export CSV</button>) : null}
+                    <button type="button" className="btn btn-sm btn-outline-white" onClick={reset}>{t.aReset}</button>
+                    <button type="button" className="btn btn-sm btn-outline-white" onClick={doPrint}>{t.aPrint}</button>
+                    <button type="button" className="btn btn-sm btn-outline-white" onClick={copySummary}>{t.aCopySummary}</button>
+                    <button type="button" className="btn btn-sm btn-outline-white" onClick={copyLink}>{t.aCopyLink}</button>
+                    {comparison ? (<button type="button" className="btn btn-sm btn-outline-white" onClick={downloadCsv}>{t.aExportCsv}</button>) : null}
                   </div>
 
-                  <h3 className="pcalc-sub">Čistá mzda – rozpad (klikněte pro vzorec a zdroj)</h3>
+                  <h3 className="pcalc-sub">{t.subNet}</h3>
                   <div className="pcalc-lines">
                     {employee.lines.map((l) => (
                       <LineRow key={l.key} line={l} />
                     ))}
                   </div>
 
-                  <h3 className="pcalc-sub">Náklady zaměstnavatele</h3>
+                  <h3 className="pcalc-sub">{t.subEmployer}</h3>
                   <div className="pcalc-lines">
                     {employer.lines.map((l) => (
                       <LineRow key={l.key} line={l} />
@@ -782,7 +775,7 @@ export default function PayrollCalculatorPage() {
 
                   {agency ? (
                     <>
-                      <h3 className="pcalc-sub">Agenturní faktura</h3>
+                      <h3 className="pcalc-sub">{t.subAgencyInvoice}</h3>
                       <div className="pcalc-lines">
                         {agency.lines.map((l) => (
                           <LineRow key={l.key} line={l} />
@@ -793,17 +786,15 @@ export default function PayrollCalculatorPage() {
 
                   {comparison ? (
                     <>
-                      <h3 className="pcalc-sub">Agentura vs. kmenový zaměstnanec</h3>
+                      <h3 className="pcalc-sub">{t.subComparison}</h3>
                       <div className="pcalc-table-wrap">
                         <table className="pcalc-table">
-                          <caption className="pcalc-visually-hidden">
-                            Porovnání nákladů agenturního a kmenového zaměstnance
-                          </caption>
+                          <caption className="pcalc-visually-hidden">{t.subComparison}</caption>
                           <thead>
                             <tr>
-                              <th scope="col">Položka</th>
-                              <th scope="col">Agenturní</th>
-                              <th scope="col">Kmenový</th>
+                              <th scope="col">{t.thItem}</th>
+                              <th scope="col">{t.thAgency}</th>
+                              <th scope="col">{t.thDirect}</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -820,33 +811,28 @@ export default function PayrollCalculatorPage() {
                     </>
                   ) : null}
 
-                  <h3 className="pcalc-sub">Scénář pro {inp.workerCount} pracovníků</h3>
+                  <h3 className="pcalc-sub">{t.subScenario.replace('{n}', String(inp.workerCount))}</h3>
                   <div className="pcalc-scenario">
-                    <div><span>1 pracovník / měsíc</span><strong><Money value={primary.scenario.economicCost.perWorker} /></strong></div>
-                    <div><span>{inp.workerCount} pracovníků / měsíc</span><strong><Money value={primary.scenario.economicCost.allWorkers} /></strong></div>
-                    <div><span>{inp.workerCount} pracovníků / rok (scénář)</span><strong><Money value={primary.scenario.economicCost.annualizedAllWorkers} /></strong></div>
+                    <div><span>{t.scWorker1}</span><strong><Money value={primary.scenario.economicCost.perWorker} /></strong></div>
+                    <div><span>{t.scWorkersMonth.replace('{n}', String(inp.workerCount))}</span><strong><Money value={primary.scenario.economicCost.allWorkers} /></strong></div>
+                    <div><span>{t.scWorkersYear.replace('{n}', String(inp.workerCount))}</span><strong><Money value={primary.scenario.economicCost.annualizedAllWorkers} /></strong></div>
                   </div>
-                  <p className="pcalc-note">Roční částka je scénář (12× modelovaný měsíc), nikoli predikce.</p>
+                  <p className="pcalc-note">{t.scenarioNote}</p>
                 </>
               ) : (
-                <p className="pcalc-warning-box">Opravte zvýrazněné vstupy – výpočet nelze dokončit.</p>
+                <p className="pcalc-warning-box">{t.invalid}</p>
               )}
             </div>
           </div>
 
-          <p className="pcalc-disclaimer">
-            <strong>Orientační výpočet · Pravidla ČR 2026 · Naposledy ověřeno {LAST_VERIFIED}.</strong>{' '}
-            Skutečná mzda se může lišit podle individuálních okolností, kolektivních a vnitřních
-            mzdových předpisů, skutečného průměrného výdělku, srážek, daňového rezidentství, benefitů,
-            absencí a zaokrouhlení. Doporučujeme ověřit finální výpočet u účetní nebo mzdové
-            specialistky. Kalkulačka nenahrazuje mzdovou účtárnu ani právní poradenství.
-          </p>
+          <p className="pcalc-disclaimer">{t.disclaimer.replace('{d}', LAST_VERIFIED)}</p>
         </div>
       </main>
 
       {/* SSR explanatory content */}
       <section className="section section--alt" lang="cs">
         <article className="container article-content">
+          <ArticleLanguageNotice />
           {CONTENT.map((s) => (
             <section key={s.heading}>
               <h2>{s.heading}</h2>
@@ -904,29 +890,22 @@ export default function PayrollCalculatorPage() {
       </section>
 
       {/* Employer CTA */}
-      <section className="section" lang="cs">
+      <section className="section" lang={lang}>
         <div className="container">
           <div className="section-head">
-            <div className="eyebrow">Nábor a nákladová kalkulace</div>
-            <h2>Potřebujete spočítat skutečnou cenu pracovníků pro váš provoz?</h2>
-            <p>
-              Pomůžeme vám nastavit nábor, směnový model a rozpočet tak, aby mzdy, odvody a dostupnost
-              kandidátů dávaly ekonomický smysl. Napište nám počet pracovníků, lokalitu, obor, směnový
-              model a požadovaný termín nástupu.
-            </p>
+            <div className="eyebrow">{t.ctaEyebrow}</div>
+            <h2>{t.ctaHeading}</h2>
+            <p>{t.ctaBody}</p>
           </div>
           <div style={{ textAlign: 'center' }}>
             <a href="/submit-offer" className="btn btn-primary btn-lg">
-              Poptat pracovníky
+              {t.ctaRequest}
             </a>{' '}
             <a href="/contact" className="btn btn-ghost btn-lg">
-              Domluvit konzultaci
+              {t.ctaConsult}
             </a>
           </div>
-          <p className="pcalc-note pcalc-center">
-            Do poptávky nevyplňujte konkrétní mzdové údaje z kalkulačky – ty zůstávají jen ve vašem
-            prohlížeči.
-          </p>
+          <p className="pcalc-note pcalc-center">{t.ctaNote}</p>
         </div>
       </section>
 

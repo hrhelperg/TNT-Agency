@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 import { CALC_COPY, routeLabel, routePurpose } from './calculator-copy';
+import { DCALC } from './dedicated-calculator-copy';
 import { LANGS, normalizeLang } from './react';
 
 const ROOT = process.cwd();
@@ -66,6 +67,46 @@ describe('calculator localization (cs/en/de)', () => {
     expect(normalizeLang('fr')).toBe('cs');
     expect(normalizeLang(null)).toBe('cs');
     expect(normalizeLang(undefined)).toBe('cs');
+  });
+});
+
+describe('dedicated calculator localization (cs/en/de)', () => {
+  const DPAGE = fs.readFileSync(path.join(ROOT, 'pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx'), 'utf8');
+
+  it('DCALC registry has identical key sets across cs/en/de', () => {
+    const keys = (['cs', 'en', 'de'] as const).map((l) => Object.keys(DCALC[l]).sort());
+    expect(keys[0].length).toBeGreaterThan(80);
+    expect(keys[1]).toEqual(keys[0]);
+    expect(keys[2]).toEqual(keys[0]);
+  });
+
+  it('mode names + key result labels are genuinely translated', () => {
+    expect([DCALC.cs.modeAgency, DCALC.en.modeAgency, DCALC.de.modeAgency]).toEqual(['Agenturní zaměstnanec', 'Agency employee', 'Zeitarbeitnehmer']);
+    expect([DCALC.cs.cNet, DCALC.en.cNet, DCALC.de.cNet]).toEqual(['Čistá mzda', 'Net salary', 'Nettolohn']);
+    expect(new Set([DCALC.cs.legMode, DCALC.en.legMode, DCALC.de.legMode]).size).toBe(3);
+  });
+
+  it('German states the calculation uses Czech Republic rules', () => {
+    expect(DCALC.de.eyebrow).toMatch(/Tschechien/);
+    expect(DCALC.de.methodology).toMatch(/Tschechischen Republik/);
+    expect(DCALC.de.disclaimer).toMatch(/Tschechien/);
+  });
+
+  it('the page consumes the language bridge + registry and no longer hardcodes Czech chrome', () => {
+    expect(DPAGE).toContain('useLang');
+    expect(DPAGE).toContain('DCALC');
+    expect(DPAGE).toContain('ArticleLanguageNotice');
+    // Localized chrome, not hardcoded literals.
+    expect(DPAGE).not.toContain('>Souhrn výsledků<');
+    expect(DPAGE).not.toContain('label="Měsíc"');
+    expect(DPAGE).not.toContain('<legend>1 · Režim výpočtu</legend>');
+  });
+
+  it('registry is chrome-only (institution names stay Czech, no rate literals as % copy)', () => {
+    for (const l of ['cs', 'en', 'de'] as const) {
+      const blob = Object.values(DCALC[l]).join(' | ');
+      expect(/\b\d{1,2}[.,]\d\s?%/.test(blob)).toBe(false);
+    }
   });
 });
 
