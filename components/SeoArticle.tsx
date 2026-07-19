@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Header from './Header'
 import Footer from './Footer'
+import ArticleLanguageNotice from './ArticleLanguageNotice'
 import {
   generateArticleSchema,
   generateFAQBlock,
@@ -147,7 +148,8 @@ export default function SeoArticle({ page, activePage = 'guides' }: SeoArticlePr
               </aside>
             ) : null}
 
-            <article className="seo-body">
+            <article className="seo-body" lang="cs">
+              <ArticleLanguageNotice />
               <p className="seo-intro">{page.intro}</p>
 
               {sections.map((section) => (

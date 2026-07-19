@@ -151,6 +151,16 @@ function validate() {
     }
   }
 
+  // 4. Editorial Strategy-2: the shared SeoArticle template (all 133 editorial
+  //    pages) must render the availability notice and mark the Czech body lang.
+  const seo = fs.readFileSync(path.join(ROOT, 'components', 'SeoArticle.tsx'), 'utf8');
+  if (!seo.includes('ArticleLanguageNotice')) {
+    errors.push('SeoArticle is missing the Strategy-2 <ArticleLanguageNotice/>');
+  }
+  if (!/className="seo-body" lang="cs"/.test(seo)) {
+    errors.push('SeoArticle Czech body is missing lang="cs"');
+  }
+
   return { dicts, used, errors, namespaces: [...allNs] };
 }
 

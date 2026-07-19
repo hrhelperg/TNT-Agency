@@ -24,6 +24,11 @@ const T = {
       language:    'Language',
       cta:         'Start Hiring',
     },
+    calc: {
+      eyebrow: 'Employee cost calculator',
+      heading: 'Calculate the true cost of an employee',
+      sub:     'See the employee’s net salary, statutory contributions and the total monthly employer cost under the rules of the Czech Republic.',
+    },
     hero: {
       badge:  'Employment Agency · Talent. Network. Trust.',
       h1a:    'We Connect',
@@ -263,6 +268,11 @@ const T = {
       language:    'Jazyk',
       cta:        'Hledám pracovníky',
     },
+    calc: {
+      eyebrow: 'Kalkulačka nákladů zaměstnance',
+      heading: 'Spočítejte skutečné náklady na zaměstnance',
+      sub:     'Zjistěte čistou mzdu zaměstnance, zákonné odvody a celkové měsíční náklady zaměstnavatele podle pravidel platných v České republice.',
+    },
     hero: {
       badge:    'Personální agentura · Talent. Síť. Důvěra.',
       h1a:      'Spojujeme',
@@ -501,6 +511,11 @@ const T = {
       contactCta:  'Kontakt aufnehmen',
       language:    'Sprache',
       cta:        'Mitarbeiter finden',
+    },
+    calc: {
+      eyebrow: 'Rechner für Mitarbeiterkosten',
+      heading: 'Berechnen Sie die tatsächlichen Kosten eines Mitarbeiters',
+      sub:     'Sehen Sie den Nettolohn des Arbeitnehmers, die gesetzlichen Beiträge und die gesamten monatlichen Arbeitgeberkosten nach den Regeln der Tschechischen Republik.',
     },
     hero: {
       badge:    'Personalvermittlung · Talent. Netzwerk. Vertrauen.',
@@ -783,6 +798,11 @@ function renderAll(lang) {
   qsa('[data-i18n="mnav.contactCta"]', el => el.textContent = t.nav.contactCta);
   qs('[data-i18n="mnav.cta"]',        t.nav.cta);
 
+  /* — Homepage calculator section head — */
+  qs('[data-i18n="calc.eyebrow"]', t.calc.eyebrow);
+  qs('[data-i18n="calc.heading"]', t.calc.heading);
+  qs('[data-i18n="calc.sub"]',     t.calc.sub);
+
   /* — Hero — */
   qs('[data-i18n="hero.badge"]',    t.hero.badge);
   qs('[data-i18n="hero.h1a"]',      t.hero.h1a);
@@ -1009,6 +1029,9 @@ function setLang(lang) {
   if (!T[lang]) lang = 'en';
   localStorage.setItem('tnt-lang', lang);
   renderAll(lang);
+  // Notify React islands (e.g. the payroll calculator) that own their own
+  // content and cannot be updated by the [data-i18n] DOM swap.
+  window.dispatchEvent(new CustomEvent('tnt-lang', { detail: lang }));
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {

@@ -2480,3 +2480,40 @@ p  { color: var(--text-2); line-height: 1.7; }
   .hpc-break { grid-template-columns: 1fr; gap: var(--s2); }
   .hpc-head--cost { grid-column: auto; }
 }
+
+/* Strategy-2 editorial language-availability notice (shown only for en/de) */
+.article-lang-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin: 0 0 var(--s4);
+  padding: 14px 18px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+.article-lang-notice__text {
+  flex: 1 1 260px;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+.article-lang-notice__btn {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--navy);
+  border: 1px solid var(--navy);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--tr);
+}
+.article-lang-notice__btn:hover { background: var(--navy-2); }
+.article-lang-notice__btn:focus-visible { outline: 3px solid var(--accent-ring); outline-offset: 2px; }
