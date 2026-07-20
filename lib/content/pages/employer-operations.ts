@@ -39,8 +39,8 @@ const hireCta = {
   eyebrow: 'Nábor pracovníků',
   title: 'Potřebujete obsadit pozice?',
   text: 'Pomůžeme vám s náborem od definice potřeby až po nástup a postaráme se o koordinaci administrativy v souladu s předpisy.',
-  buttonLabel: 'Poslat poptávku',
-  href: '/submit-offer',
+  buttonLabel: 'Poptat pracovníky',
+  href: '/poptavka-pracovniku?source=service-page',
 }
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -99,6 +99,7 @@ export const PRO_ZAMESTNAVATELE: SeoPage = {
   ],
   sources: [SRC.zakonikPrace, SRC.zakonOZamestnanosti, SRC.mpsv, SRC.upcr, SRC.czso],
   internalLinks: [
+    { href: '/poptavka-pracovniku', label: 'Poptávka pracovníků: zadat požadavek' },
     { href: '/nabor-pracovniku', label: 'Nábor pracovníků: přehled' },
     { href: '/planovani-naboru', label: 'Plánování náboru' },
     naborCizincuLink,

@@ -37,8 +37,8 @@ const hireCta = {
   eyebrow: 'Nábor pracovníků',
   title: 'Hledáte zahraniční pracovníky?',
   text: 'Pomůžeme vám s náborem od definice potřeby až po nástup a postaráme se o koordinaci administrativy v souladu s předpisy.',
-  buttonLabel: 'Poslat poptávku',
-  href: '/submit-offer',
+  buttonLabel: 'Poptat pracovníky',
+  href: '/poptavka-pracovniku?source=service-page',
 }
 
 // ──────────────────────────────────────────────────────────────────────────
