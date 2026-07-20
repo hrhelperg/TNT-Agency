@@ -628,7 +628,7 @@ const T = {
       article:     'Ratgeber',
       submitAgency:'Agentur eintragen',
       postOffer:   'Anfrage stellen',
-      requestWorkers: 'Personalbedarf anfragen',
+      requestWorkers: 'Personal anfragen',
       contactCta:  'Kontakt aufnehmen',
       language:    'Sprache',
       cta:        'Mitarbeiter finden',

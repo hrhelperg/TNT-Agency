@@ -1322,9 +1322,6 @@ p  { color: var(--text-2); line-height: 1.7; }
   .section-head { margin-bottom: var(--s5); }
   .section-head p { font-size: 1.05rem; }
 
-  .nav, .header__right .btn { display: none; }
-  .hamburger { display: flex; }
-  .mobile-nav { display: flex; }
 
   .hero { padding: 148px 0 84px; }
   .hero__sub { margin-bottom: var(--s5); }
@@ -2772,4 +2769,28 @@ p  { color: var(--text-2); line-height: 1.7; }
   .erf__grid { grid-template-columns: minmax(0, 1fr); }
   .erf__group { padding: var(--s2); }
   .erf__actions .btn { width: 100%; }
+}
+
+/* The header carries 8 nav items, a language switcher and a primary action.
+   German labels are materially longer than cs/en, so below ~1500px the nav
+   metrics tighten to keep the primary action inside the viewport instead of
+   being clipped by the body's overflow-x guard. */
+@media (max-width: 1500px) {
+  .nav { gap: 18px; }
+  .nav a { font-size: 0.95rem; }
+}
+@media (max-width: 1340px) {
+  .nav { gap: 10px; }
+  .nav a { font-size: 0.88rem; }
+}
+
+/* Collapse the primary navigation to the mobile menu while the desktop nav
+   still fits. Between ~1024px and 1150px the eight nav items, the language
+   switcher and the primary action cannot fit the container — in German most of
+   all — and the action was being clipped by the body's overflow-x guard. The
+   mobile menu already carries every item, so it is the correct surface here. */
+@media (max-width: 1150px) {
+  .nav, .header__right .btn { display: none; }
+  .hamburger { display: flex; }
+  .mobile-nav { display: flex; }
 }
