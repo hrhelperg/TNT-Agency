@@ -87,7 +87,60 @@ export default function PrivacyPolicy() {
               <li>Contact email address</li>
             </ul>
 
-            <h3>2.4 Technical data collected automatically</h3>
+            <h3>2.4 Worker request form (Poptávka pracovníků)</h3>
+            <p>
+              The worker request form works differently from a conventional web form, and it is
+              important to understand exactly what happens:
+            </p>
+            <ul>
+              <li>
+                The form runs <strong>entirely in your browser</strong>. When you press the prepare
+                button, your browser composes a structured email message.
+              </li>
+              <li>
+                That message is handed to <strong>your own email application or webmail</strong>. You
+                review it and you send it. Until you do, nothing reaches us.
+              </li>
+              <li>
+                The message travels through <strong>your chosen email provider</strong> and arrives in
+                the business inbox of TNT agency s.r.o. at{' '}
+                <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>.
+              </li>
+              <li>
+                <strong>This website does not store your request in a database.</strong> There is no
+                account, no employer portal, and no server-side copy of what you typed. The only
+                record is the resulting email correspondence.
+              </li>
+              <li>
+                A short, non-personal reference (for example <code>TPID-2026-0719-A7K4</code>) is
+                generated in your browser so the request can be identified in email. It contains no
+                name, company, address or amount, and it is not stored on your device.
+              </li>
+              <li>
+                A limited, non-personal set of attribution values — landing page, current page,
+                referring domain, UTM parameters, the button you came from, interface language and
+                the time you prepared the request — is included <em>in the prepared email only</em>.
+                It is not sent to analytics, and it is not written to cookies, local storage or the
+                page address.
+              </li>
+              <li>
+                <strong>Values you enter into the payroll calculator are never transmitted.</strong>{' '}
+                The calculator runs only in your browser. No salary, net pay, employer cost, agency
+                fee, margin or estimated saving is placed in the request, the page address or
+                analytics. If you want to state a budget, you type it into the form yourself.
+              </li>
+              <li>
+                Resulting email correspondence may be retained for the purpose of handling your
+                business request and to meet legal and accounting obligations.
+              </li>
+            </ul>
+            <p>
+              You may request access to, correction of, or deletion of the personal data contained in
+              that correspondence at any time — see Section 7. Because the request is ordinary email,
+              deletion requests are handled against our mailbox rather than a database record.
+            </p>
+
+            <h3>2.5 Technical data collected automatically</h3>
             <ul>
               <li>IP address (retained in server logs)</li>
               <li>Browser type and version</li>
@@ -95,7 +148,7 @@ export default function PrivacyPolicy() {
               <li>Referring URL</li>
             </ul>
 
-            <h3>2.5 Cookies and tracking</h3>
+            <h3>2.6 Cookies and tracking</h3>
             <p>
               We use cookies only with your explicit consent. Before consent is given, no analytics or
               tracking cookies are loaded. See Section 8 for full details.

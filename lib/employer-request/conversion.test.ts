@@ -23,14 +23,19 @@ const stripComments = (src: string) =>
   src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
 
 const PAGE_CODE = stripComments(PAGE)
+const FORM_CODE = stripComments(FORM)
+const CTA_CODE = stripComments(CTA)
 
 const LANGS = ['cs', 'en', 'de'] as const
 const VARIANTS = ['calculator', 'comparison', 'agencyValue', 'responsibility'] as const
 
 describe('Phase C — privacy of the request form', () => {
   it('never transmits: no fetch/XHR/beacon/analytics in the form or CTA', () => {
-    const forbidden = /fetch\(|XMLHttpRequest|sendBeacon navigator|navigator\.sendBeacon|gtag\(|dataLayer|axios|\$\.ajax/
-    for (const [name, src] of [['form', FORM], ['cta', CTA], ['page', PAGE]] as const) {
+    // Phase E Lite is backend-free: the form must perform no network I/O at all.
+    // Assert on code, not prose — the comments legitimately name these APIs to
+    // document that they are deliberately absent.
+    const forbidden = /fetch\(|XMLHttpRequest|navigator\.sendBeacon|gtag\(|dataLayer|axios|\$\.ajax/
+    for (const [name, src] of [['form', FORM_CODE], ['cta', CTA_CODE], ['page', PAGE_CODE]] as const) {
       expect(forbidden.test(src), `${name} must not transmit`).toBe(false)
     }
   })
@@ -39,15 +44,16 @@ describe('Phase C — privacy of the request form', () => {
     // The form may not touch any persistent store. (Attribution uses
     // sessionStorage, but only inside lib/attribution — never here.)
     const persistence = /localStorage|document\.cookie|indexedDB|window\.name/
-    expect(persistence.test(FORM)).toBe(false)
-    expect(persistence.test(CTA)).toBe(false)
+    expect(persistence.test(FORM_CODE)).toBe(false)
+    expect(persistence.test(CTA_CODE)).toBe(false)
   })
 
   it('never writes request values to the URL or history', () => {
     const urlWrites = /history\.(push|replace)State|location\.search\s*=|URLSearchParams\(\)\.set|location\.hash\s*=/
-    expect(urlWrites.test(FORM)).toBe(false)
-    // The only navigation is the mailto handoff.
-    expect(FORM).toContain('window.location.href = mail.href')
+    expect(urlWrites.test(FORM_CODE)).toBe(false)
+    // The mailto hand-off now lives in the transport, not the component.
+    const TRANSPORT = stripComments(read('lib/leads-lite/transport.ts'))
+    expect(TRANSPORT).toContain('window.location.href = prepared.mailtoUrl')
   })
 
   it('prevents native form submission (a GET would leak every value into the URL)', () => {
@@ -150,7 +156,9 @@ describe('Phase C — accessibility of the request form', () => {
   })
 
   it('gives the fallback textarea an accessible name', () => {
-    expect(FORM).toContain('aria-label={copy.mailtoFallbackNote}')
+    // Upgraded from aria-label to a real associated <label>, which is stronger.
+    expect(FORM).toContain('htmlFor="prepared-body"')
+    expect(FORM).toContain('id="prepared-body"')
   })
 })
 
