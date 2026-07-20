@@ -1,5 +1,6 @@
 import { useLang } from '../lib/i18n/react'
 import { AGENCY_VALUE, RESPONSIBILITY_ROWS, type Responsibility } from '../lib/agency-value/copy'
+import EmployerCta from './EmployerCta'
 
 // Indicative responsibility allocation for agency employment (temporary
 // assignment) under Czech law. Meaning is carried by text labels (never colour
@@ -44,6 +45,7 @@ export default function ResponsibilityMatrix() {
         </table>
       </div>
       <p className="resp__disclaimer">{c.respDisclaimer}</p>
+      <EmployerCta variant="responsibility" source="responsibility-matrix" />
     </section>
   )
 }

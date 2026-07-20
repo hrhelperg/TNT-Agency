@@ -3,6 +3,7 @@ import { formatCzk } from '../lib/payroll';
 import { PAYROLL_SOURCES } from '../lib/payroll/sources';
 import { computeHomeView } from '../lib/payroll/home-view-model';
 import { useLang } from '../lib/i18n/react';
+import EmployerCta from './EmployerCta';
 import { CALC_COPY, routeLabel, routePurpose } from '../lib/i18n/calculator-copy';
 
 // Compact, flagship homepage payroll calculator.
@@ -176,6 +177,11 @@ export default function HomePayrollCalculator() {
           )}
         </div>
       </div>
+      <EmployerCta
+        variant="calculator"
+        source="homepage-calculator"
+        secondaryHref="/kalkulacka-mzdy-agenturniho-zamestnance?mode=comparison"
+      />
     </div>
   );
 }

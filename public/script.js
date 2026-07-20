@@ -20,6 +20,7 @@ const T = {
       article:     'Guide',
       submitAgency:'List your agency',
       postOffer:   'Post a request',
+      requestWorkers: 'Request workers',
       contactCta:  'Contact us',
       language:    'Language',
       cta:         'Start Hiring',
@@ -323,6 +324,7 @@ const T = {
       article:     'Průvodce',
       submitAgency:'Registrovat agenturu',
       postOffer:   'Zadat poptávku',
+      requestWorkers: 'Poptat pracovníky',
       contactCta:  'Kontaktujte nás',
       language:    'Jazyk',
       cta:        'Hledám pracovníky',
@@ -626,6 +628,7 @@ const T = {
       article:     'Ratgeber',
       submitAgency:'Agentur eintragen',
       postOffer:   'Anfrage stellen',
+      requestWorkers: 'Personal anfragen',
       contactCta:  'Kontakt aufnehmen',
       language:    'Sprache',
       cta:        'Mitarbeiter finden',
@@ -956,6 +959,7 @@ function renderAll(lang) {
   qs('[data-i18n="nav.submitAgency"]', t.nav.submitAgency);
   qs('[data-i18n="nav.postOffer"]',   t.nav.postOffer);
   qsa('[data-i18n="nav.contactCta"]', el => el.textContent = t.nav.contactCta);
+  qsa('[data-i18n="nav.requestWorkers"]', el => el.textContent = t.nav.requestWorkers);
   qs('[data-i18n="nav.language"]',    t.nav.language);
   qsa('[data-i18n="nav.cta"]', el => el.textContent = t.nav.cta);
 
@@ -973,6 +977,7 @@ function renderAll(lang) {
   qs('[data-i18n="mnav.submitAgency"]', t.nav.submitAgency);
   qs('[data-i18n="mnav.postOffer"]',   t.nav.postOffer);
   qsa('[data-i18n="mnav.contactCta"]', el => el.textContent = t.nav.contactCta);
+  qsa('[data-i18n="mnav.requestWorkers"]', el => el.textContent = t.nav.requestWorkers);
   qs('[data-i18n="mnav.cta"]',        t.nav.cta);
 
   /* — Homepage calculator section head — */

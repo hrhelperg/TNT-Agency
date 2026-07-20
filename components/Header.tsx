@@ -34,7 +34,9 @@ export default function Header({ activePage }: HeaderProps) {
                 <button className="lang-btn" data-lang="cs" aria-label="Čeština">CS</button>
                 <button className="lang-btn" data-lang="de" aria-label="Deutsch">DE</button>
               </div>
-              <a href="/contact" className="btn btn-primary btn-sm" data-i18n="nav.contactCta">Contact Us</a>
+              {/* Primary header action is the employer conversion path. The
+                  Contact link stays available in the nav list above. */}
+              <a href="/poptavka-pracovniku?source=employer-hub" className="btn btn-primary btn-sm" data-i18n="nav.requestWorkers">Request workers</a>
               <button className="hamburger" id="burger" aria-label="Open menu" aria-expanded="false">
                 <span></span><span></span><span></span>
               </button>
@@ -51,6 +53,7 @@ export default function Header({ activePage }: HeaderProps) {
         <a href="/socialni-zdravotni-dane-2026" data-i18n="mnav.article">Article</a>
         <a href="/submit-agency" data-i18n="mnav.submitAgency">Submit Agency</a>
         <a href="/submit-offer" data-i18n="mnav.postOffer">Post Offer</a>
+        <a href="/poptavka-pracovniku?source=employer-hub" data-i18n="mnav.requestWorkers">Request workers</a>
         <a href="/contact" data-i18n="mnav.contact">Contact</a>
         <div className="lang-select" role="group" aria-label="Website language">
           <span className="lang-select__label" data-i18n="nav.language">Language</span>
@@ -60,7 +63,7 @@ export default function Header({ activePage }: HeaderProps) {
             <button className="lang-btn" data-lang="de" aria-label="Deutsch">DE</button>
           </div>
         </div>
-        <a href="/contact" className="btn btn-primary btn-lg" data-i18n="mnav.contactCta">Contact Us</a>
+        <a href="/poptavka-pracovniku?source=employer-hub" className="btn btn-primary btn-lg" data-i18n="mnav.requestWorkers">Request workers</a>
       </nav>
     </>
   )

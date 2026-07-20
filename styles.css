@@ -1322,9 +1322,6 @@ p  { color: var(--text-2); line-height: 1.7; }
   .section-head { margin-bottom: var(--s5); }
   .section-head p { font-size: 1.05rem; }
 
-  .nav, .header__right .btn { display: none; }
-  .hamburger { display: flex; }
-  .mobile-nav { display: flex; }
 
   .hero { padding: 148px 0 84px; }
   .hero__sub { margin-bottom: var(--s5); }
@@ -2676,3 +2673,128 @@ p  { color: var(--text-2); line-height: 1.7; }
   .resp__table th[scope="row"] { border: none; padding: 6px 4px 2px; }
   .resp__table td { border: none; padding: 2px 4px 6px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Phase C — Employer conversion layer
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Request-workers page layout: form + supporting aside. */
+.erf-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: var(--s5); align-items: start; }
+.erf-layout__main { min-width: 0; }
+.erf-layout__aside { min-width: 0; display: flex; flex-direction: column; gap: var(--s3); position: sticky; top: 96px; }
+
+.erf-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--s3); box-shadow: var(--shadow-sm); }
+.erf-card--muted { background: var(--bg-alt); }
+.erf-card h2 { font-size: 1.06rem; margin-bottom: var(--s2); letter-spacing: -0.01em; }
+.erf-card ul, .erf-card ol { margin: 0; padding-left: 1.15rem; }
+.erf-card li { color: var(--text-2); font-size: 0.93rem; line-height: 1.6; margin-bottom: 6px; }
+.erf-faq dt { font-weight: 700; color: var(--text); font-size: 0.93rem; margin-top: var(--s2); }
+.erf-faq dt:first-child { margin-top: 0; }
+.erf-faq dd { margin: 4px 0 0; color: var(--text-2); font-size: 0.9rem; line-height: 1.6; }
+
+/* Form shell */
+.erf__form { display: flex; flex-direction: column; gap: var(--s3); }
+.erf__group { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--s3); margin: 0; background: var(--bg); }
+.erf__group legend { font-weight: 800; font-size: 0.98rem; color: var(--navy); padding: 0 8px; letter-spacing: -0.01em; }
+.erf__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2) var(--s3); }
+.erf__field { display: flex; flex-direction: column; min-width: 0; }
+.erf__field--wide { grid-column: 1 / -1; }
+.erf__field--check { grid-column: 1 / -1; }
+
+.erf__field label { font-weight: 600; font-size: 0.88rem; color: var(--text); margin-bottom: 6px; }
+.erf__req { color: var(--accent-dark); font-weight: 600; font-size: 0.8rem; }
+.erf__opt { color: var(--text-3); font-weight: 500; font-size: 0.8rem; }
+
+.erf__field input[type="text"],
+.erf__field input[type="email"],
+.erf__field input[type="tel"],
+.erf__field input[type="number"],
+.erf__field input[type="date"],
+.erf__field select,
+.erf__field textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color var(--tr), box-shadow var(--tr);
+}
+.erf__field textarea { resize: vertical; }
+.erf__field :is(input, select, textarea):focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+.erf__field :is(input, select, textarea)[aria-invalid="true"] { border-color: var(--accent-dark); }
+
+.erf__check-row { display: flex; align-items: flex-start; gap: 10px; }
+.erf__check-row input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; flex: 0 0 auto; accent-color: var(--accent); }
+.erf__check-row label { margin-bottom: 0; font-weight: 500; line-height: 1.5; }
+
+.erf__hint { font-size: 0.8rem; color: var(--text-3); margin: 6px 0 0; line-height: 1.5; }
+.erf__error { font-size: 0.83rem; color: var(--accent-dark); font-weight: 600; margin: 6px 0 0; }
+
+.erf__errors { border: 1px solid var(--accent-dark); background: var(--accent-tint); border-radius: var(--radius); padding: var(--s2) var(--s3); margin-bottom: var(--s3); }
+.erf__errors:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.erf__errors ul { margin: 8px 0 0; padding-left: 1.15rem; }
+.erf__errors li { font-size: 0.9rem; margin-bottom: 4px; }
+.erf__errors a { color: var(--accent-dark); }
+
+.erf__success { border: 1px solid var(--border-2); background: var(--bg-alt); border-radius: var(--radius); padding: var(--s3); margin-bottom: var(--s3); }
+.erf__success p { font-size: 0.92rem; margin: 8px 0 0; }
+.erf__fallback-note { color: var(--text-3); font-size: 0.85rem; }
+.erf__fallback { width: 100%; max-width: 100%; margin-top: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; padding: 10px; border: 1px solid var(--border-2); border-radius: var(--radius-sm); background: var(--bg); resize: vertical; }
+
+.erf__privacy { font-size: 0.83rem; color: var(--text-3); line-height: 1.6; margin: 0; }
+.erf__actions { display: flex; justify-content: flex-start; }
+.erf__actions .btn { white-space: normal; max-width: 100%; }
+
+/* Inline employer CTA reused across calculator surfaces. */
+.econv { border: 1px solid var(--border); background: var(--bg-alt); border-radius: var(--radius-lg); padding: var(--s3); margin-top: var(--s3); }
+.econv__title { font-weight: 800; color: var(--navy); font-size: 1rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+.econv__text { color: var(--text-2); font-size: 0.9rem; line-height: 1.6; margin: 0 0 var(--s2); }
+.econv__actions { display: flex; flex-wrap: wrap; gap: var(--s1); }
+.econv__actions .btn { white-space: normal; max-width: 100%; }
+.econv__note { font-size: 0.78rem; color: var(--text-3); margin: var(--s2) 0 0; line-height: 1.5; }
+
+@media (max-width: 980px) {
+  .erf-layout { grid-template-columns: minmax(0, 1fr); }
+  .erf-layout__aside { position: static; }
+}
+@media (max-width: 640px) {
+  .erf__grid { grid-template-columns: minmax(0, 1fr); }
+  .erf__group { padding: var(--s2); }
+  .erf__actions .btn { width: 100%; }
+}
+
+/* The header carries 8 nav items, a language switcher and a primary action.
+   German labels are materially longer than cs/en, so below ~1500px the nav
+   metrics tighten to keep the primary action inside the viewport instead of
+   being clipped by the body's overflow-x guard. */
+@media (max-width: 1500px) {
+  .nav { gap: 18px; }
+  .nav a { font-size: 0.95rem; }
+}
+@media (max-width: 1340px) {
+  .nav { gap: 10px; }
+  .nav a { font-size: 0.88rem; }
+}
+
+/* Collapse the primary navigation to the mobile menu while the desktop nav
+   still fits. Between ~1024px and 1150px the eight nav items, the language
+   switcher and the primary action cannot fit the container — in German most of
+   all — and the action was being clipped by the body's overflow-x guard. The
+   mobile menu already carries every item, so it is the correct surface here. */
+@media (max-width: 1150px) {
+  .nav, .header__right .btn { display: none; }
+  .hamburger { display: flex; }
+  .mobile-nav { display: flex; }
+}
+
+/* Honeypot: off-screen rather than display:none, so naive bots still fill it. */
+.erf__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.erf__reference { font-size: 1rem; margin-top: 8px; }

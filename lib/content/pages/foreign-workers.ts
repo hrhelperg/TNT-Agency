@@ -37,8 +37,8 @@ const hireCta = {
   eyebrow: 'Nábor pracovníků',
   title: 'Hledáte zahraniční pracovníky?',
   text: 'Pomůžeme vám s náborem od definice potřeby až po nástup a postaráme se o koordinaci administrativy v souladu s předpisy.',
-  buttonLabel: 'Poslat poptávku',
-  href: '/submit-offer',
+  buttonLabel: 'Poptat pracovníky',
+  href: '/poptavka-pracovniku?source=service-page',
 }
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -857,7 +857,7 @@ export const PRACE_PRO_MOLDAVANY_V_CR: SeoPage = {
     'Práce pro Moldavany v ČR – orientační přehled: oprávnění pro třetí země, dokumentace a praktické kroky. Bez slibů zaměstnání či schválení, s odkazy na oficiální zdroje.',
   keywords: ['práce pro Moldavany', 'zaměstnání Moldavané ČR', 'třetí země oprávnění', 'zaměstnanecká karta', 'dokumentace cizinci', 'pobyt cizinců'],
   intro:
-    'Tato stránka je orientačním přehledem pro pracovníky z Moldavska a pro zaměstnavatele, kteří s nimi spolupracují. Moldavsko je z pohledu českého práva třetí zemí (mimo EU, EHP a Švýcarsko), a proto se pro dlouhodobou práci uplatňují standardní pravidla – tedy potřeba odpovídajícího pobytového a pracovního oprávnění, nejčastěji zaměstnanecké karty. Neuvádíme žádné sliby zaměstnání ani schválení, žádné lhůty ani srovnání. Jde o obecné informace, které je vždy nutné ověřit u příslušných úřadů, protože podmínky se mohou měnit podle aktuální legislativy a individuální situace.',
+    'Tato stránka je orientačním přehledem pro pracovníky z Moldavska a pro zaměstnavatele, kteří s nimi spolupracují. Moldavsko je z pohledu českého práva třetí zemí (mimo EU, EHP a Švýcarsko), takže pro dlouhodobou práci obvykle platí duální oprávnění, nejčastěji zaměstnanecká karta. Specifikem, na které zaměstnavatelé narážejí v praxi, je to, že část moldavských občanů má zároveň rumunské občanství; pokud uchazeč doloží občanství členského státu EU, jeho postavení se posuzuje podle pravidel volného pohybu, a nikoli podle režimu třetích zemí. Rozdíl je zásadní pro to, jaké doklady vůbec potřebujete, proto je namístě ověřit skutečné občanství uchazeče hned na začátku. Neuvádíme žádné sliby zaměstnání ani schválení a žádné lhůty; jde o obecné informace, které je nutné ověřit u příslušných úřadů.',
   sections: [
     {
       heading: 'Jaké oprávnění obvykle připadá v úvahu',
@@ -1037,7 +1037,7 @@ export const PRACE_PRO_SRBY_V_CR: SeoPage = {
     'Práce pro Srby v ČR – orientační přehled: oprávnění pro třetí země, dokumentace a praktické kroky. Bez slibů zaměstnání či schválení, s odkazy na oficiální zdroje.',
   keywords: ['práce pro Srby', 'zaměstnání Srbsko ČR', 'třetí země oprávnění', 'zaměstnanecká karta', 'dokumentace cizinci', 'pobyt cizinců'],
   intro:
-    'Tato stránka je orientačním přehledem pro pracovníky ze Srbska a pro zaměstnavatele, kteří s nimi spolupracují. Srbsko je z pohledu českého práva třetí zemí, a proto se pro dlouhodobou práci uplatňují standardní pravidla – tedy potřeba odpovídajícího pobytového a pracovního oprávnění, nejčastěji zaměstnanecké karty. Neuvádíme žádné sliby zaměstnání ani schválení, žádné lhůty ani srovnání mezi zeměmi. Jde o obecné informace, které je vždy nutné ověřit u příslušných úřadů, protože podmínky se mohou měnit podle aktuální legislativy a individuální situace.',
+    'Tato stránka je orientačním přehledem pro pracovníky ze Srbska a pro zaměstnavatele, kteří s nimi spolupracují. Srbsko je z pohledu českého práva třetí zemí, takže pro dlouhodobé zaměstnání je zpravidla potřeba zaměstnanecká karta, u vysoce kvalifikovaných pozic modrá karta. V praxi bývá zdrojem nedorozumění bezvízový krátkodobý vstup do schengenského prostoru pro držitele biometrických pasů: umožňuje pobyt, sám o sobě však neopravňuje k výkonu práce. Zaměstnavatel proto nemůže vycházet z toho, že uchazeč je v ČR legálně přítomen, ale musí ověřit, že má oprávnění právě k zaměstnání u konkrétního zaměstnavatele a na konkrétní pozici. Neuvádíme žádné sliby zaměstnání ani schválení a žádné lhůty; podmínky ověřujte u příslušných úřadů.',
   sections: [
     {
       heading: 'Jaké oprávnění obvykle připadá v úvahu',

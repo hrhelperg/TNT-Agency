@@ -23,11 +23,11 @@ const xml = fs.readFileSync(SITEMAP_PATH, 'utf8');
 const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]);
 
 describe('sitemap hygiene', () => {
-  it('1. contains exactly the canonical route inventory (143 Next + 11 static = 154)', () => {
+  it('1. contains exactly the canonical route inventory (144 Next + 11 static = 155)', () => {
     const inv = buildRouteInventory(ROOT);
-    expect(inv.nextRoutes.length).toBe(143);
+    expect(inv.nextRoutes.length).toBe(144);
     expect(inv.staticRoutes.length).toBe(11);
-    expect(inv.urls.size).toBe(154);
+    expect(inv.urls.size).toBe(155);
     // Sets must match exactly, both directions.
     const sitemapSet = new Set(locs);
     expect(Array.from(sitemapSet).filter((u) => !inv.urls.has(u))).toEqual([]);
@@ -37,7 +37,7 @@ describe('sitemap hygiene', () => {
   });
 
   it('2. all URLs are unique', () => {
-    expect(locs.length).toBe(154);
+    expect(locs.length).toBe(155);
     expect(new Set(locs).size).toBe(locs.length);
   });
 
@@ -77,10 +77,10 @@ describe('sitemap hygiene', () => {
     expect(after.equals(before)).toBe(true);
   });
 
-  it('10. IndexNow URL extraction returns the same 154 canonical URLs', () => {
+  it('10. IndexNow URL extraction returns the same 155 canonical URLs', () => {
     const urls = getSitemapUrls();
-    expect(urls.length).toBe(154);
-    expect(new Set(urls).size).toBe(154);
+    expect(urls.length).toBe(155);
+    expect(new Set(urls).size).toBe(155);
     expect(urls).toEqual(locs);
   });
 

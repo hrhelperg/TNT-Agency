@@ -40,6 +40,13 @@ export interface RegionProfile {
   character: string
   /** Optional cautious, region-specific nuance (ends with a period). */
   note?: string
+  /**
+   * Region-specific labour-supply character: commuting, borders, settlement
+   * pattern, seasonality. Qualitative only — no numbers, rates or rankings.
+   */
+  workforce: string
+  /** Roles employers in the region most commonly staff. Qualitative only. */
+  staffingFocus: string
   /** Extra cluster links (e.g. to existing geo pages for Praha / Brno). */
   relatedGeo?: InternalLink[]
 }
@@ -48,6 +55,8 @@ export interface RegionProfile {
 export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   {
     slug: 'praha',
+    workforce: 'Do Prahy denně dojíždí značná část pracovní síly ze Středočeského kraje, takže zaměstnavatelé soutěží o tytéž kandidáty.',
+    staffingFocus: 'Nejčastěji se obsazují pozice ve službách, v logistice a skladech v okolí města a v gastronomii.',
     name: 'Praha',
     inName: 'v Praze',
     feminine: true,
@@ -61,6 +70,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'jihomoravsky-kraj',
+    workforce: 'Brno je univerzitním centrem, takže na trh pravidelně vstupují absolventi, zároveň je o ně silná konkurence.',
+    staffingFocus: 'Obsazují se pozice ve výzkumu a IT, ve strojírenství a sezónně v zemědělství a vinařství.',
     name: 'Jihomoravský kraj',
     inName: 'v Jihomoravském kraji',
     sectorsInstr: 'informačními technologiemi, výzkumem, strojírenstvím a službami',
@@ -73,6 +84,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'moravskoslezsky-kraj',
+    workforce: 'Jde o velký, ale nerovnoměrný trh práce, který dlouhodobě prochází restrukturalizací tradičních odvětví.',
+    staffingFocus: 'Obsazují se pozice v hutnictví a navazující výrobě, v automobilovém průmyslu a v logistice.',
     name: 'Moravskoslezský kraj',
     inName: 'v Moravskoslezském kraji',
     sectorsInstr: 'průmyslem, strojírenstvím, energetikou a navazujícími službami',
@@ -81,6 +94,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'olomoucky-kraj',
+    workforce: 'Mezi Olomoucí a periferními oblastmi Jesenicka jsou v dostupnosti pracovní síly znatelné rozdíly.',
+    staffingFocus: 'Nejčastěji se obsazuje strojírenská a potravinářská výroba a zemědělské pozice.',
     name: 'Olomoucký kraj',
     inName: 'v Olomouckém kraji',
     sectorsInstr: 'výrobou, potravinářstvím, zemědělstvím a službami',
@@ -89,6 +104,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'zlinsky-kraj',
+    workforce: 'Kraj má silnou vazbu na tradiční průmyslové obory soustředěné kolem Zlína.',
+    staffingFocus: 'Typicky jde o gumárenskou a plastikářskou výrobu, strojírenství a leteckou výrobu na Uherskohradišťsku.',
     name: 'Zlínský kraj',
     inName: 've Zlínském kraji',
     sectorsInstr: 'zpracovatelským a strojírenským průmyslem a službami',
@@ -97,6 +114,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'vysocina',
+    workforce: 'Osídlení je rozptýlené do menších obcí, takže doprava na pracoviště bývá při náboru zásadní téma.',
+    staffingFocus: 'Nejčastěji jde o strojírenství, výrobu automobilových komponent, dřevozpracující obory a zemědělství.',
     name: 'Kraj Vysočina',
     inName: 'v Kraji Vysočina',
     sectorsInstr: 'výrobou, strojírenstvím, zemědělstvím a logistikou',
@@ -105,6 +124,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'jihocesky-kraj',
+    workforce: 'Osídlení je rozptýlené a dojezdové vzdálenosti bývají delší; blízkost rakouských hranic rozšiřuje možnosti kandidátů.',
+    staffingFocus: 'Nejčastěji jde o strojírenství, potravinářskou výrobu a sezónní pozice navázané na cestovní ruch.',
     name: 'Jihočeský kraj',
     inName: 'v Jihočeském kraji',
     sectorsInstr: 'výrobou, zemědělstvím, potravinářstvím a cestovním ruchem',
@@ -113,6 +134,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'plzensky-kraj',
+    workforce: 'Bavorské příhraničí znamená, že o část pracovní síly soutěží i zaměstnavatelé za hranicí.',
+    staffingFocus: 'Obsazují se zejména pozice v automobilovém průmyslu, strojírenství a v logistice u dálničního koridoru.',
     name: 'Plzeňský kraj',
     inName: 'v Plzeňském kraji',
     sectorsInstr: 'strojírenstvím, výrobou, potravinářstvím a logistikou',
@@ -121,6 +144,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'karlovarsky-kraj',
+    workforce: 'Jde o menší trh práce s výraznou sezónností navázanou na lázeňství a s blízkostí německých hranic.',
+    staffingFocus: 'Poptávka se soustředí na lázeňské a ubytovací služby, sklářskou a porcelánovou výrobu a lehkou výrobu.',
     name: 'Karlovarský kraj',
     inName: 'v Karlovarském kraji',
     sectorsInstr: 'lázeňstvím, cestovním ruchem, sklářstvím a výrobou',
@@ -129,6 +154,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'ustecky-kraj',
+    workforce: 'Kraj zahrnuje strukturálně postižené oblasti a rozdíly mezi okresy bývají výrazné.',
+    staffingFocus: 'Obsazují se především pozice v chemii, energetice a v logistice.',
     name: 'Ústecký kraj',
     inName: 'v Ústeckém kraji',
     sectorsInstr: 'průmyslem, chemickým průmyslem, energetikou a výrobou',
@@ -137,6 +164,8 @@ export const REGION_PROFILES: ReadonlyArray<RegionProfile> = [
   },
   {
     slug: 'liberecky-kraj',
+    workforce: 'Kraj sousedí s Německem i Polskem, což ovlivňuje nabídku práce i očekávání kandidátů.',
+    staffingFocus: 'Nejčastěji jde o výrobu automobilových komponent a o sklářskou a bižuterní výrobu na Jablonecku.',
     name: 'Liberecký kraj',
     inName: 'v Libereckém kraji',
     sectorsInstr: 'zpracovatelským průmyslem, strojírenstvím a službami',
@@ -149,13 +178,40 @@ const spojovan = (p: RegionProfile): string => (p.feminine ? 'spojována' : 'spo
 const regionalContext = (p: RegionProfile): string =>
   `${p.name} je tradičně ${spojovan(p)} s ${p.sectorsInstr}.${p.note ? ` ${p.note}` : ''}`
 
+
+/**
+ * Region-specific section. This is what makes each regional page genuinely
+ * different rather than a name-swapped template: the labour-supply character
+ * and the roles actually staffed there. Qualitative only — no invented
+ * numbers, shortage counts, salaries or rankings.
+ */
+const regionalWorkforceSection = (p: RegionProfile, v: number) => ({
+  heading: `Dostupnost pracovníků ${p.inName}`,
+  body:
+    v === 0
+      ? [
+          `${p.workforce} Právě tyto lokální podmínky, nikoli celostátní pravidla, rozhodují o tom, jak rychle se daří pozice obsadit.`,
+          `${p.staffingFocus} Pro plánování náboru je proto užitečné vycházet z toho, jaké profese jsou ${p.inName} skutečně poptávané a s kým o ně soutěžíte.`,
+        ]
+      : [
+          `${p.staffingFocus} Struktura poptávky se promítá do toho, jak dlouho obsazení trvá a jaké podmínky je potřeba nabídnout.`,
+          `${p.workforce} Tyto okolnosti se liší region od regionu, zatímco odvodová a pracovněprávní pravidla jsou stejná v celé ČR.`,
+        ],
+  bullets: [
+    `Odkud pracovníci na pracoviště dojíždějí a jak daleko.`,
+    `Které profese jsou ${p.inName} nejvíce poptávané.`,
+    `Kteří další zaměstnavatelé o stejné kandidáty soutěží.`,
+    `Zda je potřeba řešit dopravu na pracoviště nebo ubytování.`,
+  ],
+})
+
 // ── TYPE A: employer cost page ──────────────────────────────────────────────
 export const buildRegionCostPage = (p: RegionProfile, i: number): SeoPage => {
   const v = i % 2
   const intro =
     v === 0
-      ? `Pro zaměstnavatele ${p.inName} je dobrý odhad nákladů na zaměstnance základem udržitelného rozpočtu i konkurenceschopné nabídky. ${p.character} Celkové náklady přitom přesahují samotnou hrubou mzdu – tvoří je povinné odvody a podle situace i další přímé a nepřímé položky. Tato stránka shrnuje, z čeho se náklady skládají a na co myslet při plánování. Konkrétní procentní sazby a částky neuvádíme; mění se a je nutné je ověřit u oficiálních institucí.`
-      : `Náklady na zaměstnance jsou ${p.inName} stejně jako jinde v ČR vyšší než samotná hrubá mzda – k mzdě se připojují povinné odvody a podle situace další položky. ${p.character} Tato stránka pomáhá zaměstnavatelům udělat si strukturovanou představu o jednotlivých složkách ceny práce. Konkrétní sazby a částky záměrně neuvádíme, protože se mění; ověřte je u ČSSZ, zdravotních pojišťoven a finanční správy.`
+      ? `Pro zaměstnavatele ${p.inName} je dobrý odhad nákladů na zaměstnance základem udržitelného rozpočtu i konkurenceschopné nabídky. ${p.character} ${p.workforce} Celkové náklady přitom přesahují samotnou hrubou mzdu – tvoří je povinné odvody a podle situace i další přímé a nepřímé položky. Tato stránka shrnuje, z čeho se náklady skládají a na co myslet při plánování. Konkrétní procentní sazby a částky neuvádíme; mění se a je nutné je ověřit u oficiálních institucí.`
+      : `Náklady na zaměstnance jsou ${p.inName} stejně jako jinde v ČR vyšší než samotná hrubá mzda – k mzdě se připojují povinné odvody a podle situace další položky. ${p.character} ${p.staffingFocus} Tato stránka pomáhá zaměstnavatelům udělat si strukturovanou představu o jednotlivých složkách ceny práce. Konkrétní sazby a částky záměrně neuvádíme, protože se mění; ověřte je u ČSSZ, zdravotních pojišťoven a finanční správy.`
 
   const mzdaSection =
     v === 0
@@ -192,6 +248,7 @@ export const buildRegionCostPage = (p: RegionProfile, i: number): SeoPage => {
           `${regionalContext(p)} Tato struktura se promítá do toho, po jakých profesích je poptávka a jak náročné je je obsadit.`,
         ],
       },
+      regionalWorkforceSection(p, v),
       {
         heading: 'Mzda versus celková cena práce',
         body: mzdaSection,
@@ -269,8 +326,8 @@ export const buildRegionLaborPage = (p: RegionProfile, i: number): SeoPage => {
   const v = i % 2
   const intro =
     v === 0
-      ? `${p.character} Pro zaměstnavatele je užitečné rozumět regionálnímu kontextu, ten se ale opírá o aktuální data, která se mění. Tato stránka shrnuje trh práce ${p.inName} z pohledu zaměstnavatele kvalitativně a u konkrétních čísel – jako je míra nezaměstnanosti, počty volných míst nebo mzdové úrovně – odkazuje na oficiální statistiky ČSÚ a Úřadu práce ČR. Konkrétní regionální údaje záměrně neuvádíme.`
-      : `Trh práce ${p.inName} má svá specifika v dostupnosti kandidátů. ${p.character} Tato stránka popisuje regionální kontext z pohledu zaměstnavatele kvalitativně; konkrétní čísla, jako je míra nezaměstnanosti nebo počty volných míst, se mění a zveřejňují je ČSÚ a Úřad práce ČR. Záměrně je proto neuvádíme, abychom nezobrazovali neaktuální údaje.`
+      ? `${p.character} ${p.workforce} Pro zaměstnavatele je užitečné rozumět regionálnímu kontextu, ten se ale opírá o aktuální data, která se mění. Tato stránka shrnuje trh práce ${p.inName} z pohledu zaměstnavatele kvalitativně a u konkrétních čísel – jako je míra nezaměstnanosti, počty volných míst nebo mzdové úrovně – odkazuje na oficiální statistiky ČSÚ a Úřadu práce ČR. Konkrétní regionální údaje záměrně neuvádíme.`
+      : `Trh práce ${p.inName} má svá specifika v dostupnosti kandidátů. ${p.character} ${p.staffingFocus} Tato stránka popisuje regionální kontext z pohledu zaměstnavatele kvalitativně; konkrétní čísla, jako je míra nezaměstnanosti nebo počty volných míst, se mění a zveřejňují je ČSÚ a Úřad práce ČR. Záměrně je proto neuvádíme, abychom nezobrazovali neaktuální údaje.`
 
   const challenges =
     v === 0
@@ -307,6 +364,7 @@ export const buildRegionLaborPage = (p: RegionProfile, i: number): SeoPage => {
           'Konkrétní strukturu zaměstnanosti, míru nezaměstnanosti a další ukazatele zveřejňuje Český statistický úřad a Úřad práce ČR. Tato stránka tyto údaje neuvádí, aby nezobrazovala neaktuální čísla.',
         ],
       },
+      regionalWorkforceSection(p, (i + 1) % 2),
       {
         heading: 'Pohled zaměstnavatele',
         body: [

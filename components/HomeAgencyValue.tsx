@@ -1,5 +1,6 @@
 import { useLang } from '../lib/i18n/react'
 import { AGENCY_VALUE } from '../lib/agency-value/copy'
+import EmployerCta from './EmployerCta'
 
 // Compact homepage agency-value layer shown after the statutory calculator.
 // It only explains that statutory payroll is not the whole staffing cost and
@@ -36,6 +37,7 @@ export default function HomeAgencyValue() {
       <div className="agv__cta-wrap">
         <a className="btn btn-primary btn-lg" href={COMPARE_URL}>{c.avCta}</a>
       </div>
+      <EmployerCta variant="agencyValue" source="agency-value" secondaryHref={COMPARE_URL} />
     </div>
   )
 }
