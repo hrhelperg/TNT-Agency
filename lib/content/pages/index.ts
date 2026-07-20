@@ -33,6 +33,38 @@ export const SEO_PAGE_TIERS = {
   cityRecruitment: CITY_RECRUITMENT_PAGES,
 } as const
 
+// ── Phase D7: guaranteed conversion path ────────────────────────────────
+//
+// Every employer-facing page must be able to reach the two operational tools:
+// the payroll calculator (so cost questions are answered by the shared engine
+// rather than by duplicated formulas on SEO pages, per D5/D6) and the staffing
+// request form. Applying this centrally — rather than hand-editing 133 page
+// objects — means the invariant also holds for pages added later, and it is
+// enforced by lib/content/content-quality.test.ts.
+
+const CALCULATOR_LINK = {
+  href: '/kalkulacka-mzdy-agenturniho-zamestnance',
+  label: 'Kalkulačka mzdových nákladů zaměstnance',
+}
+const REQUEST_LINK = {
+  href: '/poptavka-pracovniku',
+  label: 'Poptávka pracovníků: zadat požadavek',
+}
+
+const hasLink = (page: SeoPage, href: string): boolean =>
+  (page.internalLinks ?? []).some((l) => l.href.split('?')[0] === href) ||
+  (page.cta?.href ?? '').split('?')[0] === href
+
+/** Appends the conversion links to a page when they are not already present. */
+const withConversionPath = (page: SeoPage): SeoPage => {
+  const additions = [CALCULATOR_LINK, REQUEST_LINK]
+    .filter((l) => !hasLink(page, l.href))
+    // A page must never link to itself.
+    .filter((l) => l.href !== `/${page.slug}`)
+  if (additions.length === 0) return page
+  return { ...page, internalLinks: [...(page.internalLinks ?? []), ...additions] }
+}
+
 export const SEO_PAGES: ReadonlyArray<SeoPage> = [
   ...CORNERSTONE_PAGES,
   ...SUPPORT_PAGES,
@@ -43,7 +75,7 @@ export const SEO_PAGES: ReadonlyArray<SeoPage> = [
   ...EMPLOYER_OPERATIONS_PAGES,
   ...INDUSTRY_RECRUITMENT_PAGES,
   ...CITY_RECRUITMENT_PAGES,
-]
+].map(withConversionPath)
 
 export const findSeoPage = (slug: string): SeoPage | undefined =>
   SEO_PAGES.find((p) => p.slug === slug)

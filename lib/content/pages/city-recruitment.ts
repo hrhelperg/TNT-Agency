@@ -749,6 +749,19 @@ export const NABOR_ZAMESTNANCU_HRADEC_KRALOVE: SeoPage = {
       ],
     },
     {
+      heading: 'Čím je hradecký trh práce specifický',
+      body: [
+        'Hradec Králové je dlouhodobě spojen se zdravotnictvím, lékařským vzděláváním a farmaceutickou tradicí; vedle toho zde působí strojírenské a zpracovatelské provozy. Tato skladba znamená, že vedle provozních a výrobních pozic je ve městě poptávka i po kvalifikovaných a odborných profesích.',
+        'Hradec Králové a Pardubice leží blízko sebe a jejich spádové oblasti se částečně překrývají. Pro zaměstnavatele to znamená širší okruh kandidátů, ale také konkurenci o tytéž lidi napříč oběma městy – a nutnost počítat s dojížďkou mezi nimi.',
+      ],
+      bullets: [
+        'Zdravotnictví, vzdělávání a farmaceutická tradice ovlivňují skladbu poptávky.',
+        'Strojírenské a zpracovatelské provozy poptávají provozní profese.',
+        'Spádová oblast se překrývá s Pardubicemi – širší nabídka i větší konkurence.',
+        'U dojíždějících kandidátů je vhodné řešit dopravu na pracoviště.',
+      ],
+    },
+    {
       heading: 'Plánování a rozhodnutí pro zaměstnavatele',
       body: [
         'Z různorodosti poptávky plyne rozhodnutí plánovat nábor odděleně pro různé typy pozic a využít širší spádovou oblast. Kombinace stálého jádra a flexibilní kapacity pomáhá pokrýt rozmanité profese.',
@@ -1115,6 +1128,19 @@ export const NABOR_ZAMESTNANCU_OLOMOUC: SeoPage = {
         'Agenturní kapacita pro provoz a výrobu',
         'Nábor ze zahraničí u nedostatkových profesí',
         'Využití spádové oblasti pro oslovení',
+      ],
+    },
+    {
+      heading: 'Čím je olomoucký trh práce specifický',
+      body: [
+        'Olomouc je univerzitní město, takže na trh práce pravidelně vstupují absolventi – zároveň je o ně mezi zaměstnavateli silná konkurence a část z nich odchází za prací do větších center. Vedle toho je město obklopeno úrodnou Hanou s tradicí zemědělství a potravinářské výroby.',
+        'Spádová oblast zahrnuje blízký Přerov a Prostějov, kde působí strojírenské a zpracovatelské provozy. Pro obsazování provozních pozic je proto obvykle nutné počítat s dojížďkou a s tím, že o stejné kandidáty soutěží zaměstnavatelé z celé aglomerace.',
+      ],
+      bullets: [
+        'Univerzitní zázemí přivádí absolventy, ale i konkurenci o ně.',
+        'Zemědělská a potravinářská tradice regionu Haná ovlivňuje sezónní poptávku.',
+        'Spádová oblast zasahuje k Přerovu a Prostějovu.',
+        'U provozních pozic je dojížďka a doprava častým tématem náboru.',
       ],
     },
     {
