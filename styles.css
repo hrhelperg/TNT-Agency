@@ -2843,3 +2843,320 @@ p  { color: var(--text-2); line-height: 1.7; }
   .erf__copy-actions .btn { width: 100%; }
   .erf__actions .btn { width: 100%; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HELPERG Ecosystem banner — global "Company Timeline" strip
+   ═══════════════════════════════════════════════════════════════════════
+
+   Layout contract (the site header is position:fixed; top:0, so the banner
+   cannot simply sit above it in flow):
+
+     --eco-h      content height of the strip
+     --eco-total  --eco-h + the iOS safe-area inset
+
+   1. .eco-bar is fixed at top:0 and owns --eco-total of vertical space.
+   2. .header is pushed down to top:var(--eco-total), so the two stack.
+   3. body gets padding-top:var(--eco-total), shifting the whole document by
+      exactly the banner height. Every existing hero padding (128-164px, which
+      already clears the fixed header) therefore stays correct — no per-page
+      offset had to change, and nothing shifts after hydration because the
+      space is reserved in CSS, not by JS.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --eco-h: 40px;
+  --eco-total: calc(var(--eco-h) + env(safe-area-inset-top, 0px));
+  /* Banner sits above the header (100) but below the cookie banner (9999). */
+  --eco-z: 101;
+}
+
+body { padding-top: var(--eco-total); }
+.header { top: var(--eco-total); }
+
+/* Anchor targets must clear banner + header, derived rather than hardcoded. */
+html { scroll-padding-top: calc(var(--eco-total) + 88px); }
+.article-content [id] { scroll-margin-top: calc(var(--eco-total) + 88px); }
+
+/* The mobile menu is fixed inset:0 and must start below banner + header. */
+.mobile-nav {
+  padding-top: calc(88px + var(--eco-total));
+}
+
+.eco-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: var(--eco-z);
+  height: var(--eco-total);
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--navy);
+  color: var(--text-inv);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.eco-bar__inner {
+  height: var(--eco-h);
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* ── Ecosystem identity ───────────────────────────────────────────────── */
+.eco-bar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  color: var(--text-inv);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-decoration: none;
+  opacity: 0.92;
+  transition: opacity var(--tr);
+}
+.eco-bar__brand:hover { opacity: 1; }
+.eco-bar__mark { flex: 0 0 auto; color: var(--accent); }
+.eco-bar__brand-text--short { display: none; }
+
+/* ── Timeline ─────────────────────────────────────────────────────────── */
+.eco-bar__timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+/* The connecting line: a 1px rule between nodes, not a decorative graphic. */
+.eco-node { display: flex; align-items: center; min-width: 0; }
+.eco-node + .eco-node::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.22);
+  flex: 0 0 auto;
+}
+.eco-node__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color var(--tr), background-color var(--tr);
+}
+a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255, 0.07); }
+.eco-node__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  flex: 0 0 auto;
+}
+/* Current product: stronger weight + filled node + accent. Never colour alone —
+   an aria-current and a visually-hidden label carry the same meaning. */
+.eco-node--current .eco-node__link { color: var(--text-inv); font-weight: 700; }
+.eco-node--current .eco-node__dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(240, 90, 40, 0.22);
+}
+
+/* ── Compact current-product label (narrow viewports) ─────────────────── */
+.eco-bar__compact { display: none; align-items: center; gap: 6px; font-size: 0.78rem; min-width: 0; }
+.eco-bar__compact-sep { opacity: 0.45; }
+.eco-bar__compact-current {
+  font-weight: 700;
+  color: var(--text-inv);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── CTA ──────────────────────────────────────────────────────────────── */
+.eco-bar__cta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-inv);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--tr), border-color var(--tr);
+}
+.eco-bar__cta:hover { background: rgba(255, 255, 255, 0.10); border-color: rgba(255, 255, 255, 0.34); }
+.eco-bar__cta-text--short { display: none; }
+
+.eco-bar :is(a, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Screen-reader-only utility (scoped name to avoid clashing with site CSS). */
+.eco-bar .sr-only,
+.eco-dir .sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ── Responsive: progressively reduce the timeline, never shrink text ─── */
+@media (max-width: 1279px) {
+  .eco-node:nth-child(n + 6) { display: none; }
+}
+@media (max-width: 1150px) {
+  .eco-node:nth-child(n + 5) { display: none; }
+  .eco-bar__inner { padding: 0 20px; }
+}
+@media (max-width: 1023px) {
+  .eco-node:nth-child(n + 4) { display: none; }
+  .eco-bar__brand-text--full { display: none; }
+  .eco-bar__brand-text--short { display: inline; }
+}
+@media (max-width: 860px) {
+  .eco-node:nth-child(n + 3) { display: none; }
+}
+/* Below the tablet breakpoint the timeline is replaced by a compact identity
+   row: "HELPERG Ecosystem · TalentPartnerID        Explore →". */
+@media (max-width: 767px) {
+  :root { --eco-h: 44px; }
+  .eco-bar__timeline { display: none; }
+  .eco-bar__compact { display: inline-flex; min-width: 0; }
+  .eco-bar__inner { gap: 8px; padding: 0 16px; }
+  /* The current product is the important signal on this site, so it never
+     shrinks; the ecosystem brand truncates first if space runs out. */
+  .eco-bar__brand { font-size: 0.8rem; min-width: 0; flex: 0 1 auto; }
+  .eco-bar__brand-text--short { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  .eco-bar__compact { flex: 0 0 auto; }
+  .eco-bar__compact-current { overflow: visible; text-overflow: clip; }
+  .eco-bar__cta-text--full { display: none; }
+  .eco-bar__cta-text--short { display: inline; }
+  .eco-bar__cta { padding: 7px 10px; }
+}
+@media (max-width: 360px) {
+  .eco-bar__inner { padding: 0 12px; gap: 6px; }
+  .eco-bar__compact { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-bar *, .eco-dir * { transition: none !important; animation: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Product directory dialog
+   ═══════════════════════════════════════════════════════════════════════ */
+.eco-dir {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(13, 30, 61, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: calc(var(--eco-total) + 16px) 16px 16px;
+  overflow-y: auto;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.eco-dir__panel {
+  width: 100%;
+  max-width: 880px;
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.eco-dir__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: var(--s3);
+  border-bottom: 1px solid var(--border);
+}
+.eco-dir__title { font-size: 1.1rem; margin: 0; letter-spacing: -0.01em; }
+.eco-dir__intro { margin: 4px 0 0; font-size: 0.88rem; color: var(--text-2); }
+.eco-dir__close {
+  flex: 0 0 auto;
+  width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background-color var(--tr), color var(--tr);
+}
+.eco-dir__close:hover { background: var(--bg-alt); color: var(--text); }
+.eco-dir__close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.eco-dir__body { padding: var(--s3); display: flex; flex-direction: column; gap: var(--s4); }
+.eco-dir__group-title {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin: 0 0 var(--s2);
+  font-weight: 700;
+}
+.eco-dir__list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2);
+}
+.eco-dir__item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  min-width: 0;
+}
+.eco-dir__item.is-current { border-color: var(--accent); background: var(--accent-tint); }
+.eco-dir__item-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.eco-dir__name { font-weight: 700; font-size: 0.94rem; color: var(--text); }
+.eco-dir__badge {
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--accent-dark); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 7px;
+}
+.eco-dir__desc { margin: 4px 0 0; font-size: 0.83rem; color: var(--text-2); line-height: 1.5; }
+.eco-dir__channels { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.eco-dir__channel {
+  display: inline-flex; align-items: center;
+  min-height: 32px;
+  padding: 4px 10px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--navy);
+  text-decoration: none;
+  background: var(--bg);
+  transition: background-color var(--tr), border-color var(--tr);
+}
+.eco-dir__channel:hover { background: var(--bg-alt); border-color: var(--navy-light); }
+.eco-dir__channel:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 767px) {
+  .eco-dir { padding: calc(var(--eco-total) + 8px) 8px 8px; }
+  .eco-dir__list { grid-template-columns: minmax(0, 1fr); }
+  .eco-dir__head, .eco-dir__body { padding: var(--s2); }
+  /* Comfortable touch targets on mobile. */
+  .eco-dir__channel { min-height: 40px; padding: 8px 12px; }
+}
