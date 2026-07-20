@@ -78,6 +78,7 @@ export const REQUEST_FIELDS: readonly RequestField[] = [
   { name: 'accommodation', group: 'conditions', kind: 'select', required: false, options: YES_NO_MAYBE },
   { name: 'transport', group: 'conditions', kind: 'select', required: false, options: YES_NO_MAYBE },
   { name: 'ppe', group: 'conditions', kind: 'textarea', required: false, maxLength: 600 },
+  { name: 'medicalExam', group: 'conditions', kind: 'textarea', required: false, maxLength: 600 },
   { name: 'foreignWorkerSupport', group: 'conditions', kind: 'select', required: false, options: YES_NO_MAYBE },
   { name: 'budget', group: 'conditions', kind: 'text', required: false, maxLength: 160 },
   { name: 'notes', group: 'conditions', kind: 'textarea', required: false, maxLength: 2000 },

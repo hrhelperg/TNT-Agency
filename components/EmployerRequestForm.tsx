@@ -1,35 +1,38 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLang } from '../lib/i18n/react'
-import { REQUEST_COPY, OPERATOR_EMAIL } from '../lib/employer-request/copy'
+import { REQUEST_COPY } from '../lib/employer-request/copy'
 import {
   REQUEST_GROUPS,
   fieldsInGroup,
   type RequestField,
   type RequestValues,
 } from '../lib/employer-request/schema'
-import { validateRequest, isValid, orderedErrorNames, type ValidationErrors } from '../lib/employer-request/validate'
-import { buildMailto } from '../lib/employer-request/mailto'
+import { isValid, orderedErrorNames, type ValidationErrors } from '../lib/employer-request/validate'
+import { activeLeadTransport, type PreparedLead } from '../lib/leads-lite/transport'
 import { captureAttribution, isCtaSource, type Attribution } from '../lib/attribution'
 
-// Employer staffing-request form (Phase C3, extended in Phase E7).
+// Employer staffing-request form — Phase E Lite (zero backend).
 //
-// Privacy model, enforced by tests:
-//   - values live ONLY in React state, the first-party POST to /api/leads, and
-//     the mailto: the user sends;
-//   - nothing is written to the URL, history, storage, cookies or analytics;
-//   - the only network target is our own endpoint — never a third party;
-//   - attribution is read at submit time and is allowlisted upstream, then
-//     re-sanitised server-side.
+// The form PREPARES a structured email and hands it to the user's own mail
+// client. It cannot know whether anything was sent, so no state, string or
+// live-region message here claims delivery. After preparing, the panel shows
+// the recipient, subject and full text with copy buttons, so the request can
+// still be completed from Gmail/Outlook when no mail client opens.
 //
-// Submission is API-first with a mailto fallback: if the endpoint is
-// unconfigured, rate-limited or unreachable, the request degrades to the
-// Phase C mailto flow rather than being lost.
+// Privacy model, enforced by tests and scripts/security-check.js:
+//   - values live ONLY in React state and the mailto: the user sends;
+//   - there is NO fetch / XMLHttpRequest / sendBeacon and no backend at all;
+//   - nothing is written to localStorage, cookies, IndexedDB, the URL or
+//     history; the lead reference is not persisted either;
+//   - attribution is allowlisted upstream and appears only in the prepared
+//     email, never in analytics.
 //
 // Accessibility: real <label> per control (never placeholder-only), an error
 // summary that receives focus, per-field aria-invalid + aria-describedby, and
-// an aria-live status region for the outcome.
+// an aria-live status region announcing the prepared state.
 
-type Status = 'idle' | 'sending' | 'error' | 'success' | 'submitted'
+type Status = 'idle' | 'error' | 'prepared'
+type CopyKey = 'email' | 'subject' | 'request'
 
 export default function EmployerRequestForm() {
   const lang = useLang()
@@ -38,14 +41,12 @@ export default function EmployerRequestForm() {
   const [values, setValues] = useState<RequestValues>({})
   const [errors, setErrors] = useState<ValidationErrors>({})
   const [status, setStatus] = useState<Status>('idle')
-  const [fallbackBody, setFallbackBody] = useState('')
+  const [prepared, setPrepared] = useState<PreparedLead | null>(null)
+  const [copied, setCopied] = useState<CopyKey | null>(null)
   const [attribution, setAttribution] = useState<Attribution>({})
 
   const summaryRef = useRef<HTMLDivElement | null>(null)
-  // Anti-spam (E7): a honeypot no human sees, and how long the form was open.
-  const honeypotRef = useRef<HTMLInputElement | null>(null)
-  const startedAtRef = useRef<number>(Date.now())
-  const [reference, setReference] = useState('')
+  const preparedRef = useRef<HTMLElement | null>(null)
 
   // Capture attribution once on mount. Reads only the non-sensitive parts of
   // location/referrer; the module drops anything not on its allowlist.
@@ -71,7 +72,6 @@ export default function EmployerRequestForm() {
 
   const setField = (name: string, value: string | boolean) => {
     setValues((prev) => ({ ...prev, [name]: value }))
-    // Clear a field's error as soon as the user edits it.
     setErrors((prev) => {
       if (!(name in prev)) return prev
       const next = { ...prev }
@@ -82,62 +82,64 @@ export default function EmployerRequestForm() {
 
   const errorList = useMemo(() => orderedErrorNames(errors), [errors])
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // Always prevent a native submission: a GET form would put every value in
-    // the URL, which this feature must never do.
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // Always prevent native submission: a GET form would put every value in the
+    // URL, which this feature must never do.
     e.preventDefault()
 
-    const found = validateRequest(values)
+    const found = activeLeadTransport.validate(values)
     if (!isValid(found)) {
       setErrors(found)
       setStatus('error')
-      // Move focus to the summary so screen readers announce the failure.
       window.requestAnimationFrame(() => summaryRef.current?.focus())
       return
     }
 
     setErrors({})
-    setStatus('sending')
+    const lead = activeLeadTransport.prepare(values, { locale: lang, attribution })
+    setPrepared(lead)
+    setStatus('prepared')
+    setCopied(null)
 
-    // The mailto is always prepared, so a failure of the API path degrades to
-    // the Phase C flow rather than losing the request.
-    const mail = buildMailto(values, lang, attribution)
-    setFallbackBody(`${mail.subject}\n\n${mail.body}`)
+    // Attempt the hand-off. The result is an attempt, never a confirmation —
+    // the panel stays visible either way so the user can complete it manually
+    // if no mail client opened. Entered values are deliberately preserved.
+    activeLeadTransport.deliver(lead)
 
+    window.requestAnimationFrame(() => preparedRef.current?.focus())
+  }
+
+  const copyText = async (key: CopyKey, text: string) => {
     try {
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          values: { ...values, locale: lang },
-          attribution,
-          marketingConsent: values.marketingConsent === true,
-          website: honeypotRef.current?.value ?? '',
-          elapsedMs: Date.now() - startedAtRef.current,
-        }),
-      })
-
-      if (res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { reference?: string }
-        setReference(data.reference ?? '')
-        setStatus('submitted')
-        return
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text)
+      } else {
+        // Fallback for browsers without the async clipboard API.
+        const ta = document.createElement('textarea')
+        ta.value = text
+        ta.setAttribute('readonly', '')
+        ta.style.position = 'absolute'
+        ta.style.left = '-9999px'
+        document.body.appendChild(ta)
+        ta.select()
+        document.execCommand('copy')
+        document.body.removeChild(ta)
       }
-
-      if (res.status === 422) {
-        const data = (await res.json().catch(() => ({}))) as { fields?: ValidationErrors }
-        setErrors(data.fields ?? {})
-        setStatus('error')
-        window.requestAnimationFrame(() => summaryRef.current?.focus())
-        return
-      }
-      // 429/502/503 -> fall through to the mailto path.
+      setCopied(key)
     } catch {
-      // Offline or blocked: fall through to the mailto path.
+      // Copying failed (permissions / insecure context). The text stays visible
+      // and selectable on screen, so it can still be copied manually.
+      setCopied(null)
     }
+  }
 
-    setStatus('success')
-    window.location.href = mail.href
+  const clearForm = () => {
+    if (!window.confirm(copy.clearFormConfirm)) return
+    setValues({})
+    setErrors({})
+    setPrepared(null)
+    setStatus('idle')
+    setCopied(null)
   }
 
   const describedBy = (f: RequestField): string | undefined => {
@@ -197,7 +199,13 @@ export default function EmployerRequestForm() {
     return (
       <input
         {...common}
-        type={f.kind === 'number' ? 'number' : f.kind === 'date' ? 'date' : f.kind === 'email' ? 'email' : f.kind === 'tel' ? 'tel' : 'text'}
+        type={
+          f.kind === 'number' ? 'number'
+          : f.kind === 'date' ? 'date'
+          : f.kind === 'email' ? 'email'
+          : f.kind === 'tel' ? 'tel'
+          : 'text'
+        }
         inputMode={f.kind === 'number' ? 'numeric' : undefined}
         min={f.min}
         max={f.max}
@@ -211,45 +219,73 @@ export default function EmployerRequestForm() {
 
   return (
     <div className="erf" lang={lang}>
-      {/* Status region: announced without stealing focus on success. */}
+      {/* Announced without stealing focus. Wording is "prepared", never "sent". */}
       <div className="erf__status" role="status" aria-live="polite">
-        {status === 'submitted' ? (
-          <div className="erf__success">
-            <strong>{copy.storedTitle}</strong>
-            <p>{copy.storedBody}</p>
-            {reference ? (
-              <p className="erf__reference">
-                {copy.referenceLabel}: <strong>{reference}</strong>
-              </p>
-            ) : null}
-          </div>
-        ) : null}
-        {status === 'success' ? (
-          <div className="erf__success">
-            <strong>{copy.successTitle}</strong>
-            <p>{copy.successBody}</p>
-            <p className="erf__fallback-note">{copy.mailtoFallbackNote}</p>
-            <textarea
-              className="erf__fallback"
-              readOnly
-              rows={10}
-              value={fallbackBody}
-              aria-label={copy.mailtoFallbackNote}
-            />
-            <p>
-              <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a>
+        {status === 'prepared' && prepared ? (
+          <section
+            className="erf__prepared"
+            ref={preparedRef}
+            tabIndex={-1}
+            aria-label={copy.preparedTitle}
+          >
+            <h2 className="erf__prepared-title">{copy.preparedTitle}</h2>
+            <p className="erf__prepared-instruction">{copy.preparedInstruction}</p>
+            <p className="erf__notsent">{copy.notSentNote}</p>
+
+            <dl className="erf__prepared-meta">
+              <dt>{copy.referenceLabel}</dt>
+              <dd><code>{prepared.reference}</code></dd>
+              <dt>{copy.recipientLabel}</dt>
+              <dd><code>{prepared.to}</code></dd>
+              <dt>{copy.subjectLabel}</dt>
+              <dd>{prepared.subject}</dd>
+            </dl>
+
+            <p className="erf__prepared-hint">{copy.preparedFallbackHint}</p>
+
+            <div className="erf__copy-actions">
+              <button type="button" className="btn btn-ghost" onClick={() => copyText('email', prepared.to)}>
+                {copy.copyEmail}
+              </button>
+              <button type="button" className="btn btn-ghost" onClick={() => copyText('subject', prepared.subject)}>
+                {copy.copySubject}
+              </button>
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={() => copyText('request', `${prepared.subject}\n\n${prepared.body}`)}
+              >
+                {copy.copyRequest}
+              </button>
+              <a href={prepared.mailtoUrl} className="btn btn-primary">
+                {copy.openEmailApp}
+              </a>
+            </div>
+
+            {/* Copy confirmation in its own live region so it is announced. */}
+            <p className="erf__copied" role="status" aria-live="polite">
+              {copied ? copy.copiedConfirm : ''}
             </p>
-          </div>
+
+            <label className="erf__prepared-label" htmlFor="prepared-body">
+              {copy.requestTextLabel}
+            </label>
+            <textarea id="prepared-body" className="erf__fallback" readOnly rows={14} value={prepared.body} />
+
+            <div className="erf__webmail">
+              <h3>{copy.webmailTitle}</h3>
+              <ol>
+                {copy.webmailSteps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+            </div>
+          </section>
         ) : null}
       </div>
 
       {status === 'error' && errorList.length > 0 ? (
-        <div
-          className="erf__errors"
-          ref={summaryRef}
-          tabIndex={-1}
-          role="alert"
-        >
+        <div className="erf__errors" ref={summaryRef} tabIndex={-1} role="alert">
           <strong>{copy.errorSummaryTitle}</strong>
           <ul>
             {errorList.map((name) => (
@@ -324,16 +360,12 @@ export default function EmployerRequestForm() {
         <p className="erf__privacy">{copy.noValuesNote}</p>
         <p className="erf__privacy">{copy.privacyNote}</p>
 
-        {/* Honeypot: visually hidden and removed from the a11y tree, so only
-            an automated client will ever fill it. */}
-        <div className="erf__hp" aria-hidden="true">
-          <label htmlFor="website">Website</label>
-          <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" ref={honeypotRef} />
-        </div>
-
         <div className="erf__actions">
-          <button type="submit" className="btn btn-primary btn-lg" disabled={status === 'sending'}>
-            {status === 'sending' ? copy.submitting : copy.submit}
+          <button type="submit" className="btn btn-primary btn-lg">
+            {copy.submit}
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={clearForm}>
+            {copy.clearForm}
           </button>
         </div>
       </form>

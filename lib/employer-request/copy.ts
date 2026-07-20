@@ -41,14 +41,25 @@ export interface RequestCopy {
   // Actions + status
   submit: string
   submitting: string
-  successTitle: string
-  successBody: string
-  storedTitle: string
-  storedBody: string
+  // Phase E Lite — the request is PREPARED, never "sent". A mailto hand-off
+  // cannot confirm delivery, so no string here may claim one.
+  preparedTitle: string
+  preparedInstruction: string
+  preparedFallbackHint: string
+  notSentNote: string
   referenceLabel: string
-  marketingLabel: string
-  marketingDetail: string
-  mailtoFallbackNote: string
+  recipientLabel: string
+  subjectLabel: string
+  requestTextLabel: string
+  copyEmail: string
+  copySubject: string
+  copyRequest: string
+  copiedConfirm: string
+  openEmailApp: string
+  webmailTitle: string
+  webmailSteps: string[]
+  clearForm: string
+  clearFormConfirm: string
   // Email
   emailSubject: string
   emailIntro: string
@@ -67,7 +78,7 @@ export interface RequestCopy {
 
 const attributionLabelsCs: Record<AttributionField, string> = {
   landingRoute: 'Vstupní stránka',
-  currentRoute: 'Odesláno ze stránky',
+  currentRoute: 'Připraveno na stránce',
   referrerDomain: 'Zdrojová doména',
   utmSource: 'UTM source',
   utmMedium: 'UTM medium',
@@ -81,7 +92,7 @@ const attributionLabelsCs: Record<AttributionField, string> = {
 
 const attributionLabelsEn: Record<AttributionField, string> = {
   landingRoute: 'Landing page',
-  currentRoute: 'Submitted from',
+  currentRoute: 'Prepared on page',
   referrerDomain: 'Referrer domain',
   utmSource: 'UTM source',
   utmMedium: 'UTM medium',
@@ -95,7 +106,7 @@ const attributionLabelsEn: Record<AttributionField, string> = {
 
 const attributionLabelsDe: Record<AttributionField, string> = {
   landingRoute: 'Einstiegsseite',
-  currentRoute: 'Gesendet von',
+  currentRoute: 'Vorbereitet auf Seite',
   referrerDomain: 'Referrer-Domain',
   utmSource: 'UTM source',
   utmMedium: 'UTM medium',
@@ -142,14 +153,15 @@ const cs: RequestCopy = {
     accommodation: 'Ubytování',
     transport: 'Doprava na pracoviště',
     ppe: 'OOPP a vybavení',
+    medicalExam: 'Požadavky na pracovnělékařskou prohlídku',
     foreignWorkerSupport: 'Podpora u dokumentů cizinců',
     budget: 'Předpokládaný rozpočet (hodinový nebo měsíční)',
     notes: 'Další provozní požadavky',
     preferredContact: 'Preferovaný kontakt',
     consent: 'Souhlas se zpracováním',
-    marketingConsent: 'Marketingový souhlas',
   },
   hints: {
+    medicalExam: 'Kdo zajišťuje vstupní prohlídku, u jakého poskytovatele a jaká je požadovaná kategorie práce.',
     email: 'Na tuto adresu pošleme reakci.',
     headcount: 'Počet osob, které potřebujete obsadit.',
     profession: 'Např. operátor výroby, skladník, svářeč, řidič VZV.',
@@ -218,23 +230,31 @@ const cs: RequestCopy = {
     `Údaje zpracovává ${OPERATOR} výhradně pro vyřízení této poptávky. Odesláním se otevře váš e-mailový klient – zprávu odesíláte vy. Podrobnosti najdete v zásadách ochrany osobních údajů.`,
   submit: 'Vytvořit e-mail s poptávkou',
   submitting: 'Připravuji…',
-  successTitle: 'E-mail s poptávkou je připraven',
-  successBody:
-    'Otevřel se váš e-mailový klient s předvyplněnou strukturovanou poptávkou. Zkontrolujte údaje a zprávu odešlete – teprve tím se poptávka dostane k nám.',
-  storedTitle:
-    'Poptávka byla přijata',
-  storedBody:
-    'Vaši poptávku jsme zaznamenali a ozveme se na uvedený kontakt. Přijetí neznamená potvrzení objednávky ani zaručenou dostupnost pracovníků.',
-  referenceLabel:
-    'Referenční číslo',
-  marketingLabel:
-    'Chci dostávat informace o službách a novinkách (nepovinné).',
-  marketingDetail:
-    'Nepovinné a nezávislé na zpracování poptávky. Souhlas můžete kdykoli odvolat na uvedeném kontaktu.',
-  mailtoFallbackNote:
-    `Pokud se e-mailový klient neotevřel, zkopírujte text níže a pošlete jej na ${OPERATOR_EMAIL}.`,
+  preparedTitle: 'E-mailová zpráva byla připravena',
+  preparedInstruction: 'Odeslání dokončete ve své e-mailové aplikaci',
+  preparedFallbackHint: 'Pokud se aplikace neotevřela, zkopírujte text níže',
+  notSentNote:
+    'Poptávku jsme zatím neobdrželi. Dorazí k nám až ve chvíli, kdy zprávu skutečně odešlete ze své e-mailové aplikace nebo webmailu.',
+  referenceLabel: 'Referenční číslo',
+  recipientLabel: 'Příjemce',
+  subjectLabel: 'Předmět',
+  requestTextLabel: 'Text poptávky',
+  copyEmail: 'Kopírovat e-mailovou adresu',
+  copySubject: 'Kopírovat předmět',
+  copyRequest: 'Kopírovat celou poptávku',
+  copiedConfirm: 'Zkopírováno do schránky',
+  openEmailApp: 'Otevřít e-mailovou aplikaci',
+  webmailTitle: 'Používáte Gmail, Outlook nebo jiný webmail?',
+  webmailSteps: [
+    'Zkopírujte e-mailovou adresu, předmět a text poptávky pomocí tlačítek výše.',
+    'Otevřete si svůj webmail (například Gmail nebo Outlook) a vytvořte novou zprávu.',
+    'Vložte adresu do pole Komu, předmět do pole Předmět a text do těla zprávy.',
+    'Zprávu odešlete. Teprve tím se poptávka dostane k nám.',
+  ],
+  clearForm: 'Vymazat formulář',
+  clearFormConfirm: 'Opravdu chcete vymazat všechny zadané údaje? Tuto akci nelze vrátit zpět.',
   emailSubject: 'Poptávka pracovníků',
-  emailIntro: 'Poptávka odeslaná z webu talentpartnerid.com:',
+  emailIntro: 'Poptávka připravená přes web talentpartnerid.com:',
   emailAttributionTitle: 'Kontext poptávky',
   attributionLabels: attributionLabelsCs,
   whatHappensTitle: 'Jak to probíhá',
@@ -314,14 +334,15 @@ const en: RequestCopy = {
     accommodation: 'Accommodation',
     transport: 'Transport to the workplace',
     ppe: 'PPE and equipment',
+    medicalExam: 'Occupational medical examination requirements',
     foreignWorkerSupport: 'Support with foreign-worker documents',
     budget: 'Expected budget (hourly or monthly)',
     notes: 'Additional operational requirements',
     preferredContact: 'Preferred contact method',
     consent: 'Data processing consent',
-    marketingConsent: 'Marketing consent',
   },
   hints: {
+    medicalExam: 'Who arranges the entry examination, with which provider, and the required work category.',
     email: 'We will reply to this address.',
     headcount: 'How many people you need to staff.',
     profession: 'E.g. production operator, warehouse worker, welder, forklift driver.',
@@ -390,23 +411,31 @@ const en: RequestCopy = {
     `The data is processed by ${OPERATOR} solely to handle this request. Submitting opens your email client — you send the message yourself. See the privacy policy for details.`,
   submit: 'Create request email',
   submitting: 'Preparing…',
-  successTitle: 'Your request email is ready',
-  successBody:
-    'Your email client has opened with a structured request pre-filled. Review the details and send the message — it reaches us only once you send it.',
-  storedTitle:
-    'Request received',
-  storedBody:
-    'We have recorded your request and will reply to the contact you provided. Receipt is not an order confirmation and does not guarantee worker availability.',
-  referenceLabel:
-    'Reference number',
-  marketingLabel:
-    'I would like to receive information about services and news (optional).',
-  marketingDetail:
-    'Optional and independent of handling your request. You can withdraw this consent at any time via the contact above.',
-  mailtoFallbackNote:
-    `If your email client did not open, copy the text below and send it to ${OPERATOR_EMAIL}.`,
+  preparedTitle: 'Your email request has been prepared',
+  preparedInstruction: 'Complete sending it in your email application',
+  preparedFallbackHint: 'If no application opened, copy the request below',
+  notSentNote:
+    'We have not received your request yet. It reaches us only once you actually send the message from your email application or webmail.',
+  referenceLabel: 'Reference number',
+  recipientLabel: 'Recipient',
+  subjectLabel: 'Subject',
+  requestTextLabel: 'Request text',
+  copyEmail: 'Copy email address',
+  copySubject: 'Copy subject',
+  copyRequest: 'Copy full request',
+  copiedConfirm: 'Copied to clipboard',
+  openEmailApp: 'Open email application',
+  webmailTitle: 'Using Gmail, Outlook or another webmail service?',
+  webmailSteps: [
+    'Copy the email address, the subject and the request text using the buttons above.',
+    'Open your webmail (for example Gmail or Outlook) and start a new message.',
+    'Paste the address into the To field, the subject into the Subject field and the text into the message body.',
+    'Send the message. Only then does the request reach us.',
+  ],
+  clearForm: 'Clear form',
+  clearFormConfirm: 'Are you sure you want to clear everything you have entered? This cannot be undone.',
   emailSubject: 'Staffing request',
-  emailIntro: 'Request submitted from talentpartnerid.com:',
+  emailIntro: 'Request prepared via talentpartnerid.com:',
   emailAttributionTitle: 'Request context',
   attributionLabels: attributionLabelsEn,
   whatHappensTitle: 'How it works',
@@ -486,14 +515,15 @@ const de: RequestCopy = {
     accommodation: 'Unterkunft',
     transport: 'Transport zum Einsatzort',
     ppe: 'PSA und Ausrüstung',
+    medicalExam: 'Anforderungen an die arbeitsmedizinische Untersuchung',
     foreignWorkerSupport: 'Unterstützung bei Dokumenten ausländischer Mitarbeiter',
     budget: 'Erwartetes Budget (stündlich oder monatlich)',
     notes: 'Weitere betriebliche Anforderungen',
     preferredContact: 'Bevorzugter Kontaktweg',
     consent: 'Einwilligung zur Datenverarbeitung',
-    marketingConsent: 'Marketing-Einwilligung',
   },
   hints: {
+    medicalExam: 'Wer die Einstellungsuntersuchung veranlasst, bei welchem Anbieter und welche Arbeitskategorie gefordert ist.',
     email: 'An diese Adresse antworten wir.',
     headcount: 'Wie viele Personen Sie besetzen müssen.',
     profession: 'Z. B. Produktionsmitarbeiter, Lagerarbeiter, Schweißer, Staplerfahrer.',
@@ -562,23 +592,31 @@ const de: RequestCopy = {
     `Die Daten werden von ${OPERATOR} ausschließlich zur Bearbeitung dieser Anfrage verarbeitet. Beim Absenden öffnet sich Ihr E-Mail-Programm – Sie senden die Nachricht selbst. Einzelheiten finden Sie in der Datenschutzerklärung.`,
   submit: 'Anfrage-E-Mail erstellen',
   submitting: 'Wird vorbereitet…',
-  successTitle: 'Ihre Anfrage-E-Mail ist bereit',
-  successBody:
-    'Ihr E-Mail-Programm wurde mit einer strukturierten Anfrage geöffnet. Prüfen Sie die Angaben und senden Sie die Nachricht – erst dadurch erreicht sie uns.',
-  storedTitle:
-    'Anfrage eingegangen',
-  storedBody:
-    'Wir haben Ihre Anfrage erfasst und melden uns über den angegebenen Kontakt. Der Eingang ist keine Auftragsbestätigung und garantiert keine Verfügbarkeit von Mitarbeitern.',
-  referenceLabel:
-    'Referenznummer',
-  marketingLabel:
-    'Ich möchte Informationen zu Leistungen und Neuigkeiten erhalten (optional).',
-  marketingDetail:
-    'Optional und unabhängig von der Bearbeitung Ihrer Anfrage. Sie können die Einwilligung jederzeit über den genannten Kontakt widerrufen.',
-  mailtoFallbackNote:
-    `Falls sich Ihr E-Mail-Programm nicht geöffnet hat, kopieren Sie den Text unten und senden Sie ihn an ${OPERATOR_EMAIL}.`,
+  preparedTitle: 'Ihre E-Mail-Anfrage wurde vorbereitet',
+  preparedInstruction: 'Schließen Sie den Versand in Ihrer E-Mail-Anwendung ab',
+  preparedFallbackHint: 'Falls keine Anwendung geöffnet wurde, kopieren Sie die Anfrage unten',
+  notSentNote:
+    'Wir haben Ihre Anfrage noch nicht erhalten. Sie erreicht uns erst, wenn Sie die Nachricht tatsächlich aus Ihrer E-Mail-Anwendung oder Ihrem Webmail versenden.',
+  referenceLabel: 'Referenznummer',
+  recipientLabel: 'Empfänger',
+  subjectLabel: 'Betreff',
+  requestTextLabel: 'Anfragetext',
+  copyEmail: 'E-Mail-Adresse kopieren',
+  copySubject: 'Betreff kopieren',
+  copyRequest: 'Gesamte Anfrage kopieren',
+  copiedConfirm: 'In die Zwischenablage kopiert',
+  openEmailApp: 'E-Mail-Anwendung öffnen',
+  webmailTitle: 'Nutzen Sie Gmail, Outlook oder einen anderen Webmail-Dienst?',
+  webmailSteps: [
+    'Kopieren Sie E-Mail-Adresse, Betreff und Anfragetext über die Schaltflächen oben.',
+    'Öffnen Sie Ihr Webmail (zum Beispiel Gmail oder Outlook) und erstellen Sie eine neue Nachricht.',
+    'Fügen Sie die Adresse in das Feld An, den Betreff in das Feld Betreff und den Text in den Nachrichtentext ein.',
+    'Senden Sie die Nachricht. Erst dadurch erreicht uns die Anfrage.',
+  ],
+  clearForm: 'Formular leeren',
+  clearFormConfirm: 'Möchten Sie wirklich alle eingegebenen Daten löschen? Dies kann nicht rückgängig gemacht werden.',
   emailSubject: 'Personalanfrage',
-  emailIntro: 'Anfrage gesendet über talentpartnerid.com:',
+  emailIntro: 'Anfrage vorbereitet über talentpartnerid.com:',
   emailAttributionTitle: 'Kontext der Anfrage',
   attributionLabels: attributionLabelsDe,
   whatHappensTitle: 'So läuft es ab',

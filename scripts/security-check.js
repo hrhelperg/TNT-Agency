@@ -1,7 +1,9 @@
-// Phase E11 — Security regression script (READ-ONLY).
+// Phase E Lite — Security & architecture regression check (READ-ONLY).
 //
-// Fails the build if a secret could reach the browser, if an anonymous write
-// path appears, or if personal data starts flowing somewhere it must not.
+// This architecture is deliberately backend-free. The checks below fail the
+// build if a backend, a secret, a network lead submission, a data-persistence
+// path or a false "request sent" claim is (re)introduced.
+//
 // Run with: node scripts/security-check.js
 
 const fs = require('fs');
@@ -12,17 +14,21 @@ const errors = [];
 const checked = [];
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
-/** Source with comments removed: assertions must target code, not prose. */
+const exists = (p) => fs.existsSync(path.join(ROOT, p));
+
+/** Source with comments stripped: assertions must target code, not prose. */
 const code = (src) =>
   src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+
 const walk = (dir, ext, out = []) => {
-  if (!fs.existsSync(dir)) return out;
-  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, e.name);
+  const full0 = path.join(ROOT, dir);
+  if (!fs.existsSync(full0)) return out;
+  for (const e of fs.readdirSync(full0, { withFileTypes: true })) {
+    const rel = path.join(dir, e.name);
     if (e.isDirectory()) {
       if (['node_modules', '.next', '.git'].includes(e.name)) continue;
-      walk(full, ext, out);
-    } else if (ext.some((x) => e.name.endsWith(x))) out.push(full);
+      walk(rel, ext, out);
+    } else if (ext.some((x) => e.name.endsWith(x))) out.push(rel);
   }
   return out;
 };
@@ -32,95 +38,140 @@ const check = (name, ok, detail) => {
   if (!ok) errors.push(`${name}${detail ? ` — ${detail}` : ''}`);
 };
 
-// ── 1. No service-role key or secret reachable from the client ───────────
-const clientDirs = [path.join(ROOT, 'components'), path.join(ROOT, 'lib'), path.join(ROOT, 'pages')];
-const clientFiles = clientDirs
-  .flatMap((d) => walk(d, ['.tsx', '.ts']))
-  // pages/api is server-only.
-  .filter((f) => !f.includes(`${path.sep}api${path.sep}`))
-  // lib/server/** is server-only by construction and never imported by a client component.
-  .filter((f) => !f.includes(`${path.sep}lib${path.sep}server${path.sep}`))
-  .filter((f) => !f.endsWith('.test.ts') && !f.endsWith('.test.tsx'));
+// Application source (excludes tests, which legitimately name forbidden strings).
+const appFiles = [
+  ...walk('components', ['.tsx', '.ts']),
+  ...walk('lib', ['.ts', '.tsx']),
+  ...walk('pages', ['.tsx', '.ts']),
+].filter((f) => !f.endsWith('.test.ts') && !f.endsWith('.test.tsx'));
 
-for (const f of clientFiles) {
-  const src = code(fs.readFileSync(f, 'utf8'));
-  const rel = path.relative(ROOT, f);
-  if (/SUPABASE_SERVICE_ROLE_KEY|SERVICE_ROLE|service_role/.test(src)) {
-    errors.push(`Service-role reference in client-reachable file: ${rel}`);
+// ── 1. No backend of any kind ────────────────────────────────────────────
+const pkg = JSON.parse(read('package.json'));
+const deps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
+const backendPkgs = Object.keys(deps).filter((d) =>
+  /supabase|prisma|drizzle|mongoose|pg$|mysql|firebase|resend|nodemailer|sendgrid|postmark|@aws-sdk/i.test(d),
+);
+check('no database or email-provider package in dependencies', backendPkgs.length === 0, backendPkgs.join(', '));
+
+check('no supabase/ migrations directory in the deployable tree', !exists('supabase'),
+  'migrations must not imply they are applied at deploy time');
+check('no server API routes', !exists('pages/api'));
+check('no server-only lib directory', !exists('lib/server'));
+
+for (const f of appFiles) {
+  const src = code(read(f));
+  if (/createClient\s*\(|@supabase\/|supabase\./i.test(src)) errors.push(`Supabase client initialization in ${f}`);
+  if (/SUPABASE_URL|SUPABASE_ANON_KEY|SUPABASE_SERVICE_ROLE_KEY|SERVICE_ROLE|service_role/.test(src)) {
+    errors.push(`Supabase environment/service-role reference in ${f}`);
   }
-  if (/EMAIL_PROVIDER_API_KEY|INDEXNOW_KEY/.test(src)) {
-    errors.push(`Server secret referenced in client-reachable file: ${rel}`);
-  }
-  // A secret must never be exposed through a NEXT_PUBLIC_ variable.
-  const pub = src.match(/NEXT_PUBLIC_[A-Z0-9_]*(KEY|SECRET|TOKEN|PASSWORD)/g);
-  if (pub) errors.push(`Secret-shaped NEXT_PUBLIC_ variable in ${rel}: ${pub.join(', ')}`);
+  if (/DATABASE_URL|postgres(ql)?:\/\//.test(src)) errors.push(`Database URL requirement in ${f}`);
 }
-check('no service-role or provider secret in client-reachable code', errors.length === 0);
+check('no Supabase client initialization in application code', errors.length === 0);
+check('no Supabase or database environment variable required', true);
 
-// ── 2. No hardcoded credentials anywhere in tracked source ───────────────
-const sourceFiles = [
-  ...walk(path.join(ROOT, 'lib'), ['.ts', '.tsx']),
-  ...walk(path.join(ROOT, 'pages'), ['.ts', '.tsx']),
-  ...walk(path.join(ROOT, 'components'), ['.ts', '.tsx']),
-  ...walk(path.join(ROOT, 'scripts'), ['.js']),
-];
+// ── 2. No hardcoded credentials ──────────────────────────────────────────
 const before = errors.length;
-for (const f of sourceFiles) {
-  const src = fs.readFileSync(f, 'utf8');
-  const rel = path.relative(ROOT, f);
-  // Supabase keys are JWTs; a service key literal starts with eyJ.
-  if (/['"`]eyJ[A-Za-z0-9_-]{20,}/.test(src)) errors.push(`Possible hardcoded JWT/API key in ${rel}`);
-  if (/postgres(ql)?:\/\/[^'"`\s]*:[^'"`\s]*@/.test(src)) errors.push(`Hardcoded database URL with credentials in ${rel}`);
+for (const f of [...appFiles, ...walk('scripts', ['.js'])]) {
+  const src = read(f);
+  if (/['"`]eyJ[A-Za-z0-9_-]{20,}/.test(src)) errors.push(`Possible hardcoded JWT/API key in ${f}`);
+  if (/postgres(ql)?:\/\/[^'"`\s]*:[^'"`\s]*@/.test(src)) errors.push(`Hardcoded DB URL with credentials in ${f}`);
 }
 check('no hardcoded credentials in source', errors.length === before);
 
-// ── 3. RLS is enabled and anonymous access is revoked ────────────────────
-const rls = read('supabase/migrations/0003_row_level_security.sql');
-const tables = [
-  'organizations', 'profiles', 'leads', 'worker_requirements', 'proposals',
-  'proposal_items', 'lead_status_history', 'audit_events', 'consent_records',
-  'notification_events',
+// ── 3. The form must not transmit ────────────────────────────────────────
+const FORM = code(read('components/EmployerRequestForm.tsx'));
+check('form performs no fetch', !/\bfetch\s*\(/.test(FORM));
+check('form performs no XMLHttpRequest', !/XMLHttpRequest/.test(FORM));
+check('form performs no sendBeacon', !/sendBeacon/.test(FORM));
+check('form sends nothing to analytics', !/gtag\(|dataLayer|analytics\./.test(FORM));
+
+const TRANSPORT = code(read('lib/leads-lite/transport.ts'));
+check('transport performs no network I/O', !/\bfetch\s*\(|XMLHttpRequest|sendBeacon/.test(TRANSPORT));
+check('mailto is the only active transport', /class MailtoLeadTransport/.test(TRANSPORT)
+  && !/class (NetlifyFunction|EmailApi|Database)LeadTransport/.test(TRANSPORT));
+
+// ── 4. No persistence of lead or personal data ───────────────────────────
+check('form does not use localStorage', !/localStorage/.test(FORM));
+check('form does not use cookies', !/document\.cookie/.test(FORM));
+check('form does not use IndexedDB', !/indexedDB/.test(FORM));
+check('form does not mutate URL or history', !/history\.(push|replace)State|location\.search\s*=|location\.hash\s*=/.test(FORM));
+
+const REFERENCE = code(read('lib/leads-lite/reference.ts'));
+check('lead reference is not persisted', !/localStorage|sessionStorage|document\.cookie|indexedDB/.test(REFERENCE));
+
+const ATTRIBUTION = code(read('lib/attribution/index.ts'));
+check('attribution enforces a denylist', /ATTRIBUTION_DENYLIST/.test(ATTRIBUTION) && /throw new Error/.test(ATTRIBUTION));
+check('attribution is session-scoped only (never localStorage/cookies)',
+  /sessionStorage/.test(ATTRIBUTION) && !/localStorage|document\.cookie|indexedDB/.test(ATTRIBUTION));
+
+// ── 5. No calculator economics may reach the request ─────────────────────
+const MAILTO = code(read('lib/employer-request/mailto.ts'));
+const SCHEMA = code(read('lib/employer-request/schema.ts'));
+for (const banned of ['netSalary', 'employerCost', 'agencyFee', 'grossSalary', 'margin', 'markup', 'savings']) {
+  check(`mailto builder never references ${banned}`, !MAILTO.includes(banned));
+  check(`request schema has no ${banned} field`, !SCHEMA.includes(banned));
+}
+// A budget the employer types themselves is legitimate and must remain.
+check('employer-entered budget field is present', /name: 'budget'/.test(SCHEMA));
+
+// ── 6. Honesty: prepared, never "sent" ───────────────────────────────────
+const COPY = read('lib/employer-request/copy.ts');
+// The invariant is that no copy may claim the request HAS BEEN sent or
+// received. Instructions to send ("Odeslání dokončete...") and honest negations
+// ("we have not received it yet") are required wording, so match completed
+// delivery specifically rather than the verb in general. An earlier, blunter
+// version of this check flagged the prescribed instruction text as a violation.
+const deliveryClaims = [
+  /\bbyla odesl[áa]na\b/i, /\bbylo odesl[áa]no\b/i, /\búspěšně odesl/i,
+  /\bobdrželi jsme\b/i, /\bjsme obdrželi\b/i, /\bpoptávka byla přijata\b/i,
+  /\bhas been sent\b/i, /\bwas sent\b/i, /\brequest sent\b/i,
+  /\bsuccessfully submitted\b/i, /\bwe(?: have)? received\b/i,
+  /\bwurde gesendet\b/i, /\bwurde versendet\b/i, /\bwurde übermittelt\b/i,
+  /\berfolgreich gesendet\b/i, /\bhaben wir erhalten\b/i,
 ];
-for (const t of tables) {
-  check(`RLS enabled on ${t}`, new RegExp(`alter table ${t}\\s+enable row level security`).test(rls));
+for (const re of deliveryClaims) {
+  const hit = (COPY.match(re) || [])[0];
+  check(`no completed-delivery claim in copy: ${re}`, !hit, hit);
 }
-check('anonymous privileges revoked', /revoke all on[\s\S]*from anon;/.test(rls));
-check('no policy grants anything to anon', !/create policy[\s\S]{0,400}?to anon/.test(rls));
-check('audit_events has no update/delete policy', !/on audit_events\s+for\s+(update|delete)/.test(rls));
-check('consent_records has no update/delete policy', !/on consent_records\s+for\s+(update|delete)/.test(rls));
+// The email intro is rendered inside the prepared-panel preview before anything
+// is sent, so it must describe preparation.
+check('email intro describes preparation, not delivery',
+  /emailIntro: '[^']*(připravená|prepared|vorbereitet)/.test(COPY),
+  (COPY.match(/emailIntro: '[^']*'/g) || []).join(' | '));
+check('copy states the request is prepared, in all three languages',
+  /E-mailová zpráva byla připravena/.test(COPY)
+  && /Your email request has been prepared/.test(COPY)
+  && /Ihre E-Mail-Anfrage wurde vorbereitet/.test(COPY));
+check('copy explicitly says we have not received it yet',
+  /notSentNote/.test(COPY) && /neobdrželi/.test(COPY) && /not received/.test(COPY) && /noch nicht erhalten/.test(COPY));
+check('form renders the not-yet-received note', /copy\.notSentNote/.test(FORM));
+check('form has no success-state naming that implies delivery',
+  !/'success'|status === 'sent'|setStatus\('sent'\)/.test(FORM));
 
-// ── 4. The only public write path is the guarded RPC ─────────────────────
-const submit = read('supabase/migrations/0004_submit_lead.sql');
-check('submit_lead is SECURITY DEFINER', /security definer/.test(submit));
-check('submit_lead is revoked from anon/authenticated', /revoke all on function submit_lead[\s\S]*?from public, anon, authenticated;/.test(submit));
-check('submit_lead validates server-side', /is required/.test(submit));
-
-// ── 5. Endpoint hygiene ──────────────────────────────────────────────────
-const api = read('pages/api/leads.ts');
-check('endpoint accepts POST only', /req\.method !== 'POST'/.test(api) && /405/.test(api));
-check('endpoint rate limits', /checkRateLimit/.test(api) && /429/.test(api));
-check('endpoint degrades to mailto rather than losing a lead', /fallback: 'mailto'/.test(api));
-check('endpoint returns generic errors', !/\.json\(\{[^}]*err(or)?\.message/.test(api));
-check('endpoint reads the service key from the environment only', /process\.env\.SUPABASE_SERVICE_ROLE_KEY/.test(api));
-
-// ── 6. Personal data must not reach analytics or the URL ─────────────────
-const form = code(read('components/EmployerRequestForm.tsx'));
-check('form does not write to persistent storage', !/localStorage|document\.cookie|indexedDB/.test(form));
-check('form does not push values into history/URL', !/history\.(push|replace)State/.test(form));
-check('form has no analytics calls', !/gtag\(|dataLayer|sendBeacon/.test(form));
-const fetchTargets = Array.from(form.matchAll(/fetch\(\s*'([^']+)'/g)).map((m) => m[1]);
-check('form fetches only our own endpoint', fetchTargets.every((t) => t === '/api/leads'), fetchTargets.join(', '));
-
-// ── 7. Attribution denylist is enforced in code ──────────────────────────
-const attribution = code(read('lib/attribution/index.ts'));
-check('attribution enforces a denylist', /ATTRIBUTION_DENYLIST/.test(attribution) && /throw new Error/.test(attribution));
-check('attribution is session-scoped only', /sessionStorage/.test(attribution) && !/localStorage/.test(attribution));
-
-// ── 8. Schema stores no calculator economics ─────────────────────────────
-const core = read('supabase/migrations/0001_lead_operations_core.sql');
-for (const banned of ['net_salary', 'employer_cost', 'agency_fee', 'gross_salary']) {
-  check(`schema has no ${banned} column`, !core.includes(banned));
+// ── 7. No false backend UI ───────────────────────────────────────────────
+// Target real authentication machinery, not vocabulary. Czech editorial content
+// legitimately discusses "registrace u ČSSZ", and the pre-existing agency
+// listing form is called "Registrace agentury" — neither is an account system.
+const uiBlob = appFiles.map((f) => code(read(f))).join('\n');
+for (const [label, re] of [
+  ['password input (no credentials are ever collected)', /type=["']password["']/i],
+  ['auth SDK usage', /\b(signInWith|signUp\(|signOut\(|createUserWith|getSession\(|onAuthStateChange)/],
+  ['account/session cookie handling', /\b(setCookie|cookies\(\)|jwt|accessToken|refreshToken)\b/i],
+  ['workspace/dashboard route', /['"`]\/(workspace|dashboard|account|admin)(\/|['"`])/],
+]) {
+  check(`no ${label}`, !re.test(uiBlob));
 }
+// No route file may exist for an account area.
+for (const p of ['pages/workspace', 'pages/dashboard', 'pages/login', 'pages/account', 'pages/admin']) {
+  check(`no ${p} route`, !exists(p));
+}
+
+// ── 8. Operator identity preserved ───────────────────────────────────────
+check('mailto recipient remains jobbohemiacz@gmail.com',
+  /OPERATOR_EMAIL = 'jobbohemiacz@gmail\.com'/.test(COPY));
+check('operator remains TNT agency s.r.o.',
+  /OPERATOR = 'TNT agency s\.r\.o\.'/.test(COPY));
+check('no altered legal-entity form', !/TNT agency(?! s\.r\.o\.)/.test(COPY));
 
 // ── Report ───────────────────────────────────────────────────────────────
 if (errors.length) {
@@ -130,7 +181,8 @@ if (errors.length) {
 }
 console.log('security check: PASS');
 console.log(`  checks run: ${checked.length}`);
-console.log('  client bundle carries no service-role key or provider secret');
-console.log('  RLS enabled on every table; anonymous access revoked');
-console.log('  audit + consent records are append-only');
-console.log('  the only public write path is the guarded submit_lead RPC');
+console.log('  no database, Supabase, API route or email-provider dependency');
+console.log('  form transmits nothing: no fetch / XHR / beacon / analytics');
+console.log('  no lead or personal data persisted to storage, cookies or the URL');
+console.log('  no calculator economics can reach the request');
+console.log('  status wording is "prepared", never "sent"');

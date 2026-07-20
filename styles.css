@@ -2744,9 +2744,6 @@ p  { color: var(--text-2); line-height: 1.7; }
 .erf__errors li { font-size: 0.9rem; margin-bottom: 4px; }
 .erf__errors a { color: var(--accent-dark); }
 
-.erf__success { border: 1px solid var(--border-2); background: var(--bg-alt); border-radius: var(--radius); padding: var(--s3); margin-bottom: var(--s3); }
-.erf__success p { font-size: 0.92rem; margin: 8px 0 0; }
-.erf__fallback-note { color: var(--text-3); font-size: 0.85rem; }
 .erf__fallback { width: 100%; max-width: 100%; margin-top: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; padding: 10px; border: 1px solid var(--border-2); border-radius: var(--radius-sm); background: var(--bg); resize: vertical; }
 
 .erf__privacy { font-size: 0.83rem; color: var(--text-3); line-height: 1.6; margin: 0; }
@@ -2795,6 +2792,54 @@ p  { color: var(--text-2); line-height: 1.7; }
   .mobile-nav { display: flex; }
 }
 
-/* Honeypot: off-screen rather than display:none, so naive bots still fill it. */
-.erf__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.erf__reference { font-size: 1rem; margin-top: 8px; }
+/* ═══════════════════════════════════════════════════════════════════════
+   Phase E Lite — "request prepared" panel (no backend, mailto hand-off)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.erf__prepared {
+  border: 1px solid var(--border-2);
+  border-left: 4px solid var(--accent);
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  padding: var(--s3);
+  margin-bottom: var(--s3);
+}
+.erf__prepared:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.erf__prepared-title { font-size: 1.15rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+.erf__prepared-instruction { font-weight: 700; color: var(--text); margin: 0 0 8px; font-size: 0.98rem; }
+/* The "not yet received" note must read as important, not as a success chip. */
+.erf__notsent {
+  font-size: 0.88rem; color: var(--text-2); line-height: 1.6; margin: 0 0 var(--s2);
+  background: var(--bg); border: 1px dashed var(--border-2); border-radius: var(--radius-sm); padding: 10px 12px;
+}
+
+.erf__prepared-meta { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px var(--s2); margin: 0 0 var(--s2); }
+.erf__prepared-meta dt { font-size: 0.8rem; color: var(--text-3); font-weight: 600; }
+.erf__prepared-meta dd { margin: 0; font-size: 0.9rem; color: var(--text); min-width: 0; overflow-wrap: break-word; }
+.erf__prepared-meta code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.86rem; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 6px; padding: 2px 6px;
+}
+
+.erf__prepared-hint { font-size: 0.88rem; color: var(--text-2); margin: 0 0 var(--s2); }
+.erf__copy-actions { display: flex; flex-wrap: wrap; gap: var(--s1); }
+.erf__copy-actions .btn { white-space: normal; max-width: 100%; }
+.erf__copied { min-height: 1.2em; margin: 8px 0 0; font-size: 0.85rem; color: var(--accent-dark); font-weight: 600; }
+
+.erf__prepared-label { display: block; font-weight: 600; font-size: 0.88rem; margin: var(--s2) 0 6px; }
+
+.erf__webmail { margin-top: var(--s3); border-top: 1px solid var(--border); padding-top: var(--s2); }
+.erf__webmail h3 { font-size: 0.95rem; margin: 0 0 8px; }
+.erf__webmail ol { margin: 0; padding-left: 1.15rem; }
+.erf__webmail li { font-size: 0.88rem; color: var(--text-2); line-height: 1.6; margin-bottom: 6px; }
+
+/* Actions row holds submit + clear; both wrap safely for long German labels. */
+.erf__actions { display: flex; flex-wrap: wrap; gap: var(--s2); align-items: center; }
+
+@media (max-width: 640px) {
+  .erf__prepared-meta { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .erf__prepared-meta dt { margin-top: 8px; }
+  .erf__copy-actions .btn { width: 100%; }
+  .erf__actions .btn { width: 100%; }
+}

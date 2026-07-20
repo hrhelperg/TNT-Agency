@@ -10,7 +10,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "postdeploy": "node scripts/post-deploy.js"
+    "postdeploy": "node scripts/post-deploy.js",
+    "security": "node scripts/security-check.js",
+    "validate:i18n": "node scripts/validate-i18n.js",
+    "validate:sitemap": "node scripts/validate-sitemap.js"
   },
   "dependencies": {
     "next": "14.2.3",
