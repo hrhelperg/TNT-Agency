@@ -86,8 +86,6 @@ export const REQUEST_FIELDS: readonly RequestField[] = [
   // ── Contact preferences + consent ────────────────────────────────────
   { name: 'preferredContact', group: 'contact', kind: 'select', required: false, options: CONTACT_METHODS },
   { name: 'consent', group: 'contact', kind: 'checkbox', required: true },
-  // GDPR (E8): optional, unchecked by default, and never blocks the request.
-  { name: 'marketingConsent', group: 'contact', kind: 'checkbox', required: false },
 ]
 
 export type RequestValues = Record<string, string | boolean>
