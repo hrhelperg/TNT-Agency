@@ -2794,3 +2794,7 @@ p  { color: var(--text-2); line-height: 1.7; }
   .hamburger { display: flex; }
   .mobile-nav { display: flex; }
 }
+
+/* Honeypot: off-screen rather than display:none, so naive bots still fill it. */
+.erf__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.erf__reference { font-size: 1rem; margin-top: 8px; }

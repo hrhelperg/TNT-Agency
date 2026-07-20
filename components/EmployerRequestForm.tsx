@@ -11,19 +11,25 @@ import { validateRequest, isValid, orderedErrorNames, type ValidationErrors } fr
 import { buildMailto } from '../lib/employer-request/mailto'
 import { captureAttribution, isCtaSource, type Attribution } from '../lib/attribution'
 
-// Employer staffing-request form (Phase C3).
+// Employer staffing-request form (Phase C3, extended in Phase E7).
 //
 // Privacy model, enforced by tests:
-//   - values live ONLY in React state and the mailto: the user sends;
+//   - values live ONLY in React state, the first-party POST to /api/leads, and
+//     the mailto: the user sends;
 //   - nothing is written to the URL, history, storage, cookies or analytics;
-//   - there is no fetch/XHR/beacon — Phase C is deliberately mailto-first;
-//   - attribution is read at submit time and is allowlisted upstream.
+//   - the only network target is our own endpoint — never a third party;
+//   - attribution is read at submit time and is allowlisted upstream, then
+//     re-sanitised server-side.
+//
+// Submission is API-first with a mailto fallback: if the endpoint is
+// unconfigured, rate-limited or unreachable, the request degrades to the
+// Phase C mailto flow rather than being lost.
 //
 // Accessibility: real <label> per control (never placeholder-only), an error
 // summary that receives focus, per-field aria-invalid + aria-describedby, and
 // an aria-live status region for the outcome.
 
-type Status = 'idle' | 'error' | 'success'
+type Status = 'idle' | 'sending' | 'error' | 'success' | 'submitted'
 
 export default function EmployerRequestForm() {
   const lang = useLang()
@@ -36,6 +42,10 @@ export default function EmployerRequestForm() {
   const [attribution, setAttribution] = useState<Attribution>({})
 
   const summaryRef = useRef<HTMLDivElement | null>(null)
+  // Anti-spam (E7): a honeypot no human sees, and how long the form was open.
+  const honeypotRef = useRef<HTMLInputElement | null>(null)
+  const startedAtRef = useRef<number>(Date.now())
+  const [reference, setReference] = useState('')
 
   // Capture attribution once on mount. Reads only the non-sensitive parts of
   // location/referrer; the module drops anything not on its allowlist.
@@ -72,7 +82,7 @@ export default function EmployerRequestForm() {
 
   const errorList = useMemo(() => orderedErrorNames(errors), [errors])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     // Always prevent a native submission: a GET form would put every value in
     // the URL, which this feature must never do.
     e.preventDefault()
@@ -87,11 +97,46 @@ export default function EmployerRequestForm() {
     }
 
     setErrors({})
+    setStatus('sending')
+
+    // The mailto is always prepared, so a failure of the API path degrades to
+    // the Phase C flow rather than losing the request.
     const mail = buildMailto(values, lang, attribution)
     setFallbackBody(`${mail.subject}\n\n${mail.body}`)
+
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          values: { ...values, locale: lang },
+          attribution,
+          marketingConsent: values.marketingConsent === true,
+          website: honeypotRef.current?.value ?? '',
+          elapsedMs: Date.now() - startedAtRef.current,
+        }),
+      })
+
+      if (res.ok) {
+        const data = (await res.json().catch(() => ({}))) as { reference?: string }
+        setReference(data.reference ?? '')
+        setStatus('submitted')
+        return
+      }
+
+      if (res.status === 422) {
+        const data = (await res.json().catch(() => ({}))) as { fields?: ValidationErrors }
+        setErrors(data.fields ?? {})
+        setStatus('error')
+        window.requestAnimationFrame(() => summaryRef.current?.focus())
+        return
+      }
+      // 429/502/503 -> fall through to the mailto path.
+    } catch {
+      // Offline or blocked: fall through to the mailto path.
+    }
+
     setStatus('success')
-    // Hand off to the user's mail client. location.href with a mailto: does not
-    // create a history entry for the page and does not alter the page URL.
     window.location.href = mail.href
   }
 
@@ -168,6 +213,17 @@ export default function EmployerRequestForm() {
     <div className="erf" lang={lang}>
       {/* Status region: announced without stealing focus on success. */}
       <div className="erf__status" role="status" aria-live="polite">
+        {status === 'submitted' ? (
+          <div className="erf__success">
+            <strong>{copy.storedTitle}</strong>
+            <p>{copy.storedBody}</p>
+            {reference ? (
+              <p className="erf__reference">
+                {copy.referenceLabel}: <strong>{reference}</strong>
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         {status === 'success' ? (
           <div className="erf__success">
             <strong>{copy.successTitle}</strong>
@@ -268,9 +324,16 @@ export default function EmployerRequestForm() {
         <p className="erf__privacy">{copy.noValuesNote}</p>
         <p className="erf__privacy">{copy.privacyNote}</p>
 
+        {/* Honeypot: visually hidden and removed from the a11y tree, so only
+            an automated client will ever fill it. */}
+        <div className="erf__hp" aria-hidden="true">
+          <label htmlFor="website">Website</label>
+          <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" ref={honeypotRef} />
+        </div>
+
         <div className="erf__actions">
-          <button type="submit" className="btn btn-primary btn-lg">
-            {copy.submit}
+          <button type="submit" className="btn btn-primary btn-lg" disabled={status === 'sending'}>
+            {status === 'sending' ? copy.submitting : copy.submit}
           </button>
         </div>
       </form>

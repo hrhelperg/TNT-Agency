@@ -43,6 +43,11 @@ export interface RequestCopy {
   submitting: string
   successTitle: string
   successBody: string
+  storedTitle: string
+  storedBody: string
+  referenceLabel: string
+  marketingLabel: string
+  marketingDetail: string
   mailtoFallbackNote: string
   // Email
   emailSubject: string
@@ -142,6 +147,7 @@ const cs: RequestCopy = {
     notes: 'Další provozní požadavky',
     preferredContact: 'Preferovaný kontakt',
     consent: 'Souhlas se zpracováním',
+    marketingConsent: 'Marketingový souhlas',
   },
   hints: {
     email: 'Na tuto adresu pošleme reakci.',
@@ -215,6 +221,16 @@ const cs: RequestCopy = {
   successTitle: 'E-mail s poptávkou je připraven',
   successBody:
     'Otevřel se váš e-mailový klient s předvyplněnou strukturovanou poptávkou. Zkontrolujte údaje a zprávu odešlete – teprve tím se poptávka dostane k nám.',
+  storedTitle:
+    'Poptávka byla přijata',
+  storedBody:
+    'Vaši poptávku jsme zaznamenali a ozveme se na uvedený kontakt. Přijetí neznamená potvrzení objednávky ani zaručenou dostupnost pracovníků.',
+  referenceLabel:
+    'Referenční číslo',
+  marketingLabel:
+    'Chci dostávat informace o službách a novinkách (nepovinné).',
+  marketingDetail:
+    'Nepovinné a nezávislé na zpracování poptávky. Souhlas můžete kdykoli odvolat na uvedeném kontaktu.',
   mailtoFallbackNote:
     `Pokud se e-mailový klient neotevřel, zkopírujte text níže a pošlete jej na ${OPERATOR_EMAIL}.`,
   emailSubject: 'Poptávka pracovníků',
@@ -303,6 +319,7 @@ const en: RequestCopy = {
     notes: 'Additional operational requirements',
     preferredContact: 'Preferred contact method',
     consent: 'Data processing consent',
+    marketingConsent: 'Marketing consent',
   },
   hints: {
     email: 'We will reply to this address.',
@@ -376,6 +393,16 @@ const en: RequestCopy = {
   successTitle: 'Your request email is ready',
   successBody:
     'Your email client has opened with a structured request pre-filled. Review the details and send the message — it reaches us only once you send it.',
+  storedTitle:
+    'Request received',
+  storedBody:
+    'We have recorded your request and will reply to the contact you provided. Receipt is not an order confirmation and does not guarantee worker availability.',
+  referenceLabel:
+    'Reference number',
+  marketingLabel:
+    'I would like to receive information about services and news (optional).',
+  marketingDetail:
+    'Optional and independent of handling your request. You can withdraw this consent at any time via the contact above.',
   mailtoFallbackNote:
     `If your email client did not open, copy the text below and send it to ${OPERATOR_EMAIL}.`,
   emailSubject: 'Staffing request',
@@ -464,6 +491,7 @@ const de: RequestCopy = {
     notes: 'Weitere betriebliche Anforderungen',
     preferredContact: 'Bevorzugter Kontaktweg',
     consent: 'Einwilligung zur Datenverarbeitung',
+    marketingConsent: 'Marketing-Einwilligung',
   },
   hints: {
     email: 'An diese Adresse antworten wir.',
@@ -537,6 +565,16 @@ const de: RequestCopy = {
   successTitle: 'Ihre Anfrage-E-Mail ist bereit',
   successBody:
     'Ihr E-Mail-Programm wurde mit einer strukturierten Anfrage geöffnet. Prüfen Sie die Angaben und senden Sie die Nachricht – erst dadurch erreicht sie uns.',
+  storedTitle:
+    'Anfrage eingegangen',
+  storedBody:
+    'Wir haben Ihre Anfrage erfasst und melden uns über den angegebenen Kontakt. Der Eingang ist keine Auftragsbestätigung und garantiert keine Verfügbarkeit von Mitarbeitern.',
+  referenceLabel:
+    'Referenznummer',
+  marketingLabel:
+    'Ich möchte Informationen zu Leistungen und Neuigkeiten erhalten (optional).',
+  marketingDetail:
+    'Optional und unabhängig von der Bearbeitung Ihrer Anfrage. Sie können die Einwilligung jederzeit über den genannten Kontakt widerrufen.',
   mailtoFallbackNote:
     `Falls sich Ihr E-Mail-Programm nicht geöffnet hat, kopieren Sie den Text unten und senden Sie ihn an ${OPERATOR_EMAIL}.`,
   emailSubject: 'Personalanfrage',

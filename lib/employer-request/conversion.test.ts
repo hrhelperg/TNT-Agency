@@ -28,11 +28,16 @@ const LANGS = ['cs', 'en', 'de'] as const
 const VARIANTS = ['calculator', 'comparison', 'agencyValue', 'responsibility'] as const
 
 describe('Phase C — privacy of the request form', () => {
-  it('never transmits: no fetch/XHR/beacon/analytics in the form or CTA', () => {
-    const forbidden = /fetch\(|XMLHttpRequest|sendBeacon navigator|navigator\.sendBeacon|gtag\(|dataLayer|axios|\$\.ajax/
-    for (const [name, src] of [['form', FORM], ['cta', CTA], ['page', PAGE]] as const) {
-      expect(forbidden.test(src), `${name} must not transmit`).toBe(false)
+  it('sends only to our own first-party endpoint, never to a third party', () => {
+    // Phase E added a first-party submission path. Third-party transmission and
+    // analytics remain forbidden everywhere.
+    const thirdParty = /XMLHttpRequest|navigator\.sendBeacon|gtag\(|dataLayer|axios|\$\.ajax|https?:\/\//
+    for (const [name, src] of [['form', FORM], ['cta', CTA]] as const) {
+      expect(thirdParty.test(src), `${name} must not transmit to a third party`).toBe(false)
     }
+    // The only fetch target is our own API route.
+    const fetchTargets = Array.from(FORM.matchAll(/fetch\(\s*'([^']+)'/g)).map((m) => m[1])
+    expect(fetchTargets).toEqual(['/api/leads'])
   })
 
   it('never persists request values to storage, cookies or IndexedDB', () => {
