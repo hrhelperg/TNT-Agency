@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ArticleLanguageNotice from '../components/ArticleLanguageNotice';
 import ResponsibilityMatrix from '../components/ResponsibilityMatrix';
+import EmployerCta from '../components/EmployerCta';
 import { useLang } from '../lib/i18n/react';
 import { DCALC } from '../lib/i18n/dedicated-calculator-copy';
 import { AGENCY_VALUE } from '../lib/agency-value/copy';
@@ -835,6 +836,7 @@ export default function PayrollCalculatorPage() {
                         <strong className="pcalc-diff__state">{diffState}</strong>
                         <p className="pcalc-diff__note">{av.diffNote}</p>
                       </div>
+                      <EmployerCta variant="comparison" source="agency-comparison" />
                     </>
                   ) : null}
 
@@ -845,6 +847,11 @@ export default function PayrollCalculatorPage() {
                     <div><span>{t.scWorkersYear.replace('{n}', String(inp.workerCount))}</span><strong><Money value={primary.scenario.economicCost.annualizedAllWorkers} /></strong></div>
                   </div>
                   <p className="pcalc-note">{t.scenarioNote}</p>
+                  <EmployerCta
+                    variant="calculator"
+                    source="dedicated-calculator"
+                    secondaryHref="?mode=comparison"
+                  />
                 </>
               ) : (
                 <p className="pcalc-warning-box">{t.invalid}</p>

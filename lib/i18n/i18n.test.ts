@@ -29,11 +29,11 @@ describe('localization completeness & integrity', () => {
   });
 
   it('11. every header navigation item is wired for translation (data-i18n)', () => {
-    for (const key of ['nav.home', 'nav.agencies', 'nav.offers', 'nav.calc', 'nav.article', 'nav.submitAgency', 'nav.postOffer', 'nav.contact', 'nav.contactCta']) {
+    for (const key of ['nav.home', 'nav.agencies', 'nav.offers', 'nav.calc', 'nav.article', 'nav.submitAgency', 'nav.postOffer', 'nav.contact', 'nav.requestWorkers']) {
       expect(HEADER).toContain(`data-i18n="${key}"`);
     }
     // Mobile mirror.
-    for (const key of ['mnav.home', 'mnav.agencies', 'mnav.offers', 'mnav.calc', 'mnav.contactCta']) {
+    for (const key of ['mnav.home', 'mnav.agencies', 'mnav.offers', 'mnav.calc', 'mnav.contact', 'mnav.requestWorkers']) {
       expect(HEADER).toContain(`data-i18n="${key}"`);
     }
   });

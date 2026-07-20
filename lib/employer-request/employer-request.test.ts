@@ -158,7 +158,7 @@ describe('Phase C — validation', () => {
 
   it('every error code has localized text in all three languages', () => {
     const codes = new Set(Object.values(validateRequest({ ...validValues(), email: 'x', headcount: 'y', startDate: 'z', workplaceRegion: 'q', notes: 'x'.repeat(3000) })))
-    for (const code of codes) {
+    for (const code of Array.from(codes)) {
       for (const l of LANGS) expect(typeof REQUEST_COPY[l].errors[code]).toBe('string')
     }
   })
