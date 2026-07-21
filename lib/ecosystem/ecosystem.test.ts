@@ -240,7 +240,10 @@ describe('Ecosystem — global mounting and markup', () => {
 
   it('every external link carries the security attributes', () => {
     const code = stripComments(BANNER) + stripComments(DIRECTORY)
-    const anchors = code.match(/<a[\s\S]*?>/g) ?? []
+    // Annotated explicitly: `String.match(...) ?? []` infers as
+    // `RegExpMatchArray | never[]`, and .filter over that union can resolve the
+    // callback parameter to `never` depending on the resolved lib types.
+    const anchors: string[] = code.match(/<a[\s\S]*?>/g) ?? []
     const external = anchors.filter((a) => a.includes('href=') && !a.includes("href=\"#"))
     expect(external.length).toBeGreaterThan(0)
     for (const a of external) {
