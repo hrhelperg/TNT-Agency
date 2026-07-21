@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useLang, type Lang } from '../lib/i18n/react'
+import { CONSENT_KEY, readConsent, writeConsent } from '../lib/consent'
+import { clearWebmasterIdStorage } from '../lib/analytics/webmasterid'
 
-export const CONSENT_KEY = 'cookie_consent'
+export { CONSENT_KEY }
 
 // Localized chrome only — consent semantics (gtag consent mode + the stored
 // choice) are unchanged. Preference storage is the consent flag, not personal data.
@@ -53,8 +55,8 @@ export default function CookieBanner() {
   const c = COOKIE_COPY[lang]
 
   useEffect(() => {
-    const stored = localStorage.getItem(CONSENT_KEY)
-    if (!stored) {
+    const stored = readConsent()
+    if (stored === 'unset') {
       setVisible(true)
     } else if (stored === 'accepted') {
       updateGtag('granted')
@@ -63,14 +65,18 @@ export default function CookieBanner() {
   }, [])
 
   function accept() {
-    localStorage.setItem(CONSENT_KEY, 'accepted')
+    writeConsent('accepted')
     updateGtag('granted')
     setVisible(false)
   }
 
   function reject() {
-    localStorage.setItem(CONSENT_KEY, 'rejected')
+    writeConsent('rejected')
     updateGtag('denied')
+    // The analytics tracker is never loaded without consent, so rejecting is
+    // already sufficient going forward. Clearing its anonymous identifiers as
+    // well means no id from an earlier accepted session outlives a withdrawal.
+    clearWebmasterIdStorage()
     setVisible(false)
   }
 

@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Script from 'next/script'
 import CookieBanner from '../components/CookieBanner'
 import EcosystemBanner from '../components/ecosystem/EcosystemBanner'
+import WebmasterIDTracker from '../components/analytics/WebmasterIDTracker'
 import '../styles.css'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -20,6 +21,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <EcosystemBanner />
       <Component {...pageProps} />
       <CookieBanner />
+      {/* Site analytics (WebmasterID). Mounted here — the highest shared layer —
+          so it covers every current and future public route exactly once. It
+          renders nothing until analytics consent is granted. */}
+      <WebmasterIDTracker />
       <Script src="/script.js" strategy="afterInteractive" />
     </>
   )
