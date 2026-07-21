@@ -80,7 +80,7 @@
     <h2>2. Kategorien betroffener Personen und verarbeiteter Daten</h2>
     <h3>2.1 Website-Besucher</h3>
     <ul>
-      <li>Technische Daten: IP-Adresse (anonymisiert), Browsertyp, Gerätetyp, besuchte Seiten, Verweildauer, Referral-URL.</li>
+      <li>Analysedaten (erst nachdem Sie der Analyse über unser Einwilligungsbanner zugestimmt haben): Seiten-URL und Pfad, Seitentitel, Referrer-URL, Browsersprache, User-Agent-Zeichenfolge, Breite des Browserfensters, ein Zeitstempel, unsere Website-Kennung sowie zwei zufällig erzeugte anonyme Kennungen, die in Ihrem eigenen Browser gespeichert werden (siehe unsere <a href="cookies-de.html">Cookie-Richtlinie</a>). Es werden keine Analyse-Cookies gesetzt.</li>
       <li>Kommunikationsdaten: Name, E-Mail-Adresse, Telefonnummer und Nachrichteninhalt, die über das Kontaktformular übermittelt werden.</li>
     </ul>
     <h3>2.2 Stellensuchende / Bewerber</h3>
@@ -104,7 +104,7 @@
         <tr><td>Erbringung von Arbeitsvermittlungsdienstleistungen (Abgleich von Kandidaten mit Stellen)</td><td>Art. 6 Abs. 1 lit. b — Vertragserfüllung / vorvertragliche Maßnahmen</td></tr>
         <tr><td>Beantwortung von Anfragen über das Kontaktformular</td><td>Art. 6 Abs. 1 lit. f — berechtigte Interessen</td></tr>
         <tr><td>Erfüllung rechtlicher Verpflichtungen (Arbeits-, Steuer-, AML-Recht)</td><td>Art. 6 Abs. 1 lit. c — rechtliche Verpflichtung</td></tr>
-        <tr><td>Website-Analyse (Google Analytics, nur nach Einwilligung)</td><td>Art. 6 Abs. 1 lit. a — Einwilligung</td></tr>
+        <tr><td>Website-Analyse (WebmasterID, wird erst nach Einwilligung geladen)</td><td>Art. 6 Abs. 1 lit. a — Einwilligung</td></tr>
         <tr><td>Verarbeitung besonderer Datenkategorien (z. B. Gesundheitsdaten für bestimmte Stellen)</td><td>Art. 9 Abs. 2 lit. a — ausdrückliche Einwilligung</td></tr>
         <tr><td>Pflege einer Kandidatendatenbank für zukünftige Stellen</td><td>Art. 6 Abs. 1 lit. a — Einwilligung (gesondert eingeholt)</td></tr>
         <tr><td>Rechnungsstellung und Buchhaltung</td><td>Art. 6 Abs. 1 lit. c — rechtliche Verpflichtung</td></tr>
@@ -116,7 +116,7 @@
     <ul>
       <li><strong>Unternehmen als Auftraggeber</strong> — Kandidatenprofile werden nur mit Wissen des Kandidaten und für die vereinbarte Stelle an potenzielle Arbeitgeber weitergegeben.</li>
       <li><strong>Formspree, Inc.</strong> — Kontaktformular-Übermittlungen werden von Formspree als Auftragsverarbeiter verarbeitet. <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Formspree</a>.</li>
-      <li><strong>Google LLC</strong> — Website-Analyse (nur bei erteilter Einwilligung). <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>. Daten können in die USA auf Grundlage von EU-Standardvertragsklauseln übertragen werden.</li>
+      <li><strong>WebmasterID</strong> — Website-Analyse (nur bei erteilter Einwilligung). Seitenaufruf-Ereignisse werden an den Endpunkt webmasterid-ingest-api.vercel.app gesendet, der auf der globalen Infrastruktur von Vercel betrieben wird; eine Verarbeitung außerhalb des EWR kann daher nicht ausgeschlossen werden. Der Analysedienst erhält niemals die Inhalte des Anfrageformulars für Arbeitgeber (Unternehmen, Ansprechpartner, E-Mail, Telefon, Personalbedarf, Budget), die Eingaben oder Ergebnisse des Lohnrechners oder den Inhalt einer vorbereiteten E-Mail; mailto:-Links werden niemals übertragen.</li>
       <li><strong>Buchhalter und Rechtsberater</strong> — soweit für Compliance- und Berufspflichten erforderlich, unter entsprechenden Vertraulichkeitsverpflichtungen.</li>
     </ul>
     <p>Wir verkaufen, vermieten oder verwerten personenbezogene Daten nicht kommerziell. Wir übermitteln Daten nicht in Drittländer außerhalb des EWR ohne geeignete Garantien (Standardvertragsklauseln oder Angemessenheitsbeschluss).</p>
@@ -129,7 +129,7 @@
         <tr><td>Aktive Kandidatenprofile (mit Speichereinwilligung)</td><td>Bis zum Widerruf der Einwilligung, max. 3 Jahre</td></tr>
         <tr><td>Aufzeichnungen zu vermittelten Kandidaten</td><td>5 Jahre nach Ende der Vermittlung</td></tr>
         <tr><td>Vertragsdaten von Auftraggebern und Rechnungen</td><td>10 Jahre (Buchführungspflicht)</td></tr>
-        <tr><td>Analysedaten (Google Analytics)</td><td>Bis zu 14 Monate (Google-Standardeinstellung)</td></tr>
+        <tr><td>Analysedaten (WebmasterID)</td><td>Die anonyme Besucherkennung verbleibt im localStorage Ihres Browsers, bis Sie sie löschen; die anonyme Sitzungskennung wird beim Schließen des Tabs verworfen. Eine serverseitige Speicherfrist für Analyse-Ereignisse ist nicht veröffentlicht.</td></tr>
       </tbody>
     </table>
 
@@ -156,8 +156,8 @@
     <h2>8. Automatisierte Entscheidungsfindung</h2>
     <p>Wir treffen keine ausschließlich auf automatisierter Verarbeitung (einschließlich Profiling) beruhenden Entscheidungen, die rechtliche oder ähnlich erhebliche Auswirkungen haben. Kandidatenbewertungen beinhalten stets menschliche Beurteilungen unserer Recruiter.</p>
 
-    <h2>9. Cookies</h2>
-    <p>Wir verwenden Cookies für Analysen und Funktionalität. Einzelheiten finden Sie in unserer <a href="cookies-de.html">Cookie-Richtlinie</a>.</p>
+    <h2>9. Cookies und Browser-Speicher</h2>
+    <p>Unser Analyseanbieter setzt keine Cookies. Die Website speichert Ihre Einwilligungsentscheidung und Ihre Sprachpräferenz im localStorage Ihres Browsers sowie — erst nachdem Sie der Analyse zugestimmt haben — zwei anonyme Analysekennungen im localStorage und sessionStorage. Einzelheiten finden Sie in unserer <a href="cookies-de.html">Cookie-Richtlinie</a>.</p>
 
     <h2>10. Sicherheit</h2>
     <p>Wir setzen angemessene technische und organisatorische Maßnahmen ein, um personenbezogene Daten vor zufälliger oder rechtswidriger Vernichtung, Verlust, Veränderung, unbefugter Offenlegung oder unbefugtem Zugriff zu schützen. Dazu gehören Zugriffskontrollen, Verschlüsselung bei der Übertragung (TLS) und regelmäßige Sicherheitsüberprüfungen. Im Falle einer Datenschutzverletzung werden wir die Aufsichtsbehörde und betroffene Personen gemäß DSGVO Art. 33–34 benachrichtigen.</p>
