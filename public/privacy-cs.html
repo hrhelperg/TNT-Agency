@@ -80,7 +80,7 @@
     <h2>2. Kategorie subjektů údajů a zpracovávané osobní údaje</h2>
     <h3>2.1 Návštěvníci webu</h3>
     <ul>
-      <li>Technické údaje: IP adresa (anonymizovaná), typ prohlížeče, typ zařízení, navštívené stránky, čas na webu, odkazující URL.</li>
+      <li>Analytické údaje (pouze poté, co v liště pro souhlas přijmete analytiku): URL a cesta stránky, titulek stránky, odkazující URL, jazyk prohlížeče, řetězec user-agent, šířka okna prohlížeče, časové razítko, identifikátor našeho webu a dva náhodně vygenerované anonymní identifikátory uložené ve vašem prohlížeči (viz naše <a href="cookies-cs.html">Politika cookies</a>). Žádné analytické soubory cookie se nenastavují.</li>
       <li>Komunikační údaje: jméno, e-mailová adresa, telefonní číslo a obsah zprávy odeslané přes kontaktní formulář.</li>
     </ul>
     <h3>2.2 Uchazeči o zaměstnání / Kandidáti</h3>
@@ -104,7 +104,7 @@
         <tr><td>Poskytování služeb zprostředkování zaměstnání (párování kandidátů s volnými místy)</td><td>Čl. 6 odst. 1 písm. b) — plnění smlouvy / předsmluvní kroky</td></tr>
         <tr><td>Odpovídání na dotazy zaslané přes kontaktní formulář</td><td>Čl. 6 odst. 1 písm. f) — oprávněné zájmy (odpovídání potenciálním klientům a uchazečům)</td></tr>
         <tr><td>Plnění zákonných povinností (pracovní právo, daňové právo, AML)</td><td>Čl. 6 odst. 1 písm. c) — zákonná povinnost</td></tr>
-        <tr><td>Analytika webu (Google Analytics, aktivována pouze na základě souhlasu)</td><td>Čl. 6 odst. 1 písm. a) — souhlas</td></tr>
+        <tr><td>Analytika webu (WebmasterID, načtena až po udělení souhlasu)</td><td>Čl. 6 odst. 1 písm. a) — souhlas</td></tr>
         <tr><td>Zpracování zvláštních kategorií údajů (např. zdravotní data pro konkrétní pozice)</td><td>Čl. 9 odst. 2 písm. a) — výslovný souhlas</td></tr>
         <tr><td>Vedení databáze kandidátů pro budoucí volná místa</td><td>Čl. 6 odst. 1 písm. a) — souhlas (samostatně získaný)</td></tr>
         <tr><td>Fakturace a účetnictví</td><td>Čl. 6 odst. 1 písm. c) — zákonná povinnost (zákon č. 563/1991 Sb.)</td></tr>
@@ -116,7 +116,7 @@
     <ul>
       <li><strong>Klientské společnosti</strong> — profily kandidátů jsou sdíleny s potenciálními zaměstnavateli pouze s vědomím kandidáta a pro dohodnutou pozici.</li>
       <li><strong>Formspree, Inc.</strong> — odeslání kontaktního formuláře zpracovává Formspree jako zpracovatel. <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Zásady ochrany osobních údajů Formspree</a>.</li>
-      <li><strong>Google LLC</strong> — analytika webu (pouze při udělení souhlasu). <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Zásady ochrany osobních údajů Google</a>. Údaje mohou být předávány do USA na základě standardních smluvních doložek EU.</li>
+      <li><strong>WebmasterID</strong> — analytika webu (pouze při udělení souhlasu). Události o zobrazení stránky se odesílají na koncový bod webmasterid-ingest-api.vercel.app, který je provozován na globální infrastruktuře společnosti Vercel, a proto nelze vyloučit zpracování mimo EHP. Analytická služba nikdy neobdrží obsah poptávkového formuláře zaměstnavatele (společnost, kontaktní osoba, e-mail, telefon, personální požadavky, rozpočet), vstupy ani výsledky mzdové kalkulačky, ani obsah připraveného e-mailu; odkazy mailto: se nikdy nepřenášejí.</li>
       <li><strong>Účetní a právní poradci</strong> — v případě potřeby pro plnění zákonných a profesních povinností, na základě příslušných závazků mlčenlivosti.</li>
     </ul>
     <p>Osobní údaje neprodáváme, nepronajímáme ani jinak komerčně nevyužíváme. Údaje nepředáváme do třetích zemí mimo EHP bez odpovídajících záruk (standardní smluvní doložky nebo rozhodnutí o přiměřenosti).</p>
@@ -129,7 +129,7 @@
         <tr><td>Aktivní profily kandidátů (se souhlasem s uchováváním)</td><td>Do odvolání souhlasu, max. 3 roky</td></tr>
         <tr><td>Záznamy o umístěných kandidátech</td><td>5 let od ukončení umístění (záruční a daňové povinnosti)</td></tr>
         <tr><td>Smluvní data klientů a faktury</td><td>10 let (zákon č. 563/1991 Sb., o účetnictví)</td></tr>
-        <tr><td>Analytická data (Google Analytics)</td><td>Až 14 měsíců (výchozí nastavení Google)</td></tr>
+        <tr><td>Analytická data (WebmasterID)</td><td>Anonymní identifikátor návštěvníka zůstává v localStorage vašeho prohlížeče, dokud jej nesmažete; anonymní identifikátor relace se zahodí při zavření záložky. Doba uchovávání analytických událostí na straně serveru není zveřejněna.</td></tr>
       </tbody>
     </table>
 
@@ -155,8 +155,8 @@
     <h2>8. Automatizované rozhodování</h2>
     <p>Neprovádíme rozhodnutí založená výhradně na automatizovaném zpracování (včetně profilování), která by měla právní nebo obdobně závažné účinky. Hodnocení kandidátů vždy zahrnuje lidský úsudek ze strany našich náborářů.</p>
 
-    <h2>9. Soubory cookie</h2>
-    <p>Používáme soubory cookie pro analytiku a funkčnost webu. Podrobnosti naleznete v naší <a href="cookies-cs.html">Politice cookies</a>.</p>
+    <h2>9. Soubory cookie a úložiště prohlížeče</h2>
+    <p>Náš poskytovatel analytiky nenastavuje žádné soubory cookie. Web ukládá do localStorage vašeho prohlížeče vaši volbu ohledně souhlasu a jazykovou preferenci a — teprve poté, co analytiku přijmete — dva anonymní analytické identifikátory v localStorage a sessionStorage. Podrobnosti naleznete v naší <a href="cookies-cs.html">Politice cookies</a>.</p>
 
     <h2>10. Bezpečnost</h2>
     <p>Zavádíme přiměřená technická a organizační opatření na ochranu osobních údajů před náhodným nebo protiprávním zničením, ztrátou, pozměněním, neoprávněným zveřejněním nebo přístupem. Tato opatření zahrnují řízení přístupu, šifrování přenosu (TLS) a pravidelné bezpečnostní přezkumy. V případě narušení bezpečnosti osobních údajů oznámíme tuto skutečnost dozorovému úřadu a dotčeným osobám v souladu s články 33–34 GDPR.</p>

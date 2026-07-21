@@ -72,68 +72,86 @@
     <h2>1. Co jsou soubory cookie?</h2>
     <p>Soubory cookie jsou malé textové soubory ukládané do vašeho zařízení při návštěvě webové stránky. Umožňují webové stránce rozpoznat vaše zařízení při opakovaných návštěvách, zapamatovat si vaše preference a poskytnout nám informace o tom, jak web používáte. Soubory cookie mohou nastavovat přímo webové stránky ("soubory cookie první strany") nebo služby třetích stran ("soubory cookie třetích stran").</p>
 
-    <h2>2. Jak soubory cookie používáme</h2>
-    <p>TNT agency s.r.o. používá soubory cookie výhradně pro následující účely:</p>
+    <h2>2. Jak používáme soubory cookie a úložiště prohlížeče</h2>
+    <p>TNT agency s.r.o. používá úložiště prohlížeče výhradně pro následující účely:</p>
     <ul>
-      <li><strong>Nezbytné soubory cookie</strong> — nutné pro správné fungování webu (např. vaše preference ohledně souhlasu s cookies). Tyto soubory cookie nelze zakázat bez narušení základní funkčnosti.</li>
-      <li><strong>Analytické soubory cookie</strong> — pomáhají nám pochopit, jak návštěvníci web používají (navštívené stránky, délka relace, zdroje návštěvnosti). Aktivují se <strong>pouze po vašem výslovném souhlasu</strong> prostřednictvím lišty pro souhlas s cookies.</li>
+      <li><strong>Nezbytné položky</strong> — nutné pro správné fungování webu (vaše volba ohledně souhlasu a zvolený jazyk). Jsou uloženy v localStorage vašeho prohlížeče a nelze je odstranit bez narušení základní funkčnosti.</li>
+      <li><strong>Analytické položky</strong> — pomáhají nám pochopit, jak návštěvníci web používají (navštívené stránky, návaznost relace, zdroje návštěvnosti). Náš poskytovatel analytiky <strong>WebmasterID</strong> nenastavuje <strong>žádné soubory cookie</strong>; ukládá dva náhodně vygenerované anonymní identifikátory do localStorage a sessionStorage vašeho prohlížeče. Analytika se načte <strong>až poté, co v liště pro souhlas výslovně kliknete na Přijmout</strong>.</li>
     </ul>
     <p>Nepoužíváme reklamní cookies, retargetingové cookies ani sledovací cookies sociálních sítí.</p>
 
-    <h2>3. Soubory cookie, které používáme</h2>
+    <h2>3. Co ukládáme ve vašem prohlížeči</h2>
     <table class="cookie-table">
       <thead>
         <tr>
-          <th>Název cookie</th>
+          <th>Název</th>
           <th>Poskytovatel</th>
           <th>Účel</th>
-          <th>Doba trvání</th>
+          <th>Úložiště a doba trvání</th>
           <th>Typ</th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <td>cookie_consent</td>
+          <td>TalentPartnerID (první strana)</td>
+          <td>Ukládá, zda jste analytiku přijali, či odmítli</td>
+          <td>localStorage — dokud jej nesmažete</td>
+          <td>Nezbytný</td>
+        </tr>
+        <tr>
           <td>tnt-lang</td>
           <td>TalentPartnerID (první strana)</td>
           <td>Ukládá vaši preferenci jazyka (EN/CS/DE)</td>
-          <td>localStorage (bez vypršení)</td>
+          <td>localStorage — dokud jej nesmažete</td>
           <td>Nezbytný / Funkční</td>
         </tr>
         <tr>
-          <td>_ga</td>
-          <td>Google Analytics</td>
-          <td>Rozlišuje jedinečné uživatele pro analytiku</td>
-          <td>2 roky</td>
-          <td>Analytický</td>
+          <td>wmid:av:v1</td>
+          <td>WebmasterID</td>
+          <td>Náhodně vygenerovaný anonymní identifikátor návštěvníka (32 hexadecimálních znaků)</td>
+          <td>localStorage — dokud jej nesmažete</td>
+          <td>Analytický (vyžaduje souhlas)</td>
         </tr>
         <tr>
-          <td>_ga_*</td>
-          <td>Google Analytics</td>
-          <td>Udržuje stav analytické relace</td>
-          <td>2 roky</td>
-          <td>Analytický</td>
+          <td>wmid:as:v1</td>
+          <td>WebmasterID</td>
+          <td>Náhodně vygenerovaný anonymní identifikátor relace</td>
+          <td>sessionStorage — klouzavé okno 30 minut; zahodí se při zavření záložky</td>
+          <td>Analytický (vyžaduje souhlas)</td>
+        </tr>
+        <tr>
+          <td>wmid:as:last:v1</td>
+          <td>WebmasterID</td>
+          <td>Udržuje klouzavé třicetiminutové okno výše uvedeného identifikátoru relace</td>
+          <td>sessionStorage — zahodí se při zavření záložky</td>
+          <td>Analytický (vyžaduje souhlas)</td>
         </tr>
       </tbody>
     </table>
-    <p><em>Poznámka: Jazyková preference (tnt-lang) je uložena v <strong>localStorage</strong>, nikoli jako soubor cookie, takže není odesílána na žádný server a nevyžaduje souhlas podle směrnice ePrivacy.</em></p>
+    <p><em>Poznámka: Žádná z výše uvedených položek není souborem cookie — jsou uloženy v <strong>localStorage</strong> nebo <strong>sessionStorage</strong> vašeho prohlížeče. Nezbytné položky (cookie_consent, tnt-lang) nejsou odesílány na žádný server a nevyžadují souhlas podle směrnice ePrivacy. Tři položky WebmasterID vznikají teprve poté, co analytiku přijmete.</em></p>
 
-    <h2>4. Google Analytics 4 a Consent Mode v2</h2>
-    <p>Používáme <strong>Google Analytics 4 (GA4)</strong> s funkcí <strong>Google Consent Mode v2</strong>. To znamená:</p>
+    <h2>4. Analytika WebmasterID a souhlasová brána</h2>
+    <p>Analytiku našeho webu zajišťuje služba <strong>WebmasterID</strong>. Funguje takto:</p>
     <ul>
-      <li>Ve výchozím nastavení jsou <code>analytics_storage</code>, <code>ad_storage</code>, <code>ad_user_data</code> a <code>ad_personalization</code> nastaveny na <strong>"denied"</strong> při první návštěvě našeho webu.</li>
-      <li>Žádné analytické soubory cookie nejsou nastaveny a žádné identifikovatelné údaje nejsou shromažďovány, dokud výslovně nepřijmete analytické soubory cookie prostřednictvím naší lišty pro souhlas.</li>
-      <li>Pokud souhlas udělíte, může Google Analytics nastavit výše uvedené soubory cookie <code>_ga</code> a <code>_ga_*</code> k pochopení vzorců návštěvnosti a zlepšení webu.</li>
+      <li>Analytický skript se načte <strong>až poté, co v liště pro souhlas kliknete na Přijmout</strong>. Před udělením souhlasu se skript vůbec nevyžádá.</li>
+      <li>WebmasterID nenastavuje, nečte ani nezapisuje žádné soubory cookie. Používá pouze položky v localStorage a sessionStorage uvedené v článku 3.</li>
+      <li>Při každém zobrazení stránky přenáší pouze: URL stránky, cestu, titulek stránky, odkazující URL, jazyk prohlížeče, řetězec user-agent, šířku okna prohlížeče, časové razítko, identifikátor našeho webu a dva výše popsané anonymní identifikátory.</li>
+      <li>Nikdy neobdrží obsah poptávkového formuláře zaměstnavatele (společnost, kontaktní osoba, e-mail, telefon, personální požadavky, rozpočet), vstupy ani výsledky mzdové kalkulačky, ani obsah připraveného e-mailu. Odkazy <code>mailto:</code> se nikdy nepřenášejí.</li>
+      <li>Respektuje nastavení <strong>Do Not Track</strong> a <strong>Global Privacy Control</strong> ve vašem prohlížeči: je-li kterýkoli z těchto signálů nastaven, analytika se neinicializuje, ani když jste souhlas udělili.</li>
+      <li>Pokud zvolíte <strong>Odmítnout</strong>, jsou analytické identifikátory okamžitě smazány.</li>
     </ul>
-    <p>Google může zpracovávat data na serverech ve Spojených státech. Tento přenos se provádí na základě standardních smluvních doložek EU. Více informací naleznete v <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Zásadách ochrany soukromí Google</a>.</p>
+    <p>Náš web rovněž nastavuje výchozí hodnoty Google Consent Mode, v nichž jsou <code>analytics_storage</code>, <code>ad_storage</code>, <code>ad_user_data</code> a <code>ad_personalization</code> nastaveny na <strong>"denied"</strong>. Na tomto webu není načten žádný tag Google a tyto výchozí hodnoty nevyužívá žádná služba Google; existují pouze jako pojistka.</p>
+    <p>Analytické události se odesílají na koncový bod <code>webmasterid-ingest-api.vercel.app</code> provozovaný na infrastruktuře společnosti Vercel. Protože jde o globální infrastrukturu, nelze vyloučit zpracování mimo EHP. Doba uchovávání analytických událostí na straně serveru není zveřejněna.</p>
 
     <h2>5. Správa vašich preferencí cookies</h2>
     <p>Předvolby souborů cookie můžete spravovat následujícími způsoby:</p>
     <ul>
-      <li><strong>Lišta pro souhlas</strong> — při první návštěvě našeho webu můžete přijmout nebo odmítnout nezbytné (analytické) soubory cookie. Svůj výběr můžete kdykoli změnit vymazáním cookies v prohlížeči a opětovnou návštěvou webu.</li>
-      <li><strong>Nastavení prohlížeče</strong> — většina prohlížečů umožňuje odmítnout, smazat nebo být upozorněni na soubory cookie. Postup naleznete v nápovědě vašeho prohlížeče.</li>
-      <li><strong>Doplněk pro odhlášení z Google Analytics</strong> — nainstalujte si <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">doplněk prohlížeče pro odhlášení z Google Analytics</a>, který zabrání použití vašich dat Google Analytics na jakémkoli webu.</li>
+      <li><strong>Lišta pro souhlas</strong> — při první návštěvě našeho webu můžete analytické sledování přijmout nebo odmítnout. Volbou Odmítnout se analytické identifikátory okamžitě smažou. Svůj výběr můžete kdykoli změnit vymazáním úložiště tohoto webu v prohlížeči a opětovnou návštěvou webu.</li>
+      <li><strong>Nastavení prohlížeče</strong> — většina prohlížečů umožňuje odmítnout, smazat nebo být upozorněni na soubory cookie a na data ukládaná webovými stránkami. Postup naleznete v nápovědě vašeho prohlížeče.</li>
+      <li><strong>Do Not Track / Global Privacy Control</strong> — pokud v prohlížeči nebo prostřednictvím rozšíření zapnete signál Do Not Track nebo Global Privacy Control, naše analytika se vůbec neinicializuje, a to ani v případě, že jste dříve souhlas udělili.</li>
     </ul>
-    <p>Upozorňujeme, že zakázání nebo smazání analytických cookies neovlivní základní funkčnost našeho webu.</p>
+    <p>Upozorňujeme, že odmítnutí nebo smazání analytických položek neovlivní základní funkčnost našeho webu. Odstranění nezbytných položek v localStorage může ovlivnit přepínání jazyků a způsobí opětovné zobrazení lišty pro souhlas.</p>
 
     <h2>6. Obsah třetích stran</h2>
     <p>Momentálně nezačleňujeme obsah třetích stran (např. videa YouTube, widgety sociálních sítí), který by nastavoval dodatečné soubory cookie třetích stran. Pokud se to v budoucnu změní, aktualizujeme tuto politiku a naši lištu pro souhlas ještě před zveřejněním takového obsahu.</p>

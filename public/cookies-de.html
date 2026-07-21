@@ -72,64 +72,82 @@
     <h2>1. Was sind Cookies?</h2>
     <p>Cookies sind kleine Textdateien, die auf Ihrem Gerät gespeichert werden, wenn Sie eine Website besuchen. Sie ermöglichen es der Website, Ihr Gerät bei späteren Besuchen wiederzuerkennen, Ihre Einstellungen zu speichern und uns Informationen darüber zu liefern, wie Sie die Seite nutzen. Cookies können direkt von der Website gesetzt werden ("Erstanbieter-Cookies") oder von Drittanbieterdiensten ("Drittanbieter-Cookies").</p>
 
-    <h2>2. Wie wir Cookies verwenden</h2>
-    <p>TNT agency s.r.o. verwendet Cookies ausschließlich für folgende Zwecke:</p>
+    <h2>2. Wie wir Cookies und Browserspeicher verwenden</h2>
+    <p>TNT agency s.r.o. verwendet Browserspeicher ausschließlich für folgende Zwecke:</p>
     <ul>
-      <li><strong>Notwendige Cookies</strong> — für den ordnungsgemäßen Betrieb der Website erforderlich (z. B. Ihre Cookie-Zustimmungspräferenz). Diese Cookies können nicht deaktiviert werden, ohne die Grundfunktionalität zu beeinträchtigen.</li>
-      <li><strong>Analytische Cookies</strong> — helfen uns zu verstehen, wie Besucher unsere Website nutzen (besuchte Seiten, Sitzungsdauer, Traffic-Quellen). Diese werden <strong>erst nach Ihrer ausdrücklichen Zustimmung</strong> über unser Einwilligungsbanner aktiviert.</li>
+      <li><strong>Notwendige Einträge</strong> — für den ordnungsgemäßen Betrieb der Website erforderlich (Ihre Einwilligungsentscheidung und Ihre gewählte Sprache). Diese werden im localStorage Ihres Browsers abgelegt und können nicht entfernt werden, ohne die Grundfunktionalität zu beeinträchtigen.</li>
+      <li><strong>Analytische Einträge</strong> — helfen uns zu verstehen, wie Besucher unsere Website nutzen (besuchte Seiten, Sitzungszusammenhang, Traffic-Quellen). Unser Analyseanbieter <strong>WebmasterID</strong> setzt <strong>überhaupt keine Cookies</strong>; er speichert zwei zufällig erzeugte anonyme Kennungen im localStorage und im sessionStorage Ihres Browsers. Die Analyse wird <strong>erst geladen, nachdem Sie im Einwilligungsbanner ausdrücklich auf „Akzeptieren“ geklickt haben</strong>.</li>
     </ul>
     <p>Wir verwenden keine Werbe-Cookies, Retargeting-Cookies oder Social-Media-Tracking-Cookies.</p>
 
-    <h2>3. Von uns verwendete Cookies</h2>
+    <h2>3. Was wir in Ihrem Browser speichern</h2>
     <table class="cookie-table">
       <thead>
         <tr>
-          <th>Cookie-Name</th>
+          <th>Name</th>
           <th>Anbieter</th>
           <th>Zweck</th>
-          <th>Dauer</th>
+          <th>Speicherort &amp; Dauer</th>
           <th>Typ</th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <td>cookie_consent</td>
+          <td>TalentPartnerID (Erstanbieter)</td>
+          <td>Speichert, ob Sie die Analyse akzeptiert oder abgelehnt haben</td>
+          <td>localStorage — bis Sie ihn löschen</td>
+          <td>Notwendig</td>
+        </tr>
+        <tr>
           <td>tnt-lang</td>
           <td>TalentPartnerID (Erstanbieter)</td>
           <td>Speichert Ihre Sprachpräferenz (EN/CS/DE)</td>
-          <td>localStorage (kein Ablauf)</td>
+          <td>localStorage — bis Sie ihn löschen</td>
           <td>Notwendig / Funktional</td>
         </tr>
         <tr>
-          <td>_ga</td>
-          <td>Google Analytics</td>
-          <td>Unterscheidet eindeutige Benutzer für Analytics</td>
-          <td>2 Jahre</td>
-          <td>Analytisch</td>
+          <td>wmid:av:v1</td>
+          <td>WebmasterID</td>
+          <td>Zufällig erzeugte anonyme Besucherkennung (32 Hexadezimalzeichen)</td>
+          <td>localStorage — bis Sie ihn löschen</td>
+          <td>Analytisch (Einwilligung erforderlich)</td>
         </tr>
         <tr>
-          <td>_ga_*</td>
-          <td>Google Analytics</td>
-          <td>Pflegt den Analytics-Sitzungsstatus</td>
-          <td>2 Jahre</td>
-          <td>Analytisch</td>
+          <td>wmid:as:v1</td>
+          <td>WebmasterID</td>
+          <td>Zufällig erzeugte anonyme Sitzungskennung</td>
+          <td>sessionStorage — gleitendes 30-Minuten-Fenster; wird beim Schließen des Tabs verworfen</td>
+          <td>Analytisch (Einwilligung erforderlich)</td>
+        </tr>
+        <tr>
+          <td>wmid:as:last:v1</td>
+          <td>WebmasterID</td>
+          <td>Pflegt das gleitende 30-Minuten-Fenster der oben genannten Sitzungskennung</td>
+          <td>sessionStorage — wird beim Schließen des Tabs verworfen</td>
+          <td>Analytisch (Einwilligung erforderlich)</td>
         </tr>
       </tbody>
     </table>
-    <p><em>Hinweis: Die Sprachpräferenz (tnt-lang) wird im <strong>localStorage</strong> gespeichert, nicht als Cookie, und wird daher nicht an Server übertragen. Sie erfordert keine Einwilligung gemäß der ePrivacy-Richtlinie.</em></p>
+    <p><em>Hinweis: Keiner der oben genannten Einträge ist ein Cookie — sie werden im <strong>localStorage</strong> bzw. <strong>sessionStorage</strong> Ihres Browsers gespeichert. Die notwendigen Einträge (cookie_consent, tnt-lang) werden nicht an Server übertragen und erfordern keine Einwilligung gemäß der ePrivacy-Richtlinie. Die drei WebmasterID-Einträge werden erst angelegt, nachdem Sie der Analyse zugestimmt haben.</em></p>
 
-    <h2>4. Google Analytics 4 &amp; Consent Mode v2</h2>
-    <p>Wir verwenden <strong>Google Analytics 4 (GA4)</strong> mit <strong>Google Consent Mode v2</strong>. Das bedeutet:</p>
+    <h2>4. WebmasterID-Analyse &amp; die Einwilligungsschranke</h2>
+    <p>Die Analyse unserer Website wird von <strong>WebmasterID</strong> bereitgestellt. Sie funktioniert wie folgt:</p>
     <ul>
-      <li>Standardmäßig sind <code>analytics_storage</code>, <code>ad_storage</code>, <code>ad_user_data</code> und <code>ad_personalization</code> beim ersten Besuch unserer Website auf <strong>"denied"</strong> gesetzt.</li>
-      <li>Es werden keine Analytics-Cookies gesetzt und keine identifizierbaren Daten erhoben, bis Sie über unser Einwilligungsbanner ausdrücklich in Analytics-Cookies einwilligen.</li>
-      <li>Bei Ihrer Einwilligung kann Google Analytics die oben genannten Cookies <code>_ga</code> und <code>_ga_*</code> setzen, um Verkehrsmuster zu verstehen und unsere Website zu verbessern.</li>
+      <li>Das Analyseskript wird <strong>erst geladen, nachdem Sie im Einwilligungsbanner auf „Akzeptieren“ geklickt haben</strong>. Vor Ihrer Einwilligung wird das Skript überhaupt nicht angefordert.</li>
+      <li>WebmasterID setzt, liest oder schreibt keinerlei Cookies. Es verwendet ausschließlich die in Abschnitt 3 aufgeführten localStorage- und sessionStorage-Einträge.</li>
+      <li>Pro Seitenaufruf werden ausschließlich übertragen: die Seiten-URL, der Pfad, der Seitentitel, die verweisende URL, Ihre Browsersprache, Ihre User-Agent-Kennung, die Breite Ihres Browserfensters, ein Zeitstempel, unsere Website-Kennung sowie die beiden oben beschriebenen anonymen Kennungen.</li>
+      <li>Es erhält niemals die Inhalte des Arbeitgeber-Anfrageformulars (Unternehmen, Ansprechpartner, E-Mail, Telefon, Personalbedarf, Budget), die Eingaben oder Ergebnisse des Lohnrechners oder den Inhalt einer vorbereiteten E-Mail. <code>mailto:</code>-Links werden niemals übertragen.</li>
+      <li>Es berücksichtigt die Einstellungen <strong>Do Not Track</strong> und <strong>Global Privacy Control</strong> Ihres Browsers: Ist eines dieser Signale gesetzt, wird die Analyse selbst bei erteilter Einwilligung nicht initialisiert.</li>
+      <li>Wenn Sie <strong>Ablehnen</strong> wählen, werden die analytischen Kennungen unverzüglich gelöscht.</li>
     </ul>
-    <p>Google kann Daten auf Servern in den Vereinigten Staaten verarbeiten. Diese Übertragung erfolgt auf Grundlage von EU-Standardvertragsklauseln. Weitere Informationen finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>.</p>
+    <p>Unsere Website setzt außerdem die Standardwerte des Google Consent Mode, bei denen <code>analytics_storage</code>, <code>ad_storage</code>, <code>ad_user_data</code> und <code>ad_personalization</code> sämtlich auf <strong>"denied"</strong> gesetzt sind. Auf dieser Website wird kein Google-Tag geladen und kein Google-Dienst wertet diese Standardwerte aus; sie bestehen ausschließlich als Schutzmaßnahme.</p>
+    <p>Analytische Ereignisse werden an den Endpunkt <code>webmasterid-ingest-api.vercel.app</code> gesendet, der bei Vercel gehostet wird. Da es sich um eine global verteilte Infrastruktur handelt, kann eine Verarbeitung außerhalb des EWR nicht ausgeschlossen werden. Eine serverseitige Aufbewahrungsfrist für analytische Ereignisse wird nicht veröffentlicht.</p>
 
     <h2>5. Verwaltung Ihrer Cookie-Einstellungen</h2>
     <p>Sie können Ihre Cookie-Einstellungen auf folgende Weisen verwalten:</p>
     <ul>
-      <li><strong>Einwilligungsbanner</strong> — beim ersten Besuch unserer Website können Sie nicht notwendige (analytische) Cookies akzeptieren oder ablehnen. Sie können Ihre Wahl jederzeit ändern, indem Sie Browser-Cookies löschen und die Website erneut besuchen.</li>
+      <li><strong>Einwilligungsbanner</strong> — beim ersten Besuch unserer Website können Sie die nicht notwendige (analytische) Erfassung akzeptieren oder ablehnen. Bei „Ablehnen“ werden die analytischen Kennungen unverzüglich gelöscht. Sie können Ihre Wahl jederzeit ändern, indem Sie den Browserspeicher dieser Website löschen und die Website erneut besuchen.</li>
       <li><strong>Browser-Einstellungen</strong> — die meisten Browser ermöglichen es Ihnen, Cookies abzulehnen, zu löschen oder darüber benachrichtigt zu werden. Bitte lesen Sie die Hilfedokumentation Ihres Browsers:
         <ul>
           <li>Chrome: Einstellungen → Datenschutz und Sicherheit → Cookies und andere Websitedaten</li>
@@ -138,9 +156,9 @@
           <li>Edge: Einstellungen → Cookies und Websiteberechtigungen</li>
         </ul>
       </li>
-      <li><strong>Google Analytics Opt-out-Add-on</strong> — installieren Sie das <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out-Browser-Add-on</a>, um die Verwendung Ihrer Daten durch Google Analytics auf jeder Website zu verhindern.</li>
+      <li><strong>Do Not Track / Global Privacy Control</strong> — wenn Sie das Signal „Do Not Track“ oder „Global Privacy Control“ in Ihrem Browser oder über eine Erweiterung aktivieren, wird unsere Analyse überhaupt nicht initialisiert, selbst wenn zuvor eine Einwilligung erteilt wurde.</li>
     </ul>
-    <p>Bitte beachten Sie, dass das Deaktivieren oder Löschen von Analytics-Cookies die Kernfunktionalität unserer Website nicht beeinträchtigt.</p>
+    <p>Bitte beachten Sie, dass das Ablehnen oder Löschen der analytischen Einträge die Kernfunktionalität unserer Website nicht beeinträchtigt. Das Entfernen der notwendigen localStorage-Einträge kann die Sprachumschaltung beeinträchtigen und führt dazu, dass das Einwilligungsbanner erneut erscheint.</p>
 
     <h2>6. Drittanbieter-Inhalte</h2>
     <p>Wir betten derzeit keine Inhalte Dritter ein (z. B. YouTube-Videos, Social-Media-Widgets), die zusätzliche Drittanbieter-Cookies setzen würden. Sollte sich dies in Zukunft ändern, werden wir diese Richtlinie und unser Einwilligungsbanner aktualisieren, bevor solche Inhalte live gehen.</p>

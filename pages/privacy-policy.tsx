@@ -150,8 +150,9 @@ export default function PrivacyPolicy() {
 
             <h3>2.6 Cookies and tracking</h3>
             <p>
-              We use cookies only with your explicit consent. Before consent is given, no analytics or
-              tracking cookies are loaded. See Section 8 for full details.
+              This site sets no cookies. Analytics runs only with your explicit consent: before you
+              accept, the analytics script is not requested and no analytics identifier is created.
+              See Section 8 for full details.
             </p>
 
             {/* 3 */}
@@ -178,7 +179,7 @@ export default function PrivacyPolicy() {
                   <td>Art. 6(1)(b) — contract / Art. 6(1)(a) — consent</td>
                 </tr>
                 <tr>
-                  <td>Website analytics (Google Analytics)</td>
+                  <td>Website analytics (WebmasterID)</td>
                   <td>Art. 6(1)(a) — consent (opt-in via cookie banner)</td>
                 </tr>
                 <tr>
@@ -200,7 +201,16 @@ export default function PrivacyPolicy() {
                 <tr><td>Server access logs</td><td>30 days (security purposes)</td></tr>
                 <tr><td>Email records (sent / received)</td><td>2 years</td></tr>
                 <tr><td>Cookie consent record</td><td>Stored in your browser until you clear it</td></tr>
-                <tr><td>Analytics cookies (if consented)</td><td>Up to 2 years (Google Analytics default)</td></tr>
+                <tr>
+                  <td>Analytics identifiers (if consented)</td>
+                  <td>
+                    Stored in your browser until you clear it. WebmasterID sets no cookies; it
+                    stores an anonymous visitor identifier in localStorage and an anonymous
+                    session identifier in sessionStorage, which your browser discards when the
+                    tab closes. We do not publish a server-side retention period for analytics
+                    events.
+                  </td>
+                </tr>
               </tbody>
             </table>
 
@@ -209,12 +219,24 @@ export default function PrivacyPolicy() {
             <p>We do <strong>not</strong> sell your personal data. We may share data with:</p>
             <ul>
               <li>
-                <strong>Google Analytics</strong> — only if you have given explicit consent via the
-                cookie banner. Data may be transferred to the USA under Google&apos;s Standard
-                Contractual Clauses. See{' '}
-                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-                  policies.google.com/privacy
-                </a>.
+                <strong>WebmasterID (website analytics)</strong> — loaded only if you have given
+                explicit consent via the cookie banner. Before consent, the analytics script is
+                not requested at all. It sets <strong>no cookies</strong>. When active it sends,
+                for each page view, the page URL, path, page title, the referring URL, your
+                browser&apos;s language and user-agent string, your browser window width, a
+                timestamp, and two randomly generated anonymous identifiers (one per browser, one
+                per session). Events are sent to{' '}
+                <code>webmasterid-ingest-api.vercel.app</code>, which is hosted on Vercel. The
+                tracker also honours browser <em>Do Not Track</em> and{' '}
+                <em>Global Privacy Control</em> signals: when either is enabled it does not start
+                at all, even with consent.
+              </li>
+              <li>
+                <strong>What analytics never receives</strong> — no content from the employer
+                request form (company, contact person, email, telephone, staffing requirements or
+                budget), no payroll-calculator inputs or results, and no content of the email you
+                prepare. These never leave your browser through analytics; the request form
+                transmits nothing at all and opens your own email client instead.
               </li>
               <li>
                 <strong>Netlify (hosting)</strong> — our website is hosted on Netlify. Netlify may
@@ -231,8 +253,10 @@ export default function PrivacyPolicy() {
             {/* 6 */}
             <h2>6. International Transfers</h2>
             <p>
-              Your data is processed primarily within the European Economic Area (EEA). Where data
-              is transferred outside the EEA (e.g. Google Analytics in the USA), it is protected by
+              Your data is processed primarily within the European Economic Area (EEA). Some
+              service providers we use (our host, Netlify, and the analytics ingest endpoint,
+              which runs on Vercel) operate global infrastructure, so processing outside the EEA
+              cannot be excluded. Where data is transferred outside the EEA, it is protected by
               Standard Contractual Clauses (SCCs) approved by the European Commission under
               Art. 46(2)(c) GDPR.
             </p>
@@ -256,8 +280,12 @@ export default function PrivacyPolicy() {
             </p>
 
             {/* 8 */}
-            <h2>8. Cookies</h2>
-            <p>We use the following types of cookies:</p>
+            <h2>8. Cookies and Browser Storage</h2>
+            <p>
+              This website sets <strong>no cookies at all</strong>. The preference and analytics
+              storage described below uses your browser&apos;s localStorage and sessionStorage
+              instead:
+            </p>
             <table className="legal-table">
               <thead>
                 <tr><th>Type</th><th>Name / Provider</th><th>Purpose</th><th>Basis</th></tr>
@@ -270,17 +298,31 @@ export default function PrivacyPolicy() {
                   <td>Legitimate interest — always active</td>
                 </tr>
                 <tr>
+                  <td>Essential</td>
+                  <td><code>tnt-lang</code> (localStorage)</td>
+                  <td>Remembers your language choice</td>
+                  <td>Legitimate interest — always active</td>
+                </tr>
+                <tr>
                   <td>Analytics</td>
-                  <td>Google Analytics (_ga, _gid)</td>
-                  <td>Anonymous usage statistics</td>
+                  <td><code>wmid:av:v1</code> (localStorage) — WebmasterID</td>
+                  <td>Anonymous visitor identifier — recognises a returning browser without identifying you</td>
+                  <td>Consent — only after you click Accept</td>
+                </tr>
+                <tr>
+                  <td>Analytics</td>
+                  <td><code>wmid:as:v1</code> (sessionStorage) — WebmasterID</td>
+                  <td>Anonymous session identifier — groups one visit; discarded when the tab closes</td>
                   <td>Consent — only after you click Accept</td>
                 </tr>
               </tbody>
             </table>
             <p>
-              <strong>How to manage cookies:</strong> You can change your preference at any time by
-              clearing your browser&apos;s localStorage (DevTools → Application → Local Storage →
-              delete <code>cookie_consent</code>) and reloading the page. The banner will reappear.
+              <strong>How to manage your analytics preference:</strong> You can change it at any
+              time by clearing your browser&apos;s localStorage (DevTools → Application → Local
+              Storage → delete <code>cookie_consent</code>) and reloading the page. The banner will
+              reappear. If you choose <em>Reject non-essential</em>, the analytics identifiers above
+              are deleted immediately and the analytics script is never requested again.
             </p>
             <p>
               You can also control cookies through your browser settings. Note that blocking all

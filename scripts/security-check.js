@@ -173,6 +173,130 @@ check('operator remains TNT agency s.r.o.',
   /OPERATOR = 'TNT agency s\.r\.o\.'/.test(COPY));
 check('no altered legal-entity form', !/TNT agency(?! s\.r\.o\.)/.test(COPY));
 
+// ── 9. WebmasterID analytics: exactly one integration, consent-gated ─────
+// Inspects the whole application tree, not a single filename: the point is to
+// catch a SECOND tracker, a changed site id or a rogue endpoint appearing
+// anywhere, including in a page added long after this check was written.
+const WMID_SITE_ID = 'wm_wfywm8g9qkoonabl';
+const WMID_ENDPOINT = 'https://webmasterid-ingest-api.vercel.app/api/events';
+const WMID_SRC = 'https://webmasterid.com/tracker.iife.min.js';
+// The ecosystem product directory links to the WebmasterID product page. That
+// is a marketing link that predates this integration, not an ingest endpoint.
+const WMID_PRODUCT_URL = 'https://webmasterid.com/';
+
+const CONSTANTS = 'lib/analytics/webmasterid.ts';
+const ISLAND = 'components/analytics/WebmasterIDTracker.tsx';
+
+check('WebmasterID constants module exists', exists(CONSTANTS));
+check('WebmasterID analytics island exists', exists(ISLAND));
+
+if (exists(CONSTANTS) && exists(ISLAND)) {
+  const wmConst = read(CONSTANTS);
+  const wmConstCode = code(wmConst);
+  const wmIsland = code(read(ISLAND));
+
+  // Exact approved configuration.
+  check('exact WebmasterID site id', wmConst.includes(`'${WMID_SITE_ID}'`));
+  check('exact WebmasterID ingest endpoint', wmConst.includes(`'${WMID_ENDPOINT}'`));
+  check('exact approved tracker origin', wmConst.includes(`'${WMID_SRC}'`));
+  check('tracker and ingest are HTTPS only',
+    [WMID_SRC, WMID_ENDPOINT].every((u) => u.startsWith('https://')));
+  check('no private key in analytics configuration',
+    !/api[_-]?key|secret|token|Bearer|password/i.test(wmConstCode));
+
+  // Exactly one integration, mounted from the shared layer.
+  const renderers = appFiles.filter((f) => {
+    const src = code(read(f));
+    return src.includes('<Script') && src.includes('WEBMASTERID_SRC');
+  });
+  check('exactly one component renders the tracker', renderers.length === 1, renderers.join(', '));
+
+  const mounts = appFiles.filter((f) => /<WebmasterIDTracker\s*\/>/.test(code(read(f))));
+  check('tracker mounted exactly once', mounts.length === 1, mounts.join(', '));
+  check('tracker mounted from the shared app layer', mounts[0] === 'pages/_app.tsx', mounts[0]);
+
+  check('no WebmasterID Next.js SDK installed alongside the script tag',
+    !Object.keys(deps).includes('@webmasterid/sdk-next'));
+  check('tracker bundle is not vendored or self-hosted',
+    !exists('public/tracker.iife.min.js') && !exists('public/webmasterid.js'));
+  check('tracker is not proxied through this site', !/webmasterid/i.test(read('netlify.toml')));
+
+  // No alternative site id or endpoint anywhere in the app tree.
+  const beforeWmid = errors.length;
+  for (const f of appFiles) {
+    const src = code(read(f));
+    for (const m of src.match(/wm_[0-9a-z]{16}/g) || []) {
+      if (m !== WMID_SITE_ID) errors.push(`unexpected WebmasterID site id "${m}" in ${f}`);
+    }
+    for (const m of src.match(/https:\/\/[a-z0-9.-]*webmasterid[a-z0-9.-]*[^\s'"`)]*/gi) || []) {
+      if (![WMID_SRC, WMID_ENDPOINT, WMID_PRODUCT_URL].includes(m)) {
+        errors.push(`unexpected WebmasterID URL "${m}" in ${f}`);
+      }
+    }
+    if (/data-wmid-form/.test(src)) errors.push(`form opted into analytics tracking in ${f}`);
+    if (/data-wmid-(cta|event|value|currency|product|plan|source)|data-cta-id/.test(src)) {
+      errors.push(`declarative analytics event attribute in ${f}`);
+    }
+  }
+  check('no alternative WebmasterID site id or ingest endpoint in the app tree',
+    errors.length === beforeWmid);
+
+  // Consent gating.
+  check('tracker is gated on granted analytics consent',
+    /readConsent\(\) === 'accepted'/.test(wmIsland) && /if \(!granted\) return null/.test(wmIsland));
+  check('gate precedes the script element',
+    wmIsland.indexOf('if (!granted) return null') < wmIsland.indexOf('<Script'));
+  check('tracker reuses the canonical consent store (no second consent state)',
+    /lib\/consent/.test(wmIsland) && !/localStorage\.setItem/.test(wmIsland));
+  check('rejecting consent clears the tracker identifiers',
+    /clearWebmasterIdStorage\(\)/.test(code(read('components/CookieBanner.tsx'))));
+
+  // Privacy: the integration must not reach form, calculator or lead data.
+  for (const banned of [
+    'companyName', 'contactName', 'email', 'phone', 'requirements', 'budget',
+    'netSalary', 'grossSalary', 'employerCost', 'agencyFee', 'margin', 'savings',
+    'mailto', 'clipboard', 'leadReference',
+  ]) {
+    check(`analytics code never references ${banned}`,
+      !new RegExp(banned, 'i').test(wmIsland) && !new RegExp(banned, 'i').test(wmConstCode));
+  }
+  check('analytics code reads no field or form value',
+    !/\.value\b|FormData|querySelector|getElementsBy/.test(wmIsland));
+  check('no sendBeacon or fetch outside the official tracker bundle',
+    !/sendBeacon|\bfetch\s*\(|XMLHttpRequest/.test(wmIsland) &&
+    !/sendBeacon|\bfetch\s*\(|XMLHttpRequest/.test(wmConstCode));
+  check('analytics creates no cookie',
+    !/document\.cookie/.test(wmIsland) && !/document\.cookie/.test(wmConstCode));
+  check('analytics writes no new browser storage (it may only clear the tracker keys)',
+    !/setItem/.test(wmIsland) && !/setItem/.test(wmConstCode) && /removeItem/.test(wmConstCode));
+
+  // Duplicate-event protection: the official bundle owns route tracking.
+  check('no manual router tracking layered on the official bundle',
+    !/useRouter|routeChangeComplete|router\.events/.test(wmIsland));
+  check('single injection relies on the next/script id cache',
+    /id=\{WEBMASTERID_SCRIPT_ID\}/.test(wmIsland));
+
+  // Loading + failure behaviour.
+  check('tracker uses a non-blocking post-hydration strategy',
+    /strategy="afterInteractive"/.test(wmIsland) && !/beforeInteractive/.test(wmIsland));
+  check('tracker preserves the documented defer attribute', /\n\s+defer\n/.test(wmIsland));
+  check('tracker uses no inline executable script', !/dangerouslySetInnerHTML/.test(wmIsland));
+  check('analytics failure is silent and unretried',
+    !/alert\(|role="alert"|setInterval|retry/i.test(wmIsland));
+
+  // SEO safety.
+  check('analytics does not touch the sitemap', !/webmasterid/i.test(read('public/sitemap.xml')));
+  check('analytics does not touch robots directives', !/webmasterid/i.test(read('public/robots.txt')));
+  check('analytics is not server-rendered into page markup',
+    !/webmasterid/i.test(read('pages/_document.tsx')));
+
+  // No backend crept in with it.
+  check('analytics added no API route', !exists('pages/api'));
+  check('analytics added no serverless function', !exists('netlify/functions'));
+  check('analytics requires no environment variable',
+    !/process\.env/.test(wmIsland) && !/process\.env/.test(wmConstCode));
+}
+
 // ── Report ───────────────────────────────────────────────────────────────
 if (errors.length) {
   console.error(`security check: FAIL (${errors.length})`);
@@ -186,3 +310,4 @@ console.log('  form transmits nothing: no fetch / XHR / beacon / analytics');
 console.log('  no lead or personal data persisted to storage, cookies or the URL');
 console.log('  no calculator economics can reach the request');
 console.log('  status wording is "prepared", never "sent"');
+console.log('  exactly one WebmasterID tracker, consent-gated, no form or calculator data');
