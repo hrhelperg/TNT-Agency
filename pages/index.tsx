@@ -38,17 +38,16 @@ const employmentAgencySchema = {
   areaServed: ['CZ', 'DE', 'SK', 'AT'],
 }
 
+// WebSite identity only. No SearchAction/potentialAction: the site has no
+// on-site search results feature, so the search template previously advertised
+// here (…/?s={search_term_string}) made Google discover an invalid parameter
+// URL. Removing it at the source stops that URL from ever being emitted.
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'TalentPartnerID',
   url: 'https://talentpartnerid.com',
   description: 'Employment and staffing agency connecting talent with opportunity across all industries.',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: 'https://talentpartnerid.com/?s={search_term_string}',
-    'query-input': 'required name=search_term_string',
-  },
 }
 
 export default function Home() {
