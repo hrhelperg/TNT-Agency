@@ -43,6 +43,17 @@ export default function PrivacyPolicy() {
         <div className="container">
           <div className="legal-content">
 
+            {/* Crawlable links to the translated privacy documents. This is the
+                canonical English privacy page (footer-linked sitewide), so these
+                anchors make the Czech and German versions discoverable to Google
+                without hreflang (there is no localized route family — the CS/DE
+                documents are independent static pages). */}
+            <div className="legal-lang">
+              <a href="/privacy-policy" className="active">EN</a>
+              <a href="/privacy-cs.html">CS</a>
+              <a href="/privacy-de.html">DE</a>
+            </div>
+
             <p className="legal-intro">
               This Privacy Policy explains how TNT agency s.r.o. (&ldquo;we&rdquo;, &ldquo;us&rdquo;,
               &ldquo;our&rdquo;) collects, uses, stores, and protects your personal data when you use

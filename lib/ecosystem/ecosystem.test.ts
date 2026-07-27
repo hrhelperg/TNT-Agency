@@ -374,9 +374,10 @@ describe('Ecosystem — must not disturb existing SEO or privacy', () => {
   it('does not touch canonical tags or the sitemap', () => {
     const code = BANNER + DIRECTORY + APP
     expect(/rel="canonical"|sitemap/i.test(code)).toBe(false)
-    // The sitemap keeps its existing size — the banner adds no route.
+    // The banner adds no route. (Sitemap size is 154 after the indexing-coverage
+    // consolidation removed the duplicate /privacy.html — unrelated to the banner.)
     const sitemap = read('public/sitemap.xml')
-    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(155)
+    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(154)
     expect(sitemap).not.toContain('helperg.com')
   })
 
