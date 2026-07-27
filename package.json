@@ -16,6 +16,8 @@
     "security": "node scripts/security-check.js",
     "validate:i18n": "node scripts/validate-i18n.js",
     "validate:sitemap": "node scripts/validate-sitemap.js",
+    "validate:seo": "node scripts/validate-seo.js",
+    "seo:audit": "node scripts/seo-audit.js",
     "verify:seznam": "node scripts/verify-seznam.js"
   },
   "dependencies": {

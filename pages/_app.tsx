@@ -4,6 +4,7 @@ import Script from 'next/script'
 import CookieBanner from '../components/CookieBanner'
 import EcosystemBanner from '../components/ecosystem/EcosystemBanner'
 import WebmasterIDTracker from '../components/analytics/WebmasterIDTracker'
+import CtaSourceCapture from '../components/CtaSourceCapture'
 import '../styles.css'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -20,6 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
           without being added page by page. */}
       <EcosystemBanner />
       <Component {...pageProps} />
+      {/* Captures the clicked CTA's surface hint into session state so
+          conversion links can stay clean (/poptavka-pracovniku, no ?source=). */}
+      <CtaSourceCapture />
       <CookieBanner />
       {/* Site analytics (WebmasterID). Mounted here — the highest shared layer —
           so it covers every current and future public route exactly once. It

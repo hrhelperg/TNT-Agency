@@ -187,7 +187,11 @@ export default function SeoArticle({ page, activePage = 'guides' }: SeoArticlePr
             <p>{page.cta.text}</p>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <a href={page.cta.href} className="btn btn-primary btn-lg">
+            <a
+              href={page.cta.href}
+              data-request-source={page.cta.href === '/poptavka-pracovniku' ? 'service-page' : undefined}
+              className="btn btn-primary btn-lg"
+            >
               {page.cta.buttonLabel}
             </a>
           </div>

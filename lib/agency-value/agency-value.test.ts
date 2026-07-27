@@ -89,8 +89,10 @@ describe('Phase B — agency value & responsibility', () => {
   it('privacy: no salary/cost values reach fetch/storage/URL from the agency-value UI', () => {
     const forbidden = /fetch\(|XMLHttpRequest|sendBeacon|localStorage\.setItem|sessionStorage|gtag\(|dataLayer/;
     for (const src of [HOME_AV, RESP]) expect(forbidden.test(src)).toBe(false);
-    // The homepage compare CTA carries only a non-sensitive mode hint, never salary.
-    expect(HOME_AV).toContain('?mode=comparison');
+    // The homepage compare CTA carries only a non-sensitive mode hint via a
+    // non-crawlable fragment (#srovnani), never a query parameter or salary.
+    expect(HOME_AV).toContain('#srovnani');
+    expect(HOME_AV).not.toContain('?mode=');
     expect(/\?.*(gross|mzda|salary|d=)/i.test(HOME_AV)).toBe(false);
   });
 

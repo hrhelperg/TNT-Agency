@@ -10,6 +10,7 @@ import {
 import { isValid, orderedErrorNames, type ValidationErrors } from '../lib/employer-request/validate'
 import { activeLeadTransport, type PreparedLead } from '../lib/leads-lite/transport'
 import { captureAttribution, isCtaSource, type Attribution } from '../lib/attribution'
+import { CTA_SOURCE_KEY } from './CtaSourceCapture'
 
 // Employer staffing-request form — Phase E Lite (zero backend).
 //
@@ -56,14 +57,24 @@ export default function EmployerRequestForm() {
     params.forEach((v, k) => {
       query[k] = v
     })
-    const ctaParam = params.get('source') ?? undefined
+    // CTA surface hint: prefer the session value captured at click time (so
+    // internal links stay clean, with no ?source= for crawlers to discover);
+    // fall back to a legacy ?source= query if present, then to 'direct'.
+    let ctaSource = params.get('source') ?? undefined
+    if (!isCtaSource(ctaSource)) {
+      try {
+        ctaSource = window.sessionStorage.getItem(CTA_SOURCE_KEY) ?? undefined
+      } catch {
+        /* storage blocked — fall through to 'direct' */
+      }
+    }
     setAttribution(
       captureAttribution({
         landingRoute: window.location.pathname,
         currentRoute: window.location.pathname,
         referrer: document.referrer,
         query,
-        ctaSource: isCtaSource(ctaParam) ? ctaParam : 'direct',
+        ctaSource: isCtaSource(ctaSource) ? ctaSource : 'direct',
         language: lang,
         startedAt: new Date().toISOString(),
       }),

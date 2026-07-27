@@ -67,6 +67,19 @@
   status = 301
   force  = true
 
+# ──────────────────────────────────────────────
+# Canonical path consolidation (single-hop, permanent).
+# The English privacy policy is served once, at the Next route /privacy-policy.
+# The legacy static /privacy.html duplicate was removed; this redirect preserves
+# any external links to it and prevents a duplicate EN privacy URL in Search.
+# (Czech and German privacy remain at /privacy-cs.html and /privacy-de.html.)
+# ──────────────────────────────────────────────
+[[redirects]]
+  from   = "/privacy.html"
+  to     = "/privacy-policy"
+  status = 301
+  force  = true
+
 [[headers]]
   for = "/*"
     [headers.values]

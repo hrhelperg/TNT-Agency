@@ -324,7 +324,10 @@ export default function PayrollCalculatorPage() {
         setInp((prev) => ({ ...prev, ...decoded }));
       }
       // Non-sensitive mode hint (e.g. from the homepage "compare" CTA). No salary.
-      const mode = params.get('mode');
+      // Internal links use a non-crawlable #srovnani fragment; a legacy ?mode=
+      // query is still honoured for any previously shared links.
+      const hash = window.location.hash.replace('#', '');
+      const mode = params.get('mode') || (hash === 'srovnani' ? 'comparison' : '');
       if (mode === 'agency' || mode === 'direct' || mode === 'comparison') {
         setInp((prev) => ({ ...prev, mode }));
       }
@@ -850,7 +853,7 @@ export default function PayrollCalculatorPage() {
                   <EmployerCta
                     variant="calculator"
                     source="dedicated-calculator"
-                    secondaryHref="?mode=comparison"
+                    secondaryHref="#srovnani"
                   />
                 </>
               ) : (

@@ -180,7 +180,7 @@ export default function HomePayrollCalculator() {
       <EmployerCta
         variant="calculator"
         source="homepage-calculator"
-        secondaryHref="/kalkulacka-mzdy-agenturniho-zamestnance?mode=comparison"
+        secondaryHref="/kalkulacka-mzdy-agenturniho-zamestnance#srovnani"
       />
     </div>
   );

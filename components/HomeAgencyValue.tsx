@@ -4,9 +4,9 @@ import EmployerCta from './EmployerCta'
 
 // Compact homepage agency-value layer shown after the statutory calculator.
 // It only explains that statutory payroll is not the whole staffing cost and
-// links to the dedicated comparison mode with a NON-SENSITIVE mode hint — never
-// any salary or cost value in the URL.
-const COMPARE_URL = '/kalkulacka-mzdy-agenturniho-zamestnance?mode=comparison'
+// links to the dedicated comparison mode via a NON-crawlable #srovnani fragment
+// (never a query parameter, never any salary or cost value in the URL).
+const COMPARE_URL = '/kalkulacka-mzdy-agenturniho-zamestnance#srovnani'
 
 export default function HomeAgencyValue() {
   const lang = useLang()
