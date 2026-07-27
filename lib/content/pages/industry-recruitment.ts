@@ -39,7 +39,7 @@ const hireCta = {
   title: 'Potřebujete obsadit pozice?',
   text: 'Pomůžeme vám s náborem od definice potřeby až po nástup a postaráme se o koordinaci administrativy v souladu s předpisy. Rádi probereme konkrétní potřebu vašeho provozu.',
   buttonLabel: 'Poptat pracovníky',
-  href: '/poptavka-pracovniku?source=service-page',
+  href: '/poptavka-pracovniku',
 }
 
 // ──────────────────────────────────────────────────────────────────────────

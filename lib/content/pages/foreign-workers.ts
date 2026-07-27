@@ -38,7 +38,7 @@ const hireCta = {
   title: 'Hledáte zahraniční pracovníky?',
   text: 'Pomůžeme vám s náborem od definice potřeby až po nástup a postaráme se o koordinaci administrativy v souladu s předpisy.',
   buttonLabel: 'Poptat pracovníky',
-  href: '/poptavka-pracovniku?source=service-page',
+  href: '/poptavka-pracovniku',
 }
 
 // ──────────────────────────────────────────────────────────────────────────

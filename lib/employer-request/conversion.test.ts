@@ -72,12 +72,25 @@ describe('Phase C — privacy of the request form', () => {
 })
 
 describe('Phase C — CTA cannot leak calculator values', () => {
-  it('buildCtaHref emits only the source parameter', () => {
+  it('buildCtaHref emits the clean canonical request path with no query', () => {
+    // Crawl hygiene: the surface hint no longer rides in the URL. buildCtaHref
+    // returns ONLY the clean /poptavka-pracovniku so Google discovers one URL.
     for (const s of CTA_SOURCES) {
       const href = buildCtaHref(s)
-      expect(href.startsWith(`${REQUEST_PATH}?source=`)).toBe(true)
-      // Exactly one query parameter.
-      expect(href.split('?')[1].split('&').length).toBe(1)
+      expect(href).toBe(REQUEST_PATH)
+      expect(href.includes('?')).toBe(false)
+    }
+  })
+
+  it('carries the CTA surface hint via a data attribute, never the URL', () => {
+    // The hint travels as data-request-source (captured into session state at
+    // click time by CtaSourceCapture), so no internal link emits ?source=.
+    expect(CTA).toContain('data-request-source={source}')
+    for (const [name, src] of [
+      ['cta', CTA], ['header', HEADER], ['home-calc', HOME_CALC], ['agency-value', AGV],
+      ['responsibility', RESP], ['dedicated-calc', DCALC],
+    ] as const) {
+      expect(/poptavka-pracovniku\?source=/.test(src), `${name} still emits ?source=`).toBe(false)
     }
   })
 

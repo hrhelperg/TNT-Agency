@@ -10,9 +10,16 @@ import type { CtaSource } from '../attribution'
 
 export const REQUEST_PATH = '/poptavka-pracovniku'
 
-/** The ONLY query parameter a CTA may carry. */
-export function buildCtaHref(source: CtaSource): string {
-  return `${REQUEST_PATH}?source=${encodeURIComponent(source)}`
+// Internal employer-conversion links are ALWAYS the clean canonical path.
+//
+// The surface hint used to ride in the URL as ?source=… — which made Google
+// discover and crawl a parameter URL per surface. It now travels via a
+// data-request-source attribute captured into session state at click time (see
+// components/CtaSourceCapture.tsx), so crawlers only ever see /poptavka-pracovniku.
+// buildCtaHref keeps its CtaSource parameter so callers stay type-checked, but
+// the value never enters the URL.
+export function buildCtaHref(_source: CtaSource): string {
+  return REQUEST_PATH
 }
 
 export interface CtaCopy {
