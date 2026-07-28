@@ -22,7 +22,10 @@
     "validate:trust": "node scripts/validate-trust.js",
     "validate:tier1": "node scripts/validate-tier1.js",
     "validate:legal": "node scripts/validate-legal.js",
+    "validate:authority": "node scripts/validate-authority.js",
     "seo:audit": "node scripts/seo-audit.js",
+    "seo:authority": "node scripts/authority-graph.js",
+    "seo:coverage": "node scripts/coverage-reports.js",
     "verify:seznam": "node scripts/verify-seznam.js"
   },
   "dependencies": {
