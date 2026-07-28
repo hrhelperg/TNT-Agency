@@ -18,6 +18,7 @@
     "validate:sitemap": "node scripts/validate-sitemap.js",
     "validate:seo": "node scripts/validate-seo.js",
     "validate:czech": "node scripts/validate-czech.js",
+    "validate:czech-default": "node scripts/validate-czech-default.js",
     "seo:audit": "node scripts/seo-audit.js",
     "verify:seznam": "node scripts/verify-seznam.js"
   },
