@@ -223,7 +223,7 @@ export default function Home() {
           <div className="section-head fi">
             <div className="eyebrow" data-i18n="contact.eyebrow">Kontaktujte nás</div>
             <h2 data-i18n="contact.h2">Připraveni najít<br />vašeho ideálního kandidáta?</h2>
-            <p>Napište nám o své volné pozici. Na zprávy odpovídáme v pracovní dny.</p>
+            <p>Napište nám o své volné pozici. Na zprávy odpovídáme v pracovní dny. Chcete si nás ověřit? <a href="/o-nas">O nás a ověření agentury</a>.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
             <a href="/contact" className="btn btn-primary btn-lg">Poslat poptávku →</a>

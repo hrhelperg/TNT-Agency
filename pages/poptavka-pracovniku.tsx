@@ -117,6 +117,10 @@ export default function PoptavkaPracovnikuPage() {
           <div className="eyebrow eyebrow--light">{copy.eyebrow}</div>
           <h1>{copy.h1}</h1>
           <p className="seo-hero__sub">{copy.lead}</p>
+          <p className="seo-hero__sub" style={{ marginTop: '8px' }}>
+            Chcete si nás před poptávkou ověřit?{' '}
+            <a href="/o-nas" style={{ color: 'inherit', textDecoration: 'underline' }}>O nás a ověření agentury</a>.
+          </p>
         </div>
       </section>
 
