@@ -276,7 +276,7 @@ export const buildRegionCostPage = (p: RegionProfile, i: number): SeoPage => {
       {
         heading: 'Agenturní zaměstnávání a soulad s předpisy',
         body: [
-          'U agenturního zaměstnávání nese mzdovou a personální administrativu pracovní agentura jako formální zaměstnavatel; náklad pro uživatele má obvykle podobu sjednané ceny za přidělení. Model může pomoci pružně reagovat na sezónní a projektové výkyvy poptávky.',
+          'U agenturního zaměstnávání nese mzdovou a personální administrativu agentura práce jako formální zaměstnavatel; náklad pro uživatele má obvykle podobu sjednané ceny za přidělení. Model může pomoci pružně reagovat na sezónní a projektové výkyvy poptávky.',
           'Z hlediska souladu s předpisy platí požadavek srovnatelných mzdových a pracovních podmínek agenturního pracovníka s kmenovými zaměstnanci uživatele a společná odpovědnost agentury a uživatele za BOZP. Tyto povinnosti je vhodné mít smluvně jasně ošetřené.',
         ],
       },

@@ -63,3 +63,20 @@ The gate scans string/template literals (URLs/slugs excluded so they don't trip
 diacritics/terminology checks), applies the registry's approved terms and honesty
 lists, and flags duplicated long sentences across pages. It is deterministic and
 re-runnable via `npm run validate:czech`.
+
+---
+
+## Batch 2b — candidate decision log (21 → 18 documented retains)
+
+Automated contextual pass. **Not** native-human Czech review.
+
+| Candidate | Files | Decision | Reason |
+|---|---|---|---|
+| `pracovní agentura` — statutory-definition prose (`…formálním zaměstnavatelem [je] pracovní agentura`) | employer-intelligence, cornerstone, regions, legal-content (6 occurrences) | **Changed → `agentura práce`** | Statutory concept per zákon č. 435/2004 Sb.; the precise legal term applies. |
+| `nejlepší` — benign prose ("vždy nejlepší vyjít z oficiálního zdroje") | foreign-workers | **Reworded → `vhodné`** | Not a marketing claim; reworded to remove the flag. |
+| Missing diacritics `prace` | regions.ts | **No change (false positive)** — validator refined | It occurs only inside slug/href template literals (`trh-prace-${slug}`), not prose; `isSlugLike` now handles interpolated slug fragments. |
+| `pracovní agentura` — SEO keyword arrays + page label/slug (`/jak-funguje-pracovni-agentura`) + hovorové užití | 9 files | **Retained (documented)** | High-volume Czech search term and an established route/page name; the statutory term is used in the legal/definition prose. Not an error — a soft style preference. Native editor may harmonise further. |
+| Duplicated disclaimer sentences (e.g. "Aktuální data … zveřejňují ČSÚ, MPSV a Úřad práce ČR; čísla zde neuvádíme.") | region families (9 patterns) | **Retained (documented)** | Legally/factually necessary shared wording; the spec forbids artificial synonym variation. Consolidation of the region families is the owner decision in `content-consolidation.md`. |
+
+Remaining `validate:czech` review candidates after this pass: **18**, all in the
+two documented-retain categories above. Hard violations: **0**.

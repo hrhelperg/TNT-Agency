@@ -89,7 +89,7 @@ export const NAKLADY_NA_ZAMESTNANCE_PARDUBICE: SeoPage = {
     {
       heading: 'Nákladová logika agenturního zaměstnávání',
       body: [
-        'U agenturního zaměstnávání je formálním zaměstnavatelem pracovní agentura, která nese mzdovou a personální administrativu. Náklad pro uživatele má obvykle podobu sjednané ceny za přidělení, jež tyto položky zahrnuje.',
+        'U agenturního zaměstnávání je formálním zaměstnavatelem agentura práce, která nese mzdovou a personální administrativu. Náklad pro uživatele má obvykle podobu sjednané ceny za přidělení, jež tyto položky zahrnuje.',
         'Tento model může zjednodušit plánování u sezónních a projektových potřeb, protože část variabilních nákladů a administrativy přechází na agenturu. U agenturního zaměstnávání zároveň platí požadavek srovnatelných mzdových a pracovních podmínek s kmenovými zaměstnanci uživatele.',
       ],
     },
@@ -403,7 +403,7 @@ export const NAKLADY_NA_ZAMESTNANCE_HRADEC_KRALOVE: SeoPage = {
     {
       heading: 'Nábor a agenturní zaměstnávání z pohledu nákladů',
       body: [
-        'U agenturního zaměstnávání je formálním zaměstnavatelem pracovní agentura, která nese mzdovou a personální administrativu; náklad pro uživatele má obvykle podobu sjednané ceny za přidělení. Tento model může zjednodušit plánování u sezónních a projektových potřeb.',
+        'U agenturního zaměstnávání je formálním zaměstnavatelem agentura práce, která nese mzdovou a personální administrativu; náklad pro uživatele má obvykle podobu sjednané ceny za přidělení. Tento model může zjednodušit plánování u sezónních a projektových potřeb.',
         'Z hlediska souladu s předpisy platí u agenturního zaměstnávání požadavek srovnatelných mzdových a pracovních podmínek s kmenovými zaměstnanci uživatele a společná odpovědnost agentury a uživatele za BOZP. Tyto povinnosti je vhodné mít smluvně jasně ošetřené.',
       ],
     },
@@ -603,7 +603,7 @@ export const NAKLADY_NA_ZAMESTNANCE_STREDNI_CECHY: SeoPage = {
     {
       heading: 'Nábor a agenturní zaměstnávání z pohledu nákladů',
       body: [
-        'U agenturního zaměstnávání nese mzdovou a personální administrativu pracovní agentura jako formální zaměstnavatel a náklad pro uživatele má obvykle podobu sjednané ceny za přidělení. Model může pomoci pružně reagovat na sezónní a projektové výkyvy poptávky.',
+        'U agenturního zaměstnávání nese mzdovou a personální administrativu agentura práce jako formální zaměstnavatel a náklad pro uživatele má obvykle podobu sjednané ceny za přidělení. Model může pomoci pružně reagovat na sezónní a projektové výkyvy poptávky.',
         'Z hlediska souladu s předpisy platí požadavek srovnatelných mzdových a pracovních podmínek s kmenovými zaměstnanci uživatele a společná odpovědnost za BOZP. Tyto povinnosti je vhodné mít smluvně jasně ošetřené.',
       ],
     },
