@@ -3173,3 +3173,14 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
 .situ-cta{margin-top:auto;align-self:flex-start}
 .situ-trust{margin-top:24px;font-size:14px;color:#3a4256}
 @media (max-width:520px){.situ-grid{grid-template-columns:1fr}}
+
+/* Employer hub — regional recruitment entry point (Batch A) */
+.situ-regions{margin-top:32px;padding-top:24px;border-top:1px solid #e6e8ee}
+.situ-regions h3{margin:0 0 6px;font-size:18px;color:#0d1e3d}
+.situ-regions p{margin:0 0 14px;font-size:14.5px;color:#3a4256}
+.situ-region-links{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px 20px}
+.situ-region-links a{font-size:14px;color:#0d1e3d;text-decoration:underline;text-underline-offset:2px}
+.situ-region-links a:hover{color:#f05a28}
+.situ-regions-market{margin:16px 0 0;font-size:14.5px;color:#3a4256}
+.situ-regions-market a{color:#0d1e3d;text-decoration:underline;text-underline-offset:2px}
+.situ-regions-market a:hover{color:#f05a28}

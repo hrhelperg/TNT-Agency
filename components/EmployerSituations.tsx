@@ -135,6 +135,14 @@ const SITUATIONS: Situation[] = [
   },
 ]
 
+// Cities with a dedicated recruitment page (/nabor-zamestnancu-<slug>), which
+// each cross-links its "pracovníci <město>" page. Diacritics in the visible name.
+const REGIONS: Array<[string, string]> = [
+  ['praha', 'Praha'], ['brno', 'Brno'], ['ostrava', 'Ostrava'], ['plzen', 'Plzeň'],
+  ['pardubice', 'Pardubice'], ['hradec-kralove', 'Hradec Králové'], ['liberec', 'Liberec'],
+  ['usti-nad-labem', 'Ústí nad Labem'], ['olomouc', 'Olomouc'], ['zlin', 'Zlín'],
+]
+
 export default function EmployerSituations() {
   return (
     <section className="section" aria-labelledby="situace-title" lang="cs">
@@ -166,6 +174,28 @@ export default function EmployerSituations() {
             </article>
           ))}
         </div>
+
+        {/* Regional recruitment entry point. Connects the per-city recruitment
+            pages (previously reachable only via their own cluster) to a
+            homepage-reachable hub via descriptive contextual anchors. Each city
+            page in turn cross-links its "pracovníci <město>" page. */}
+        <div className="situ-regions">
+          <h3 id="regionalni-nabor">Regionální nábor zaměstnanců</h3>
+          <p>Řešíte nábor v konkrétním městě nebo regionu? Přejděte na přehled náboru zaměstnanců pro danou lokalitu:</p>
+          <ul className="situ-region-links" aria-labelledby="regionalni-nabor">
+            {REGIONS.map(([slug, name]) => (
+              <li key={slug}>
+                <a href={`/nabor-zamestnancu-${slug}`}>Nábor zaměstnanců {name}</a>
+              </li>
+            ))}
+          </ul>
+          <p className="situ-regions-market">
+            Plánujete nábor podle situace na trhu práce? Začněte přehledem{' '}
+            <a href="/trh-prace-stredocesky-kraj">trhu práce ve Středočeském kraji</a> — největším
+            zaměstnaneckém regionu ČR — odkud se prolinkují i další krajské přehledy.
+          </p>
+        </div>
+
         <p className="situ-trust">
           Vybíráte dodavatele? Přečtěte si, <a href="/o-nas">jak si ověřit agenturu práce v ČR</a> —
           rozdíl mezi registrací firmy a povolením ke zprostředkování zaměstnání.
