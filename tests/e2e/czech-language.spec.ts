@@ -32,6 +32,17 @@ test.describe('Czech server default + language switching', () => {
     })
   }
 
+  test('employer hub is situation-first and each situation routes cleanly', async ({ page }) => {
+    await page.goto('/pro-zamestnavatele', { waitUntil: 'networkidle' })
+    await expect(page.getByRole('heading', { name: 'Vyberte si podle své situace' })).toBeVisible()
+    // Situation cards are present and link to real Tier 1 routes with a clean CTA.
+    await expect(page.getByRole('heading', { name: 'Chybí nám pracovníci na směně' })).toBeVisible()
+    const situationLink = page.locator('.situ-links a', { hasText: 'Pracovníci do výroby' }).first()
+    await situationLink.click()
+    await page.waitForURL('**/pracovnici-do-vyroby')
+    expect(new URL(page.url()).search).toBe('')
+  })
+
   test('trust page publishes verified facts only, permits as "ověření probíhá"', async ({ page }) => {
     await page.goto('/o-nas', { waitUntil: 'networkidle' })
     await expect(page.locator('h1')).toHaveText(/O nás a ověření agentury/)

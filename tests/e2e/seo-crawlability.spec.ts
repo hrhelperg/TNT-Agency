@@ -10,17 +10,21 @@ import { test, expect } from '@playwright/test'
 // favicon) is filtered out — that is expected and handled elsewhere.
 
 const PAGES = [
+  // The 15 Tier 1 commercial-authority pages (Batch 2b) + representative legal.
   '/',                                          // homepage
+  '/pro-zamestnavatele',                        // employer hub (situation-first)
   '/poptavka-pracovniku',                       // employer conversion
-  '/kalkulacka-mzdy-agenturniho-zamestnance',   // calculator
-  '/pro-zamestnavatele',                        // employer hub
-  '/agentura-prace-brno',                       // city
-  '/pracovnici-do-vyroby',                      // industry
-  '/trh-prace-praha',                           // region (labour market)
-  '/naklady-na-zamestnance-praha',              // region (cost)
+  '/kalkulacka-mzdy-agenturniho-zamestnance',   // calculator + comparison
+  '/pracovnici-do-vyroby',                      // industry: production
+  '/pracovnici-do-logistiky',                   // industry: logistics
+  '/pracovnici-do-skladu',                      // industry: warehouse
+  '/pracovnici-pro-automotive',                 // industry: automotive
+  '/pracovnici-pro-potravinarskou-vyrobu',      // industry: food
   '/nabor-zahranicnich-pracovniku',             // foreign workers
-  '/pracovni-povoleni-cr',                      // compliance
-  '/privacy-policy',                            // legal (Next, canonical EN)
+  '/nabor-zamestnancu-pardubice',               // region: Pardubice
+  '/nabor-zamestnancu-hradec-kralove',          // region: Hradec Králové
+  '/trh-prace-stredocesky-kraj',                // region: Středočeský kraj
+  '/o-nas',                                      // trust page
   '/privacy-cs.html',                           // legal (static, CS)
 ]
 
