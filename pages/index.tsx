@@ -54,8 +54,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>TalentPartnerID — Employment &amp; Staffing Agency | Pardubice, Czech Republic</title>
-        <meta name="description" content="TalentPartnerID — your trusted recruitment partner for permanent placement, executive search, and flexible staffing across all industries. Based in Pardubice, Czech Republic. Provozovatel: TNT agency s.r.o." />
+        <title>Personální agentura pro zaměstnavatele — výroba a logistika | TalentPartnerID</title>
+        <meta name="description" content="Pomáháme zaměstnavatelům zajistit pracovníky do výroby, logistiky a dalších provozů — přímý nábor i agenturní zaměstnávání, kalkulačka nákladů a podpora u zaměstnávání cizinců. Provozovatel: TNT agency s.r.o., Pardubice." />
         <meta name="keywords" content="personální agentura, pracovní agentura, zprostředkování zaměstnání, executive search, agenturní zaměstnávání, Pardubice, employment agency" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
@@ -68,8 +68,8 @@ export default function Home() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://talentpartnerid.com/" />
         <meta property="og:site_name" content="TalentPartnerID" />
-        <meta property="og:title" content="TalentPartnerID — Employment &amp; Staffing Agency" />
-        <meta property="og:description" content="Your trusted recruitment partner for permanent, temporary, and executive staffing. We connect the right people with the right companies." />
+        <meta property="og:title" content="Personální agentura pro zaměstnavatele | TalentPartnerID" />
+        <meta property="og:description" content="Pracovníci do výroby a logistiky, přímý nábor i agenturní zaměstnávání, kalkulačka nákladů zaměstnavatele a podpora u zaměstnávání cizinců." />
         <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
