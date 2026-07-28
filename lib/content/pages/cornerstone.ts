@@ -151,7 +151,7 @@ export const MINIMALNI_MZDA_2026: SeoPage = {
     {
       heading: 'Koho se minimální mzda týká',
       body: [
-        'Minimální mzda se týká prakticky všech zaměstnavatelů a zaměstnanců bez ohledu na obor. Uplatňuje se i u zkrácených úvazků, kde se posuzuje poměrně podle odpracované doby. Týká se rovněž agenturních pracovníků, u nichž je formálním zaměstnavatelem pracovní agentura.',
+        'Minimální mzda se týká prakticky všech zaměstnavatelů a zaměstnanců bez ohledu na obor. Uplatňuje se i u zkrácených úvazků, kde se posuzuje poměrně podle odpracované doby. Týká se rovněž agenturních pracovníků, u nichž je formálním zaměstnavatelem agentura práce.',
         'U cizinců nemá státní příslušnost na nárok na minimální mzdu vliv – rozhodující je existence pracovněprávního vztahu na území ČR. U některých pobytových oprávnění navíc bývá dostatečná výše odměny jednou z podmínek jejich vydání.',
       ],
     },

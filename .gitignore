@@ -21,3 +21,4 @@ tsconfig.tsbuildinfo
 /playwright-report
 /blob-report
 /.playwright
+release-evidence/

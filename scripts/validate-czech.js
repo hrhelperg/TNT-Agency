@@ -47,10 +47,16 @@ const stripComments = (src) =>
 // A URL/slug/path/key literal (e.g. '/trh-prace-praha', 'nabor-ze-zahranici',
 // 'https://…'). These legitimately drop diacritics and must NOT be treated as
 // Czech prose, or every slug would trip the diacritics/terminology checks.
-const isSlugLike = (s) =>
-  /^\/?[a-z0-9]+(?:[-/][a-z0-9]+)+\/?$/.test(s.trim()) ||
-  /^https?:\/\//.test(s.trim()) ||
-  /^#|^mailto:|^tel:/.test(s.trim());
+const isSlugLike = (s) => {
+  // Collapse whitespace so a blanked ${…} interpolation inside a slug template
+  // (e.g. `trh-prace-${slug}` → "trh-prace- ") is still recognised as a slug.
+  const t = s.trim().replace(/\s+/g, '');
+  return (
+    /^\/?[a-z0-9]+(?:[-/][a-z0-9]+)*[-/]?$/.test(t) ||
+    /^https?:\/\//.test(t) ||
+    /^#|^mailto:|^tel:/.test(t)
+  );
+};
 
 // Extract Czech prose from a TS content module: string + template literals,
 // with ${...} interpolations blanked so we test the surrounding prose only.

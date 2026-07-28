@@ -163,7 +163,7 @@ export const ARTICLE_SOCIALNI_ZDRAVOTNI_DANE_2026: ArticleData = {
     },
     {
       q: 'Týkají se tato pravidla i agenturních pracovníků?',
-      a: 'Ano. U agenturního zaměstnávání je formálním zaměstnavatelem pracovní agentura, která za pracovníka odvádí sociální a zdravotní pojistné stejně jako kterýkoliv jiný zaměstnavatel. Konkrétní podmínky musí odpovídat zákonu č. 435/2004 Sb., o zaměstnanosti.',
+      a: 'Ano. U agenturního zaměstnávání je formálním zaměstnavatelem agentura práce, která za pracovníka odvádí sociální a zdravotní pojistné stejně jako kterýkoliv jiný zaměstnavatel. Konkrétní podmínky musí odpovídat zákonu č. 435/2004 Sb., o zaměstnanosti.',
     },
   ],
   sources: [

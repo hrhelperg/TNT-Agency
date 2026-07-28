@@ -31,13 +31,16 @@ interface SeoArticleProps {
   page: SeoPage
   /** Header highlight key; defaults to a neutral value. */
   activePage?: string
+  /** Optional server-rendered block inserted between the hero and the article
+      (used by the employer hub for its situation-first entry cards). */
+  topSlot?: React.ReactNode
 }
 
 // Generator helpers return complete <script> tags; Next's <Head> needs the
 // inner JSON only, so strip the wrapper before injecting.
 const stripScriptTags = (s: string): string => s.replace(/<\/?script[^>]*>/g, '')
 
-export default function SeoArticle({ page, activePage = 'guides' }: SeoArticleProps) {
+export default function SeoArticle({ page, activePage = 'guides', topSlot }: SeoArticleProps) {
   const url = pageUrl(page.slug)
   const sections = page.sections.map((section) => ({
     ...section,
@@ -132,6 +135,8 @@ export default function SeoArticle({ page, activePage = 'guides' }: SeoArticlePr
           </div>
         </div>
       </section>
+
+      {topSlot}
 
       <main className="seo-article">
         <div className="container">

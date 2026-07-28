@@ -42,11 +42,9 @@ export default function Offers() {
       {/* PAGE HERO */}
       <section className="page-hero" id="home">
         <div className="container">
-          <div className="eyebrow eyebrow--light fi" data-i18n="pages.offersEyebrow">Offers &amp; Opportunities</div>
-          <h1 className="fi d1" data-i18n="pages.offersH1">Browse Offers &amp; Find Your Next Role</h1>
-          <p className="page-hero__sub fi d2" data-i18n="pages.offersSub">
-            Client requests from companies seeking staffing support, plus open positions for candidates. All reviewed manually before going live.
-          </p>
+          <div className="eyebrow eyebrow--light fi" data-i18n="pages.offersEyebrow">Nabídky a příležitosti</div>
+          <h1 className="fi d1" data-i18n="pages.offersH1">Procházejte nabídky a najděte novou roli</h1>
+          <p className="page-hero__sub fi d2" data-i18n="pages.offersSub">Poptávky firem hledajících personální podporu i otevřené pozice pro uchazeče. Vše ručně kontrolujeme před zveřejněním.</p>
         </div>
         <div className="page-hero__wave" aria-hidden="true">
           <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,14 +58,12 @@ export default function Offers() {
         <div className="container">
           <div className="listing-placeholder fi">
             <div className="listing-placeholder__icon">🔍</div>
-            <h3 data-i18n="pages.offersListTitle">Offers Coming Soon</h3>
-            <p data-i18n="pages.offersListBody">
-              Companies are posting their requirements and we review them before they appear here. Be first to get matched — post your offer today.
-            </p>
-            <a href="/submit-offer" className="btn btn-accent btn-lg" data-i18n="pages.offersListBtn">Post Your Offer</a>
+            <h3 data-i18n="pages.offersListTitle">Nabídky již brzy</h3>
+            <p data-i18n="pages.offersListBody">Firmy vkládají své poptávky a my je před zveřejněním kontrolujeme. Buďte první, koho spojíme – zadejte svou poptávku ještě dnes.</p>
+            <a href="/submit-offer" className="btn btn-accent btn-lg" data-i18n="pages.offersListBtn">Zadat poptávku</a>
           </div>
           <p className="listing-cta-note fi d1" data-i18n="pages.offersCtaNote">
-            Are you an agency? <a href="/agencies">Browse the agency directory</a> or <a href="/submit-agency">submit your profile</a>.
+            Jste agentura? <a href="/agencies">Projděte katalog agentur</a> nebo <a href="/submit-agency">zadejte svůj profil</a>.
           </p>
         </div>
       </section>
@@ -77,22 +73,22 @@ export default function Offers() {
         <div className="container">
           <div className="candidates__inner">
             <div className="fi">
-              <div className="eyebrow eyebrow--light" data-i18n="candidates.eyebrow">For Candidates</div>
-              <h2 data-i18n="candidates.h2">Looking for Your<br />Next Career Move?</h2>
-              <p data-i18n="candidates.sub">Join thousands of professionals we&apos;ve successfully placed across Europe. Our service is completely <strong>free</strong> for candidates — always.</p>
+              <div className="eyebrow eyebrow--light" data-i18n="candidates.eyebrow">Pro uchazeče</div>
+              <h2 data-i18n="candidates.h2">Hledáte<br />novou kariérní příležitost?</h2>
+              <p data-i18n="candidates.sub">Pomáháme uchazečům najít vhodné pracovní uplatnění. Naše služba je pro uchazeče zcela <strong>zdarma</strong>.</p>
               {/* Rendered by script.js */}
               <div className="cand-benefits" id="candBenefits"></div>
               <div className="cand-ctas">
-                <a href="mailto:jobbohemiacz@gmail.com?subject=Job%20Application" className="btn btn-accent btn-lg" data-i18n="candidates.cta1">Send Your CV</a>
-                <a href="/contact" className="btn btn-outline-white btn-lg" data-i18n="candidates.cta2">Talk to a Recruiter</a>
+                <a href="mailto:jobbohemiacz@gmail.com?subject=Job%20Application" className="btn btn-accent btn-lg" data-i18n="candidates.cta1">Poslat životopis</a>
+                <a href="/contact" className="btn btn-outline-white btn-lg" data-i18n="candidates.cta2">Promluvit s náborářem</a>
               </div>
             </div>
             <div className="cand-visual fi d2" aria-hidden="true">
               <div className="cand-card">
-                <div className="cand-card__label" data-i18n="candidates.card.label">Currently recruiting for</div>
+                <div className="cand-card__label" data-i18n="candidates.card.label">Aktuálně hledáme</div>
                 {/* Rendered by script.js */}
                 <div className="cand-card__roles" id="candRoles"></div>
-                <a href="mailto:jobbohemiacz@gmail.com?subject=Job%20Application" className="cand-card__cta" data-i18n="candidates.card.link">View all positions →</a>
+                <a href="mailto:jobbohemiacz@gmail.com?subject=Job%20Application" className="cand-card__cta" data-i18n="candidates.card.link">Zobrazit všechny pozice →</a>
               </div>
             </div>
           </div>
@@ -103,12 +99,12 @@ export default function Offers() {
       <section className="section section--alt">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="pages.offersPostEyebrow">Post Your Requirement</div>
-            <h2 data-i18n="pages.offersPostH2">Looking for a Recruitment or Staffing Agency?</h2>
-            <p data-i18n="pages.offersPostSub">Tell us what you need and qualified agencies will be able to review your offer. Free, fast, and fully moderated.</p>
+            <div className="eyebrow" data-i18n="pages.offersPostEyebrow">Zadejte poptávku</div>
+            <h2 data-i18n="pages.offersPostH2">Hledáte personální nebo pracovní agenturu?</h2>
+            <p data-i18n="pages.offersPostSub">Napište nám, co potřebujete, a kvalifikované agentury si vaši poptávku budou moci prohlédnout. Zdarma, rychle a plně moderované.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
-            <a href="/submit-offer" className="btn btn-accent btn-lg" data-i18n="pages.offersPostBtn">Post Your Offer →</a>
+            <a href="/submit-offer" className="btn btn-accent btn-lg" data-i18n="pages.offersPostBtn">Zadat poptávku →</a>
           </div>
         </div>
       </section>

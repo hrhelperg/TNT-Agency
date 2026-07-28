@@ -186,7 +186,7 @@ const T = {
     candidates: {
       eyebrow: 'For Candidates',
       h2:      'Looking for Your<br>Next Career Move?',
-      sub:     'Join thousands of professionals we\'ve successfully placed across Europe. Our service is completely <strong>free</strong> for candidates — always.',
+      sub:     'We help candidates find suitable roles. Our service is completely <strong>free</strong> for candidates.',
       benefits: [
         { title: 'Free service — no fees, ever',       desc: 'We are paid by employers. You never pay a single cent.' },
         { title: 'Confidential & discreet',            desc: 'Your CV is never shared without your explicit permission.' },
@@ -490,7 +490,7 @@ const T = {
     candidates: {
       eyebrow: 'Pro uchazeče',
       h2:      'Hledáte<br>novou kariérní příležitost?',
-      sub:     'Přidejte se k tisícům profesionálů, které jsme úspěšně umístili po celé Evropě. Naše služba je pro uchazeče zcela <strong>zdarma</strong> — vždy.',
+      sub:     'Pomáháme uchazečům najít vhodné pracovní uplatnění. Naše služba je pro uchazeče zcela <strong>zdarma</strong>.',
       benefits: [
         { title: 'Zdarma — žádné poplatky, nikdy',    desc: 'Platí nám zaměstnavatelé. Vy nikdy neplatíte ani korunu.' },
         { title: 'Důvěrný a diskrétní přístup',       desc: 'Váš životopis nikdy nesdílíme bez vašeho výslovného souhlasu.' },
@@ -794,7 +794,7 @@ const T = {
     candidates: {
       eyebrow: 'Für Bewerber',
       h2:      'Auf der Suche nach Ihrer<br>nächsten Karrierechance?',
-      sub:     'Schließen Sie sich tausenden von Fachleuten an, die wir erfolgreich vermittelt haben. Unser Service ist für Bewerber vollständig <strong>kostenlos</strong> — immer.',
+      sub:     'Wir helfen Bewerbern, passende Stellen zu finden. Unser Service ist für Bewerber vollständig <strong>kostenlos</strong>.',
       benefits: [
         { title: 'Kostenlos — keine Gebühren, nie',     desc: 'Wir werden von Arbeitgebern bezahlt. Sie zahlen keinen einzigen Cent.' },
         { title: 'Vertraulich & diskret',               desc: 'Ihr Lebenslauf wird niemals ohne Ihre ausdrückliche Genehmigung weitergegeben.' },
@@ -1327,6 +1327,9 @@ sections.forEach(sec => navObserver.observe(sec));
 
 /* ----------------------------------------------------------------
    INIT — detect stored language preference
+   Czech is the primary market: the server renders Czech by default, so a clean
+   browser (no stored preference) stays Czech with no flash. A previously chosen
+   EN/DE preference is still honoured after hydration.
    ---------------------------------------------------------------- */
-const initLang = localStorage.getItem('tnt-lang') || 'en';
+const initLang = localStorage.getItem('tnt-lang') || 'cs';
 setLang(initLang);

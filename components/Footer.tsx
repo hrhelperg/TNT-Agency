@@ -22,7 +22,7 @@ export default function Footer() {
               </svg>
               <span className="logo__word">TalentPartner<span className="id">ID</span></span>
             </a>
-            <p data-i18n="footer.tagline">Partner pro nábor, agenturní zaměstnávání a řízení nákladů na pracovní sílu.</p>
+            <p data-i18n="footer.tagline">Váš spolehlivý partner v oblasti zaměstnávání. Spojujeme správné lidi se správnými firmami od prvního dne.</p>
             <address>Na Spravedlnosti 1533, Zelené Předměstí, 530 02 Pardubice</address>
           </div>
 
@@ -36,6 +36,7 @@ export default function Footer() {
             </div>
             <div className="footer__col">
               <div className="footer__col-title" data-i18n="footer.colNavigate">Navigace</div>
+              <a href="/o-nas">O nás a ověření agentury</a>
               <a href="/agencies" data-i18n="footer.navAgencies">Agentury</a>
               <a href="/offers" data-i18n="footer.navOffers">Nabídky</a>
               <a href="/kalkulacka-mzdy-agenturniho-zamestnance" data-i18n="footer.navCalc">Kalkulačka mezd</a>
@@ -71,10 +72,10 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <span data-i18n="footer.copy">© 2026 TalentPartnerID · Provozovatel: TNT agency s.r.o.</span>
+          <span data-i18n="footer.copy">© 2026 TNT agency s.r.o. Všechna práva vyhrazena.</span>
           <div className="footer__legal">
-            <a href="/terms.html" data-i18n="footer.terms">Terms</a>
-            <a href="/privacy-policy" data-i18n="footer.priv">Privacy</a>
+            <a href="/terms.html" data-i18n="footer.terms">Podmínky</a>
+            <a href="/privacy-policy" data-i18n="footer.priv">Ochrana dat</a>
             <a href="/cookies.html" data-i18n="footer.cook">Cookies</a>
           </div>
         </div>

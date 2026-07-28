@@ -1254,7 +1254,7 @@ export const KDE_OVERIT_INFORMACE_PRO_CIZINCE: SeoPage = {
     'Kde ověřit informace pro cizince v ČR – přehled oficiálních zdrojů: MV ČR (OAMP), Úřad práce ČR, MPSV, ČSSZ, zdravotní pojišťovny, finanční správa, MZV, SÚIP a EURES.',
   keywords: ['kde ověřit informace cizinci', 'oficiální zdroje cizinci', 'OAMP', 'Úřad práce ČR', 'ČSSZ finanční správa', 'EURES MZV SÚIP'],
   intro:
-    'Podmínky pobytu, práce, pojištění a daní se mohou měnit, a proto je u konkrétních údajů vždy nejlepší vyjít z oficiálního zdroje. Tato stránka přehledně shrnuje, která instituce je k jaké oblasti příslušná, abyste věděli, kde si aktuální informaci ověřit. Slouží jako rozcestník k oficiálním zdrojům celého clusteru. Záměrně neuvádíme konkrétní hodnoty (sazby, lhůty, poplatky) – ty patří právě do oficiálních zdrojů uvedených níže, které se průběžně aktualizují. Jde o obecné informace, nikoli o právní poradenství.',
+    'Podmínky pobytu, práce, pojištění a daní se mohou měnit, a proto je u konkrétních údajů vždy vhodné vyjít z oficiálního zdroje. Tato stránka přehledně shrnuje, která instituce je k jaké oblasti příslušná, abyste věděli, kde si aktuální informaci ověřit. Slouží jako rozcestník k oficiálním zdrojům celého clusteru. Záměrně neuvádíme konkrétní hodnoty (sazby, lhůty, poplatky) – ty patří právě do oficiálních zdrojů uvedených níže, které se průběžně aktualizují. Jde o obecné informace, nikoli o právní poradenství.',
   sections: [
     {
       heading: 'Pobyt a oprávnění',
