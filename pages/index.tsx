@@ -92,19 +92,17 @@ export default function Home() {
           <div className="hero__inner">
             <div className="hero__badge fi">
               <span className="badge-pulse" aria-hidden="true"></span>
-              <span data-i18n="hero.badge">Employment Agency · Talent. Network. Trust.</span>
+              <span data-i18n="hero.badge">Personální agentura · Talent. Síť. Důvěra.</span>
             </div>
             <h1 className="fi d1">
-              <span data-i18n="hero.h1a">We Connect</span><br />
-              <span data-i18n="hero.h1b">the Right People</span><br />
-              <span data-i18n="hero.h1c">with the Right</span> <span className="text-accent" data-i18n="hero.h1accent">Companies.</span>
+              <span data-i18n="hero.h1a">Spojujeme</span><br />
+              <span data-i18n="hero.h1b">správné lidi</span><br />
+              <span data-i18n="hero.h1c">se správnými</span> <span className="text-accent" data-i18n="hero.h1accent">firmami.</span>
             </h1>
-            <p className="hero__sub fi d2" data-i18n="hero.sub">
-              TalentPartnerID is your trusted recruitment partner — delivering qualified candidates for permanent roles, executive positions, and flexible staffing needs across all industries.
-            </p>
+            <p className="hero__sub fi d2" data-i18n="hero.sub">TNT agency s.r.o. je váš spolehlivý partner v oblasti náboru — dodáváme kvalifikované kandidáty na trvalé, manažerské i flexibilní pozice napříč všemi odvětvími.</p>
             <div className="hero__ctas fi d3">
-              <a href="/agencies" className="btn btn-accent btn-lg" data-i18n="hero.cta1">I&apos;m Looking for Talent</a>
-              <a href="/offers" className="btn btn-outline-white btn-lg" data-i18n="hero.cta2">I&apos;m Looking for a Job</a>
+              <a href="/agencies" className="btn btn-accent btn-lg" data-i18n="hero.cta1">Hledám pracovníky</a>
+              <a href="/offers" className="btn btn-outline-white btn-lg" data-i18n="hero.cta2">Hledám práci</a>
             </div>
           </div>
         </div>
@@ -115,28 +113,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* STATS STRIP */}
-      <section className="stats-strip" aria-label="Agency by the numbers">
+      {/* FOCUS STRIP — honest, non-quantified positioning (no unverified metrics).
+          The previous strip advertised unverifiable figures (500+/100+/24 h);
+          replaced with factual focus areas that need no numeric substantiation. */}
+      <section className="stats-strip" aria-label="Naše zaměření">
         <div className="container">
           <div className="stats-grid fi">
             <div className="stat-item">
-              <strong>500+</strong>
-              <span data-i18n="stats.s1">Successful Placements</span>
+              <strong>Výroba a logistika</strong>
+              <span>Zaměření na provozní profese</span>
             </div>
             <div className="stat-divider" aria-hidden="true"></div>
             <div className="stat-item">
-              <strong>100+</strong>
-              <span data-i18n="stats.s2">Partner Companies</span>
+              <strong>Přímý i agenturní</strong>
+              <span>Modely spolupráce podle potřeby</span>
             </div>
             <div className="stat-divider" aria-hidden="true"></div>
             <div className="stat-item">
-              <strong>12+</strong>
-              <span data-i18n="stats.s3">Industries Covered</span>
+              <strong>Zaměstnávání cizinců</strong>
+              <span>Podpora u povolení a karet</span>
             </div>
             <div className="stat-divider" aria-hidden="true"></div>
             <div className="stat-item">
-              <strong>24 h</strong>
-              <span data-i18n="stats.s4">First Candidates</span>
+              <strong>Odhad nákladů</strong>
+              <span>Kalkulačka ceny práce před poptávkou</span>
             </div>
           </div>
         </div>
@@ -165,12 +165,12 @@ export default function Home() {
       <section className="section section--alt" id="services">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="employers.eyebrow">For Employers</div>
-            <h2 data-i18n="employers.h2">Recruitment Services<br />Built Around Your Business</h2>
-            <p data-i18n="employers.sub">From a single hire to building entire departments — we have a solution that fits your hiring needs and timeline.</p>
+            <div className="eyebrow" data-i18n="employers.eyebrow">Pro zaměstnavatele</div>
+            <h2 data-i18n="employers.h2">Personální služby<br />přizpůsobené vašemu byznysu</h2>
+            <p data-i18n="employers.sub">Od jediné pozice po budování celých týmů — máme řešení, které odpovídá vašim potřebám a časovému harmonogramu.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
-            <a href="/agencies" className="btn btn-primary btn-lg">Explore Services &amp; Industries →</a>
+            <a href="/agencies" className="btn btn-primary btn-lg">Prozkoumat služby a odvětví →</a>
           </div>
         </div>
       </section>
@@ -180,12 +180,12 @@ export default function Home() {
         <div className="container">
           <div className="candidates__inner">
             <div className="fi">
-              <div className="eyebrow eyebrow--light" data-i18n="candidates.eyebrow">For Candidates</div>
-              <h2 data-i18n="candidates.h2">Looking for Your<br />Next Career Move?</h2>
-              <p data-i18n="candidates.sub">Join thousands of professionals we&apos;ve successfully placed across Europe. Our service is completely <strong>free</strong> for candidates — always.</p>
+              <div className="eyebrow eyebrow--light" data-i18n="candidates.eyebrow">Pro uchazeče</div>
+              <h2 data-i18n="candidates.h2">Hledáte<br />novou kariérní příležitost?</h2>
+              <p data-i18n="candidates.sub">Pomáháme uchazečům najít vhodné pracovní uplatnění. Naše služba je pro uchazeče zcela <strong>zdarma</strong>.</p>
               <div className="cand-ctas" style={{ marginTop: '32px' }}>
-                <a href="mailto:jobbohemiacz@gmail.com?subject=Job%20Application" className="btn btn-accent btn-lg" data-i18n="candidates.cta1">Send Your CV</a>
-                <a href="/offers" className="btn btn-outline-white btn-lg">Browse Offers →</a>
+                <a href="mailto:jobbohemiacz@gmail.com?subject=Job%20Application" className="btn btn-accent btn-lg" data-i18n="candidates.cta1">Poslat životopis</a>
+                <a href="/offers" className="btn btn-outline-white btn-lg">Procházet nabídky →</a>
               </div>
             </div>
           </div>
@@ -196,22 +196,22 @@ export default function Home() {
       <section className="section section--alt" id="marketplace">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow">Marketplace</div>
-            <h2>🚀 Get Clients or Find Agencies</h2>
-            <p>Whether you run a recruitment agency or need one — this is your place. Submit your profile or post your requirement in minutes.</p>
+            <div className="eyebrow">Tržiště</div>
+            <h2>🚀 Získejte klienty nebo najděte agentury</h2>
+            <p>Ať už provozujete personální agenturu, nebo ji hledáte — jste na správném místě. Zadejte svůj profil nebo poptávku během několika minut.</p>
           </div>
           <div className="cta-duo__grid">
             <div className="cta-duo__card fi d1">
               <div className="cta-duo__icon">🏢</div>
-              <h3>Are You an Agency?</h3>
-              <p>Get discovered by companies actively looking for recruitment and staffing partners. Submit your profile and reach new clients.</p>
-              <a href="/submit-agency" className="btn btn-accent btn-lg">Publish Your Agency</a>
+              <h3>Jste agentura?</h3>
+              <p>Nechte se najít firmami, které aktivně hledají partnery pro nábor a personální zajištění. Zadejte svůj profil a oslovte nové klienty.</p>
+              <a href="/submit-agency" className="btn btn-accent btn-lg">Zveřejnit agenturu</a>
             </div>
             <div className="cta-duo__card fi d2">
               <div className="cta-duo__icon">🔍</div>
-              <h3>Looking for an Agency?</h3>
-              <p>Post your requirements and let qualified agencies find you. Free, fast, and fully moderated before going live.</p>
-              <a href="/submit-offer" className="btn btn-primary btn-lg">Post Your Offer</a>
+              <h3>Hledáte agenturu?</h3>
+              <p>Zadejte své požadavky a nechte kvalifikované agentury, ať se ozvou vám. Zdarma, rychle a před zveřejněním ručně ověřené.</p>
+              <a href="/submit-offer" className="btn btn-primary btn-lg">Zadat poptávku</a>
             </div>
           </div>
         </div>
@@ -221,12 +221,12 @@ export default function Home() {
       <section className="section contact-teaser" id="contact-cta">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="contact.eyebrow">Get In Touch</div>
-            <h2 data-i18n="contact.h2">Ready to Find<br />Your Next Great Hire?</h2>
-            <p>Tell us about your open role. Na zprávy odpovídáme v pracovní dny.</p>
+            <div className="eyebrow" data-i18n="contact.eyebrow">Kontaktujte nás</div>
+            <h2 data-i18n="contact.h2">Připraveni najít<br />vašeho ideálního kandidáta?</h2>
+            <p>Napište nám o své volné pozici. Na zprávy odpovídáme v pracovní dny.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
-            <a href="/contact" className="btn btn-primary btn-lg">Send Us a Brief →</a>
+            <a href="/contact" className="btn btn-primary btn-lg">Poslat poptávku →</a>
           </div>
         </div>
       </section>

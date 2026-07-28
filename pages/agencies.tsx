@@ -42,11 +42,9 @@ export default function Agencies() {
       {/* PAGE HERO */}
       <section className="page-hero" id="home">
         <div className="container">
-          <div className="eyebrow eyebrow--light fi" data-i18n="pages.agenciesEyebrow">Agency Directory &amp; Services</div>
-          <h1 className="fi d1" data-i18n="pages.agenciesH1">Find the Right Agency Partner</h1>
-          <p className="page-hero__sub fi d2" data-i18n="pages.agenciesSub">
-            Browse verified recruitment and staffing agencies, explore our services, and discover how TalentPartnerID can fill your next role — fast.
-          </p>
+          <div className="eyebrow eyebrow--light fi" data-i18n="pages.agenciesEyebrow">Katalog agentur a služby</div>
+          <h1 className="fi d1" data-i18n="pages.agenciesH1">Najděte správného agenturního partnera</h1>
+          <p className="page-hero__sub fi d2" data-i18n="pages.agenciesSub">Procházejte ověřené personální a pracovní agentury, prozkoumejte naše služby a zjistěte, jak vám TalentPartnerID rychle obsadí další pozici.</p>
         </div>
         <div className="page-hero__wave" aria-hidden="true">
           <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,14 +58,12 @@ export default function Agencies() {
         <div className="container">
           <div className="listing-placeholder fi">
             <div className="listing-placeholder__icon">🏢</div>
-            <h3 data-i18n="pages.agenciesListTitle">Agency Listings Coming Soon</h3>
-            <p data-i18n="pages.agenciesListBody">
-              We&apos;re building this directory. Agencies are submitted by their owners and reviewed manually before appearing here. Be among the first to get listed.
-            </p>
-            <a href="/submit-agency" className="btn btn-accent btn-lg" data-i18n="pages.agenciesListBtn">Submit Your Agency</a>
+            <h3 data-i18n="pages.agenciesListTitle">Seznam agentur již brzy</h3>
+            <p data-i18n="pages.agenciesListBody">Katalog teprve budujeme. Agentury zadávají jejich majitelé a před zveřejněním je ručně kontrolujeme. Buďte mezi prvními v seznamu.</p>
+            <a href="/submit-agency" className="btn btn-accent btn-lg" data-i18n="pages.agenciesListBtn">Registrovat agenturu</a>
           </div>
           <p className="listing-cta-note fi d1" data-i18n="pages.agenciesCtaNote">
-            Are you a client looking for an agency? <a href="/submit-offer">Post your offer</a> and let agencies come to you.
+            Jste klient a hledáte agenturu? <a href="/submit-offer">Zadejte poptávku</a> a nechte agentury přijít za vámi.
           </p>
         </div>
       </section>
@@ -76,9 +72,9 @@ export default function Agencies() {
       <section className="section services section--alt" id="employers">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="employers.eyebrow">For Employers</div>
-            <h2 data-i18n="employers.h2">Recruitment Services<br />Built Around Your Business</h2>
-            <p data-i18n="employers.sub">From a single hire to building entire departments — we have a solution that fits your hiring needs and timeline.</p>
+            <div className="eyebrow" data-i18n="employers.eyebrow">Pro zaměstnavatele</div>
+            <h2 data-i18n="employers.h2">Personální služby<br />přizpůsobené vašemu byznysu</h2>
+            <p data-i18n="employers.sub">Od jediné pozice po budování celých týmů — máme řešení, které odpovídá vašim potřebám a časovému harmonogramu.</p>
           </div>
           {/* Rendered by script.js */}
           <div className="services-grid" id="svcGrid"></div>
@@ -89,14 +85,14 @@ export default function Agencies() {
       <section className="section process" id="process">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="process.eyebrow">How It Works</div>
-            <h2 data-i18n="process.h2">From Brief to Hire<br />in Three Steps</h2>
-            <p data-i18n="process.sub">A clear, efficient process that respects your time and delivers results — every time.</p>
+            <div className="eyebrow" data-i18n="process.eyebrow">Jak to funguje</div>
+            <h2 data-i18n="process.h2">Od zadání po nástup<br />ve třech krocích</h2>
+            <p data-i18n="process.sub">Jasný a efektivní proces, který respektuje váš čas a přináší výsledky — pokaždé.</p>
           </div>
           {/* Rendered by script.js */}
           <div className="process-steps" id="processSteps"></div>
           <div className="process-cta fi d4">
-            <a href="/contact" className="btn btn-primary btn-lg" data-i18n="process.cta">Book a Free Consultation</a>
+            <a href="/contact" className="btn btn-primary btn-lg" data-i18n="process.cta">Sjednat bezplatnou konzultaci</a>
           </div>
         </div>
       </section>
@@ -105,9 +101,9 @@ export default function Agencies() {
       <section className="section industries section--alt" id="industries">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="industries.eyebrow">Industries</div>
-            <h2 data-i18n="industries.h2">We Recruit Across<br />All Key Sectors</h2>
-            <p data-i18n="industries.sub">Deep specialization in each sector means faster results, better candidates, and smarter market insights for your business.</p>
+            <div className="eyebrow" data-i18n="industries.eyebrow">Odvětví</div>
+            <h2 data-i18n="industries.h2">Obsazujeme pozice<br />ve všech klíčových sektorech</h2>
+            <p data-i18n="industries.sub">Hluboká specializace v každém sektoru znamená rychlejší výsledky, lepší kandidáty a chytřejší tržní přehled pro váš byznys.</p>
           </div>
           {/* Rendered by script.js */}
           <div className="industries-grid" id="industriesGrid"></div>
@@ -119,8 +115,8 @@ export default function Agencies() {
       <section className="section why" id="about">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="why.eyebrow">Why TalentPartnerID</div>
-            <h2 data-i18n="why.h2">We Don&apos;t Just Fill Positions.<br />We Build Lasting Teams.</h2>
+            <div className="eyebrow" data-i18n="why.eyebrow">Proč TalentPartnerID</div>
+            <h2 data-i18n="why.h2">Neobsazujeme jen pozice.<br />Budujeme trvalé týmy.</h2>
           </div>
           {/* Rendered by script.js */}
           <div className="why-grid" id="whyGrid"></div>
@@ -128,27 +124,17 @@ export default function Agencies() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="section testimonials section--alt" id="testimonials">
-        <div className="container">
-          <div className="section-head fi">
-            <div className="eyebrow" data-i18n="testi.eyebrow">Client Reviews</div>
-            <h2 data-i18n="testi.h2">What Our Clients Say</h2>
-          </div>
-          {/* Rendered by script.js */}
-          <div className="testi-grid" id="testiGrid"></div>
-        </div>
-      </section>
 
       {/* SUBMIT CTA */}
       <section className="section">
         <div className="container">
           <div className="section-head fi">
-            <div className="eyebrow" data-i18n="pages.agGetEyebrow">Get Listed</div>
-            <h2 data-i18n="pages.agGetH2">Are You a Recruitment or Staffing Agency?</h2>
-            <p data-i18n="pages.agGetSub">Submit your profile and start getting discovered by companies looking for your exact services. Free, fast, and no account needed.</p>
+            <div className="eyebrow" data-i18n="pages.agGetEyebrow">Zviditelněte se</div>
+            <h2 data-i18n="pages.agGetH2">Jste personální nebo pracovní agentura?</h2>
+            <p data-i18n="pages.agGetSub">Zadejte svůj profil a začněte být vidět u firem, které hledají přesně vaše služby. Zdarma, rychle a bez registrace účtu.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
-            <a href="/submit-agency" className="btn btn-accent btn-lg" data-i18n="pages.agGetBtn">Submit Your Agency →</a>
+            <a href="/submit-agency" className="btn btn-accent btn-lg" data-i18n="pages.agGetBtn">Registrovat agenturu →</a>
           </div>
         </div>
       </section>

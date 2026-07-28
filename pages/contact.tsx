@@ -55,11 +55,9 @@ export default function Contact() {
       {/* PAGE HERO */}
       <section className="page-hero" id="home">
         <div className="container">
-          <div className="eyebrow eyebrow--light fi" data-i18n="contact.eyebrow">Get In Touch</div>
-          <h1 className="fi d1" data-i18n="pages.contactH1">Ready to Find Your Next Great Hire?</h1>
-          <p className="page-hero__sub fi d2" data-i18n="pages.contactSub">
-            Tell us about your open role. We reply on business days.
-          </p>
+          <div className="eyebrow eyebrow--light fi" data-i18n="contact.eyebrow">Kontaktujte nás</div>
+          <h1 className="fi d1" data-i18n="pages.contactH1">Chcete najít skvělého zaměstnance?</h1>
+          <p className="page-hero__sub fi d2" data-i18n="pages.contactSub">Napište nám o vaší volné pozici. Na zprávy odpovídáme v pracovní dny.</p>
         </div>
         <div className="page-hero__wave" aria-hidden="true">
           <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,9 +72,9 @@ export default function Contact() {
           <div className="contact__inner">
 
             <div className="contact__left fi">
-              <div className="eyebrow" data-i18n="contact.eyebrow">Get In Touch</div>
-              <h2 data-i18n="contact.h2">Ready to Find<br />Your Next Great Hire?</h2>
-              <p data-i18n="contact.sub">Tell us about your open role. Na zprávy odpovídáme v pracovní dny.</p>
+              <div className="eyebrow" data-i18n="contact.eyebrow">Kontaktujte nás</div>
+              <h2 data-i18n="contact.h2">Připraveni najít<br />vašeho ideálního kandidáta?</h2>
+              <p data-i18n="contact.sub">Řekněte nám o volné pozici. Na zprávy odpovídáme v pracovní dny.</p>
 
               <div className="contact-info">
 
@@ -87,7 +85,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <span className="contact-info__label" data-i18n="contact.labelPhone">Phone</span>
+                    <span className="contact-info__label" data-i18n="contact.labelPhone">Telefon</span>
                     <a href="tel:+420776858284">+420 776 858 284</a>
                   </div>
                 </div>
@@ -100,7 +98,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <span className="contact-info__label" data-i18n="contact.labelEmail">Email</span>
+                    <span className="contact-info__label" data-i18n="contact.labelEmail">E-mail</span>
                     <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
                   </div>
                 </div>
@@ -113,7 +111,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <span className="contact-info__label" data-i18n="contact.labelOffice">Office</span>
+                    <span className="contact-info__label" data-i18n="contact.labelOffice">Kancelář</span>
                     <span>Na Spravedlnosti 1533, 530 02 Pardubice</span>
                   </div>
                 </div>
@@ -126,8 +124,8 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <span className="contact-info__label" data-i18n="contact.labelHours">Business Hours</span>
-                    <span data-i18n="contact.hours">Mon–Fri: 8:00 – 17:00</span>
+                    <span className="contact-info__label" data-i18n="contact.labelHours">Pracovní doba</span>
+                    <span data-i18n="contact.hours">Po–Pá: 8:00 – 17:00</span>
                   </div>
                 </div>
 
@@ -146,9 +144,7 @@ export default function Contact() {
                   className="btn btn-primary btn-lg btn-full contact-cta-card__btn"
                   data-i18n="pages.cardBtn"
                   href="mailto:jobbohemiacz@gmail.com?subject=Popt%C3%A1vka%20%E2%80%93%20TalentPartnerID"
-                >
-                  Napsat e-mail
-                </a>
+                >Napsat e-mail</a>
                 <p className="contact-cta-card__line">
                   <span data-i18n="pages.cardEmailLabel">E-mail:</span> <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
                 </p>
