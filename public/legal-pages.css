@@ -1,0 +1,174 @@
+/* Dedicated stylesheet for the static legal documents (privacy / cookies / terms
+   in EN/CS/DE). Self-contained: it defines its own design tokens and every class
+   the legal HTML uses, so it does NOT depend on the bundled Next application CSS
+   (the root styles.css is imported into the Next bundle and is not served at the
+   web root). No @import, no framework, no remote CSS, no local font files —
+   the Inter web font is loaded by the pages themselves via a Google Fonts <link>. */
+
+:root {
+  --navy: #0d1e3d;
+  --accent: #f05a28;
+  --accent-dark: #c94415;
+  --bg: #ffffff;
+  --bg-alt: #f6f8fc;
+  --ink-2: #f3f6fb;
+  --text: #0d1e3d;
+  --text-2: #48576d;
+  --text-3: #64748b;
+  --border: #e8eef5;
+  --border-2: #d5dde8;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --maxw: 1160px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+
+/* Long German compounds (Datenschutzerklärung, Geschäftsbedingungen …) must wrap
+   rather than force horizontal overflow at 320px. */
+.legal-hero h1, .legal-body h1, .legal-body h2, .legal-body h3,
+.legal-body p, .legal-body li, .legal-lang a { overflow-wrap: break-word; word-break: break-word; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  overflow-x: hidden; /* belt-and-suspenders: no page-level horizontal scroll */
+}
+
+img, svg, table { max-width: 100%; }
+
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+
+/* Visible keyboard focus everywhere. */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Header chrome ─────────────────────────────────────────────────────────── */
+.header {
+  position: relative;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 68px;
+  flex-wrap: wrap;
+}
+.logo { display: inline-flex; align-items: baseline; text-decoration: none; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; }
+.logo__mark { color: var(--navy); }
+.logo__name { color: var(--accent); }
+.nav { display: flex; gap: 22px; margin-left: 8px; }
+.nav a { color: var(--text-2); text-decoration: none; font-size: .92rem; font-weight: 500; }
+.nav a:hover { color: var(--navy); }
+.header__right { margin-left: auto; }
+
+.btn {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.btn-primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn-primary:hover { background: #14284f; color: #fff; }
+.btn-sm { padding: 9px 16px; font-size: .88rem; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+/* ── Legal hero + body (consolidated from the pages' former inline styles) ──── */
+.legal-hero { padding: 72px 0 44px; background: var(--ink-2); border-bottom: 1px solid var(--border); }
+.legal-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 10px; color: var(--navy); line-height: 1.15; }
+.legal-hero p { font-size: .9rem; color: var(--text-2); margin: 0; }
+
+.legal-body { padding: 56px 0 80px; max-width: 760px; margin: 0 auto; }
+.legal-body h2 { font-size: 1.25rem; margin: 40px 0 14px; padding-top: 14px; border-top: 1px solid var(--border); color: var(--navy); }
+.legal-body h2:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+.legal-body h3 { font-size: 1rem; margin: 24px 0 8px; color: var(--navy); }
+.legal-body p, .legal-body li { font-size: .95rem; color: var(--text-2); line-height: 1.8; margin-bottom: 12px; }
+.legal-body ul { padding-left: 20px; list-style: disc; }
+.legal-body ul li { margin-bottom: 6px; }
+.legal-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.legal-body code { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: .85em; }
+
+/* Language switcher. */
+.legal-lang { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.legal-lang a { font-size: .82rem; font-weight: 600; padding: 4px 12px; border: 1px solid var(--border); border-radius: 6px; text-decoration: none; color: var(--text-2); }
+.legal-lang a:hover { border-color: var(--border-2); color: var(--navy); }
+.legal-lang a.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* Tables. table-layout:fixed + wrapping guarantees no horizontal overflow at 320px. */
+table.cookie-table, table.data-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: .88rem;
+}
+table.cookie-table th, table.cookie-table td,
+table.data-table th, table.data-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-2);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+table.cookie-table th, table.data-table th { color: var(--text); font-weight: 700; background: var(--bg-alt); }
+table.cookie-table tr:last-child td, table.data-table tr:last-child td { border-bottom: none; }
+
+/* ── Footer chrome ─────────────────────────────────────────────────────────── */
+.footer { background: var(--navy); color: rgba(255,255,255,.8); margin-top: 40px; }
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0;
+  font-size: .85rem;
+}
+.footer__legal { display: flex; flex-wrap: wrap; gap: 18px; }
+.footer__legal a { color: rgba(255,255,255,.8); text-decoration: none; }
+.footer__legal a:hover { color: #fff; text-decoration: underline; }
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .header .nav { display: none; } /* keep the header compact; legal nav lives in the footer */
+  .legal-hero { padding: 56px 0 36px; }
+  .legal-body { padding: 40px 0 64px; }
+}
+@media (max-width: 400px) {
+  .container { padding: 0 16px; }
+  table.cookie-table, table.data-table { font-size: .8rem; }
+  table.cookie-table th, table.cookie-table td,
+  table.data-table th, table.data-table td { padding: 8px 8px; }
+}
