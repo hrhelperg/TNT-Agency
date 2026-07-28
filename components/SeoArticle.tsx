@@ -174,6 +174,13 @@ export default function SeoArticle({ page, activePage = 'guides' }: SeoArticlePr
               <div dangerouslySetInnerHTML={{ __html: methodologyHtml }} />
               <div dangerouslySetInnerHTML={{ __html: sourcesHtml }} />
               <div dangerouslySetInnerHTML={{ __html: internalLinksHtml }} />
+              {/* Editorial responsibility + honest scope. No named specialist is
+                  claimed unless one really reviewed the page; "redakce" is a real
+                  editorial entity, not a fabricated author. */}
+              <p className="seo-editorial-note">
+                Redakčně zpracovala redakce {SITE.brand} na základě oficiálních zdrojů uvedených výše.
+                Obsah je obecná informace, nikoli individuální právní poradenství.
+              </p>
             </article>
           </div>
         </div>
