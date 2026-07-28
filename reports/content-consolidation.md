@@ -143,3 +143,29 @@ Do **not** fabricate listings or claim submissions that were not completed.
 3. Post-deploy Search Console actions (deploy access + GSC access — see the PR
    description): submit the updated sitemap once, and URL-inspect the ~10 sampled
    priority pages.
+
+---
+
+## 9. Batch A update — indexing-recovery-authority-graph (A7 re-review)
+
+Batch A performed **no consolidation, deletion or redirect** on content grounds.
+The near-duplicate region families in §2/§4 are **unchanged** and remain an owner
+decision (Option A/B/C). Adding internal links does **not** resolve
+near-duplication and is not represented as doing so.
+
+What Batch A did change, relevant to this review:
+
+- Added one homepage-reachable contextual entry point on the employer hub
+  (`/pro-zamestnavatele`) to the per-city recruitment pages and to the flagship
+  regional labour-market overview (`/trh-prace-stredocesky-kraj`). This lifts the
+  region/city families out of isolated cross-link clusters into contextual
+  reachability from the homepage — an **internal-discovery** improvement, not a
+  content change.
+- Re-ran the near-duplication scan (`reports/internal-authority-graph.json`): the
+  crawl still finds the same two 13-page region families as the only high-similarity
+  set. Batch A introduced **zero new URLs**, so no new near-duplicate pages.
+
+Net: the §8 owner decisions still stand. Batch A reduces the *internal-discovery*
+contribution to "Discovered – currently not indexed" (pages are now easier to reach
+and interlink); it does not, and cannot, by itself prove Google indexation — that
+requires the Search Console evidence listed in `reports/search-coverage-baseline.md`.
