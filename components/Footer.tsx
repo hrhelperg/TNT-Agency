@@ -36,6 +36,7 @@ export default function Footer() {
             </div>
             <div className="footer__col">
               <div className="footer__col-title" data-i18n="footer.colNavigate">Navigace</div>
+              <a href="/o-nas">O nás a ověření agentury</a>
               <a href="/agencies" data-i18n="footer.navAgencies">Agentury</a>
               <a href="/offers" data-i18n="footer.navOffers">Nabídky</a>
               <a href="/kalkulacka-mzdy-agenturniho-zamestnance" data-i18n="footer.navCalc">Kalkulačka mezd</a>

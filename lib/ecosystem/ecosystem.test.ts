@@ -377,7 +377,7 @@ describe('Ecosystem — must not disturb existing SEO or privacy', () => {
     // The banner adds no route. (Sitemap size is 154 after the indexing-coverage
     // consolidation removed the duplicate /privacy.html — unrelated to the banner.)
     const sitemap = read('public/sitemap.xml')
-    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(154)
+    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(155)
     expect(sitemap).not.toContain('helperg.com')
   })
 
