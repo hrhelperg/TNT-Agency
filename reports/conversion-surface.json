@@ -1,0 +1,86 @@
+{
+  "requestPath": "/poptavka-pracovniku",
+  "declaredSources": [
+    "homepage-calculator",
+    "dedicated-calculator",
+    "agency-comparison",
+    "agency-value",
+    "responsibility-matrix",
+    "employer-hub",
+    "service-page",
+    "direct"
+  ],
+  "emittedSurfaces": [
+    {
+      "source": "agency-comparison",
+      "files": [
+        "pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx"
+      ],
+      "wiredOn": 1,
+      "resolvesTo": "/poptavka-pracovniku",
+      "queryParam": "none"
+    },
+    {
+      "source": "agency-value",
+      "files": [
+        "components/HomeAgencyValue.tsx"
+      ],
+      "wiredOn": 1,
+      "resolvesTo": "/poptavka-pracovniku",
+      "queryParam": "none"
+    },
+    {
+      "source": "dedicated-calculator",
+      "files": [
+        "pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx"
+      ],
+      "wiredOn": 1,
+      "resolvesTo": "/poptavka-pracovniku",
+      "queryParam": "none"
+    },
+    {
+      "source": "employer-hub",
+      "files": [
+        "components/EmployerSituations.tsx",
+        "components/Header.tsx"
+      ],
+      "wiredOn": 2,
+      "resolvesTo": "/poptavka-pracovniku",
+      "queryParam": "none"
+    },
+    {
+      "source": "homepage-calculator",
+      "files": [
+        "components/HomePayrollCalculator.tsx"
+      ],
+      "wiredOn": 1,
+      "resolvesTo": "/poptavka-pracovniku",
+      "queryParam": "none"
+    },
+    {
+      "source": "responsibility-matrix",
+      "files": [
+        "components/ResponsibilityMatrix.tsx"
+      ],
+      "wiredOn": 1,
+      "resolvesTo": "/poptavka-pracovniku",
+      "queryParam": "none"
+    },
+    {
+      "source": "service-page",
+      "files": [
+        "components/SeoArticle.tsx"
+      ],
+      "wiredOn": 1,
+      "resolvesTo": "/poptavka-pracovniku",
+      "queryParam": "none"
+    }
+  ],
+  "declaredButNotEmittedOnLinks": [
+    "direct"
+  ],
+  "dynamicEmitterPresent": true,
+  "leakyRequestLinks": [],
+  "volume": "unknown (owner WebmasterID export required)",
+  "note": "Inventory of declared request CTAs only. Not a conversion rate or request volume."
+}

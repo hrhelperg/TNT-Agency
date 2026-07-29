@@ -42,7 +42,7 @@ _none_
 | route | contextual inbound | from Tier1 | contextual depth | depth from hub |
 |---|---|---|---|---|
 | / | 3 | 0 | 0 | 1 |
-| /kalkulacka-mzdy-agenturniho-zamestnance | 28 | 2 | 1 | 1 |
+| /kalkulacka-mzdy-agenturniho-zamestnance | 29 | 3 | 1 | 1 |
 | /nabor-zahranicnich-pracovniku | 68 | 7 | 3 | 1 |
 | /nabor-zamestnancu-hradec-kralove | 2 | 1 | 3 | 1 |
 | /nabor-zamestnancu-pardubice | 2 | 1 | 3 | 1 |

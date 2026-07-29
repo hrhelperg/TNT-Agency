@@ -2687,6 +2687,10 @@ p  { color: var(--text-2); line-height: 1.7; }
 
 .erf-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--s3); box-shadow: var(--shadow-sm); }
 .erf-card--muted { background: var(--bg-alt); }
+.erf-card--aids p { color: var(--text-2); font-size: 0.9rem; line-height: 1.55; margin-bottom: var(--s2); }
+.erf-aids { list-style: none; margin: 0; padding: 0 !important; display: flex; flex-direction: column; gap: 8px; }
+.erf-aids a { color: var(--brand, #f05a28); font-weight: 600; font-size: 0.92rem; text-decoration: underline; text-underline-offset: 2px; }
+.erf-aids a:hover { opacity: 0.85; }
 .erf-card h2 { font-size: 1.06rem; margin-bottom: var(--s2); letter-spacing: -0.01em; }
 .erf-card ul, .erf-card ol { margin: 0; padding-left: 1.15rem; }
 .erf-card li { color: var(--text-2); font-size: 0.93rem; line-height: 1.6; margin-bottom: 6px; }
