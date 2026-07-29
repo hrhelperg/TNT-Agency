@@ -184,7 +184,8 @@ export default function SeoArticle({ page, activePage = 'guides', topSlot }: Seo
                   editorial entity, not a fabricated author. */}
               <p className="seo-editorial-note">
                 Redakčně zpracovala redakce {SITE.brand} na základě oficiálních zdrojů uvedených výše.
-                Obsah je obecná informace, nikoli individuální právní poradenství.
+                Obsah je obecná informace, nikoli individuální právní poradenství. Přečtěte si naše{' '}
+                <a href="/redakcni-zasady">redakční zásady a zdroje</a>.
               </p>
             </article>
           </div>
