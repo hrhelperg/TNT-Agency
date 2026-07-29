@@ -112,7 +112,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <span className="contact-info__label" data-i18n="contact.labelOffice">Kancelář</span>
-                    <span>Na Spravedlnosti 1533, 530 02 Pardubice</span>
+                    <span>Na Spravedlnosti 1533, Zelené Předměstí, 530 02 Pardubice</span>
                   </div>
                 </div>
 

@@ -707,8 +707,29 @@ export const TRH_PRACE_STREDOCESKY_KRAJ: SeoPage = {
         'Vycházet z aktuálních regionálních dat ČSÚ a ÚP ČR',
       ],
     },
+    {
+      heading: 'Místně příslušné úřady pro zaměstnavatele ve Středočeském kraji',
+      body: [
+        'Zákonné povinnosti zaměstnavatele jsou celostátní, ale to, ke kterému pracovišti úřadu je zaměstnavatel adresuje, určuje územní (místní) příslušnost podle sídla či provozovny a místa výkonu práce. Středočeský kraj má v tomto ohledu zvláštní rys: obklopuje Prahu, nemá jediné vnitřní krajské město a část agend je organizačně provázána s hlavním městem — krajský úřad i oblastní inspektorát práce pro kraj sídlí v Praze. Příslušné pracoviště se proto vyplatí ověřit předem a nespoléhat na automatickou úvahu podle nejbližšího města.',
+        'Evidenci volných míst a oznámení při zaměstnávání cizinců přijímá místně příslušná krajská pobočka Úřadu práce ČR podle zákona o zaměstnanosti; konkrétní pobočku ověřte na oficiálním webu ÚP ČR. K pojistnému na sociální zabezpečení se zaměstnavatel přihlašuje u místně příslušné okresní správy sociálního zabezpečení (OSSZ), územního pracoviště ČSSZ. Pojistné na veřejné zdravotní pojištění odvádí zaměstnavatel zdravotní pojišťovně zaměstnance podle zákona o pojistném na veřejné zdravotní pojištění.',
+        'Dodržování pracovněprávních povinností a BOZP prověřuje oblastní inspektorát práce v gesci SÚIP podle zákona o inspekci práce; u Středočeského kraje je vhodné vědět, které pracoviště provozovnu pokrývá. Pobytová agenda cizinců spadá pod Odbor azylové a migrační politiky MV ČR podle zákona o pobytu cizinců bez ohledu na kraj, proto je vhodné koordinovat termíny podle místa pracoviště i bydliště pracovníka.',
+      ],
+      bullets: [
+        'Region neurčuje obsah povinností, ale to, které místně příslušné pracoviště je vyřizuje.',
+        'Příslušnou pobočku ÚP, OSSZ, zdravotní pojišťovny i oblastního inspektorátu ověřte předem na oficiálních webech.',
+        'Pobytová agenda (OAMP MV ČR) je celostátní a nezávisí na kraji.',
+      ],
+    },
   ],
   faq: [
+    {
+      q: 'Který úřad práce je příslušný pro zaměstnavatele ve Středočeském kraji?',
+      a: 'Evidenci volných míst a oznamovací povinnosti u zaměstnávání cizinců řeší krajská pobočka Úřadu práce ČR příslušná podle sídla nebo provozovny zaměstnavatele. Pravidla podle zákona o zaměstnanosti jsou celostátní; konkrétní příslušnou pobočku ověříte na webu Úřadu práce ČR.',
+    },
+    {
+      q: 'Který inspektorát práce kontroluje provoz v kraji?',
+      a: 'Dodržování pracovněprávních povinností a BOZP kontroluje místně příslušný oblastní inspektorát práce v působnosti Státního úřadu inspekce práce podle zákona o inspekci práce. Který inspektorát pokrývá vaši provozovnu, zjistíte na webu SÚIP.',
+    },
     {
       q: 'Jaká je nezaměstnanost ve Středočeském kraji?',
       a: 'Konkrétní míru nezaměstnanosti tato stránka neuvádí, protože se mění. Aktuální regionální údaje zveřejňuje Český statistický úřad a Úřad práce ČR.',
@@ -726,12 +747,15 @@ export const TRH_PRACE_STREDOCESKY_KRAJ: SeoPage = {
       a: 'Pomáhá nabídnout konkurenceschopné podmínky, plánovat nábor s předstihem a případně zapojit zahraniční pracovníky s ohledem na pravidla oprávnění. Vycházejte z aktuálních dat ÚP ČR a ČSÚ.',
     },
   ],
-  sources: [SRC.czso, SRC.upcr, SRC.mpsv],
+  sources: [SRC.czso, SRC.zakonOZamestnanosti, SRC.zakonSocialni, SRC.zakonZdravotni, SRC.zakonInspekcePrace, SRC.zakonOPobytuCizincu, SRC.cssz, SRC.suip, SRC.mvcr, SRC.upcr, SRC.mpsv],
   internalLinks: [
     { href: '/naklady-na-zamestnance-stredni-cechy', label: 'Náklady na zaměstnance ve Středních Čechách' },
     { href: '/nabor-zahranicnich-pracovniku', label: 'Nábor zahraničních pracovníků' },
     { href: '/zamestnavani-cizincu', label: 'Zaměstnávání cizinců v ČR' },
     { href: '/pracovni-povoleni-cr', label: 'Pracovní povolení v ČR' },
+    { href: '/kontrola-inspektoratu-prace', label: 'Kontrola inspektorátu práce' },
+    { href: '/socialni-pojisteni-cizincu', label: 'Sociální pojištění cizinců' },
+    { href: '/povinnosti-pri-zamestnavani-cizincu', label: 'Povinnosti při zaměstnávání cizinců' },
     faqHubLink,
   ],
   cta: {

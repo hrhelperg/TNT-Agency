@@ -165,7 +165,8 @@ export default function ONas() {
               Informace na tomto webu zpracováváme redakčně na základě oficiálních zdrojů (ČSÚ,
               MPSV, Úřad práce ČR, ČSSZ, MV ČR) a konkrétní čísla, sazby a lhůty odkazujeme přímo do
               těchto zdrojů. Nezobrazujeme vymyšlené údaje, když aktuální data nejsou k dispozici.
-              Jde o obecné informace, nikoli o individuální právní poradenství.
+              Jde o obecné informace, nikoli o individuální právní poradenství. Podrobně to popisují
+              naše <a href="/redakcni-zasady">redakční zásady a zdroje</a>.
             </p>
 
             <h2>Kontakt, stížnosti a ochrana údajů</h2>
@@ -179,7 +180,8 @@ export default function ONas() {
 
             <p className="seo-editorial-note">
               Redakčně zpracovala redakce TalentPartnerID na základě uvedených oficiálních zdrojů.
-              Obsah je obecná informace, nikoli individuální právní poradenství.
+              Obsah je obecná informace, nikoli individuální právní poradenství. Přečtěte si naše{' '}
+              <a href="/redakcni-zasady">redakční zásady a zdroje</a>.
             </p>
 
           </div>
