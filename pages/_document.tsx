@@ -1,10 +1,13 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import { SITE } from '../lib/content/rules'
+import { OPERATOR_EMAIL, OPERATOR_PHONE } from '../lib/content/trust-data'
 
 // Site-wide structured data: a single canonical Organization identity plus a
 // WebSite node. Kept consistent with the per-article publisher Organization so
-// no conflicting Organization identities are created. sameAs is emitted only
-// when confirmed social profile URLs are configured in SITE.social.
+// no conflicting Organization identities are created. Contact points derive from
+// the verified operator record (trust-data.ts); publishingPrinciples points to
+// the editorial-standards page. sameAs is emitted only when confirmed social
+// profile URLs are configured in SITE.social (no fabricated profiles).
 const organizationSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -13,6 +16,16 @@ const organizationSchema = JSON.stringify({
   url: SITE.baseUrl,
   logo: { '@type': 'ImageObject', url: `${SITE.baseUrl}/favicon.svg` },
   description: SITE.positioning,
+  email: OPERATOR_EMAIL,
+  telephone: OPERATOR_PHONE,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Na Spravedlnosti 1533',
+    addressLocality: 'Pardubice',
+    postalCode: '530 02',
+    addressCountry: 'CZ',
+  },
+  publishingPrinciples: `${SITE.baseUrl}/redakcni-zasady`,
   ...(SITE.social.length ? { sameAs: SITE.social } : {}),
 })
 
