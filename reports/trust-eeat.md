@@ -1,0 +1,23 @@
+# Trust / E-E-A-T — TalentPartnerID (Batch C)
+
+Third batch of the growth program (`reports/growth-program-plan.md` §4). Batch C makes the site's **experience, expertise, authoritativeness and trust** legible to users and crawlers using **only verifiable** signals. It adds **one** genuine trust page and regroups existing pages; it fabricates nothing.
+
+## Starting point (already strong)
+The map (5-agent understand pass) found the E-E-A-T foundation already honest: a sitewide `Organization` + `WebSite` JSON-LD, per-page `Article`/`FAQPage`/`BreadcrumbList` with an organisation-level "redakce" editorial note + methodology + sources blocks, a verification-gated o-nas page (permit fields withheld as "ověření probíhá"), and **zero** rating/review schema anywhere. Batch C fills the real gaps.
+
+## What changed
+1. **Editorial-standards page** — new `/redakcni-zasady` (`pages/redakcni-zasady.tsx`). It **restates already-published practice** (the o-nas "Jak ověřujeme obsah my" section + the per-article disclaimers): who writes the content (redakce TalentPartnerID; operator TNT agency s.r.o.), the official sources used (Sbírka zákonů, ČSÚ, MPSV, Úřad práce ČR, ČSSZ, MV ČR), the no-fabrication rules (no invented data/stats/ratings/testimonials; permit facts withheld until verified; no "ověřeno MPSV/licencováno státem"), freshness, and a correction contact. Identity is derived from `TRUST_DATA`. JSON-LD is `WebPage` + `BreadcrumbList` with a generic `Organization` publisher — **no** rating/review, **no** `EmploymentAgency`/`LocalBusiness`, **no** invented author/credentials.
+2. **Policy surfaced on every content page** — the SeoArticle editorial note (all ~150 content pages) and the o-nas note now link "redakční zásady a zdroje", connecting the "redakce" responsibility claim to a documented process.
+3. **Footer "Důvěra a transparentnost" trust cluster** — a labelled column grouping O nás a ověření agentury, Redakční zásady a zdroje, and Kontakt (localised via new `footer.colTrust`/`navAbout`/`navEditorial` keys, parity across cs/en/de). The legal strip (Podmínky/Ochrana dat/Cookies) stays at the bottom. Footer contact + address are now **single-sourced** from `TRUST_DATA` (drift-proof), and the grid steps 5→4→3→2→1 columns responsively (no horizontal overflow, verified at 320/375/768/1024/1440).
+4. **Truthful structured-data additions** — the sitewide `Organization` gains `publishingPrinciples` → `/redakcni-zasady` plus verified `email`/`telephone`/`address` from the operator record. The poptavka `Service.provider` now follows the site-wide `name`=brand/`legalName`=operator pattern. No new claim about the world; no `sameAs` (no confirmed profiles exist).
+5. **Identity consistency fix** — the contact-page seat string now includes "Zelené Předměstí" to match the verified `OPERATOR_SEAT` used everywhere else.
+6. **`validate:eeat` gate** — new site-wide, deterministic validator (`scripts/validate-eeat.js`, `npm run validate:eeat`), non-duplicative with the file-scoped validate-trust / conversion test / security-check. It fails on: any rating/review schema token anywhere; any Person-author node or fabricated credential/title (`hasCredential`/`jobTitle`/honorifics); any operator `legalName` literal ≠ "TNT agency s.r.o."; any state-endorsement phrase presented as fact (outside the honest negation sentence); or a missing/unlinked editorial-standards page. **224 app files scanned — PASS.**
+
+## Honesty boundary & deliberate non-actions
+- The verified contact email is a generic Gmail (`jobbohemiacz@gmail.com`). It is the operator's real, verified contact, used consistently everywhere; a branded `@talentpartnerid.com` address would be a **stronger** trust signal but is an **owner action** (must be a real, monitored mailbox) — not fabricated here.
+- The legacy `/agencies` / `/offers` / `/submit-agency` footer links (directory-model vocabulary; four service labels collapse onto one placeholder) are a UX/trust weakness noted for the owner — a positioning decision, out of Batch C scope.
+- IČO and agency-permit fields stay withheld ("ověření probíhá"); Batch C invents nothing for them.
+- Batch C makes **no** ranking/indexation claim; E-E-A-T is a quality signal, not an indexation guarantee.
+
+## Verification & gate
+Multi-agent: 5-agent understand map → change → adversarial trust/E-E-A-T review of the new page + schema. Gate (all green): `git diff --check` · typecheck · lint · **vitest 360/360** · `next build` · `validate:` **eeat** / trust / czech / czech-default / legal / i18n / sitemap / seo / tier1(rendered) · security · Playwright **7/7** (footer overflow at 5 breakpoints). Authority graph unchanged-healthy (156 canonical, 0 orphans, 0 Tier 1–3 near-orphans, 14/14 Tier 1 inbound).
