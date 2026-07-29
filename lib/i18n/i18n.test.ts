@@ -54,9 +54,14 @@ describe('localization completeness & integrity', () => {
   it('6,7. legal entity and contact email are preserved unchanged (never translated to a variant)', () => {
     // The validator flags altered forms; assert none were flagged.
     expect(result.errors.filter((e: string) => /legal-entity|contact email/i.test(e))).toEqual([]);
-    // Markup still carries the exact identifiers.
+    // Markup still carries the exact legal entity; the contact email is now
+    // single-sourced from the verified operator record (OPERATOR_EMAIL in
+    // trust-data.ts) rather than a repeated literal, so it can never drift or be
+    // translated — assert the binding and that the constant holds the exact value.
     expect(FOOTER).toContain('TNT agency s.r.o.');
-    expect(FOOTER).toContain('jobbohemiacz@gmail.com');
+    expect(FOOTER).toContain('OPERATOR_EMAIL');
+    const TRUST = fs.readFileSync(path.join(ROOT, 'lib/content/trust-data.ts'), 'utf8');
+    expect(TRUST).toContain("OPERATOR_EMAIL = 'jobbohemiacz@gmail.com'");
     // The identifier itself is byte-identical across every language block.
     for (const l of LANGS as string[]) {
       const emails = Array.from(regions[l].matchAll(/jobbohemiacz@[\w.]+/g), (m: RegExpMatchArray) => m[0]);

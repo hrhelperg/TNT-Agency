@@ -8,16 +8,16 @@ _Diagnostic model of internal discovery. The authority score is a relative inter
 
 | metric | value |
 |---|---|
-| canonical | 155 |
-| sitemap | 155 |
+| canonical | 156 |
+| sitemap | 156 |
 | tier1 | 14 |
 | tier2 | 73 |
-| tier3 | 57 |
+| tier3 | 58 |
 | tier4 | 11 |
 | orphans | 0 |
 | nearOrphans | 4 |
-| avgDepthAll | 2.52 |
-| avgDepthContextual | 3.26 |
+| avgDepthAll | 2.51 |
+| avgDepthContextual | 3.25 |
 | unreachableContextual | 3 |
 | tier1WithContextualInbound | 14 |
 | tier2WithContextualInbound | 73 |
@@ -32,21 +32,21 @@ _none_
 
 | route | tier | contextual inbound | contextual depth | chrome inbound |
 |---|---|---|---|---|
-| /cookies.html | 4 | 2 | 5 | 146 |
+| /cookies.html | 4 | 2 | 5 | 147 |
 | /terms-cs.html | 4 | 2 | ∞ | 4 |
 | /terms-de.html | 4 | 2 | ∞ | 2 |
-| /terms.html | 4 | 2 | ∞ | 146 |
+| /terms.html | 4 | 2 | ∞ | 147 |
 
 ## Tier 1 discovery
 
 | route | contextual inbound | from Tier1 | contextual depth | depth from hub |
 |---|---|---|---|---|
 | / | 3 | 0 | 0 | 1 |
-| /kalkulacka-mzdy-agenturniho-zamestnance | 28 | 2 | 1 | 1 |
+| /kalkulacka-mzdy-agenturniho-zamestnance | 29 | 3 | 1 | 1 |
 | /nabor-zahranicnich-pracovniku | 68 | 7 | 3 | 1 |
 | /nabor-zamestnancu-hradec-kralove | 2 | 1 | 3 | 1 |
 | /nabor-zamestnancu-pardubice | 2 | 1 | 3 | 1 |
-| /o-nas | 3 | 3 | 1 | 1 |
+| /o-nas | 4 | 3 | 1 | 1 |
 | /poptavka-pracovniku | 81 | 10 | 1 | 1 |
 | /pracovnici-do-logistiky | 14 | 2 | 3 | 1 |
 | /pracovnici-do-skladu | 3 | 1 | 3 | 1 |

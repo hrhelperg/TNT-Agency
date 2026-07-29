@@ -1,0 +1,22 @@
+# B2B conversion system — TalentPartnerID (Batch D)
+
+Final batch of the growth program (`reports/growth-program-plan.md` §5). Batch D **refines** the existing conversion system — it does not rebuild it. The prior "Phases C/D/E-Lite" work already shipped a mature, **backend-free, mailto-first** request flow; the 5-agent understand map confirmed most of the plan's items 1–2 and the measurement hygiene were already in place. Batch D closes the genuine gaps and locks the honest state with a site-wide gate.
+
+## Already in place (verified, not rebuilt)
+- **Request path complete** — the form captures profession, headcount, city + region (14 kraje), employment model, shift model, start date, duration, weekly hours, experience/languages/PPE/medical/foreign-worker support, budget, and consent; `buildRequestBody` emits a pre-structured, grouped mailto body with a reference number, copy/paste fallback, webmail steps, GDPR notice, and "prepared, not sent" honesty.
+- **CTA hygiene clean** — every request CTA resolves to the bare canonical `/poptavka-pracovniku` (no query param); the surface hint travels via `data-request-source` captured to `sessionStorage`, never the URL; 8 declared `CtaSource` labels, no undeclared or sensitive values.
+- **Privacy-first measurement already present** — one consent-gated WebmasterID tracker (no cookies, anonymous ids, no form/calculator values; mailto sends classified "no event"); no backend, no `pages/api`, no PII.
+
+## What Batch D added
+1. **Decision aids at peak intent** — the request page was a dead end (outbound contextual = 1). A "Než odešlete poptávku" block now surfaces three plain anchors: the calculator's **agency-vs-direct comparison** (`#srovnani`), *Kolik stojí zaměstnanec*, and *Skutečné náklady na zaměstnance*. Framed as an estimate tool ("model your own numbers"), **never** quantified or guaranteed savings. This also lifts two under-linked cost pages (5 and 7 contextual inbound) from a Tier 1 page. cs/en/de.
+2. **Objection-handling FAQ** — four honest, source-referenced buyer answers added to the request FAQ (cs/en/de, parity-enforced): foreign-worker/agency legality + inspection risk; agency price structure / hidden fees; responsibility split (OSH/PPE/wages/paperwork); who receives the data + agency authorisation. Each defers detail to existing deep pages (employing-foreigners, calculator comparison, how-an-agency-works, o-nas). **No** invented processing times, savings, or guarantees; the §14 permit is attributed to the agency (TNT agency s.r.o.), never a claimed permit number.
+3. **Measurement inventory** — `scripts/conversion-surface.js` → `reports/conversion-surface.{json,md}`: a deterministic inventory of every **declared** request CTA (surface label, components/pages, canonical resolution). It plainly states request **volume/completion is unmeasurable client-side** (sources ride in `sessionStorage`; mailto = "no event"), recorded as **unknown (owner WebmasterID export required)** — mirroring the Batch A coverage baseline. No new tracker, no PII.
+4. **`validate:conversion` gate** — new site-wide validator (`scripts/validate-conversion.js`, `npm run validate:conversion`) extending the component-scoped `conversion.test.ts` to the whole tree. Fails on: any request link carrying a `?query`/`#hash`; any undeclared `data-request-source` value; any transmission API (fetch/XHR/beacon/gtag/dataLayer/axios/ajax/WebSocket/EventSource) in the request path; any backend/API/Supabase surface; loss of the mailto-only transport; or a fabricated conversion metric in conversion copy. **PASS** (8 CtaSources, 14 request-path files).
+
+## Honesty boundary & non-actions
+- **No backend** was introduced (the deliberate zero-backend mailto model stands; file attachments remain a client-side action, not a defect).
+- **No conversion metric is claimed** — request volume/completion is unmeasurable in-repo and is never fabricated or inferred from CTA counts.
+- The legacy `/submit-offer` request destination and `/agencies` links remain owner-decision cleanups (out of scope), noted in prior reports.
+
+## Gate
+`git diff --check` · typecheck · lint · **vitest 360/360** · `next build` · `validate:` **conversion** / eeat / trust / czech / czech-default / i18n / sitemap / seo / legal / tier1(rendered) · security · browser QA. Authority graph healthy; the request page's contextual outbound rises from 1 to 4 (decision aids), fixing the peak-intent dead end.
