@@ -273,8 +273,29 @@ export const NABOR_ZAHRANICNICH_PRACOVNIKU: SeoPage = {
         'Sledování platnosti a prodloužení oprávnění',
       ],
     },
+    {
+      heading: 'Etický a odpovědný nábor cizinců: ochrana pracovníků a výběr zprostředkovatele',
+      body: [
+        'Zákon o zaměstnanosti zakazuje agentuře práce požadovat od zprostředkovávané fyzické osoby úhradu za zprostředkování zaměstnání — náklady náboru nese zaměstnavatel (uživatel), nikoli zahraniční pracovník. Požadavek poplatku po pracovníkovi je varovným signálem neetického zprostředkování.',
+        'Princip rovného zacházení podle zákoníku práce znamená, že pracovní a mzdové podmínky dočasně přiděleného zahraničního pracovníka nesmějí být horší než podmínky srovnatelného kmenového zaměstnance uživatele; za jejich zajištění odpovídá agentura i uživatel. Zprostředkovávat zaměstnání smí jen subjekt s platným povolením ke zprostředkování podle zákona o zaměstnanosti a agentury jsou vedeny ve veřejné evidenci — vhodné je vyhnout se řetězení neověřených zprostředkovatelů.',
+        'Mezi typická rizika neetického náboru u cizinců patří zadržování cestovních či pobytových dokladů, dluhová vázanost pracovníka, skrytý nábor mimo legální rámec a nelegální práce ve smyslu zákona o zaměstnanosti; tato praxe má právní i reputační dopad na zaměstnavatele. Dozor nad dodržováním pravidel zprostředkování, rovného zacházení a zákazu nelegální práce vykonává Státní úřad inspekce práce a oblastní inspektoráty, přičemž uživatel nese spoluodpovědnost, nikoli jen agentura.',
+      ],
+      bullets: [
+        'Transparentně informujte kandidáty o průběhu náboru a nakládání s jejich údaji.',
+        'Smluvně vymezte odpovědnost mezi agenturou a uživatelem a evidujte platnost oprávnění.',
+        'Zajistěte doklad o tom, že pracovník za zprostředkování nic nehradí.',
+      ],
+    },
   ],
   faq: [
+    {
+      q: 'Může agentura po zahraničním pracovníkovi požadovat poplatek za zprostředkování práce?',
+      a: 'Ne. Zákon o zaměstnanosti zakazuje agentuře práce požadovat od zprostředkovávané fyzické osoby úhradu za zprostředkování zaměstnání. Náklady náboru nese zaměstnavatel, resp. uživatel. Pokud je poplatek po pracovníkovi požadován, je to varovný signál neetického zprostředkování.',
+    },
+    {
+      q: 'Musí mít agenturní zahraniční pracovník stejné podmínky jako kmenoví zaměstnanci?',
+      a: 'Zákoník práce stanoví princip rovného zacházení: pracovní a mzdové podmínky dočasně přiděleného pracovníka nesmějí být horší než u srovnatelného zaměstnance uživatele. Za jejich dodržení odpovídá agentura i uživatel.',
+    },
     {
       q: 'Jak dlouho nábor zahraničního pracovníka trvá?',
       a: 'Délka závisí na zemi původu, typu oprávnění a aktuálních lhůtách úřadů. U pozic vyžadujících povolení je třeba počítat s časem na povolovací řízení. Aktuální lhůty zveřejňuje Úřad práce ČR a Ministerstvo vnitra.',
@@ -295,6 +316,9 @@ export const NABOR_ZAHRANICNICH_PRACOVNIKU: SeoPage = {
   sources: [
     SRC.zakonOZamestnanosti,
     SRC.zakonOPobytuCizincu,
+    SRC.zakonikPrace,
+    SRC.zakonInspekcePrace,
+    SRC.suip,
     SRC.upcr,
     SRC.mvcr,
     SRC.eures,
@@ -304,6 +328,8 @@ export const NABOR_ZAHRANICNICH_PRACOVNIKU: SeoPage = {
     { href: '/pracovni-povoleni-cr', label: 'Jak funguje pracovní povolení' },
     { href: '/dokumenty-pro-zamestnani-cizincu', label: 'Potřebné dokumenty pro zaměstnání cizinců' },
     { href: '/jak-funguje-pracovni-agentura', label: 'Jak funguje pracovní agentura' },
+    { href: '/kontrola-inspektoratu-prace', label: 'Jak probíhá kontrola inspektorátu práce' },
+    { href: '/legalizace-prace-cizincu', label: 'Legální zaměstnání cizinců krok za krokem' },
     { href: '/ubytovani-pro-pracovniky', label: 'Ubytování pro pracovníky' },
     { href: '/chyby-pri-zamestnavani-cizincu', label: 'Nejčastější chyby při zaměstnávání cizinců' },
     { href: '/nedostatek-pracovniku-v-cr', label: 'Nedostatek pracovníků v ČR' },
