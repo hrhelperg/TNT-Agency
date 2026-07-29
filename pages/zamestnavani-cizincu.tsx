@@ -22,6 +22,7 @@ const articleSchema = {
   publisher: {
     '@type': 'Organization',
     name: 'TalentPartnerID',
+    legalName: 'TNT agency s.r.o.',
     url: 'https://talentpartnerid.com',
     logo: {
       '@type': 'ImageObject',
