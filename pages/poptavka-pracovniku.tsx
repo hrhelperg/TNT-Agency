@@ -29,7 +29,8 @@ const serviceSchema = {
   areaServed: { '@type': 'Country', name: 'Česká republika' },
   provider: {
     '@type': 'Organization',
-    name: OPERATOR,
+    name: SITE.brand,
+    legalName: OPERATOR,
     email: OPERATOR_EMAIL,
     url: `${SITE.baseUrl}/`,
   },

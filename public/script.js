@@ -285,6 +285,9 @@ const T = {
       navContact:   'Contact',
       navTaxes:     'Social & health contributions 2026',
       navBlog:      'Blog',
+      colTrust:     'Trust & transparency',
+      navAbout:     'About & agency verification',
+      navEditorial: 'Editorial standards & sources',
       guide1: 'Employing foreigners',
       guide2: 'Work permit in the Czech Republic',
       guide3: 'Recruiting foreign workers',
@@ -589,6 +592,9 @@ const T = {
       navContact:   'Kontakt',
       navTaxes:     'Sociální a zdravotní odvody 2026',
       navBlog:      'Blog',
+      colTrust:     'Důvěra a transparentnost',
+      navAbout:     'O nás a ověření agentury',
+      navEditorial: 'Redakční zásady a zdroje',
       guide1: 'Zaměstnávání cizinců',
       guide2: 'Pracovní povolení v ČR',
       guide3: 'Nábor zahraničních pracovníků',
@@ -893,6 +899,9 @@ const T = {
       navContact:   'Kontakt',
       navTaxes:     'Sozial- und Krankenversicherung 2026',
       navBlog:      'Blog',
+      colTrust:     'Vertrauen & Transparenz',
+      navAbout:     'Über uns & Agenturprüfung',
+      navEditorial: 'Redaktionsrichtlinien & Quellen',
       guide1: 'Ausländer beschäftigen',
       guide2: 'Arbeitserlaubnis in Tschechien',
       guide3: 'Rekrutierung ausländischer Arbeitskräfte',
@@ -1182,6 +1191,9 @@ function renderAll(lang) {
   qs('[data-i18n="footer.navContact"]',   t.footer.navContact);
   qs('[data-i18n="footer.navTaxes"]',     t.footer.navTaxes);
   qs('[data-i18n="footer.navBlog"]',      t.footer.navBlog);
+  qs('[data-i18n="footer.colTrust"]',     t.footer.colTrust);
+  qs('[data-i18n="footer.navAbout"]',     t.footer.navAbout);
+  qs('[data-i18n="footer.navEditorial"]', t.footer.navEditorial);
   qs('[data-i18n="footer.guide1"]',       t.footer.guide1);
   qs('[data-i18n="footer.guide2"]',       t.footer.guide2);
   qs('[data-i18n="footer.guide3"]',       t.footer.guide3);
