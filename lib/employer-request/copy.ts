@@ -72,6 +72,12 @@ export interface RequestCopy {
   whatWeNeed: string[]
   privacyNote: string
   noValuesNote: string
+  // Decision aids surfaced before the request (calculator / cost overviews).
+  // Plain internal anchors, no query params; framed as estimate tools, never
+  // as quantified/guaranteed savings.
+  decisionAidsTitle: string
+  decisionAidsLead: string
+  decisionAids: Array<{ href: string; label: string }>
   faqTitle: string
   faq: Array<{ q: string; a: string }>
 }
@@ -278,6 +284,14 @@ const cs: RequestCopy = {
     `Správcem údajů z tohoto formuláře je ${OPERATOR}, kontakt ${OPERATOR_EMAIL}.`,
   noValuesNote:
     'Hodnoty zadané v mzdové kalkulačce se do poptávky nepřenášejí. Rozpočet uvádíte pouze vy, ručně, pokud chcete.',
+  decisionAidsTitle: 'Než odešlete poptávku',
+  decisionAidsLead:
+    'Nezávazně si namodelujte a porovnejte náklady. Kalkulačka počítá jen ve vašem prohlížeči a nic z ní se do poptávky nepřenáší.',
+  decisionAids: [
+    { href: '/kalkulacka-mzdy-agenturniho-zamestnance#srovnani', label: 'Spočítejte a porovnejte náklady: agentura vs. přímý nábor' },
+    { href: '/kolik-stoji-zamestnanec', label: 'Kolik stojí zaměstnanec' },
+    { href: '/skutecne-naklady-na-zamestnance', label: 'Skutečné náklady na zaměstnance' },
+  ],
   faqTitle: 'Časté dotazy k poptávce',
   faq: [
     {
@@ -295,6 +309,22 @@ const cs: RequestCopy = {
     {
       q: 'Přenášejí se do poptávky částky z kalkulačky?',
       a: 'Ne. Kalkulačka počítá pouze ve vašem prohlížeči a žádnou hodnotu do poptávky, adresy stránky ani analytiky nepředává.',
+    },
+    {
+      q: 'Je nábor cizinců přes agenturu legální a co hrozí při kontrole?',
+      a: 'Zaměstnávat lze až po nabytí platnosti potřebných oprávnění; dřívější nástup se posuzuje jako nelegální práce. Zprostředkování zaměstnání smí provádět jen subjekt s platným povolením a agentury jsou vedeny ve veřejné evidenci. Platí rovné zacházení – podmínky dočasně přiděleného pracovníka nesmí být horší než u srovnatelného kmenového zaměstnance a pracovník za zprostředkování nikdy nic nehradí; dodržování kontroluje inspekce práce. Agentura přebírá dokumenty cizinců, spoluodpovědnost ale nese i uživatel. Konkrétní lhůty ani bezproblémovou kontrolu neslibujeme; podrobnosti najdete na stránkách o zaměstnávání cizinců. Jde o obecnou informaci, nikoli o právní poradenství.',
+    },
+    {
+      q: 'Z čeho se skládá cena agentury a nejsou v ní skryté poplatky?',
+      a: 'Fakturovaná cena obvykle zahrnuje přeúčtované mzdové náklady (hrubá mzda a zákonné odvody zaměstnavatele), přeúčtované provozní náklady a odměnu agentury; DPH je na samostatném řádku. Jde o provozní, nikoli daňovou úsporu – mzda pracovníka se agenturou nesnižuje. Konkrétní čísla si namodelujte v kalkulačce v režimu porovnání; žádné paušální „ušetříte X %“ neuvádíme.',
+    },
+    {
+      q: 'Kdo za co odpovídá – BOZP, OOPP, mzdy, dokumentace?',
+      a: 'Orientačně: agentura zajišťuje pracovní smlouvu, mzdy, odvody a dokumenty cizinců; uživatel (vaše firma) řídí každodenní práci a pokyny; BOZP, docházka a ukončení bývají sdílené; OOPP, vstupní prohlídka, ubytování a doprava se sjednávají smluvně. Přesné rozdělení vždy určuje smlouva a nejde o právní poradenství. Více o fungování agentury najdete v průvodci.',
+    },
+    {
+      q: 'Komu posílám firemní údaje a je agentura oprávněná?',
+      a: `Správcem údajů z formuláře je ${OPERATOR}. Zprostředkování zaměstnání smí v ČR provádět jen subjekt s platným povolením podle zákona o zaměstnanosti a agentury jsou vedeny ve veřejné evidenci, kterou si můžete ověřit. Ověřené identifikační údaje a postup ověření agentury najdete na stránce O nás.`,
     },
   ],
 }
@@ -459,6 +489,14 @@ const en: RequestCopy = {
     `The controller of the data from this form is ${OPERATOR}, contact ${OPERATOR_EMAIL}.`,
   noValuesNote:
     'Values entered in the payroll calculator are not transferred into the request. A budget is provided only by you, manually, if you choose to.',
+  decisionAidsTitle: 'Before you send your request',
+  decisionAidsLead:
+    'Model and compare the costs with no obligation. The calculator runs only in your browser and nothing from it is carried into the request.',
+  decisionAids: [
+    { href: '/kalkulacka-mzdy-agenturniho-zamestnance#srovnani', label: 'Calculate and compare costs: agency vs. direct hiring' },
+    { href: '/kolik-stoji-zamestnanec', label: 'How much an employee costs' },
+    { href: '/skutecne-naklady-na-zamestnance', label: 'The real cost of an employee' },
+  ],
   faqTitle: 'Request FAQ',
   faq: [
     {
@@ -476,6 +514,22 @@ const en: RequestCopy = {
     {
       q: 'Are calculator amounts transferred into the request?',
       a: 'No. The calculator runs only in your browser and passes no value into the request, the page address or analytics.',
+    },
+    {
+      q: 'Is recruiting foreign workers through an agency legal, and what is the inspection risk?',
+      a: 'Work may begin only once the required permits are valid; an earlier start is treated as illegal work. Only a holder of a valid mediation permit may provide employment mediation, and agencies are listed in a public register. Equal treatment applies — a temporarily assigned worker’s conditions may be no worse than a comparable core employee’s, and the worker never pays a mediation fee; compliance is supervised by the labour inspectorate. The agency handles foreigners’ documents, but the user shares responsibility. We promise no specific processing times or a trouble-free inspection; details are on our pages about employing foreigners. This is general information, not legal advice.',
+    },
+    {
+      q: 'What makes up the agency price, and are there hidden fees?',
+      a: 'The invoiced price typically covers re-charged payroll costs (gross wage plus the employer’s statutory contributions), re-charged operating costs and the agency’s fee; VAT is a separate line. It is an operational, not a tax, saving — the worker’s wage is not reduced through the agency. Model the actual figures in the calculator’s comparison mode; we state no blanket “save X%”.',
+    },
+    {
+      q: 'Who is responsible for what — OSH, PPE, wages, paperwork?',
+      a: 'As a guide: the agency provides the employment contract, wages, contributions and foreigners’ documents; the user (your company) directs the day-to-day work; OSH, attendance and termination are usually shared; PPE, entry medicals, accommodation and transport are agreed contractually. The exact split is always set by the contract and this is not legal advice. See the guide on how an agency works.',
+    },
+    {
+      q: 'Who am I sending company data to, and is the agency authorised?',
+      a: `The controller of the form data is ${OPERATOR}. In the Czech Republic, employment mediation may be provided only by a holder of a valid permit under the Employment Act, and agencies are listed in a public register you can check. Verified identification details and how to verify an agency are on our About page.`,
     },
   ],
 }
@@ -640,6 +694,14 @@ const de: RequestCopy = {
     `Verantwortlich für die Daten aus diesem Formular ist ${OPERATOR}, Kontakt ${OPERATOR_EMAIL}.`,
   noValuesNote:
     'Im Lohnrechner eingegebene Werte werden nicht in die Anfrage übernommen. Ein Budget geben ausschließlich Sie selbst manuell an, wenn Sie möchten.',
+  decisionAidsTitle: 'Bevor Sie Ihre Anfrage senden',
+  decisionAidsLead:
+    'Modellieren und vergleichen Sie die Kosten unverbindlich. Der Rechner läuft nur in Ihrem Browser und nichts davon wird in die Anfrage übernommen.',
+  decisionAids: [
+    { href: '/kalkulacka-mzdy-agenturniho-zamestnance#srovnani', label: 'Kosten berechnen und vergleichen: Agentur vs. Direkteinstellung' },
+    { href: '/kolik-stoji-zamestnanec', label: 'Was ein Mitarbeiter kostet' },
+    { href: '/skutecne-naklady-na-zamestnance', label: 'Die tatsächlichen Kosten eines Mitarbeiters' },
+  ],
   faqTitle: 'Häufige Fragen zur Anfrage',
   faq: [
     {
@@ -657,6 +719,22 @@ const de: RequestCopy = {
     {
       q: 'Werden Beträge aus dem Rechner in die Anfrage übernommen?',
       a: 'Nein. Der Rechner läuft ausschließlich in Ihrem Browser und übergibt keinen Wert an die Anfrage, die Seitenadresse oder die Analyse.',
+    },
+    {
+      q: 'Ist die Anwerbung ausländischer Arbeitskräfte über eine Agentur legal, und wie hoch ist das Kontrollrisiko?',
+      a: 'Die Arbeit darf erst beginnen, wenn die erforderlichen Genehmigungen gültig sind; ein früherer Antritt gilt als illegale Arbeit. Nur ein Inhaber einer gültigen Vermittlungsgenehmigung darf Arbeitsvermittlung erbringen, und Agenturen sind in einem öffentlichen Register eingetragen. Es gilt Gleichbehandlung — die Bedingungen einer zeitweise überlassenen Arbeitskraft dürfen nicht schlechter sein als die eines vergleichbaren Stammbeschäftigten, und die Arbeitskraft zahlt nie eine Vermittlungsgebühr; die Einhaltung überwacht die Arbeitsinspektion. Die Agentur übernimmt die Dokumente der Ausländer, die Verantwortung trägt jedoch auch der Entleiher mit. Wir versprechen keine konkreten Bearbeitungszeiten und keine beanstandungsfreie Kontrolle; Einzelheiten finden Sie auf unseren Seiten zur Beschäftigung von Ausländern. Dies ist eine allgemeine Information, keine Rechtsberatung.',
+    },
+    {
+      q: 'Woraus setzt sich der Agenturpreis zusammen, und gibt es versteckte Gebühren?',
+      a: 'Der berechnete Preis umfasst in der Regel weiterberechnete Lohnkosten (Bruttolohn plus gesetzliche Arbeitgeberbeiträge), weiterberechnete Betriebskosten und das Honorar der Agentur; die Mehrwertsteuer ist eine separate Position. Es ist eine betriebliche, keine steuerliche Ersparnis — der Lohn der Arbeitskraft wird über die Agentur nicht gesenkt. Modellieren Sie die konkreten Zahlen im Vergleichsmodus des Rechners; ein pauschales „X % sparen“ nennen wir nicht.',
+    },
+    {
+      q: 'Wer ist wofür verantwortlich — Arbeitsschutz, PSA, Löhne, Unterlagen?',
+      a: 'Als Orientierung: Die Agentur stellt Arbeitsvertrag, Löhne, Beiträge und Ausländerunterlagen bereit; der Entleiher (Ihr Unternehmen) leitet die tägliche Arbeit an; Arbeitsschutz, Anwesenheit und Beendigung sind meist geteilt; PSA, Eingangsuntersuchungen, Unterkunft und Transport werden vertraglich vereinbart. Die genaue Aufteilung legt stets der Vertrag fest, und dies ist keine Rechtsberatung. Siehe den Leitfaden dazu, wie eine Agentur funktioniert.',
+    },
+    {
+      q: 'An wen sende ich Unternehmensdaten, und ist die Agentur berechtigt?',
+      a: `Verantwortlich für die Formulardaten ist ${OPERATOR}. In der Tschechischen Republik darf Arbeitsvermittlung nur ein Inhaber einer gültigen Genehmigung nach dem Beschäftigungsgesetz erbringen, und Agenturen sind in einem öffentlichen Register eingetragen, das Sie prüfen können. Geprüfte Identifikationsangaben und wie Sie eine Agentur prüfen, finden Sie auf unserer Über-uns-Seite.`,
     },
   ],
 }

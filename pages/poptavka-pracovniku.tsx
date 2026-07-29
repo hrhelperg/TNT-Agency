@@ -133,6 +133,17 @@ export default function PoptavkaPracovnikuPage() {
             </div>
 
             <aside className="erf-layout__aside" aria-label={copy.whatWeNeedTitle}>
+              <div className="erf-card erf-card--aids">
+                <h2>{copy.decisionAidsTitle}</h2>
+                <p>{copy.decisionAidsLead}</p>
+                <ul className="erf-aids">
+                  {copy.decisionAids.map((aid) => (
+                    <li key={aid.href}>
+                      <a href={aid.href}>{aid.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <div className="erf-card">
                 <h2>{copy.whatWeNeedTitle}</h2>
                 <ul>
