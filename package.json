@@ -31,7 +31,8 @@
     "seo:coverage": "node scripts/coverage-reports.js",
     "verify:seznam": "node scripts/verify-seznam.js",
     "validate:growth": "node --import ./scripts/ts-resolve.mjs scripts/validate-growth.mjs",
-    "validate:claims": "node scripts/validate-claims.mjs"
+    "validate:claims": "node scripts/validate-claims.mjs",
+    "validate:clusters": "node --import ./scripts/ts-resolve.mjs scripts/validate-clusters.mjs"
   },
   "dependencies": {
     "next": "14.2.3",
