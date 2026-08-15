@@ -361,7 +361,10 @@ for (const cohort of GROWTH_COHORTS) {
     avgInbound: inboundCounts.length ? (inboundCounts.reduce((a, b) => a + b, 0) / inboundCounts.length).toFixed(1) : '0',
     minWords: words[0] ?? 0,
     medianWords: median(words),
-    maxHops: Math.max(...pages.map((p) => dist.get(p.slug) ?? 99)),
+    // A cohort may legitimately declare zero pages — Wave 4 published no URLs
+    // and exists to record why. Math.max of an empty list is -Infinity, which
+    // reads as a broken measurement rather than an empty one.
+    maxHops: pages.length ? Math.max(...pages.map((p) => dist.get(p.slug) ?? 99)) : 'n/a (no pages)',
     rejected: cohort.rejected.length,
   })
 }

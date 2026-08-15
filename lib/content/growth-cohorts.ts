@@ -27,8 +27,20 @@ export interface GrowthCohort {
   /** Minimum body words for a cohort page (site-wide floor is 150). */
   minWords: number
   slugs: readonly string[]
-  /** Considered and not built, with the reason — prevents silent resurrection. */
-  rejected: ReadonlyArray<{ slug: string; status: 'REJECTED' | 'MERGED' | 'FUTURE'; reason: string }>
+  /**
+   * Considered and not built, with the reason — prevents silent resurrection.
+   *
+   * DEFER_FOR_DATA is deliberately distinct from FUTURE. FUTURE is a judgement:
+   * the intent was assessed and is not worth a URL yet. DEFER_FOR_DATA means the
+   * judgement could not be made at all, because the evidence needed to make it
+   * was unavailable. It records a missing input, not a verdict, and a later wave
+   * must not read it as a rejection.
+   */
+  rejected: ReadonlyArray<{
+    slug: string
+    status: 'REJECTED' | 'MERGED' | 'FUTURE' | 'DEFER_FOR_DATA'
+    reason: string
+  }>
 }
 
 export const GROWTH_COHORTS: readonly GrowthCohort[] = [
@@ -287,6 +299,64 @@ export const GROWTH_COHORTS: readonly GrowthCohort[] = [
         status: 'REJECTED',
         reason:
           'No regional page may be added in Wave 2. The 22 generated region pages measured 0.81–0.85 body similarity at baseline — the corpus\'s existing doorway risk — and the 10 pracovnici-<city> pages had 1 contextual inbound each. Adding to that cluster would compound both problems.',
+      },
+    ],
+  },
+  {
+    // Wave 4 published ZERO new URLs. That is the outcome, not a shortfall: the
+    // wave's thesis was that the corpus needed connecting, not extending, and
+    // the high-skilled expansion it was also asked to consider could not be
+    // decided because the search-demand evidence was unavailable.
+    id: 'wave-4-cross-cluster-authority',
+    label: 'Wave 4 — cross-cluster authority (no new URLs)',
+    preparedOn: '2026-08-15',
+    hub: '/pro-zamestnavatele',
+    maxHops: 3,
+    minInboundContextual: 3,
+    minWords: 400,
+    slugs: [],
+    rejected: [
+      {
+        slug: 'high-skilled-expansion-wave-4',
+        status: 'DEFER_FOR_DATA',
+        reason:
+          'Every high-skilled candidate in this wave turns on one question — does the intent have its own search demand, separate from the page that already covers it? Ahrefs/GSC returned "Insufficient plan" for this project, so that question has no answer at time of writing and the honest record is UNKNOWN, not zero. Deferred as a set rather than guessed at individually.',
+      },
+      {
+        slug: 'mzdove-rozpeti-odborne-pozice',
+        status: 'DEFER_FOR_DATA',
+        reason:
+          'Deferred a third time, but for a different reason than in Waves 2 and 3. Those were judgement calls about readiness; this one is a missing input. A salary-band page is the single most evidence-sensitive page the site could publish, and it must not ship on an assumption about demand.',
+      },
+      {
+        slug: 'prubeh-naboru-odborne-pozice',
+        status: 'DEFER_FOR_DATA',
+        reason:
+          'Still ships as a section of /nabor-odbornych-pozic. Promotion to its own URL was to be decided on whether that section draws independent impressions — precisely the measurement that is unavailable.',
+      },
+      {
+        slug: 'nabor-projektovych-manazeru',
+        status: 'REJECTED',
+        reason:
+          'Not deferred — rejected on the merits, no data needed. TNT places technical and operational staff; project management is a different service line the agency does not run, so the page would describe work we do not do.',
+      },
+      {
+        slug: 'nabor-it-specialistu',
+        status: 'REJECTED',
+        reason:
+          'Rejected on the merits. IT recruitment is a distinct market with distinct competitors and no operational overlap with the manufacturing/logistics placements the site is built on. Publishing it would be keyword coverage, not employer usefulness.',
+      },
+      {
+        slug: 'city-x-profession-wave-4',
+        status: 'REJECTED',
+        reason:
+          'Explicitly frozen by the wave brief: /cnc-operator-praha, /svarec-brno, /elektrikar-ostrava, /technici-pardubice and every sibling. These are doorway pages by construction — the profession page and the city page each already exist, and their intersection carries no information neither one has.',
+      },
+      {
+        slug: 'regional-and-city-pages-wave-4',
+        status: 'REJECTED',
+        reason:
+          'Regional freeze carried forward. Wave 3 repaired this family by removing duplicated national-law mass; adding members would reopen the defect it just closed.',
       },
     ],
   },

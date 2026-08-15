@@ -26,9 +26,18 @@ const PAGES = [
   '/trh-prace-stredocesky-kraj',                // region: Středočeský kraj
   '/o-nas',                                      // trust page
   '/privacy-cs.html',                           // legal (static, CS)
+  // Wave 4: the longest related-links blocks in the corpus. Cross-cluster link
+  // engineering grows this list, and a long list of unbreakable Czech slugs is
+  // the realistic overflow risk at 320px.
+  '/faq-zamestnavani-pracovniku',               // 53 related links
+  '/nabor-odbornych-pozic',                     // 18, high-skilled hub
+  '/nedostatek-pracovniku-ve-vyrobe',           // received new cross-cluster links
 ]
 
-const BREAKPOINTS = [320, 390, 768, 1024, 1440]
+// Wave 4 widens this from five to eight: 360 (the most common Android width),
+// 375 (iPhone SE/mini) and 430 (iPhone Pro Max) sat between the existing steps
+// and were never actually rendered.
+const BREAKPOINTS = [320, 360, 375, 390, 430, 768, 1024, 1440]
 
 const IGNORE_CONSOLE =
   /webmasterid|ERR_BLOCKED_BY_ORB|fonts\.googleapis|fonts\.gstatic|favicon|Failed to load resource|net::ERR_|status of 40|status of 50/i
@@ -66,10 +75,21 @@ test.describe('SEO crawlability & render QA', () => {
 
   test('CTA keeps the URL clean and captures the surface hint into session state', async ({ page }) => {
     await page.goto('/pracovnici-do-vyroby', { waitUntil: 'networkidle' })
-    // The header "Request workers" CTA points at the clean canonical path.
+    // Every "Request workers" CTA points at the clean canonical path, including
+    // the one the header renders.
     const cta = page.locator('a[data-request-source="employer-hub"]').first()
     await expect(cta).toHaveAttribute('href', '/poptavka-pracovniku')
-    await cta.click()
+
+    // But the header CTA is deliberately display:none below the nav breakpoint —
+    // on mobile the same action lives behind the hamburger. Clicking a hidden
+    // element would assert desktop chrome rather than the employer's real path,
+    // so drive whichever control this viewport actually exposes.
+    if (!(await cta.isVisible())) {
+      await page.locator('#burger').click()
+    }
+    const reachable = page.locator('a[data-request-source="employer-hub"]:visible').first()
+    await expect(reachable).toHaveAttribute('href', '/poptavka-pracovniku')
+    await reachable.click()
     await page.waitForURL('**/poptavka-pracovniku')
     // No query string was introduced — crawlers only ever meet the clean URL.
     expect(new URL(page.url()).search).toBe('')
