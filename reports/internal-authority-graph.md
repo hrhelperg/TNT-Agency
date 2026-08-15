@@ -16,7 +16,7 @@ _Diagnostic model of internal discovery. The authority score is a relative inter
 | tier4 | 11 |
 | orphans | 0 |
 | nearOrphans | 4 |
-| avgDepthAll | 2 |
+| avgDepthAll | 1.99 |
 | avgDepthContextual | 2.53 |
 | unreachableContextual | 3 |
 | tier1WithContextualInbound | 14 |
@@ -48,10 +48,10 @@ _none_
 | /nabor-zamestnancu-pardubice | 2 | 1 | 2 | 1 |
 | /o-nas | 5 | 3 | 1 | 1 |
 | /poptavka-pracovniku | 164 | 12 | 1 | 1 |
-| /pracovnici-do-logistiky | 17 | 3 | 1 | 1 |
-| /pracovnici-do-skladu | 4 | 2 | 1 | 1 |
-| /pracovnici-do-vyroby | 2 | 1 | 2 | 1 |
+| /pracovnici-do-logistiky | 23 | 3 | 1 | 1 |
+| /pracovnici-do-skladu | 5 | 2 | 1 | 1 |
+| /pracovnici-do-vyroby | 4 | 1 | 2 | 1 |
 | /pracovnici-pro-automotive | 4 | 1 | 2 | 1 |
-| /pracovnici-pro-potravinarskou-vyrobu | 4 | 1 | 2 | 1 |
+| /pracovnici-pro-potravinarskou-vyrobu | 10 | 1 | 2 | 1 |
 | /pro-zamestnavatele | 77 | 9 | 1 | 0 |
 | /trh-prace-stredocesky-kraj | 4 | 1 | 2 | 1 |

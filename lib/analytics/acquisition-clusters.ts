@@ -66,18 +66,51 @@ export type FunnelStage = (typeof FUNNEL_STAGES)[number]
 export const COMMERCIAL_INTENT = ['high', 'medium', 'low', 'none'] as const
 export type CommercialIntent = (typeof COMMERCIAL_INTENT)[number]
 
+/**
+ * Wave 3 — a second reporting dimension describing WHY a visitor is on a page,
+ * derived from route metadata alone. Like every other field here it is computed
+ * offline from the registry; nothing about it is collected from the visitor.
+ *
+ * REQUEST_ENTRY is deliberately named "entry", not "conversion": arriving on
+ * /poptavka-pracovniku is navigation. Whether an e-mail was composed and sent
+ * cannot be observed by this site, so it is never counted as an outcome.
+ */
+export const INTENT_CLASSES = [
+  'INFORMATIONAL',
+  'COMMERCIAL_RESEARCH',
+  'HIRING_PROBLEM',
+  'PROFESSION_DEMAND',
+  'REQUEST_ENTRY',
+] as const
+export type IntentClass = (typeof INTENT_CLASSES)[number]
+
+/** Route metadata → intent class. Pure lookup over the cluster + page type. */
+export function intentClassFor(cluster: AcquisitionCluster, pageType: PageType): IntentClass {
+  if (cluster === 'request') return 'REQUEST_ENTRY'
+  if (cluster === 'calculator') return 'COMMERCIAL_RESEARCH'
+  if (cluster === 'employer_problem') return 'HIRING_PROBLEM'
+  if (cluster === 'technical_talent' || cluster === 'industry') {
+    return pageType === 'hub' ? 'COMMERCIAL_RESEARCH' : 'PROFESSION_DEMAND'
+  }
+  if (cluster === 'knowledge') return pageType === 'hub' ? 'COMMERCIAL_RESEARCH' : 'INFORMATIONAL'
+  if (cluster === 'region') return 'COMMERCIAL_RESEARCH'
+  return 'INFORMATIONAL'
+}
+
 export interface RouteClassification {
   route: string
   cluster: AcquisitionCluster
   pageType: PageType
   funnelStage: FunnelStage
   commercialIntent: CommercialIntent
+  /** Wave 3 second dimension — see intentClassFor(). */
+  intentClass: IntentClass
 }
 
 const slugsOf = (pages: ReadonlyArray<{ slug: string }>): string[] => pages.map((p) => p.slug)
 
 /** A classification without the route, which classifyRoute fills in. */
-type Classification = Omit<RouteClassification, 'route'>
+type Classification = Omit<RouteClassification, 'route' | 'intentClass'>
 
 /** Routes with no registry entry. Kept short and explicit on purpose. */
 const EXPLICIT: Readonly<Record<string, Classification>> = {
@@ -125,6 +158,12 @@ const FOREIGN_TOPIC = /cizinc|zahranicni|zamestnanecka-karta|modra-karta|pracovn
  * silently dropped.
  */
 export function classifyRoute(pathname: string): RouteClassification {
+  const base = classifyRouteBase(pathname)
+  return { ...base, intentClass: intentClassFor(base.cluster, base.pageType) }
+}
+
+/** Cluster/pageType/funnel/intent resolution, without the derived intent class. */
+function classifyRouteBase(pathname: string): Omit<RouteClassification, 'intentClass'> {
   const route = normalizeRoute(pathname)
   const explicit = EXPLICIT[route]
   if (explicit) return { ...explicit, route }

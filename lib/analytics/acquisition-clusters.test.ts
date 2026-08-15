@@ -4,6 +4,7 @@ import path from 'path'
 import {
   ACQUISITION_CLUSTERS,
   CLASSIFICATION_VERSION,
+  INTENT_CLASSES,
   classifyRoute,
   normalizeRoute,
   summariseByCluster,
@@ -156,5 +157,30 @@ describe('acquisition clusters — privacy invariants', () => {
     expect(src).not.toMatch(/\blead\b/i)
     expect(src).not.toMatch(/\bconversion\b/i)
     expect(src).not.toMatch(/\bsuccessfulRequest\b/i)
+  })
+})
+
+describe('acquisition clusters — Wave 3 intent class', () => {
+  it('derives an intent class for every canonical route', () => {
+    for (const r of allRoutes) {
+      const c = classifyRoute(r)
+      expect(INTENT_CLASSES, `unknown intent class for ${r}`).toContain(c.intentClass)
+    }
+  })
+
+  it('maps the anchor routes to the intended intent class', () => {
+    expect(classifyRoute('/poptavka-pracovniku').intentClass).toBe('REQUEST_ENTRY')
+    expect(classifyRoute('/kalkulacka-mzdy-agenturniho-zamestnance').intentClass).toBe('COMMERCIAL_RESEARCH')
+    expect(classifyRoute('/absence-v-provozu').intentClass).toBe('HIRING_PROBLEM')
+    expect(classifyRoute('/nabor-svarecu').intentClass).toBe('PROFESSION_DEMAND')
+    expect(classifyRoute('/nabor-odbornych-pozic').intentClass).toBe('COMMERCIAL_RESEARCH')
+    expect(classifyRoute('/zamestnanecka-karta-2026').intentClass).toBe('INFORMATIONAL')
+  })
+
+  it('calls arriving on the request page an ENTRY, never a conversion', () => {
+    // Delivery of a mailto message is not observable, so the taxonomy itself
+    // must not contain a word that implies a completed outcome.
+    expect(INTENT_CLASSES.join(' ')).not.toMatch(/conversion|lead|success/i)
+    expect(classifyRoute('/poptavka-pracovniku').intentClass).toBe('REQUEST_ENTRY')
   })
 })

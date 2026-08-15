@@ -32,7 +32,8 @@
     "verify:seznam": "node scripts/verify-seznam.js",
     "validate:growth": "node --import ./scripts/ts-resolve.mjs scripts/validate-growth.mjs",
     "validate:claims": "node scripts/validate-claims.mjs",
-    "validate:clusters": "node --import ./scripts/ts-resolve.mjs scripts/validate-clusters.mjs"
+    "validate:clusters": "node --import ./scripts/ts-resolve.mjs scripts/validate-clusters.mjs",
+    "validate:regional": "node --import ./scripts/ts-resolve.mjs scripts/validate-regional.mjs"
   },
   "dependencies": {
     "next": "14.2.3",

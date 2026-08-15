@@ -150,6 +150,8 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
 
   // Production / engineering pages → the technical families
   'pracovnici-pro-vyrobu': [
+    { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
+    { href: '/checklist-pro-nove-zamestnance', label: 'Checklist pro nové zaměstnance' },
     { href: '/strojirenske-profese', label: 'Strojírenské profese' },
     { href: '/udrzba-a-technicky-servis', label: 'Údržba a technický servis' },
   ],
@@ -173,12 +175,18 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
   'manipulacni-pracovnici': [{ href: '/odborna-zpusobilost-a-opravneni', label: 'Odborná způsobilost a oprávnění' }],
 
   // Quality-sensitive industries → the quality family
-  'automobilovy-prumysl-pracovnici': [{ href: '/pozice-v-rizeni-kvality', label: 'Pozice v řízení kvality' }],
+  'automobilovy-prumysl-pracovnici': [
+    { href: '/pozice-v-rizeni-kvality', label: 'Pozice v řízení kvality' },
+    { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
+  ],
   'pracovnici-pro-automotive': [
     { href: '/pozice-v-rizeni-kvality', label: 'Pozice v řízení kvality' },
     { href: '/udrzba-a-technicky-servis', label: 'Údržba a technický servis' },
   ],
-  'pracovnici-pro-potravinarskou-vyrobu': [{ href: '/pozice-v-rizeni-kvality', label: 'Pozice v řízení kvality' }],
+  'pracovnici-pro-potravinarskou-vyrobu': [
+    { href: '/pozice-v-rizeni-kvality', label: 'Pozice v řízení kvality' },
+    { href: '/skutecne-naklady-na-zamestnance', label: 'Skutečné náklady na zaměstnance' },
+  ],
 
   // Logistics operative pages → the professional logistics tier
   'pracovnici-do-logistiky': [
@@ -278,8 +286,41 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
     { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
   ],
   'proc-se-nedari-obsadit-odbornou-pozici': [
+    { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
     { href: '/zadani-pozice-a-profil-kandidata', label: 'Zadání pozice a profil kandidáta' },
     { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
+  ],
+  'hromadny-nabor-pracovniku': [
+    { href: '/pracovnici-do-vyroby', label: 'Pracovníci do výroby' },
+    { href: '/pracovnici-do-skladu', label: 'Pracovníci do skladu' },
+    { href: '/checklist-pro-nove-zamestnance', label: 'Checklist pro nové zaměstnance' },
+    { href: '/skutecne-naklady-na-zamestnance', label: 'Skutečné náklady na zaměstnance' },
+  ],
+  'sezonni-navyseni-kapacity': [
+    { href: '/nakup-a-zasobovani', label: 'Nákup a zásobování' },
+    { href: '/picker-packer', label: 'Picker / packer' },
+    { href: '/skladovi-pracovnici', label: 'Skladoví pracovníci' },
+    { href: '/baleni-potravin-pracovnici', label: 'Pracovníci balení potravin' },
+  ],
+  'nabor-pri-nabehu-vyroby': [
+    { href: '/nabor-techniku-automatizace', label: 'Nábor techniků automatizace a PLC' },
+    { href: '/montazni-pracovnici', label: 'Montážní pracovníci' },
+    { href: '/montazni-linky-pracovnici', label: 'Pracovníci montážních linek' },
+    { href: '/operatori-vyroby', label: 'Operátoři výroby' },
+  ],
+  'absence-v-provozu': [
+    { href: '/vyrobni-zamestnanci', label: 'Výrobní zaměstnanci' },
+    { href: '/pomocni-stavebni-pracovnici', label: 'Pomocní stavební pracovníci' },
+  ],
+  'onboarding-zamestnancu': [
+    { href: '/pracovnici-do-vyroby', label: 'Pracovníci do výroby' },
+    { href: '/vyroba-potravin-pracovnici', label: 'Pracovníci výroby potravin' },
+  ],
+  'cena-neobsazene-pozice': [
+    { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
+  ],
+  'mistri-a-vedouci-smen': [
+    { href: '/checklist-pro-nove-zamestnance', label: 'Checklist pro nové zaměstnance' },
   ],
   'jak-dlouho-trva-obsazeni-pozice': [
     { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
