@@ -1270,7 +1270,18 @@ p  { color: var(--text-2); line-height: 1.7; }
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 32px;
 }
-.footer__col { display: flex; flex-direction: column; gap: 11px; }
+/* The five footer columns are ~109px wide at 1280px, but two of their tokens
+   are longer than that and cannot break on their own: the contact e-mail
+   (~180px as one unbreakable string) and the uppercase, letter-spaced title
+   "TRANSPARENTNOST" (~140px as a single word). Both overflowed their column,
+   which propagated up through .footer__inner and .container and left
+   documentElement.scrollWidth 6px wider than the viewport on every page.
+   `body { overflow-x: hidden }` hid it from users, so it never surfaced
+   visually — but it is a real layout overflow of real content, and it is what
+   the horizontal-overflow assertions in tests/e2e were correctly detecting.
+   Allowing these tokens to wrap fixes it at every breakpoint without changing
+   the grid or the column heights. */
+.footer__col { display: flex; flex-direction: column; gap: 11px; overflow-wrap: anywhere; }
 .footer__col-title {
   font-size: 0.72rem;
   font-weight: 700;
@@ -1652,6 +1663,21 @@ p  { color: var(--text-2); line-height: 1.7; }
 
 @media (max-width: 860px) {
   .pillars { grid-template-columns: 1fr; }
+}
+/* At 320px the card's min-content width was 328px — its 40px side padding plus
+   the CTA, which is a .btn and therefore `white-space: nowrap` ("Pro
+   zaměstnavatele: rozcestník →" is 248px unbreakable). That overflowed the
+   320px container by 30px. Narrower padding plus a wrapping CTA keeps the card
+   inside the viewport whatever the label length, in any of the three languages. */
+@media (max-width: 520px) {
+  .pillar { padding: var(--s4) var(--s3) var(--s3); }
+  .pillar__foot .btn {
+    white-space: normal;
+    height: auto;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    line-height: 1.35;
+  }
 }
 
 /* ----------------------------------------------------------------
