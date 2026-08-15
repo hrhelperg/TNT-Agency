@@ -9,7 +9,7 @@ The regional problem turned out not to be the cosine score. **49.9% of all body 
 The authority problem was that raw inbound count had been hiding closed loops. **14 commercial pages received contextual inbound from exactly one cluster** — including two of my own Wave 2 technical pages, which passed the Wave 2 cohort gate on raw count while being as closed as the city pages. That is now **0**.
 
 ## B. Baseline SHA — `6322a7bae0533a3816ac6f4ed529a735f0fa7244`
-## C. Final SHA — see §AB (commit at end of this report)
+## C. Final SHA — `addacec1241efe3b328ebb428e0b51098d1b1710`
 ## D. Architecture discovered
 
 185 canonical (= sitemap = routes), 162 registry objects, Tier 1/2/3/4 = 14/77/83/11, 0 orphans, 4 Tier-4 near-orphans, avg contextual depth 2.53, max 5. Hygiene was already clean: 0 non-200, 0 non-self-canonical, 0 broken links, 0 redirects, 0 duplicate titles/H1s/descriptions, 0 SearchAction, 1 WebmasterID installation. Wave 3's value was therefore never going to be in hygiene.
