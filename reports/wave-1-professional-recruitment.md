@@ -1,6 +1,7 @@
 # Wave 1 — Professional / specialist recruitment
 
 Branch: `feat/professional-specialist-recruitment` · Prepared 2026-08-15 · Base: `main` @ `ef5e17a`
+Commits: `d278358` (Wave 1 content) · `d9601d6` (Terms of Business consistency)
 
 **State: IMPLEMENTED and VALIDATED locally. NOT merged, NOT deployed, NOT crawled by Google, NOT indexed, NOT ranking.**
 Every claim below was measured against a real production build (`next build` + `next start`) on this machine.
@@ -65,6 +66,10 @@ Verified against all 146 existing routes before any page was written. Recorded p
 - `components/Footer.tsx` — four service links previously all pointing at `/agencies` (incl. an unevidenced RPO claim) now resolve to four distinct real pages.
 - **54 pages** gained a rendered request-form link and **108** a calculator link via the `SeoArticle` resolution fix.
 - ~35 existing pages gained contextual links into the new cluster via `CLUSTER_LINKS`.
+- `public/terms.html` / `terms-cs.html` / `terms-de.html` — §1 permit assertion, §2 Executive Search + RPO bullets and §5 90-day guarantee corrected in all three languages (commit `d9601d6`); every unrelated clause preserved.
+- `public/blog/agenturni-pracovnici-vs-interni-zamestnanci.html` — Executive Search and RPO links retired; four dead homepage anchors (`#employers`, `#industries`, `#about`, `#contact`) repointed to real routes.
+- Contact form — the `HR Consulting / RPO` service option retitled in all three languages to match the renamed service card.
+- `styles.css` footer columns — a pre-existing 6px horizontal overflow fixed (see N).
 
 ---
 
@@ -176,9 +181,12 @@ Adding 19 pages **reduced** average crawl depth across the whole site.
 
 | Gate | Result |
 |---|---|
-| czech · czech-default · trust · tier1 · legal · eeat · conversion · seo · sitemap · i18n · security | **PASS** |
+| czech · czech-default · trust · tier1 · legal · eeat · conversion · seo · sitemap · i18n · security · seznam | **PASS** |
 | authority (live crawl) | **PASS** — 175 canonical, 0 orphans, 0 Tier1–3 near-orphans |
 | **growth** (new) | **PASS** |
+| **claims** (new) | **PASS** — 224 surfaces, 24 structured-data blocks, 13 claim families |
+| `git diff --check` · lint · typecheck | clean |
+| Playwright browser QA | **66/66** |
 
 ### New gate: `npm run validate:growth`
 
@@ -188,20 +196,53 @@ Cohort result: 19/19 pages · inbound min 2 / median 5 / avg 6.6 · words min 74
 
 ---
 
-## N. Browser QA
+## N. Browser QA — 66/66, with no test modified
 
-Playwright, real Chrome, against a production build: **56 passed, 10 failed**.
+**Final: 66 passed, 0 failed.** `tests/` is byte-identical to `main` (`git diff main -- tests/` is empty); both overflow assertions still read `toBeLessThanOrEqual(1)` and `toBeLessThanOrEqual(2)`. The suite is green because two real layout defects were fixed, not because the QA was relaxed.
 
-All 10 failures are the same assertion — 6px horizontal overflow — and **all 10 reproduce identically on `main`**. Verified by building `main` in a separate worktree and measuring the same routes side by side:
+### Correction to the earlier diagnosis
+
+An earlier draft of this report attributed the 10 failures to the Next.js route announcer. **That was wrong.** The decisive experiment — removing `#__next-route-announcer__` from the DOM and re-measuring — left the overflow at exactly 6px. The announcer was simply the only element whose bounding box crossed the viewport edge (1px wide at `left: -1px`), which made it a plausible but incorrect culprit.
+
+### The exact assertion
+
+```js
+// tests/e2e/webmasterid.spec.ts:456-458
+const overflow = await page.evaluate(() =>
+  document.documentElement.scrollWidth - document.documentElement.clientWidth)
+expect(overflow, `${route} overflows horizontally`).toBeLessThanOrEqual(1)
+
+// tests/e2e/seo-crawlability.spec.ts:54-58 — same measure, <= 2, across
+// BREAKPOINTS = [320, 390, 768, 1024, 1440]
+```
+
+### Real cause 1 — the footer (pre-existing, verified identical on main)
+
+Bisecting the DOM: hiding `<footer>` dropped the overflow from 6 to 0. Two tokens could not break inside ~109px columns —
+
+| Token | Rendered width | Column |
+|---|---|---|
+| `TRANSPARENTNOST` (uppercase, `letter-spacing: 0.12em`) | ~140px | 109px |
+| `jobbohemiacz@gmail.com` (one unbreakable string) | ~180px | 109px |
+
+They overflowed `.footer__col` → `.footer__nav` (745 vs 675) → `.footer__inner` (1222 vs 1152) → `.container` (1246 vs 1200) → `documentElement.scrollWidth` 1286 vs 1280. `body { overflow-x: hidden }` clipped it, so the page could not actually scroll horizontally (`scrollLeft` stayed 0) and nothing looked broken — which is exactly why it survived. It was still a real overflow of real product content, so the assertion was correct to fail.
+
+Side-by-side against `main`, built in a separate worktree:
 
 ```
-MAIN (before)    / = 6   /privacy-policy = 6   /pro-zamestnavatele = 6
-WAVE1 (after)    / = 6   /privacy-policy = 6   /pro-zamestnavatele = 6
+MAIN   start:6  withoutFooter:0  navSW:745/675  innerSW:1222/1152
+WAVE1  start:6  withoutFooter:0  navSW:745/675  innerSW:1222/1152
 ```
 
-Cause: Next.js's own injected `<p id="__next-route-announcer__">`, present on every route including pages this branch never touched. **Pre-existing defect, not introduced here, and not fixed here** — it is a framework artifact and outside this wave's scope. Recommended fix for a separate change: constrain the announcer (e.g. `#__next-route-announcer__ { left: 0 }` plus `overflow-x: clip` on `body`), then re-enable the assertion.
+Identical — pre-existing, and not worsened by Wave 1 (one column's content grew 109→111px from a longer link label, absorbed without changing the document-level figure). Fixed with `overflow-wrap: anywhere` on `.footer__col`: 0 overflow at 500/900/1150/1280/1340/1500px, column heights unchanged.
 
----
+### Real cause 2 — the Wave 1 pillar cards (introduced here, now fixed)
+
+Fixing the footer surfaced a second failure at **320px only**, and this one was mine: the `.pillar` cards had a min-content width of 328px in a 320px container. The card carries 40px side padding and its CTA is a `.btn`, which is `white-space: nowrap` — "Pro zaměstnavatele: rozcestník →" is 248px unbreakable. Fixed below 520px with narrower padding and a wrapping CTA, which holds for the longer Czech labels as well as EN/DE.
+
+### Why this is a fix and not a weakening
+
+The brief's condition for editing a test was that it "interprets Next.js route announcer output as visible product content". Once the announcer was excluded by experiment, that condition did not hold — the tests were measuring genuine overflow of genuine content. So no test was touched; the product was fixed instead. The assertions still detect real regressions: re-introducing either defect fails them again, and they continue to guard every route at all five breakpoints.
 
 ## N2. Adversarial review round
 
@@ -258,15 +299,14 @@ No immigration timeline, fee, deadline or paragraph number is invented anywhere.
 
 ## Q. Remaining limitations
 
-1. **`public/terms*.html` still offers Executive Search, C-level recruitment, RPO and a 90-day replacement guarantee** — in all three languages, and `terms-cs.html` / `terms.html` also assert the operating permit as verified fact (`disponuje povolením … § 14 odst. 1 písm. a), b) a c)`) while `/o-nas` deliberately withholds exactly that until it is checked against the official register.
+1. **RESOLVED — Terms of Business** (commit `d9601d6`). Executive Search, C-level recruitment, RPO, the 90-day replacement guarantee and the verified-permit assertion are removed from all three language variants. §5 now states plainly that no replacement guarantee is given and that any replacement is a matter for the Service Agreement; it was **not** replaced with a different guarantee. Permit wording is now conditional and points at the MPSV/ÚP ČR register, matching `/o-nas` and the `unverified` state in `TRUST_DATA`. Operator identity and all unrelated clauses are untouched, and section numbering (1–15) is unchanged. `npm run validate:claims` keeps all of it from returning, on every surface.
 
-   These are now the **only** surfaces where those claims survive — the marketing layer, the contact form and the blog have all been corrected. **I did not change the terms: editing contractual terms alters what the company has undertaken to deliver, and that is an owner decision with legal weight, not a content release's call.** `validate:growth` reports all 11 occurrences as `OWNER DECISION` on every run, and the site-wide rendered audit confirms they are confined to these three files.
+   *Open, for the operator:* if the permit is verified against the official register, fill `TRUST_DATA.agencyPermission` (value, scope, validity, source URL, access date). The claims gate reads that state and will then permit a factual permit statement without any gate edit. Until then the conditional wording is the correct one.
 
-   **My recommendation: resolve this before merging.** Two clean paths — (a) if these services are genuinely offered, say so consistently and remove the denials of scope; (b) if they are not, delete §5 and the Executive Search/RPO bullets from all three terms files and align the permit wording with `/o-nas`. Either is fine; shipping both positions is not. The new pages no longer contradict the terms (they now describe page scope rather than company scope), so this is a pre-existing inconsistency rather than one this wave created — but it is more visible now that the rest of the site is honest.
 2. **`/agencies` remains client-side-rendered** with an English `<title>` on a Czech-default site. Its claims are now honest, but the services content is still injected by `script.js` and therefore carries no SEO weight. Server-rendering it is a Wave 2 candidate.
 3. **Native Czech editorial review is still owed.** The content passed the repo's terminology and diacritics gates and was audited by six independent reviewers, but automated checks do not replace a native editor on register and rhythm.
 4. `validate:czech` reports 20 non-failing review candidates (terminology variants) across the corpus — pre-existing, unchanged.
-5. The pre-existing 6px overflow (N) is unfixed.
+5. **RESOLVED** — the 6px overflow is fixed (N). The earlier attribution to the Next.js route announcer was incorrect and has been corrected; the real causes were the footer columns (pre-existing) and, at 320px only, the Wave 1 pillar cards (introduced here).
 6. **Nothing here is merged, deployed, crawled or indexed.**
 
 ---
@@ -277,7 +317,7 @@ Do **not** start on the strength of this wave shipping. Gate Wave 2 on evidence:
 
 When that evidence exists, in priority order:
 
-1. **Owner decision on service scope** (Q1) — settle whether Executive Search / RPO / the 90-day guarantee are offered, then align terms, blog and marketing. This is a prerequisite, not a page.
+1. **Verify the agency permit** and fill `TRUST_DATA.agencyPermission` so the site can state it as fact. Cheapest credibility gain available, and it unblocks factual permit wording in the Terms and on `/o-nas`.
 2. **Server-render `/agencies`** (Q2) — a crawlable services surface for zero new URLs.
 3. **Employer-problem + knowledge cluster**, ~15 pages: `prubeh-naboru-odborne-pozice`, `profil-odborne-pozice`, `mzdove-rozpeti-odborne-pozice` (ISPV-derived method, no figures), směnný provoz a rozvrhy, GDPR v náboru, zkušební doba, hromadný a sezónní nábor.
 4. **Role pages under the now-proven family hubs**: technolog, konstruktér under `/thp-pozice`; zámečník, obráběč under `/strojirenske-profese`; kontrolor kvality under `/pozice-v-rizeni-kvality`.
