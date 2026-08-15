@@ -3,6 +3,7 @@ import Header from './Header'
 import Footer from './Footer'
 import ArticleLanguageNotice from './ArticleLanguageNotice'
 import {
+  findSeoPage,
   generateArticleSchema,
   generateFAQBlock,
   generateFAQSchema,
@@ -40,7 +41,19 @@ interface SeoArticleProps {
 // inner JSON only, so strip the wrapper before injecting.
 const stripScriptTags = (s: string): string => s.replace(/<\/?script[^>]*>/g, '')
 
-export default function SeoArticle({ page, activePage = 'guides', topSlot }: SeoArticleProps) {
+export default function SeoArticle({ page: given, activePage = 'guides', topSlot }: SeoArticleProps) {
+  // Always render the registry-resolved page, never the raw imported constant.
+  //
+  // lib/content/pages/index.ts guarantees the conversion path (calculator +
+  // staffing request) by mapping withConversionPath over SEO_PAGES. That map
+  // returns NEW objects, so the named exports (`import { SKLADNICI } from
+  // '../lib/content'`) that 111 page files render are the PRE-injection
+  // objects — 54 of them shipped with no link to /poptavka-pracovniku at all
+  // and 108 with no calculator link, even though content-quality.test.ts
+  // asserts the invariant against SEO_PAGES and passes. Resolving by slug here
+  // applies the guarantee at the single place every page renders through, so
+  // it holds for the existing pages and for any page added later.
+  const page = findSeoPage(given.slug) ?? given
   const url = pageUrl(page.slug)
   const sections = page.sections.map((section) => ({
     ...section,

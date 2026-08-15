@@ -29,7 +29,9 @@
     "seo:audit": "node scripts/seo-audit.js",
     "seo:authority": "node scripts/authority-graph.js",
     "seo:coverage": "node scripts/coverage-reports.js",
-    "verify:seznam": "node scripts/verify-seznam.js"
+    "verify:seznam": "node scripts/verify-seznam.js",
+    "validate:growth": "node --import ./scripts/ts-resolve.mjs scripts/validate-growth.mjs",
+    "validate:claims": "node scripts/validate-claims.mjs"
   },
   "dependencies": {
     "next": "14.2.3",

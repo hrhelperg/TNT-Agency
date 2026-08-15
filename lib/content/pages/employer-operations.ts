@@ -56,7 +56,7 @@ export const PRO_ZAMESTNAVATELE: SeoPage = {
     'Rozcestník pro zaměstnavatele, kteří řeší obsazení pozic, fluktuaci, onboarding, nedostatek pracovníků v oboru a skutečné náklady na zaměstnance. Praktické informace pro rozhodování.',
   description:
     'Rozcestník pro zaměstnavatele: nábor a jeho plánování, snižování fluktuace a retence, onboarding, nedostatek pracovníků podle oborů a skutečné náklady na zaměstnance. Se zdroji.',
-  keywords: ['pro zaměstnavatele', 'nábor pracovníků', 'fluktuace', 'retence zaměstnanců', 'onboarding', 'náklady na zaměstnance'],
+  keywords: ['pro zaměstnavatele', 'nábor pracovníků', 'nábor odborných pozic', 'fluktuace', 'retence zaměstnanců', 'onboarding', 'náklady na zaměstnance'],
   intro:
     'Tato stránka je rozcestníkem pro zaměstnavatele, kteří řeší praktické personální otázky – od obsazení pozic přes stabilitu týmu až po náklady na zaměstnance. Provazuje tematické okruhy clusteru tak, abyste rychle našli stránku odpovídající na konkrétní rozhodnutí, které právě řešíte. Obsah je praktický a u proměnlivých údajů, jako jsou sazby a statistiky trhu práce, odkazuje na oficiální zdroje místo vymyšlených čísel. Nejde o právní poradenství; cílem je usnadnit personální rozhodování a navázat na ověřené informace.',
   sections: [
@@ -82,6 +82,19 @@ export const PRO_ZAMESTNAVATELE: SeoPage = {
         'Fluktuace, její příčiny a snižování',
         'Retence a onboarding zaměstnanců',
         'Nedostatek pracovníků podle oborů',
+      ],
+    },
+    {
+      heading: 'Odborné a technické pozice',
+      body: [
+        'Obsazování kvalifikovaných profesí se řídí jinou logikou než nábor provozních pracovníků. U technických a odborných rolí zpravidla nerozhoduje počet uchazečů, ale to, kolik lidí danou kvalifikaci skutečně má, zda jejich způsobilost odpovídá činnosti, kterou mají vykonávat, a zda o změně práce vůbec uvažují.',
+        'Samostatné stránky se proto věnují tomu, čím se nábor odborných pozic liší, jaké doklady a oprávnění je potřeba ověřit před nástupem a jak přistupovat k jednotlivým rodinám profesí – od strojírenských řemesel přes údržbu a řízení kvality po provozní vedení a THP pozice.',
+      ],
+      bullets: [
+        'Nábor odborných a technických pozic a jeho odlišnosti',
+        'Odborná způsobilost, oprávnění a doklady před nástupem',
+        'Strojírenské profese, údržba, kvalita a provozní vedení',
+        'Přímý nábor do kmenového stavu jako alternativa k dočasnému přidělení',
       ],
     },
     {

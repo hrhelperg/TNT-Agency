@@ -29,11 +29,15 @@ export default function Footer() {
 
           <nav className="footer__nav" aria-label="Footer navigation">
             <div className="footer__col">
+              {/* Each service link resolves to the page that actually describes
+                  that service. All four previously pointed at /agencies, which
+                  made them duplicate anchors and a dead end — and one of them
+                  advertised RPO delivery the site cannot evidence. */}
               <div className="footer__col-title" data-i18n="footer.colServices">Naše služby</div>
-              <a href="/agencies" data-i18n="footer.links.permanent">Přímé umístění</a>
-              <a href="/agencies" data-i18n="footer.links.executive">Executive Search</a>
-              <a href="/agencies" data-i18n="footer.links.temp">Agenturní zaměstnávání</a>
-              <a href="/agencies" data-i18n="footer.links.rpo">Personální poradenství a RPO</a>
+              <a href="/primy-nabor-zamestnancu" data-i18n="footer.links.permanent">Přímý nábor do kmenového stavu</a>
+              <a href="/nabor-odbornych-pozic" data-i18n="footer.links.specialist">Nábor odborných a technických pozic</a>
+              <a href="/docasne-prideleni-zamestnancu" data-i18n="footer.links.temp">Agenturní zaměstnávání</a>
+              <a href="/pro-zamestnavatele" data-i18n="footer.links.employers">Pro zaměstnavatele: rozcestník</a>
             </div>
             <div className="footer__col">
               <div className="footer__col-title" data-i18n="footer.colNavigate">Navigace</div>

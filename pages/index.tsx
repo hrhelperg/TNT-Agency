@@ -54,9 +54,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Personální agentura pro zaměstnavatele — výroba a logistika | TalentPartnerID</title>
-        <meta name="description" content="Pomáháme zaměstnavatelům zajistit pracovníky do výroby, logistiky a dalších provozů — přímý nábor i agenturní zaměstnávání, kalkulačka nákladů a podpora u zaměstnávání cizinců. Provozovatel: TNT agency s.r.o., Pardubice." />
-        <meta name="keywords" content="personální agentura, pracovní agentura, zprostředkování zaměstnání, executive search, agenturní zaměstnávání, Pardubice, employment agency" />
+        <title>Personální agentura pro zaměstnavatele — provozní i odborné pozice | TalentPartnerID</title>
+        <meta name="description" content="Pomáháme zaměstnavatelům obsadit provozní profese ve výrobě, skladech a logistice i odborné a technické pozice — přímý nábor i agenturní zaměstnávání, kalkulačka nákladů a podpora u zaměstnávání cizinců. Provozovatel: TNT agency s.r.o., Pardubice." />
+        <meta name="keywords" content="personální agentura, agentura práce, zprostředkování zaměstnání, nábor odborných pozic, technické pozice, agenturní zaměstnávání, Pardubice" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
@@ -69,7 +69,7 @@ export default function Home() {
         <meta property="og:url" content="https://talentpartnerid.com/" />
         <meta property="og:site_name" content="TalentPartnerID" />
         <meta property="og:title" content="Personální agentura pro zaměstnavatele | TalentPartnerID" />
-        <meta property="og:description" content="Pracovníci do výroby a logistiky, přímý nábor i agenturní zaměstnávání, kalkulačka nákladů zaměstnavatele a podpora u zaměstnávání cizinců." />
+        <meta property="og:description" content="Provozní profese do výroby, skladů a logistiky i odborné a technické pozice. Přímý nábor i agenturní zaměstnávání, kalkulačka nákladů a podpora u zaměstnávání cizinců." />
         <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -77,8 +77,8 @@ export default function Home() {
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:locale:alternate" content="de_DE" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="TalentPartnerID — Employment &amp; Staffing Agency" />
-        <meta name="twitter:description" content="Your trusted recruitment partner. Permanent placement, executive search, and flexible staffing across all industries." />
+        <meta name="twitter:title" content="TalentPartnerID — personální agentura pro zaměstnavatele" />
+        <meta name="twitter:description" content="Obsazování provozních profesí ve výrobě, skladech a logistice i odborných a technických pozic. Přímý nábor i agenturní zaměstnávání." />
         <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
         <script key="schema-agency" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(employmentAgencySchema) }} />
         <script key="schema-website" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
@@ -99,7 +99,10 @@ export default function Home() {
               <span data-i18n="hero.h1b">správné lidi</span><br />
               <span data-i18n="hero.h1c">se správnými</span> <span className="text-accent" data-i18n="hero.h1accent">firmami.</span>
             </h1>
-            <p className="hero__sub fi d2" data-i18n="hero.sub">TNT agency s.r.o. je váš spolehlivý partner v oblasti náboru — dodáváme kvalifikované kandidáty na trvalé, manažerské i flexibilní pozice napříč všemi odvětvími.</p>
+            {/* Kept in sync with hero.sub in public/script.js. The previous copy
+                promised "manažerské pozice napříč všemi odvětvími", which no page
+                on the site supported; this states the scope the site can back. */}
+            <p className="hero__sub fi d2" data-i18n="hero.sub">TalentPartnerID pomáhá firmám najít ty správné lidi — do provozních profesí ve výrobě, skladech a logistice i na odborné a technické pozice, které na ně navazují.</p>
             <div className="hero__ctas fi d3">
               <a href="/agencies" className="btn btn-accent btn-lg" data-i18n="hero.cta1">Hledám pracovníky</a>
               <a href="/offers" className="btn btn-outline-white btn-lg" data-i18n="hero.cta2">Hledám práci</a>
@@ -120,23 +123,85 @@ export default function Home() {
         <div className="container">
           <div className="stats-grid fi">
             <div className="stat-item">
-              <strong>Výroba a logistika</strong>
-              <span>Zaměření na provozní profese</span>
+              <strong data-i18n="stats.s1">Výroba, sklady, logistika</strong>
+              <span data-i18n="stats.s1sub">Obsazování provozních profesí</span>
             </div>
             <div className="stat-divider" aria-hidden="true"></div>
             <div className="stat-item">
-              <strong>Přímý i agenturní</strong>
-              <span>Modely spolupráce podle potřeby</span>
+              <strong data-i18n="stats.s2">Odborné a technické pozice</strong>
+              <span data-i18n="stats.s2sub">Kvalifikované profese a provozní vedení</span>
             </div>
             <div className="stat-divider" aria-hidden="true"></div>
             <div className="stat-item">
-              <strong>Zaměstnávání cizinců</strong>
-              <span>Podpora u povolení a karet</span>
+              <strong data-i18n="stats.s3">Zaměstnávání cizinců</strong>
+              <span data-i18n="stats.s3sub">Podpora u povolení a karet</span>
             </div>
             <div className="stat-divider" aria-hidden="true"></div>
             <div className="stat-item">
-              <strong>Odhad nákladů</strong>
-              <span>Kalkulačka ceny práce před poptávkou</span>
+              <strong data-i18n="stats.s4">Odhad nákladů</strong>
+              <span data-i18n="stats.s4sub">Kalkulačka ceny práce před poptávkou</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* POSITIONING — what the company actually does.
+          Placed directly under the focus strip, above the calculator: the
+          calculator is a tool, and a visitor needs to know what is being
+          offered before being handed one. The two pillars are the site's only
+          server-rendered entry into the professional/specialist cluster, which
+          is what puts /nabor-odbornych-pozic at contextual depth 1. */}
+      <section className="section" id="pozice-a-lide" aria-labelledby="pozice-a-lide-title">
+        <div className="container">
+          <div className="positioning__lede fi">
+            <div className="eyebrow" data-i18n="positioning.eyebrow">Co pro firmy děláme</div>
+            <h2 id="pozice-a-lide-title" data-i18n="positioning.h2">
+              Najít lidi je snadné.<br />Najít ty <span className="text-accent">správné</span> už ne.
+            </h2>
+            {/* Each translated text node stays on one line: validate:czech-default
+                compares the server-rendered default byte-for-byte against the cs
+                dictionary in public/script.js, and JSX line-wrapping would inject
+                newlines the dictionary value does not have. */}
+            <p data-i18n="positioning.p1">Uchazečů bývá na trhu dost. Rozpoznat mezi nimi ty, kdo skutečně odpovídají dané roli, požadavkům a provozu, ale znamená čas, ověřování a pečlivý výběr.</p>
+            <p data-i18n="positioning.p2">Tuhle část práce bereme na sebe — pomáháme firmám kandidáty najít, ověřit jejich kvalifikaci a spojit se s lidmi, které na dané místo skutečně potřebují.</p>
+            <div className="positioning__tagline" aria-label="Naše služby">
+              <span data-i18n="positioning.tag1">Nábor</span>
+              <span data-i18n="positioning.tag2">Agenturní zaměstnávání</span>
+              <span data-i18n="positioning.tag3">Personální zajištění provozu</span>
+            </div>
+          </div>
+
+          <div className="pillars">
+            <div className="pillar fi d1">
+              <div className="pillar__label" data-i18n="pillars.a.label">Provozní profese</div>
+              <h3 data-i18n="pillars.a.h3">Dělníci a provozní pracovníci</h3>
+              <p data-i18n="pillars.a.p">Obsazování výroby, skladů a logistiky včetně směnného provozu, sezónních špiček a navýšení kapacity. Přímý nábor i agenturní zaměstnávání podle toho, zda jde o stálou, nebo dočasnou potřebu.</p>
+              <ul className="pillar__list">
+                <li><a href="/pracovnici-pro-vyrobu">Pracovníci pro výrobu</a></li>
+                <li><a href="/pracovnici-do-skladu">Pracovníci do skladu</a></li>
+                <li><a href="/pracovnici-do-logistiky">Pracovníci do logistiky</a></li>
+                <li><a href="/pracovnici-pro-stavebnictvi">Pracovníci pro stavebnictví</a></li>
+                <li><a href="/nabor-zahranicnich-pracovniku">Nábor ze zahraničí</a></li>
+              </ul>
+              <div className="pillar__foot">
+                <a href="/pro-zamestnavatele" className="btn btn-ghost btn-sm" data-i18n="pillars.a.cta">Pro zaměstnavatele: rozcestník →</a>
+              </div>
+            </div>
+
+            <div className="pillar fi d2">
+              <div className="pillar__label" data-i18n="pillars.b.label">Odborné a technické pozice</div>
+              <h3 data-i18n="pillars.b.h3">Odborníci a kvalifikovaní specialisté</h3>
+              <p data-i18n="pillars.b.p">U kvalifikovaných profesí nebývá problém v počtu uchazečů, ale v tom, že vhodných lidí je málo, často nehledají aktivně a jejich způsobilost je vázaná na doklady a oprávnění. Nábor proto vypadá jinak než u provozních rolí.</p>
+              <ul className="pillar__list">
+                <li><a href="/strojirenske-profese">Strojírenské profese</a></li>
+                <li><a href="/udrzba-a-technicky-servis">Údržba a technický servis</a></li>
+                <li><a href="/pozice-v-rizeni-kvality">Řízení kvality</a></li>
+                <li><a href="/mistri-a-vedouci-smen">Mistři a vedoucí směn</a></li>
+                <li><a href="/thp-pozice">THP pozice</a></li>
+              </ul>
+              <div className="pillar__foot">
+                <a href="/nabor-odbornych-pozic" className="btn btn-primary btn-sm" data-i18n="pillars.b.cta">Nábor odborných pozic →</a>
+              </div>
             </div>
           </div>
         </div>

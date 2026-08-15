@@ -78,15 +78,42 @@ const T = {
       h1b:    'the Right People',
       h1c:    'with the Right',
       h1accent: 'Companies.',
-      sub:    'TalentPartnerID is your trusted recruitment partner — delivering qualified candidates for permanent roles, executive positions, and flexible staffing needs across all industries.',
+      sub:    'TalentPartnerID helps employers find the right people — for operational roles in manufacturing, warehousing and logistics, and for the specialist and technical positions alongside them.',
       cta1:   'I\'m Looking for Talent',
       cta2:   'I\'m Looking for a Job',
     },
     stats: {
-      s1: 'Successful Placements',
-      s2: 'Partner Companies',
-      s3: 'Industries Covered',
-      s4: 'First Candidates',
+      s1:    'Manufacturing, warehousing, logistics',
+      s1sub: 'Staffing operational occupations',
+      s2:    'Specialist and technical roles',
+      s2sub: 'Qualified occupations and first-line management',
+      s3:    'Employing foreign nationals',
+      s3sub: 'Support with permits and cards',
+      s4:    'Cost estimate',
+      s4sub: 'Labour-cost calculator before you enquire',
+    },
+    positioning: {
+      eyebrow: 'What we do for employers',
+      h2:      'Finding people is easy.<br>Finding the <span class="text-accent">right</span> people is not.',
+      p1:      'There are usually plenty of applicants on the market. Telling which of them genuinely match the role, the requirements and the operation takes time, verification and careful selection.',
+      p2:      'That is the part we take on — helping companies find candidates, verify their qualifications and connect with the people the position actually needs.',
+      tag1:    'Recruitment',
+      tag2:    'Temporary agency employment',
+      tag3:    'Workforce solutions',
+    },
+    pillars: {
+      a: {
+        label: 'Operational roles',
+        h3:    'Operators and production staff',
+        p:     'Staffing manufacturing, warehousing and logistics, including shift operations, seasonal peaks and capacity increases. Direct hire or temporary agency employment, depending on whether the need is permanent or temporary.',
+        cta:   'For employers: start here →',
+      },
+      b: {
+        label: 'Specialist and technical roles',
+        h3:    'Specialists and qualified professionals',
+        p:     'For qualified occupations the problem is rarely the number of applicants. Suitable people are scarce, they often are not actively looking, and their competence is tied to documents and authorisations. Recruitment therefore works differently than for operational roles.',
+        cta:   'Specialist recruitment →',
+      },
     },
     employers: {
       eyebrow: 'For Employers',
@@ -96,47 +123,47 @@ const T = {
     },
     services: [
       {
-        title: 'Permanent Placement',
-        desc:  'Full-cycle recruitment for long-term positions. We handle everything from job briefing to final offer — with a 90-day replacement guarantee.',
+        title: 'Direct Hire',
+        desc:  'Recruitment for roles you want to fill directly onto your own payroll. We cover the steps from clarifying the brief to handing over the selected candidates.',
         list:  [
-          'Detailed job briefing & candidate profile',
-          'Active sourcing from our talent network',
-          'Curated shortlist of 3–5 candidates',
-          'Interview coordination & reference checks',
-          '90-day free replacement guarantee',
+          'Clarifying the role description and candidate profile',
+          'Sourcing and approaching candidates',
+          'Pre-selection against the agreed requirements',
+          'Interview coordination with the client',
+          'Terms of engagement and any replacement arrangements are set contractually',
         ],
       },
       {
-        title: 'Executive Search',
-        desc:  'Confidential headhunting for senior managers, directors, and C-level executives. We reach the passive candidates others can\'t access.',
+        title: 'Specialist & Technical Recruitment',
+        desc:  'Filling qualified roles — technical, specialist and first-line management — where suitability is decided by qualifications, authorisations and experience rather than by the number of applicants.',
         list:  [
-          'Market mapping & competitor analysis',
-          'Direct approach to passive candidates',
-          'Comprehensive executive assessment',
-          'Salary benchmarking & package advice',
-          'Full discretion & confidentiality guaranteed',
+          'Clarifying technical requirements and required authorisations',
+          'Approaching candidates who do not respond to job adverts',
+          'Verifying qualifications and documents the role requires',
+          'Preparing input for the client\'s technical interview',
+          'Discreet handling of the assignment where agreed',
         ],
       },
       {
-        title: 'Temporary Staffing',
-        desc:  'Flexible workforce for seasonal peaks, project work, maternity cover, or short-term capacity needs. Ready to work within days.',
+        title: 'Temporary Agency Employment',
+        desc:  'Flexible workforce for seasonal peaks, project work, parental-leave cover, or short-term capacity needs.',
         list:  [
-          'Pre-screened, job-ready candidates',
-          'Available within 24–72 hours',
-          'Full payroll & HR administration handled',
-          'Easy extension or permanent conversion',
-          'Volume staffing capability',
+          'Temporary assignment under Act No. 435/2004 Coll.',
+          'Comparable pay and working conditions with the user\'s own employees',
+          'Payroll and HR administration handled by the agency',
+          'Option to extend or move to direct employment',
+          'Start dates depend on the occupation, location and required authorisations',
         ],
       },
       {
-        title: 'HR Consulting & RPO',
-        desc:  'Outsource part or all of your recruitment process. Our HR experts help you design hiring processes, employer branding, and workforce strategy.',
+        title: 'Recruitment Process Support',
+        desc:  'Help with setting up hiring on the employer\'s side — from defining the role to the induction of new starters.',
         list:  [
-          'Recruitment Process Outsourcing (RPO)',
-          'HR policy & process design',
-          'Employer branding strategy',
-          'Onboarding programme development',
-          'Compensation & benefits benchmarking',
+          'Defining the brief and the role profile',
+          'Setting up the recruitment and selection process',
+          'Support with induction and initial training',
+          'Support with employing foreign nationals and related permits',
+          'Labour-cost estimates via the public calculator',
         ],
       },
     ],
@@ -148,18 +175,18 @@ const T = {
       steps: [
         {
           num:  '01',
-          title: 'Brief Us',
-          desc:  'Schedule a free 30-minute consultation. Tell us about your company culture, the role, required skills, and your ideal candidate profile. The clearer your brief, the faster we deliver.',
+          title: 'You Brief Us',
+          desc:  'We go through the role, the workplace, the shift pattern, the qualifications required and any authorisations needed. The more precise the brief, the better the candidates presented will match it.',
         },
         {
           num:  '02',
           title: 'We Search',
-          desc:  'Our recruiters immediately activate our talent network and database of 50,000+ profiles. We combine data-driven sourcing with direct headhunting to find people who are genuinely the right fit.',
+          desc:  'We combine advertising, direct approaches and referrals. For specialist roles the emphasis is on verifying the qualifications and documents the position requires.',
         },
         {
           num:  '03',
-          title: 'You Hire',
-          desc:  'We present a curated shortlist of 3–5 pre-vetted candidates, coordinate all interviews, support salary negotiation, and ensure a smooth onboarding start. Your hire comes with our guarantee.',
+          title: 'You Select',
+          desc:  'We hand over the candidates who match the brief, coordinate interviews and support the start. Scope and terms are agreed contractually.',
         },
       ],
     },
@@ -212,20 +239,16 @@ const T = {
       eyebrow: 'Why TalentPartnerID',
       h2:      'We Don\'t Just Fill Positions.<br>We Build Lasting Teams.',
       cards: [
-        { num: '01', title: 'Speed Without Compromise',   desc: 'First qualified candidates delivered within 24 hours of receiving your brief. We move fast because we maintain an active, pre-screened talent pipeline — not a static CV database.' },
-        { num: '02', title: '90-Day Guarantee',           desc: 'Every permanent placement comes with a 90-day free replacement guarantee. If the hire doesn\'t work out within the guarantee period, we find a replacement — at no additional cost.' },
-        { num: '03', title: 'Deep Industry Knowledge',    desc: 'Each of our recruiters specializes in specific sectors. This means we understand the roles we recruit for, speak the language of your industry, and know exactly what good looks like.' },
-        { num: '04', title: 'Transparent Process',        desc: 'No black-box recruitment. You get regular updates, candidate profiles with honest assessments, and a dedicated consultant who answers your calls — not a ticketing system.' },
+        { num: '01', title: 'Focus on What Blocks the Hire', desc: 'For specialist roles the obstacle is usually qualifications, authorisations and local availability — not the number of applicants. We work the brief around what is actually holding the vacancy up.' },
+        { num: '02', title: 'Terms Agreed in Advance',       desc: 'Scope, fees and any replacement arrangements are agreed in writing before the search starts. We do not promise a start date or a hiring outcome.' },
+        { num: '03', title: 'Operational and Technical Roles', desc: 'Our focus is manufacturing, warehousing and logistics, together with the adjacent specialist and technical roles including first-line management. Where we have nothing to offer, we say so.' },
+        { num: '04', title: 'Verifiable Information',       desc: 'Site content is based on legislation and official sources (MPSV, the Czech Labour Office, ČSSZ, ČSÚ). We publish no statistics, placement counts or references that cannot be substantiated.' },
       ],
     },
     testi: {
       eyebrow: 'Client Reviews',
       h2:      'What Our Clients Say',
-      items: [
-        { quote: 'Add your client testimonial here. Describe how TalentPartnerID helped your company find the right candidate quickly and professionally.', name: '[Client Name]', role: '[Position] · [Company]' },
-        { quote: 'Add your second client testimonial here. Highlight speed of delivery, quality of candidates, or the personal service your team provided.',  name: '[Client Name]', role: '[Position] · [Company]' },
-        { quote: 'Add your third client testimonial here. Mention the specific service (executive search, temp staffing, etc.) and the result achieved.',      name: '[Client Name]', role: '[Position] · [Company]' },
-      ],
+      items: [],
     },
     contact: {
       eyebrow:     'Get In Touch',
@@ -250,9 +273,9 @@ const T = {
         servicePh:  'Select a service…',
         opts: [
           { v: 'permanent',  t: 'Permanent Placement' },
-          { v: 'executive',  t: 'Executive Search' },
+          { v: 'specialist', t: 'Specialist & Technical Recruitment' },
           { v: 'temp',       t: 'Temporary Staffing' },
-          { v: 'rpo',        t: 'HR Consulting / RPO' },
+          { v: 'support',    t: 'Recruitment process support' },
           { v: 'candidate',  t: 'I\'m a Candidate' },
           { v: 'other',      t: 'Other / Not sure yet' },
         ],
@@ -262,7 +285,7 @@ const T = {
         note:       '100% confidential.',
         sending:    'Sending…',
         sent:       'Sent ✓',
-        successMsg: 'Message sent! We\'ll be in touch within 24 hours.',
+        successMsg: 'Message sent. We reply on working days.',
         errorMsg:   'Something went wrong. Please email us directly at jobbohemiacz@gmail.com',
         errorFields:'Please fill in all required fields.',
         errorEmail: 'Please enter a valid email address.',
@@ -294,10 +317,10 @@ const T = {
       guide4: 'Minimum wage 2026',
       guide5: 'Frequently asked questions',
       links: {
-        permanent:  'Permanent Placement',
-        executive:  'Executive Search',
-        temp:       'Temporary Staffing',
-        rpo:        'HR Consulting & RPO',
+        permanent:  'Direct hire',
+        specialist: 'Specialist & technical recruitment',
+        temp:       'Temporary agency employment',
+        employers:  'For employers: start here',
         about:      'About Us',
         industries: 'Industries',
         candidates: 'For Candidates',
@@ -385,15 +408,42 @@ const T = {
       h1b:      'správné lidi',
       h1c:      'se správnými',
       h1accent: 'firmami.',
-      sub:      'TNT agency s.r.o. je váš spolehlivý partner v oblasti náboru — dodáváme kvalifikované kandidáty na trvalé, manažerské i flexibilní pozice napříč všemi odvětvími.',
+      sub:      'TalentPartnerID pomáhá firmám najít ty správné lidi — do provozních profesí ve výrobě, skladech a logistice i na odborné a technické pozice, které na ně navazují.',
       cta1:     'Hledám pracovníky',
       cta2:     'Hledám práci',
     },
     stats: {
-      s1: 'Úspěšných umístění',
-      s2: 'Firemních partnerů',
-      s3: 'Pokrytých odvětví',
-      s4: 'První kandidáti',
+      s1:    'Výroba, sklady, logistika',
+      s1sub: 'Obsazování provozních profesí',
+      s2:    'Odborné a technické pozice',
+      s2sub: 'Kvalifikované profese a provozní vedení',
+      s3:    'Zaměstnávání cizinců',
+      s3sub: 'Podpora u povolení a karet',
+      s4:    'Odhad nákladů',
+      s4sub: 'Kalkulačka ceny práce před poptávkou',
+    },
+    positioning: {
+      eyebrow: 'Co pro firmy děláme',
+      h2:      'Najít lidi je snadné.<br>Najít ty <span class="text-accent">správné</span> už ne.',
+      p1:      'Uchazečů bývá na trhu dost. Rozpoznat mezi nimi ty, kdo skutečně odpovídají dané roli, požadavkům a provozu, ale znamená čas, ověřování a pečlivý výběr.',
+      p2:      'Tuhle část práce bereme na sebe — pomáháme firmám kandidáty najít, ověřit jejich kvalifikaci a spojit se s lidmi, které na dané místo skutečně potřebují.',
+      tag1:    'Nábor',
+      tag2:    'Agenturní zaměstnávání',
+      tag3:    'Personální zajištění provozu',
+    },
+    pillars: {
+      a: {
+        label: 'Provozní profese',
+        h3:    'Dělníci a provozní pracovníci',
+        p:     'Obsazování výroby, skladů a logistiky včetně směnného provozu, sezónních špiček a navýšení kapacity. Přímý nábor i agenturní zaměstnávání podle toho, zda jde o stálou, nebo dočasnou potřebu.',
+        cta:   'Pro zaměstnavatele: rozcestník →',
+      },
+      b: {
+        label: 'Odborné a technické pozice',
+        h3:    'Odborníci a kvalifikovaní specialisté',
+        p:     'U kvalifikovaných profesí nebývá problém v počtu uchazečů, ale v tom, že vhodných lidí je málo, často nehledají aktivně a jejich způsobilost je vázaná na doklady a oprávnění. Nábor proto vypadá jinak než u provozních rolí.',
+        cta:   'Nábor odborných pozic →',
+      },
     },
     employers: {
       eyebrow: 'Pro zaměstnavatele',
@@ -403,47 +453,47 @@ const T = {
     },
     services: [
       {
-        title: 'Přímé umístění',
-        desc:  'Kompletní nábor na trvalé pozice. Postaráme se o vše od zadání požadavků až po finální nabídku — se zárukou náhrady na 90 dní.',
+        title: 'Přímý nábor do kmenového stavu',
+        desc:  'Nábor na pozice, které chcete obsadit napřímo do vlastního stavu. Postaráme se o kroky od upřesnění zadání až po předání vybraných kandidátů.',
         list:  [
-          'Podrobný popis pracovního místa a profilu kandidáta',
-          'Aktivní sourcing z naší sítě talentů',
-          'Výběr 3–5 předem prověřených kandidátů',
-          'Koordinace pohovorů a ověření referencí',
-          'Záruka bezplatné náhrady na 90 dní',
+          'Upřesnění popisu pozice a profilu kandidáta',
+          'Vyhledávání a oslovování kandidátů',
+          'Předvýběr podle dohodnutých požadavků',
+          'Koordinace pohovorů se zadavatelem',
+          'Podmínky spolupráce a náhrady se sjednávají smluvně',
         ],
       },
       {
-        title: 'Executive Search',
-        desc:  'Důvěrné vyhledávání pro vrcholové manažery, ředitele a C-level pozice. Oslovujeme pasivní kandidáty, na které ostatní nedosáhnou.',
+        title: 'Nábor odborných a technických pozic',
+        desc:  'Obsazování kvalifikovaných profesí — technických, odborných a provozního vedení — kde o obsaditelnosti rozhoduje kvalifikace, oprávnění a praxe, ne počet uchazečů.',
         list:  [
-          'Mapování trhu a analýza konkurence',
-          'Přímé oslovení pasivních kandidátů',
-          'Komplexní hodnocení manažerů',
-          'Mzdová srovnávací analýza a poradenství',
-          'Plná diskrétnost a důvěrnost zaručena',
+          'Upřesnění technických požadavků a oprávnění',
+          'Aktivní oslovení kandidátů, kteří sami nereagují na inzeráty',
+          'Ověření kvalifikace a dokladů podle požadavků pozice',
+          'Podklady pro odborný pohovor na straně zadavatele',
+          'Diskrétní vedení poptávky podle dohody',
         ],
       },
       {
         title: 'Agenturní zaměstnávání',
-        desc:  'Flexibilní pracovní síla pro sezónní špičky, projektové práce, zástupy za rodičovskou dovolenou nebo krátkodobé kapacitní potřeby. Připraveni nastoupit do dnů.',
+        desc:  'Flexibilní pracovní síla pro sezónní špičky, projektové práce, zástupy za rodičovskou dovolenou nebo krátkodobé kapacitní potřeby.',
         list:  [
-          'Předem prověření, připravení kandidáti',
-          'Dostupní do 24–72 hodin',
-          'Veškerá mzdová agenda a HR administrativa zajištěna',
-          'Snadné prodloužení nebo převod na trvalý poměr',
-          'Schopnost hromadného zajištění personálu',
+          'Dočasné přidělení podle zákona č. 435/2004 Sb.',
+          'Srovnatelné mzdové a pracovní podmínky s kmenovými zaměstnanci',
+          'Mzdová agenda a personální administrativa na straně agentury',
+          'Možnost prodloužení nebo přechodu do kmenového stavu',
+          'Termíny nástupu závisí na profesi, lokalitě a oprávněních',
         ],
       },
       {
-        title: 'Personální poradenství a RPO',
-        desc:  'Outsourcujte část nebo celý proces náboru. Naši HR experti vám pomohou navrhnout náborové procesy, employer branding a personální strategii.',
+        title: 'Podpora náborových procesů',
+        desc:  'Pomoc s nastavením náboru na straně zaměstnavatele — od zadání pozice po adaptaci nastupujících pracovníků.',
         list:  [
-          'Outsourcing náborového procesu (RPO)',
-          'Design HR politik a procesů',
-          'Strategie employer brandingu',
-          'Vývoj onboardingového programu',
-          'Benchmarking odměňování a benefitů',
+          'Nastavení zadání a profilu pozice',
+          'Nastavení náborového a výběrového procesu',
+          'Podpora u adaptace a zapracování',
+          'Podpora u zaměstnávání cizinců a souvisejících oprávnění',
+          'Odhad nákladů práce přes veřejnou kalkulačku',
         ],
       },
     ],
@@ -455,18 +505,18 @@ const T = {
       steps: [
         {
           num:   '01',
-          title: 'Zadejte požadavky',
-          desc:  'Domluvte si bezplatnou 30minutovou konzultaci. Řekněte nám o kultuře vaší firmy, pozici, požadovaných dovednostech a ideálním profilu kandidáta. Čím jasnější zadání, tím rychlejší dodání.',
+          title: 'Zadáte požadavky',
+          desc:  'Probereme pozici, pracoviště, směnný režim, požadovanou kvalifikaci a případná oprávnění. Čím přesnější zadání, tím lépe odpovídají předložení kandidáti.',
         },
         {
           num:   '02',
-          title: 'Hledáme',
-          desc:  'Naši náboráři okamžitě aktivují svou síť talentů a databázi více než 50 000 profilů. Kombinujeme datově řízený sourcing s přímým oslovováním kandidátů.',
+          title: 'Hledáme kandidáty',
+          desc:  'Kombinujeme inzerci, oslovování kandidátů a doporučení. U odborných pozic klademe důraz na ověření kvalifikace a dokladů, které pozice vyžaduje.',
         },
         {
           num:   '03',
-          title: 'Najímáte',
-          desc:  'Předložíme výběr 3–5 prověřených kandidátů, zkoordinujeme pohovory, podpoříme vyjednávání o mzdě a zajistíme hladký nástup. Každý nábor je kryt naší zárukou.',
+          title: 'Předáváme výběr',
+          desc:  'Předáme kandidáty, kteří odpovídají zadání, zkoordinujeme pohovory a podpoříme nástup. Rozsah spolupráce a podmínky se sjednávají smluvně.',
         },
       ],
     },
@@ -519,20 +569,16 @@ const T = {
       eyebrow: 'Proč TalentPartnerID',
       h2:      'Neobsazujeme jen pozice.<br>Budujeme trvalé týmy.',
       cards: [
-        { num: '01', title: 'Rychlost bez kompromisů',       desc: 'První kvalifikovaní kandidáti dodáni do 24 hodin od obdržení zadání. Jsme rychlí, protože udržujeme aktivní, předem prověřený talent pipeline — ne statickou databázi životopisů.' },
-        { num: '02', title: 'Záruka 90 dní',                 desc: 'Každé přímé umístění je kryto 90denní zárukou bezplatné náhrady. Pokud nábor nevyjde do záruční lhůty, zajistíme náhradu — bez dalších nákladů.' },
-        { num: '03', title: 'Hluboká znalost odvětví',       desc: 'Každý z našich náborářů se specializuje na konkrétní sektory. Rozumíme pozicím, na které nabíráme, mluvíme jazykem vašeho odvětví a víme, jak vypadá opravdu dobrý kandidát.' },
-        { num: '04', title: 'Transparentní proces',          desc: 'Žádný nábor v temnotách. Dostáváte pravidelné aktualizace, profily kandidátů s upřímnými hodnoceními a dedikovaného konzultanta, který zvedá telefon — ne systém tiketů.' },
+        { num: '01', title: 'Zaměření na obsaditelnost',     desc: 'U odborných pozic bývá překážkou kvalifikace, oprávnění a dostupnost v dané lokalitě, ne počet uchazečů. Zadání proto řešíme podle toho, co obsazení pozice reálně brzdí.' },
+        { num: '02', title: 'Smluvní podmínky předem',       desc: 'Rozsah spolupráce, odměna a případné podmínky náhrady se sjednávají písemně před zahájením náboru. Neslibujeme termín nástupu ani výsledek náboru.' },
+        { num: '03', title: 'Provozní a technické profese',  desc: 'Zaměřujeme se na výrobu, sklady a logistiku a na navazující odborné a technické role včetně provozního vedení. Kde nemáme co nabídnout, řekneme to.' },
+        { num: '04', title: 'Doložitelné informace',         desc: 'Obsah webu vychází z právních předpisů a oficiálních zdrojů (MPSV, Úřad práce ČR, ČSSZ, ČSÚ). Neuvádíme statistiky, počty umístění ani reference, které nelze doložit.' },
       ],
     },
     testi: {
       eyebrow: 'Hodnocení klientů',
       h2:      'Co říkají naši klienti',
-      items: [
-        { quote: 'Přidejte první referencí klienta. Popište, jak TalentPartnerID pomohla vaší firmě rychle a profesionálně najít správného kandidáta.', name: '[Jméno klienta]', role: '[Pozice] · [Firma]' },
-        { quote: 'Přidejte druhou referencí klienta. Zdůrazněte rychlost dodání, kvalitu kandidátů nebo osobní přístup vašeho týmu.',              name: '[Jméno klienta]', role: '[Pozice] · [Firma]' },
-        { quote: 'Přidejte třetí referencí klienta. Zmiňte konkrétní službu (executive search, agenturní zaměstnávání apod.) a dosažený výsledek.', name: '[Jméno klienta]', role: '[Pozice] · [Firma]' },
-      ],
+      items: [],
     },
     contact: {
       eyebrow:     'Kontaktujte nás',
@@ -557,9 +603,9 @@ const T = {
         servicePh:  'Vyberte službu…',
         opts: [
           { v: 'permanent',  t: 'Přímé umístění' },
-          { v: 'executive',  t: 'Executive Search' },
+          { v: 'specialist', t: 'Nábor odborných a technických pozic' },
           { v: 'temp',       t: 'Agenturní zaměstnávání' },
-          { v: 'rpo',        t: 'Personální poradenství / RPO' },
+          { v: 'support',    t: 'Podpora náborových procesů' },
           { v: 'candidate',  t: 'Jsem uchazeč o práci' },
           { v: 'other',      t: 'Jiné / Zatím nevím' },
         ],
@@ -569,7 +615,7 @@ const T = {
         note:       '100% diskrétní.',
         sending:    'Odesílám…',
         sent:       'Odesláno ✓',
-        successMsg: 'Zpráva odeslána! Ozveme se vám do 24 hodin.',
+        successMsg: 'Zpráva odeslána. Na zprávy odpovídáme v pracovní dny.',
         errorMsg:   'Něco se pokazilo. Napište nám přímo na jobbohemiacz@gmail.com',
         errorFields:'Vyplňte prosím všechna povinná pole.',
         errorEmail: 'Zadejte prosím platnou e-mailovou adresu.',
@@ -601,10 +647,10 @@ const T = {
       guide4: 'Minimální mzda 2026',
       guide5: 'Časté dotazy',
       links: {
-        permanent:  'Přímé umístění',
-        executive:  'Executive Search',
+        permanent:  'Přímý nábor do kmenového stavu',
+        specialist: 'Nábor odborných a technických pozic',
         temp:       'Agenturní zaměstnávání',
-        rpo:        'Personální poradenství a RPO',
+        employers:  'Pro zaměstnavatele: rozcestník',
         about:      'O nás',
         industries: 'Odvětví',
         candidates: 'Pro uchazeče',
@@ -692,15 +738,42 @@ const T = {
       h1b:      'die richtigen Menschen',
       h1c:      'mit den richtigen',
       h1accent: 'Unternehmen.',
-      sub:      'TalentPartnerID ist Ihr zuverlässiger Rekrutierungspartner — wir liefern qualifizierte Kandidaten für Festanstellungen, Führungspositionen und flexible Personalbedürfnisse in allen Branchen.',
+      sub:      'TalentPartnerID hilft Unternehmen, die richtigen Menschen zu finden — für gewerbliche Berufe in Produktion, Lager und Logistik sowie für die angrenzenden Fach- und Technikpositionen.',
       cta1:     'Ich suche Talente',
       cta2:     'Ich suche einen Job',
     },
     stats: {
-      s1: 'Erfolgreiche Vermittlungen',
-      s2: 'Partnerunternehmen',
-      s3: 'Abgedeckte Branchen',
-      s4: 'Erste Kandidaten',
+      s1:    'Produktion, Lager, Logistik',
+      s1sub: 'Besetzung gewerblicher Berufe',
+      s2:    'Fach- und Technikpositionen',
+      s2sub: 'Qualifizierte Berufe und operative Führung',
+      s3:    'Beschäftigung ausländischer Arbeitnehmer',
+      s3sub: 'Unterstützung bei Genehmigungen und Karten',
+      s4:    'Kostenschätzung',
+      s4sub: 'Arbeitskostenrechner vor der Anfrage',
+    },
+    positioning: {
+      eyebrow: 'Was wir für Unternehmen tun',
+      h2:      'Menschen zu finden ist einfach.<br>Die <span class="text-accent">richtigen</span> zu finden nicht.',
+      p1:      'Bewerber gibt es auf dem Markt meist genug. Zu erkennen, wer davon wirklich zur Stelle, zu den Anforderungen und zum Betrieb passt, erfordert Zeit, Prüfung und sorgfältige Auswahl.',
+      p2:      'Diesen Teil der Arbeit übernehmen wir — wir helfen Unternehmen, Kandidaten zu finden, ihre Qualifikation zu prüfen und mit den Menschen zusammenzukommen, die die Stelle tatsächlich braucht.',
+      tag1:    'Rekrutierung',
+      tag2:    'Zeitarbeit',
+      tag3:    'Personallösungen für den Betrieb',
+    },
+    pillars: {
+      a: {
+        label: 'Gewerbliche Berufe',
+        h3:    'Produktions- und Betriebsmitarbeiter',
+        p:     'Besetzung in Produktion, Lager und Logistik einschließlich Schichtbetrieb, Saisonspitzen und Kapazitätsaufbau. Direktvermittlung oder Zeitarbeit, je nachdem, ob der Bedarf dauerhaft oder befristet ist.',
+        cta:   'Für Arbeitgeber: Übersicht →',
+      },
+      b: {
+        label: 'Fach- und Technikpositionen',
+        h3:    'Fachkräfte und qualifizierte Spezialisten',
+        p:     'Bei qualifizierten Berufen liegt das Problem selten in der Zahl der Bewerber. Geeignete Personen sind rar, suchen oft nicht aktiv, und ihre Befähigung ist an Nachweise und Berechtigungen gebunden. Die Rekrutierung verläuft daher anders als bei gewerblichen Rollen.',
+        cta:   'Fach- und Technikpositionen →',
+      },
     },
     employers: {
       eyebrow: 'Für Arbeitgeber',
@@ -711,46 +784,46 @@ const T = {
     services: [
       {
         title: 'Direktvermittlung',
-        desc:  'Full-Cycle-Rekrutierung für langfristige Stellen. Wir kümmern uns um alles vom Briefing bis zum finalen Angebot — mit 90-Tage-Ersatzgarantie.',
+        desc:  'Rekrutierung für Stellen, die Sie direkt in Ihre eigene Belegschaft besetzen wollen. Wir übernehmen die Schritte von der Präzisierung des Briefings bis zur Übergabe der ausgewählten Kandidaten.',
         list:  [
-          'Detailliertes Stellenbriefing & Kandidatenprofil',
-          'Aktives Sourcing aus unserem Talentnetzwerk',
-          'Kuratierte Shortlist mit 3–5 Kandidaten',
-          'Koordination von Interviews & Referenzprüfungen',
-          '90 Tage kostenlose Ersatzgarantie',
+          'Präzisierung von Stellenbeschreibung und Kandidatenprofil',
+          'Suche und Ansprache von Kandidaten',
+          'Vorauswahl nach den vereinbarten Anforderungen',
+          'Koordination von Interviews mit dem Auftraggeber',
+          'Konditionen und etwaige Ersatzregelungen werden vertraglich vereinbart',
         ],
       },
       {
-        title: 'Executive Search',
-        desc:  'Vertrauliche Suche nach leitenden Managern, Direktoren und C-Level-Führungskräften. Wir erreichen passive Kandidaten, die für andere unerreichbar sind.',
+        title: 'Fach- und Technikpositionen',
+        desc:  'Besetzung qualifizierter Positionen — technisch, fachlich und in der operativen Führung — bei denen Qualifikation, Befähigungsnachweise und Praxis über die Besetzbarkeit entscheiden, nicht die Zahl der Bewerber.',
         list:  [
-          'Marktanalyse & Wettbewerbsbeobachtung',
-          'Direktansprache passiver Kandidaten',
-          'Umfassende Führungskräftebeurteilung',
-          'Gehalts-Benchmarking & Paketberatung',
-          'Vollständige Diskretion & Vertraulichkeit garantiert',
+          'Präzisierung technischer Anforderungen und erforderlicher Befähigungen',
+          'Ansprache von Kandidaten, die auf Stellenanzeigen nicht reagieren',
+          'Prüfung von Qualifikationen und Nachweisen, die die Stelle verlangt',
+          'Vorbereitung der Grundlagen für das Fachinterview beim Auftraggeber',
+          'Diskrete Abwicklung der Anfrage nach Vereinbarung',
         ],
       },
       {
         title: 'Zeitarbeit',
-        desc:  'Flexible Arbeitskräfte für Saisongipfel, Projektarbeiten, Elternzeitvertretungen oder kurzfristigen Kapazitätsbedarf. Einsatzbereit innerhalb von Tagen.',
+        desc:  'Flexible Arbeitskräfte für Saisongipfel, Projektarbeiten, Elternzeitvertretungen oder kurzfristigen Kapazitätsbedarf.',
         list:  [
-          'Vorgeprüfte, einsatzbereite Kandidaten',
-          'Verfügbar innerhalb von 24–72 Stunden',
-          'Vollständige Lohnbuchhaltung & HR-Verwaltung übernommen',
-          'Einfache Verlängerung oder Übernahme in Festanstellung',
-          'Kapazität für Massenpersonalvermittlung',
+          'Überlassung nach dem Gesetz Nr. 435/2004 Slg.',
+          'Vergleichbare Lohn- und Arbeitsbedingungen wie bei Stammbeschäftigten',
+          'Lohnbuchhaltung und Personalverwaltung auf Seiten der Agentur',
+          'Möglichkeit der Verlängerung oder Übernahme in die Stammbelegschaft',
+          'Eintrittstermine hängen von Beruf, Standort und Befähigungsnachweisen ab',
         ],
       },
       {
-        title: 'HR-Beratung & RPO',
-        desc:  'Lagern Sie einen Teil oder den gesamten Rekrutierungsprozess aus. Unsere HR-Experten helfen Ihnen, Einstellungsprozesse, Employer Branding und Personalstrategie zu gestalten.',
+        title: 'Unterstützung im Rekrutierungsprozess',
+        desc:  'Unterstützung beim Aufsetzen der Personalgewinnung auf Arbeitgeberseite — von der Definition der Stelle bis zur Einarbeitung neuer Mitarbeiter.',
         list:  [
-          'Recruitment Process Outsourcing (RPO)',
-          'Design von HR-Richtlinien & Prozessen',
-          'Employer-Branding-Strategie',
-          'Entwicklung von Onboarding-Programmen',
-          'Vergütungs- & Benefits-Benchmarking',
+          'Definition von Briefing und Stellenprofil',
+          'Aufsetzen des Rekrutierungs- und Auswahlprozesses',
+          'Unterstützung bei Einarbeitung und Anlernphase',
+          'Unterstützung bei der Beschäftigung ausländischer Arbeitnehmer und zugehöriger Genehmigungen',
+          'Schätzung der Arbeitskosten über den öffentlichen Rechner',
         ],
       },
     ],
@@ -763,17 +836,17 @@ const T = {
         {
           num:   '01',
           title: 'Briefing',
-          desc:  'Vereinbaren Sie ein kostenloses 30-minütiges Beratungsgespräch. Erzählen Sie uns von Ihrer Unternehmenskultur, der Stelle, den erforderlichen Fähigkeiten und Ihrem idealen Kandidatenprofil.',
+          desc:  'Wir besprechen die Stelle, den Arbeitsort, das Schichtmodell, die geforderte Qualifikation und etwaige Befähigungsnachweise. Je präziser das Briefing, desto besser passen die vorgestellten Kandidaten.',
         },
         {
           num:   '02',
           title: 'Wir suchen',
-          desc:  'Unsere Recruiter aktivieren sofort unser Talentnetzwerk und eine Datenbank mit über 50.000 Profilen. Wir kombinieren datengesteuertes Sourcing mit direktem Headhunting.',
+          desc:  'Wir kombinieren Stellenanzeigen, Direktansprache und Empfehlungen. Bei Fachpositionen liegt der Schwerpunkt auf der Prüfung der Qualifikationen und Nachweise, die die Stelle verlangt.',
         },
         {
           num:   '03',
-          title: 'Sie stellen ein',
-          desc:  'Wir präsentieren eine kuratierte Shortlist mit 3–5 geprüften Kandidaten, koordinieren alle Interviews, unterstützen bei der Gehaltsverhandlung und sorgen für einen reibungslosen Einarbeitungsstart.',
+          title: 'Sie wählen aus',
+          desc:  'Wir übergeben die Kandidaten, die dem Briefing entsprechen, koordinieren Interviews und begleiten den Eintritt. Umfang und Konditionen werden vertraglich vereinbart.',
         },
       ],
     },
@@ -826,20 +899,16 @@ const T = {
       eyebrow: 'Warum TalentPartnerID',
       h2:      'Wir besetzen nicht nur Stellen.<br>Wir bauen dauerhafte Teams.',
       cards: [
-        { num: '01', title: 'Geschwindigkeit ohne Kompromisse', desc: 'Erste qualifizierte Kandidaten innerhalb von 24 Stunden nach Erhalt Ihres Briefings. Wir sind schnell, weil wir eine aktive, vorgeprüfte Talentpipeline pflegen.' },
-        { num: '02', title: '90-Tage-Garantie',                 desc: 'Jede Direktvermittlung wird mit einer 90-tägigen kostenlosen Ersatzgarantie geliefert. Klappt es nicht, finden wir kostenlos Ersatz.' },
-        { num: '03', title: 'Tiefes Branchenwissen',            desc: 'Jeder unserer Recruiter ist auf bestimmte Sektoren spezialisiert. Wir verstehen die Stellen, für die wir rekrutieren, und sprechen die Sprache Ihrer Branche.' },
-        { num: '04', title: 'Transparenter Prozess',            desc: 'Kein Recruiting im Dunkeln. Sie erhalten regelmäßige Updates, Kandidatenprofile mit ehrlichen Bewertungen und einen dedizierten Berater, der ans Telefon geht.' },
+        { num: '01', title: 'Fokus auf die tatsächliche Hürde', desc: 'Bei Fachpositionen sind Qualifikation, Befähigungsnachweise und regionale Verfügbarkeit die Hürde — nicht die Zahl der Bewerber. Wir richten das Briefing danach aus, was die Besetzung wirklich aufhält.' },
+        { num: '02', title: 'Konditionen vorab vereinbart',     desc: 'Umfang, Honorar und etwaige Ersatzregelungen werden vor Beginn der Suche schriftlich vereinbart. Wir sagen weder einen Eintrittstermin noch ein Besetzungsergebnis zu.' },
+        { num: '03', title: 'Gewerbliche und technische Berufe', desc: 'Unser Schwerpunkt sind Produktion, Lager und Logistik sowie die angrenzenden Fach- und Technikpositionen einschließlich der operativen Führung. Wo wir nichts anzubieten haben, sagen wir es.' },
+        { num: '04', title: 'Belegbare Angaben',                desc: 'Die Inhalte dieser Website stützen sich auf Rechtsvorschriften und amtliche Quellen (MPSV, Arbeitsamt ČR, ČSSZ, ČSÚ). Wir veröffentlichen keine Statistiken, Vermittlungszahlen oder Referenzen, die sich nicht belegen lassen.' },
       ],
     },
     testi: {
       eyebrow: 'Kundenbewertungen',
       h2:      'Was unsere Kunden sagen',
-      items: [
-        { quote: 'Fügen Sie hier Ihr erstes Kundentestimonial hinzu. Beschreiben Sie, wie TalentPartnerID Ihrem Unternehmen half, schnell und professionell den richtigen Kandidaten zu finden.', name: '[Kundenname]', role: '[Position] · [Unternehmen]' },
-        { quote: 'Fügen Sie hier Ihr zweites Kundentestimonial hinzu. Betonen Sie Liefergeschwindigkeit, Kandidatenqualität oder den persönlichen Service.',                                name: '[Kundenname]', role: '[Position] · [Unternehmen]' },
-        { quote: 'Fügen Sie hier Ihr drittes Kundentestimonial hinzu. Erwähnen Sie den spezifischen Service und das erzielte Ergebnis.',                                                  name: '[Kundenname]', role: '[Position] · [Unternehmen]' },
-      ],
+      items: [],
     },
     contact: {
       eyebrow:     'Kontakt aufnehmen',
@@ -864,9 +933,9 @@ const T = {
         servicePh:  'Service auswählen…',
         opts: [
           { v: 'permanent',  t: 'Direktvermittlung' },
-          { v: 'executive',  t: 'Executive Search' },
+          { v: 'specialist', t: 'Fach- und Technikpositionen' },
           { v: 'temp',       t: 'Zeitarbeit' },
-          { v: 'rpo',        t: 'HR-Beratung / RPO' },
+          { v: 'support',    t: 'Unterstützung im Rekrutierungsprozess' },
           { v: 'candidate',  t: 'Ich bin Bewerber' },
           { v: 'other',      t: 'Sonstiges / Noch unsicher' },
         ],
@@ -876,7 +945,7 @@ const T = {
         note:       '100% vertraulich.',
         sending:    'Wird gesendet…',
         sent:       'Gesendet ✓',
-        successMsg: 'Nachricht gesendet! Wir melden uns innerhalb von 24 Stunden.',
+        successMsg: 'Nachricht gesendet. Wir antworten an Werktagen.',
         errorMsg:   'Etwas ist schiefgelaufen. Schreiben Sie uns direkt an jobbohemiacz@gmail.com',
         errorFields:'Bitte füllen Sie alle Pflichtfelder aus.',
         errorEmail: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
@@ -909,9 +978,9 @@ const T = {
       guide5: 'Häufige Fragen',
       links: {
         permanent:  'Direktvermittlung',
-        executive:  'Executive Search',
+        specialist: 'Fach- und Technikpositionen',
         temp:       'Zeitarbeit',
-        rpo:        'HR-Beratung & RPO',
+        employers:  'Für Arbeitgeber: Übersicht',
         about:      'Über uns',
         industries: 'Branchen',
         candidates: 'Für Bewerber',
@@ -1016,6 +1085,31 @@ function renderAll(lang) {
   qs('[data-i18n="stats.s2"]', t.stats.s2);
   qs('[data-i18n="stats.s3"]', t.stats.s3);
   qs('[data-i18n="stats.s4"]', t.stats.s4);
+  qs('[data-i18n="stats.s1sub"]', t.stats.s1sub);
+  qs('[data-i18n="stats.s2sub"]', t.stats.s2sub);
+  qs('[data-i18n="stats.s3sub"]', t.stats.s3sub);
+  qs('[data-i18n="stats.s4sub"]', t.stats.s4sub);
+
+  /* — Positioning + the two recruitment pillars (homepage) — */
+  if (t.positioning) {
+    qs('[data-i18n="positioning.eyebrow"]', t.positioning.eyebrow);
+    qsHTML('[data-i18n="positioning.h2"]',  t.positioning.h2);
+    qs('[data-i18n="positioning.p1"]',      t.positioning.p1);
+    qs('[data-i18n="positioning.p2"]',      t.positioning.p2);
+    qs('[data-i18n="positioning.tag1"]',    t.positioning.tag1);
+    qs('[data-i18n="positioning.tag2"]',    t.positioning.tag2);
+    qs('[data-i18n="positioning.tag3"]',    t.positioning.tag3);
+  }
+  if (t.pillars) {
+    qs('[data-i18n="pillars.a.label"]', t.pillars.a.label);
+    qs('[data-i18n="pillars.a.h3"]',    t.pillars.a.h3);
+    qs('[data-i18n="pillars.a.p"]',     t.pillars.a.p);
+    qs('[data-i18n="pillars.a.cta"]',   t.pillars.a.cta);
+    qs('[data-i18n="pillars.b.label"]', t.pillars.b.label);
+    qs('[data-i18n="pillars.b.h3"]',    t.pillars.b.h3);
+    qs('[data-i18n="pillars.b.p"]',     t.pillars.b.p);
+    qs('[data-i18n="pillars.b.cta"]',   t.pillars.b.cta);
+  }
 
   /* — Employers section head — */
   qs('[data-i18n="employers.eyebrow"]',     t.employers.eyebrow);
@@ -1118,23 +1212,14 @@ function renderAll(lang) {
     wg.querySelectorAll('.fi').forEach(el => io.observe(el));
   }
 
-  /* — Testimonials — */
-  qs('[data-i18n="testi.eyebrow"]', t.testi.eyebrow);
-  qs('[data-i18n="testi.h2"]',      t.testi.h2);
-
-  const tg = document.getElementById('testiGrid');
-  if (tg) {
-    tg.innerHTML = t.testi.items.map((item, i) => `
-      <div class="testi-card fi ${delays[i]}">
-        <div class="testi-stars" aria-label="5 stars" aria-hidden="true">★★★★★</div>
-        <blockquote>"${item.quote}"</blockquote>
-        <div class="testi-author">
-          <div class="testi-author__avatar" aria-hidden="true">?</div>
-          <div><strong>${item.name}</strong><span>${item.role}</span></div>
-        </div>
-      </div>`).join('');
-    tg.querySelectorAll('.fi').forEach(el => io.observe(el));
-  }
+  /* — Testimonials —
+     Deliberately not rendered. The previous implementation hard-coded a
+     five-star rating (★★★★★) and placeholder author names ("[Jméno klienta]")
+     for every entry, so any page that gained an #testiGrid element would have
+     published fabricated reviews. No verified client testimonial exists, and
+     the site's editorial rules forbid invented reviews, ratings and client
+     references. The heading strings stay translated for reuse if real,
+     attributable references are ever collected; the items arrays are empty. */
 
   /* — Contact — */
   qs('[data-i18n="contact.eyebrow"]',     t.contact.eyebrow);
@@ -1180,9 +1265,9 @@ function renderAll(lang) {
   qs('[data-i18n="footer.colGuides"]',    t.footer.colGuides);
   qs('[data-i18n="footer.colContact"]',   t.footer.colContact);
   qs('[data-i18n="footer.links.permanent"]', t.footer.links.permanent);
-  qs('[data-i18n="footer.links.executive"]', t.footer.links.executive);
+  qs('[data-i18n="footer.links.specialist"]', t.footer.links.specialist);
   qs('[data-i18n="footer.links.temp"]',   t.footer.links.temp);
-  qs('[data-i18n="footer.links.rpo"]',    t.footer.links.rpo);
+  qs('[data-i18n="footer.links.employers"]', t.footer.links.employers);
   qs('[data-i18n="footer.navAgencies"]',  t.footer.navAgencies);
   qs('[data-i18n="footer.navOffers"]',    t.footer.navOffers);
   qs('[data-i18n="footer.navCalc"]',      t.footer.navCalc);
