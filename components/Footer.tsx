@@ -1,4 +1,5 @@
 import { SITE } from '../lib/content/rules'
+import { OPERATOR_EMAIL, OPERATOR_PHONE, OPERATOR_SEAT } from '../lib/content/trust-data'
 
 /** Human label for a social profile URL (e.g. "linkedin.com/company/x" → "LinkedIn"). */
 function socialLabel(url: string): string {
@@ -23,7 +24,7 @@ export default function Footer() {
               <span className="logo__word">TalentPartner<span className="id">ID</span></span>
             </a>
             <p data-i18n="footer.tagline">Váš spolehlivý partner v oblasti zaměstnávání. Spojujeme správné lidi se správnými firmami od prvního dne.</p>
-            <address>Na Spravedlnosti 1533, Zelené Předměstí, 530 02 Pardubice</address>
+            <address>{OPERATOR_SEAT}</address>
           </div>
 
           <nav className="footer__nav" aria-label="Footer navigation">
@@ -36,15 +37,19 @@ export default function Footer() {
             </div>
             <div className="footer__col">
               <div className="footer__col-title" data-i18n="footer.colNavigate">Navigace</div>
-              <a href="/o-nas">O nás a ověření agentury</a>
               <a href="/agencies" data-i18n="footer.navAgencies">Agentury</a>
               <a href="/offers" data-i18n="footer.navOffers">Nabídky</a>
               <a href="/kalkulacka-mzdy-agenturniho-zamestnance" data-i18n="footer.navCalc">Kalkulačka mezd</a>
               <a href="/submit-agency" data-i18n="footer.navSubmitAgency">Registrovat agenturu</a>
               <a href="/submit-offer" data-i18n="footer.navPostOffer">Zadat poptávku</a>
-              <a href="/contact" data-i18n="footer.navContact">Kontakt</a>
               <a href="/socialni-zdravotni-dane-2026" data-i18n="footer.navTaxes">Sociální a zdravotní odvody 2026</a>
               <a href="/blog/agenturni-pracovnici-vs-interni-zamestnanci.html" data-i18n="footer.navBlog">Blog</a>
+            </div>
+            <div className="footer__col">
+              <div className="footer__col-title" data-i18n="footer.colTrust">Důvěra a transparentnost</div>
+              <a href="/o-nas" data-i18n="footer.navAbout">O nás a ověření agentury</a>
+              <a href="/redakcni-zasady" data-i18n="footer.navEditorial">Redakční zásady a zdroje</a>
+              <a href="/contact" data-i18n="footer.navContact">Kontakt</a>
             </div>
             <div className="footer__col">
               <div className="footer__col-title" data-i18n="footer.colGuides">Průvodci</div>
@@ -64,8 +69,8 @@ export default function Footer() {
                   {socialLabel(url)}
                 </a>
               ))}
-              <a href="mailto:jobbohemiacz@gmail.com">jobbohemiacz@gmail.com</a>
-              <a href="tel:+420776858284">+420 776 858 284</a>
+              <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a>
+              <a href={`tel:${OPERATOR_PHONE.replace(/\s/g, '')}`}>{OPERATOR_PHONE}</a>
             </div>
           </nav>
 
