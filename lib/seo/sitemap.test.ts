@@ -23,14 +23,16 @@ const xml = fs.readFileSync(SITEMAP_PATH, 'utf8');
 const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]);
 
 describe('sitemap hygiene', () => {
-  it('1. contains exactly the canonical route inventory (146 Next + 10 static = 156)', () => {
+  it('1. contains exactly the canonical route inventory (165 Next + 10 static = 175)', () => {
     // 154 after the indexing-coverage consolidation removed the duplicate
     // /privacy.html; +1 Next route in Batch 2 for the new /o-nas trust page = 155;
-    // +1 Next route in Batch C for the /redakcni-zasady editorial-standards page = 156.
+    // +1 Next route in Batch C for the /redakcni-zasady editorial-standards page = 156;
+    // +19 Next routes for the Wave 1 professional/specialist recruitment cohort
+    // (lib/content/growth-cohorts.ts) = 175.
     const inv = buildRouteInventory(ROOT);
-    expect(inv.nextRoutes.length).toBe(146);
+    expect(inv.nextRoutes.length).toBe(165);
     expect(inv.staticRoutes.length).toBe(10);
-    expect(inv.urls.size).toBe(156);
+    expect(inv.urls.size).toBe(175);
     // Sets must match exactly, both directions.
     const sitemapSet = new Set(locs);
     expect(Array.from(sitemapSet).filter((u) => !inv.urls.has(u))).toEqual([]);
@@ -40,7 +42,7 @@ describe('sitemap hygiene', () => {
   });
 
   it('2. all URLs are unique', () => {
-    expect(locs.length).toBe(156);
+    expect(locs.length).toBe(175);
     expect(new Set(locs).size).toBe(locs.length);
   });
 
@@ -80,10 +82,10 @@ describe('sitemap hygiene', () => {
     expect(after.equals(before)).toBe(true);
   });
 
-  it('10. IndexNow URL extraction returns the same 156 canonical URLs', () => {
+  it('10. IndexNow URL extraction returns the same 175 canonical URLs', () => {
     const urls = getSitemapUrls();
-    expect(urls.length).toBe(156);
-    expect(new Set(urls).size).toBe(156);
+    expect(urls.length).toBe(175);
+    expect(new Set(urls).size).toBe(175);
     expect(urls).toEqual(locs);
   });
 

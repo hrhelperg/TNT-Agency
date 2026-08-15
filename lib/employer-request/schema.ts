@@ -35,6 +35,19 @@ export interface RequestField {
 }
 
 export const EMPLOYMENT_MODELS = ['agency', 'recruitment', 'unsure'] as const
+
+/**
+ * What KIND of role is being filled, as opposed to the commercial model.
+ *
+ * `employmentModel` answers "agency assignment or direct hire?"; this answers
+ * "operational headcount, qualified specialist, or shift leadership?" — which
+ * is what actually changes how a request is handled: an operational request is
+ * about volume, shift cover and start date, while a specialist request is about
+ * qualifications, authorisations and a much smaller candidate pool. Keeping the
+ * two axes separate avoids overloading employmentModel, and 'unsure' stays a
+ * first-class answer so nobody is forced to self-classify wrongly.
+ */
+export const ROLE_TYPES = ['operational', 'specialist', 'leadership', 'unsure'] as const
 export const SHIFT_MODELS = ['single', 'two-shift', 'three-shift', 'continuous', 'flexible', 'unsure'] as const
 export const DURATIONS = ['short-term', 'seasonal', 'long-term', 'permanent', 'unsure'] as const
 export const YES_NO_MAYBE = ['yes', 'no', 'unsure'] as const
@@ -63,6 +76,7 @@ export const REQUEST_FIELDS: readonly RequestField[] = [
 
   // ── Role ─────────────────────────────────────────────────────────────
   { name: 'profession', group: 'role', kind: 'text', required: true, maxLength: 160 },
+  { name: 'roleType', group: 'role', kind: 'select', required: false, options: ROLE_TYPES },
   { name: 'headcount', group: 'role', kind: 'number', required: true, min: 1, max: 5000 },
   { name: 'employmentModel', group: 'role', kind: 'select', required: true, options: EMPLOYMENT_MODELS },
   { name: 'experience', group: 'role', kind: 'textarea', required: false, maxLength: 800 },

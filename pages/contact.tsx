@@ -45,7 +45,7 @@ export default function Contact() {
         <meta property="og:image" content="https://talentpartnerid.com/assets/og.svg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Contact TalentPartnerID | Free Recruitment Consultation" />
-        <meta name="twitter:description" content="Contact our team for permanent placement, executive search, or staffing inquiries." />
+        <meta name="twitter:description" content="Napište nám o volné pozici — přímý nábor, odborné a technické pozice i agenturní zaměstnávání." />
         <meta name="twitter:image" content="https://talentpartnerid.com/assets/og.svg" />
         <script key="schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </Head>

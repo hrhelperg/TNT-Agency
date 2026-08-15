@@ -16,8 +16,8 @@ export default function Agencies() {
     <>
       <Head>
         <title>Agencies &amp; Recruitment Services | TalentPartnerID</title>
-        <meta name="description" content="Explore TalentPartnerID's recruitment and staffing services: permanent placement, executive search, temporary staffing, and HR consulting. Browse the agency directory or submit your own agency profile." />
-        <meta name="keywords" content="recruitment agencies, staffing services, permanent placement, executive search, temporary staffing, HR consulting, agency directory" />
+        <meta name="description" content="Přehled služeb TalentPartnerID pro zaměstnavatele: přímý nábor do kmenového stavu, nábor odborných a technických pozic, agenturní zaměstnávání a podpora náborových procesů. Provozovatel: TNT agency s.r.o." />
+        <meta name="keywords" content="personální agentura, agentura práce, přímý nábor, nábor odborných pozic, agenturní zaměstnávání, zprostředkování zaměstnání" />
         <meta name="robots" content="index, follow" />
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />

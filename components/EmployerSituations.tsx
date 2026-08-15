@@ -83,6 +83,27 @@ const SITUATIONS: Situation[] = [
     ],
   },
   {
+    id: 'odborne',
+    heading: 'Nedaří se nám obsadit odbornou nebo technickou pozici',
+    forWhom: 'Provozy hledající kvalifikované profese a techniky',
+    text: 'U kvalifikovaných profesí obvykle nejde o počet uchazečů, ale o to, že vhodných lidí je málo, často práci aktivně nehledají a jejich způsobilost je vázaná na doklady a oprávnění. Zadání proto musí popsat i technické požadavky a potřebná oprávnění.',
+    links: [
+      { href: '/nabor-odbornych-pozic', label: 'Nábor odborných a technických pozic' },
+      { href: '/odborna-zpusobilost-a-opravneni', label: 'Odborná způsobilost a oprávnění' },
+      { href: '/proc-se-nedari-obsadit-odbornou-pozici', label: 'Proč se nedaří obsadit odbornou pozici' },
+    ],
+  },
+  {
+    id: 'vedeni-smen',
+    heading: 'Hledáme mistra nebo vedoucího směny',
+    forWhom: 'Provozy obsazující první úroveň vedení',
+    text: 'Provozní vedení spojuje řízení lidí, plnění plánu, kvalitu a BOZP v jedné roli. Rozhodnutí, zda povýšit zevnitř, nebo hledat zvenčí, ovlivňuje stabilitu celé směny.',
+    links: [
+      { href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' },
+      { href: '/thp-pozice', label: 'THP pozice' },
+    ],
+  },
+  {
     id: 'cizinci',
     heading: 'Potřebujeme pracovníky ze zahraničí',
     forWhom: 'Firmy s nedostatkem lidí na domácím trhu',

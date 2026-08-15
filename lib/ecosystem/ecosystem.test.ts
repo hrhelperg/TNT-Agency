@@ -374,10 +374,12 @@ describe('Ecosystem — must not disturb existing SEO or privacy', () => {
   it('does not touch canonical tags or the sitemap', () => {
     const code = BANNER + DIRECTORY + APP
     expect(/rel="canonical"|sitemap/i.test(code)).toBe(false)
-    // The banner adds no route. (Sitemap size is 154 after the indexing-coverage
-    // consolidation removed the duplicate /privacy.html — unrelated to the banner.)
+    // The banner adds no route. Sitemap size moved 156 → 175 with the Wave 1
+    // professional/specialist cohort (lib/content/growth-cohorts.ts); that
+    // growth comes from the content layer, not from the ecosystem banner, which
+    // is exactly what this assertion is here to keep true.
     const sitemap = read('public/sitemap.xml')
-    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(156)
+    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(175)
     expect(sitemap).not.toContain('helperg.com')
   })
 
