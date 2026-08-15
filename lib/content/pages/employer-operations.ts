@@ -380,6 +380,26 @@ export const PLANOVANI_NABORU: SeoPage = {
       ],
     },
     {
+      // Wave 3 Phase 4. The replacement-hiring intent was recorded in Wave 2 as
+      // MERGED into this page — but the merge was never executed: the page had
+      // no mention of a departure at all. Executing it here rather than creating
+      // a URL, because the Wave 2 judgement still holds — replacing a leaver is
+      // a planning case, not a separate employer intent.
+      heading: 'Obsazení po odchodu zaměstnance',
+      body: [
+        'Odchod konkrétního člověka je nejčastější důvod, proč se nábor otevírá, a zároveň ten, na který bývá plán nejméně připravený. Oproti růstu je tu pevný termín daný způsobem skončení pracovního poměru, ale rozhodnutí, co přesně obsadit, se často odkládá až na poslední týdny.',
+        'Vyplatí se nejdřív oddělit dvě otázky: zda obsadit stejnou pozici, nebo práci rozdělit jinak. Odchod je jediná chvíle, kdy lze roli přeskládat bez dalšího zásahu do týmu — po nástupu náhradníka už každá změna znamená druhé kolo. Teprve potom má smysl řešit samotné hledání.',
+        'Druhým krokem je předání. Pokud se pracovní poměry alespoň částečně překryjí, předá odcházející člověk znalosti přímo; pokud ne, je potřeba je zachytit písemně dřív, než odejde. Tato část plánu se podceňuje nejčastěji a projeví se až s odstupem.',
+      ],
+      bullets: [
+        'Obsadit stejnou roli, nebo práci přerozdělit',
+        'Kolik času zbývá do skončení pracovního poměru',
+        'Zda se pracovní poměry překryjí kvůli předání',
+        'Co je potřeba zachytit písemně, než člověk odejde',
+        'Zda jde o opakovaný odchod ze stejné pozice',
+      ],
+    },
+    {
       heading: 'Jaké rozhodnutí z toho plyne',
       body: [
         'Výsledkem je plán, který říká, kdy spustit nábor na které pozice a jakou cestou, aby lidé byli k dispozici včas. Plánování tak snižuje riziko nákladného akutního obsazování na poslední chvíli.',

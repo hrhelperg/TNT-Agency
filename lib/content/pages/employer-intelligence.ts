@@ -277,7 +277,7 @@ export const TRH_PRACE_PARDUBICKYKRAJ: SeoPage = {
       heading: 'Pohled zaměstnavatele',
       body: [
         'Pro zaměstnavatele v kraji je podstatná dostupnost kandidátů s potřebnou kvalifikací a konkurence o pracovní sílu. Pravidla pro zaměstnávání, odvody a oprávnění jsou přitom celostátní a v kraji se neliší.',
-        'Regionální rozměr se proto týká hlavně náboru a zázemí – kde a jak hledat kandidáty a jaké podmínky nabídnout, aby byly konkurenceschopné.',
+        'Regionálně se proto liší hlavně to, s kým o stejné profese soutěžíte a jak širokou spádovou oblast má smysl oslovit.',
       ],
     },
     {
@@ -288,10 +288,9 @@ export const TRH_PRACE_PARDUBICKYKRAJ: SeoPage = {
       ],
     },
     {
-      heading: 'Význam zahraničních pracovníků',
+      heading: 'Celostátní pravidla a kde je ověřit',
       body: [
-        'V regionech s tradičním průmyslem a logistikou mohou zahraniční pracovníci pomoci doplnit chybějící kapacitu. U občanů třetích zemí je ale nutné počítat s pravidly pro pobytová a pracovní oprávnění.',
-        'Pro plánování je proto klíčové předem vědět, zda pracovník má volný vstup na trh práce, nebo potřebuje oprávnění, a podle toho nastavit harmonogram.',
+        'Pravidla pro zaměstnávání, odvody a oprávnění cizinců jsou celostátní. Regionální je dostupnost kandidátů a konkurence o ně. Postup u zahraničních pracovníků i aktuální regionální ukazatele rozebírají samostatné stránky, na které odkazujeme níže.',
       ],
     },
     {
@@ -300,11 +299,10 @@ export const TRH_PRACE_PARDUBICKYKRAJ: SeoPage = {
         'Následující body pomáhají převést regionální kontext do konkrétních kroků při náboru v Pardubickém kraji.',
       ],
       bullets: [
-        'Plánovat nábor s předstihem a počítat se zaškolením',
-        'Zvážit oslovení kandidátů i mimo region',
-        'Nabídnout konkurenceschopné a transparentní podmínky',
-        'U zahraničních pracovníků počítat s časem na oprávnění a zázemí',
-        'Vycházet z aktuálních regionálních dat ČSÚ a ÚP ČR',
+        'S kým o stejné profese v regionu soutěžíte',
+        'Jak daleko lidé na pracoviště reálně dojíždějí',
+        'Zda je potřeba doprava nebo ubytování a kdo je hradí',
+        'Jak sezónnost provozu ovlivňuje potřebu kapacity',
       ],
     },
   ],
@@ -477,7 +475,7 @@ export const TRH_PRACE_KRALOVEHRADECKY_KRAJ: SeoPage = {
       heading: 'Pohled zaměstnavatele',
       body: [
         'Pro zaměstnavatele je podstatná dostupnost kandidátů s potřebnou kvalifikací a konkurence o pracovní sílu. Pravidla pro zaměstnávání, odvody a oprávnění jsou přitom celostátní a v kraji se neliší.',
-        'Regionální rozměr se proto týká hlavně náboru a zázemí – kde a jak hledat kandidáty a jaké podmínky nabídnout, aby byly konkurenceschopné.',
+        'Regionálně se proto liší hlavně to, s kým o stejné profese soutěžíte a jak širokou spádovou oblast má smysl oslovit.',
       ],
     },
     {
@@ -491,7 +489,7 @@ export const TRH_PRACE_KRALOVEHRADECKY_KRAJ: SeoPage = {
       heading: 'Význam zahraničních pracovníků',
       body: [
         'V regionu s tradičním průmyslem a výrobou mohou zahraniční pracovníci pomoci doplnit chybějící kapacitu. U občanů třetích zemí je ale nutné počítat s pravidly pro pobytová a pracovní oprávnění.',
-        'Pro plánování je proto klíčové předem vědět, zda pracovník má volný vstup na trh práce, nebo potřebuje oprávnění, a podle toho nastavit harmonogram.',
+        'Zda pracovník potřebuje oprávnění a jak dlouho jeho vyřízení trvá, rozebírají samostatné stránky o zaměstnávání cizinců; harmonogram náboru je vhodné nastavit podle nich.',
       ],
     },
     {
@@ -500,11 +498,10 @@ export const TRH_PRACE_KRALOVEHRADECKY_KRAJ: SeoPage = {
         'Následující body pomáhají převést regionální kontext do konkrétních kroků při náboru v Královéhradeckém kraji.',
       ],
       bullets: [
-        'Plánovat nábor s předstihem a počítat se zaškolením',
-        'Zvážit oslovení kandidátů i mimo region',
-        'Nabídnout konkurenceschopné a transparentní podmínky',
-        'U zahraničních pracovníků počítat s časem na oprávnění a zázemí',
-        'Vycházet z aktuálních regionálních dat ČSÚ a ÚP ČR',
+        'S kým o stejné profese v regionu soutěžíte',
+        'Jak daleko lidé na pracoviště reálně dojíždějí',
+        'Zda je potřeba doprava nebo ubytování a kdo je hradí',
+        'Jak sezónnost provozu ovlivňuje potřebu kapacity',
       ],
     },
   ],
@@ -691,7 +688,7 @@ export const TRH_PRACE_STREDOCESKY_KRAJ: SeoPage = {
       heading: 'Význam zahraničních pracovníků',
       body: [
         'V regionu se silnou logistikou a výrobou mohou zahraniční pracovníci pomoci doplnit chybějící kapacitu. U občanů třetích zemí je ale nutné počítat s pravidly pro pobytová a pracovní oprávnění.',
-        'Pro plánování je proto klíčové předem vědět, zda pracovník má volný vstup na trh práce, nebo potřebuje oprávnění, a podle toho nastavit harmonogram.',
+        'Zda pracovník potřebuje oprávnění a jak dlouho jeho vyřízení trvá, rozebírají samostatné stránky o zaměstnávání cizinců; harmonogram náboru je vhodné nastavit podle nich.',
       ],
     },
     {
