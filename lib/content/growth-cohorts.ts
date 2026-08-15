@@ -142,6 +142,154 @@ export const GROWTH_COHORTS: readonly GrowthCohort[] = [
       },
     ],
   },
+  {
+    id: 'wave-2-technical-talent-and-employer-solutions',
+    label: 'Wave 2 — high-skilled/technical talent, employer problems, knowledge centre',
+    preparedOn: '2026-08-15',
+    hub: '/pro-zamestnavatele',
+    maxHops: 3,
+    minInboundContextual: 2,
+    minWords: 400,
+    slugs: [
+      // 2A — technical talent families (the four verified gaps)
+      'nabor-techniku-automatizace',
+      'technicti-inzenyri',
+      'technologove-a-konstrukteri',
+      'nakup-a-zasobovani',
+      // 2B — employer problems / hiring solutions
+      'hromadny-nabor-pracovniku',
+      'nabor-pri-nabehu-vyroby',
+      'sezonni-navyseni-kapacity',
+      'absence-v-provozu',
+      // 2C — knowledge centre
+      'cena-neobsazene-pozice',
+      'zadani-pozice-a-profil-kandidata',
+    ],
+    rejected: [
+      {
+        slug: 'nabor-cnc-programatoru',
+        status: 'MERGED',
+        reason:
+          'Wave 1 /nabor-cnc-operatoru already teaches the obsluha → seřizovač → programátor ladder. A separate programmer page would cannibalise it for one rung of the same intent.',
+      },
+      {
+        slug: 'nabor-serizovacu',
+        status: 'REJECTED',
+        reason: 'Named in the title of /nabor-cnc-operatoru — the intent is already owned outright.',
+      },
+      {
+        slug: 'nabor-technika-udrzby',
+        status: 'REJECTED',
+        reason:
+          '/udrzba-a-technicky-servis covers údržbář, mechanik, elektromechanik, mechatronik, seřizovač, servisní technik and vedoucí údržby as one family.',
+      },
+      {
+        slug: 'nabor-quality-engineeru',
+        status: 'REJECTED',
+        reason:
+          '/pozice-v-rizeni-kvality covers the whole ladder from kontrolor to manažer kvality including metrology; a separate engineer page would split one intent.',
+      },
+      {
+        slug: 'nabor-mechatroniku',
+        status: 'REJECTED',
+        reason: 'Covered by /udrzba-a-technicky-servis; the boundary with automation is handled by /nabor-techniku-automatizace.',
+      },
+      {
+        slug: 'nabor-plc-programatoru',
+        status: 'MERGED',
+        reason:
+          'Same buyer and same brief as automation technicians. Alone it is too narrow to sustain a differentiated page; it is a section of /nabor-techniku-automatizace.',
+      },
+      {
+        slug: 'cad-cam-specialista',
+        status: 'MERGED',
+        reason:
+          'A tooling skill, not a separate hiring intent. Merged into /technologove-a-konstrukteri, where CAD/CAM is framed as an employer-specific requirement.',
+      },
+      {
+        slug: 'nabor-logistickych-specialistu',
+        status: 'REJECTED',
+        reason: 'Wave 1 /odborne-pozice-v-logistice owns the professional logistics tier (dispečink, plánování, vedení skladu).',
+      },
+      {
+        slug: 'jak-rychle-obsadit-tezko-obsaditelnou-pozici',
+        status: 'REJECTED',
+        reason:
+          'Split across two Wave 1 pages that already answer it: /proc-se-nedari-obsadit-odbornou-pozici (diagnosis) and /jak-dlouho-trva-obsazeni-pozice (timing).',
+      },
+      {
+        slug: 'jak-snizit-time-to-hire',
+        status: 'REJECTED',
+        reason: '/jak-dlouho-trva-obsazeni-pozice already explains what actually moves the date, and deliberately refuses to promise one.',
+      },
+      {
+        slug: 'nedostatek-kvalifikovanych-pracovniku',
+        status: 'MERGED',
+        reason:
+          'A sixth entry in the nedostatek-pracovniku-* series would be a template sibling by construction. Absorbed into /nedostatek-pracovniku-v-cr.',
+      },
+      {
+        slug: 'agentura-prace-vs-vlastni-hr-tym',
+        status: 'REJECTED',
+        reason:
+          'The model comparison is owned by /jak-funguje-pracovni-agentura and /primy-nabor-zamestnancu, which carries the comparison section itself.',
+      },
+      {
+        slug: 'replacement-hiring',
+        status: 'MERGED',
+        reason: 'Absorbed into /planovani-naboru rather than given a URL; it is a planning case, not a distinct employer intent.',
+      },
+      {
+        slug: 'staffing-reserve',
+        status: 'MERGED',
+        reason: 'Merged into /absence-v-provozu, where the reserve is the answer to the problem rather than a topic of its own.',
+      },
+      {
+        slug: 'naklady-fluktuace',
+        status: 'MERGED',
+        reason: 'Absorbed by the existing fluktuace cluster; a separate cost-of-turnover page would overlap three pages at once.',
+      },
+      {
+        slug: 'screening-kandidatu',
+        status: 'MERGED',
+        reason:
+          'Screening, reference checks and evaluating technical candidates are one decision with the brief that precedes them — merged into /zadani-pozice-a-profil-kandidata.',
+      },
+      {
+        slug: 'planovani-smen',
+        status: 'FUTURE',
+        reason:
+          'HR-operations rather than hiring intent. Revisit once the employer-problem cluster has indexation evidence; it would otherwise sit at the edge of the site\'s purpose.',
+      },
+      {
+        slug: 'riziko-naboru',
+        status: 'FUTURE',
+        reason: 'No differentiated substance yet beyond what the diagnosis and brief pages already carry.',
+      },
+      {
+        slug: 'mzdove-rozpeti-odborne-pozice',
+        status: 'FUTURE',
+        reason:
+          'Deferred a second time. Deriving a band from ISPV is defensible as method, but a salary-adjacent page still needs the cluster proven before it reads as method rather than as an empty salary guide.',
+      },
+      {
+        slug: 'prubeh-naboru-odborne-pozice',
+        status: 'FUTURE',
+        reason: 'Deferred a second time. Still ships as a section of /nabor-odbornych-pozic; promote only if that section shows independent demand.',
+      },
+      {
+        slug: 'nabor-ridicu',
+        status: 'FUTURE',
+        reason: 'Deferred a second time. Different buyer (dopravce) and a different service line; it would blur the positioning this programme is establishing.',
+      },
+      {
+        slug: 'regional-and-city-pages-wave-2',
+        status: 'REJECTED',
+        reason:
+          'No regional page may be added in Wave 2. The 22 generated region pages measured 0.81–0.85 body similarity at baseline — the corpus\'s existing doorway risk — and the 10 pracovnici-<city> pages had 1 contextual inbound each. Adding to that cluster would compound both problems.',
+      },
+    ],
+  },
 ]
 
 export const cohortForSlug = (slug: string): GrowthCohort | undefined =>

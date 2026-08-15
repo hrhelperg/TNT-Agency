@@ -94,7 +94,33 @@ export const PRO_ZAMESTNAVATELE: SeoPage = {
         'Nábor odborných a technických pozic a jeho odlišnosti',
         'Odborná způsobilost, oprávnění a doklady před nástupem',
         'Strojírenské profese, údržba, kvalita a provozní vedení',
+        'Technici automatizace, inženýrské pozice, technologové a nákup',
         'Přímý nábor do kmenového stavu jako alternativa k dočasnému přidělení',
+      ],
+    },
+    {
+      heading: 'Personální situace, které řeší provoz',
+      body: [
+        'Vedle otázky, jakou cestou nabírat, řeší zaměstnavatelé opakující se provozní situace, u kterých nerozhoduje ani tak volba cesty, jako pořadí kroků a kapacita, kterou je nutné zajistit dřív než samotné kandidáty.',
+        'Patří sem náběh nové linky nebo směny s pevným termínem, obsazení většího počtu míst najednou, pravidelná sezónní špička a situace, kdy lidé neodcházejí, ale nejsou na směně. Každá z nich má vlastní stránku, protože se řeší jinak – opatření, které pomůže u jedné, u druhé nemá vliv.',
+      ],
+      bullets: [
+        'Náběh nové výrobní linky nebo otevření další směny',
+        'Hromadný nábor a co se s objemem mění',
+        'Sezónní navýšení kapacity bez růstu trvalého stavu',
+        'Absence v provozu a provozní rezerva',
+      ],
+    },
+    {
+      heading: 'Podklady pro rozhodnutí o obsazení',
+      body: [
+        'Rozhodnutí o obsazení pozice se dělá lépe, když jsou vyčíslené obě strany rovnice. Náklady na zaměstnance popisují, co stojí obsazené místo; cena neobsazené pozice to, co stojí místo prázdné. Bez druhého čísla vypadá setrvalý stav zdarma a nábor jako pouhý výdaj.',
+        'Druhým podkladem je samotné zadání pozice. Řada dlouho neobsazených míst nevázne na trhu, ale na profilu, který nerozlišuje nutné a vítané požadavky – a podle kterého se proto nedá cíleně hledat ani srovnávat uchazeče.',
+      ],
+      bullets: [
+        'Cena neobsazené pozice a jak si ji spočítat z vlastních dat',
+        'Zadání pozice a profil kandidáta, podle kterého lze hledat',
+        'Kalkulačka mzdových nákladů pro modelování konkrétní pozice',
       ],
     },
     {

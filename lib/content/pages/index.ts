@@ -12,6 +12,9 @@ import { EMPLOYER_OPERATIONS_PAGES } from './employer-operations'
 import { INDUSTRY_RECRUITMENT_PAGES } from './industry-recruitment'
 import { CITY_RECRUITMENT_PAGES } from './city-recruitment'
 import { PROFESSIONAL_RECRUITMENT_PAGES } from './professional-recruitment'
+import { TECHNICAL_TALENT_PAGES } from './technical-talent'
+import { EMPLOYER_PROBLEM_PAGES } from './employer-problems'
+import { EMPLOYER_KNOWLEDGE_PAGES } from './employer-knowledge'
 
 export * from './cornerstone'
 export * from './support'
@@ -23,6 +26,9 @@ export * from './employer-operations'
 export * from './industry-recruitment'
 export * from './city-recruitment'
 export * from './professional-recruitment'
+export * from './technical-talent'
+export * from './employer-problems'
+export * from './employer-knowledge'
 
 export const SEO_PAGE_TIERS = {
   cornerstone: CORNERSTONE_PAGES,
@@ -34,6 +40,9 @@ export const SEO_PAGE_TIERS = {
   industryRecruitment: INDUSTRY_RECRUITMENT_PAGES,
   cityRecruitment: CITY_RECRUITMENT_PAGES,
   professionalRecruitment: PROFESSIONAL_RECRUITMENT_PAGES,
+  technicalTalent: TECHNICAL_TALENT_PAGES,
+  employerProblems: EMPLOYER_PROBLEM_PAGES,
+  employerKnowledge: EMPLOYER_KNOWLEDGE_PAGES,
 } as const
 
 // ── Phase D7: guaranteed conversion path ────────────────────────────────
@@ -92,9 +101,18 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
   'jak-najit-pracovniky': [
     { href: '/prime-osloveni-kandidatu', label: 'Přímé oslovení kandidátů' },
     { href: '/proc-se-nedari-obsadit-odbornou-pozici', label: 'Proč se nedaří obsadit odbornou pozici' },
+    { href: '/zadani-pozice-a-profil-kandidata', label: 'Zadání pozice a profil kandidáta' },
   ],
-  'nabor-zamestnancu': [{ href: '/thp-pozice', label: 'THP pozice' }],
-  'planovani-naboru': [{ href: '/jak-dlouho-trva-obsazeni-pozice', label: 'Jak dlouho trvá obsazení pozice' }],
+  'nabor-zamestnancu': [
+    { href: '/thp-pozice', label: 'THP pozice' },
+    { href: '/zadani-pozice-a-profil-kandidata', label: 'Zadání pozice a profil kandidáta' },
+  ],
+  'planovani-naboru': [
+    { href: '/jak-dlouho-trva-obsazeni-pozice', label: 'Jak dlouho trvá obsazení pozice' },
+    { href: '/hromadny-nabor-pracovniku', label: 'Hromadný nábor pracovníků' },
+    { href: '/nabor-pri-nabehu-vyroby', label: 'Nábor při náběhu výroby' },
+    { href: '/sezonni-navyseni-kapacity', label: 'Sezónní navýšení kapacity' },
+  ],
   'nejcastejsi-chyby-zamestnavatelu': [
     { href: '/jak-vybrat-personalni-agenturu', label: 'Jak vybrat personální agenturu' },
     { href: '/proc-se-nedari-obsadit-odbornou-pozici', label: 'Proč se nedaří obsadit odbornou pozici' },
@@ -122,8 +140,12 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
   'docasne-prideleni-zamestnancu': [
     { href: '/primy-nabor-zamestnancu', label: 'Přímý nábor do kmenového stavu' },
     { href: '/smlouva-s-personalni-agenturou', label: 'Smlouva s personální agenturou' },
+    { href: '/sezonni-navyseni-kapacity', label: 'Sezónní navýšení kapacity' },
   ],
-  'kolik-stoji-zamestnanec': [{ href: '/cena-sluzeb-personalni-agentury', label: 'Cena služeb personální agentury' }],
+  'kolik-stoji-zamestnanec': [
+    { href: '/cena-sluzeb-personalni-agentury', label: 'Cena služeb personální agentury' },
+    { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
+  ],
   'o-nas': [{ href: '/jak-vybrat-personalni-agenturu', label: 'Jak vybrat personální agenturu' }],
 
   // Production / engineering pages → the technical families
@@ -138,6 +160,7 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
   'nedostatek-pracovniku-ve-vyrobe': [
     { href: '/strojirenske-profese', label: 'Strojírenské profese' },
     { href: '/udrzba-a-technicky-servis', label: 'Údržba a technický servis' },
+    { href: '/nabor-pri-nabehu-vyroby', label: 'Nábor při náběhu výroby' },
   ],
   'pracovnici-do-vyroby': [{ href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' }],
   'vyrobni-zamestnanci': [{ href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' }],
@@ -158,14 +181,26 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
   'pracovnici-pro-potravinarskou-vyrobu': [{ href: '/pozice-v-rizeni-kvality', label: 'Pozice v řízení kvality' }],
 
   // Logistics operative pages → the professional logistics tier
-  'pracovnici-do-logistiky': [{ href: '/odborne-pozice-v-logistice', label: 'Odborné pozice v logistice' }],
+  'pracovnici-do-logistiky': [
+    { href: '/odborne-pozice-v-logistice', label: 'Odborné pozice v logistice' },
+    { href: '/nakup-a-zasobovani', label: 'Nákup a zásobování' },
+  ],
   'logisticti-pracovnici': [{ href: '/odborne-pozice-v-logistice', label: 'Odborné pozice v logistice' }],
   'pracovnici-pro-distribucni-centra': [{ href: '/odborne-pozice-v-logistice', label: 'Odborné pozice v logistice' }],
 
   // Retention pages → first-line leadership, which drives shift stability
-  'retence-zamestnancu': [{ href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' }],
-  'priciny-fluktuace-zamestnancu': [{ href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' }],
-  'adaptace-zamestnancu': [{ href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' }],
+  'retence-zamestnancu': [
+    { href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' },
+    { href: '/absence-v-provozu', label: 'Absence v provozu' },
+  ],
+  'priciny-fluktuace-zamestnancu': [
+    { href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' },
+    { href: '/absence-v-provozu', label: 'Absence v provozu' },
+  ],
+  'adaptace-zamestnancu': [
+    { href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' },
+    { href: '/absence-v-provozu', label: 'Absence v provozu' },
+  ],
 
   // Compliance pages → the qualification anchor
   'povinnosti-zamestnavatele': [{ href: '/odborna-zpusobilost-a-opravneni', label: 'Odborná způsobilost a oprávnění' }],
@@ -183,6 +218,71 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
   ],
   'dokumenty-pro-zamestnani-cizincu': [
     { href: '/uznavani-kvalifikace-zahranicnich-pracovniku', label: 'Uznávání kvalifikace zahraničních pracovníků' },
+  ],
+
+  // ── Wave 2 ───────────────────────────────────────────────────────────────
+  //
+  // Inbound edges for the technical-talent, employer-problem and knowledge
+  // pages. Sourced from the two depth-1 hubs and from topically adjacent Wave 1
+  // pages — deliberately never from the city/region cluster, whose pages
+  // measured 1 contextual inbound each at baseline 1106bd6 and would have
+  // passed on their own weakness rather than conferring authority.
+  //
+  // Slugs that already appear above were merged into those entries rather than
+  // repeated: a duplicate key here would silently drop the Wave 1 links.
+  // TypeScript reports it as TS1117, which is how the first attempt was caught.
+  'nabor-odbornych-pozic': [
+    { href: '/nabor-techniku-automatizace', label: 'Nábor techniků automatizace a PLC' },
+    { href: '/technicti-inzenyri', label: 'Techničtí inženýři' },
+    { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
+    { href: '/nakup-a-zasobovani', label: 'Nákup a zásobování' },
+    { href: '/zadani-pozice-a-profil-kandidata', label: 'Zadání pozice a profil kandidáta' },
+  ],
+  'udrzba-a-technicky-servis': [
+    { href: '/nabor-techniku-automatizace', label: 'Nábor techniků automatizace a PLC' },
+  ],
+  'nabor-elektrikaru': [
+    { href: '/nabor-techniku-automatizace', label: 'Nábor techniků automatizace a PLC' },
+  ],
+  'strojirenske-profese': [
+    { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
+    { href: '/nabor-techniku-automatizace', label: 'Nábor techniků automatizace a PLC' },
+  ],
+  'thp-pozice': [
+    { href: '/technicti-inzenyri', label: 'Techničtí inženýři' },
+    { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
+    { href: '/nakup-a-zasobovani', label: 'Nákup a zásobování' },
+  ],
+  'nabor-cnc-operatoru': [
+    { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
+  ],
+  'pozice-v-rizeni-kvality': [
+    { href: '/technicti-inzenyri', label: 'Techničtí inženýři' },
+  ],
+  'odborne-pozice-v-logistice': [
+    { href: '/nakup-a-zasobovani', label: 'Nákup a zásobování' },
+  ],
+  'fluktuace-zamestnancu': [
+    { href: '/absence-v-provozu', label: 'Absence v provozu' },
+  ],
+  'pracovnici-do-skladu': [
+    { href: '/sezonni-navyseni-kapacity', label: 'Sezónní navýšení kapacity' },
+  ],
+  'pracovnici-pro-ecommerce-sklady': [
+    { href: '/sezonni-navyseni-kapacity', label: 'Sezónní navýšení kapacity' },
+  ],
+  'skutecne-naklady-na-zamestnance': [
+    { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
+  ],
+  'neprime-naklady-na-zamestnance': [
+    { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
+  ],
+  'proc-se-nedari-obsadit-odbornou-pozici': [
+    { href: '/zadani-pozice-a-profil-kandidata', label: 'Zadání pozice a profil kandidáta' },
+    { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
+  ],
+  'jak-dlouho-trva-obsazeni-pozice': [
+    { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
   ],
 }
 
@@ -206,6 +306,9 @@ export const SEO_PAGES: ReadonlyArray<SeoPage> = [
   ...INDUSTRY_RECRUITMENT_PAGES,
   ...CITY_RECRUITMENT_PAGES,
   ...PROFESSIONAL_RECRUITMENT_PAGES,
+  ...TECHNICAL_TALENT_PAGES,
+  ...EMPLOYER_PROBLEM_PAGES,
+  ...EMPLOYER_KNOWLEDGE_PAGES,
 ]
   .map(withClusterLinks)
   .map(withConversionPath)

@@ -26,16 +26,16 @@ const ROOT = path.join(__dirname, '..');
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 
 // Czech user-facing editorial surfaces (not tests, not English/German chrome).
+// DERIVED, never hand-listed. This was a hardcoded array of nine registry
+// files, so every registry added afterwards silently escaped the gate — the 19
+// Wave 1 professional-recruitment pages were never scanned by it at all.
+// Globbing lib/content/pages means a new registry is covered the moment it
+// exists, which is the only version of this list that cannot drift.
 const TS_CONTENT = [
-  'lib/content/pages/city-recruitment.ts',
-  'lib/content/pages/industry-recruitment.ts',
-  'lib/content/pages/employer-operations.ts',
-  'lib/content/pages/foreign-workers.ts',
-  'lib/content/pages/employer-intelligence.ts',
-  'lib/content/pages/cornerstone.ts',
-  'lib/content/pages/regions.ts',
-  'lib/content/pages/geo.ts',
-  'lib/content/pages/support.ts',
+  ...fs
+    .readdirSync(path.join(ROOT, 'lib/content/pages'))
+    .filter((n) => n.endsWith('.ts') && !n.endsWith('.test.ts') && n !== 'index.ts')
+    .map((n) => `lib/content/pages/${n}`),
   'lib/content/employment-content.ts',
   'lib/content/recruitment-content.ts',
 ];
