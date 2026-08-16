@@ -35,7 +35,9 @@
     "validate:clusters": "node --import ./scripts/ts-resolve.mjs scripts/validate-clusters.mjs",
     "validate:regional": "node --import ./scripts/ts-resolve.mjs scripts/validate-regional.mjs",
     "validate:authority-v4": "node --import ./scripts/ts-resolve.mjs scripts/validate-authority-v4.mjs",
-    "test:mutate-authority-v4": "node --import ./scripts/ts-resolve.mjs scripts/mutate-authority-v4.mjs"
+    "test:mutate-authority-v4": "node --import ./scripts/ts-resolve.mjs scripts/mutate-authority-v4.mjs",
+    "validate:hreflang": "node scripts/validate-hreflang.mjs",
+    "test:mutate-hreflang": "node scripts/mutate-hreflang.mjs"
   },
   "dependencies": {
     "next": "14.2.3",

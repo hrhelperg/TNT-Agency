@@ -448,8 +448,6 @@ export default function PayrollCalculatorPage() {
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
         <meta name="last-modified" content={LAST_VERIFIED} />
         <link rel="canonical" href={PAGE_URL} />
-        <link rel="alternate" hrefLang="cs" href={PAGE_URL} />
-        <link rel="alternate" hrefLang="x-default" href={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={PAGE_URL} />
         <meta property="og:site_name" content="TalentPartnerID" />
