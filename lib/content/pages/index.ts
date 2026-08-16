@@ -114,6 +114,7 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
     { href: '/sezonni-navyseni-kapacity', label: 'Sezónní navýšení kapacity' },
   ],
   'nejcastejsi-chyby-zamestnavatelu': [
+    { href: '/pracovnici-pro-vyrobu', label: 'Pracovníci pro výrobu' },
     { href: '/jak-vybrat-personalni-agenturu', label: 'Jak vybrat personální agenturu' },
     { href: '/proc-se-nedari-obsadit-odbornou-pozici', label: 'Proč se nedaří obsadit odbornou pozici' },
   ],
@@ -160,6 +161,8 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
     { href: '/strojirenske-profese', label: 'Strojírenské profese' },
   ],
   'nedostatek-pracovniku-ve-vyrobe': [
+    { href: '/nabor-svarecu', label: 'Nábor svářečů' },
+    { href: '/nabor-cnc-operatoru', label: 'Nábor CNC operátorů a seřizovačů' },
     { href: '/strojirenske-profese', label: 'Strojírenské profese' },
     { href: '/udrzba-a-technicky-servis', label: 'Údržba a technický servis' },
     { href: '/nabor-pri-nabehu-vyroby', label: 'Nábor při náběhu výroby' },
@@ -206,6 +209,8 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
     { href: '/absence-v-provozu', label: 'Absence v provozu' },
   ],
   'adaptace-zamestnancu': [
+    { href: '/picker-packer', label: 'Picker / packer' },
+    { href: '/montazni-linky-pracovnici', label: 'Pracovníci montážních linek' },
     { href: '/mistri-a-vedouci-smen', label: 'Mistři a vedoucí směn' },
     { href: '/absence-v-provozu', label: 'Absence v provozu' },
   ],
@@ -271,9 +276,11 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
     { href: '/nakup-a-zasobovani', label: 'Nákup a zásobování' },
   ],
   'fluktuace-zamestnancu': [
+    { href: '/montazni-linky-pracovnici', label: 'Pracovníci montážních linek' },
     { href: '/absence-v-provozu', label: 'Absence v provozu' },
   ],
   'pracovnici-do-skladu': [
+    { href: '/nabor-zamestnancu', label: 'Nábor zaměstnanců: výběrový proces' },
     { href: '/sezonni-navyseni-kapacity', label: 'Sezónní navýšení kapacity' },
   ],
   'pracovnici-pro-ecommerce-sklady': [
@@ -283,6 +290,7 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
     { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
   ],
   'neprime-naklady-na-zamestnance': [
+    { href: '/vyrobni-zamestnanci', label: 'Výrobní zaměstnanci' },
     { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
   ],
   'proc-se-nedari-obsadit-odbornou-pozici': [
@@ -291,6 +299,7 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
     { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
   ],
   'hromadny-nabor-pracovniku': [
+    { href: '/naklady-na-zamestnance-cr', label: 'Náklady na zaměstnance v ČR' },
     { href: '/pracovnici-do-vyroby', label: 'Pracovníci do výroby' },
     { href: '/pracovnici-do-skladu', label: 'Pracovníci do skladu' },
     { href: '/checklist-pro-nove-zamestnance', label: 'Checklist pro nové zaměstnance' },
@@ -313,6 +322,8 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
     { href: '/pomocni-stavebni-pracovnici', label: 'Pomocní stavební pracovníci' },
   ],
   'onboarding-zamestnancu': [
+    { href: '/montazni-pracovnici', label: 'Montážní pracovníci' },
+    { href: '/skladovi-pracovnici', label: 'Skladoví pracovníci' },
     { href: '/pracovnici-do-vyroby', label: 'Pracovníci do výroby' },
     { href: '/vyroba-potravin-pracovnici', label: 'Pracovníci výroby potravin' },
   ],
@@ -322,7 +333,46 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
   'mistri-a-vedouci-smen': [
     { href: '/checklist-pro-nove-zamestnance', label: 'Checklist pro nové zaměstnance' },
   ],
+  'nedostatek-pracovniku-ve-stavebnictvi': [
+    { href: '/stavebni-profese', label: 'Stavební profese' },
+    { href: '/nabor-elektrikaru', label: 'Nábor elektrikářů' },
+  ],
+  'nedostatek-pracovniku-v-logistice': [
+    { href: '/odborne-pozice-v-logistice', label: 'Odborné pozice v logistice' },
+    { href: '/logisticti-pracovnici', label: 'Logističtí pracovníci' },
+  ],
+  'nedostatek-pracovniku-ve-skladech': [
+    { href: '/skladovi-pracovnici', label: 'Skladoví pracovníci' },
+    { href: '/manipulacni-pracovnici', label: 'Manipulační pracovníci a VZV' },
+  ],
+  'nedostatek-pracovniku-v-cr': [
+    { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
+    { href: '/pozice-v-rizeni-kvality', label: 'Pozice v řízení kvality' },
+  ],
+  'checklist-pro-nove-zamestnance': [
+    { href: '/pomocni-stavebni-pracovnici', label: 'Pomocní stavební pracovníci' },
+    { href: '/baleni-potravin-pracovnici', label: 'Pracovníci balení potravin' },
+  ],
+  'zadani-pozice-a-profil-kandidata': [
+    { href: '/pracovnici-pro-ecommerce-sklady', label: 'Pracovníci pro e-commerce sklady' },
+  ],
+  'cena-sluzeb-personalni-agentury': [
+    { href: '/pracovnici-do-vyroby', label: 'Pracovníci do výroby' },
+  ],
+  'smlouva-s-personalni-agenturou': [
+    { href: '/pracovnici-do-logistiky', label: 'Pracovníci do logistiky' },
+  ],
+  'prime-osloveni-kandidatu': [
+    { href: '/nedostatek-pracovniku-v-cr', label: 'Nedostatek pracovníků v ČR' },
+  ],
+  'uznavani-kvalifikace-zahranicnich-pracovniku': [
+    { href: '/nedostatek-pracovniku-v-cr', label: 'Nedostatek pracovníků v ČR' },
+  ],
+  'jak-snizit-fluktuaci': [
+    { href: '/skladovi-pracovnici', label: 'Skladoví pracovníci' },
+  ],
   'jak-dlouho-trva-obsazeni-pozice': [
+    { href: '/hromadny-nabor-pracovniku', label: 'Hromadný nábor pracovníků' },
     { href: '/cena-neobsazene-pozice', label: 'Cena neobsazené pozice' },
   ],
 }

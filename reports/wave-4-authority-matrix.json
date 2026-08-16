@@ -1,0 +1,1024 @@
+{
+  "baseline": "0b75b1b",
+  "edges": {
+    "foreign_workers": {
+      "foreign_workers": 157,
+      "region": 8,
+      "calculator": 27,
+      "request": 22,
+      "knowledge": 12,
+      "technical_talent": 4
+    },
+    "knowledge": {
+      "knowledge": 117,
+      "foreign_workers": 14,
+      "region": 14,
+      "calculator": 23,
+      "request": 18,
+      "technical_talent": 30,
+      "employer_problem": 20,
+      "industry": 6
+    },
+    "region": {
+      "knowledge": 115,
+      "region": 153,
+      "foreign_workers": 92,
+      "calculator": 54,
+      "request": 34,
+      "technical_talent": 34,
+      "employer_problem": 16,
+      "industry": 48
+    },
+    "employer_problem": {
+      "knowledge": 40,
+      "employer_problem": 20,
+      "calculator": 11,
+      "request": 3,
+      "technical_talent": 8,
+      "region": 4,
+      "industry": 16,
+      "foreign_workers": 2
+    },
+    "industry": {
+      "knowledge": 55,
+      "industry": 63,
+      "employer_problem": 26,
+      "foreign_workers": 15,
+      "technical_talent": 21,
+      "calculator": 24
+    },
+    "technical_talent": {
+      "knowledge": 30,
+      "technical_talent": 106,
+      "calculator": 23,
+      "industry": 18,
+      "foreign_workers": 5,
+      "employer_problem": 1,
+      "trust": 1
+    }
+  },
+  "commercial": [
+    {
+      "slug": "minimalni-mzda-2026",
+      "cluster": "knowledge",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "region"
+      ]
+    },
+    {
+      "slug": "povinnosti-zamestnavatele",
+      "cluster": "knowledge",
+      "sources": 26,
+      "n": 5,
+      "dom": 0.6153846153846154,
+      "clusters": [
+        "knowledge",
+        "foreign_workers",
+        "region",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "naklady-na-zamestnance-cr",
+      "cluster": "knowledge",
+      "sources": 20,
+      "n": 2,
+      "dom": 0.8,
+      "clusters": [
+        "knowledge",
+        "region"
+      ]
+    },
+    {
+      "slug": "jak-funguje-pracovni-agentura",
+      "cluster": "knowledge",
+      "sources": 21,
+      "n": 6,
+      "dom": 0.23809523809523808,
+      "clusters": [
+        "foreign_workers",
+        "knowledge",
+        "region",
+        "employer_problem",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "docasne-prideleni-zamestnancu",
+      "cluster": "knowledge",
+      "sources": 31,
+      "n": 5,
+      "dom": 0.45161290322580644,
+      "clusters": [
+        "knowledge",
+        "region",
+        "employer_problem",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "ubytovani-pro-pracovniky",
+      "cluster": "knowledge",
+      "sources": 6,
+      "n": 4,
+      "dom": 0.5,
+      "clusters": [
+        "foreign_workers",
+        "knowledge",
+        "region",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "pro-zamestnavatele",
+      "cluster": "knowledge",
+      "sources": 76,
+      "n": 6,
+      "dom": 0.3157894736842105,
+      "clusters": [
+        "foreign_workers",
+        "region",
+        "knowledge",
+        "employer_problem",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "nabor-pracovniku",
+      "cluster": "knowledge",
+      "sources": 23,
+      "n": 4,
+      "dom": 0.391304347826087,
+      "clusters": [
+        "knowledge",
+        "industry",
+        "region",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "nabor-zamestnancu",
+      "cluster": "knowledge",
+      "sources": 6,
+      "n": 2,
+      "dom": 0.8333333333333334,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "jak-najit-pracovniky",
+      "cluster": "knowledge",
+      "sources": 19,
+      "n": 4,
+      "dom": 0.5263157894736842,
+      "clusters": [
+        "knowledge",
+        "industry",
+        "region",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "planovani-naboru",
+      "cluster": "knowledge",
+      "sources": 17,
+      "n": 5,
+      "dom": 0.29411764705882354,
+      "clusters": [
+        "foreign_workers",
+        "knowledge",
+        "employer_problem",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "fluktuace-zamestnancu",
+      "cluster": "employer_problem",
+      "sources": 7,
+      "n": 2,
+      "dom": 0.5714285714285714,
+      "clusters": [
+        "employer_problem",
+        "knowledge"
+      ]
+    },
+    {
+      "slug": "priciny-fluktuace-zamestnancu",
+      "cluster": "employer_problem",
+      "sources": 6,
+      "n": 3,
+      "dom": 0.5,
+      "clusters": [
+        "employer_problem",
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "jak-snizit-fluktuaci",
+      "cluster": "employer_problem",
+      "sources": 6,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "retence-zamestnancu",
+      "cluster": "knowledge",
+      "sources": 11,
+      "n": 3,
+      "dom": 0.45454545454545453,
+      "clusters": [
+        "knowledge",
+        "employer_problem",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "onboarding-zamestnancu",
+      "cluster": "knowledge",
+      "sources": 10,
+      "n": 2,
+      "dom": 0.8,
+      "clusters": [
+        "knowledge",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "adaptace-zamestnancu",
+      "cluster": "knowledge",
+      "sources": 6,
+      "n": 3,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "technical_talent",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "checklist-pro-nove-zamestnance",
+      "cluster": "knowledge",
+      "sources": 7,
+      "n": 4,
+      "dom": 0.5714285714285714,
+      "clusters": [
+        "knowledge",
+        "industry",
+        "technical_talent",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "nedostatek-pracovniku-ve-vyrobe",
+      "cluster": "employer_problem",
+      "sources": 14,
+      "n": 4,
+      "dom": 0.7857142857142857,
+      "clusters": [
+        "region",
+        "employer_problem",
+        "knowledge",
+        "industry"
+      ]
+    },
+    {
+      "slug": "nedostatek-pracovniku-v-logistice",
+      "cluster": "employer_problem",
+      "sources": 8,
+      "n": 4,
+      "dom": 0.5,
+      "clusters": [
+        "region",
+        "employer_problem",
+        "knowledge",
+        "industry"
+      ]
+    },
+    {
+      "slug": "nedostatek-pracovniku-ve-skladech",
+      "cluster": "employer_problem",
+      "sources": 8,
+      "n": 4,
+      "dom": 0.625,
+      "clusters": [
+        "region",
+        "employer_problem",
+        "knowledge",
+        "industry"
+      ]
+    },
+    {
+      "slug": "nedostatek-pracovniku-ve-stavebnictvi",
+      "cluster": "employer_problem",
+      "sources": 6,
+      "n": 3,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "region",
+        "knowledge",
+        "industry"
+      ]
+    },
+    {
+      "slug": "skutecne-naklady-na-zamestnance",
+      "cluster": "knowledge",
+      "sources": 9,
+      "n": 3,
+      "dom": 0.7777777777777778,
+      "clusters": [
+        "knowledge",
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "kolik-stoji-zamestnanec",
+      "cluster": "knowledge",
+      "sources": 16,
+      "n": 3,
+      "dom": 0.6875,
+      "clusters": [
+        "region",
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "neprime-naklady-na-zamestnance",
+      "cluster": "knowledge",
+      "sources": 5,
+      "n": 2,
+      "dom": 0.8,
+      "clusters": [
+        "employer_problem",
+        "knowledge"
+      ]
+    },
+    {
+      "slug": "faq-pro-zamestnavatele",
+      "cluster": "knowledge",
+      "sources": 31,
+      "n": 3,
+      "dom": 0.45161290322580644,
+      "clusters": [
+        "knowledge",
+        "employer_problem",
+        "region"
+      ]
+    },
+    {
+      "slug": "nejcastejsi-chyby-zamestnavatelu",
+      "cluster": "knowledge",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "slovnik-pojmu-pro-zamestnavatele",
+      "cluster": "knowledge",
+      "sources": 4,
+      "n": 3,
+      "dom": 0.5,
+      "clusters": [
+        "knowledge",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "pracovnici-pro-vyrobu",
+      "cluster": "industry",
+      "sources": 34,
+      "n": 5,
+      "dom": 0.6764705882352942,
+      "clusters": [
+        "region",
+        "knowledge",
+        "employer_problem",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "operatori-vyroby",
+      "cluster": "industry",
+      "sources": 6,
+      "n": 3,
+      "dom": 0.5,
+      "clusters": [
+        "industry",
+        "technical_talent",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "montazni-pracovnici",
+      "cluster": "industry",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "pracovnici-do-vyroby",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 3,
+      "dom": 0.3333333333333333,
+      "clusters": [
+        "knowledge",
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "vyrobni-zamestnanci",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 3,
+      "dom": 0.3333333333333333,
+      "clusters": [
+        "industry",
+        "technical_talent",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "skladnici",
+      "cluster": "industry",
+      "sources": 10,
+      "n": 4,
+      "dom": 0.4,
+      "clusters": [
+        "knowledge",
+        "employer_problem",
+        "industry",
+        "region"
+      ]
+    },
+    {
+      "slug": "skladovi-pracovnici",
+      "cluster": "industry",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "picker-packer",
+      "cluster": "industry",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "pracovnici-do-skladu",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "manipulacni-pracovnici",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "pracovnici-do-logistiky",
+      "cluster": "industry",
+      "sources": 22,
+      "n": 5,
+      "dom": 0.6363636363636364,
+      "clusters": [
+        "region",
+        "knowledge",
+        "employer_problem",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "logisticti-pracovnici",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "pracovnici-pro-distribucni-centra",
+      "cluster": "industry",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "pracovnici-pro-ecommerce-sklady",
+      "cluster": "industry",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "stavebni-pracovnici",
+      "cluster": "industry",
+      "sources": 6,
+      "n": 4,
+      "dom": 0.5,
+      "clusters": [
+        "knowledge",
+        "employer_problem",
+        "industry",
+        "region"
+      ]
+    },
+    {
+      "slug": "pracovnici-pro-stavebnictvi",
+      "cluster": "industry",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "pomocni-stavebni-pracovnici",
+      "cluster": "industry",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "stavebni-profese",
+      "cluster": "industry",
+      "sources": 5,
+      "n": 2,
+      "dom": 0.6,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "pracovnici-pro-potravinarskou-vyrobu",
+      "cluster": "industry",
+      "sources": 9,
+      "n": 3,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "region",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "baleni-potravin-pracovnici",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "vyroba-potravin-pracovnici",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "industry"
+      ]
+    },
+    {
+      "slug": "pracovnici-pro-automotive",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "automobilovy-prumysl-pracovnici",
+      "cluster": "industry",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "montazni-linky-pracovnici",
+      "cluster": "industry",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "nabor-odbornych-pozic",
+      "cluster": "technical_talent",
+      "sources": 23,
+      "n": 2,
+      "dom": 0.8260869565217391,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "primy-nabor-zamestnancu",
+      "cluster": "technical_talent",
+      "sources": 10,
+      "n": 3,
+      "dom": 0.5,
+      "clusters": [
+        "knowledge",
+        "region",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "thp-pozice",
+      "cluster": "technical_talent",
+      "sources": 13,
+      "n": 3,
+      "dom": 0.5384615384615384,
+      "clusters": [
+        "region",
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "odborna-zpusobilost-a-opravneni",
+      "cluster": "technical_talent",
+      "sources": 15,
+      "n": 5,
+      "dom": 0.4666666666666667,
+      "clusters": [
+        "knowledge",
+        "region",
+        "foreign_workers",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "uznavani-kvalifikace-zahranicnich-pracovniku",
+      "cluster": "technical_talent",
+      "sources": 5,
+      "n": 2,
+      "dom": 0.6,
+      "clusters": [
+        "foreign_workers",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "nabor-svarecu",
+      "cluster": "technical_talent",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "strojirenske-profese",
+      "cluster": "technical_talent",
+      "sources": 22,
+      "n": 4,
+      "dom": 0.5454545454545454,
+      "clusters": [
+        "region",
+        "employer_problem",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "nabor-cnc-operatoru",
+      "cluster": "technical_talent",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "nabor-elektrikaru",
+      "cluster": "technical_talent",
+      "sources": 5,
+      "n": 2,
+      "dom": 0.6,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "udrzba-a-technicky-servis",
+      "cluster": "technical_talent",
+      "sources": 18,
+      "n": 4,
+      "dom": 0.4444444444444444,
+      "clusters": [
+        "region",
+        "employer_problem",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "pozice-v-rizeni-kvality",
+      "cluster": "technical_talent",
+      "sources": 8,
+      "n": 2,
+      "dom": 0.625,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "mistri-a-vedouci-smen",
+      "cluster": "technical_talent",
+      "sources": 12,
+      "n": 4,
+      "dom": 0.4166666666666667,
+      "clusters": [
+        "employer_problem",
+        "knowledge",
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "odborne-pozice-v-logistice",
+      "cluster": "technical_talent",
+      "sources": 6,
+      "n": 2,
+      "dom": 0.5,
+      "clusters": [
+        "industry",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "prime-osloveni-kandidatu",
+      "cluster": "technical_talent",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "proc-se-nedari-obsadit-odbornou-pozici",
+      "cluster": "technical_talent",
+      "sources": 7,
+      "n": 2,
+      "dom": 0.5714285714285714,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "jak-dlouho-trva-obsazeni-pozice",
+      "cluster": "technical_talent",
+      "sources": 5,
+      "n": 2,
+      "dom": 0.6,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "cena-sluzeb-personalni-agentury",
+      "cluster": "technical_talent",
+      "sources": 6,
+      "n": 2,
+      "dom": 0.5,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "jak-vybrat-personalni-agenturu",
+      "cluster": "technical_talent",
+      "sources": 5,
+      "n": 3,
+      "dom": 0.4,
+      "clusters": [
+        "knowledge",
+        "region",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "smlouva-s-personalni-agenturou",
+      "cluster": "technical_talent",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.75,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "nabor-techniku-automatizace",
+      "cluster": "technical_talent",
+      "sources": 9,
+      "n": 3,
+      "dom": 0.4444444444444444,
+      "clusters": [
+        "region",
+        "technical_talent",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "technicti-inzenyri",
+      "cluster": "technical_talent",
+      "sources": 6,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "region",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "technologove-a-konstrukteri",
+      "cluster": "technical_talent",
+      "sources": 9,
+      "n": 3,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "industry",
+        "technical_talent",
+        "knowledge"
+      ]
+    },
+    {
+      "slug": "nakup-a-zasobovani",
+      "cluster": "technical_talent",
+      "sources": 5,
+      "n": 3,
+      "dom": 0.6,
+      "clusters": [
+        "industry",
+        "technical_talent",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "hromadny-nabor-pracovniku",
+      "cluster": "employer_problem",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "nabor-pri-nabehu-vyroby",
+      "cluster": "employer_problem",
+      "sources": 3,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "sezonni-navyseni-kapacity",
+      "cluster": "employer_problem",
+      "sources": 15,
+      "n": 4,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "region",
+        "industry",
+        "employer_problem"
+      ]
+    },
+    {
+      "slug": "absence-v-provozu",
+      "cluster": "employer_problem",
+      "sources": 7,
+      "n": 3,
+      "dom": 0.42857142857142855,
+      "clusters": [
+        "region",
+        "employer_problem",
+        "knowledge"
+      ]
+    },
+    {
+      "slug": "cena-neobsazene-pozice",
+      "cluster": "knowledge",
+      "sources": 6,
+      "n": 2,
+      "dom": 0.6666666666666666,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    },
+    {
+      "slug": "zadani-pozice-a-profil-kandidata",
+      "cluster": "knowledge",
+      "sources": 4,
+      "n": 2,
+      "dom": 0.5,
+      "clusters": [
+        "knowledge",
+        "technical_talent"
+      ]
+    }
+  ]
+}
