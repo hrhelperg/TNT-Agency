@@ -24,7 +24,7 @@ const find = (pages, slug) => pages.find((p) => p.slug === slug)
 const MUTATIONS = [
   {
     name: '1. a repaired employer-request CTA drifts back to /contact',
-    expect: /declares employer-request intent but routes to \/contact/,
+    expect: /declares employer staffing intent but routes to \/contact/,
     slug: 'fluktuace-zamestnancu',
     apply(pages) {
       find(pages, 'fluktuace-zamestnancu').cta.href = '/contact'
@@ -32,7 +32,7 @@ const MUTATIONS = [
   },
   {
     name: '2. a new regional page ships with a /contact CTA',
-    expect: /declares employer-request intent but routes to \/contact/,
+    expect: /declares employer staffing intent but routes to \/contact/,
     slug: 'naklady-na-zamestnance-praha',
     apply(pages) {
       find(pages, 'naklady-na-zamestnance-praha').cta.href = '/contact'
@@ -71,11 +71,32 @@ const MUTATIONS = [
     },
   },
   {
-    name: '7. the unresolved /submit-offer group grows',
-    expect: /must not expand/,
-    slug: null,
+    name: '7. staffing intent routed to /submit-offer',
+    expect: /declares employer staffing intent but routes to \/submit-offer/,
+    slug: 'nabor-elektrikaru',
     apply(pages) {
       find(pages, 'nabor-elektrikaru').cta.href = '/submit-offer'
+    },
+  },
+  {
+    name: '7b. a regional page drifts back to /submit-offer',
+    expect: /declares employer staffing intent but routes to \/submit-offer/,
+    slug: 'trh-prace-praha',
+    apply(pages) {
+      find(pages, 'trh-prace-praha').cta.href = '/submit-offer'
+    },
+  },
+  {
+    name: '7c. an ambiguous CTA points somewhere other than the request form',
+    expect: /matches no known intent/,
+    slug: 'nabor-cnc-operatoru',
+    apply(pages) {
+      const p = find(pages, 'nabor-cnc-operatoru')
+      p.cta.title = 'Zajímá vás to?'
+      p.cta.text = 'Napište nám.'
+      p.cta.eyebrow = 'Info'
+      p.cta.buttonLabel = 'Napsat'
+      p.cta.href = '/contact'
     },
   },
   {

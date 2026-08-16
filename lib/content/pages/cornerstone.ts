@@ -341,7 +341,7 @@ export const NABOR_ZAHRANICNICH_PRACOVNIKU: SeoPage = {
     title: 'Hledáte zahraniční pracovníky?',
     text: 'Pomůžeme vám s náborem od definice potřeby až po nástup, včetně koordinace administrativy a souladu s předpisy.',
     buttonLabel: 'Poslat poptávku',
-    href: '/submit-offer',
+    href: '/poptavka-pracovniku',
   },
   meta,
   datePublished: TODAY,
