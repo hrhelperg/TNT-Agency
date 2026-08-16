@@ -4,7 +4,8 @@
 //
 // Checks:
 //   1. script.js defaults to 'cs' when no stored preference exists.
-//   2. <html lang="cs"> is the server default (pages/_document.tsx).
+//   2. Czech is the server default for <html lang> (pages/_document.tsx), and
+//      every per-route override is explicit, non-Czech and a real page.
 //   3. The default language button (CS) is the one marked active in the header.
 //   4. Every data-i18n="ns.key">TEXT< default equals the Czech dictionary value
 //      (mnav.* aliases nav.*), so the raw HTML renders Czech, not English.
@@ -24,8 +25,40 @@ const errors = [];
 if (!/getItem\('tnt-lang'\)\s*\|\|\s*'cs'/.test(SCRIPT)) {
   errors.push("script.js does not default the language to 'cs' when no preference is stored");
 }
+// _document no longer hardcodes lang="cs": /privacy-policy is a genuinely
+// English document and must declare English. So rather than matching a literal
+// string, assert the property that actually matters — Czech is the DEFAULT, and
+// every deviation is explicit, enumerable and a real route. That is stricter
+// than the old check, which a stray edit could have satisfied while silently
+// changing the default.
 const doc = read('pages/_document.tsx');
-if (!/<Html lang="cs">/.test(doc)) errors.push('pages/_document.tsx does not set <Html lang="cs">');
+if (!/const DEFAULT_LANG = 'cs'/.test(doc)) {
+  errors.push("pages/_document.tsx does not declare DEFAULT_LANG = 'cs'");
+}
+if (!/<Html lang=\{lang\}>/.test(doc)) {
+  errors.push('pages/_document.tsx does not render <Html lang={lang}>');
+}
+if (!/lang = DEFAULT_LANG/.test(doc)) {
+  errors.push('pages/_document.tsx does not fall back to DEFAULT_LANG when no route override applies');
+}
+const overrideBlock = doc.match(/const DOCUMENT_LANG[^=]*=\s*\{([\s\S]*?)\n\}/);
+if (!overrideBlock) {
+  errors.push('pages/_document.tsx does not declare a DOCUMENT_LANG override map');
+} else {
+  const overrides = [...overrideBlock[1].matchAll(/'([^']+)':\s*'([a-z-]+)'/g)];
+  for (const [, route, lang] of overrides) {
+    if (lang === 'cs') {
+      errors.push(`DOCUMENT_LANG lists ${route} as 'cs', which is already the default — redundant override`);
+    }
+    const file = route.replace(/^\//, '') || 'index';
+    if (!fs.existsSync(path.join(ROOT, `pages/${file}.tsx`))) {
+      errors.push(`DOCUMENT_LANG overrides ${route}, which is not a page (pages/${file}.tsx does not exist)`);
+    }
+  }
+  if (overrides.length > 3) {
+    errors.push(`DOCUMENT_LANG has ${overrides.length} overrides — Czech-default is no longer the rule; review the architecture`);
+  }
+}
 const header = read('components/Header.tsx');
 for (const m of header.matchAll(/<button className="(lang-btn[^"]*)" data-lang="([a-z]{2})"/g)) {
   const active = /\bactive\b/.test(m[1]);
@@ -81,5 +114,5 @@ if (errors.length) {
   process.exit(1);
 }
 console.log('Czech server-default gate: PASS');
-console.log(`  script.js default = 'cs'; <html lang="cs">; CS button active`);
+console.log(`  script.js default = 'cs'; server <html lang> default = 'cs'; CS button active`);
 console.log(`  ${checked} data-i18n defaults verified equal to the Czech dictionary`);

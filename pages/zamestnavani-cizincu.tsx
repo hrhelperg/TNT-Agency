@@ -104,8 +104,6 @@ export default function ZamestnavaniCizincu() {
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
         <meta name="last-modified" content={MODIFIED_DATE} />
         <link rel="canonical" href={PAGE_URL} />
-        <link rel="alternate" hrefLang="cs" href={PAGE_URL} />
-        <link rel="alternate" hrefLang="x-default" href={PAGE_URL} />
 
         <meta property="og:type" content="article" />
         <meta property="og:url" content={PAGE_URL} />

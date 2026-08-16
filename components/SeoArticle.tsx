@@ -91,8 +91,6 @@ export default function SeoArticle({ page: given, activePage = 'guides', topSlot
         />
         <meta name="last-modified" content={page.dateModified} />
         <link rel="canonical" href={url} />
-        <link rel="alternate" hrefLang="cs" href={url} />
-        <link rel="alternate" hrefLang="x-default" href={url} />
 
         <meta property="og:type" content="article" />
         <meta property="og:url" content={url} />

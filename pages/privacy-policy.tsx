@@ -15,6 +15,13 @@ export default function PrivacyPolicy() {
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
         <link rel="canonical" href="https://talentpartnerid.com/privacy-policy" />
+        {/* A real three-language set: three separate canonical documents, each
+            self-canonical, each listing all three. No x-default — none of the
+            three is a neutral or language-selection page, and pointing it at an
+            arbitrary language would state something untrue. */}
+        <link rel="alternate" hrefLang="en" href="https://talentpartnerid.com/privacy-policy" />
+        <link rel="alternate" hrefLang="cs-CZ" href="https://talentpartnerid.com/privacy-cs.html" />
+        <link rel="alternate" hrefLang="de" href="https://talentpartnerid.com/privacy-de.html" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://talentpartnerid.com/privacy-policy" />
         <meta property="og:title" content="Privacy Policy | TalentPartnerID" />

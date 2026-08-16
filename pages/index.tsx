@@ -61,10 +61,6 @@ export default function Home() {
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
         <link rel="canonical" href="https://talentpartnerid.com/" />
-        <link rel="alternate" hrefLang="en" href="https://talentpartnerid.com/" />
-        <link rel="alternate" hrefLang="cs" href="https://talentpartnerid.com/" />
-        <link rel="alternate" hrefLang="de" href="https://talentpartnerid.com/" />
-        <link rel="alternate" hrefLang="x-default" href="https://talentpartnerid.com/" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://talentpartnerid.com/" />
         <meta property="og:site_name" content="TalentPartnerID" />
