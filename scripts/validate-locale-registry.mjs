@@ -41,9 +41,43 @@ export const MIN_STATIC_PAGES = 175
 /** Strips comments so a note about `cookies()` cannot fail a code assertion. */
 const code = (src) => src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
 
-export function auditLocaleRegistry({ pilot, locales, prefixes, canonicalRoutes, staticPages, appSources, builtHtml }) {
+export function auditLocaleRegistry({ pilot, locales, prefixes, canonicalRoutes, staticPages, appSources, builtHtml, registrySource, approval }) {
   const errors = []
   const notes = []
+
+  // ── Slugs are a contract, not an output ───────────────────────────────────
+  // A slug that can be regenerated is a slug that can silently change, and a
+  // changed slug after publication is a broken URL plus a redirect on a page
+  // Google already indexed. So the registry must contain literals only.
+  if (registrySource !== undefined) {
+    if (/^\s*import\s/m.test(code(registrySource))) {
+      errors.push('locale registry imports something — slugs must not derive from a dictionary or any other module')
+    }
+    // Scope to the data array. The LocaleTarget interface legitimately declares
+    // `futureRoute: string` as a TYPE — an earlier version of this check flagged
+    // that declaration as a computed value.
+    const data = code(registrySource).slice(code(registrySource).indexOf('LOCALE_PILOT'))
+    const computed = data.match(/futureRoute:\s*(?!')[^,\n]+/g)
+    if (computed) {
+      errors.push(`locale registry computes a futureRoute instead of stating it: ${computed[0].trim()}`)
+    }
+    for (const m of data.matchAll(/target\(\s*'(en|de)'\s*,\s*([^)]+)\)/g)) {
+      if (!/^'[^']*'$/.test(m[2].trim())) {
+        errors.push(`locale registry builds a slug from an expression (${m[2].trim()}) — slugs must be hand-written literals`)
+      }
+    }
+  }
+  if (approval !== undefined) {
+    if (approval.slugsAreGenerated !== false) {
+      errors.push('PILOT_APPROVAL.slugsAreGenerated is not false — build-time slug generation is not approved')
+    }
+    if (approval.urlPolicy !== 'TRANSLATED_SLUGS') {
+      errors.push(`PILOT_APPROVAL.urlPolicy is "${approval.urlPolicy}" — the approved policy is TRANSLATED_SLUGS`)
+    }
+    if (approval.slugStabilityContract !== true) {
+      errors.push('PILOT_APPROVAL.slugStabilityContract is not true — published slugs must be treated as stable')
+    }
+  }
 
   const canonical = new Set(canonicalRoutes)
   const seen = new Map()
@@ -112,6 +146,13 @@ export function auditLocaleRegistry({ pilot, locales, prefixes, canonicalRoutes,
       if (t.translationStatus === 'PUBLISHED' && !t.indexingEligible) {
         errors.push(`${where}: translationStatus PUBLISHED but not indexingEligible — a published page that cannot be indexed is a mistake`)
       }
+    }
+  }
+
+  // Owner approval is per route, not implied by presence in the file.
+  for (const entry of pilot) {
+    if (entry.ownerApproved !== true) {
+      errors.push(`${entry.sourceRoute}: in the pilot without explicit owner approval`)
     }
   }
 
@@ -189,7 +230,7 @@ export function auditLocaleRegistry({ pilot, locales, prefixes, canonicalRoutes,
 // ── CLI ──────────────────────────────────────────────────────────────────────
 const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href
 if (invokedDirectly) {
-  const { LOCALE_PILOT, LOCALES, LOCALE_PREFIX } = await import(path.join(ROOT, 'lib/locale/registry.ts'))
+  const { LOCALE_PILOT, LOCALES, LOCALE_PREFIX, PILOT_APPROVAL } = await import(path.join(ROOT, 'lib/locale/registry.ts'))
 
   const canonicalRoutes = Array.from(read('public/sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g), (m) =>
     new URL(m[1]).pathname,
@@ -224,6 +265,8 @@ if (invokedDirectly) {
     staticPages,
     appSources,
     builtHtml,
+    registrySource: read('lib/locale/registry.ts'),
+    approval: PILOT_APPROVAL,
   })
 
   const counts = {}
@@ -237,6 +280,8 @@ if (invokedDirectly) {
   console.log(`  legal review required on    : ${LOCALE_PILOT.filter((e) => e.legalReviewRequired).length} pages`)
   console.log(`  prerendered pages           : ${staticPages} (floor ${MIN_STATIC_PAGES})`)
   console.log(`  Czech canonical URLs        : ${canonicalRoutes.length} (unchanged)`)
+  console.log(`  URL policy                  : ${PILOT_APPROVAL.urlPolicy} (owner-approved ${PILOT_APPROVAL.approvedOn}); slugs generated: ${PILOT_APPROVAL.slugsAreGenerated}`)
+  console.log(`  owner-approved routes       : ${LOCALE_PILOT.filter((e) => e.ownerApproved).length}/${LOCALE_PILOT.length}`)
   for (const n of notes) console.log(`  · ${n}`)
 
   if (errors.length) {

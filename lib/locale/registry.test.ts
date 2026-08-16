@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   LOCALE_PILOT,
+  PILOT_APPROVAL,
   LOCALES,
   LOCALE_PREFIX,
   LOCALE_HREFLANG,
@@ -98,6 +99,27 @@ describe('the pilot registry states an honest current position', () => {
     expect(twelfth).toBeTruthy()
     expect(twelfth!.rationale).toMatch(/35 unique contextual inbound sources/)
     expect(twelfth!.cluster).toBe('industry')
+  })
+})
+
+describe('owner approval is recorded as data, not assumed', () => {
+  it('every pilot route carries explicit owner approval', () => {
+    for (const e of LOCALE_PILOT) expect(e.ownerApproved, e.sourceRoute).toBe(true)
+  })
+
+  it('records the approved URL policy', () => {
+    expect(PILOT_APPROVAL.urlPolicy).toBe('TRANSLATED_SLUGS')
+  })
+
+  it('slugs are a stable contract, never generated at build time', () => {
+    expect(PILOT_APPROVAL.slugsAreGenerated).toBe(false)
+    expect(PILOT_APPROVAL.slugStabilityContract).toBe(true)
+  })
+
+  it('uses the owner-specified German slug for the vacancy-cost page', () => {
+    const e = LOCALE_PILOT.find((x) => x.sourceRoute === '/cena-neobsazene-pozice')!
+    expect(e.targets.find((t) => t.locale === 'de')!.futureRoute).toBe('/de/kosten-einer-unbesetzten-stelle')
+    expect(e.targets.find((t) => t.locale === 'en')!.futureRoute).toBe('/en/cost-of-vacancy')
   })
 })
 

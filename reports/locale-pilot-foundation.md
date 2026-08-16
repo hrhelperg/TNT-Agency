@@ -71,7 +71,7 @@ A test asserts no planned route matches `^/(cs|cz|cs-cz)(/|$)`.
 | 11 | `/redakcni-zasady` | trust | low | — |
 | **12** | **`/pracovnici-pro-vyrobu`** | **industry** | **high** | — |
 
-### Why `/pracovnici-pro-vyrobu` is the twelfth
+### Why `/pracovnici-pro-vyrobu` is the twelfth — **OWNER-APPROVED 2026-08-17**
 
 Selected by measurement, not preference. The approved eleven cover homepage, hub, request, calculator, 4× technical_talent, knowledge and 2× trust — and **no industry page at all**, though industry is Tier A in the L0 tiering.
 
@@ -92,7 +92,7 @@ Trust dependency is already satisfied by `/o-nas` and `/redakcni-zasady` being i
 
 ## 4. EN/DE future URL mapping
 
-### Policy decision: translated slugs (option A)
+### Policy decision: translated slugs (option A) — **OWNER-APPROVED 2026-08-17**
 
 | | A — `/en/cost-of-vacancy` | B — `/en/cena-neobsazene-pozice` |
 |---|---|---|
@@ -118,12 +118,18 @@ Trust dependency is already satisfied by `/o-nas` and `/redakcni-zasady` being i
 | `/nabor-techniku-automatizace` | `/en/automation-technician-recruitment` | `/de/automatisierungstechniker-recruiting` |
 | `/technicti-inzenyri` | `/en/engineering-roles` | `/de/technische-ingenieure` |
 | `/proc-se-nedari-obsadit-odbornou-pozici` | `/en/hard-to-fill-specialist-roles` | `/de/schwer-besetzbare-fachpositionen` |
-| `/cena-neobsazene-pozice` | `/en/cost-of-vacancy` | `/de/kosten-einer-vakanz` |
+| `/cena-neobsazene-pozice` | `/en/cost-of-vacancy` | `/de/kosten-einer-unbesetzten-stelle` |
 | `/pracovnici-pro-vyrobu` | `/en/production-workers` | `/de/produktionsmitarbeiter` |
 | `/o-nas` | `/en/about` | `/de/ueber-uns` |
 | `/redakcni-zasady` | `/en/editorial-standards` | `/de/redaktionelle-standards` |
 
 German umlauts are transliterated (`ueber-uns`, `fachkraefte`) — a non-ASCII slug invites percent-encoding drift between the registry, the sitemap and hreflang. Gated.
+
+### Slugs are a contract, not an output
+
+Every localized path is a hand-written, owner-approved literal. They are **never** generated at build time from a translation dictionary or a model: a slug that can regenerate is a slug that can silently change, and a changed slug after publication is a broken URL plus a redirect on a page Google has already indexed. Once published, a localized slug is fixed — changing one is a migration decision, not an edit.
+
+The gate enforces this structurally: the registry must import nothing, every `futureRoute` must be a string literal rather than an expression, and `PILOT_APPROVAL` must continue to record `slugsAreGenerated: false`, `urlPolicy: 'TRANSLATED_SLUGS'` and `slugStabilityContract: true`. Mutations 23–27 prove each rejection.
 
 ---
 
@@ -252,6 +258,8 @@ Expansion requires evidence that **Google is accepting the localized architectur
 
 Standing blocker: GSC and Ahrefs both return `Insufficient plan`, including the free subscription endpoint. Search-demand and indexation evidence is **UNKNOWN, not zero**. The MEASURE gate cannot be satisfied until read access exists.
 
+**The exact access required, the manual dashboard protocol that substitutes for it, and the pre-committed decision rule are specified in [`gsc-measurement-protocol.md`](./gsc-measurement-protocol.md).** The pilot is not blocked on API access — an owner with dashboard access can supply every required observation manually in roughly three hours spread over six weeks.
+
 ---
 
 ## 14. Validators and tests
@@ -260,7 +268,7 @@ Standing blocker: GSC and Ahrefs both return `Insufficient plan`, including the 
 
 It deliberately does **not** fail because `/en/...` 404s. That is the correct state today, and a gate demanding otherwise would force premature publication. A negative control asserts this.
 
-**Mutation-tested — 22 defects caught**, plus control and negative control: Czech collision · duplicate route · missing prefix · wrong locale prefix · Czech as a prefixed target · canonical-to-Czech · indexing without translation · without editorial review · without legal sign-off · false PUBLISHED status · sitemap pre-publication · speculative hreflang · unregistered locale hreflang · `getServerSideProps` · `Accept-Language` at render · geo at render · `next/headers` · middleware rewrite · prerender collapse · query string in route · non-ASCII slug · duplicate hreflang group.
+**Mutation-tested — 28 defects caught**, plus control and negative control: Czech collision · duplicate route · missing prefix · wrong locale prefix · Czech as a prefixed target · canonical-to-Czech · indexing without translation · without editorial review · without legal sign-off · false PUBLISHED status · sitemap pre-publication · speculative hreflang · unregistered locale hreflang · `getServerSideProps` · `Accept-Language` at render · geo at render · `next/headers` · middleware rewrite · prerender collapse · query string in route · non-ASCII slug · duplicate hreflang group · route without owner approval · slug generated from a dictionary · registry importing a translation module · build-time generation enabled · URL policy changed · slug-stability contract dropped.
 
 **Unit tests — 21**, covering pathname-only locale derivation, honest current status, uniqueness, no `/cs/`, self-canonical, market ≠ language, legal-review flagging, the twelfth route's recorded rationale, publication gating, and that hreflang is empty today.
 
@@ -269,7 +277,7 @@ It deliberately does **not** fail because `/en/...` 404s. That is the correct st
 | Unit tests | 377 → **398** (21 new, 19 files) |
 | Playwright | **138**, unchanged |
 | Validators | **20/20 PASS** + security + Seznam |
-| Mutation suites | locale-registry **22** · hreflang **10** · authority-v4 **11** |
+| Mutation suites | locale-registry **28** · hreflang **10** · authority-v4 **11** |
 
 ---
 
@@ -293,8 +301,13 @@ Files changed: `lib/locale/registry.ts`, `lib/locale/registry.test.ts`, `scripts
 
 ## 16. Implementation state
 
-IMPLEMENTED ✅ *(preparation scope only — registry, validators, tests, documentation)*
-VALIDATED ✅ · PUSHED ⏳ · MERGED ❌ · DEPLOYED ❌ · CRAWLED ❌ · INDEXED ❌ · RANKED ❌
+**LOCALE FOUNDATION** *(this PR — registry, validators, tests, documentation)*
+IMPLEMENTED ✅ · VALIDATED ✅ · PUSHED ✅ · MERGED ❌ · DEPLOYED ❌
+
+**LOCALE PILOT ROUTES** *(not started, and on hold)*
+IMPLEMENTED ❌ · DEPLOYED ❌ · CRAWLED **UNKNOWN** · INDEXED **UNKNOWN**
+
+The two are tracked separately on purpose. The foundation may merge and deploy on approval; the public pilot is on hold until measurement access exists. UNKNOWN is not zero — nothing has been measured because nothing has been published.
 
 **No `/en/` route. No `/de/` route. No Czech URL changed. No redirect. No middleware. No geo. No sitemap entry. No hreflang. Nothing deployed. Nothing submitted to any search engine.**
 

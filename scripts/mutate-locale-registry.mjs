@@ -15,7 +15,8 @@ import { fileURLToPath } from 'node:url'
 import { auditLocaleRegistry } from './validate-locale-registry.mjs'
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
-const { LOCALE_PILOT, LOCALES, LOCALE_PREFIX } = await import(path.join(ROOT, 'lib/locale/registry.ts'))
+const { LOCALE_PILOT, LOCALES, LOCALE_PREFIX, PILOT_APPROVAL } = await import(path.join(ROOT, 'lib/locale/registry.ts'))
+const REGISTRY_SRC = fs.readFileSync(path.join(ROOT, 'lib/locale/registry.ts'), 'utf8')
 
 const canonicalRoutes = Array.from(
   fs.readFileSync(path.join(ROOT, 'public/sitemap.xml'), 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g),
@@ -29,6 +30,8 @@ const BASE = {
   staticPages: 175,
   appSources: [],
   builtHtml: [],
+  registrySource: REGISTRY_SRC,
+  approval: PILOT_APPROVAL,
 }
 const clone = () => JSON.parse(JSON.stringify(LOCALE_PILOT))
 const run = (over = {}) => auditLocaleRegistry({ pilot: clone(), ...BASE, ...over })
@@ -162,7 +165,37 @@ const MUTATIONS = [
     run: () => withPilot((p) => { p[1].targets[1].futureRoute = '/de/über-uns' }),
   },
   {
-    name: '22. two pages share an hreflang group',
+    name: '22. a route enters the pilot without owner approval',
+    expect: /without explicit owner approval/,
+    run: () => withPilot((p) => { delete p[0].ownerApproved }),
+  },
+  {
+    name: '23. a slug is generated from a dictionary instead of hand-written',
+    expect: /slugs must be hand-written literals|computes a futureRoute/,
+    run: () => run({ registrySource: REGISTRY_SRC.replace("target('en', '/en/about')", "target('en', DICT.en.about)") }),
+  },
+  {
+    name: '24. the registry starts importing a translation module',
+    expect: /must not derive from a dictionary/,
+    run: () => run({ registrySource: "import { DICT } from '../i18n/dict'\n" + REGISTRY_SRC }),
+  },
+  {
+    name: '25. build-time slug generation is switched on',
+    expect: /build-time slug generation is not approved/,
+    run: () => run({ approval: { ...PILOT_APPROVAL, slugsAreGenerated: true } }),
+  },
+  {
+    name: '26. the URL policy is silently changed away from the approved one',
+    expect: /the approved policy is TRANSLATED_SLUGS/,
+    run: () => run({ approval: { ...PILOT_APPROVAL, urlPolicy: 'CZECH_SLUGS' } }),
+  },
+  {
+    name: '27. the slug-stability contract is dropped',
+    expect: /must be treated as stable/,
+    run: () => run({ approval: { ...PILOT_APPROVAL, slugStabilityContract: false } }),
+  },
+  {
+    name: '28. two pages share an hreflang group',
     expect: /is used by more than one page/,
     run: () => withPilot((p) => { p[1].hreflangGroup = p[0].hreflangGroup }),
   },

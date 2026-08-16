@@ -16,6 +16,16 @@
 // scripts/validate-locale-registry.mjs enforces that it cannot be overstated:
 // indexing eligibility requires an APPROVED translation AND a completed editorial
 // review AND, where flagged, a completed legal review.
+//
+// SLUGS ARE A CONTRACT, NOT AN OUTPUT.
+// Every localized path below is a hand-written, owner-approved literal. They must
+// never be generated at build time from a translation dictionary or a model:
+// a slug that can regenerate is a slug that can silently change, and a changed
+// slug after publication is a broken URL plus a redirect on a page Google has
+// already indexed. Once published, treat a localized slug as fixed — changing one
+// is a migration decision, not an edit. This file therefore imports nothing, and
+// the gate asserts both that it imports nothing and that every futureRoute is a
+// plain string literal rather than an expression.
 
 export const LOCALES = ['cs', 'en', 'de'] as const
 export type Locale = (typeof LOCALES)[number]
@@ -55,6 +65,23 @@ export type PilotStatus = 'PLANNED' | 'IN_PROGRESS' | 'READY' | 'PUBLISHED' | 'R
 
 export type CanonicalPolicy = 'SELF'
 
+/**
+ * Owner approval of the pilot itself — the route set and the URL policy — as
+ * distinct from approval of any translation. Recorded as data so a later wave can
+ * tell "the owner chose these twelve routes and these slugs" apart from "someone
+ * added a route to the list". Adding a route without approval is a gate failure.
+ */
+export const PILOT_APPROVAL = {
+  approvedOn: '2026-08-17',
+  approvedBy: 'repository owner',
+  urlPolicy: 'TRANSLATED_SLUGS',
+  /** Slugs are hand-written and owner-approved; never generated at build time. */
+  slugsAreGenerated: false,
+  /** After publication a localized slug is a stable SEO contract. */
+  slugStabilityContract: true,
+  note: 'Eleven routes approved in the L0 decision message; /pracovnici-pro-vyrobu approved as the twelfth on the measured evidence recorded in its rationale.',
+} as const
+
 export interface LocaleTarget {
   locale: Exclude<Locale, 'cs'>
   /** The URL this page WILL have. Nothing serves it yet. */
@@ -71,6 +98,8 @@ export interface LocaleTarget {
 export interface PilotEntry {
   /** Existing Czech canonical route. Never changes. */
   sourceRoute: string
+  /** Explicitly approved by the owner for the pilot. No route enters without it. */
+  ownerApproved: true
   /** Groups the CS/EN/DE versions of one page for hreflang. */
   hreflangGroup: string
   contentOwner: string
@@ -110,6 +139,7 @@ const target = (
 export const LOCALE_PILOT: readonly PilotEntry[] = [
   {
     sourceRoute: '/',
+    ownerApproved: true,
     hreflangGroup: 'home',
     contentOwner: 'pages/index.tsx',
     intent: 'Brand entry and service overview',
@@ -122,6 +152,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/pro-zamestnavatele',
+    ownerApproved: true,
     hreflangGroup: 'employer-hub',
     contentOwner: 'pages/pro-zamestnavatele.tsx',
     intent: 'Employer hub — routes to every commercial path',
@@ -134,6 +165,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/poptavka-pracovniku',
+    ownerApproved: true,
     hreflangGroup: 'employer-request',
     contentOwner: 'pages/poptavka-pracovniku.tsx',
     intent: 'Structured 25-field staffing request',
@@ -146,6 +178,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/kalkulacka-mzdy-agenturniho-zamestnance',
+    ownerApproved: true,
     hreflangGroup: 'payroll-calculator',
     contentOwner: 'pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx',
     intent: 'Agency payroll cost calculator',
@@ -158,6 +191,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/nabor-odbornych-pozic',
+    ownerApproved: true,
     hreflangGroup: 'specialist-recruitment',
     contentOwner: 'lib/content/pages/professional-recruitment.ts',
     intent: 'Specialist/professional recruitment hub',
@@ -170,6 +204,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/nabor-techniku-automatizace',
+    ownerApproved: true,
     hreflangGroup: 'automation-technicians',
     contentOwner: 'lib/content/pages/technical-talent.ts',
     intent: 'Automation and PLC technician recruitment',
@@ -182,6 +217,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/technicti-inzenyri',
+    ownerApproved: true,
     hreflangGroup: 'engineering-roles',
     contentOwner: 'lib/content/pages/professional-recruitment.ts',
     intent: 'Engineering role families and what the title hides',
@@ -194,6 +230,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/proc-se-nedari-obsadit-odbornou-pozici',
+    ownerApproved: true,
     hreflangGroup: 'hard-to-fill',
     contentOwner: 'lib/content/pages/professional-recruitment.ts',
     intent: 'Diagnosis of a hard-to-fill specialist role',
@@ -206,6 +243,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/cena-neobsazene-pozice',
+    ownerApproved: true,
     hreflangGroup: 'cost-of-vacancy',
     contentOwner: 'lib/content/pages/employer-operations.ts',
     intent: 'Vacancy cost — explanation and calculation tool',
@@ -213,11 +251,12 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
     commercialIntent: 'medium',
     legalReviewRequired: false,
     legalReviewStatus: 'NOT_REQUIRED',
-    targets: [target('en', '/en/cost-of-vacancy'), target('de', '/de/kosten-einer-vakanz')],
+    targets: [target('en', '/en/cost-of-vacancy'), target('de', '/de/kosten-einer-unbesetzten-stelle')],
     rationale: 'Carries a decision tool whose CS/EN/DE copy already exists and is parity-tested (PR #36), so its translation risk is the lowest in the pilot.',
   },
   {
     sourceRoute: '/pracovnici-pro-vyrobu',
+    ownerApproved: true,
     hreflangGroup: 'production-workers',
     contentOwner: 'lib/content/pages/industries.ts',
     intent: 'Production staffing — core volume service',
@@ -230,6 +269,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/o-nas',
+    ownerApproved: true,
     hreflangGroup: 'about',
     contentOwner: 'pages/o-nas.tsx',
     intent: 'Operator identity and verifiable company record',
@@ -242,6 +282,7 @@ export const LOCALE_PILOT: readonly PilotEntry[] = [
   },
   {
     sourceRoute: '/redakcni-zasady',
+    ownerApproved: true,
     hreflangGroup: 'editorial-standards',
     contentOwner: 'pages/redakcni-zasady.tsx',
     intent: 'Editorial standards and sourcing policy',
