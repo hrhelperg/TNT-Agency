@@ -31,8 +31,8 @@ const consultCta = {
   eyebrow: 'Nábor a personální zázemí',
   title: 'Řešíte obsazení pozic?',
   text: 'Pomůžeme vám nastavit nábor i personální procesy tak, aby odpovídaly vaší situaci a aktuálním pravidlům. Rádi probereme konkrétní potřebu.',
-  buttonLabel: 'Domluvit konzultaci',
-  href: '/contact',
+  buttonLabel: 'Probrat personální potřebu',
+  href: '/poptavka-pracovniku',
 }
 
 const hireCta = {
