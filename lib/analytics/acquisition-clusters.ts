@@ -97,6 +97,38 @@ export function intentClassFor(cluster: AcquisitionCluster, pageType: PageType):
   return 'INFORMATIONAL'
 }
 
+/**
+ * Sub-facet of the `knowledge` cluster.
+ *
+ * The employer-knowledge cluster covers three quite different jobs — costing a
+ * decision, planning a workforce, and running a hire — and reporting cannot tell
+ * them apart. This adds that dimension WITHOUT splitting `knowledge` into three
+ * clusters: every cross-cluster authority measurement from Waves 2–4 is defined
+ * over the 11-cluster taxonomy, so fragmenting it would silently invalidate
+ * those baselines while looking like a refinement.
+ *
+ * Derived from the pathname only. Nothing here is transmitted.
+ */
+export const KNOWLEDGE_FACETS = [
+  'recruitment_economics',
+  'workforce_planning',
+  'hiring_operations',
+  'none',
+] as const
+export type KnowledgeFacet = (typeof KNOWLEDGE_FACETS)[number]
+
+const ECONOMICS = /^\/(cena-neobsazene-pozice|skutecne-naklady-na-zamestnance|kolik-stoji-zamestnanec|neprime-naklady-na-zamestnance|naklady-na-zamestnance-cr|cena-sluzeb-personalni-agentury)$/
+const PLANNING = /^\/(planovani-naboru|sezonni-navyseni-kapacity|absence-v-provozu|nabor-pri-nabehu-vyroby|hromadny-nabor-pracovniku)$/
+const OPERATIONS = /^\/(zadani-pozice-a-profil-kandidata|onboarding-zamestnancu|adaptace-zamestnancu|checklist-pro-nove-zamestnance|jak-dlouho-trva-obsazeni-pozice|proc-se-nedari-obsadit-odbornou-pozici)$/
+
+/** Pure lookup; `none` for every route the facet does not apply to. */
+export function knowledgeFacetFor(route: string): KnowledgeFacet {
+  if (ECONOMICS.test(route)) return 'recruitment_economics'
+  if (PLANNING.test(route)) return 'workforce_planning'
+  if (OPERATIONS.test(route)) return 'hiring_operations'
+  return 'none'
+}
+
 export interface RouteClassification {
   route: string
   cluster: AcquisitionCluster
@@ -105,12 +137,14 @@ export interface RouteClassification {
   commercialIntent: CommercialIntent
   /** Wave 3 second dimension — see intentClassFor(). */
   intentClass: IntentClass
+  /** Step-3 third dimension — see knowledgeFacetFor(). Offline reporting only. */
+  knowledgeFacet: KnowledgeFacet
 }
 
 const slugsOf = (pages: ReadonlyArray<{ slug: string }>): string[] => pages.map((p) => p.slug)
 
 /** A classification without the route, which classifyRoute fills in. */
-type Classification = Omit<RouteClassification, 'route' | 'intentClass'>
+type Classification = Omit<RouteClassification, 'route' | 'intentClass' | 'knowledgeFacet'>
 
 /** Routes with no registry entry. Kept short and explicit on purpose. */
 const EXPLICIT: Readonly<Record<string, Classification>> = {
@@ -159,11 +193,15 @@ const FOREIGN_TOPIC = /cizinc|zahranicni|zamestnanecka-karta|modra-karta|pracovn
  */
 export function classifyRoute(pathname: string): RouteClassification {
   const base = classifyRouteBase(pathname)
-  return { ...base, intentClass: intentClassFor(base.cluster, base.pageType) }
+  return {
+    ...base,
+    intentClass: intentClassFor(base.cluster, base.pageType),
+    knowledgeFacet: knowledgeFacetFor(base.route),
+  }
 }
 
-/** Cluster/pageType/funnel/intent resolution, without the derived intent class. */
-function classifyRouteBase(pathname: string): Omit<RouteClassification, 'intentClass'> {
+/** Cluster/pageType/funnel resolution, without the derived dimensions. */
+function classifyRouteBase(pathname: string): Omit<RouteClassification, 'intentClass' | 'knowledgeFacet'> {
   const route = normalizeRoute(pathname)
   const explicit = EXPLICIT[route]
   if (explicit) return { ...explicit, route }

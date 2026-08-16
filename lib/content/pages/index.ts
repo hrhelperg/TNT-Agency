@@ -329,6 +329,10 @@ const CLUSTER_LINKS: Readonly<Record<string, ReadonlyArray<{ href: string; label
   ],
   'cena-neobsazene-pozice': [
     { href: '/technologove-a-konstrukteri', label: 'Technologové a konstruktéři' },
+    // Step 3: the page now carries the vacancy-cost tool. An employer who has
+    // just quantified what an empty specialist seat costs per day needs the page
+    // that owns specialist recruitment, not only one role family inside it.
+    { href: '/nabor-odbornych-pozic', label: 'Nábor odborných pozic' },
   ],
   'mistri-a-vedouci-smen': [
     { href: '/checklist-pro-nove-zamestnance', label: 'Checklist pro nové zaměstnance' },
