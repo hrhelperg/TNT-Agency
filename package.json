@@ -37,7 +37,9 @@
     "validate:authority-v4": "node --import ./scripts/ts-resolve.mjs scripts/validate-authority-v4.mjs",
     "test:mutate-authority-v4": "node --import ./scripts/ts-resolve.mjs scripts/mutate-authority-v4.mjs",
     "validate:hreflang": "node scripts/validate-hreflang.mjs",
-    "test:mutate-hreflang": "node scripts/mutate-hreflang.mjs"
+    "test:mutate-hreflang": "node scripts/mutate-hreflang.mjs",
+    "validate:locale-registry": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-registry.mjs",
+    "test:mutate-locale-registry": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-registry.mjs"
   },
   "dependencies": {
     "next": "14.2.3",
