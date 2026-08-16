@@ -100,17 +100,42 @@ export const DOCUMENTED_EXCEPTIONS = {
 }
 
 /**
- * The /submit-offer group is a KNOWN, UNRESOLVED finding, not an approved state.
- * 19 regional and shortage pages declare employer-request intent ("Nabíráte v
- * Jihomoravském kraji?") and route to /submit-offer — a bare mailto page from
- * the legacy agency-marketplace positioning — rather than to the 25-field form.
+ * RESOLVED. The 19 pages that declared employer staffing intent and routed to
+ * /submit-offer now route to the request form. The audit found no marketplace
+ * intent among them: zero directory signals in their bodies, none linking to
+ * /agencies, and every CTA offering TNT's own help ("Pomůžeme vám s náborem")
+ * rather than a match with some third-party agency.
  *
- * It is recorded here rather than silently fixed because /submit-offer belongs
- * to the agencies/offers side of the product and re-routing it is an owner
- * decision, not a hygiene fix. The gate reports the count on every run so it
- * cannot fade from view, and fails if the group GROWS.
+ * /submit-offer is NOT deprecated. It remains a legitimate destination for
+ * genuine marketplace job-posting intent, it is linked site-wide from the header
+ * and footer, and it stays in the sitemap. What changed is that staffing intent
+ * no longer lands there.
+ *
+ * The rule is therefore inverted from "must not grow" to "must not appear":
+ * staffing intent on /submit-offer is now a FAILURE, and a page that genuinely
+ * posts a public offer must declare itself via MARKETPLACE_EXCEPTIONS.
  */
-export const SUBMIT_OFFER_BASELINE = 19
+export const SUBMIT_OFFER_BASELINE = 0
+
+/**
+ * Wording that means "publish a vacancy for candidates to find" — the
+ * marketplace product, not TNT's own staffing service. A CTA matching this may
+ * legitimately point at /submit-offer.
+ */
+const MARKETPLACE_POSTING = [
+  /zveřejnit (nabídku|inzerát|pozici)/i,
+  /vystavit nabídku/i,
+  /inzerovat pozici/i,
+  /nabídku práce do katalogu/i,
+]
+
+/**
+ * Pages that deliberately keep /submit-offer because their intent really is
+ * posting a public offer. Empty today: the audit found no such page among the
+ * 19. An entry here must state why the page posts an offer rather than
+ * requesting staff.
+ */
+export const MARKETPLACE_EXCEPTIONS = {}
 
 export function auditCtaRouting(pages) {
   const errors = []
@@ -136,19 +161,27 @@ export function auditCtaRouting(pages) {
     const isRequest = !notRequest && EMPLOYER_REQUEST.some((re) => re.test(wording))
     const exception = DOCUMENTED_EXCEPTIONS[cta.title]
     if (exception) seenExceptions.add(cta.title)
+    const isMarketplace = MARKETPLACE_POSTING.some((re) => re.test(wording))
+    const marketplaceException = MARKETPLACE_EXCEPTIONS[cta.title]
 
-    rows.push({ slug: p.slug, href, isRequest, title: cta.title })
+    rows.push({ slug: p.slug, href, isRequest, isMarketplace, title: cta.title })
 
     if (isRequest && href !== REQUEST_PATH && !exception) {
-      // /submit-offer is the known, unresolved group (see SUBMIT_OFFER_BASELINE).
-      // Reported on every run, never silently accepted, but not failed — the
-      // re-route is an owner decision about the marketplace side of the product,
-      // not a hygiene fix this gate should force.
-      if (href === '/submit-offer') {
-        review.push(`${p.slug}: "${cta.title}" → ${href} (employer-request intent on a bare-mailto surface)`)
+      if (href === '/submit-offer' && (isMarketplace || marketplaceException)) {
+        // Genuine job-posting intent may live on the marketplace surface.
+        review.push(`${p.slug}: "${cta.title}" → ${href} (marketplace posting intent, allowed)`)
       } else {
-        errors.push(`${p.slug}: CTA "${cta.title}" declares employer-request intent but routes to ${href}`)
+        errors.push(`${p.slug}: CTA "${cta.title}" declares employer staffing intent but routes to ${href}`)
       }
+    }
+
+    // Ambiguity must fail review, not pass silently. A CTA that reads as neither
+    // a staffing request nor an explicit non-request, yet points somewhere other
+    // than the request form, has no classification anyone has made — and an
+    // unclassified commercial CTA is exactly how the /contact and /submit-offer
+    // groups accumulated unnoticed in the first place.
+    if (!isRequest && !notRequest && !isMarketplace && href !== REQUEST_PATH && !exception && !marketplaceException) {
+      errors.push(`${p.slug}: CTA "${cta.title}" routes to ${href} but matches no known intent — classify it explicitly or route it to the request form`)
     }
     if (exception && href !== exception.destination) {
       errors.push(`${p.slug}: CTA "${cta.title}" is documented as ${exception.classification} → ${exception.destination}, but routes to ${href}`)
@@ -170,8 +203,11 @@ export function auditCtaRouting(pages) {
   }
 
   const submitOffer = rows.filter((r) => r.href === '/submit-offer').length
-  if (submitOffer > SUBMIT_OFFER_BASELINE) {
-    errors.push(`/submit-offer CTAs grew from ${SUBMIT_OFFER_BASELINE} to ${submitOffer} — the unresolved routing finding must not expand`)
+  const allowedMarketplace = rows.filter(
+    (r) => r.href === '/submit-offer' && (r.isMarketplace || MARKETPLACE_EXCEPTIONS[r.title]),
+  ).length
+  if (submitOffer - allowedMarketplace > SUBMIT_OFFER_BASELINE) {
+    errors.push(`${submitOffer - allowedMarketplace} CTA(s) route to /submit-offer without declaring marketplace posting intent`)
   }
 
   return { errors, review, rows, submitOffer }
@@ -182,6 +218,7 @@ const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(pro
 if (invokedDirectly) {
   const { SEO_PAGES } = await import(path.join(ROOT, 'lib/content/pages/index.ts'))
   const { errors, review, rows, submitOffer } = auditCtaRouting(SEO_PAGES)
+  const LOCAL_ALLOWED = rows.filter((r) => r.href === '/submit-offer' && r.isMarketplace).length
 
   const byDest = {}
   for (const r of rows) byDest[r.href] = (byDest[r.href] ?? 0) + 1
@@ -190,7 +227,7 @@ if (invokedDirectly) {
   console.log(`  destinations                : ${JSON.stringify(byDest)}`)
   console.log(`  employer-request intent     : ${rows.filter((r) => r.isRequest).length}`)
   console.log(`  documented exceptions       : ${Object.keys(DOCUMENTED_EXCEPTIONS).length}`)
-  console.log(`  UNRESOLVED /submit-offer    : ${submitOffer} (baseline ${SUBMIT_OFFER_BASELINE}) — owner decision pending`)
+  console.log(`  /submit-offer CTAs          : ${submitOffer} (marketplace-declared: ${LOCAL_ALLOWED}) — staffing intent there now fails`)
   if (review.length) {
     console.log(`\n  REVIEW — employer-request intent not on the request form (${review.length}; reported, not failed):`)
     for (const r of review) console.log(`    · ${r}`)

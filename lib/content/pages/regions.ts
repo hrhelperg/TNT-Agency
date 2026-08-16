@@ -490,7 +490,7 @@ export const buildRegionLaborPage = (p: RegionProfile, i: number): SeoPage => {
       title: `Nabíráte ${p.inName}?`,
       text: 'Pomůžeme vám zorientovat se v regionálním náboru a zajistit pracovníky včetně koordinace administrativy u cizinců.',
       buttonLabel: 'Poslat poptávku',
-      href: '/submit-offer',
+      href: '/poptavka-pracovniku',
     },
     meta,
     datePublished: TODAY,

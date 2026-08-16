@@ -563,7 +563,7 @@ export const DOCASNE_PRIDELENI_ZAMESTNANCU: SeoPage = {
     title: 'Potřebujete pokrýt sezónní špičku?',
     text: 'Pomůžeme vám zajistit pracovníky formou dočasného přidělení a postaráme se o administrativu zaměstnávání.',
     buttonLabel: 'Poslat poptávku',
-    href: '/submit-offer',
+    href: '/poptavka-pracovniku',
   },
   meta,
   datePublished: TODAY,
