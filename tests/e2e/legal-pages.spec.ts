@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 import fs from 'fs'
 import path from 'path'
+import { realConsoleErrors, firstPartyFailures } from '../../lib/testing/console-noise'
 
 // Legal-page release QA (fix/legal-pages-static-assets-and-links). Verifies the
 // static legal documents are styled by /legal-pages.css (no /styles.css MIME
@@ -22,15 +23,26 @@ const PAGES: Array<{ route: string; lang: string; h1re: RegExp }> = [
   { route: '/terms-de.html', lang: 'de', h1re: /Geschäftsbedingungen/ },
 ]
 const BREAKPOINTS = [320, 390, 768, 1024, 1440]
-const IGNORE = /webmasterid|ERR_BLOCKED_BY_ORB|fonts\.googleapis|fonts\.gstatic|favicon|net::ERR_/i
+
+// Console noise is classified in lib/testing/console-noise.ts rather than by a
+// pattern here. Chrome reports a failed subresource as "Failed to load resource:
+// the server responded with a status of 404 ()" — with NO URL in it — so the
+// old hostname pattern could never match it, and these tests failed on roughly
+// half of all runs. Measured cause: fonts.gstatic.com woff2 files 404 under the
+// five rapid reloads this spec performs per page. The classifier correlates that
+// URL-less message with the actual failed response URLs instead of guessing from
+// text, so third-party flakiness is ignored while a first-party miss still
+// fails.
 
 test.describe('static legal pages — styled, localized, no overflow', () => {
   for (const p of PAGES) {
     test(`clean styled render — ${p.route}`, async ({ page }) => {
       const consoleErrors: string[] = []
       const pageErrors: string[] = []
+      const failedUrls: string[] = []
       page.on('console', (m) => { if (m.type() === 'error') consoleErrors.push(m.text()) })
       page.on('pageerror', (e) => pageErrors.push(e.message))
+      page.on('response', (r) => { if (r.status() >= 400) failedUrls.push(r.url()) })
 
       for (const width of BREAKPOINTS) {
         await page.setViewportSize({ width, height: 900 })
@@ -54,7 +66,12 @@ test.describe('static legal pages — styled, localized, no overflow', () => {
         expect(overflow, `overflow on ${p.route} @ ${width}px`).toBeLessThanOrEqual(2)
       }
 
-      const real = consoleErrors.filter((t) => !IGNORE.test(t))
+      // A first-party resource must never fail. This is asserted on its own, so
+      // a missing stylesheet or script is reported by URL rather than as an
+      // anonymous console line.
+      expect(firstPartyFailures(failedUrls), `first-party resource failures on ${p.route}`).toEqual([])
+
+      const real = realConsoleErrors({ consoleErrors, failedUrls })
       // Specifically assert the MIME/stylesheet error is gone.
       expect(real.some((t) => /Refused to apply style|MIME type/.test(t)), `MIME error on ${p.route}`).toBe(false)
       expect(pageErrors, `page errors on ${p.route}`).toEqual([])
