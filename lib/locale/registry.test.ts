@@ -70,7 +70,9 @@ describe('rule 2 — localized URLs are explicit, never inferred', () => {
       for (const locale of ['en', 'de'] as const) {
         const url = c.urls[locale]
         if (!url) continue
-        expect(url.startsWith(`${LOCALE_PREFIX[locale]}/`), `${url} missing ${locale} prefix`).toBe(true)
+        // The locale ROOT is the prefix itself; everything else sits under it.
+        const prefix = LOCALE_PREFIX[locale]
+        expect(url === prefix || url.startsWith(`${prefix}/`), `${url} missing ${locale} prefix`).toBe(true)
       }
     }
   })
@@ -134,7 +136,7 @@ describe('rule 4 — a missing translation stays missing', () => {
       const urls = alternatesFor(c.csPrimary).map((a) => a.url)
       for (const l of ['en', 'de'] as const) {
         if (c.published.includes(l)) continue
-        expect(urls, `${c.id}: ${l} unpublished but a locale home appeared`).not.toContain(`/${l}/`)
+        expect(urls, `${c.id}: ${l} unpublished but a locale home appeared`).not.toContain(`/${l}`)
       }
     }
   })

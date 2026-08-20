@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import LocaleAlternates from '../components/locale/LocaleAlternates'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import EmployerRequestForm from '../components/EmployerRequestForm'
@@ -85,6 +86,8 @@ export default function PoptavkaPracovnikuPage() {
           content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
         />
         <link rel="canonical" href={URL} />
+        {/* Reciprocal hreflang from the locale registry. */}
+        <LocaleAlternates route="/poptavka-pracovniku" />
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content={URL} />

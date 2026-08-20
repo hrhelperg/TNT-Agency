@@ -2,11 +2,8 @@ import Head from 'next/head'
 import Header from '../Header'
 import Footer from '../Footer'
 import LanguageSwitcher from './LanguageSwitcher'
-import {
-  ALL_CONCEPTS, LOCALE_HREFLANG, X_DEFAULT_ROUTE,
-  alternatesFor, urlFor,
-  type Locale,
-} from '../../lib/locale/registry'
+import LocaleAlternates from './LocaleAlternates'
+import { ALL_CONCEPTS, urlFor, type Locale } from '../../lib/locale/registry'
 import type { LocalePageContent } from '../../lib/locale/content/types'
 
 const ORIGIN = 'https://talentpartnerid.com'
@@ -34,13 +31,9 @@ export default function LocalePage({ conceptId, locale, content }: LocalePagePro
   const selfUrl = urlFor(concept, locale)
   if (!selfUrl) throw new Error(`LocalePage: concept "${conceptId}" declares no ${locale} url`)
 
-  // hreflang comes from the registry and lists PUBLISHED locales only, so a
-  // cluster cannot advertise a page that does not exist yet.
-  const alternates = alternatesFor(concept.csPrimary)
-
   const ctaConcept = ALL_CONCEPTS.find((c) => c.id === content.cta.targetConceptId)
   const ctaHref = ctaConcept ? urlFor(ctaConcept, locale) ?? urlFor(ctaConcept, 'cs') : undefined
-  const localeHome = locale === 'en' ? '/en/' : '/de/'
+  const localeHome = locale === 'en' ? '/en' : '/de'
 
   return (
     <>
@@ -48,12 +41,7 @@ export default function LocalePage({ conceptId, locale, content }: LocalePagePro
         <title>{content.title}</title>
         <meta name="description" content={content.description} />
         <link rel="canonical" href={`${ORIGIN}${selfUrl}`} />
-        {alternates.map((a) => (
-          <link key={a.locale} rel="alternate" hrefLang={LOCALE_HREFLANG[a.locale]} href={`${ORIGIN}${a.url}`} />
-        ))}
-        {alternates.length > 0 && (
-          <link rel="alternate" hrefLang="x-default" href={`${ORIGIN}${X_DEFAULT_ROUTE}`} />
-        )}
+        <LocaleAlternates route={concept.csPrimary} />
       </Head>
 
       <Header activePage={undefined} />

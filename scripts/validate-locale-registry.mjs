@@ -67,8 +67,12 @@ export function auditLocaleRegistry({
       const url = c.urls[locale]
       if (!url) continue
       const prefix = R.LOCALE_PREFIX[locale]
-      if (!url.startsWith(`${prefix}/`)) {
+      // The locale root IS the prefix (/en); every other route sits under it.
+      if (url !== prefix && !url.startsWith(`${prefix}/`)) {
         errors.push(`${c.id}/${locale}: "${url}" does not carry the ${locale} prefix`)
+      }
+      if (url !== prefix && url.endsWith('/')) {
+        errors.push(`${c.id}/${locale}: "${url}" ends with a slash, but next.config.js sets trailingSlash:false and redirects /:path+/ — a sitemap must not carry a redirecting URL`)
       }
       if (czechRoutes.includes(url)) {
         errors.push(`${c.id}/${locale}: "${url}" collides with an existing Czech canonical`)

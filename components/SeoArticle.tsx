@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import LocaleAlternates from './locale/LocaleAlternates'
 import Header from './Header'
 import Footer from './Footer'
 import ArticleLanguageNotice from './ArticleLanguageNotice'
@@ -91,6 +92,9 @@ export default function SeoArticle({ page: given, activePage = 'guides', topSlot
         />
         <meta name="last-modified" content={page.dateModified} />
         <link rel="canonical" href={url} />
+        {/* Reciprocal hreflang. Renders nothing unless this Czech page is a
+            concept primary with published locale counterparts. */}
+        <LocaleAlternates route={`/${page.slug}`} />
 
         <meta property="og:type" content="article" />
         <meta property="og:url" content={url} />
