@@ -40,7 +40,9 @@
 
 Max similarity sits below every enforced threshold (corpus gate 0.90; regional family gate 0.80).
 
-## 4. Internal graph (rendered contextual: everything between global `<header>` and `<footer>`)
+## 4. Internal graph (rendered contextual)
+
+> **Correction.** This section first defined contextual scope as "everything between the global `<header>` and `<footer>`". That was wrong: the mobile nav is a **sibling after `</header>`**, so it survived the strip and every page appeared to link contextually to `/contact`, `/agencies`, `/submit-offer`, `/offers` and `/poptavka-pracovniku` — which is why all five read exactly 174. Scope now also strips `nav.mobile-nav`, and the figures below are the corrected ones.
 
 | Measure | Value |
 |---|---|
@@ -48,8 +50,8 @@ Max similarity sits below every enforced threshold (corpus gate 0.90; regional f
 | Crawl depth min / median / avg / max | **0 / 2 / 2.51 / 5** |
 | Orphans (0 inbound) | **0** |
 | Contextually unreachable | **3** — `/terms.html`, `/terms-cs.html`, `/terms-de.html` (footer-discoverable legal, by design) |
-| Request-page inbound | **174** |
-| Calculator inbound | **174** |
+| Request-page inbound | **164** |
+| Calculator inbound | **165** |
 | Query-parameter internal links | **0** |
 | Links to non-existent routes | **0** |
 
