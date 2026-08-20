@@ -170,7 +170,7 @@ const T = {
     process: {
       eyebrow: 'How It Works',
       h2:      'From Brief to Hire<br>in Three Steps',
-      sub:     'A clear, efficient process that respects your time and delivers results — every time.',
+      sub:     'What happens after you get in touch: how the brief is defined, how candidates are found and verified, and what is on your side.',
       cta:     'Book a Free Consultation',
       steps: [
         {
@@ -500,7 +500,7 @@ const T = {
     process: {
       eyebrow: 'Jak to funguje',
       h2:      'Od zadání po nástup<br>ve třech krocích',
-      sub:     'Jasný a efektivní proces, který respektuje váš čas a přináší výsledky — pokaždé.',
+      sub:     'Co se stane poté, co se ozvete: jak upřesníme zadání, jak hledáme a ověřujeme kandidáty a co je na vaší straně.',
       cta:     'Sjednat bezplatnou konzultaci',
       steps: [
         {
@@ -830,7 +830,7 @@ const T = {
     process: {
       eyebrow: 'So funktioniert es',
       h2:      'Vom Briefing zur Einstellung<br>in drei Schritten',
-      sub:     'Ein klarer, effizienter Prozess, der Ihre Zeit respektiert und Ergebnisse liefert — jedes Mal.',
+      sub:     'Was nach Ihrer Anfrage passiert: wie die Anforderung präzisiert wird, wie Kandidaten gesucht und geprüft werden und was auf Ihrer Seite liegt.',
       cta:     'Kostenloses Beratungsgespräch buchen',
       steps: [
         {

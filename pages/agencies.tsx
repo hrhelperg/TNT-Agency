@@ -85,7 +85,7 @@ export default function Agencies() {
           <div className="section-head fi">
             <div className="eyebrow" data-i18n="process.eyebrow">Jak to funguje</div>
             <h2 data-i18n="process.h2">Od zadání po nástup<br />ve třech krocích</h2>
-            <p data-i18n="process.sub">Jasný a efektivní proces, který respektuje váš čas a přináší výsledky — pokaždé.</p>
+            <p data-i18n="process.sub">Co se stane poté, co se ozvete: jak upřesníme zadání, jak hledáme a ověřujeme kandidáty a co je na vaší straně.</p>
           </div>
           {/* Rendered by script.js */}
           <div className="process-steps" id="processSteps"></div>

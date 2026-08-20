@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import HomePayrollCalculator from '../components/HomePayrollCalculator'
 import HomeAgencyValue from '../components/HomeAgencyValue'
+import RecruitmentProcess from '../components/RecruitmentProcess'
 
 const employmentAgencySchema = {
   '@context': 'https://schema.org',
@@ -228,6 +229,13 @@ export default function Home() {
           <HomeAgencyValue />
         </div>
       </section>
+
+      {/* HOW IT WORKS — server-rendered.
+          The three steps previously existed only in the client-side dictionary
+          and only on /agencies, injected into an empty div after hydration, so
+          a buyer arriving from an outreach message met no explanation of the
+          process at all. */}
+      <RecruitmentProcess />
 
       {/* FOR EMPLOYERS — PREVIEW */}
       <section className="section section--alt" id="services">
