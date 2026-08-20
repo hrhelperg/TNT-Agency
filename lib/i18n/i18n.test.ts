@@ -75,10 +75,18 @@ describe('localization completeness & integrity', () => {
     expect(Math.round(computeHomeView(32000).netHalere / 100)).toBe(26058);
   });
 
-  it('14. no localized URL routes and no reintroduced sitemap hreflang/lastmod', () => {
-    // No locale-prefixed page directories.
+  it('14. Czech is never prefixed, and sitemap hygiene is preserved', () => {
+    // The prohibition on locale-prefixed directories is SUPERSEDED. It was
+    // correct while localization was client-side only: a /en/ directory then
+    // meant a URL that duplicated Czech content. Locale L0 introduced real
+    // prerendered EN and DE routes with their own content and canonicals.
+    //
+    // What has NOT changed, and is asserted here, is that CZECH is never
+    // prefixed: there is no /cs/ directory and no /cs/ URL, because the Czech
+    // canonicals are immutable.
     const pageEntries = fs.readdirSync(path.join(ROOT, 'pages'));
-    for (const bad of ['en', 'cs', 'de']) expect(pageEntries).not.toContain(bad);
+    expect(pageEntries).not.toContain('cs');
+    expect(SITEMAP).not.toMatch(/talentpartnerid\.com\/cs\//);
     // Sitemap hygiene preserved: URL-only, no hreflang extension, no lastmod.
     expect(SITEMAP.includes('<xhtml:link')).toBe(false);
     expect(SITEMAP.includes('xmlns:xhtml')).toBe(false);

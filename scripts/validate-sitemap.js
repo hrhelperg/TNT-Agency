@@ -45,6 +45,22 @@ function buildRouteInventory(root = ROOT) {
     .filter((n) => !['_app', '_document', '_error'].includes(n))
     .map((n) => (n === 'index' ? '/' : `/${n}`));
 
+  // Locale routes live one level down (pages/en/*, pages/de/*) and are just as
+  // real. They are read from the FILESYSTEM, like everything else here, rather
+  // than from the locale registry: if the registry and the pages ever disagree,
+  // this gate and the sitemap-equality gate will disagree too, which is how the
+  // mistake surfaces. Two gates reading the same source would simply agree with
+  // each other about it.
+  for (const localeDir of ['en', 'de']) {
+    const dir = path.join(pagesDir, localeDir);
+    if (!fs.existsSync(dir)) continue;
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (!e.isFile() || !e.name.endsWith('.tsx')) continue;
+      const base = e.name.replace(/\.tsx$/, '');
+      nextRoutes.push(base === 'index' ? `/${localeDir}` : `/${localeDir}/${base}`);
+    }
+  }
+
   const publicDir = path.join(root, 'public');
   const staticRoutes = walk(publicDir, '.html').map(
     (f) => '/' + path.relative(publicDir, f).split(path.sep).join('/'),

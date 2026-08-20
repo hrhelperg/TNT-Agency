@@ -19,10 +19,11 @@ const sitemapLocs = () => {
 }
 
 describe('rule 1 — the Czech spine is immutable', () => {
-  it('carries every Czech canonical, in the sitemap order', () => {
-    // Order is load-bearing: the generated sitemap must reproduce the existing
-    // artifact byte-identically, and sorting would break that proof.
-    expect(CZECH_ROUTES).toEqual(sitemapLocs())
+  it('carries every Czech canonical, as the sitemap prefix in order', () => {
+    // The Czech block sits at the FRONT of the sitemap and localized routes are
+    // appended after it — that is what makes each locale launch provably
+    // append-only. What must never move is this prefix.
+    expect(CZECH_ROUTES).toEqual(sitemapLocs().slice(0, CZECH_ROUTES.length))
   })
 
   it('has 185 routes and no duplicates', () => {

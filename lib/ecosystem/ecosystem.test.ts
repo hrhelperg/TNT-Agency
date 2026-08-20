@@ -375,10 +375,11 @@ describe('Ecosystem — must not disturb existing SEO or privacy', () => {
     const code = BANNER + DIRECTORY + APP
     expect(/rel="canonical"|sitemap/i.test(code)).toBe(false)
     // The banner adds no route. Sitemap size moved 156 → 175 (Wave 1) → 185
-    // (Wave 2); all of that growth comes from the content layer, not from the
-    // ecosystem banner, which is exactly what this assertion keeps true.
+    // (Wave 2) → 205 (Locale L0: +10 EN, +10 DE); all of that growth comes from
+    // the content layer and the locale registry, never from the ecosystem
+    // banner, which is exactly what this assertion keeps true.
     const sitemap = read('public/sitemap.xml')
-    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(185)
+    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(205)
     expect(sitemap).not.toContain('helperg.com')
   })
 

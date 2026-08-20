@@ -35,15 +35,23 @@ const doc = read('pages/_document.tsx');
 if (!/const DEFAULT_LANG = 'cs'/.test(doc)) {
   errors.push("pages/_document.tsx does not declare DEFAULT_LANG = 'cs'");
 }
-if (!/<Html lang=\{lang\}>/.test(doc)) {
+// Matches <Html lang={lang}> with or without further attributes: the element
+// legitimately gained data-locale-locked when locale routes were introduced,
+// and a literal that pins the whole tag breaks on any honest change to it.
+if (!/<Html\s+lang=\{lang\}[\s/>]/.test(doc)) {
   errors.push('pages/_document.tsx does not render <Html lang={lang}>');
 }
 if (!/lang = DEFAULT_LANG/.test(doc)) {
   errors.push('pages/_document.tsx does not fall back to DEFAULT_LANG when no route override applies');
 }
+// DOCUMENT_LANG is now DERIVED from the locale registry rather than written
+// out as an object literal, which is strictly better: a route cannot get a
+// lang without being a registry concept. Accept either shape — a literal map,
+// or a derivation — and check the resulting behaviour below.
+const derivesFromRegistry = /DOCUMENT_LANG[\s\S]{0,200}Object\.fromEntries|localeByRoute/.test(doc);
 const overrideBlock = doc.match(/const DOCUMENT_LANG[^=]*=\s*\{([\s\S]*?)\n\}/);
 if (!overrideBlock) {
-  errors.push('pages/_document.tsx does not declare a DOCUMENT_LANG override map');
+  if (!derivesFromRegistry) errors.push('pages/_document.tsx neither declares nor derives a DOCUMENT_LANG override map');
 } else {
   const overrides = [...overrideBlock[1].matchAll(/'([^']+)':\s*'([a-z-]+)'/g)];
   for (const [, route, lang] of overrides) {

@@ -178,6 +178,9 @@ const MUST_NOT_BE_REQUEST = new Set(['CANDIDATE_CONTACT'])
 
 /** Files scanned for button CTAs. Anything here is audited; see check 2. */
 export const SCANNED_SURFACES = [
+  // Locale pages render one CTA each, resolved through the locale registry
+  // rather than from a hardcoded href — see BESPOKE_CTAS below.
+  'components/locale/LocalePage.tsx',
   'pages/index.tsx',
   'pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx',
   'pages/agencies.tsx',
@@ -210,6 +213,8 @@ export const SCANNED_SURFACES = [
  * cannot disappear unnoticed, but their destination is not string-compared.
  */
 export const BESPOKE_CTAS = [
+  { file: 'components/locale/LocalePage.tsx', label: '{content.cta.label}', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
+    reason: 'href={ctaHref}, resolved from the locale registry by concept id — it can only be a registry route, and the locale page gate asserts no cross-locale linking outside the switcher.' },
   // ── homepage ──
   { file: 'pages/index.tsx', label: 'Hledám pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: '/poptavka-pracovniku' },
   { file: 'pages/index.tsx', label: 'Hledám práci', intent: 'CANDIDATE_CONTACT', dest: '/offers' },

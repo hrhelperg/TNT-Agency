@@ -26,12 +26,12 @@ const withConcepts = (mutate) => {
 const MUTATIONS = [
   {
     name: '1. the Czech spine is reordered (breaks byte-identical sitemap)',
-    expect: /does not match the sitemap in order/,
+    expect: /does not match the sitemap prefix in order|fewer than the/,
     run: () => auditLocaleRegistry({ ...base, czechRoutes: [...R.CZECH_ROUTES].reverse() }),
   },
   {
     name: '2. a Czech canonical is dropped from the spine',
-    expect: /does not match the sitemap in order/,
+    expect: /does not match the sitemap prefix in order|fewer than the/,
     run: () => auditLocaleRegistry({ ...base, czechRoutes: R.CZECH_ROUTES.slice(1) }),
   },
   {

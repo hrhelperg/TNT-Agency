@@ -31,10 +31,18 @@ export function auditLocaleRegistry({
   const errors = []
   const notes = []
 
-  // 1. The Czech spine is the sitemap, in order.
-  if (czechRoutes.length !== locs.length || czechRoutes.some((r, i) => r !== locs[i])) {
-    const firstDiff = czechRoutes.findIndex((r, i) => r !== locs[i])
-    errors.push(`CZECH_ROUTES does not match the sitemap in order (first difference at index ${firstDiff}: registry "${czechRoutes[firstDiff]}" vs sitemap "${locs[firstDiff]}") — order is load-bearing for the byte-identical generator`)
+  // 1. The Czech spine is the sitemap's PREFIX, in order.
+  //
+  // Not the whole file: localized routes are appended after it, which is what
+  // makes each locale launch provably append-only. What must never move is the
+  // Czech block at the front.
+  const czechPrefix = locs.slice(0, czechRoutes.length)
+  if (czechRoutes.some((r, i) => r !== czechPrefix[i])) {
+    const firstDiff = czechRoutes.findIndex((r, i) => r !== czechPrefix[i])
+    errors.push(`CZECH_ROUTES does not match the sitemap prefix in order (first difference at index ${firstDiff}: registry "${czechRoutes[firstDiff]}" vs sitemap "${czechPrefix[firstDiff]}") — order is load-bearing`)
+  }
+  if (locs.length < czechRoutes.length) {
+    errors.push(`sitemap has ${locs.length} entries, fewer than the ${czechRoutes.length} Czech canonicals — a Czech URL has been lost`)
   }
   if (new Set(czechRoutes).size !== czechRoutes.length) {
     errors.push('CZECH_ROUTES contains duplicates')
