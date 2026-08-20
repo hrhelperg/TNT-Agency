@@ -56,7 +56,7 @@ export const DE_CONTENT: LocaleCorpus = {
         'Übersicht für Arbeitgeber: Personalgewinnung und ihre Planung, Fluktuation senken und Mitarbeiter binden, Onboarding, Personalmangel nach Branchen und was eine Mitarbeiterin oder ein Mitarbeiter tatsächlich kostet. Mit Quellen.',
       h1: 'Für Arbeitgeber: Personalgewinnung, Teamstabilität und Kosten',
       intro:
-        'Diese Seite ist der Einstieg für Arbeitgeber, die praktische Personalfragen zu lösen haben – von der Besetzung offener Stellen über die Stabilität der Teams bis zu den Kosten eines Arbeitsplatzes. Sie verbindet die Themen so, dass Sie schnell zu der Seite gelangen, die die Entscheidung beantwortet, vor der Sie gerade stehen. Bei veränderlichen Angaben wie Beitragssätzen und Arbeitsmarktstatistiken verweist der Inhalt auf offizielle Quellen, statt Zahlen zu erfinden.',
+        'Diese Seite ist der Einstieg für Arbeitgeber, die praktische Personalfragen zu lösen haben – von der Besetzung offener Stellen über die Stabilität der Teams bis zu den Kosten eines Arbeitsplatzes. Sie verbindet die Themen so, dass Sie schnell zu der Seite gelangen, die die Frage beantwortet, vor der Sie gerade stehen. Bei veränderlichen Angaben wie Beitragssätzen und Arbeitsmarktstatistiken verweist der Inhalt auf offizielle Quellen, statt Zahlen zu erfinden.',
       breadcrumb: 'Für Arbeitgeber',
       sections: [
         {
@@ -106,13 +106,13 @@ export const DE_CONTENT: LocaleCorpus = {
         'Kosten unbesetzter Stellen – wie Sie eine eigene Rechnung aus entgangener Leistung, Überstunden, Qualitätsfolgen und Rekrutierungskosten aufbauen. Eine Methode, ohne erfundene Zahlen.',
       h1: 'Kosten unbesetzter Stellen: was ein leerer Arbeitsplatz kostet',
       intro:
-        'Wenn eine Stelle sich nicht besetzen lässt, entsteht zunächst der Eindruck, das Unternehmen spare ein Gehalt. Tatsächlich verlagert sich die Kosten nur – in Überstunden, in verlangsamte Leistung, in die Qualität und auf die Menschen, die die Arbeit zusätzlich mittragen. Solange das niemand beziffert, wirkt der leere Platz günstiger als seine Besetzung, und die Entscheidung wird weiter aufgeschoben. Diese Seite bietet eine Methode, wie Sie Ihre eigene Zahl aufbauen. Einen konkreten Betrag nennt sie nicht.',
+        'Wenn eine Stelle sich nicht besetzen lässt, entsteht zunächst der Eindruck, das Unternehmen spare ein Gehalt. Tatsächlich verlagern sich die Kosten nur – in Überstunden, in verlangsamte Leistung, in die Qualität und auf die Menschen, die die Arbeit zusätzlich mittragen. Solange das niemand beziffert, wirkt der leere Platz günstiger als seine Besetzung, und die Entscheidung wird weiter aufgeschoben. Diese Seite bietet eine Methode, wie Sie Ihre eigene Zahl aufbauen. Einen konkreten Betrag nennt sie nicht.',
       breadcrumb: 'Kosten unbesetzter Stellen',
       sections: [
         {
           heading: 'Die vier Bestandteile',
           body: [
-            'Eine Rechnung ist dann sinnvoll, wenn sie bei dem bleibt, was belegbar ist. In der Praxis besteht die Kosten einer unbesetzten Stelle aus vier Teilen, die jeweils anders zu berechnen sind.',
+            'Eine Rechnung ist dann sinnvoll, wenn sie bei dem bleibt, was belegbar ist. In der Praxis bestehen die Kosten einer unbesetzten Stelle aus vier Teilen, die jeweils anders zu berechnen sind.',
             'Entgangene oder verschobene Leistung ist der erste und meist größte Teil. Der zweite sind die Kosten der Abdeckung – Überstunden, Zuschläge, Aushilfe über eine Agentur oder Umsetzungen aus anderen Bereichen. Der dritte sind indirekte Folgen, die verzögert sichtbar werden: Fehler, Ausschuss, Terminverzug. Der vierte sind die Kosten der Rekrutierung selbst.',
           ],
         },
@@ -120,7 +120,7 @@ export const DE_CONTENT: LocaleCorpus = {
           heading: 'Entgangene Leistung beziffern',
           body: [
             'Der einfachste brauchbare Weg geht davon aus, was die Stelle je Zeiteinheit erbringt. Bei einer Produktionsstelle ist das üblicherweise ein Anteil am Produktionsvolumen, bei einer Vertriebsrolle der Wert bearbeiteter Aufträge, bei einer technischen Position aufgeschobene Projekte.',
-            'Entscheidend ist die Unterscheidung, ob Leistung tatsächlich verloren geht oder nur später erbracht wird. Ein Auftrag, den das Unternehmen später nachholt, ist nicht dasselbe wie eine nicht geleistete Schicht. Diese Unterscheidung ist für die Glaubwürdigkeit der Rechnung wichtiger als Genauigkeit auf die Krone – eine überhöhte Rechnung verliert im ersten Gespräch ihre Wirkung.',
+            'Entscheidend ist die Unterscheidung, ob Leistung tatsächlich verloren geht oder nur später erbracht wird. Ein Auftrag, den das Unternehmen später nachholt, ist nicht dasselbe wie eine nicht geleistete Schicht. Diese Unterscheidung ist für die Glaubwürdigkeit der Rechnung wichtiger als Genauigkeit bis auf die Krone – eine überhöhte Rechnung verliert im ersten Gespräch ihre Wirkung.',
           ],
         },
         {
@@ -341,7 +341,7 @@ export const DE_CONTENT: LocaleCorpus = {
         {
           heading: 'Wie Sie Fluktuation messen',
           body: [
-            'Die Grundkennzahl setzt die Zahl der Abgänge in einem Zeitraum ins Verhältnis zur durchschnittlichen Beschäftigtenzahl. Sinnvoll ist, den Verlauf über die Zeit und die Unterschiede zwischen Teams oder Positionen zu betrachten, statt sich mit fremden Zahlen zu vergleichen. Diese Seite nennt bewusst kein „übliches" Niveau.',
+            'Die Grundkennzahl setzt die Zahl der Abgänge in einem Zeitraum ins Verhältnis zur durchschnittlichen Beschäftigtenzahl. Sinnvoll ist, den Verlauf über die Zeit und die Unterschiede zwischen Teams oder Positionen zu betrachten, statt sich mit fremden Zahlen zu vergleichen. Diese Seite nennt bewusst kein „übliches“ Niveau.',
           ],
         },
         {

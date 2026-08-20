@@ -61,7 +61,7 @@ export const EN_CONTENT: LocaleCorpus = {
         'A guide for employers: planning recruitment, reducing turnover and retention, onboarding, labour shortages by sector, and what an employee actually costs. With sources.',
       h1: 'For employers: recruitment, team stability and cost',
       intro:
-        'This page is a starting point for employers dealing with practical staffing questions — from filling roles to keeping teams stable to what an employee costs. It links the topics together so you can quickly reach the page that answers the decision in front of you. The content is practical, and for figures that move, such as contribution rates and labour-market statistics, it points to official sources instead of inventing numbers.',
+        'This page is a starting point for employers dealing with practical staffing questions — from filling roles to keeping teams stable to what an employee costs. It links the topics together so you can quickly reach the page that answers the question in front of you. The content is practical, and for figures that move, such as contribution rates and labour-market statistics, it points to official sources instead of inventing numbers.',
       breadcrumb: 'For employers',
       sections: [
         {
@@ -125,7 +125,7 @@ export const EN_CONTENT: LocaleCorpus = {
           heading: 'Quantifying lost output',
           body: [
             'The simplest usable approach starts from what the role produces per unit of time. For a production position that is usually a share of output volume; for a commercial role the value of orders handled; for a technical role, deferred projects.',
-            'The key is to distinguish output that genuinely disappears from output that is merely postponed. An order the company catches up on later is not the same as a shift that was never worked. That distinction matters more to the credibility of the estimate than accuracy to the last crown — an inflated estimate loses trust at the first review.',
+            'The key is to distinguish output that genuinely disappears from output that is merely postponed. An order the company catches up on later is not the same as a shift that was never worked. That distinction matters more to the credibility of the estimate than accuracy down to the last crown — an inflated estimate loses trust at the first review.',
           ],
         },
         {
@@ -310,7 +310,7 @@ export const EN_CONTENT: LocaleCorpus = {
         {
           heading: 'Rules and permits',
           body: [
-            'To provide employment services an agency must hold a valid permit under the Employment Act. In agency employment there is a requirement of comparable pay and working conditions with the user company’s own employees.',
+            'To provide employment services an agency must hold a valid permit under the Employment Act. In agency employment, pay and working conditions must be comparable to those of the user company’s own employees.',
           ],
         },
         {
