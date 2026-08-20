@@ -358,8 +358,9 @@ export default function PayrollCalculatorPage() {
   //
   // Removing the reader was necessary but not sufficient: links already shared
   // still carry the payload, and the tracker reads the address bar. It is
-  // lib/privacy/url-hygiene.ts that strips an undeclared parameter on load,
-  // before the tracker can see it.
+  // lib/privacy/url-guard.ts that keeps undeclared parameters out of the
+  // address bar for the whole page lifetime — not just on load — because the
+  // tracker transmits location.href on every URL change, not only the first.
   //
   // The mode hint stays: it carries no values, only which view to open.
   useEffect(() => {

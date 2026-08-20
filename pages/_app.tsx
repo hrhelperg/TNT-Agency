@@ -11,9 +11,11 @@ import '../styles.css'
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      {/* MUST stay first: sibling effects fire in tree order, and this one has
-          to strip undeclared query parameters before the analytics island can
-          read location.href. See lib/privacy/url-hygiene.ts. */}
+      {/* The URL guard is installed at module scope by this import, not by the
+          component — see components/privacy/UrlHygiene.tsx. It stays mounted
+          first as a defensive re-assertion, but correctness no longer depends
+          on sibling effect ordering, which measurably lost a race against
+          Next's own router.replace. See lib/privacy/url-guard.ts. */}
       <UrlHygiene />
       <Head>
         {/* Rendering directive (not SEO metadata): viewport-fit=cover lets the

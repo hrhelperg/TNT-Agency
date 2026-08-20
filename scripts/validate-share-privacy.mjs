@@ -43,7 +43,7 @@ const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8')
 // Single source of truth for which parameters may survive in a served URL.
 // Imported from the app itself (via scripts/ts-resolve.mjs) so the gate and the
 // runtime scrub cannot drift apart.
-const { PERMITTED_PARAMS } = await import('../lib/privacy/url-hygiene.ts')
+const { PERMITTED_PARAMS } = await import('../lib/privacy/url-policy.ts')
 const code = (src) => src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
 
 /** Field names that must never appear in URL-building code. */
@@ -157,6 +157,67 @@ export function auditSharePrivacy({ sources, sitemap, builtHtml, appSource, perm
     }
   }
 
+  // 4b. The guard must be installed at MODULE scope, and must cover the whole
+  //     lifecycle. A mount effect measurably lost a race against Next's
+  //     router.replace, which resolves asynchronously and restored the dirty
+  //     URL after the scrub ran.
+  const hygiene = code(read('components/privacy/UrlHygiene.tsx'))
+  if (!/typeof window !== 'undefined'[\s\S]{0,120}installUrlGuard\(\)/.test(hygiene)) {
+    errors.push("components/privacy/UrlHygiene.tsx: the URL guard is not installed at module scope — an effect-only install races Next's router.replace and loses")
+  }
+  const guard = code(read('lib/privacy/url-guard.ts'))
+  for (const [hook, why] of [
+    ['history.replaceState', 'Next router.replace and the tracker both write through it'],
+    ['history.pushState', 'a client navigation must not reintroduce a legacy payload'],
+    ["'popstate'", 'back/forward can restore a dirty entry'],
+    ["'hashchange'", 'a hash write can change the href the tracker reads'],
+  ]) {
+    if (!guard.includes(hook)) errors.push(`lib/privacy/url-guard.ts: does not cover ${hook} — ${why}`)
+  }
+  if (!/sanitizeState/.test(guard)) {
+    errors.push('lib/privacy/url-guard.ts: does not sanitize the history STATE object — Next stores {url, as}, and a dirty entry resurrects a legacy payload on Back')
+  }
+
+  // 4c. Analytics must fail CLOSED on the URL boundary.
+  const trackerSrc = code(read('components/analytics/WebmasterIDTracker.tsx'))
+  if (!/isUrlSafe\(\)/.test(trackerSrc)) {
+    errors.push('components/analytics/WebmasterIDTracker.tsx: analytics is not gated on the URL boundary — consent alone does not make a URL safe to transmit')
+  }
+
+  // 4d. SCOPE GUARD — the covert-channel machinery must not come back.
+  //
+  // An earlier iteration decoded base64/base32/hex out of query values, scored
+  // segment lengths and digit runs, and classified fragments and pathnames, to
+  // stop someone hand-encoding facts they already possess into legitimate
+  // campaign strings. That threat was assessed and ruled OUT OF SCOPE: it
+  // protects nobody's data (the attacker already has it) and it cost real
+  // product behaviour — it stripped legitimate in-page anchors.
+  //
+  // This rule makes the absence a tested property rather than a habit.
+  const FORBIDDEN = [
+    'assessAssembledUrl', 'decodesToPayload', 'decodeBase64ish', 'base32Decode',
+    'hasLongSegment', 'MAX_SEGMENT', 'LONG_DIGITS', 'looksLikePayload',
+    'isPlausibleFragment', 'FRAGMENT_GRAMMAR', 'fragmentAllowed',
+    'enforceFragmentAgainstDom', 'pathnameTrusted', 'SENSITIVE_STEMS',
+  ]
+  for (const file of ['lib/privacy/url-policy.ts', 'lib/privacy/url-guard.ts']) {
+    const src = code(read(file))
+    for (const symbol of FORBIDDEN) {
+      if (src.includes(symbol)) {
+        errors.push(`${file}: reintroduces "${symbol}" — payload decoding, fragment and pathname classification are deliberately out of scope; see the scope note in url-policy.ts`)
+      }
+    }
+    if (/\batob\s*\(/.test(src)) {
+      errors.push(`${file}: decodes with atob — the policy is an allowlist, not a content classifier`)
+    }
+  }
+  // The fragment and the pathname must reach the output untouched.
+  const policy = code(read('lib/privacy/url-policy.ts'))
+  if (!/\$\{pathname\}/.test(policy)) {
+    errors.push('lib/privacy/url-policy.ts: the pathname is no longer passed through unchanged — pathname classification is out of scope')
+  }
+  notes.push(`scope guard: ${FORBIDDEN.length} out-of-scope symbols asserted absent`)
+
   // 5. No query strings in the sitemap.
   const qs = [...sitemap.matchAll(/<loc>([^<]*\?[^<]*)<\/loc>/g)]
   for (const m of qs) errors.push(`sitemap contains a parameterised URL: ${m[1]}`)
@@ -194,7 +255,7 @@ export function auditSharePrivacy({ sources, sitemap, builtHtml, appSource, perm
   // invariant that keeps the two lists honest with each other.
   for (const param of Object.keys(readableParams)) {
     if (!Object.prototype.hasOwnProperty.call(permittedParams, param)) {
-      errors.push(`query parameter "${param}" is declared readable, but lib/privacy/url-hygiene.ts would strip it before any reader runs — add it to PERMITTED_PARAMS or stop reading it`)
+      errors.push(`query parameter "${param}" is declared readable, but lib/privacy/url-policy.ts would strip it before any reader runs — add it to PERMITTED_PARAMS or stop reading it`)
     }
   }
   notes.push(`${Object.keys(permittedParams).length} parameters survive the scrub; ${Object.keys(readableParams).length} are read into state`)
