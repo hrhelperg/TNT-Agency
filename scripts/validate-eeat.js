@@ -107,8 +107,18 @@ const POLICY = 'pages/redakcni-zasady.tsx';
 if (!fs.existsSync(path.join(ROOT, POLICY))) {
   errors.push(`${POLICY} is missing — the editorial-standards page must exist`);
 } else {
+  // The footer no longer holds URL literals: it renders each destination from
+  // FOOTER_TARGETS in lib/locale/chrome.ts, so the trust link is proved by
+  // following that indirection rather than grepping the component. Both halves
+  // are required — a target nothing renders is as broken as a missing target.
   const footer = read('components/Footer.tsx');
-  if (!footer.includes('/redakcni-zasady')) errors.push('components/Footer.tsx does not link /redakcni-zasady (trust cluster)');
+  const chrome = read('lib/locale/chrome.ts');
+  const targetKey = (chrome.match(/\{\s*key:\s*'([^']+)'\s*,\s*czechHref:\s*'\/redakcni-zasady'/) || [])[1];
+  if (!targetKey) {
+    errors.push('lib/locale/chrome.ts FOOTER_TARGETS has no entry for /redakcni-zasady (trust cluster)');
+  } else if (!footer.includes(`link('${targetKey}')`)) {
+    errors.push(`components/Footer.tsx does not render link('${targetKey}') → /redakcni-zasady (trust cluster)`);
+  }
   const article = read('components/SeoArticle.tsx');
   if (!article.includes('/redakcni-zasady')) errors.push('components/SeoArticle.tsx editorial note does not link /redakcni-zasady');
   if (!/seo-editorial-note/.test(article) || !/redakce /.test(article)) errors.push('components/SeoArticle.tsx dropped the editorial-responsibility note');

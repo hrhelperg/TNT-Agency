@@ -1,5 +1,22 @@
 import { SITE } from '../lib/content/rules'
 import { OPERATOR_EMAIL, OPERATOR_PHONE, OPERATOR_SEAT } from '../lib/content/trust-data'
+import {
+  CHROME_FOOTER,
+  footerTarget,
+  resolveNavHref,
+  type FooterKey,
+  type LocaleLocked,
+} from '../lib/locale/chrome'
+
+interface FooterProps {
+  /**
+   * Set only by locale-locked pages. Same contract as Header: with a locale the
+   * labels are rendered server-side in that language and the `data-i18n` hooks
+   * are dropped, so the footer of an /en or /de page is correct before any
+   * script runs. Without it the Czech markup is emitted exactly as before.
+   */
+  locale?: LocaleLocked
+}
 
 /** Human label for a social profile URL (e.g. "linkedin.com/company/x" → "LinkedIn"). */
 function socialLabel(url: string): string {
@@ -8,14 +25,31 @@ function socialLabel(url: string): string {
   return name.charAt(0).toUpperCase() + name.slice(1)
 }
 
-export default function Footer() {
+export default function Footer({ locale }: FooterProps = {}) {
+  const t = CHROME_FOOTER[locale ?? 'cs']
+
+  /** A footer link, resolved to its localized equivalent where one exists. */
+  const link = (key: FooterKey) => {
+    const { href, hreflang } = resolveNavHref(footerTarget(key), locale ?? 'cs')
+    return (
+      <a
+        key={key}
+        href={href}
+        data-i18n={locale ? undefined : `footer.${key}`}
+        {...(hreflang ? { hreflang } : {})}
+      >
+        {t[key]}
+      </a>
+    )
+  }
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer__inner">
 
           <div className="footer__brand">
-            <a href="/" className="logo logo--light" aria-label="TalentPartnerID">
+            <a href={locale ? `/${locale}` : '/'} className="logo logo--light" aria-label="TalentPartnerID">
               <svg className="logo__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="40" height="40" rx="10" fill="#ffffff" />
                 <text x="19.5" y="24.5" fontFamily="Inter, Arial, sans-serif" fontSize="19.5" fontWeight="800" fill="#0d1e3d" textAnchor="middle" letterSpacing="-1.3">TP</text>
@@ -23,7 +57,7 @@ export default function Footer() {
               </svg>
               <span className="logo__word">TalentPartner<span className="id">ID</span></span>
             </a>
-            <p data-i18n="footer.tagline">Váš spolehlivý partner v oblasti zaměstnávání. Spojujeme správné lidi se správnými firmami od prvního dne.</p>
+            <p data-i18n={locale ? undefined : 'footer.tagline'}>{t['tagline']}</p>
             <address>{OPERATOR_SEAT}</address>
           </div>
 
@@ -33,38 +67,38 @@ export default function Footer() {
                   that service. All four previously pointed at /agencies, which
                   made them duplicate anchors and a dead end — and one of them
                   advertised RPO delivery the site cannot evidence. */}
-              <div className="footer__col-title" data-i18n="footer.colServices">Naše služby</div>
-              <a href="/primy-nabor-zamestnancu" data-i18n="footer.links.permanent">Přímý nábor do kmenového stavu</a>
-              <a href="/nabor-odbornych-pozic" data-i18n="footer.links.specialist">Nábor odborných a technických pozic</a>
-              <a href="/docasne-prideleni-zamestnancu" data-i18n="footer.links.temp">Agenturní zaměstnávání</a>
-              <a href="/pro-zamestnavatele" data-i18n="footer.links.employers">Pro zaměstnavatele: rozcestník</a>
+              <div className="footer__col-title" data-i18n={locale ? undefined : 'footer.colServices'}>{t['colServices']}</div>
+              {link('links.permanent')}
+              {link('links.specialist')}
+              {link('links.temp')}
+              {link('links.employers')}
             </div>
             <div className="footer__col">
-              <div className="footer__col-title" data-i18n="footer.colNavigate">Navigace</div>
-              <a href="/agencies" data-i18n="footer.navAgencies">Agentury</a>
-              <a href="/offers" data-i18n="footer.navOffers">Nabídky</a>
-              <a href="/kalkulacka-mzdy-agenturniho-zamestnance" data-i18n="footer.navCalc">Kalkulačka mezd</a>
-              <a href="/submit-agency" data-i18n="footer.navSubmitAgency">Registrovat agenturu</a>
-              <a href="/submit-offer" data-i18n="footer.navPostOffer">Zadat poptávku</a>
-              <a href="/socialni-zdravotni-dane-2026" data-i18n="footer.navTaxes">Sociální a zdravotní odvody 2026</a>
-              <a href="/blog/agenturni-pracovnici-vs-interni-zamestnanci.html" data-i18n="footer.navBlog">Blog</a>
+              <div className="footer__col-title" data-i18n={locale ? undefined : 'footer.colNavigate'}>{t['colNavigate']}</div>
+              {link('navAgencies')}
+              {link('navOffers')}
+              {link('navCalc')}
+              {link('navSubmitAgency')}
+              {link('navPostOffer')}
+              {link('navTaxes')}
+              {link('navBlog')}
             </div>
             <div className="footer__col">
-              <div className="footer__col-title" data-i18n="footer.colTrust">Důvěra a transparentnost</div>
-              <a href="/o-nas" data-i18n="footer.navAbout">O nás a ověření agentury</a>
-              <a href="/redakcni-zasady" data-i18n="footer.navEditorial">Redakční zásady a zdroje</a>
-              <a href="/contact" data-i18n="footer.navContact">Kontakt</a>
+              <div className="footer__col-title" data-i18n={locale ? undefined : 'footer.colTrust'}>{t['colTrust']}</div>
+              {link('navAbout')}
+              {link('navEditorial')}
+              {link('navContact')}
             </div>
             <div className="footer__col">
-              <div className="footer__col-title" data-i18n="footer.colGuides">Průvodci</div>
-              <a href="/zamestnavani-cizincu" data-i18n="footer.guide1">Zaměstnávání cizinců</a>
-              <a href="/pracovni-povoleni-cr" data-i18n="footer.guide2">Pracovní povolení v ČR</a>
-              <a href="/nabor-zahranicnich-pracovniku" data-i18n="footer.guide3">Nábor zahraničních pracovníků</a>
-              <a href="/minimalni-mzda-2026" data-i18n="footer.guide4">Minimální mzda 2026</a>
-              <a href="/faq-zamestnavani-pracovniku" data-i18n="footer.guide5">Časté dotazy</a>
+              <div className="footer__col-title" data-i18n={locale ? undefined : 'footer.colGuides'}>{t['colGuides']}</div>
+              {link('guide1')}
+              {link('guide2')}
+              {link('guide3')}
+              {link('guide4')}
+              {link('guide5')}
             </div>
             <div className="footer__col">
-              <div className="footer__col-title" data-i18n="footer.colContact">Kontakt</div>
+              <div className="footer__col-title" data-i18n={locale ? undefined : 'footer.colContact'}>{t['colContact']}</div>
               {/* Social links render only when a confirmed profile URL is added to
                   SITE.social in lib/content/rules.ts. No confirmed TalentPartnerID
                   profiles exist yet, so nothing is shown (no empty links). */}
@@ -81,11 +115,11 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <span data-i18n="footer.copy">© 2026 TNT agency s.r.o. Všechna práva vyhrazena.</span>
+          <span data-i18n={locale ? undefined : 'footer.copy'}>{t['copy']}</span>
           <div className="footer__legal">
-            <a href="/terms.html" data-i18n="footer.terms">Podmínky</a>
-            <a href="/privacy-policy" data-i18n="footer.priv">Ochrana dat</a>
-            <a href="/cookies.html" data-i18n="footer.cook">Cookies</a>
+            {link('terms')}
+            {link('priv')}
+            {link('cook')}
           </div>
         </div>
       </div>

@@ -44,7 +44,7 @@ export default function LocalePage({ conceptId, locale, content }: LocalePagePro
         <LocaleAlternates route={concept.csPrimary} />
       </Head>
 
-      <Header activePage={undefined} />
+      <Header activePage={undefined} locale={locale} />
 
       <main className="section" lang={locale}>
         <div className="container">
@@ -79,7 +79,7 @@ export default function LocalePage({ conceptId, locale, content }: LocalePagePro
         </div>
       </main>
 
-      <Footer />
+      <Footer locale={locale} />
     </>
   )
 }

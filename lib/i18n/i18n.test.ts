@@ -3,6 +3,7 @@ import { createRequire } from 'module';
 import fs from 'fs';
 import path from 'path';
 import { computeHomeView } from '../payroll/home-view-model';
+import { CHROME_NAV, CHROME_FOOTER, NAV_TARGETS, REQUEST_WORKERS } from '../locale/chrome';
 
 const require = createRequire(import.meta.url);
 const ROOT = process.cwd();
@@ -29,13 +30,28 @@ describe('localization completeness & integrity', () => {
   });
 
   it('11. every header navigation item is wired for translation (data-i18n)', () => {
+    // The hooks are now emitted as data-i18n={locale ? undefined : 'nav.x'} —
+    // present on the Czech spine, deliberately absent on /en and /de pages
+    // whose language is fixed by the URL and must not be client-rewritten.
+    // The key names are what this test is about, and they are unchanged.
+    // Header builds each hook as `${mobile ? 'mnav' : 'nav'}.${target.key}`,
+    // so no literal 'nav.home' exists to grep for. The set of keys is a
+    // property of NAV_TARGETS, which is what is asserted.
+    const navKeys = NAV_TARGETS.map((t) => `nav.${t.key}`).concat(`nav.${REQUEST_WORKERS.key}`);
     for (const key of ['nav.home', 'nav.agencies', 'nav.offers', 'nav.calc', 'nav.article', 'nav.submitAgency', 'nav.postOffer', 'nav.contact', 'nav.requestWorkers']) {
-      expect(HEADER).toContain(`data-i18n="${key}"`);
+      expect(navKeys, `header no longer renders ${key}`).toContain(key);
     }
-    // Mobile mirror.
+    // Mobile mirror — the same targets, prefixed mnav.
+    const mnavKeys = NAV_TARGETS.map((t) => `mnav.${t.key}`).concat(`mnav.${REQUEST_WORKERS.key}`);
     for (const key of ['mnav.home', 'mnav.agencies', 'mnav.offers', 'mnav.calc', 'mnav.contact', 'mnav.requestWorkers']) {
-      expect(HEADER).toContain(`data-i18n="${key}"`);
+      expect(mnavKeys, `mobile nav no longer renders ${key}`).toContain(key);
     }
+    // Every key must resolve in the client dictionary the hooks index into.
+    for (const key of navKeys) {
+      expect(Object.keys(CHROME_NAV.cs), key).toContain(key.slice('nav.'.length));
+    }
+    // And the hooks must still be conditional on locale, not removed outright.
+    expect(HEADER).toContain('locale ? undefined :');
   });
 
   it('5. navigation strings are genuinely translated (not a single-language fallback)', () => {
@@ -58,7 +74,13 @@ describe('localization completeness & integrity', () => {
     // single-sourced from the verified operator record (OPERATOR_EMAIL in
     // trust-data.ts) rather than a repeated literal, so it can never drift or be
     // translated — assert the binding and that the constant holds the exact value.
-    expect(FOOTER).toContain('TNT agency s.r.o.');
+    // The copyright line moved out of the markup and into CHROME_FOOTER, which
+    // makes the original point checkable in a stronger form: the legal entity
+    // must appear in EVERY language's copyright string, byte-identical. It was
+    // previously only provable for the one Czech literal in the markup.
+    for (const l of ['cs', 'en', 'de'] as const) {
+      expect(CHROME_FOOTER[l].copy, `${l} copyright drops the legal entity`).toContain('TNT agency s.r.o.');
+    }
     expect(FOOTER).toContain('OPERATOR_EMAIL');
     const TRUST = fs.readFileSync(path.join(ROOT, 'lib/content/trust-data.ts'), 'utf8');
     expect(TRUST).toContain("OPERATOR_EMAIL = 'jobbohemiacz@gmail.com'");

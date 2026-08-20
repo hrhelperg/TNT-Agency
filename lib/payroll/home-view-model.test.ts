@@ -4,6 +4,7 @@ import path from 'path';
 import { calculate, createDefaultInput, toCzkNumber } from './index';
 import CZ_2026 from './rules/cz-2026';
 import { buildHomeInput, computeHomeView, HOME_MONTHLY_HOURS } from './home-view-model';
+import { NAV_TARGETS, FOOTER_TARGETS, resolveNavHref } from '../locale/chrome';
 
 const ROOT = process.cwd();
 const COMPONENT = path.join(ROOT, 'components/HomePayrollCalculator.tsx');
@@ -104,8 +105,19 @@ describe('homepage payroll calculator — shared engine & view-model', () => {
   });
 
   it('12. header and footer expose the dedicated calculator route', () => {
-    expect(fs.readFileSync(HEADER, 'utf8')).toContain(CALC_ROUTE);
-    expect(fs.readFileSync(FOOTER, 'utf8')).toContain(CALC_ROUTE);
+    // Both components render their destinations from lib/locale/chrome rather
+    // than URL literals, so the route is asserted where it now lives. This also
+    // covers what the source grep could not: that the link survives on the /en
+    // and /de pages, where the calculator has no translation and must stay
+    // pointed at the Czech page.
+    expect(NAV_TARGETS.map((t) => t.czechHref)).toContain(CALC_ROUTE);
+    expect(FOOTER_TARGETS.map((t) => t.czechHref)).toContain(CALC_ROUTE);
+    for (const locale of ['cs', 'en', 'de'] as const) {
+      const nav = NAV_TARGETS.find((t) => t.czechHref === CALC_ROUTE)!;
+      const foot = FOOTER_TARGETS.find((t) => t.czechHref === CALC_ROUTE)!;
+      expect(resolveNavHref(nav, locale).href).toBe(CALC_ROUTE);
+      expect(resolveNavHref(foot, locale).href).toBe(CALC_ROUTE);
+    }
   });
 
   it('health recipient is the employee\'s insurer, not universally VZP ČR', () => {

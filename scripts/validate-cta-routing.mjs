@@ -259,7 +259,8 @@ export const BESPOKE_CTAS = [
   { file: 'pages/submit-offer.tsx', label: 'Napsat e-mail', intent: 'MARKETPLACE', dest: null },
 
   // ── shared components ──
-  { file: 'components/Header.tsx', label: 'Poptat pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: '/poptavka-pracovniku' },
+  { file: 'components/Header.tsx', label: '{t.requestWorkers}', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
+    reason: 'href={requestWorkers.href}, which resolves REQUEST_WORKERS through lib/locale/chrome. The Czech destination is /poptavka-pracovniku and the /en and /de destinations are the published request-staff pages, all asserted by lib/employer-request/conversion.test.ts.' },
   { file: 'components/EmployerSituations.tsx', label: 'Poptat pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
     reason: 'href={REQUEST}; the constant is /poptavka-pracovniku, asserted by lib/employer-request/conversion.test.ts.' },
   { file: 'components/HomePayrollCalculator.tsx', label: '{c.ctaDetail}', intent: 'KNOWLEDGE', dest: null },
