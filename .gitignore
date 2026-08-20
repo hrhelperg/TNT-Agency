@@ -22,3 +22,8 @@ tsconfig.tsbuildinfo
 /blob-report
 /.playwright
 release-evidence/
+
+# Ad-hoc QA scripts written into the repo root so node can resolve
+# @playwright/test from node_modules. Never part of a commit.
+.qa-*.mjs
+.chrome*.mjs
