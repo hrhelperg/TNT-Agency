@@ -169,4 +169,131 @@ console.log(
     ? `\nMutation tests: FAIL — ${failures} check(s) did not behave as specified`
     : `\nMutation tests: PASS — ${MUTATIONS.length} defects caught, control + negative control correct`,
 )
-process.exit(failures ? 1 : 0)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BESPOKE-SURFACE MUTATIONS (W3)
+//
+// The registry mutations above prove the gate sees SEO_PAGES. These prove it
+// sees the hand-written surfaces — the blind spot that let the homepage's
+// largest employer button point at the agency directory and the flagship
+// calculator's "Poptat pracovníky" point at /submit-offer. A gate that cannot
+// fail on those two files would be theatre.
+
+import fsx from 'node:fs'
+import {
+  auditBespokeCtas,
+  SCANNED_SURFACES,
+  BESPOKE_CTAS,
+} from './validate-cta-routing.mjs'
+
+const readSurfaces = () => {
+  const m = new Map()
+  for (const rel of SCANNED_SURFACES) {
+    const abs = path.join(ROOT, rel)
+    if (fsx.existsSync(abs)) m.set(rel, fsx.readFileSync(abs, 'utf8'))
+  }
+  return m
+}
+const swapHref = (src, label, to) => {
+  // Rewrite the href of the <a> whose visible label matches.
+  const esc = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const re = new RegExp('(<a\\b[^>]*?href=)"[^"]*"([^>]*>(?:(?!</a>)[\\s\\S])*?' + esc + ')')
+  return src.replace(re, '$1"' + to + '"$2')
+}
+
+let bFail = 0
+const bcheck = (name, errors, expectFail, pattern) => {
+  const matched = pattern ? errors.filter((e) => pattern.test(e)) : errors
+  const ok = expectFail ? matched.length > 0 : errors.length === 0
+  if (ok) console.log(`  ✓ ${name}`)
+  else {
+    console.error(`  ✗ ${name}`)
+    console.error(`      expected ${expectFail ? 'FAIL' : 'PASS'}; got ${errors.length} error(s)`)
+    if (errors.length) console.error(`      first: ${errors[0]}`)
+    bFail++
+  }
+}
+
+console.log('\nBespoke-surface mutations — CTA intent-routing gate\n')
+
+{
+  const { errors } = auditBespokeCtas(readSurfaces())
+  bcheck('control: real bespoke surfaces pass', errors, false)
+}
+
+// A. homepage employer CTA back to /agencies
+{
+  const f = readSurfaces()
+  f.set('pages/index.tsx', swapHref(f.get('pages/index.tsx'), 'Hledám pracovníky', '/agencies'))
+  const { errors } = auditBespokeCtas(f)
+  bcheck('A. homepage employer CTA -> /agencies', errors, true, /Hledám pracovníky/)
+}
+
+// B. calculator request CTA back to /submit-offer
+{
+  const f = readSurfaces()
+  const k = 'pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx'
+  f.set(k, swapHref(f.get(k), '{t.ctaRequest}', '/submit-offer'))
+  const { errors } = auditBespokeCtas(f)
+  bcheck('B. calculator "Poptat pracovníky" -> /submit-offer', errors, true, /ctaRequest/)
+}
+
+// C. bespoke employer CTA to generic /contact
+{
+  const f = readSurfaces()
+  f.set('pages/index.tsx', swapHref(f.get('pages/index.tsx'), 'Poslat poptávku →', '/contact'))
+  const { errors } = auditBespokeCtas(f)
+  bcheck('C. bespoke employer CTA -> /contact', errors, true, /Poslat poptávku/)
+}
+
+// D. candidate CTA into the employer request form
+{
+  const f = readSurfaces()
+  f.set('pages/offers.tsx', swapHref(f.get('pages/offers.tsx'), 'Promluvit s náborářem', '/poptavka-pracovniku'))
+  const { errors } = auditBespokeCtas(f)
+  bcheck('D. candidate CTA -> employer request form', errors, true, /CANDIDATE_CONTACT|náborářem/)
+}
+
+// E. regulatory CTA staying on /contact must PASS
+{
+  const { errors } = auditBespokeCtas(readSurfaces())
+  const flagged = errors.filter((e) => /socialni-zdravotni-dane/.test(e))
+  bcheck('E. regulatory CTA deliberately on /contact passes', flagged, false)
+}
+
+// F. genuine marketplace CTA on /submit-offer must PASS
+{
+  const { errors } = auditBespokeCtas(readSurfaces())
+  const flagged = errors.filter((e) => /submit-offer/.test(e))
+  bcheck('F. marketplace CTA -> /submit-offer passes', flagged, false)
+}
+
+// G. query-param employer CTA
+{
+  const f = readSurfaces()
+  f.set('pages/index.tsx', swapHref(f.get('pages/index.tsx'), 'Hledám pracovníky', '/poptavka-pracovniku?utm_source=hero'))
+  const { errors } = auditBespokeCtas(f)
+  bcheck('G. query-param employer CTA', errors, true, /query or fragment/)
+}
+
+// H. a bespoke page dropped from the inventory
+{
+  const surfaces = SCANNED_SURFACES.filter((s) => s !== 'pages/index.tsx')
+  const { errors } = auditBespokeCtas(readSurfaces(), { surfaces })
+  bcheck('H. bespoke page removed from the CTA inventory', errors, true, /not in SCANNED_SURFACES/)
+}
+
+// I. a declared CTA deleted from the page (stale inventory entry)
+{
+  const f = readSurfaces()
+  f.set('pages/index.tsx', f.get('pages/index.tsx').replace('Poslat poptávku →', 'Něco jiného'))
+  const { errors } = auditBespokeCtas(f)
+  bcheck('I. declared CTA no longer exists on the page', errors, true, /no longer exists|not declared/)
+}
+
+console.log(
+  bFail
+    ? `\nBespoke mutations: FAIL — ${bFail} check(s) did not behave as specified`
+    : '\nBespoke mutations: PASS — 9 defects caught, control + 2 negative controls correct',
+)
+process.exit(failures + bFail ? 1 : 0)

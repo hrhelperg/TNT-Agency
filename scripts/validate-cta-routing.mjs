@@ -137,6 +137,223 @@ const MARKETPLACE_POSTING = [
  */
 export const MARKETPLACE_EXCEPTIONS = {}
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BESPOKE SURFACES (W3)
+//
+// The registry audit above sees SEO_PAGES only — 162 pages. It never saw the 13
+// hand-written routes, and that blind spot is why the homepage's largest
+// employer button pointed at the agency directory and the flagship calculator's
+// "Poptat pracovníky" pointed at /submit-offer. Both are among the highest-intent
+// surfaces on the site, and neither was gated.
+//
+// This inventory is deliberately EXPLICIT rather than a glob. A wildcard that
+// silently matches nothing is indistinguishable from a wildcard that silently
+// matches everything, and the failure mode we are fixing is exactly "a surface
+// nobody was looking at". So every bespoke CTA is declared with its intent and
+// its destination, and two independent checks run:
+//
+//   1. every DECLARED CTA must still exist and still point where it is declared
+//      to point  (catches destination drift);
+//   2. every CTA FOUND in a scanned file must be declared  (catches a new
+//      surface, or an inventory entry someone deleted).
+//
+// Intent vocabulary is the one the programme brief specifies.
+
+export const CTA_INTENTS = [
+  'EMPLOYER_STAFFING_REQUEST',
+  'EMPLOYER_RECRUITMENT_REQUEST',
+  'GENERAL_CONTACT',
+  'REGULATORY_CONTACT',
+  'CANDIDATE_CONTACT',
+  'MARKETPLACE',
+  'KNOWLEDGE',
+  'OTHER',
+]
+
+/** Intents that must land on the structured employer request form. */
+const MUST_BE_REQUEST = new Set(['EMPLOYER_STAFFING_REQUEST', 'EMPLOYER_RECRUITMENT_REQUEST'])
+/** Intents that must NEVER land on it. */
+const MUST_NOT_BE_REQUEST = new Set(['CANDIDATE_CONTACT'])
+
+/** Files scanned for button CTAs. Anything here is audited; see check 2. */
+export const SCANNED_SURFACES = [
+  'pages/index.tsx',
+  'pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx',
+  'pages/agencies.tsx',
+  'pages/offers.tsx',
+  'pages/contact.tsx',
+  'pages/submit-agency.tsx',
+  'pages/submit-offer.tsx',
+  'pages/zamestnavani-cizincu.tsx',
+  'pages/socialni-zdravotni-dane-2026.tsx',
+  'pages/o-nas.tsx',
+  'pages/redakcni-zasady.tsx',
+  'pages/privacy-policy.tsx',
+  'pages/poptavka-pracovniku.tsx',
+  'components/Header.tsx',
+  'components/EmployerSituations.tsx',
+  'components/HomePayrollCalculator.tsx',
+  'components/HomeAgencyValue.tsx',
+  'components/VacancyCostTool.tsx',
+  'components/EmployerCta.tsx',
+  'components/EmployerRequestForm.tsx',
+  'components/SeoArticle.tsx',
+]
+
+/**
+ * Declared CTAs. `label` is the literal text or the JSX expression as written,
+ * which is what makes an entry reviewable by a human reading the diff.
+ *
+ * `dest` of null means the destination is not a static internal path (a mailto,
+ * or a constant/prop resolved at render). Those are still declared so they
+ * cannot disappear unnoticed, but their destination is not string-compared.
+ */
+export const BESPOKE_CTAS = [
+  // ── homepage ──
+  { file: 'pages/index.tsx', label: 'Hledám pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: '/poptavka-pracovniku' },
+  { file: 'pages/index.tsx', label: 'Hledám práci', intent: 'CANDIDATE_CONTACT', dest: '/offers' },
+  { file: 'pages/index.tsx', label: 'Pro zaměstnavatele: rozcestník →', intent: 'KNOWLEDGE', dest: '/pro-zamestnavatele' },
+  { file: 'pages/index.tsx', label: 'Nábor odborných pozic →', intent: 'KNOWLEDGE', dest: '/nabor-odbornych-pozic' },
+  { file: 'pages/index.tsx', label: 'Prozkoumat služby a odvětví →', intent: 'KNOWLEDGE', dest: '/pro-zamestnavatele',
+    reason: 'Browse intent under an employer-services heading. The employer hub carries the services; /agencies lists other agencies.' },
+  { file: 'pages/index.tsx', label: 'Poslat životopis', intent: 'CANDIDATE_CONTACT', dest: null },
+  { file: 'pages/index.tsx', label: 'Procházet nabídky →', intent: 'CANDIDATE_CONTACT', dest: '/offers' },
+  { file: 'pages/index.tsx', label: 'Zveřejnit agenturu', intent: 'MARKETPLACE', dest: '/submit-agency',
+    reason: 'Agency listing its own profile in the directory — genuinely the marketplace product.' },
+  { file: 'pages/index.tsx', label: 'Zadat poptávku', intent: 'MARKETPLACE', dest: '/submit-offer',
+    reason: 'Sits inside the marketplace section; posts a public offer rather than requesting staff from us.' },
+  { file: 'pages/index.tsx', label: 'Poslat poptávku →', intent: 'EMPLOYER_STAFFING_REQUEST', dest: '/poptavka-pracovniku' },
+
+  // ── flagship calculator ──
+  { file: 'pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx', label: '{t.ctaRequest}', intent: 'EMPLOYER_STAFFING_REQUEST', dest: '/poptavka-pracovniku' },
+  { file: 'pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx', label: '{t.ctaConsult}', intent: 'GENERAL_CONTACT', dest: '/contact',
+    reason: '"Domluvit konzultaci" / "Arrange a consultation" — a conversation, not a staffing brief the 25-field form can hold.' },
+
+  // ── marketplace / directory ──
+  { file: 'pages/agencies.tsx', label: 'Registrovat agenturu', intent: 'MARKETPLACE', dest: '/submit-agency' },
+  { file: 'pages/agencies.tsx', label: 'Registrovat agenturu →', intent: 'MARKETPLACE', dest: '/submit-agency' },
+  { file: 'pages/agencies.tsx', label: 'Sjednat bezplatnou konzultaci', intent: 'GENERAL_CONTACT', dest: '/contact',
+    reason: 'Consultation booking on the directory page; not a staffing brief.' },
+  { file: 'pages/offers.tsx', label: 'Zadat poptávku', intent: 'MARKETPLACE', dest: '/submit-offer' },
+  { file: 'pages/offers.tsx', label: 'Zadat poptávku →', intent: 'MARKETPLACE', dest: '/submit-offer' },
+  { file: 'pages/offers.tsx', label: 'Poslat životopis', intent: 'CANDIDATE_CONTACT', dest: null },
+  { file: 'pages/offers.tsx', label: 'Promluvit s náborářem', intent: 'CANDIDATE_CONTACT', dest: '/contact',
+    reason: 'Candidate-facing page; a jobseeker must never be sent into the employer request form.' },
+
+  // ── regulatory / knowledge ──
+  { file: 'pages/socialni-zdravotni-dane-2026.tsx', label: 'Domluvit konzultaci', intent: 'REGULATORY_CONTACT', dest: '/contact',
+    reason: 'Payroll-and-levies guide. The next question is regulatory and cannot be expressed as a staffing requirement.' },
+  { file: 'pages/zamestnavani-cizincu.tsx', label: 'Domů', intent: 'OTHER', dest: '/' },
+  { file: 'pages/zamestnavani-cizincu.tsx', label: 'Služby a recruitment', intent: 'KNOWLEDGE', dest: '/agencies' },
+  { file: 'pages/zamestnavani-cizincu.tsx', label: 'Kontakt', intent: 'GENERAL_CONTACT', dest: '/contact' },
+
+  // ── mailto surfaces ──
+  { file: 'pages/contact.tsx', label: 'Napsat e-mail', intent: 'GENERAL_CONTACT', dest: null },
+  { file: 'pages/submit-agency.tsx', label: 'Napsat e-mail', intent: 'MARKETPLACE', dest: null },
+  { file: 'pages/submit-offer.tsx', label: 'Napsat e-mail', intent: 'MARKETPLACE', dest: null },
+
+  // ── shared components ──
+  { file: 'components/Header.tsx', label: 'Poptat pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: '/poptavka-pracovniku' },
+  { file: 'components/EmployerSituations.tsx', label: 'Poptat pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
+    reason: 'href={REQUEST}; the constant is /poptavka-pracovniku and is asserted in the component tests.' },
+  { file: 'components/HomePayrollCalculator.tsx', label: '{c.ctaDetail}', intent: 'KNOWLEDGE', dest: null },
+  { file: 'components/HomeAgencyValue.tsx', label: '{c.avCta}', intent: 'KNOWLEDGE', dest: null },
+  { file: 'components/VacancyCostTool.tsx', label: '{pick(lang, C.CTA_TEXT)}', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
+    reason: 'href={REQUEST_PATH}; asserted as the clean canonical path by lib/vacancy-cost/privacy.test.ts.' },
+  { file: 'components/EmployerCta.tsx', label: '{c.primary}', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
+    reason: 'href={buildCtaHref(source)}, which can only return REQUEST_PATH by construction.' },
+  { file: 'components/EmployerCta.tsx', label: '{c.secondary}', intent: 'KNOWLEDGE', dest: null },
+  { file: 'components/EmployerRequestForm.tsx', label: '{copy.openEmailApp}', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
+    reason: 'The mailto submission itself, on the request page.' },
+  { file: 'components/SeoArticle.tsx', label: '{page.cta.buttonLabel}', intent: 'OTHER', dest: null,
+    reason: 'Pass-through renderer for the registry CTA; the destination is audited by the registry half of this gate.' },
+]
+
+/** Extracts button CTAs from a bespoke source file. */
+export function extractBespokeCtas(src) {
+  const out = []
+  const re = /<a\b[^>]*>/g
+  let m
+  while ((m = re.exec(src)) !== null) {
+    const tag = m[0]
+    if (!/className=(?:"btn|\{`btn)/.test(tag)) continue
+    const hrefRaw = tag.match(/href=\{?["']?([^"'}\s>]+)/)
+    const href = hrefRaw ? hrefRaw[1] : '?'
+    const rest = src.slice(m.index + tag.length, m.index + tag.length + 400)
+    const label = rest.split('</a>')[0].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+    out.push({ href, label })
+  }
+  return out
+}
+
+/**
+ * Audits the bespoke surfaces. `files` is a Map of relative path -> source.
+ */
+export function auditBespokeCtas(files, opts = {}) {
+  const surfaces = opts.surfaces ?? SCANNED_SURFACES
+  const declarations = opts.declarations ?? BESPOKE_CTAS
+  const errors = []
+  const rows = []
+  const declaredByFile = new Map()
+  for (const d of declarations) {
+    if (!declaredByFile.has(d.file)) declaredByFile.set(d.file, [])
+    declaredByFile.get(d.file).push(d)
+  }
+
+  // Every scanned surface must exist.
+  for (const f of surfaces) {
+    if (!files.has(f)) errors.push(`${f}: declared in SCANNED_SURFACES but the file does not exist`)
+  }
+  // Every declared CTA must be on a scanned surface, else it is never checked.
+  for (const d of declarations) {
+    if (!surfaces.includes(d.file)) {
+      errors.push(`${d.file}: has declared CTAs but is not in SCANNED_SURFACES — it would never be audited`)
+    }
+    if (!CTA_INTENTS.includes(d.intent)) {
+      errors.push(`${d.file} "${d.label}": intent "${d.intent}" is not in the declared vocabulary`)
+    }
+  }
+
+  for (const [file, src] of files) {
+    if (!surfaces.includes(file)) continue
+    const found = extractBespokeCtas(src)
+    const declared = declaredByFile.get(file) ?? []
+    for (const f of found) {
+      const d = declared.find((x) => x.label === f.label)
+      if (!d) {
+        errors.push(`${file}: CTA "${f.label}" → ${f.href} is not declared in BESPOKE_CTAS — classify it explicitly`)
+        continue
+      }
+      rows.push({ file, ...f, intent: d.intent })
+
+      if (/[?#]/.test(f.href) && !f.href.startsWith('mailto:')) {
+        errors.push(`${file}: CTA "${f.label}" carries a query or fragment (${f.href})`)
+      }
+      if (d.dest !== null && f.href !== d.dest) {
+        errors.push(`${file}: CTA "${f.label}" is declared to point at ${d.dest} but points at ${f.href} — destination drift`)
+      }
+      if (MUST_BE_REQUEST.has(d.intent) && d.dest !== null && d.dest !== REQUEST_PATH) {
+        errors.push(`${file}: CTA "${f.label}" is ${d.intent} but declared destination is ${d.dest}`)
+      }
+      if (MUST_NOT_BE_REQUEST.has(d.intent) && f.href === REQUEST_PATH) {
+        errors.push(`${file}: CTA "${f.label}" is ${d.intent} and must never route to the employer request form`)
+      }
+      if (MUST_BE_REQUEST.has(d.intent) && f.href.startsWith('/') && f.href !== REQUEST_PATH) {
+        errors.push(`${file}: CTA "${f.label}" declares employer request intent but routes to ${f.href}`)
+      }
+    }
+    // A declared CTA that has vanished from the file is stale.
+    for (const d of declared) {
+      if (!found.some((f) => f.label === d.label)) {
+        errors.push(`${file}: declared CTA "${d.label}" no longer exists — remove or update the inventory entry`)
+      }
+    }
+  }
+
+  return { errors, rows }
+}
+
 export function auditCtaRouting(pages) {
   const errors = []
   const review = []
@@ -216,9 +433,39 @@ export function auditCtaRouting(pages) {
 // ── CLI ──────────────────────────────────────────────────────────────────────
 const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href
 if (invokedDirectly) {
+  const fs = await import('node:fs')
   const { SEO_PAGES } = await import(path.join(ROOT, 'lib/content/pages/index.ts'))
-  const { errors, review, rows, submitOffer } = auditCtaRouting(SEO_PAGES)
+  const { errors: registryErrors, review, rows, submitOffer } = auditCtaRouting(SEO_PAGES)
   const LOCAL_ALLOWED = rows.filter((r) => r.href === '/submit-offer' && r.isMarketplace).length
+
+  // Bespoke surfaces (W3). Read every scanned file, plus discover any other
+  // CTA-bearing bespoke file so a NEW surface cannot appear unaudited.
+  const files = new Map()
+  for (const rel of SCANNED_SURFACES) {
+    const abs = path.join(ROOT, rel)
+    if (fs.existsSync(abs)) files.set(rel, fs.readFileSync(abs, 'utf8'))
+  }
+  const discovered = []
+  for (const dir of ['pages', 'components']) {
+    const walk = (d) => {
+      for (const e of fs.readdirSync(path.join(ROOT, d), { withFileTypes: true })) {
+        const rel = `${d}/${e.name}`
+        if (e.isDirectory()) { walk(rel); continue }
+        if (!/\.tsx$/.test(e.name) || /^_(app|document)\.tsx$/.test(e.name)) continue
+        if (SCANNED_SURFACES.includes(rel)) continue
+        const src = fs.readFileSync(path.join(ROOT, rel), 'utf8')
+        // A registry page renders its CTA through SeoArticle; that half is
+        // audited above. Only a bespoke button here is unaudited.
+        if (extractBespokeCtas(src).length) discovered.push(rel)
+      }
+    }
+    walk(dir)
+  }
+  const { errors: bespokeErrors, rows: bespokeRows } = auditBespokeCtas(files)
+  for (const rel of discovered) {
+    bespokeErrors.push(`${rel}: contains button CTAs but is not in SCANNED_SURFACES — add it to the inventory and classify its CTAs`)
+  }
+  const errors = [...registryErrors, ...bespokeErrors]
 
   const byDest = {}
   for (const r of rows) byDest[r.href] = (byDest[r.href] ?? 0) + 1
@@ -228,6 +475,11 @@ if (invokedDirectly) {
   console.log(`  employer-request intent     : ${rows.filter((r) => r.isRequest).length}`)
   console.log(`  documented exceptions       : ${Object.keys(DOCUMENTED_EXCEPTIONS).length}`)
   console.log(`  /submit-offer CTAs          : ${submitOffer} (marketplace-declared: ${LOCAL_ALLOWED}) — staffing intent there now fails`)
+  const bIntent = {}
+  for (const r of bespokeRows) bIntent[r.intent] = (bIntent[r.intent] ?? 0) + 1
+  console.log(`  bespoke surfaces scanned    : ${SCANNED_SURFACES.length} files, ${bespokeRows.length} declared CTAs`)
+  console.log(`  bespoke CTA intents         : ${JSON.stringify(bIntent)}`)
+  console.log(`  unaudited CTA-bearing files : ${discovered.length}${discovered.length ? ' -> ' + discovered.join(', ') : ''}`)
   if (review.length) {
     console.log(`\n  REVIEW — employer-request intent not on the request form (${review.length}; reported, not failed):`)
     for (const r of review) console.log(`    · ${r}`)
