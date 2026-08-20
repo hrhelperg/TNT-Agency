@@ -40,8 +40,14 @@ const R = await import('../lib/locale/registry.ts')
  */
 export function indexableUrls({ concepts = R.LOCALE_CONCEPTS, czechRoutes = R.CZECH_ROUTES } = {}) {
   const urls = [...czechRoutes]
-  for (const c of concepts) {
-    for (const locale of ['en', 'de']) {
+  // Grouped BY LOCALE, not interleaved per concept.
+  //
+  // Interleaving en/de per concept means publishing a new locale displaces the
+  // previous one's block, so a diff of the artifact shows movement that is not
+  // a real change. Grouping makes every locale launch a pure APPEND: the proof
+  // that nothing moved is then just "the old list is a prefix of the new one".
+  for (const locale of ['en', 'de']) {
+    for (const c of concepts) {
       const url = c.urls[locale]
       // PUBLISHED only. A declared-but-unbuilt URL in the sitemap would be
       // advertising a 404.
