@@ -29,7 +29,16 @@ export interface PayrollSource {
   note?: string;
 }
 
-const ACCESSED = '2026-07-18';
+/**
+ * The date these sources were accessed. This is the ONLY place a verification
+ * date is recorded. The calculator page used to carry its own copy
+ * (LAST_VERIFIED), which meant the page could keep claiming a check that the
+ * source registry no longer supported.
+ *
+ * Not re-dated without an actual re-check: moving this forward asserts that
+ * someone opened these pages on the new date.
+ */
+export const ACCESSED = '2026-07-18';
 
 export const PAYROLL_SOURCES: readonly PayrollSource[] = [
   {

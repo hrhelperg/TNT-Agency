@@ -22,7 +22,15 @@ export * from './types';
 export * from './money';
 export * from './formatting';
 export { validateInput } from './validation';
-export { PAYROLL_SOURCES, getSource } from './sources';
+export { PAYROLL_SOURCES, getSource, ACCESSED } from './sources';
+export {
+  assessFreshness,
+  assessShippedRuleset,
+  verifiedOnFromSources,
+  authoritiesFromSources,
+  CZ_2026_VERIFICATION,
+} from './freshness-registry';
+export type { VerificationStatus, FreshnessAssessment, RulesetVerification } from './freshness';
 export type { PayrollSource, PayrollSourceId } from './sources';
 export { CZ_2026 };
 export {
