@@ -314,18 +314,32 @@ export default function PayrollCalculatorPage() {
   const av = AGENCY_VALUE[lang];
   const [inp, setInp] = useState<PayrollInput>(() => createDefaultInput());
 
-  // Restore shared query-state (?d=) on mount — client only, no hydration mismatch.
+  // Mode hint only. A ?d= payload is deliberately NOT read.
+  //
+  // This page used to restore a whole PayrollInput from a base64 ?d= query, and
+  // that had two defects worth stating plainly. The payload carried
+  // taxProfile.disability, taxProfile.ztpp and children[].ztpp — health data —
+  // next to wage and cost figures; and opening such a link handed the encoded
+  // blob to the site's analytics tracker, whose transmitted payload includes the
+  // full location.href (see lib/analytics/ for the field list). It was also
+  // parsed with no validation at all: `JSON.parse(...) as PayrollInput` is a
+  // compile-time cast, so a crafted link could spread arbitrary shapes into
+  // state and leave the page without an <h1>.
+  //
+  // Both halves are gone. Nothing produces ?d= and nothing consumes it, so a
+  // legacy link still opens the calculator — just with default inputs instead of
+  // a stranger's payroll. Sharing a RESULT is still supported explicitly through
+  // the clipboard summary and the CSV export.
+  //
+  // Removing the reader was necessary but not sufficient: links already shared
+  // still carry the payload, and the tracker reads the address bar. It is
+  // lib/privacy/url-hygiene.ts that strips an undeclared parameter on load,
+  // before the tracker can see it.
+  //
+  // The mode hint stays: it carries no values, only which view to open.
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      const d = params.get('d');
-      if (d) {
-        const decoded = JSON.parse(decodeURIComponent(escape(atob(d)))) as PayrollInput;
-        setInp((prev) => ({ ...prev, ...decoded }));
-      }
-      // Non-sensitive mode hint (e.g. from the homepage "compare" CTA). No salary.
-      // Internal links use a non-crawlable #srovnani fragment; a legacy ?mode=
-      // query is still honoured for any previously shared links.
       const hash = window.location.hash.replace('#', '');
       const mode = params.get('mode') || (hash === 'srovnani' ? 'comparison' : '');
       if (mode === 'agency' || mode === 'direct' || mode === 'comparison') {
@@ -376,12 +390,12 @@ export default function PayrollCalculatorPage() {
   const doPrint = useCallback(() => {
     if (typeof window !== 'undefined') window.print();
   }, []);
+  // Copies the page address, and nothing else. It used to copy a base64 of the
+  // entire PayrollInput — see the note on the mode-hint effect above.
   const copyLink = useCallback(() => {
     if (typeof window === 'undefined') return;
-    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(inp))));
-    const url = `${window.location.origin}${PAGE_PATH}?d=${encodeURIComponent(encoded)}`;
-    void navigator.clipboard?.writeText(url);
-  }, [inp]);
+    void navigator.clipboard?.writeText(`${window.location.origin}${PAGE_PATH}`);
+  }, []);
 
   const primary = result.agencyResult ?? result.directResult;
   const employee = primary?.employee;

@@ -5,11 +5,16 @@ import CookieBanner from '../components/CookieBanner'
 import EcosystemBanner from '../components/ecosystem/EcosystemBanner'
 import WebmasterIDTracker from '../components/analytics/WebmasterIDTracker'
 import CtaSourceCapture from '../components/CtaSourceCapture'
+import UrlHygiene from '../components/privacy/UrlHygiene'
 import '../styles.css'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+      {/* MUST stay first: sibling effects fire in tree order, and this one has
+          to strip undeclared query parameters before the analytics island can
+          read location.href. See lib/privacy/url-hygiene.ts. */}
+      <UrlHygiene />
       <Head>
         {/* Rendering directive (not SEO metadata): viewport-fit=cover lets the
             env(safe-area-inset-*) padding on the mobile menu / cookie banner /
