@@ -100,7 +100,14 @@ export default function Home() {
                 on the site supported; this states the scope the site can back. */}
             <p className="hero__sub fi d2" data-i18n="hero.sub">TalentPartnerID pomáhá firmám najít ty správné lidi — do provozních profesí ve výrobě, skladech a logistice i na odborné a technické pozice, které na ně navazují.</p>
             <div className="hero__ctas fi d3">
-              <a href="/agencies" className="btn btn-accent btn-lg" data-i18n="hero.cta1">Hledám pracovníky</a>
+              {/* Employer staffing request. This used to point at /agencies —
+                  the agency DIRECTORY, whose first section still reads "Seznam
+                  agentur již brzy" — so the site's largest employer button sent
+                  buying employers to a coming-soon list instead of the request
+                  form. The label is unambiguous in all three locales
+                  ("Hledám pracovníky" / "I'm Looking for Talent"), so the
+                  destination follows the label. */}
+              <a href="/poptavka-pracovniku" className="btn btn-accent btn-lg" data-i18n="hero.cta1">Hledám pracovníky</a>
               <a href="/offers" className="btn btn-outline-white btn-lg" data-i18n="hero.cta2">Hledám práci</a>
             </div>
           </div>
@@ -231,7 +238,12 @@ export default function Home() {
             <p data-i18n="employers.sub">Od jediné pozice po budování celých týmů — máme řešení, které odpovídá vašim potřebám a časovému harmonogramu.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
-            <a href="/agencies" className="btn btn-primary btn-lg">Prozkoumat služby a odvětví →</a>
+            {/* The section above is headed "Pro zaměstnavatele — Personální
+                služby"; /agencies is the agency directory, which lists other
+                agencies rather than our services. The employer hub is the page
+                that actually carries them. Not a request CTA — browse intent
+                keeps a browse destination. */}
+            <a href="/pro-zamestnavatele" className="btn btn-primary btn-lg">Prozkoumat služby a odvětví →</a>
           </div>
         </div>
       </section>
@@ -287,7 +299,10 @@ export default function Home() {
             <p>Napište nám o své volné pozici. Na zprávy odpovídáme v pracovní dny. Chcete si nás ověřit? <a href="/o-nas">O nás a ověření agentury</a>.</p>
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }} className="fi d1">
-            <a href="/contact" className="btn btn-primary btn-lg">Poslat poptávku →</a>
+            {/* Labelled "Poslat poptávku" (send a request) but pointed at the
+                generic contact page. The label names the request form, so the
+                destination now matches it. */}
+            <a href="/poptavka-pracovniku" className="btn btn-primary btn-lg">Poslat poptávku →</a>
           </div>
         </div>
       </section>
