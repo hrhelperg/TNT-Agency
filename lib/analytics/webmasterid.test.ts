@@ -318,12 +318,12 @@ describe('WebmasterID — no personal data may reach analytics', () => {
     // page_view carries location.href, so a URL write would be a leak vector.
     //
     // One file is exempt, and the exemption runs the other way: the URL scrub in
-    // lib/privacy/url-hygiene.ts exists to take undeclared parameters OUT of the
+    // lib/privacy/url-guard.ts exists to take undeclared parameters OUT of the
     // address bar before this tracker can read them. Its removal-only behaviour
-    // is a tested property (lib/privacy/url-hygiene.test.ts), not a naming
+    // is a tested property (lib/privacy/url-guard.test.ts), not a naming
     // convention, and the two assertions below keep the hole exactly one file
     // wide.
-    const EXEMPT = 'lib/privacy/url-hygiene.ts'
+    const EXEMPT = 'lib/privacy/url-guard.ts'
     for (const f of APP_FILES) {
       if (f === EXEMPT) continue
       expect(code(read(f)), f).not.toMatch(/history\.(push|replace)State|location\.search\s*=|location\.hash\s*=/)
@@ -333,13 +333,24 @@ describe('WebmasterID — no personal data may reach analytics', () => {
     expect(writers, 'the history-write exemption must stay one file wide').toEqual([EXEMPT])
   })
 
-  it('the URL scrub can only remove — it never pushes a new history entry', () => {
-    const src = code(read('lib/privacy/url-hygiene.ts'))
-    // pushState would add a back-button stop still holding the dirty URL.
-    expect(src).not.toMatch(/history\.pushState/)
-    // replaceState exactly once, and only after something was found to remove.
-    expect(src.match(/replaceState/g) ?? []).toHaveLength(1)
-    expect(src).toMatch(/if \(!removed\.length\) return \[\]/)
+  it('the URL guard only ever wraps history — it never originates a new entry', () => {
+    const src = code(read('lib/privacy/url-guard.ts'))
+    // The guard captures the natives and calls them only from inside its own
+    // wrappers. A bare history.pushState(...) would create a back-button stop
+    // of the guard's own making.
+    expect(src).toMatch(/const nativePush = win\.history\.pushState\.bind/)
+    expect(src).toMatch(/const nativeReplace = win\.history\.replaceState\.bind/)
+    expect(src.match(/nativePush/g) ?? []).toHaveLength(2)
+    expect(src).toMatch(/nativePush\(sanitizeState\(state, win\), title, sanitizeArg\(url, win\)/)
+    expect(src).toMatch(/nativeReplace\(sanitizeState\(state, win\), title, sanitizeArg\(url, win\)/)
+  })
+
+  it('analytics is gated on the URL boundary, not on consent alone', () => {
+    // The tracker transmits location.href. Consent says the visitor agreed to
+    // analytics; it says nothing about whether the URL is safe to transmit.
+    const tracker = code(read('components/analytics/WebmasterIDTracker.tsx'))
+    expect(tracker).toMatch(/isUrlSafe\(\)/)
+    expect(tracker).toMatch(/readConsent\(\) === 'accepted' && isUrlSafe\(\)/)
   })
 })
 

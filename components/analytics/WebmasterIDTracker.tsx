@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Script from 'next/script'
 import { CONSENT_EVENT, readConsent } from '../../lib/consent'
+import { isUrlSafe } from '../../lib/privacy/url-guard'
 import {
   WEBMASTERID_ENDPOINT,
   WEBMASTERID_SCRIPT_ID,
@@ -43,15 +44,28 @@ export default function WebmasterIDTracker() {
   const [granted, setGranted] = useState(false)
 
   useEffect(() => {
-    const sync = () => setGranted(readConsent() === 'accepted')
+    // Fail CLOSED on the URL boundary.
+    //
+    // Consent alone is not sufficient to start analytics: the tracker
+    // transmits location.href, so it must not initialise while the address bar
+    // is outside the URL policy. If the guard could not sanitize (a write threw
+    // — opaque origin, sandboxed iframe), analytics is withheld rather than
+    // allowed to send an unsafe URL. The site itself keeps working.
+    const sync = () => setGranted(readConsent() === 'accepted' && isUrlSafe())
     sync()
     // Same-tab choice (the cookie banner) and other-tab choice (native storage
     // event) both re-evaluate the gate.
     window.addEventListener(CONSENT_EVENT, sync)
     window.addEventListener('storage', sync)
+    // A URL can become safe after a popstate is cleaned, so re-evaluate on the
+    // same events the guard reacts to rather than only at mount.
+    window.addEventListener('popstate', sync)
+    window.addEventListener('hashchange', sync)
     return () => {
       window.removeEventListener(CONSENT_EVENT, sync)
       window.removeEventListener('storage', sync)
+      window.removeEventListener('popstate', sync)
+      window.removeEventListener('hashchange', sync)
     }
   }, [])
 

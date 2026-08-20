@@ -41,6 +41,7 @@
     "validate:payroll-freshness": "node --import ./scripts/ts-resolve.mjs scripts/validate-payroll-freshness.mjs",
     "validate:coverage-truth": "node scripts/validate-coverage-truth.mjs",
     "validate:share-privacy": "node --import ./scripts/ts-resolve.mjs scripts/validate-share-privacy.mjs",
+    "test:mutate-url-privacy": "node scripts/mutate-url-privacy.mjs",
     "test:mutate-share-privacy": "node --import ./scripts/ts-resolve.mjs scripts/mutate-share-privacy.mjs",
     "test:mutate-payroll-freshness": "node --import ./scripts/ts-resolve.mjs scripts/mutate-payroll-freshness.mjs",
     "test:mutate-coverage-truth": "node scripts/mutate-coverage-truth.mjs",
