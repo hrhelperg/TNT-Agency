@@ -3406,3 +3406,18 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
 .rproc__title{margin:0 0 8px;font-size:18px;color:#0d1e3d;overflow-wrap:anywhere}
 .rproc__desc{margin:0;font-size:14.5px;line-height:1.6;color:#3a4256}
 @media (max-width: 900px){ .rproc__steps{grid-template-columns:minmax(0,1fr)} }
+
+/* Locale surfaces (L0). Deliberately minimal: the locale pages reuse the
+   existing type scale and container, so nothing here is a new design system. */
+.locale-switcher { margin: 0 0 24px; }
+.locale-switcher ul {
+  list-style: none;
+  display: flex;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+}
+.locale-switcher [aria-current='true'] { font-weight: 600; }
+.locale-cta { margin-top: 28px; }
+.locale-cta__note { display: block; margin-top: 8px; font-size: 0.9rem; color: var(--muted); }
