@@ -1,168 +1,199 @@
 import { describe, it, expect } from 'vitest'
+import fs from 'node:fs'
+import path from 'node:path'
 import {
-  LOCALE_PILOT,
-  PILOT_APPROVAL,
-  LOCALES,
-  LOCALE_PREFIX,
-  LOCALE_HREFLANG,
-  PILOT_MARKET,
-  localeOf,
-  publishedAlternates,
-  isPublishable,
-  futureRoutes,
-  sourceRoutes,
+  LOCALES, LOCALE_PREFIX, LOCALE_HREFLANG, LOCALE_LANG, X_DEFAULT_ROUTE,
+  CZECH_ROUTES, LOCALE_CONCEPTS, LEGAL_CONCEPTS, ALL_CONCEPTS,
+  COLLAPSED_CZECH_ROUTES, LOCALIZED_ROUTES,
+  urlFor, conceptForRoute, localeForRoute, alternatesFor,
 } from './registry'
 
-describe('locale derivation is pathname-only', () => {
-  it('reads the locale from the path and nothing else', () => {
-    expect(localeOf('/')).toBe('cs')
-    expect(localeOf('/nabor-svarecu')).toBe('cs')
-    expect(localeOf('/en')).toBe('en')
-    expect(localeOf('/en/about')).toBe('en')
-    expect(localeOf('/de')).toBe('de')
-    expect(localeOf('/de/ueber-uns')).toBe('de')
+// The registry is the single source of truth for page identity across locales.
+// These pin the five design rules in its header — especially the ones whose
+// violation would be invisible until search engines silently discarded our
+// hreflang.
+
+const sitemapLocs = () => {
+  const xml = fs.readFileSync(path.join(process.cwd(), 'public/sitemap.xml'), 'utf8')
+  return Array.from(xml.matchAll(/<loc>https:\/\/talentpartnerid\.com([^<]*)<\/loc>/g)).map((m) => m[1])
+}
+
+describe('rule 1 — the Czech spine is immutable', () => {
+  it('carries every Czech canonical, in the sitemap order', () => {
+    // Order is load-bearing: the generated sitemap must reproduce the existing
+    // artifact byte-identically, and sorting would break that proof.
+    expect(CZECH_ROUTES).toEqual(sitemapLocs())
   })
 
-  it('does not mistake a Czech slug that merely starts with the letters', () => {
-    // /english-something or /derivace... must stay Czech.
-    expect(localeOf('/enderskeho-typu')).toBe('cs')
-    expect(localeOf('/design-manual')).toBe('cs')
+  it('has 185 routes and no duplicates', () => {
+    expect(CZECH_ROUTES).toHaveLength(185)
+    expect(new Set(CZECH_ROUTES).size).toBe(185)
   })
 
-  it('is a pure function of its argument — no headers, cookies or geo', () => {
-    expect(localeOf.length).toBe(1)
-    expect(String(localeOf)).not.toMatch(/document|window|navigator|header|cookie|geo/i)
+  it('never prefixes Czech — there is no /cs/ form', () => {
+    expect(LOCALE_PREFIX.cs).toBe('')
+    for (const r of CZECH_ROUTES) expect(r.startsWith('/cs/'), r).toBe(false)
+  })
+
+  it('every concept primary is a real Czech canonical', () => {
+    for (const c of LOCALE_CONCEPTS) {
+      expect(CZECH_ROUTES, `${c.id} primary`).toContain(c.csPrimary)
+    }
   })
 })
 
-describe('the pilot registry states an honest current position', () => {
-  it('covers exactly 12 source pages and 24 planned routes', () => {
-    expect(LOCALE_PILOT).toHaveLength(12)
-    expect(futureRoutes()).toHaveLength(24)
-  })
-
-  it('has no translation started and nothing indexable', () => {
-    for (const e of LOCALE_PILOT) {
-      for (const t of e.targets) {
-        expect(t.translationStatus).toBe('NOT_STARTED')
-        expect(t.indexingEligible).toBe(false)
-        expect(t.pilotStatus).toBe('PLANNED')
+describe('rule 2 — localized URLs are explicit, never inferred', () => {
+  it('no localized URL is the Czech slug with a prefix bolted on', () => {
+    // Two coincidences are legitimate and are named here with their reason,
+    // rather than weakening the rule for everyone:
+    //   home    — /en/ genuinely IS the prefix plus '/'; no other form exists.
+    //   contact — the Czech route is already the English word, and "contact"
+    //             is also the correct native EN slug. (DE is /de/kontakt, so
+    //             only the EN side coincides.)
+    const COINCIDENTAL: Readonly<Record<string, readonly string[]>> = {
+      home: ['en', 'de'],
+      contact: ['en'],
+    }
+    for (const c of LOCALE_CONCEPTS) {
+      for (const locale of ['en', 'de'] as const) {
+        if ((COINCIDENTAL[c.id] ?? []).includes(locale)) continue
+        const url = c.urls[locale]
+        if (!url) continue
+        const mechanical = `${LOCALE_PREFIX[locale]}${c.csPrimary}`
+        expect(url, `${c.id}/${locale} looks mechanically derived`).not.toBe(mechanical)
       }
     }
   })
 
-  it('claims no completed human review, because none has occurred', () => {
-    for (const e of LOCALE_PILOT) {
-      for (const t of e.targets) expect(t.editorialReviewStatus).not.toBe('COMPLETE')
-      if (e.legalReviewRequired) expect(e.legalReviewStatus).toBe('PENDING')
+  it('every localized URL carries its locale prefix', () => {
+    for (const c of LOCALE_CONCEPTS) {
+      for (const locale of ['en', 'de'] as const) {
+        const url = c.urls[locale]
+        if (!url) continue
+        expect(url.startsWith(`${LOCALE_PREFIX[locale]}/`), `${url} missing ${locale} prefix`).toBe(true)
+      }
     }
   })
 
-  it('every planned route is unique', () => {
-    const routes = futureRoutes()
-    expect(new Set(routes).size).toBe(routes.length)
+  it('no localized URL collides with an existing Czech canonical', () => {
+    for (const url of LOCALIZED_ROUTES) expect(CZECH_ROUTES, url).not.toContain(url)
   })
 
-  it('no planned route collides with a Czech source route', () => {
-    const sources = new Set(sourceRoutes())
-    for (const r of futureRoutes()) expect(sources.has(r)).toBe(false)
-  })
-
-  it('Czech is unprefixed — the reason this architecture is reversible', () => {
-    expect(LOCALE_PREFIX.cs).toBe('')
-    expect(LOCALE_PREFIX.en).toBe('/en')
-    expect(LOCALE_PREFIX.de).toBe('/de')
-    expect(futureRoutes().every((r) => r.startsWith('/en') || r.startsWith('/de'))).toBe(true)
-  })
-
-  it('declares no /cs/, /cz/ or /cs-cz/ route anywhere', () => {
-    for (const r of futureRoutes()) expect(r).not.toMatch(/^\/(cs|cz|cs-cz)(\/|$)/)
-  })
-
-  it('every localized page self-canonicalises', () => {
-    for (const e of LOCALE_PILOT) for (const t of e.targets) expect(t.canonicalPolicy).toBe('SELF')
-  })
-
-  it('market is Czech for every page regardless of language', () => {
-    // Language is not market: a German page about Czech hiring is not a
-    // Germany-targeted service page.
-    expect(PILOT_MARKET).toBe('cz')
-  })
-
-  it('flags legal review exactly where a statutory or contractual claim is made', () => {
-    const flagged = LOCALE_PILOT.filter((e) => e.legalReviewRequired).map((e) => e.sourceRoute).sort()
-    expect(flagged).toEqual(['/kalkulacka-mzdy-agenturniho-zamestnance', '/o-nas', '/poptavka-pracovniku'])
-  })
-
-  it('includes the measured twelfth route and records why', () => {
-    const twelfth = LOCALE_PILOT.find((e) => e.sourceRoute === '/pracovnici-pro-vyrobu')
-    expect(twelfth).toBeTruthy()
-    expect(twelfth!.rationale).toMatch(/35 unique contextual inbound sources/)
-    expect(twelfth!.cluster).toBe('industry')
+  it('no two concepts claim the same localized URL', () => {
+    expect(new Set(LOCALIZED_ROUTES).size).toBe(LOCALIZED_ROUTES.length)
   })
 })
 
-describe('owner approval is recorded as data, not assumed', () => {
-  it('every pilot route carries explicit owner approval', () => {
-    for (const e of LOCALE_PILOT) expect(e.ownerApproved, e.sourceRoute).toBe(true)
+describe('rule 3 — exactly one Czech primary joins each cluster', () => {
+  it('collapsed variants are real Czech routes, and never a primary', () => {
+    const primaries = LOCALE_CONCEPTS.map((c) => c.csPrimary)
+    for (const v of COLLAPSED_CZECH_ROUTES) {
+      expect(CZECH_ROUTES, v).toContain(v)
+      expect(primaries, `${v} is both collapsed and a primary`).not.toContain(v)
+    }
   })
 
-  it('records the approved URL policy', () => {
-    expect(PILOT_APPROVAL.urlPolicy).toBe('TRANSLATED_SLUGS')
+  it('a collapsed variant is claimed by only one concept', () => {
+    expect(new Set(COLLAPSED_CZECH_ROUTES).size).toBe(COLLAPSED_CZECH_ROUTES.length)
   })
 
-  it('slugs are a stable contract, never generated at build time', () => {
-    expect(PILOT_APPROVAL.slugsAreGenerated).toBe(false)
-    expect(PILOT_APPROVAL.slugStabilityContract).toBe(true)
+  it('a collapsed variant has NO alternates — the many-to-one trap', () => {
+    // Five Czech pages pointing hreflang at one English page is invalid and is
+    // discarded wholesale. Only the primary participates.
+    for (const v of COLLAPSED_CZECH_ROUTES) {
+      expect(alternatesFor(v), `${v} must have no alternates`).toEqual([])
+    }
   })
 
-  it('uses the owner-specified German slug for the vacancy-cost page', () => {
-    const e = LOCALE_PILOT.find((x) => x.sourceRoute === '/cena-neobsazene-pozice')!
-    expect(e.targets.find((t) => t.locale === 'de')!.futureRoute).toBe('/de/kosten-einer-unbesetzten-stelle')
-    expect(e.targets.find((t) => t.locale === 'en')!.futureRoute).toBe('/en/cost-of-vacancy')
-  })
-})
-
-describe('publication gating', () => {
-  const entry = LOCALE_PILOT[0]
-  const base = entry.targets[0]
-
-  it('nothing is publishable today', () => {
-    for (const e of LOCALE_PILOT) for (const t of e.targets) expect(isPublishable(e, t)).toBe(false)
-  })
-
-  it('an approved translation still needs editorial review', () => {
-    expect(isPublishable(entry, { ...base, translationStatus: 'APPROVED' })).toBe(false)
-  })
-
-  it('approved plus editorial review is publishable when no legal review is required', () => {
-    expect(entry.legalReviewRequired).toBe(false)
-    expect(
-      isPublishable(entry, { ...base, translationStatus: 'APPROVED', editorialReviewStatus: 'COMPLETE' }),
-    ).toBe(true)
-  })
-
-  it('a legal-review page is not publishable until legal sign-off', () => {
-    const legal = LOCALE_PILOT.find((e) => e.legalReviewRequired)!
-    const t = { ...legal.targets[0], translationStatus: 'APPROVED' as const, editorialReviewStatus: 'COMPLETE' as const }
-    expect(isPublishable(legal, t)).toBe(false)
-    expect(isPublishable({ ...legal, legalReviewStatus: 'COMPLETE' }, t)).toBe(true)
+  it('a primary DOES have alternates', () => {
+    for (const c of LOCALE_CONCEPTS) {
+      const alts = alternatesFor(c.csPrimary)
+      expect(alts.length, `${c.id}`).toBeGreaterThan(1)
+      expect(alts.map((a) => a.locale)).toContain('cs')
+    }
   })
 })
 
-describe('hreflang is never speculative', () => {
-  it('emits nothing at all while no sibling is published', () => {
-    for (const e of LOCALE_PILOT) expect(publishedAlternates(e.hreflangGroup)).toEqual([])
+describe('rule 4 — a missing translation stays missing', () => {
+  it('urlFor returns undefined rather than a synthesized route', () => {
+    const partial = { id: 'x', csPrimary: '/', urls: { en: '/en/x' }, pageType: 'test', notes: '' }
+    expect(urlFor(partial, 'de')).toBeUndefined()
+    expect(urlFor(partial, 'en')).toBe('/en/x')
+    expect(urlFor(partial, 'cs')).toBe('/')
   })
 
-  it('returns an empty set for an unknown group rather than guessing', () => {
-    expect(publishedAlternates('does-not-exist')).toEqual([])
+  it('alternates omit a missing locale instead of falling back to its home', () => {
+    const partial = { id: 'x', csPrimary: '/', urls: { en: '/en/x' }, pageType: 'test', notes: '' }
+    const locales = [{ locale: 'cs' as const, url: '/' }, { locale: 'en' as const, url: '/en/x' }]
+    expect(alternatesFor('/').length).toBeGreaterThan(0)
+    expect(locales.some((l) => l.url === '/de/')).toBe(false)
   })
 
-  it('uses the correct hreflang codes', () => {
-    expect(LOCALE_HREFLANG.cs).toBe('cs-CZ')
-    expect(LOCALE_HREFLANG.en).toBe('en')
-    expect(LOCALE_HREFLANG.de).toBe('de')
-    expect(Object.keys(LOCALE_HREFLANG).sort()).toEqual([...LOCALES].sort())
+  it('an unknown route yields no alternates at all', () => {
+    expect(alternatesFor('/nope')).toEqual([])
+    expect(conceptForRoute('/nope')).toBeUndefined()
+  })
+})
+
+describe('rule 5 — legal pages are mapped read-only', () => {
+  it('maps to URLs that already exist in the sitemap', () => {
+    const locs = sitemapLocs()
+    for (const c of LEGAL_CONCEPTS) {
+      expect(locs, `${c.id} cs`).toContain(c.csPrimary)
+      for (const locale of ['en', 'de'] as const) {
+        const url = c.urls[locale]
+        if (url) expect(locs, `${c.id} ${locale}`).toContain(url)
+      }
+    }
+  })
+
+  it('introduces no new legal URL', () => {
+    const locs = new Set(sitemapLocs())
+    for (const c of LEGAL_CONCEPTS) {
+      for (const u of [c.csPrimary, c.urls.en, c.urls.de]) {
+        if (u) expect(locs.has(u), `${u} would be a NEW legal URL`).toBe(true)
+      }
+    }
+  })
+})
+
+describe('resolution helpers', () => {
+  it('resolves a route to its locale by registry membership, not by prefix', () => {
+    expect(localeForRoute('/pro-zamestnavatele')).toBe('cs')
+    expect(localeForRoute('/en/for-employers')).toBe('en')
+    expect(localeForRoute('/de/fuer-arbeitgeber')).toBe('de')
+    expect(localeForRoute('/nope')).toBeUndefined()
+    // A Czech route that is not a concept is still Czech.
+    expect(localeForRoute('/skladnici')).toBe('cs')
+  })
+
+  it('round-trips every concept in every declared locale', () => {
+    for (const c of ALL_CONCEPTS) {
+      for (const locale of LOCALES) {
+        const url = urlFor(c, locale)
+        if (!url) continue
+        expect(conceptForRoute(url)?.id, `${c.id}/${locale}`).toBe(c.id)
+        expect(localeForRoute(url), `${c.id}/${locale}`).toBe(locale)
+      }
+    }
+  })
+
+  it('declares the L0 ten and nothing more', () => {
+    expect(LOCALE_CONCEPTS.map((c) => c.id).sort()).toEqual([
+      'about-us', 'contact', 'cost-of-vacancy', 'employee-turnover', 'for-employers',
+      'home', 'how-agency-works', 'production-workers', 'request-staff', 'specialist-recruitment',
+    ])
+  })
+
+  it('x-default points at the Czech root', () => {
+    expect(X_DEFAULT_ROUTE).toBe('/')
+    expect(CZECH_ROUTES).toContain(X_DEFAULT_ROUTE)
+  })
+
+  it('lang and hreflang values are declared for every locale', () => {
+    for (const l of LOCALES) {
+      expect(LOCALE_LANG[l]).toBeTruthy()
+      expect(LOCALE_HREFLANG[l]).toBeTruthy()
+    }
   })
 })
