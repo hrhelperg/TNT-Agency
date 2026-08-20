@@ -12,6 +12,10 @@ const LABEL: Record<string, string> = { cs: 'Čeština', en: 'English', de: 'Deu
  *
  * A collapsed Czech variant returns no alternates at all, so the switcher
  * correctly shows nothing there: those pages are Czech-only by design.
+ *
+ * The hreflang attribute is written lowercase, matching LocaleAlternates and
+ * the static legal pages. HTML parses either form identically, but tooling that
+ * compares literally should see one convention rather than two.
  */
 export default function LanguageSwitcher({ route }: { route: string }) {
   const alternates = alternatesFor(route)
@@ -26,7 +30,7 @@ export default function LanguageSwitcher({ route }: { route: string }) {
             {a.locale === current ? (
               <span aria-current="true" lang={LOCALE_LANG[a.locale]}>{LABEL[a.locale]}</span>
             ) : (
-              <a href={a.url} hrefLang={LOCALE_LANG[a.locale]} lang={LOCALE_LANG[a.locale]}>
+              <a href={a.url} {...{ hreflang: LOCALE_LANG[a.locale] }} lang={LOCALE_LANG[a.locale]}>
                 {LABEL[a.locale]}
               </a>
             )}
