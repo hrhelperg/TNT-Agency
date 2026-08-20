@@ -129,4 +129,29 @@ test.describe('payroll share privacy', () => {
     expect(all).not.toContain('ztpp')
     expect(all).not.toContain('disability')
   })
+
+  test('the scrub strips undeclared params without breaking campaign attribution', async ({ page }) => {
+    // The two systems run in the same commit: <UrlHygiene /> is the first child
+    // of _app, and the request form reads the query in its own effect. If the
+    // scrub were too broad, or ran in the wrong order, inbound campaign traffic
+    // would silently lose its attribution — a regression that no unit test can
+    // see, because it lives in React's effect ordering.
+    await page.addInitScript(() => window.localStorage.setItem('cookie_consent', 'rejected'))
+    await page.goto(
+      '/poptavka-pracovniku?utm_source=linkedin&utm_campaign=jaro&source=employer-hub&d=eyJ3YWdlIjp7fX0&gclid=zzz',
+      { waitUntil: 'networkidle' },
+    )
+    await page.waitForTimeout(800)
+
+    const url = page.url()
+    expect(url, 'the payload must be gone from the address bar').not.toContain('d=eyJ')
+    expect(url, 'an undeclared tracking param is stripped too').not.toContain('gclid')
+    expect(url).toContain('utm_source=linkedin')
+    expect(url).toContain('source=employer-hub')
+
+    const stored = await page.evaluate(() => window.sessionStorage.getItem('tnt-attribution'))
+    expect(stored, 'campaign attribution must survive the scrub').toContain('linkedin')
+    expect(stored).toContain('jaro')
+    expect(stored).not.toContain('eyJ')
+  })
 })
