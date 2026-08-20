@@ -4,7 +4,7 @@ import path from 'node:path'
 import {
   LOCALES, LOCALE_PREFIX, LOCALE_HREFLANG, LOCALE_LANG, X_DEFAULT_ROUTE,
   CZECH_ROUTES, LOCALE_CONCEPTS, LEGAL_CONCEPTS, ALL_CONCEPTS,
-  COLLAPSED_CZECH_ROUTES, LOCALIZED_ROUTES,
+  COLLAPSED_CZECH_ROUTES, LOCALIZED_ROUTES, PUBLISHED_LOCALIZED_ROUTES, isPublished,
   urlFor, conceptForRoute, localeForRoute, alternatesFor,
 } from './registry'
 
@@ -105,28 +105,38 @@ describe('rule 3 — exactly one Czech primary joins each cluster', () => {
     }
   })
 
-  it('a primary DOES have alternates', () => {
+  it('a primary has alternates exactly for its PUBLISHED locales', () => {
     for (const c of LOCALE_CONCEPTS) {
       const alts = alternatesFor(c.csPrimary)
-      expect(alts.length, `${c.id}`).toBeGreaterThan(1)
-      expect(alts.map((a) => a.locale)).toContain('cs')
+      const publishedNonCs = (['en', 'de'] as const).filter((l) => c.published.includes(l))
+      if (!publishedNonCs.length) {
+        // Nothing to point at yet: a cluster of one is not a cluster.
+        expect(alts, `${c.id} publishes only cs`).toEqual([])
+      } else {
+        expect(alts.map((a) => a.locale)).toContain('cs')
+        for (const l of publishedNonCs) expect(alts.map((a) => a.locale)).toContain(l)
+      }
     }
   })
 })
 
 describe('rule 4 — a missing translation stays missing', () => {
   it('urlFor returns undefined rather than a synthesized route', () => {
-    const partial = { id: 'x', csPrimary: '/', urls: { en: '/en/x' }, pageType: 'test', notes: '' }
+    const partial = { id: 'x', csPrimary: '/', urls: { en: '/en/x' }, published: ['cs', 'en'] as const, pageType: 'test', notes: '' }
     expect(urlFor(partial, 'de')).toBeUndefined()
     expect(urlFor(partial, 'en')).toBe('/en/x')
     expect(urlFor(partial, 'cs')).toBe('/')
   })
 
-  it('alternates omit a missing locale instead of falling back to its home', () => {
-    const partial = { id: 'x', csPrimary: '/', urls: { en: '/en/x' }, pageType: 'test', notes: '' }
-    const locales = [{ locale: 'cs' as const, url: '/' }, { locale: 'en' as const, url: '/en/x' }]
-    expect(alternatesFor('/').length).toBeGreaterThan(0)
-    expect(locales.some((l) => l.url === '/de/')).toBe(false)
+  it('alternates never invent a locale home as a fallback', () => {
+    // The switcher must show nothing rather than redirect to /en/ or /de/.
+    for (const c of LOCALE_CONCEPTS) {
+      const urls = alternatesFor(c.csPrimary).map((a) => a.url)
+      for (const l of ['en', 'de'] as const) {
+        if (c.published.includes(l)) continue
+        expect(urls, `${c.id}: ${l} unpublished but a locale home appeared`).not.toContain(`/${l}/`)
+      }
+    }
   })
 
   it('an unknown route yields no alternates at all', () => {
@@ -194,6 +204,45 @@ describe('resolution helpers', () => {
     for (const l of LOCALES) {
       expect(LOCALE_LANG[l]).toBeTruthy()
       expect(LOCALE_HREFLANG[l]).toBeTruthy()
+    }
+  })
+})
+
+describe('declared is not published', () => {
+  it('every L0 concept declares EN and DE urls', () => {
+    for (const c of LOCALE_CONCEPTS) {
+      expect(c.urls.en, `${c.id} en`).toBeTruthy()
+      expect(c.urls.de, `${c.id} de`).toBeTruthy()
+    }
+  })
+
+  it('a declared-but-unpublished locale is absent from alternates', () => {
+    // Declaring a URL and serving it are different facts. Conflating them is
+    // how a sitemap advertises a 404 and how hreflang points at nothing.
+    for (const c of LOCALE_CONCEPTS) {
+      const alts = alternatesFor(c.csPrimary).map((a) => a.locale)
+      for (const locale of ['en', 'de'] as const) {
+        if (!c.published.includes(locale)) {
+          expect(alts, `${c.id}: ${locale} declared but unpublished`).not.toContain(locale)
+        }
+      }
+    }
+  })
+
+  it('PUBLISHED_LOCALIZED_ROUTES only contains served routes', () => {
+    for (const url of PUBLISHED_LOCALIZED_ROUTES) {
+      const c = conceptForRoute(url)
+      expect(c, url).toBeTruthy()
+      expect(c!.published, `${url} in PUBLISHED but concept does not publish it`).toContain(localeForRoute(url))
+    }
+  })
+
+  it('isPublished agrees with the published list', () => {
+    for (const c of LOCALE_CONCEPTS) {
+      expect(isPublished(c, 'cs')).toBe(true)
+      for (const locale of ['en', 'de'] as const) {
+        expect(isPublished(c, locale)).toBe(c.published.includes(locale))
+      }
     }
   })
 })

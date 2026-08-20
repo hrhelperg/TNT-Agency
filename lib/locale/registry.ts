@@ -77,6 +77,15 @@ export interface LocaleConcept {
    * exist — never a synthesized route.
    */
   readonly urls: Readonly<Partial<Record<Exclude<Locale, 'cs'>, string>>>
+  /**
+   * Locales whose page is actually BUILT AND SERVED.
+   *
+   * Declaring a URL and publishing it are different facts, and conflating them
+   * is how a sitemap ends up advertising a 404. A locale appears here only once
+   * its page exists; until then the URL is a reserved identity, absent from the
+   * sitemap, absent from hreflang, and not offered by the switcher.
+   */
+  readonly published: readonly Locale[]
   readonly pageType: string
   /** Why this concept is localized, and anything a reviewer should know. */
   readonly notes: string
@@ -291,6 +300,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     id: 'home',
     csPrimary: '/',
     urls: { en: '/en/', de: '/de/' },
+    published: ['cs'],
     pageType: 'hub',
     notes: 'Locale root. Without it a localized page has no entry point and the locale link graph has no origin.',
   },
@@ -298,6 +308,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     id: 'for-employers',
     csPrimary: '/pro-zamestnavatele',
     urls: { en: '/en/for-employers', de: '/de/fuer-arbeitgeber' },
+    published: ['cs'],
     pageType: 'hub',
     notes: 'Employer hub. The locale corpus needs its own hub or every localized page is an island.',
   },
@@ -305,6 +316,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     id: 'cost-of-vacancy',
     csPrimary: '/cena-neobsazene-pozice',
     urls: { en: '/en/cost-of-vacancy', de: '/de/kosten-unbesetzter-stellen' },
+    published: ['cs'],
     pageType: 'tool',
     notes: 'Calculator driven entirely by values the visitor enters; it asserts no statutory rate, which is why it is L0 rather than L2.',
   },
@@ -312,6 +324,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     id: 'request-staff',
     csPrimary: '/poptavka-pracovniku',
     urls: { en: '/en/request-staff', de: '/de/personal-anfragen' },
+    published: ['cs'],
     pageType: 'tool',
     notes: 'The conversion path. Exercises form copy, CTA routing and attribution in a locale.',
   },
@@ -319,6 +332,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     id: 'about-us',
     csPrimary: '/o-nas',
     urls: { en: '/en/about-us', de: '/de/ueber-uns' },
+    published: ['cs'],
     pageType: 'utility',
     notes: 'Trust surface. Company facts must translate without gaining strength.',
   },
@@ -326,6 +340,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     id: 'contact',
     csPrimary: '/contact',
     urls: { en: '/en/contact', de: '/de/kontakt' },
+    published: ['cs'],
     pageType: 'utility',
     notes: 'Trust surface. An EN/DE visitor needs a contact route in their own language or the locale corpus dead-ends.',
   },
@@ -333,6 +348,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     id: 'specialist-recruitment',
     csPrimary: '/nabor-odbornych-pozic',
     urls: { en: '/en/specialist-recruitment', de: '/de/fachkraefterekrutierung' },
+    published: ['cs'],
     pageType: 'hub',
     notes: 'Specialist/technical hub.',
   },
@@ -340,6 +356,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     id: 'how-agency-works',
     csPrimary: '/jak-funguje-pracovni-agentura',
     urls: { en: '/en/how-a-staffing-agency-works', de: '/de/wie-eine-personalagentur-funktioniert' },
+    published: ['cs'],
     pageType: 'knowledge',
     notes: 'Explanatory content with no statutory claim — the lowest-risk knowledge page to prove the architecture on.',
   },
@@ -348,6 +365,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
     csPrimary: '/fluktuace-zamestnancu',
     csCollapsed: ['/priciny-fluktuace-zamestnancu', '/jak-snizit-fluktuaci'],
     urls: { en: '/en/employee-turnover', de: '/de/mitarbeiterfluktuation' },
+    published: ['cs'],
     pageType: 'problem',
     notes: 'Three Czech pages split turnover into topic, causes and remedies — a Czech search-intent split that does not exist in EN/DE, so they collapse to one localized page.',
   },
@@ -361,6 +379,7 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
       '/vyrobni-zamestnanci',
     ],
     urls: { en: '/en/production-workers', de: '/de/produktionsmitarbeiter' },
+    published: ['cs'],
     pageType: 'industry',
     notes: 'Five Czech phrasings of the same staffing need. Food and automotive production are separate concepts and are deliberately NOT collapsed in here.',
   },
@@ -375,6 +394,7 @@ export const LEGAL_CONCEPTS: readonly LocaleConcept[] = [
     id: 'privacy-policy',
     csPrimary: '/privacy-cs.html',
     urls: { en: '/privacy-policy', de: '/privacy-de.html' },
+    published: ['cs'],
     pageType: 'legal',
     notes: 'Existing legacy translations. Not migrated: changing a live legal URL for registry tidiness is not a reason.',
   },
@@ -382,6 +402,7 @@ export const LEGAL_CONCEPTS: readonly LocaleConcept[] = [
     id: 'terms',
     csPrimary: '/terms-cs.html',
     urls: { en: '/terms.html', de: '/terms-de.html' },
+    published: ['cs'],
     pageType: 'legal',
     notes: 'Existing legacy translations.',
   },
@@ -389,6 +410,7 @@ export const LEGAL_CONCEPTS: readonly LocaleConcept[] = [
     id: 'cookies',
     csPrimary: '/cookies-cs.html',
     urls: { en: '/cookies.html', de: '/cookies-de.html' },
+    published: ['cs'],
     pageType: 'legal',
     notes: 'Existing legacy translations.',
   },
@@ -432,10 +454,13 @@ export function localeForRoute(route: string): Locale | undefined {
 export function alternatesFor(route: string): ReadonlyArray<{ locale: Locale; url: string }> {
   const concept = conceptForRoute(route)
   if (!concept) return []
-  const out: Array<{ locale: Locale; url: string }> = [{ locale: 'cs', url: concept.csPrimary }]
+  const out: Array<{ locale: Locale; url: string }> = []
+  if (concept.published.includes('cs')) out.push({ locale: 'cs', url: concept.csPrimary })
   for (const locale of ['en', 'de'] as const) {
     const url = concept.urls[locale]
-    if (url) out.push({ locale, url })
+    // PUBLISHED, not merely declared: hreflang must never point at a page that
+    // does not exist yet.
+    if (url && concept.published.includes(locale)) out.push({ locale, url })
   }
   return out.length > 1 ? out : []
 }
@@ -445,7 +470,19 @@ export const COLLAPSED_CZECH_ROUTES: readonly string[] = LOCALE_CONCEPTS.flatMap
   (c) => c.csCollapsed ?? [],
 )
 
-/** Every localized (non-Czech) route the registry publishes. */
+/** Every localized (non-Czech) route the registry DECLARES, published or not. */
 export const LOCALIZED_ROUTES: readonly string[] = LOCALE_CONCEPTS.flatMap((c) =>
   (['en', 'de'] as const).map((l) => c.urls[l]).filter((u): u is string => Boolean(u)),
 )
+
+/** Localized routes that are actually built and served — what the sitemap carries. */
+export const PUBLISHED_LOCALIZED_ROUTES: readonly string[] = LOCALE_CONCEPTS.flatMap((c) =>
+  (['en', 'de'] as const)
+    .filter((l) => c.published.includes(l))
+    .map((l) => c.urls[l])
+    .filter((u): u is string => Boolean(u)),
+)
+
+/** True when a concept serves this locale today. */
+export const isPublished = (concept: LocaleConcept, locale: Locale): boolean =>
+  concept.published.includes(locale) && Boolean(urlFor(concept, locale))
