@@ -80,6 +80,14 @@ export interface RuleRegistry {
   readonly taxYear: number;
   readonly effectiveFrom: string;
   readonly effectiveTo: string;
+  /**
+   * ISO date from which this ruleset should be re-checked against official
+   * sources. Declared per ruleset rather than computed from a fixed interval:
+   * Czech payroll parameters move on an annual decree cycle, so the meaningful
+   * moment is when the FOLLOWING year's decrees start appearing, not a count of
+   * days since the last check. Consumed by lib/payroll/freshness.ts.
+   */
+  readonly reviewDueFrom: string;
 
   // Insurance
   readonly employeeSocialRate: Ruled<number>; // %

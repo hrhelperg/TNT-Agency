@@ -18,6 +18,9 @@ export interface DCalcCopy {
   metaEstimate: string;
   metaRules: string;
   metaVerified: string; // "... {d}"
+  /** Shown only when the ruleset is past its effective window. {y} = tax year. */
+  freshnessNotice: string;
+  freshnessNoticeTitle: string;
   // methodology
   methodology: string;
   // mode selector
@@ -173,6 +176,8 @@ const cs: DCalcCopy = {
   metaEstimate: 'Orientační výpočet',
   metaRules: 'Pravidla ČR 2026',
   metaVerified: 'Naposledy ověřeno {d}',
+  freshnessNoticeTitle: 'Pravidla mimo platné období',
+  freshnessNotice: 'Kalkulačka používá pravidla pro rok {y}, jejichž platnost skončila {e}. Klíčové hodnoty se stanovují nařízeními vlády k 1. lednu, takže aktuální sazby se pravděpodobně liší. Výsledky níže jsou i nadále počítány podle pravidel {y} — nejsou nahrazeny odhadem. Ověřte prosím aktuální hodnoty u ČSSZ, Finanční správy, MPSV a VZP.',
   methodology:
     'Kalkulačka počítá výhradně ve vašem prohlížeči (client-side). Žádné mzdové údaje se neodesílají na server ani do analytiky. Výpočet je orientační a nenahrazuje mzdovou účtárnu ani daňové poradenství. Sazby vycházejí z oficiálních zdrojů pro rok 2026 (viz sekce Zdroje).',
   legMode: '1 · Režim výpočtu',
@@ -318,6 +323,8 @@ const en: DCalcCopy = {
   metaEstimate: 'Informational estimate',
   metaRules: 'Czech Republic rules 2026',
   metaVerified: 'Last verified {d}',
+  freshnessNoticeTitle: 'Ruleset outside its effective period',
+  freshnessNotice: 'This calculator uses the rules for {y}, which stopped applying on {e}. Key values are set by government decree each 1 January, so the current rates are likely different. The results below are still computed with the {y} rules — they are not replaced by an estimate. Please verify current values with ČSSZ, the Financial Administration, MPSV and VZP.',
   methodology:
     'The calculator runs entirely in your browser (client-side). No salary data is sent to a server or to analytics. It is an informational estimate and does not replace a payroll office or tax advice. Rates come from official 2026 sources for the Czech Republic (see Sources).',
   legMode: '1 · Calculation mode',
@@ -463,6 +470,8 @@ const de: DCalcCopy = {
   metaEstimate: 'Informative Schätzung',
   metaRules: 'Regeln Tschechien 2026',
   metaVerified: 'Zuletzt geprüft {d}',
+  freshnessNoticeTitle: 'Regelwerk außerhalb des Gültigkeitszeitraums',
+  freshnessNotice: 'Dieser Rechner verwendet die Regeln für {y}, deren Gültigkeit am {e} endete. Die Schlüsselwerte werden jeweils zum 1. Januar durch Regierungsverordnung festgelegt, die aktuellen Sätze weichen daher wahrscheinlich ab. Die Ergebnisse unten werden weiterhin nach den Regeln {y} berechnet — sie werden nicht durch eine Schätzung ersetzt. Bitte prüfen Sie die aktuellen Werte bei ČSSZ, Finanzverwaltung, MPSV und VZP.',
   methodology:
     'Der Rechner läuft vollständig in Ihrem Browser (client-seitig). Es werden keine Lohndaten an einen Server oder an Analytics gesendet. Es handelt sich um eine informative Schätzung und ersetzt weder eine Lohnbuchhaltung noch eine Steuerberatung. Die Sätze stammen aus offiziellen Quellen für 2026 der Tschechischen Republik (siehe Quellen).',
   legMode: '1 · Berechnungsmodus',

@@ -15,6 +15,7 @@ const HEADER = read('components/Header.tsx')
 const HOME_CALC = read('components/HomePayrollCalculator.tsx')
 const AGV = read('components/HomeAgencyValue.tsx')
 const RESP = read('components/ResponsibilityMatrix.tsx')
+const SITUATIONS = read('components/EmployerSituations.tsx')
 const DCALC = read('pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx')
 const SITEMAP = read('public/sitemap.xml')
 
@@ -214,6 +215,20 @@ describe('Phase C — SEO, schema and routing', () => {
     expect((HEADER.match(/\/poptavka-pracovniku/g) || []).length).toBeGreaterThanOrEqual(3)
     expect(HEADER).toContain('data-i18n="nav.requestWorkers"')
     expect(HEADER).toContain('data-i18n="mnav.requestWorkers"')
+  })
+
+  it('the employer-situations CTA resolves to the canonical request path', () => {
+    // scripts/validate-cta-routing.mjs excepts this CTA from its destination
+    // check because the href is a constant reference (href={REQUEST}) rather
+    // than a literal, and cites this test as the thing that pins the constant.
+    // The citation was false until now — the assertion did not exist. The
+    // coverage-truth gate verifies citations like it, so this must stay here.
+    expect(SITUATIONS).toMatch(/const REQUEST = '\/poptavka-pracovniku'/)
+    expect(SITUATIONS).toContain('href={REQUEST}')
+    // The constant must be the only destination the situations CTA can reach.
+    const hrefs = Array.from(SITUATIONS.matchAll(/href=\{?['"]?([^'"}\s>]+)/g)).map((m) => m[1])
+    expect(hrefs.filter((h) => h.startsWith('/contact'))).toEqual([])
+    expect(SITUATIONS).toContain('data-request-source="employer-hub"')
   })
 
   it('renders every schema field on the page through the shared registry', () => {

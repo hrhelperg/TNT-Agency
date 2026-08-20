@@ -316,9 +316,30 @@ describe('WebmasterID — no personal data may reach analytics', () => {
 
   it('nothing writes sensitive values into the URL, which page_view transmits', () => {
     // page_view carries location.href, so a URL write would be a leak vector.
+    //
+    // One file is exempt, and the exemption runs the other way: the URL scrub in
+    // lib/privacy/url-hygiene.ts exists to take undeclared parameters OUT of the
+    // address bar before this tracker can read them. Its removal-only behaviour
+    // is a tested property (lib/privacy/url-hygiene.test.ts), not a naming
+    // convention, and the two assertions below keep the hole exactly one file
+    // wide.
+    const EXEMPT = 'lib/privacy/url-hygiene.ts'
     for (const f of APP_FILES) {
+      if (f === EXEMPT) continue
       expect(code(read(f)), f).not.toMatch(/history\.(push|replace)State|location\.search\s*=|location\.hash\s*=/)
     }
+
+    const writers = APP_FILES.filter((f) => /history\.(push|replace)State/.test(code(read(f))))
+    expect(writers, 'the history-write exemption must stay one file wide').toEqual([EXEMPT])
+  })
+
+  it('the URL scrub can only remove — it never pushes a new history entry', () => {
+    const src = code(read('lib/privacy/url-hygiene.ts'))
+    // pushState would add a back-button stop still holding the dirty URL.
+    expect(src).not.toMatch(/history\.pushState/)
+    // replaceState exactly once, and only after something was found to remove.
+    expect(src.match(/replaceState/g) ?? []).toHaveLength(1)
+    expect(src).toMatch(/if \(!removed\.length\) return \[\]/)
   })
 })
 

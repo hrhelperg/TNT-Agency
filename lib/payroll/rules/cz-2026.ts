@@ -102,6 +102,11 @@ export const CZ_2026: RuleRegistry = {
   taxYear: 2026,
   effectiveFrom: '2026-01-01',
   effectiveTo: '2026-12-31',
+  // Government decrees setting the following year's minimum wage, average wage
+  // and assessment bases are published in the autumn. From that point the 2027
+  // ruleset becomes knowable, so this one is due a re-check even though it
+  // stays in force to 31 December.
+  reviewDueFrom: '2026-10-01',
 
   employeeSocialRate: {
     value: 7.1,

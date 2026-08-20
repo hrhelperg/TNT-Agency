@@ -256,7 +256,7 @@ export const BESPOKE_CTAS = [
   // ── shared components ──
   { file: 'components/Header.tsx', label: 'Poptat pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: '/poptavka-pracovniku' },
   { file: 'components/EmployerSituations.tsx', label: 'Poptat pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
-    reason: 'href={REQUEST}; the constant is /poptavka-pracovniku and is asserted in the component tests.' },
+    reason: 'href={REQUEST}; the constant is /poptavka-pracovniku, asserted by lib/employer-request/conversion.test.ts.' },
   { file: 'components/HomePayrollCalculator.tsx', label: '{c.ctaDetail}', intent: 'KNOWLEDGE', dest: null },
   { file: 'components/HomeAgencyValue.tsx', label: '{c.avCta}', intent: 'KNOWLEDGE', dest: null },
   { file: 'components/VacancyCostTool.tsx', label: '{pick(lang, C.CTA_TEXT)}', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,

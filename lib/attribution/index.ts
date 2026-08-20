@@ -1,6 +1,10 @@
 // Privacy-safe, first-party attribution (Phase C5).
 //
-// Design rules, enforced by tests in ./attribution.test.ts:
+// Design rules, enforced by tests in ./attribution.test.ts — which now exists.
+// It did not when this comment was first written, and Rule 3 in particular was
+// enforced by nothing at all. scripts/validate-coverage-truth.mjs fails the
+// build if a citation like this one stops being true.
+//
 //
 //   1. STRICT ALLOWLIST. Only the fields in ATTRIBUTION_FIELDS may ever be
 //      captured. Anything not on the list is dropped, even if a caller passes
@@ -41,12 +45,17 @@ export type Attribution = Partial<Record<AttributionField, string>>
 export const ATTRIBUTION_DENYLIST = [
   'gross', 'grossSalary', 'hrubaMzda', 'net', 'netSalary', 'cistaMzda',
   'employerCost', 'nakladZamestnavatele', 'agencyFee', 'margin', 'marze',
+  // Bare stems, added because the compound spellings alone let
+  // `totalEconomicCost` through a guard that names `employerCost`. Safe: the
+  // "no allowlisted field trips the denylist" test proves none of the eleven
+  // permitted field names contains any of these.
+  'cost', 'naklad', 'fee',
   'salary', 'mzda', 'wage', 'budget', 'rozpocet', 'price', 'cena',
   'email', 'phone', 'telefon', 'name', 'jmeno', 'contactName', 'company',
   'companyName', 'firma', 'note', 'notes', 'poznamka', 'message',
 ] as const
 
-const SESSION_KEY = 'tnt-attribution'
+export const SESSION_KEY = 'tnt-attribution'
 
 /** Only these UTM params are read; everything else in the query is ignored. */
 const UTM_MAP: Record<string, AttributionField> = {
@@ -80,10 +89,21 @@ export const isCtaSource = (v: unknown): v is CtaSource =>
  * what we collect.
  */
 export function assertNoSensitiveKeys(obj: Record<string, unknown>): void {
-  const lower = Object.keys(obj).map((k) => k.toLowerCase())
+  // Substring, not exact match. The comparison used to be exact key equality,
+  // which meant `grossWage`, `candidateEmail` and `contactPhone` all passed a
+  // guard documented as failing loudly when a denylisted key appears. The
+  // allowlist in sanitizeAttribution would still have dropped them, so nothing
+  // leaked — but a defence-in-depth guard that only catches the exact spelling
+  // is not the guard the comment describes.
+  //
+  // Safe to tighten: no ATTRIBUTION_FIELDS name contains a denylisted term,
+  // which is asserted in ./attribution.test.ts rather than left to inspection.
+  const keys = Object.keys(obj).map((k) => k.toLowerCase())
   for (const banned of ATTRIBUTION_DENYLIST) {
-    if (lower.includes(banned.toLowerCase())) {
-      throw new Error(`Attribution denylist violation: "${banned}" must never be collected`)
+    const needle = banned.toLowerCase()
+    const hit = keys.find((k) => k.includes(needle))
+    if (hit) {
+      throw new Error(`Attribution denylist violation: "${banned}" must never be collected (found in key "${hit}")`)
     }
   }
 }
@@ -197,16 +217,6 @@ export function captureAttribution(env: {
     }
   }
   return clean
-}
-
-/** Clears the session snapshot (used after a completed request). */
-export function clearAttribution(): void {
-  if (!hasSession()) return
-  try {
-    window.sessionStorage.removeItem(SESSION_KEY)
-  } catch {
-    /* ignore */
-  }
 }
 
 /** Human-readable lines appended to the mailto body after the user submits. */
