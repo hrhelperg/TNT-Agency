@@ -952,7 +952,13 @@ export default function PayrollCalculatorPage() {
             <p>{t.ctaBody}</p>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <a href="/submit-offer" className="btn btn-primary btn-lg">
+            {/* t.ctaRequest is "Poptat pracovníky" / "Request workers" /
+                "Mitarbeiter anfragen" — an employer staffing request in every
+                locale. It pointed at /submit-offer, the bare-mailto marketplace
+                page. "poptat pracovníky" is literally one of the EMPLOYER_REQUEST
+                patterns in scripts/validate-cta-routing.mjs, so this CTA would
+                have failed that gate the moment this page became visible to it. */}
+            <a href="/poptavka-pracovniku" className="btn btn-primary btn-lg">
               {t.ctaRequest}
             </a>{' '}
             <a href="/contact" className="btn btn-ghost btn-lg">

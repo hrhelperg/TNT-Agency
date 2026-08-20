@@ -168,27 +168,7 @@ const T = {
       },
     ],
     process: {
-      eyebrow: 'How It Works',
-      h2:      'From Brief to Hire<br>in Three Steps',
-      sub:     'A clear, efficient process that respects your time and delivers results — every time.',
       cta:     'Book a Free Consultation',
-      steps: [
-        {
-          num:  '01',
-          title: 'You Brief Us',
-          desc:  'We go through the role, the workplace, the shift pattern, the qualifications required and any authorisations needed. The more precise the brief, the better the candidates presented will match it.',
-        },
-        {
-          num:  '02',
-          title: 'We Search',
-          desc:  'We combine advertising, direct approaches and referrals. For specialist roles the emphasis is on verifying the qualifications and documents the position requires.',
-        },
-        {
-          num:  '03',
-          title: 'You Select',
-          desc:  'We hand over the candidates who match the brief, coordinate interviews and support the start. Scope and terms are agreed contractually.',
-        },
-      ],
     },
     industries: {
       eyebrow: 'Industries',
@@ -498,27 +478,7 @@ const T = {
       },
     ],
     process: {
-      eyebrow: 'Jak to funguje',
-      h2:      'Od zadání po nástup<br>ve třech krocích',
-      sub:     'Jasný a efektivní proces, který respektuje váš čas a přináší výsledky — pokaždé.',
       cta:     'Sjednat bezplatnou konzultaci',
-      steps: [
-        {
-          num:   '01',
-          title: 'Zadáte požadavky',
-          desc:  'Probereme pozici, pracoviště, směnný režim, požadovanou kvalifikaci a případná oprávnění. Čím přesnější zadání, tím lépe odpovídají předložení kandidáti.',
-        },
-        {
-          num:   '02',
-          title: 'Hledáme kandidáty',
-          desc:  'Kombinujeme inzerci, oslovování kandidátů a doporučení. U odborných pozic klademe důraz na ověření kvalifikace a dokladů, které pozice vyžaduje.',
-        },
-        {
-          num:   '03',
-          title: 'Předáváme výběr',
-          desc:  'Předáme kandidáty, kteří odpovídají zadání, zkoordinujeme pohovory a podpoříme nástup. Rozsah spolupráce a podmínky se sjednávají smluvně.',
-        },
-      ],
     },
     industries: {
       eyebrow: 'Odvětví',
@@ -828,27 +788,7 @@ const T = {
       },
     ],
     process: {
-      eyebrow: 'So funktioniert es',
-      h2:      'Vom Briefing zur Einstellung<br>in drei Schritten',
-      sub:     'Ein klarer, effizienter Prozess, der Ihre Zeit respektiert und Ergebnisse liefert — jedes Mal.',
       cta:     'Kostenloses Beratungsgespräch buchen',
-      steps: [
-        {
-          num:   '01',
-          title: 'Briefing',
-          desc:  'Wir besprechen die Stelle, den Arbeitsort, das Schichtmodell, die geforderte Qualifikation und etwaige Befähigungsnachweise. Je präziser das Briefing, desto besser passen die vorgestellten Kandidaten.',
-        },
-        {
-          num:   '02',
-          title: 'Wir suchen',
-          desc:  'Wir kombinieren Stellenanzeigen, Direktansprache und Empfehlungen. Bei Fachpositionen liegt der Schwerpunkt auf der Prüfung der Qualifikationen und Nachweise, die die Stelle verlangt.',
-        },
-        {
-          num:   '03',
-          title: 'Sie wählen aus',
-          desc:  'Wir übergeben die Kandidaten, die dem Briefing entsprechen, koordinieren Interviews und begleiten den Eintritt. Umfang und Konditionen werden vertraglich vereinbart.',
-        },
-      ],
     },
     industries: {
       eyebrow: 'Branchen',
@@ -1133,23 +1073,12 @@ function renderAll(lang) {
   }
 
   /* — Process — */
-  qs('[data-i18n="process.eyebrow"]', t.process.eyebrow);
-  qsHTML('[data-i18n="process.h2"]', t.process.h2);
-  qs('[data-i18n="process.sub"]',    t.process.sub);
   qs('[data-i18n="process.cta"]',    t.process.cta);
 
-  const ps = document.getElementById('processSteps');
-  if (ps) {
-    ps.innerHTML = t.process.steps.map((s, i) => `
-      <div class="process-step fi ${delays[i]}">
-        <div class="process-step__num" aria-hidden="true">${s.num}</div>
-        <div class="process-step__line${i === 2 ? ' process-step__line--last' : ''}" aria-hidden="true"></div>
-        <div class="process-step__icon" aria-hidden="true">${processIcons[i]}</div>
-        <h3>${s.title}</h3>
-        <p>${s.desc}</p>
-      </div>`).join('');
-    ps.querySelectorAll('.fi').forEach(el => io.observe(el));
-  }
+  // Process steps are server-rendered by components/RecruitmentProcess.tsx
+  // from lib/content/recruitment-process.ts — one source of truth, visible to
+  // crawlers. The old client-side injector was removed with its #processSteps
+  // host; the process.steps dictionary entries went with it.
 
   /* — Industries — */
   qs('[data-i18n="industries.eyebrow"]',    t.industries.eyebrow);

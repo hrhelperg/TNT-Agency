@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import RecruitmentProcess from '../components/RecruitmentProcess'
 
 const schema = {
   '@context': 'https://schema.org',
@@ -79,16 +80,15 @@ export default function Agencies() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      {/* HOW IT WORKS — the shared, server-rendered component.
+          This section used to inject its steps from the script.js dictionary
+          into an empty div after hydration. Now that the same three steps are
+          server-rendered from lib/content/recruitment-process.ts, keeping the
+          old client-side copy would leave two sources of truth that could drift
+          apart silently. The consultation CTA stays: it belongs to this page. */}
       <section className="section process" id="process">
+        <RecruitmentProcess headingId="jak-to-funguje-agentury" />
         <div className="container">
-          <div className="section-head fi">
-            <div className="eyebrow" data-i18n="process.eyebrow">Jak to funguje</div>
-            <h2 data-i18n="process.h2">Od zadání po nástup<br />ve třech krocích</h2>
-            <p data-i18n="process.sub">Jasný a efektivní proces, který respektuje váš čas a přináší výsledky — pokaždé.</p>
-          </div>
-          {/* Rendered by script.js */}
-          <div className="process-steps" id="processSteps"></div>
           <div className="process-cta fi d4">
             <a href="/contact" className="btn btn-primary btn-lg" data-i18n="process.cta">Sjednat bezplatnou konzultaci</a>
           </div>
