@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import LocaleAlternates from '../components/locale/LocaleAlternates'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import {
@@ -57,6 +58,8 @@ export default function ONas() {
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={URL} />
+        {/* Reciprocal hreflang from the locale registry. */}
+        <LocaleAlternates route="/o-nas" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={URL} />
         <meta property="og:title" content="O nás a ověření agentury | TalentPartnerID" />

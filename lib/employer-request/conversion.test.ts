@@ -4,6 +4,8 @@ import path from 'path'
 import { CTA_COPY, buildCtaHref, REQUEST_PATH } from './cta'
 import { CTA_SOURCES } from '../attribution'
 import { REQUEST_FIELDS } from './schema'
+import { REQUEST_WORKERS, resolveNavHref } from '../locale/chrome'
+import { ALL_CONCEPTS, urlFor } from '../locale/registry'
 
 const ROOT = process.cwd()
 const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8')
@@ -212,9 +214,28 @@ describe('Phase C — SEO, schema and routing', () => {
   })
 
   it('the header links to the request page in desktop and mobile navigation', () => {
-    expect((HEADER.match(/\/poptavka-pracovniku/g) || []).length).toBeGreaterThanOrEqual(3)
-    expect(HEADER).toContain('data-i18n="nav.requestWorkers"')
-    expect(HEADER).toContain('data-i18n="mnav.requestWorkers"')
+    // Header used to carry the URL as three literals. It now renders every
+    // destination through lib/locale/chrome, so counting occurrences in the
+    // source proves nothing — the count is a property of the data, and the
+    // component is checked separately (lib/locale/chrome.test.ts) for holding
+    // no literals of its own. The behaviour asserted here is unchanged: the
+    // request page is the header's employer action, in both navigations, and
+    // the Czech render still exposes the translation hooks.
+    expect(REQUEST_WORKERS.czechHref).toBe('/poptavka-pracovniku')
+    expect(resolveNavHref(REQUEST_WORKERS, 'cs')).toEqual({ href: '/poptavka-pracovniku' })
+    // scripts/validate-cta-routing.mjs declares this CTA with dest: null and
+    // cites this test as what pins the destination — in every locale, not just
+    // Czech. The citation is only honest if all three are actually asserted.
+    const concept = ALL_CONCEPTS.find((c) => c.id === REQUEST_WORKERS.conceptId)!
+    expect(concept.csPrimary).toBe('/poptavka-pracovniku')
+    for (const locale of ['en', 'de'] as const) {
+      expect(concept.published).toContain(locale)
+      expect(resolveNavHref(REQUEST_WORKERS, locale)).toEqual({ href: urlFor(concept, locale) })
+      expect(resolveNavHref(REQUEST_WORKERS, locale).href).toMatch(new RegExp(`^/${locale}/`))
+    }
+    expect((HEADER.match(/requestWorkers\.href/g) || []).length).toBeGreaterThanOrEqual(3)
+    expect(HEADER).toContain("'nav.requestWorkers'")
+    expect(HEADER).toContain("'mnav.requestWorkers'")
   })
 
   it('the employer-situations CTA resolves to the canonical request path', () => {

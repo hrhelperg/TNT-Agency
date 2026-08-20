@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import LocaleAlternates from '../components/locale/LocaleAlternates'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import HomePayrollCalculator from '../components/HomePayrollCalculator'
@@ -62,6 +63,8 @@ export default function Home() {
         <meta name="last-modified" content="2026-05-03" />
         <meta property="article:modified_time" content="2026-05-03T00:00:00+02:00" />
         <link rel="canonical" href="https://talentpartnerid.com/" />
+        {/* Reciprocal hreflang from the locale registry. */}
+        <LocaleAlternates route="/" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://talentpartnerid.com/" />
         <meta property="og:site_name" content="TalentPartnerID" />

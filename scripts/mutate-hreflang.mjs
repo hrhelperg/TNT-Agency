@@ -49,11 +49,16 @@ const MUTATIONS = [
     },
   },
   {
+    // /pro-zamestnavatele used to be the example of "unrelated", but Locale L0
+    // made it a real concept primary with EN and DE counterparts, so an
+    // x-default there is now correct. The mutation needs a page that genuinely
+    // has no locale cluster — /skladnici is Czech-only and not even a collapsed
+    // variant of one.
     name: '4. x-default added to an unrelated page',
-    slug: '/pro-zamestnavatele',
+    slug: '/skladnici',
     expect: /x-default declared with no documented neutral fallback/,
     apply(d) {
-      d.get('/pro-zamestnavatele').alts.push({ lang: 'x-default', href: `${BASE}/pro-zamestnavatele` })
+      d.get('/skladnici').alts.push({ lang: 'x-default', href: `${BASE}/skladnici` })
     },
   },
   {

@@ -23,17 +23,22 @@ const xml = fs.readFileSync(SITEMAP_PATH, 'utf8');
 const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]);
 
 describe('sitemap hygiene', () => {
-  it('1. contains exactly the canonical route inventory (175 Next + 10 static = 185)', () => {
+  it('1. contains exactly the canonical route inventory (195 Next + 10 static = 205)', () => {
     // 154 after the indexing-coverage consolidation removed the duplicate
     // /privacy.html; +1 Next route in Batch 2 for the new /o-nas trust page = 155;
     // +1 Next route in Batch C for the /redakcni-zasady editorial-standards page = 156;
     // +19 Next routes for the Wave 1 professional/specialist recruitment cohort
     // = 175; +10 for the Wave 2 technical-talent / employer-problem / knowledge
     // cohort (both declared in lib/content/growth-cohorts.ts) = 185.
+    //
+    // Locale L0 added 20 prerendered locale routes — 10 EN and 10 DE, declared
+    // in lib/locale/registry.ts — bringing Next routes to 195 and the canonical
+    // inventory to 205. A deliberate re-baseline, not drift: the 185 Czech
+    // canonicals are unchanged and remain the prefix of the sitemap.
     const inv = buildRouteInventory(ROOT);
-    expect(inv.nextRoutes.length).toBe(175);
+    expect(inv.nextRoutes.length).toBe(195);
     expect(inv.staticRoutes.length).toBe(10);
-    expect(inv.urls.size).toBe(185);
+    expect(inv.urls.size).toBe(205);
     // Sets must match exactly, both directions.
     const sitemapSet = new Set(locs);
     expect(Array.from(sitemapSet).filter((u) => !inv.urls.has(u))).toEqual([]);
@@ -43,7 +48,7 @@ describe('sitemap hygiene', () => {
   });
 
   it('2. all URLs are unique', () => {
-    expect(locs.length).toBe(185);
+    expect(locs.length).toBe(205);
     expect(new Set(locs).size).toBe(locs.length);
   });
 
@@ -83,10 +88,10 @@ describe('sitemap hygiene', () => {
     expect(after.equals(before)).toBe(true);
   });
 
-  it('10. IndexNow URL extraction returns the same 185 canonical URLs', () => {
+  it('10. IndexNow URL extraction returns the same 205 canonical URLs', () => {
     const urls = getSitemapUrls();
-    expect(urls.length).toBe(185);
-    expect(new Set(urls).size).toBe(185);
+    expect(urls.length).toBe(205);
+    expect(new Set(urls).size).toBe(205);
     expect(urls).toEqual(locs);
   });
 

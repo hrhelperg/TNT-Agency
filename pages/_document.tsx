@@ -3,20 +3,34 @@ import type { DocumentContext } from 'next/document'
 import { SITE } from '../lib/content/rules'
 import { OPERATOR_EMAIL, OPERATOR_PHONE } from '../lib/content/trust-data'
 
-// The site is Czech, so <html lang> is "cs" for every route but one.
+// <html lang> comes from the ROUTE, via the locale registry.
 //
-// /privacy-policy is the canonical ENGLISH privacy document — footer-linked
-// sitewide and the English member of a real three-language legal set alongside
-// /privacy-cs.html and /privacy-de.html. Serving English prose inside lang="cs"
-// misdeclares the document to crawlers and to screen readers, and it would make
-// the hreflang="en" that now points here untrue at the moment it is added.
+// This is a lookup, not detection: the value derives from the URL, never from a
+// header, cookie or IP, so the rendered HTML for a URL is identical for every
+// visitor and the page stays statically prerendered.
 //
-// This is a lookup, not detection: the value comes from the route, never from a
-// header, cookie or IP, so the rendered HTML for a URL stays identical for every
-// visitor and the page remains statically prerendered.
-const DOCUMENT_LANG: Readonly<Record<string, string>> = {
-  '/privacy-policy': 'en',
+// data-locale-locked marks a page whose language is decided by its URL. The
+// shared chrome script (public/script.js) initialises from localStorage on
+// ordinary Czech routes — that is the visitor's own switcher choice — but on a
+// locked page the URL is the authority, or a first-time visitor to /en/… would
+// have the server's English chrome replaced with Czech the moment JS ran.
+import { ALL_CONCEPTS, LOCALE_LANG, type Locale } from '../lib/locale/registry'
+
+const localeByRoute: Record<string, Locale> = {}
+for (const concept of ALL_CONCEPTS) {
+  for (const locale of ['en', 'de'] as const) {
+    const url = concept.urls[locale]
+    // Declared, not necessarily published: an unpublished page does not exist,
+    // so no route can resolve to it and the entry is harmless. Once published
+    // the lang is already correct on the first render.
+    if (url) localeByRoute[url] = locale
+  }
 }
+
+const DOCUMENT_LANG: Readonly<Record<string, string>> = Object.fromEntries(
+  Object.entries(localeByRoute).map(([route, locale]) => [route, LOCALE_LANG[locale]]),
+)
+const LOCALE_LOCKED = new Set(Object.keys(localeByRoute))
 const DEFAULT_LANG = 'cs'
 
 // Site-wide structured data: a single canonical Organization identity plus a
@@ -54,9 +68,9 @@ const websiteSchema = JSON.stringify({
   inLanguage: 'cs-CZ',
 })
 
-export default function Document({ lang = DEFAULT_LANG }: { lang?: string }) {
+export default function Document({ lang = DEFAULT_LANG, localeLocked = false }: { lang?: string; localeLocked?: boolean }) {
   return (
-    <Html lang={lang}>
+    <Html lang={lang} data-locale-locked={localeLocked ? 'true' : undefined}>
       <Head>
         <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'ad_storage':'denied','analytics_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});` }} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -80,5 +94,9 @@ export default function Document({ lang = DEFAULT_LANG }: { lang?: string }) {
 // regression here fails a gate rather than going unnoticed.
 Document.getInitialProps = async (ctx: DocumentContext) => {
   const initial = await NextDocument.getInitialProps(ctx)
-  return { ...initial, lang: DOCUMENT_LANG[ctx.pathname] ?? DEFAULT_LANG }
+  return {
+    ...initial,
+    lang: DOCUMENT_LANG[ctx.pathname] ?? DEFAULT_LANG,
+    localeLocked: LOCALE_LOCKED.has(ctx.pathname),
+  }
 }

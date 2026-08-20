@@ -46,14 +46,39 @@ export const ALLOWED = new Set(['en', 'cs-CZ', 'de'])
 const primary = (tag) => String(tag).toLowerCase().split('-')[0]
 
 /**
- * Pages permitted to declare an x-default, with the reason. Empty by design:
- * none of the three legal sets has a neutral or language-selection page, and
- * pointing x-default at an arbitrary language would assert something untrue.
+ * Pages permitted to declare an x-default, with the reason.
+ *
+ * This was empty by design while the only multi-language sets were the three
+ * legal documents: none has a neutral or language-selection page, so pointing
+ * x-default at an arbitrary language would have asserted something untrue.
+ *
+ * Locale L0 changed the facts. Every concept in the locale registry has a real
+ * Czech primary with real English and German counterparts, and the registry
+ * declares X_DEFAULT_ROUTE — the Czech root — as the deliberate fallback: this
+ * is a Czech company serving the Czech market, so an unmatched visitor belongs
+ * there rather than on a translation. The permission is DERIVED from the
+ * registry, so a page cannot claim an x-default without being a published
+ * member of a real cluster.
  */
-export const XDEFAULT_ALLOWED = {}
+const LOCALE_REGISTRY = await import('../lib/locale/registry.ts')
 
-/** Minimum prerendered Next pages; a drop means locale work went dynamic. */
-export const MIN_STATIC_PAGES = 175
+export const XDEFAULT_ALLOWED = Object.fromEntries(
+  LOCALE_REGISTRY.LOCALE_CONCEPTS.flatMap((c) => {
+    const reason = `locale cluster "${c.id}"; x-default is ${LOCALE_REGISTRY.X_DEFAULT_ROUTE}, declared in the locale registry`
+    const routes = [c.csPrimary]
+    for (const locale of ['en', 'de']) {
+      if (c.published.includes(locale) && c.urls[locale]) routes.push(c.urls[locale])
+    }
+    return routes.length > 1 ? routes.map((r) => [r, reason]) : []
+  }),
+)
+
+/**
+ * Minimum prerendered Next pages; a drop means locale work went dynamic.
+ * Re-baselined 175 -> 195 in Locale L0 (175 Czech + 10 EN + 10 DE, all static).
+ * A deliberate change, not drift.
+ */
+export const MIN_STATIC_PAGES = 195
 
 /** Parses one HTML document into the shape the audit works on. */
 export function parseDoc(html, file = '') {
@@ -137,10 +162,14 @@ for (const [route, d] of parsed) {
     if (seenLang.has(a.lang)) errors.push(`${route}: duplicate hreflang="${a.lang}"`)
     seenLang.set(a.lang, a.href)
     // same URL under two different codes
-    if (seenHref.has(a.href) && seenHref.get(a.href) !== a.lang) {
+    // One URL cannot be two LANGUAGES — but x-default is not a language, and
+    // pointing it at the same URL as one of the language versions is both
+    // standard and, here, the correct statement: the Czech root is genuinely
+    // where an unmatched visitor belongs.
+    if (a.lang !== 'x-default' && seenHref.has(a.href) && seenHref.get(a.href) !== a.lang && seenHref.get(a.href) !== 'x-default') {
       errors.push(`${route}: ${a.href} is declared as both "${seenHref.get(a.href)}" and "${a.lang}" — one URL cannot be two language versions`)
     }
-    seenHref.set(a.href, a.lang)
+    if (a.lang !== 'x-default') seenHref.set(a.href, a.lang)
 
     // x-default needs a declared, deliberate fallback
     if (a.lang === 'x-default' && !XDEFAULT_ALLOWED[route]) {
@@ -160,12 +189,17 @@ for (const [route, d] of parsed) {
       errors.push(`${route}: alternate target ${target} is not self-canonical (canonical=${t.canonical})`)
     }
     // target document language must match the claim
-    if (t.lang && primary(t.lang) !== primary(a.lang)) {
+    //
+    // x-default is exempt: it is a FALLBACK, not a language claim. Pointing it
+    // at the Czech root is correct and asserts nothing about that page's
+    // language. Likewise the fallback target is not required to nominate every
+    // page that falls back to it, so reciprocity below is exempt too.
+    if (a.lang !== 'x-default' && t.lang && primary(t.lang) !== primary(a.lang)) {
       errors.push(`${route}: declares ${target} as "${a.lang}" but that document is <html lang="${t.lang}">`)
     }
     // reciprocity — the target must name this page back
     const back = t.alts.some((b) => routeOf(b.href) === route)
-    if (!back) {
+    if (a.lang !== 'x-default' && !back) {
       errors.push(`${route}: declares ${target} as "${a.lang}", but ${target} does not link back — set is not reciprocal`)
     }
   }

@@ -1250,9 +1250,12 @@ function qsPh(sel, ph) {
 /* ----------------------------------------------------------------
    LANGUAGE SWITCHER
    ---------------------------------------------------------------- */
-function setLang(lang) {
+function setLang(lang, options) {
   if (!T[lang]) lang = 'en';
-  localStorage.setItem('tnt-lang', lang);
+  // Do not persist on a locale-locked page: arriving at /en/… is a consequence
+  // of the URL, not a language choice the visitor made, and recording it would
+  // silently rewrite their preference for every Czech page afterwards.
+  if (!options || options.persist !== false) localStorage.setItem('tnt-lang', lang);
   renderAll(lang);
   // Notify React islands (e.g. the payroll calculator) that own their own
   // content and cannot be updated by the [data-i18n] DOM swap.
@@ -1357,5 +1360,16 @@ sections.forEach(sec => navObserver.observe(sec));
    browser (no stored preference) stays Czech with no flash. A previously chosen
    EN/DE preference is still honoured after hydration.
    ---------------------------------------------------------------- */
-const initLang = localStorage.getItem('tnt-lang') || 'cs';
-setLang(initLang);
+// Locale-locked pages take their language from the URL, not from storage.
+//
+// The server renders /en/… and /de/… with the correct lang and chrome. Reading
+// localStorage here unconditionally would replace that with the visitor's last
+// switcher choice (or Czech, for a first-time visitor) the moment this script
+// ran — server-rendered English chrome flipping to Czech on a page whose URL
+// says English. On ordinary Czech routes storage remains the authority,
+// because there the switcher choice is the only signal there is.
+const localeLocked = document.documentElement.getAttribute('data-locale-locked') === 'true';
+const initLang = localeLocked
+  ? (document.documentElement.lang || 'cs')
+  : (localStorage.getItem('tnt-lang') || 'cs');
+setLang(initLang, { persist: !localeLocked });
