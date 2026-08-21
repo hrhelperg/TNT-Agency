@@ -1,4 +1,8 @@
+import { useRouter } from 'next/router'
+import { alternatesFor } from '../lib/locale/registry'
+import LanguageSwitcher from './locale/LanguageSwitcher'
 import {
+  CHROME_ARIA,
   CHROME_NAV,
   NAV_TARGETS,
   REQUEST_WORKERS,
@@ -22,6 +26,27 @@ interface HeaderProps {
 
 export default function Header({ activePage, locale }: HeaderProps) {
   const t = CHROME_NAV[locale ?? 'cs']
+  const aria = CHROME_ARIA[locale ?? 'cs']
+
+  /**
+   * Where a real translation of THIS page exists, the header offers navigation
+   * to it. That was the missing capability: on the 10 Czech concept primaries
+   * the only language control could not reach the German page that now exists,
+   * and on the 20 locale pages it could not change the URL at all, so pressing
+   * "CS" stranded the reader on an English document wearing Czech chrome.
+   *
+   * The legacy widget is REMOVED only where it is actively wrong — the locale
+   * pages, whose language is fixed by the URL. It stays on the Czech spine,
+   * including the concept primaries, because it is not really locale navigation
+   * there: it is what translates the client-side islands, and those islands are
+   * trilingual. Deleting it from /cena-neobsazene-pozice would have made the
+   * vacancy-cost tool unreachable in German, since the German page carries the
+   * prose but not the tool. Two controls on one page is a wart; silently
+   * dropping a working feature is worse.
+   */
+  const router = useRouter()
+  const route = router?.pathname ?? ''
+  const hasTranslations = alternatesFor(route).length >= 2
 
   /**
    * On the Czech spine the anchor keeps its `data-i18n` hook and carries no
@@ -61,7 +86,7 @@ export default function Header({ activePage, locale }: HeaderProps) {
       // and a second label nested in that group would relabel it.
       <div
         className={mobile ? 'lang-switcher lang-switcher--mobile' : 'lang-switcher'}
-        aria-label={mobile ? undefined : 'Language selector'}
+        aria-label={mobile ? undefined : aria.languageSelector}
       >
         <button className="lang-btn" data-lang="en" aria-label="English">EN</button>
         <button className="lang-btn active" data-lang="cs" aria-label="Čeština">CS</button>
@@ -83,11 +108,12 @@ export default function Header({ activePage, locale }: HeaderProps) {
               <span className="logo__word">TalentPartner<span className="id">ID</span></span>
             </a>
 
-            <nav className="nav" aria-label="Main navigation">
+            <nav className="nav" aria-label={aria.mainNav}>
               {NAV_TARGETS.map((target) => navLink(target))}
             </nav>
 
             <div className="header__right">
+              {hasTranslations && <LanguageSwitcher route={route} className="locale-switcher--header" />}
               {legacySwitcher()}
               {/* Primary header action is the employer conversion path. The
                   Contact link stays available in the nav list above. */}
@@ -100,7 +126,7 @@ export default function Header({ activePage, locale }: HeaderProps) {
               >
                 {t.requestWorkers}
               </a>
-              <button className="hamburger" id="burger" aria-label="Open menu" aria-expanded="false">
+              <button className="hamburger" id="burger" aria-label={aria.openMenu} aria-expanded="false">
                 <span></span><span></span><span></span>
               </button>
             </div>
@@ -108,7 +134,7 @@ export default function Header({ activePage, locale }: HeaderProps) {
         </div>
       </header>
 
-      <nav className="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+      <nav className="mobile-nav" id="mobileNav" aria-label={aria.mobileNav}>
         {NAV_TARGETS.slice(0, 7).map((target) => navLink(target, true))}
         <a
           href={requestWorkers.href}
@@ -119,10 +145,21 @@ export default function Header({ activePage, locale }: HeaderProps) {
           {t.requestWorkers}
         </a>
         {navLink(NAV_TARGETS[7], true)}
-        <div className="lang-select" role="group" aria-label="Website language">
-          <span className="lang-select__label" data-i18n={locale ? undefined : 'nav.language'}>{t.language}</span>
-          {legacySwitcher(true)}
-        </div>
+        {/* The group is a labelled ARIA container. It renders only when it will
+            actually hold controls — previously the legacy switcher returned null
+            on locale pages while this wrapper stayed, leaving a group announced
+            as "Website language" containing nothing operable. */}
+        {/* The group is a labelled ARIA container, so it renders only when it
+            will actually hold controls. Previously the legacy switcher returned
+            null on locale pages while this wrapper stayed, leaving a group
+            announced as "Website language" containing nothing operable. */}
+        {(hasTranslations || !locale) && (
+          <div className="lang-select" role="group" aria-label={aria.websiteLanguage}>
+            <span className="lang-select__label" data-i18n={locale ? undefined : 'nav.language'}>{t.language}</span>
+            {hasTranslations && <LanguageSwitcher route={route} className="locale-switcher--mobile" />}
+            {legacySwitcher(true)}
+          </div>
+        )}
         <a
           href={requestWorkers.href}
           data-request-source="employer-hub"

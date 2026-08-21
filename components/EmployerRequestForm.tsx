@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLang } from '../lib/i18n/react'
+import { useRouteLocale } from '../lib/locale/route-locale'
 import { REQUEST_COPY } from '../lib/employer-request/copy'
 import {
   REQUEST_GROUPS,
@@ -36,7 +37,13 @@ type Status = 'idle' | 'error' | 'prepared'
 type CopyKey = 'email' | 'subject' | 'request'
 
 export default function EmployerRequestForm() {
-  const lang = useLang()
+  // On /en and /de the form's language is fixed by the URL, exactly like the
+  // page around it; consulting the visitor's stored preference there would
+  // render Czech labels for one paint and then replace them. On the Czech
+  // spine nothing changes — useLang() still decides.
+  const routeLocale = useRouteLocale()
+  const chosenLang = useLang()
+  const lang = routeLocale ?? chosenLang
   const copy = REQUEST_COPY[lang]
 
   const [values, setValues] = useState<RequestValues>({})

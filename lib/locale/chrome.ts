@@ -294,9 +294,15 @@ export const FOOTER_TARGETS: readonly FooterTarget[] = [
   { key: 'guide3', czechHref: '/nabor-zahranicnich-pracovniku' },
   { key: 'guide4', czechHref: '/minimalni-mzda-2026' },
   { key: 'guide5', czechHref: '/faq-zamestnavani-pracovniku' },
-  { key: 'terms', czechHref: '/terms.html' },
-  { key: 'priv', czechHref: '/privacy-policy' },
-  { key: 'cook', czechHref: '/cookies.html' },
+  // The legal set is a real three-way cluster in LEGAL_CONCEPTS. These entries
+  // previously carried the ENGLISH URLs (/terms.html is the English page) in a
+  // field named czechHref, so every locale linked to English legal text and
+  // resolveNavHref stamped hreflang="cs" on it — a German reader clicking "AGB"
+  // reached English Terms, announced as Czech. The Czech URLs are the Czech
+  // ones, and the concept ids let each locale resolve its own.
+  { key: 'terms', czechHref: '/terms-cs.html', conceptId: 'terms' },
+  { key: 'priv', czechHref: '/privacy-cs.html', conceptId: 'privacy-policy' },
+  { key: 'cook', czechHref: '/cookies-cs.html', conceptId: 'cookies' },
 ]
 
 /** Lookup by footer key, so the component never repeats a URL literal. */
@@ -305,3 +311,62 @@ export function footerTarget(key: FooterKey): FooterTarget {
   if (!t) throw new Error(`No FOOTER_TARGETS entry for "${key}"`)
   return t
 }
+
+/**
+ * Accessibility strings for the shared chrome.
+ *
+ * These are landmark and control names that only ever reach a screen reader, so
+ * they were never in public/script.js and are not part of the CHROME_NAV mirror
+ * — nothing to drift from, this file is their only source.
+ *
+ * The `cs` values are the EXISTING English strings, preserved byte-for-byte on
+ * purpose. Czech pages have always announced "Main navigation", and correcting
+ * that means editing the markup of all 185 Czech pages, which is outside this
+ * corrective pass. It is a real defect of the same class as the German one and
+ * should be fixed deliberately rather than smuggled in here.
+ */
+export type AriaKey =
+  | 'mainNav'
+  | 'mobileNav'
+  | 'openMenu'
+  | 'languageSelector'
+  | 'websiteLanguage'
+  | 'footerNav'
+  | 'breadcrumb'
+
+export const CHROME_ARIA: Readonly<Record<Locale, Readonly<Record<AriaKey, string>>>> = {
+  cs: {
+    mainNav: 'Main navigation',
+    mobileNav: 'Mobile navigation',
+    openMenu: 'Open menu',
+    languageSelector: 'Language selector',
+    websiteLanguage: 'Website language',
+    footerNav: 'Footer navigation',
+    breadcrumb: 'Breadcrumb',
+  },
+  en: {
+    mainNav: 'Main navigation',
+    mobileNav: 'Mobile navigation',
+    openMenu: 'Open menu',
+    languageSelector: 'Language selector',
+    websiteLanguage: 'Website language',
+    footerNav: 'Footer navigation',
+    breadcrumb: 'Breadcrumb',
+  },
+  de: {
+    mainNav: 'Hauptnavigation',
+    mobileNav: 'Mobile Navigation',
+    openMenu: 'Menü öffnen',
+    languageSelector: 'Sprachauswahl',
+    websiteLanguage: 'Sprache der Website',
+    footerNav: 'Fußzeilennavigation',
+    breadcrumb: 'Brotkrümelnavigation',
+  },
+} as const
+
+/** Localized "back to the top of this locale" breadcrumb label. */
+export const HOME_LABEL: Readonly<Record<Locale, string>> = {
+  cs: 'Úvod',
+  en: 'Home',
+  de: 'Startseite',
+} as const

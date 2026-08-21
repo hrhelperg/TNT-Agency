@@ -199,7 +199,8 @@ export const DE_CONTENT: LocaleCorpus = {
           heading: 'Wie Sie uns überprüfen können',
           body: [
             'Die Unternehmensangaben lassen sich im öffentlichen Handelsregister und im Wirtschaftsregister ARES prüfen. Personalagenturen, die in Tschechien tätig sind, müssen eine gültige Erlaubnis nach dem tschechischen Beschäftigungsgesetz besitzen; das Verzeichnis der Erlaubnisinhaber führt das Ministerium für Arbeit und Soziales.',
-            'Wir veröffentlichen die für diese Prüfung nötigen Kennungen, statt Sie um Vertrauen in eine Aussage auf unserer eigenen Website zu bitten.',
+            'Veröffentlicht wird hier nur, was wir überprüft haben — die Firmierung, der Sitz und die Kontaktdaten, jeweils aus dem Handelsregister. '
+            + 'Die Angaben zur Erlaubnis führen wir bewusst nicht als Tatsache auf, solange wir sie nicht unmittelbar aus dem amtlichen Verzeichnis bestätigt haben; geschätzte oder ungefähre Werte nennen wir in der Zwischenzeit nicht.',
           ],
         },
         {

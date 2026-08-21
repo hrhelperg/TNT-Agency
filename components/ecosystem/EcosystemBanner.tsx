@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useLang } from '../../lib/i18n/react'
+import { useRouteLocale } from '../../lib/locale/route-locale'
 import { ECOSYSTEM_COPY } from '../../lib/ecosystem/copy'
 import { currentProduct, timelineProducts } from '../../lib/ecosystem/registry'
 import EcosystemDirectory from './EcosystemDirectory'
@@ -13,14 +14,26 @@ import EcosystemDirectory from './EcosystemDirectory'
 // after hydration.
 //
 // SSR-safe: the markup is identical on the server and the first client render.
-// useLang() returns the document default ('cs') until after mount, exactly like
-// the calculator islands, so there is no hydration mismatch. All product links
-// are real anchors present in the HTML — the timeline does not depend on JS.
+// All product links are real anchors present in the HTML — the timeline does
+// not depend on JS.
+//
+// LANGUAGE. On the Czech spine the ribbon follows the visitor's chosen language
+// via useLang(), which starts at the document default and settles after mount —
+// harmless there, because the served text is already Czech.
+//
+// On an /en or /de page that was wrong: useLang() returned 'cs' for the server
+// render AND the first client render, so the ribbon was served in Czech above an
+// English page and swapped after hydration. The locale of those pages is a fact
+// about the URL, known before any script runs, so it is read from the route and
+// useLang() is not consulted at all. Same markup on server and client, nothing
+// to repaint — the fix is the absence of a swap, not a faster one.
 //
 // Not dismissible by design: this is permanent ecosystem navigation.
 
 export default function EcosystemBanner() {
-  const lang = useLang()
+  const routeLocale = useRouteLocale()
+  const chosenLang = useLang()
+  const lang = routeLocale ?? chosenLang
   const c = ECOSYSTEM_COPY[lang]
   const [open, setOpen] = useState(false)
   const triggerRef = useRef<HTMLButtonElement | null>(null)

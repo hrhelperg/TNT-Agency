@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Header from '../Header'
 import Footer from '../Footer'
-import LanguageSwitcher from './LanguageSwitcher'
 import LocaleAlternates from './LocaleAlternates'
 import { ALL_CONCEPTS, urlFor, type Locale } from '../../lib/locale/registry'
+import { CHROME_ARIA, HOME_LABEL } from '../../lib/locale/chrome'
 import type { LocalePageContent } from '../../lib/locale/content/types'
 
 const ORIGIN = 'https://talentpartnerid.com'
@@ -12,6 +12,14 @@ export interface LocalePageProps {
   /** Registry concept id. Everything else resolves from it. */
   readonly conceptId: string
   readonly locale: Exclude<Locale, 'cs'>
+  /**
+   * Rendered after the prose. Used by the request-staff concept, whose Czech
+   * primary is a form page: an English page describing a form the reader cannot
+   * fill in is not an equivalent of it. The form component is the SAME one the
+   * Czech page mounts — no second implementation, so field names, validation
+   * and submission behaviour cannot drift between locales.
+   */
+  readonly afterContent?: React.ReactNode
   readonly content: LocalePageContent
 }
 
@@ -24,7 +32,7 @@ export interface LocalePageProps {
  * document locale-locked: the URL decides the language, so the chrome resolves
  * to this page's locale instead of the visitor's last switcher choice.
  */
-export default function LocalePage({ conceptId, locale, content }: LocalePageProps) {
+export default function LocalePage({ conceptId, locale, content, afterContent }: LocalePageProps) {
   const concept = ALL_CONCEPTS.find((c) => c.id === conceptId)
   if (!concept) throw new Error(`LocalePage: no registry concept "${conceptId}"`)
 
@@ -49,8 +57,8 @@ export default function LocalePage({ conceptId, locale, content }: LocalePagePro
       <main className="section" lang={locale}>
         <div className="container">
           {selfUrl !== localeHome && (
-            <nav className="breadcrumbs" aria-label="Breadcrumb">
-              <a href={localeHome}>{locale === 'en' ? 'Home' : 'Startseite'}</a>
+            <nav className="breadcrumbs" aria-label={CHROME_ARIA[locale].breadcrumb}>
+              <a href={localeHome}>{HOME_LABEL[locale]}</a>
               <span aria-hidden="true"> › </span>
               <span aria-current="page">{content.breadcrumb}</span>
             </nav>
@@ -58,8 +66,6 @@ export default function LocalePage({ conceptId, locale, content }: LocalePagePro
 
           <h1>{content.h1}</h1>
           <p className="page-hero__sub">{content.intro}</p>
-
-          <LanguageSwitcher route={selfUrl} />
 
           {content.sections.map((s) => (
             <section key={s.heading}>
@@ -69,6 +75,8 @@ export default function LocalePage({ conceptId, locale, content }: LocalePagePro
               ))}
             </section>
           ))}
+
+          {afterContent}
 
           {ctaHref && (
             <p className="locale-cta">
