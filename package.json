@@ -52,7 +52,11 @@
     "validate:locale-pages": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-pages.mjs",
     "validate:locale-registry": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-registry.mjs",
     "test:mutate-locale-registry": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-registry.mjs",
-    "test:mutate-locale-corrective": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-corrective.mjs"
+    "test:mutate-locale-corrective": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-corrective.mjs",
+    "validate:route-collisions": "node scripts/validate-route-collisions.mjs",
+    "test:mutate-route-collisions": "node scripts/mutate-route-collisions.mjs",
+    "validate:l1-publication": "node --import ./scripts/ts-resolve.mjs scripts/validate-l1-publication.mjs",
+    "validate:l1-plan": "node --import ./scripts/ts-resolve.mjs scripts/validate-l1-plan.mjs"
   },
   "dependencies": {
     "next": "14.2.3",

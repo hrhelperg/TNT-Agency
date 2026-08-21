@@ -28,7 +28,7 @@
  * /en/request-workers, /de/fachkraefterekrutierung not /de/fachkraefte-recruiting,
  * and so on). Keeping both would have been two sources of truth.
  */
-import { L1_CONCEPTS } from './l1-concepts'
+import { L1_REGISTRY_CONCEPTS } from './l1-published'
 
 export const LOCALES = ['cs', 'en', 'de'] as const
 export type Locale = (typeof LOCALES)[number]
@@ -433,7 +433,7 @@ export const LEGAL_CONCEPTS: readonly LocaleConcept[] = [
  * Only PUBLISHED locales are ever emitted, so a concept can be frozen and
  * slugged here long before its pages exist without advertising a phantom URL.
  */
-export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [...L0_CONCEPTS, ...L1_CONCEPTS]
+export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [...L0_CONCEPTS, ...L1_REGISTRY_CONCEPTS]
 
 export const ALL_CONCEPTS: readonly LocaleConcept[] = [...LOCALE_CONCEPTS, ...LEGAL_CONCEPTS]
 
