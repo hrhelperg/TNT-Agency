@@ -36,7 +36,7 @@
     "validate:regional": "node --import ./scripts/ts-resolve.mjs scripts/validate-regional.mjs",
     "validate:authority-v4": "node --import ./scripts/ts-resolve.mjs scripts/validate-authority-v4.mjs",
     "test:mutate-authority-v4": "node --import ./scripts/ts-resolve.mjs scripts/mutate-authority-v4.mjs",
-    "validate:hreflang": "node scripts/validate-hreflang.mjs",
+    "validate:hreflang": "node --import ./scripts/ts-resolve.mjs scripts/validate-hreflang.mjs",
     "test:mutate-hreflang": "node scripts/mutate-hreflang.mjs",
     "validate:payroll-freshness": "node --import ./scripts/ts-resolve.mjs scripts/validate-payroll-freshness.mjs",
     "validate:coverage-truth": "node scripts/validate-coverage-truth.mjs",

@@ -1,4 +1,4 @@
-import type { LocaleCorpus } from './types'
+import type { LocaleCorpus } from '../types'
 
 /**
  * German L0 content.
@@ -16,7 +16,7 @@ import type { LocaleCorpus } from './types'
  * German AÜG framework applies. Where the Czech names a Czech institution, the
  * German names it as Czech too.
  */
-export const DE_CONTENT: LocaleCorpus = {
+export const DE_L0: LocaleCorpus = {
   home: {
     de: {
       title: 'TalentPartnerID | Personalvermittlung und Zeitarbeit in Tschechien',

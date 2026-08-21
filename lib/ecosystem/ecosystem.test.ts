@@ -12,6 +12,16 @@ import {
   type ChannelKind,
 } from './registry'
 import { ECOSYSTEM_COPY } from './copy'
+import { CZECH_ROUTES, PUBLISHED_LOCALIZED_ROUTES } from '../locale/registry'
+
+/**
+ * 185 Czech + 20 L0 + the L1 routes published so far.
+ * Derived from the registry rather than hard-coded, so a cluster landing does
+ * not require editing an unrelated test — while still failing if the sitemap
+ * and the registry ever disagree about what is published.
+ */
+const EXPECTED_SITEMAP_URLS = CZECH_ROUTES.length + PUBLISHED_LOCALIZED_ROUTES.length
+
 
 const ROOT = process.cwd()
 const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8')
@@ -379,7 +389,7 @@ describe('Ecosystem — must not disturb existing SEO or privacy', () => {
     // the content layer and the locale registry, never from the ecosystem
     // banner, which is exactly what this assertion keeps true.
     const sitemap = read('public/sitemap.xml')
-    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(205)
+    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(EXPECTED_SITEMAP_URLS)
     expect(sitemap).not.toContain('helperg.com')
   })
 

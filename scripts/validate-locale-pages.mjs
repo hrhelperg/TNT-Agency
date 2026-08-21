@@ -24,8 +24,8 @@ const BUILD = path.join(ROOT, '.next/server/pages')
 const ORIGIN = 'https://talentpartnerid.com'
 
 const R = await import('../lib/locale/registry.ts')
-const EN = await import('../lib/locale/content/en.ts')
-const DE = await import('../lib/locale/content/de.ts')
+const EN = await import('../lib/locale/content/en/index.ts')
+const DE = await import('../lib/locale/content/de/index.ts')
 const CONTENT = { en: EN.EN_CONTENT, de: DE.DE_CONTENT }
 
 const pageFile = (route) => {

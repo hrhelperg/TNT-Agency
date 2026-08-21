@@ -28,6 +28,7 @@
  * /en/request-workers, /de/fachkraefterekrutierung not /de/fachkraefte-recruiting,
  * and so on). Keeping both would have been two sources of truth.
  */
+import { L1_CONCEPTS } from './l1-concepts'
 
 export const LOCALES = ['cs', 'en', 'de'] as const
 export type Locale = (typeof LOCALES)[number]
@@ -295,7 +296,7 @@ export const CZECH_ROUTES: readonly string[] = [
  * wage and tax content) is gated behind source and freshness review, because a
  * translated statutory claim inherits every accuracy obligation of the original.
  */
-export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
+const L0_CONCEPTS: readonly LocaleConcept[] = [
   {
     id: 'home',
     csPrimary: '/',
@@ -422,6 +423,18 @@ export const LEGAL_CONCEPTS: readonly LocaleConcept[] = [
 ]
 
 /** Every concept that participates in locale resolution. */
+/**
+ * L1 concepts join the same registry rather than forming a second one.
+ *
+ * Everything downstream — hreflang, canonicals, the switcher, the sitemap
+ * generator, the collapse rules — reads LOCALE_CONCEPTS. A parallel registry
+ * would mean two sources of route truth and, inevitably, two answers.
+ *
+ * Only PUBLISHED locales are ever emitted, so a concept can be frozen and
+ * slugged here long before its pages exist without advertising a phantom URL.
+ */
+export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [...L0_CONCEPTS, ...L1_CONCEPTS]
+
 export const ALL_CONCEPTS: readonly LocaleConcept[] = [...LOCALE_CONCEPTS, ...LEGAL_CONCEPTS]
 
 /** The URL for a concept in a locale, or undefined when it does not exist. */

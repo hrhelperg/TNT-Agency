@@ -1,4 +1,4 @@
-import type { LocaleCorpus } from './types'
+import type { LocaleCorpus } from '../types'
 
 /**
  * English L0 content.
@@ -21,7 +21,7 @@ import type { LocaleCorpus } from './types'
  * public/script.js rather than retranslated — they are already reviewed copy,
  * and inventing a second English voice for the same page would be worse.
  */
-export const EN_CONTENT: LocaleCorpus = {
+export const EN_L0: LocaleCorpus = {
   home: {
     en: {
       title: 'TalentPartnerID | Staffing and recruitment in the Czech Republic',
