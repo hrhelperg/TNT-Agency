@@ -357,10 +357,16 @@ export const L1_CONCEPTS: readonly L1Concept[] = [
     id: 'employer-faq',
     category: 'trust',
     csPrimary: '/faq-pro-zamestnavatele',
-    csCollapsed: ['/faq-zamestnavani-pracovniku'],
     urls: { en: '/en/employer-faq', de: '/de/haeufige-fragen-arbeitgeber' },
     pageType: 'faq',
-    notes: 'Two Czech FAQ hubs answer the same employer questions.',
+    notes:
+      'RECLASSIFIED after reading the sources. /faq-zamestnavani-pracovniku was ' +
+      'listed here as a collapsed variant on the assumption that two FAQ hubs answered ' +
+      'the same employer questions. They do not: its eight questions are about work ' +
+      'permits, the Employee Card, the Blue Card, the minimum wage and insurance rates — ' +
+      'immigration and payroll, which this programme defers to L2. Collapsing it under an ' +
+      'employer concept would have labelled immigration content as commercial. It is now ' +
+      'deferred, so nothing changes about what gets translated; only the label is honest.',
   },
   {
     id: 'employer-glossary',
@@ -441,6 +447,11 @@ export const CLASS_RULES: readonly ClassRule[] = [
 
 /** Concepts deferred to L2, with the obligation that defers them. */
 export const DEFERRED_L2: ReadonlyArray<{ route: string; reason: string }> = [
+  {
+    route: '/faq-zamestnavani-pracovniku',
+    reason:
+      'Reclassified from a collapsed variant of employer-faq after reading it. Its questions cover work permits, the Employee Card and Blue Card, the minimum wage and insurance rates — immigration and payroll, not employer commercial content.',
+  },
   { route: '/odborna-zpusobilost-a-opravneni', reason: 'Subject IS statutory competence (vyhláška 50, NV 194/2022). Structurally legal.' },
   { route: '/ubytovani-pro-pracovniky', reason: 'States that accommodation proof is required for some residence permits — immigration-adjacent.' },
   { route: '/skutecne-naklady-na-zamestnance', reason: 'Employer cost including statutory contributions — payroll.' },

@@ -18,12 +18,12 @@ cites its sources, so citation is no signal at all.
 | L1 concepts | **38** |
 | New EN pages | **38** |
 | New DE pages | **38** |
-| Czech routes represented by an L1 concept | 57 (38 primaries + 19 collapsed variants) |
+| Czech routes represented by an L1 concept | 56 (38 primaries + 18 collapsed variants) |
 | Static routes | 195 → **271** |
 | Canonical URLs | 205 → **281** |
 | Sitemap `<loc>` | 205 → **281** |
 
-Semantic parity, not numerical: 19 Czech synonym pages collapse into
+Semantic parity, not numerical: 18 Czech synonym pages collapse into
 their concept primary and receive no EN/DE page of their own.
 
 ## Coverage of the Czech spine
@@ -32,12 +32,12 @@ All 185 Czech routes are accounted for.
 
 | Classification | Routes |
 |---|---|
-| L0 | 73 |
+| L0 | 72 |
 | L1_primary | 0 |
 | L1_collapsed | 0 |
 | LEGAL | 9 |
 | CZECH_ONLY | 57 |
-| L2 | 40 |
+| L2 | 41 |
 | OUT_OF_SCOPE | 6 |
 | **total** | **185** |
 
@@ -102,7 +102,7 @@ All 185 Czech routes are accounted for.
 
 | concept_id | page_type | cs_primary | cs_variants | en_url | de_url | cs words | reason / slug note |
 |---|---|---|---|---|---|---|---|
-| `employer-faq` | faq | `/faq-pro-zamestnavatele` | `/faq-zamestnavani-pracovniku` | `/en/employer-faq` | `/de/haeufige-fragen-arbeitgeber` | 148 | Two Czech FAQ hubs answer the same employer questions. |
+| `employer-faq` | faq | `/faq-pro-zamestnavatele` | — | `/en/employer-faq` | `/de/haeufige-fragen-arbeitgeber` | 148 | RECLASSIFIED after reading the sources. /faq-zamestnavani-pracovniku was listed here as a collapsed variant on the assumption that two FAQ hubs answered the same employer questions. They do not: its eight questions are about work permits, the Employee Card, the Blue Card, the minimum wage and insurance rates — immigration and payroll, which this programme defers to L2. Collapsing it under an employer concept would have labelled immigration content as commercial. It is now deferred, so nothing changes about what gets translated; only the label is honest. |
 | `employer-glossary` | reference | `/slovnik-pojmu-pro-zamestnavatele` | — | `/en/employer-glossary` | `/de/glossar-fuer-arbeitgeber` | 114 | Terminology, including terms that have no clean equivalent — which is itself useful to a foreign reader. |
 | `editorial-policy` | utility | `/redakcni-zasady` | — | `/en/editorial-standards` | `/de/redaktionelle-grundsaetze` | n/a | How the site sources and dates its content. Non-statistical, and the page a sceptical reader looks for; the E-E-A-T gate already requires the Czech one to be linked. |
 
@@ -110,6 +110,7 @@ All 185 Czech routes are accounted for.
 
 | route | reason |
 |---|---|
+| `/faq-zamestnavani-pracovniku` | Reclassified from a collapsed variant of employer-faq after reading it. Its questions cover work permits, the Employee Card and Blue Card, the minimum wage and insurance rates — immigration and payroll, not employer commercial content. |
 | `/odborna-zpusobilost-a-opravneni` | Subject IS statutory competence (vyhláška 50, NV 194/2022). Structurally legal. |
 | `/ubytovani-pro-pracovniky` | States that accommodation proof is required for some residence permits — immigration-adjacent. |
 | `/skutecne-naklady-na-zamestnance` | Employer cost including statutory contributions — payroll. |

@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { TRUST_DATA, OFFICIAL_SOURCES } from '../lib/content/trust-data'
+import LocaleAlternates from '../components/locale/LocaleAlternates'
 
 // Editorial-standards / methodology page (Batch C — Trust / E-E-A-T).
 //
@@ -55,6 +56,10 @@ export default function RedakcniZasady() {
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={URL} />
+        {/* Reciprocal hreflang from the locale registry. This page is the Czech
+            primary of the editorial-policy concept; without this the EN and DE
+            pages declare it and it does not declare them back. */}
+        <LocaleAlternates route="/redakcni-zasady" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={URL} />
         <meta property="og:title" content="Redakční zásady a zdroje | TalentPartnerID" />

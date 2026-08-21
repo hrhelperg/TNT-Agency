@@ -127,3 +127,58 @@ return numbers. Both translations say the same and add none. Carried faithfully;
 Terminology preferences (*Personalgewinnung* over *Personalbeschaffung*,
 *Direktansprache* over *aktive Ansprache*), sentence rhythm, and the choice to
 keep "Onboarding" as a loanword in German where the Czech also uses it.
+
+---
+
+## Cluster B — trust (3 concepts)
+
+**3 C findings — 3 C-PRESERVED, 0 C-RESOLVED, 0 C-OPEN.**
+
+| concept | CS source | EN | DE | A | B | C | D |
+|---|---|---|---|---|---|---|---|
+| `employer-faq` | `/faq-pro-zamestnavatele` | ok | ok | – | – | C11 · PRESERVED | – |
+| `employer-glossary` | `/slovnik-pojmu-pro-zamestnavatele` | ok | ok | – | – | C12 · PRESERVED | terminology |
+| `editorial-policy` | `/redakcni-zasady` | ok | ok | – | – | C13 · PRESERVED | – |
+
+**C11 · C-PRESERVED — "do you promise results or savings?"** The Czech FAQ answers
+its own question with *"Ne. Neuvádíme vymyšlená čísla úspor ani záruky."* Both
+translations keep the question and the flat refusal. Removing an awkward question
+from a FAQ is the easiest possible way to quietly become an overclaiming site,
+so it stays. Carried faithfully; publishable.
+
+**C12 · C-PRESERVED — the glossary is not binding.** The Czech states that the
+definitions are simplified for orientation and replace neither the binding
+wording of regulations nor an individual assessment. Both translations carry it
+in the intro and again as a closing section. The agency-employment definition
+names Czech law explicitly — *"nach tschechischem Recht muss die Agentur eine
+gültige Erlaubnis zur Arbeitsvermittlung besitzen"* — because the German term
+otherwise reads as the German AÜG arrangement. Carried faithfully; publishable.
+
+**C13 · C-PRESERVED — the editorial-standards prohibitions.** This is the most
+sensitive page in L1: its subject *is* the set of claims the site refuses to
+make. Every prohibition is carried across — no invented data, statistics, worker
+counts, wages, success rates, savings or response times; no ratings, reviews or
+stars; no invented references or case studies; no "verified by the ministry",
+"state-licensed" or "state-approved"; no guaranteed workers or immediate start;
+and operator identifiers published as fact only after verification, marked as
+verification in progress until then.
+
+Softening any one of them would contradict the page's own subject, and the
+translation would then be evidence against itself. Nothing was added either: the
+English and German name the same registers the Czech names — ARES and the
+register of employment agencies — and claim no permit. Carried faithfully;
+publishable.
+
+### Reclassification during this cluster
+
+`/faq-zamestnavani-pracovniku` was frozen as a **collapsed variant** of
+`employer-faq`, on the assumption that two Czech FAQ hubs answered the same
+employer questions. Reading it disproved that: its eight questions are about
+work permits, the Employee Card, the Blue Card, the minimum wage and insurance
+rates — immigration and payroll, which this programme defers to L2.
+
+It is therefore **reclassified COLLAPSED_VARIANT → L2**. Nothing changes about
+what gets translated, because a collapsed variant is Czech-only in any case;
+what changes is that immigration content is no longer labelled as employer
+commercial content. Collapsed variants drop from 19 to 18; concept and page
+counts are unchanged at 38 and 76.
