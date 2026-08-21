@@ -264,3 +264,68 @@ Czech is explicit that this is a statutory requirement a contract may implement
 but not change or exclude, and that compliance is inspected on both sides. Both
 translations say so, attributed to the Czech Labour Code and the Czech labour
 inspection authorities. Carried faithfully; publishable.
+
+---
+
+## Cluster D — industries (5 concepts)
+
+**5 C findings — 5 C-PRESERVED, 0 C-RESOLVED, 0 C-OPEN.**
+
+| concept | CS source | EN | DE | A | B | C | D |
+|---|---|---|---|---|---|---|---|
+| `warehouse-workers` | `/skladnici` | ok | ok | – | – | C24 · PRESERVED | – |
+| `logistics-workers` | `/pracovnici-do-logistiky` | ok | ok | – | – | C25 · PRESERVED | – |
+| `construction-workers` | `/stavebni-pracovnici` | ok | ok | – | – | C26 · PRESERVED | – |
+| `food-production-workers` | `/pracovnici-pro-potravinarskou-vyrobu` | ok | ok | – | – | C27 · PRESERVED | – |
+| `automotive-workers` | `/pracovnici-pro-automotive` | ok | ok | – | – | C28 · PRESERVED | – |
+
+All five Czech sources carry the same standing refusal — no wages and no vacancy
+counts, with a pointer to the Czech Statistical Office, the Ministry of Labour
+and Social Affairs and the Czech Labour Office. All five translations carry it
+(**C24**–**C28**), and three carry a sector-specific legal statement in addition:
+
+- **C25** — the lawful forms of flexible peak cover in logistics: fixed-term
+  employment, agreements outside an employment relationship, and temporary
+  assignment. The Czech says the chaining of fixed-term contracts and the scope
+  of those agreements are limited by the Labour Code, that the exact limits must
+  be verified against the current wording, and states no figures. Carried in
+  both, attributed to Czech law.
+- **C27** — chilled and frozen environments: the Czech Labour Code duty to
+  provide a safe working environment and adapt the organisation of work to it,
+  extending to low temperatures, and to provide protective equipment free of
+  charge where the risks require it.
+- **C28** — working-time distribution: the Labour Code distinction between even
+  and uneven distribution, and the working-time account, which may be introduced
+  only by collective agreement or internal regulation.
+
+Carried faithfully; publishable.
+
+### Near-duplicate check — the one that needed a second test
+
+`warehouse-workers` ↔ `logistics-workers` scored **45.9%** word overlap in
+English, the highest pair in the programme and above the screening threshold.
+
+Word overlap alone could not answer it: two pages about adjacent sectors share
+the vocabulary of the domain — shift, peak, capacity, agency, training — and
+score high while saying different things. So the pair was put through the test
+that names the defect §23 actually describes, *the same body with noun
+substitutions*: strip the sector nouns from every sentence in both pages and
+count how many become identical.
+
+**Result: zero**, apart from the two standing disclaimers that are deliberately
+identical on every page. Zero shared section headings, four sections against
+five, and distinct substance — handling-equipment authorisation and burst volume
+on one side, chain interdependence and the statutory forms of flexible cover on
+the other.
+
+That check is now `validate:locale-duplicates` rather than a one-off, because
+cluster E has thirteen concepts and the highest duplicate risk in the programme.
+Its negative control rewrites one page as a noun-substituted copy of another and
+requires the gate to fail: it reports 98.6% overlap and 15 substituted
+sentences.
+
+The thin-content threshold in that gate applies to prose page types only. A
+contact page of seventy words is not thin content, and the request-staff page's
+substance is a twelve-field form rather than prose — checked by the interactive
+-parity gate instead. One number across every page type would either pass real
+thin prose or fail pages that are doing their job.
