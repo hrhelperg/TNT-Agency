@@ -2411,6 +2411,25 @@ p  { color: var(--text-2); line-height: 1.7; }
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+/* The locale CTA is a .btn, and .btn is `white-space: nowrap` — so a long
+   German label cannot wrap and sets the page's min-content width on its own.
+   "Wie eine Personalagentur funktioniert" measured 307px inside a 280px column
+   at 320px, pushing the document to 327px.
+
+   Same remedy the .pillar__foot .btn rule above already uses for exactly this:
+   let the label wrap and let the button grow, rather than clipping it or
+   shortening copy to fit a box. Applied at the same breakpoint, so the two
+   behave alike. */
+@media (max-width: 520px) {
+  .locale-cta .btn {
+    white-space: normal;
+    height: auto;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    line-height: 1.35;
+  }
+}
 .pcalc__panel, .pcalc__results { min-width: 0; max-width: 100%; }
 .pcalc-mode-btn { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
 .pcalc-card__label, .pcalc-card__value,

@@ -182,3 +182,85 @@ what gets translated, because a collapsed variant is Czech-only in any case;
 what changes is that immigration content is no longer labelled as employer
 commercial content. Collapsed variants drop from 19 to 18; concept and page
 counts are unchanged at 38 and 76.
+
+---
+
+## Cluster C — workforce (9 concepts)
+
+The most legally dense cluster in L1, and the one where German jurisdiction
+framing matters most: *Arbeitnehmerüberlassung* is the term of the German AÜG,
+and these pages describe the Czech arrangement.
+
+**9 C findings — 9 C-PRESERVED, 0 C-RESOLVED, 0 C-OPEN.**
+
+| concept | CS source | EN | DE | A | B | C | D |
+|---|---|---|---|---|---|---|---|
+| `volume-hiring` | `/hromadny-nabor-pracovniku` | ok | ok | – | – | C14 · PRESERVED | – |
+| `production-ramp-up` | `/nabor-pri-nabehu-vyroby` | ok | ok | – | – | C15 · PRESERVED | – |
+| `seasonal-capacity` | `/sezonni-navyseni-kapacity` | ok | ok | – | – | C16 · PRESERVED | – |
+| `absence-cover` | `/absence-v-provozu` | ok | ok | – | – | C17 · PRESERVED | – |
+| `direct-hire` | `/primy-nabor-zamestnancu` | ok | ok | – | – | C18, C19 · PRESERVED | – |
+| `agency-employment` | `/docasne-prideleni-zamestnancu` | ok | ok | – | – | C20 · PRESERVED | terminology |
+| `agency-fees` | `/cena-sluzeb-personalni-agentury` | ok | ok | – | – | C21 · PRESERVED | – |
+| `choosing-an-agency` | `/jak-vybrat-personalni-agenturu` | ok | ok | – | – | **C22** · PRESERVED | – |
+| `agency-contract` | `/smlouva-s-personalni-agenturou` | ok | ok | – | – | C23 · PRESERVED | – |
+
+**C14 · C-PRESERVED — model numbers, not delivered work.** The Czech says the
+20/50/100 figures are planning models "nikoli popis realizovaných zakázek", and
+refuses a general margin percentage because none would hold for every operation.
+Both carried. Carried faithfully; publishable.
+
+**C15 · C-PRESERVED — safety duties attach to the workplace.** The Czech states
+that occupational safety obligations attach to the workplace and the employer,
+not to whether the operation is new. Marked as Czech law in both. Carried
+faithfully; publishable.
+
+**C16 · C-PRESERVED — employment models and their statutory limits.** Temporary
+assignment under Act 435/2004 Sb., fixed-term employment, and agreements outside
+an employment relationship "have statutory limits under Czech law". The Czech
+declines regional figures; both translations decline them and name the same
+public sources. Carried faithfully; publishable.
+
+**C17 · C-PRESERVED — no general absence percentage.** *"obecné číslo neuvádíme,
+protože by pro nikoho neplatilo."* Carried. Carried faithfully; publishable.
+
+**C18 · C-PRESERVED — mediation requires a permit either way.** The Czech makes
+the sharp point that a permit is needed for both routes; the difference is who
+remains the employer. Both translations carry it and attribute it to Act
+435/2004 Sb. Neither claims we hold one. Carried faithfully; publishable.
+
+**C19 · C-PRESERVED — no fee figures, no promise of tenure.** *"Žádné částky ani
+procenta zde neuvádíme"* and *"Žádnou náhradu ani setrvání kandidáta nelze
+slibovat dopředu."* Both carried, with the reasoning that a candidate's tenure
+is that person's own decision. Carried faithfully; publishable.
+
+**C20 · C-PRESERVED — the German term and the Czech arrangement.** The concept's
+German slug is `/de/arbeitnehmerueberlassung-tschechien`: the jurisdiction is in
+the URL as well as the first legally meaningful sentence, and the page states it
+follows the Czech Labour Code and the Czech Employment Act. Comparable
+conditions and shared safety responsibility are carried exactly as the Czech has
+them. Carried faithfully; publishable.
+
+**C21 · C-PRESERVED — a page about price that states no price.** *"Na této
+stránce proto nenajdete žádnou částku, sazbu ani podíl."* Both translations
+state no amount, rate or share, and both keep the harder point: an hourly rate
+for assignment is not a free commercial judgement, because it must legally carry
+pay at the comparable-conditions level. Carried faithfully; publishable.
+
+**C22 · C-PRESERVED — a checklist deliberately usable against us.** The Czech
+says the page is *"záměrně použitelný i proti nám"* and that we do not declare
+our own status verified — check it in the public register yourself. Both
+translations carry that sentence, including the instruction to verify us.
+
+They also carry the warning signs unchanged, two of which are claims this
+industry makes routinely: a promised start date, and the size of a candidate
+database. And the third — that state authorities issue permits and maintain
+registers but do not issue recommendations of suppliers — which rules out a
+claim the site could otherwise make about itself. Carried faithfully;
+publishable.
+
+**C23 · C-PRESERVED — comparable conditions cannot be contracted away.** The
+Czech is explicit that this is a statutory requirement a contract may implement
+but not change or exclude, and that compliance is inspected on both sides. Both
+translations say so, attributed to the Czech Labour Code and the Czech labour
+inspection authorities. Carried faithfully; publishable.
