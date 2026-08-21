@@ -2388,6 +2388,29 @@ p  { color: var(--text-2); line-height: 1.7; }
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+/* Same treatment for the locale pages, which render bare h1/h2 and so never
+   inherited it. At 320px "Für Arbeitgeber: Personalgewinnung, Teamstabilität
+   und Kosten" measured 345px of unbreakable content in a 280px column, and
+   "Besetzungsentscheidung" 327px. That set the document's scroll width to
+   365px — and because the ecosystem ribbon and the header are full-width, they
+   stretched to 365px too, carrying the hamburger to x=345 and out of the
+   viewport. The ribbon was the visible symptom; the heading was the cause, so
+   this makes the content fit rather than clipping anything.
+
+   The rule is language-neutral by design: it only acts on a word that would
+   otherwise overflow, and `hyphens: auto` reads the lang attribute already on
+   <main>, so German hyphenates by German rules and English by English ones. */
+.locale-page h1,
+.locale-page h2,
+.locale-page h3,
+.locale-page p,
+.locale-page li,
+.locale-page .breadcrumbs {
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
 .pcalc__panel, .pcalc__results { min-width: 0; max-width: 100%; }
 .pcalc-mode-btn { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
 .pcalc-card__label, .pcalc-card__value,

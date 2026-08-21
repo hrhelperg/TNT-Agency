@@ -54,7 +54,7 @@ export default function LocalePage({ conceptId, locale, content, afterContent }:
 
       <Header activePage={undefined} locale={locale} />
 
-      <main className="section" lang={locale}>
+      <main className="section locale-page" lang={locale}>
         <div className="container">
           {selfUrl !== localeHome && (
             <nav className="breadcrumbs" aria-label={CHROME_ARIA[locale].breadcrumb}>
