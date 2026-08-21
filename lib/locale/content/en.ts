@@ -204,7 +204,8 @@ export const EN_CONTENT: LocaleCorpus = {
           heading: 'How to verify us',
           body: [
             'Company details can be checked in the public register of companies and in the ARES business register. Employment agencies operating in the Czech Republic must hold a valid permit under the Employment Act, and the register of permit holders is maintained by the Ministry of Labour and Social Affairs.',
-            'We publish the identifiers needed for those checks rather than asking you to rely on a claim made on our own website.',
+            'Only details we have verified are published here — the trading name, the registered seat and the contact details, each taken from the business register. '
+            + 'The employment-agency permit details are deliberately not stated as fact until we have confirmed them directly from the official record, and no estimated or indicative values are given in the meantime.',
           ],
         },
         {

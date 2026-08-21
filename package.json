@@ -51,7 +51,8 @@
     "sitemap": "node --import ./scripts/ts-resolve.mjs scripts/generate-sitemap.mjs --write",
     "validate:locale-pages": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-pages.mjs",
     "validate:locale-registry": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-registry.mjs",
-    "test:mutate-locale-registry": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-registry.mjs"
+    "test:mutate-locale-registry": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-registry.mjs",
+    "test:mutate-locale-corrective": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-corrective.mjs"
   },
   "dependencies": {
     "next": "14.2.3",

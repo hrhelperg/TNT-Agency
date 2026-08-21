@@ -1,6 +1,7 @@
 import { SITE } from '../lib/content/rules'
 import { OPERATOR_EMAIL, OPERATOR_PHONE, OPERATOR_SEAT } from '../lib/content/trust-data'
 import {
+  CHROME_ARIA,
   CHROME_FOOTER,
   footerTarget,
   resolveNavHref,
@@ -61,7 +62,7 @@ export default function Footer({ locale }: FooterProps = {}) {
             <address>{OPERATOR_SEAT}</address>
           </div>
 
-          <nav className="footer__nav" aria-label="Footer navigation">
+          <nav className="footer__nav" aria-label={CHROME_ARIA[locale ?? 'cs'].footerNav}>
             <div className="footer__col">
               {/* Each service link resolves to the page that actually describes
                   that service. All four previously pointed at /agencies, which

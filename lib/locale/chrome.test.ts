@@ -112,29 +112,63 @@ describe('the server chrome copy cannot drift from the client dictionary', () =>
 
 describe('header links from a locale page', () => {
   it('never invents a localized URL for a page that has none', () => {
+    // A localized destination is NOT identifiable by a /en or /de prefix. The
+    // legal cluster predates the prefix scheme and keeps flat filenames, so
+    // /terms-de.html is the German page and /terms.html is the English one.
+    // Testing the prefix would have called both of those "not localized".
+    // The real rule is the registry: resolve to the concept's URL for this
+    // locale when it publishes one, and to the Czech URL otherwise.
     for (const locale of ['en', 'de'] as const) {
       for (const t of [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS]) {
         const { href } = resolveNavHref(t, locale)
-        if (href.startsWith(`/${locale}`)) {
-          const concept = ALL_CONCEPTS.find((c) => c.id === t.conceptId)!
-          expect(concept.published).toContain(locale)
-          expect(href).toBe(urlFor(concept, locale))
+        const concept = t.conceptId ? ALL_CONCEPTS.find((c) => c.id === t.conceptId) : undefined
+        if (concept && concept.published.includes(locale)) {
+          expect(href, `${t.key} in ${locale}`).toBe(urlFor(concept, locale))
         } else {
-          expect(href).toBe(t.czechHref)
+          expect(href, `${t.key} in ${locale} has no translation`).toBe(t.czechHref)
         }
       }
     }
   })
 
   it('declares hreflang="cs" on exactly the links that stay Czech', () => {
+    // hreflang states the DESTINATION's language, so it belongs on a link only
+    // when the destination is not in the page's own language. The bug this
+    // pins: the legal links resolved to /terms.html — the ENGLISH page — while
+    // being stamped hreflang="cs", so a German page announced an English
+    // document as Czech.
     for (const locale of ['en', 'de'] as const) {
       for (const t of [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS]) {
         const { href, hreflang } = resolveNavHref(t, locale)
-        expect(hreflang, `${locale} ${t.key} -> ${href}`).toBe(
-          href.startsWith(`/${locale}`) ? undefined : 'cs',
-        )
+        const concept = t.conceptId ? ALL_CONCEPTS.find((c) => c.id === t.conceptId) : undefined
+        const servedInPageLocale = Boolean(concept && concept.published.includes(locale))
+        expect(hreflang, `${locale} ${t.key} -> ${href}`).toBe(servedInPageLocale ? undefined : 'cs')
       }
     }
+  })
+
+  it('no legal link is ever labelled as a language it is not', () => {
+    // Direct regression for the production defect: every legal destination must
+    // be the page for THIS locale, and carry no hreflang at all.
+    for (const key of ['terms', 'priv', 'cook'] as const) {
+      const target = footerTarget(key)
+      const concept = ALL_CONCEPTS.find((c) => c.id === target.conceptId)
+      expect(concept, `${key} must map to a LEGAL_CONCEPTS entry`).toBeDefined()
+      for (const locale of ['cs', 'en', 'de'] as const) {
+        expect(concept!.published).toContain(locale)
+        const { href, hreflang } = resolveNavHref(target, locale)
+        expect(href, `${key} in ${locale}`).toBe(urlFor(concept!, locale))
+        expect(hreflang, `${key} in ${locale} must not claim another language`).toBeUndefined()
+      }
+    }
+  })
+
+  it('the Czech legal links point at the CZECH legal pages', () => {
+    // They pointed at the English ones (/terms.html) for as long as the footer
+    // has existed, in a field literally named czechHref.
+    expect(footerTarget('terms').czechHref).toBe('/terms-cs.html')
+    expect(footerTarget('priv').czechHref).toBe('/privacy-cs.html')
+    expect(footerTarget('cook').czechHref).toBe('/cookies-cs.html')
   })
 
   it('adds no hreflang at all on the Czech spine', () => {
