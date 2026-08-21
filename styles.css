@@ -469,11 +469,26 @@ p  { color: var(--text-2); line-height: 1.7; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* --consent-banner-h — real rendered height of .cookie-banner, published by
+   CookieBanner.tsx while it is on screen and 0px once answered. Defaulted here
+   so a frame before JS measures it, or a no-JS visit, still gets the menu's
+   original safe-area reserve rather than an unset var. */
+:root { --consent-banner-h: 0px; }
+
 /* Mobile nav */
 .mobile-nav {
   display: none;
   position: fixed;
-  inset: 0;
+  /* Stop the overlay where the consent banner begins, rather than running
+     underneath it. Reserving the space as bottom PADDING was not enough: it
+     guaranteed a scroll position existed where the CTA cleared the banner, but
+     the menu still drew items beneath it, so on open the CTA rendered visible
+     and tappable-looking at 769–823px with the banner starting at 542px —
+     elementFromPoint at its centre returned the banner's accept button. A
+     visitor who taps what they can see, without first scrolling, hits the
+     banner. Shortening the overlay makes that unrepresentable: nothing inside
+     it can be under the banner at any scroll position. */
+  inset: 0 0 var(--consent-banner-h) 0;
   z-index: 99;
   background: rgba(255,255,255,0.97);
   -webkit-backdrop-filter: blur(16px);
@@ -483,7 +498,10 @@ p  { color: var(--text-2); line-height: 1.7; }
   justify-content: flex-start;
   gap: 20px;
   /* Clear the fixed header, respect the notch/home-indicator, and let the menu
-     scroll so the CTA is always reachable on short screens. */
+     scroll so the CTA is always reachable on short screens. The consent banner
+     is handled by `inset` above, not here: shortening the overlay is what keeps
+     menu content off the banner, and adding the same reserve twice would strand
+     the last item above a band of empty space. */
   padding: calc(88px + env(safe-area-inset-top)) 24px calc(32px + env(safe-area-inset-bottom));
   overflow-y: auto;
   overscroll-behavior: contain;

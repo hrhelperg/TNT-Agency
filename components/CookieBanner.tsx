@@ -1,9 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLang, type Lang } from '../lib/i18n/react'
 import { CONSENT_KEY, readConsent, writeConsent } from '../lib/consent'
 import { clearWebmasterIdStorage } from '../lib/analytics/webmasterid'
 
 export { CONSENT_KEY }
+
+/**
+ * The banner's real rendered height, published so other fixed-position layers
+ * can reserve room for it instead of guessing.
+ *
+ * It is not a constant: this text wraps to as many as four lines depending on
+ * language and viewport width — German at 320px measures 302px, more than
+ * double a one-line English banner at 768px. A static reservation sized for
+ * one case is either too small (the mobile menu's primary action lands under
+ * the banner and cannot be clicked — the defect this fixes) or wastes most of
+ * a phone screen's menu in the other. `--eco-total` bridges a JS-owned
+ * dimension into layout the same way; this is that pattern for a value that
+ * varies by content rather than by breakpoint alone.
+ */
+const CONSENT_BANNER_HEIGHT_VAR = '--consent-banner-h'
+
+function publishBannerHeight(el: HTMLElement | null) {
+  document.documentElement.style.setProperty(CONSENT_BANNER_HEIGHT_VAR, el ? `${Math.ceil(el.getBoundingClientRect().height)}px` : '0px')
+}
 
 // Localized chrome only — consent semantics (gtag consent mode + the stored
 // choice) are unchanged. Preference storage is the consent flag, not personal data.
@@ -53,6 +72,7 @@ export default function CookieBanner() {
   const [visible, setVisible] = useState(false)
   const lang = useLang()
   const c = COOKIE_COPY[lang]
+  const rootRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const stored = readConsent()
@@ -63,6 +83,43 @@ export default function CookieBanner() {
     }
     // 'rejected' → defaults in _document.tsx already set everything to denied
   }, [])
+
+  // Keep --consent-banner-h matched to the real rendered height for as long as
+  // the banner is on screen, and reset it to 0px the moment it unmounts so a
+  // visitor who has answered gets the mobile menu's full room back.
+  //
+  // A resize listener alone is NOT sufficient, and assuming it was produced a
+  // real defect: this text re-wraps when the web font finishes loading, which
+  // fires no resize event. The published value stayed one line short of the
+  // truth — measured 258px against a real 279.5px — and the mobile menu
+  // reserved 21px too little, leaving the CTA fractionally under the banner in
+  // exactly the window a first-time visitor is interacting. A ResizeObserver
+  // watches the element itself, so ANY cause of a height change — font load,
+  // re-wrap, locale switch, viewport change — republishes it.
+  useEffect(() => {
+    if (!visible) {
+      publishBannerHeight(null)
+      return
+    }
+    const el = rootRef.current
+    const measure = () => publishBannerHeight(rootRef.current)
+    measure()
+
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null
+    if (observer && el) observer.observe(el)
+    // Fallback for anything without ResizeObserver, plus orientation changes
+    // that can alter layout without resizing the element's own box.
+    window.addEventListener('resize', measure)
+    // Fonts settling is the specific case the observer exists for; ask
+    // directly too, so the correction lands even if the observer is absent.
+    ;(document as Document & { fonts?: FontFaceSet }).fonts?.ready?.then(measure).catch(() => {})
+
+    return () => {
+      observer?.disconnect()
+      window.removeEventListener('resize', measure)
+      publishBannerHeight(null)
+    }
+  }, [visible, lang])
 
   function accept() {
     writeConsent('accepted')
@@ -83,7 +140,7 @@ export default function CookieBanner() {
   if (!visible) return null
 
   return (
-    <div className="cookie-banner" role="dialog" aria-label={c.label} aria-modal="false" lang={lang}>
+    <div ref={rootRef} className="cookie-banner" role="dialog" aria-label={c.label} aria-modal="false" lang={lang}>
       <div className="cookie-banner__inner">
         <p className="cookie-banner__text">
           {c.text}{' '}
