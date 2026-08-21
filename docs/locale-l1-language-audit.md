@@ -329,3 +329,95 @@ contact page of seventy words is not thin content, and the request-staff page's
 substance is a twelve-field form rather than prose — checked by the interactive
 -parity gate instead. One number across every page type would either pass real
 thin prose or fail pages that are doing their job.
+
+---
+
+## Cluster E — specialists (13 concepts)
+
+The cluster where the Czech sources are most precise about what a document does
+and does not say, and where that precision is the whole value of the page.
+
+**13 C findings — 13 C-PRESERVED, 0 C-RESOLVED, 0 C-OPEN.**
+
+| concept | CS source | EN | DE | A | B | C | D |
+|---|---|---|---|---|---|---|---|
+| `welders` | `/nabor-svarecu` | ok | ok | – | – | C29 · PRESERVED | – |
+| `cnc-operators` | `/nabor-cnc-operatoru` | ok | ok | – | – | C30 · PRESERVED | – |
+| `electricians` | `/nabor-elektrikaru` | ok | ok | – | – | C31 · PRESERVED | – |
+| `maintenance-technicians` | `/udrzba-a-technicky-servis` | ok | ok | – | – | C32 · PRESERVED | – |
+| `quality-roles` | `/pozice-v-rizeni-kvality` | ok | ok | – | – | **C33, C34** · PRESERVED | – |
+| `shift-supervisors` | `/mistri-a-vedouci-smen` | ok | ok | – | – | C35 · PRESERVED | – |
+| `automation-technicians` | `/nabor-techniku-automatizace` | ok | ok | – | – | C36 · PRESERVED | – |
+| `engineering-roles` | `/technicti-inzenyri` | ok | ok | – | – | C37 · PRESERVED | – |
+| `process-and-design-engineers` | `/technologove-a-konstrukteri` | ok | ok | – | – | C38 · PRESERVED | – |
+| `engineering-trades` | `/strojirenske-profese` | ok | ok | – | – | C39 · PRESERVED | – |
+| `technical-office-roles` | `/thp-pozice` | ok | ok | – | – | **C40** · PRESERVED | – |
+| `logistics-specialists` | `/odborne-pozice-v-logistice` | ok | ok | – | – | C41 · PRESERVED | – |
+| `purchasing-and-supply` | `/nakup-a-zasobovani` | ok | ok | – | – | C42 · PRESERVED | – |
+
+**C29 — welding certification.** ČSN EN ISO 9606-1, the tested range as several
+variables at once, the point that a certificate for steel says nothing about
+aluminium, the distinction between a welding logbook and a test certificate, and
+the fire-safety requirements for hot work away from a fixed station, attributed
+to Czech rules. All carried; no scope broadened.
+
+**C30 — no wages, no time to fill.** Carried, as is the safety requirement that
+a candidate be informed of risks and equipped before entering the workshop for a
+practical trial.
+
+**C31 — the regulation that no longer exists.** The Czech page exists largely to
+correct a widespread error: "decree 50" and "paragraph 6" come from a repealed
+regulation, and competence is now governed by Czech government regulation
+194/2022 Sb., under Czech act 250/2021 Sb. on reserved technical equipment. Both
+translations say the old and new structures cannot be mapped mechanically, that
+competence attaches to activity, equipment and regime rather than to a person,
+and that intervals and re-examination belong in the current wording. No level or
+interval was stated.
+
+**C32 — on-call duty.** The Czech Labour Code treatment of on-call time — that
+it must be agreed, that remuneration is due, and that work during it beyond the
+weekly limit is overtime — carried in both, and act 250/2021 Sb. for inspection
+documentation.
+
+**C33 — the metrology framework.** Czech act 505/1990 Sb. on metrology, with the
+distinction the Czech is careful about: verification of specified measuring
+instruments is entrusted to state metrology and authorised bodies, **not** to a
+company metrologist. Both translations keep that division intact.
+
+**C34 — system standards belong to employers, not to us.** The Czech states that
+ISO 9001, IATF 16949 and HACCP are described "as requirements employers state,
+not as certifications held by a staffing agency". Both translations carry that
+sentence explicitly. This is the finding most easily lost in translation and the
+one with the clearest consequence if it were: it would convert a description of
+what clients ask for into a claim about what we hold.
+
+**C35–C39 —** the manager-duties training including occupational safety; the
+three-way split in automation between regulated competence under regulation
+194/2022 Sb., industry convention and a company's own choice; authorisation in
+construction under Czech act 360/1992 Sb. as the one case where "engineer" is a
+regulated activity rather than a label; CAD/CAM as a company's choice that no
+regulation prescribes; and the Czech national occupations and qualifications
+registers with professional qualifications evidenced before an authorised person.
+All carried and attributed to Czech instruments.
+
+**C40 — a category that the law does not know.** "THP" appears in Czech job
+adverts everywhere and in the Labour Code nowhere. The Czech says so; both
+translations say so, and the English and German add one clarifying sentence —
+that this is worth stating plainly to a foreign reader, because a category
+present in every advert and absent from the law is easy to mistake for a
+qualification. That is an explanation of the source's own point for an audience
+that lacks the context, not a new fact.
+
+**C41 — no availability figures.** The Czech declines to state numbers on how
+available these occupations are. Carried.
+
+**C42 — commodity knowledge as convention, not requirement.** The Czech marks
+sector knowledge as industry convention and company systems as company
+specifics, explicitly so they are not treated as entry requirements. Carried.
+
+### Duplicate audit across the whole corpus
+
+`validate:locale-duplicates` now screens all 96 localized pages. One pair
+exceeds the similarity threshold — `warehouse-workers` ↔ `logistics-workers` at
+45.9% — and passes the noun-substitution test with zero substituted sentences.
+No thin prose pages; 11 hub, utility and tool pages exempt by type.

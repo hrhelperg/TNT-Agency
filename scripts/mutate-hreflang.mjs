@@ -49,16 +49,21 @@ const MUTATIONS = [
     },
   },
   {
-    // /pro-zamestnavatele used to be the example of "unrelated", but Locale L0
-    // made it a real concept primary with EN and DE counterparts, so an
-    // x-default there is now correct. The mutation needs a page that genuinely
-    // has no locale cluster — /skladnici is Czech-only and not even a collapsed
-    // variant of one.
+    // This mutation needs a page with genuinely no locale cluster, and has now
+    // been retargeted twice for the same reason: /pro-zamestnavatele became a
+    // concept primary in L0, and /skladnici became the warehouse-workers
+    // primary in L1. Both were "Czech-only" only until the next wave.
+    //
+    // A regional labour-market page cannot suffer that: the classification
+    // rules in lib/locale/l1-concepts.ts put every /trh-prace-* route in
+    // CZECH_ONLY permanently, because its value is locality-specific figures
+    // that would need a per-locale freshness programme. It is Czech-only by
+    // rule rather than by not having been reached yet.
     name: '4. x-default added to an unrelated page',
-    slug: '/skladnici',
+    slug: '/trh-prace-praha',
     expect: /x-default declared with no documented neutral fallback/,
     apply(d) {
-      d.get('/skladnici').alts.push({ lang: 'x-default', href: `${BASE}/skladnici` })
+      d.get('/trh-prace-praha').alts.push({ lang: 'x-default', href: `${BASE}/trh-prace-praha` })
     },
   },
   {
@@ -148,9 +153,13 @@ for (const m of MUTATIONS) {
 // ── Negative control: a Czech page with no hreflang must NOT fail ───────────
 {
   const docs = clone()
-  const plain = docs.get('/nabor-svarecu')
+  // Also retargeted for the L1 expansion: /nabor-svarecu is now the welders
+  // concept primary and legitimately carries four alternates. The negative
+  // control needs a page that will still have no translation after the next
+  // wave, so it uses a regional page — CZECH_ONLY by classification rule.
+  const plain = docs.get('/trh-prace-jihomoravsky-kraj')
   const { errors } = run(docs)
-  const flagged = errors.some((e) => e.startsWith('/nabor-svarecu:'))
+  const flagged = errors.some((e) => e.startsWith('/trh-prace-jihomoravsky-kraj:'))
   if (!plain.alts.length && !flagged) {
     console.log('  ✓ negative control: a Czech page with no translation declares nothing and passes')
   } else {
