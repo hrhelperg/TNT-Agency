@@ -3419,5 +3419,22 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
   font-size: 0.95rem;
 }
 .locale-switcher [aria-current='true'] { font-weight: 600; }
+
+/* The switcher lives in the header, so it follows the same responsive contract
+   as the legacy widget beside it: the desktop copy is hidden below 900px and
+   the mobile nav carries its own. Without this the header gained a fourth
+   inline item and pushed the hamburger outside the viewport on a phone —
+   caught by the German-overflow tests, which is what they are for. */
+.locale-switcher--header { margin: 0; }
+.locale-switcher--header ul { gap: 10px; font-size: 0.85rem; }
+.locale-switcher--header a,
+.locale-switcher--header span { white-space: nowrap; }
+
+.locale-switcher--mobile { margin: 0; }
+.locale-switcher--mobile ul { flex-wrap: wrap; gap: 12px; }
+
+@media (max-width: 900px) {
+  .locale-switcher--header { display: none; }
+}
 .locale-cta { margin-top: 28px; }
 .locale-cta__note { display: block; margin-top: 8px; font-size: 0.9rem; color: var(--muted); }
