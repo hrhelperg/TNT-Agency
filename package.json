@@ -57,7 +57,13 @@
     "test:mutate-route-collisions": "node scripts/mutate-route-collisions.mjs",
     "validate:l1-publication": "node --import ./scripts/ts-resolve.mjs scripts/validate-l1-publication.mjs",
     "validate:l1-plan": "node --import ./scripts/ts-resolve.mjs scripts/validate-l1-plan.mjs",
-    "validate:locale-duplicates": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-duplicates.mjs"
+    "validate:locale-duplicates": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-duplicates.mjs",
+    "test:mutate-locale-duplicates": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-duplicates.mjs",
+    "validate:locale-fidelity": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-fidelity.mjs",
+    "test:mutate-locale-fidelity": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-fidelity.mjs",
+    "validate:locale-jurisdiction": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-jurisdiction.mjs",
+    "test:mutate-locale-jurisdiction": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-jurisdiction.mjs",
+    "locale:source-inventory": "node --import ./scripts/ts-resolve.mjs scripts/locale-source-inventory.mjs"
   },
   "dependencies": {
     "next": "14.2.3",

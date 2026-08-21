@@ -36,7 +36,7 @@ export const EN_L0: LocaleCorpus = {
           heading: 'What we do',
           body: [
             'We work with employers who need to fill operational roles in manufacturing, warehouses and logistics, and the technical and specialist positions that sit alongside those operations.',
-            'Two models are available: permanent recruitment, where you employ the person directly, and agency employment, where the worker remains our employee and is temporarily assigned to you.',
+            'Two models are available: direct hire, where you employ the person directly, and agency employment, where the worker remains our employee and is temporarily assigned to you.',
           ],
         },
         {
@@ -203,7 +203,7 @@ export const EN_L0: LocaleCorpus = {
         {
           heading: 'How to verify us',
           body: [
-            'Company details can be checked in the public register of companies and in the ARES business register. Employment agencies operating in the Czech Republic must hold a valid permit under the Employment Act, and the register of permit holders is maintained by the Ministry of Labour and Social Affairs.',
+            'Company details can be checked in the public register of companies and in the ARES business register. Employment agencies operating in the Czech Republic must hold a valid permit under Czech Act 435/2004 Sb. on employment, and the register of permit holders is maintained by the Ministry of Labour and Social Affairs.',
             'Only details we have verified are published here — the trading name, the registered seat and the contact details, each taken from the business register. '
             + 'The employment-agency permit details are deliberately not stated as fact until we have confirmed them directly from the official record, and no estimated or indicative values are given in the meantime.',
           ],
@@ -272,7 +272,7 @@ export const EN_L0: LocaleCorpus = {
         {
           heading: 'Certification: what actually blocks a start date',
           body: [
-            'For many technical activities it is not only skill that decides but authorisation to perform the activity. Professional competence for work on electrical equipment is governed by the government regulation on electrotechnical competence, which replaced the decree previously relied on.',
+            'For many technical activities it is not only skill that decides but authorisation to perform the activity. Professional competence for work on electrical equipment is governed by Czech government regulation 194/2022 Sb., which replaced the decree previously relied on.',
             'The practical consequence for recruitment is that certificates have a validity period and a limited scope, so they need to be read before a start date, not merely recorded.',
           ],
         },
@@ -296,22 +296,22 @@ export const EN_L0: LocaleCorpus = {
     en: {
       title: 'How a staffing agency works: models and rules',
       description:
-        'How a staffing agency works in the Czech Republic — permanent recruitment versus temporary assignment, the permit to provide employment services, and the three-way relationship between agency, worker and company.',
+        'How a staffing agency works in the Czech Republic — direct hire versus temporary assignment, the permit for employment mediation, and the three-way relationship between agency, worker and company.',
       h1: 'How a staffing agency works: models and rules',
       intro:
-        'A staffing agency connects companies looking for workers with people looking for work. In practice it offers two main models: finding a candidate for direct employment with the company (permanent recruitment), and agency employment, where the worker is employed by the agency and temporarily assigned to a user company. This page explains how both work and what rules apply.',
+        'A staffing agency connects companies looking for workers with people looking for work. In practice it offers two main models: finding a candidate for direct employment with the company (direct hire), and agency employment, where the worker is employed by the agency and temporarily assigned to a user company. This page explains how both work and what rules apply.',
       breadcrumb: 'How a staffing agency works',
       sections: [
         {
           heading: 'The two models',
           body: [
-            'In permanent recruitment the agency finds and pre-selects candidates, and the company enters into the employment relationship with the chosen person itself. In agency employment the agency remains the employer and assigns the worker temporarily to the user company.',
+            'In direct hire the agency finds and pre-selects candidates, and the company enters into the employment relationship with the chosen person itself. In agency employment the agency remains the employer and assigns the worker temporarily to the user company.',
           ],
         },
         {
           heading: 'Rules and permits',
           body: [
-            'To provide employment services an agency must hold a valid permit under the Employment Act. In agency employment, pay and working conditions must be comparable to those of the user company’s own employees.',
+            'To carry on employment mediation an agency must hold a valid permit under Czech Act 435/2004 Sb. on employment. In agency employment, pay and working conditions must be comparable to those of the user company’s own employees.',
           ],
         },
         {
@@ -383,13 +383,13 @@ export const EN_L0: LocaleCorpus = {
         {
           heading: 'Recruitment considerations',
           body: [
-            'For production roles a combination of routes tends to work: direct recruitment for the permanent core, agency employment for flexible cover of peaks, and for shortage occupations, recruitment from abroad. The choice depends on urgency and on whether the need is standing or temporary.',
+            'For production roles a combination of routes tends to work: direct hire for the permanent core, agency employment for flexible cover of peaks, and for shortage occupations, recruitment from abroad. The choice depends on urgency and on whether the need is standing or temporary.',
           ],
         },
         {
           heading: 'Training and starting',
           body: [
-            'Starting in production involves health-and-safety induction, familiarisation with the workplace and machines, and progressive training. For machine and assembly roles the time to full productivity is longer, so it pays to prepare the training well and to nominate someone to support the new starter.',
+            'Starting in production involves initial health-and-safety training, familiarisation with the workplace and machines, and progressive training. For machine and assembly roles the time to full productivity is longer, so it pays to prepare the training well and to nominate someone to support the new starter.',
           ],
         },
         {

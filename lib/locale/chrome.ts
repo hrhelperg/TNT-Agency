@@ -81,9 +81,14 @@ export const CHROME_NAV: Readonly<Record<Locale, Readonly<Record<NavKey, string>
 } as const
 
 /**
- * A header destination. `conceptId` is set only where the target is a real
- * localized concept; it is NOT a guess from the slug. Everything else is a
- * Czech-only page and stays Czech — see resolveNavHref.
+ * A header destination.
+ *
+ * `conceptId` is an OVERRIDE, not the mechanism. It is needed only where the
+ * Czech URL is not the concept's own primary — the legal pages, whose Czech
+ * hrefs are `/terms-cs.html` and friends. Everywhere else resolveNavHref finds
+ * the concept by `czechHref === csPrimary`, so a target cannot silently miss a
+ * localization just because nobody added an id. A target with no matching
+ * concept is a Czech-only page and stays Czech.
  */
 export interface LinkTarget {
   readonly czechHref: string
@@ -130,11 +135,30 @@ export function resolveNavHref(
   locale: Locale,
 ): { href: string; hreflang?: string } {
   if (locale === 'cs') return { href: target.czechHref }
-  if (!target.conceptId) return { href: target.czechHref, hreflang: 'cs' }
-  const concept = ALL_CONCEPTS.find((c) => c.id === target.conceptId)
-  if (!concept) throw new Error(`NAV_TARGETS references unknown concept "${target.conceptId}"`)
-  if (!concept.published.includes(locale)) return { href: target.czechHref, hreflang: 'cs' }
-  return { href: urlFor(concept, locale) }
+
+  // A declared conceptId wins. Where none is declared, the concept is DERIVED
+  // from the Czech URL, because the alternative failed in exactly the way you
+  // would predict: localization happened only when someone remembered to add an
+  // id by hand, so publishing an EN/DE page and forgetting its chrome entry left
+  // every localized page linking to Czech with no signal anything was wrong.
+  // Three entries drifted that way. Route identity already knows the answer, so
+  // this asks it rather than trusting a second, hand-kept copy of the mapping.
+  const concept = target.conceptId
+    ? ALL_CONCEPTS.find((c) => c.id === target.conceptId)
+    : ALL_CONCEPTS.find((c) => c.csPrimary === target.czechHref)
+
+  if (target.conceptId && !concept) {
+    throw new Error(`NAV_TARGETS references unknown concept "${target.conceptId}"`)
+  }
+  if (!concept || !concept.published.includes(locale)) {
+    return { href: target.czechHref, hreflang: 'cs' }
+  }
+
+  // published implies a declared URL, but a missing one must not become
+  // href="undefined" in shipped HTML — fall back to the Czech page and say so.
+  const href = urlFor(concept, locale)
+  if (!href) return { href: target.czechHref, hreflang: 'cs' }
+  return { href }
 }
 
 /** Keys the footer renders. Mirrors `T[lang].footer` in public/script.js. */
@@ -266,9 +290,10 @@ export const CHROME_FOOTER: Readonly<Record<Locale, Readonly<Record<FooterKey, s
 } as const
 
 /**
- * Footer destinations. As with NAV_TARGETS, `conceptId` is present only where a
- * genuine localized equivalent exists — the rest are Czech-only pages that stay
- * Czech and say so.
+ * Footer destinations. As with NAV_TARGETS, localization is derived from route
+ * identity rather than declared here, so `links.permanent`, `links.temp` and
+ * `navEditorial` reach their EN/DE equivalents without carrying an id. Targets
+ * with no matching concept are Czech-only pages that stay Czech and say so.
  */
 export interface FooterTarget extends LinkTarget {
   readonly key: FooterKey

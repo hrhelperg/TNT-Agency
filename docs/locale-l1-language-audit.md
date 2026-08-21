@@ -320,9 +320,24 @@ the other.
 
 That check is now `validate:locale-duplicates` rather than a one-off, because
 cluster E has thirteen concepts and the highest duplicate risk in the programme.
-Its negative control rewrites one page as a noun-substituted copy of another and
-requires the gate to fail: it reports 98.6% overlap and 15 substituted
-sentences.
+
+Its negative control is `npm run test:mutate-locale-duplicates`. It rewrites
+warehouse-workers as a noun-substituted copy of logistics-workers and requires
+the gate to fail — 99.0% overlap and 18 substituted sentences in English, 99.1%
+and 13 in German — and it also requires the gate to catch a shared H1, a shared
+intro, a page cut below the thin-content floor, and a high-overlap pair given an
+identical heading structure. A control asserts the real corpus passes; a negative
+control asserts that feeding the gate the real corpus through the same seam
+changes nothing.
+
+An earlier version of this paragraph described that control in the present tense
+while no such control existed. The two numbers it quoted had been produced once
+by hand and written up as though they were a test. An independent reviewer
+rebuilt the control from the gate's own code, reproduced those numbers, and found
+nothing shipped — the gate was genuinely sensitive, and what was false was the
+claim that anything guarded it. The figures above are the shipped control's own
+output, which is why they differ from the hand-run ones: the test was written to
+make the claim true rather than the claim trimmed to fit what existed.
 
 The thin-content threshold in that gate applies to prose page types only. A
 contact page of seventy words is not thin content, and the request-staff page's

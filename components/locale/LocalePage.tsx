@@ -4,9 +4,27 @@ import Footer from '../Footer'
 import LocaleAlternates from './LocaleAlternates'
 import { ALL_CONCEPTS, urlFor, type Locale } from '../../lib/locale/registry'
 import { CHROME_ARIA, HOME_LABEL } from '../../lib/locale/chrome'
-import type { LocalePageContent } from '../../lib/locale/content/types'
+import type { LocaleList, LocalePageContent } from '../../lib/locale/content/types'
 
 const ORIGIN = 'https://talentpartnerid.com'
+
+/**
+ * A section's list, rendered as a real list.
+ *
+ * Server-rendered like everything else on this page: a crawler and a visitor
+ * with JavaScript unavailable both receive the items. `ul` versus `ol` follows
+ * the source — an ordered list asserts that the order carries meaning, so it is
+ * used only where the source says the steps happen in sequence.
+ */
+function SectionList({ list }: { list: LocaleList }) {
+  const items = list.items.map((item) => <li key={item.slice(0, 48)}>{item}</li>)
+  return (
+    <>
+      {list.intro && <p>{list.intro}</p>}
+      {list.ordered ? <ol className="locale-list">{items}</ol> : <ul className="locale-list">{items}</ul>}
+    </>
+  )
+}
 
 export interface LocalePageProps {
   /** Registry concept id. Everything else resolves from it. */
@@ -73,6 +91,7 @@ export default function LocalePage({ conceptId, locale, content, afterContent }:
               {s.body.map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
+              {s.list && <SectionList list={s.list} />}
             </section>
           ))}
 

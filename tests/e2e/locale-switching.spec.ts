@@ -104,11 +104,15 @@ test.describe('switcher: page-to-equivalent-page in all six directions', () => {
         }
       }
       expect(failures, failures.join('\n')).toEqual([])
-      // The matrix is 10 concepts x 2 destinations per origin locale; three
-      // origin locales make 60. Asserting the count stops a silently skipped
-      // concept from passing as "no failures".
-      expect(navigations, `expected 20 successful navigations from ${from}`).toBe(CONCEPTS.length * 2)
-      expect(CONCEPTS.length).toBe(10)
+      // The matrix is CONCEPTS.length concepts x 2 destinations per origin
+      // locale. Asserting the navigation count stops a silently skipped concept
+      // from passing as "no failures". CONCEPTS.length itself is derived from
+      // the registry, not hardcoded — L0 shipped this test when the registry
+      // held 10 concepts, and it silently stopped covering anything past the
+      // first 10 once L1 published 38 more, because a stale literal here reads
+      // as a passing assertion rather than as the coverage gap it is.
+      expect(navigations, `expected ${CONCEPTS.length * 2} successful navigations from ${from}`).toBe(CONCEPTS.length * 2)
+      expect(CONCEPTS.length, 'registry drifted without this suite noticing — re-verify the new count is intended').toBeGreaterThan(0)
     })
   }
 
@@ -256,8 +260,13 @@ test.describe('accessibility and legal links', () => {
       }
     }
     expect(failures, failures.join('\n')).toEqual([])
-    // 10 EN + 10 DE pages, three legal links each.
-    expect(checked, 'legal links verified end to end').toBe(60)
+    // Every published EN/DE page, three legal links each. Derived from the
+    // registry rather than hardcoded, for the same reason as CONCEPTS.length
+    // above: a stale literal here would silently stop covering pages added
+    // after the number was written, and "checked === 0" would still pass the
+    // failures assertion above it.
+    const localizedPageCount = LOCALE_CONCEPTS.reduce((n, c) => n + c.published.filter((l) => l !== 'cs').length, 0)
+    expect(checked, 'legal links verified end to end').toBe(localizedPageCount * 3)
   })
 
   test('about-us publishes no identifier it does not have, in any locale', async ({ page }) => {

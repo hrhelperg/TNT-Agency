@@ -78,10 +78,21 @@ function substitutedSentences(a, b, nounsA, nounsB) {
 
 const bodyOf = (entry) => [entry.intro, ...entry.sections.flatMap((s) => [s.heading, ...s.body])]
 
-export function auditDuplicates() {
+/**
+ * @param {{en?: object, de?: object}} [corpora] override for the corpora audited.
+ *
+ * The real corpora are the default. This seam exists so a mutation suite can
+ * feed the gate a deliberately doorway-shaped corpus and require it to fail.
+ * Without it there was no way to damage the input short of editing shipped
+ * content — which is exactly why this gate went un-negative-controlled while
+ * the language audit claimed a control existed.
+ */
+export function auditDuplicates(corpora) {
+  const enCorpus = corpora?.en ?? EN
+  const deCorpus = corpora?.de ?? DE
   const errors = []
   const notes = []
-  for (const [locale, corpus] of [['en', EN], ['de', DE]]) {
+  for (const [locale, corpus] of [['en', enCorpus], ['de', deCorpus]]) {
     const docs = []
     for (const concept of reg.LOCALE_CONCEPTS) {
       const entry = corpus[concept.id]?.[locale]

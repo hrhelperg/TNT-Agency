@@ -413,7 +413,10 @@ p  { color: var(--text-2); line-height: 1.7; }
 .nav {
   display: flex;
   align-items: center;
-  gap: 30px;
+  /* Capped at what .container can afford. See the header note near the
+     max-width:1500px block: a 30px gap made the nav widest exactly where the
+     container stops growing. */
+  gap: 18px;
 }
 .nav a {
   font-size: 0.9rem;
@@ -2412,6 +2415,20 @@ p  { color: var(--text-2); line-height: 1.7; }
   hyphens: auto;
 }
 
+/* Section lists on localized pages.
+   The Czech spine styles its source bullets through `.seo-body ul` (see the
+   rule of that name); these are the same metrics for `.locale-page`, so a list
+   reads identically in all three languages. The global reset sets
+   `ul { list-style: none }`, so markers have to be asked for explicitly —
+   without this the restored items would render as an unmarked run of lines,
+   which is the prose-folding defect again wearing list markup. */
+.locale-page .locale-list {
+  margin: 0 0 22px 20px;
+  list-style: disc;
+}
+.locale-page ol.locale-list { list-style: decimal; }
+.locale-page .locale-list li { margin-bottom: 9px; padding-left: 4px; }
+
 /* The locale CTA is a .btn, and .btn is `white-space: nowrap` — so a long
    German label cannot wrap and sets the page's min-content width on its own.
    "Wie eine Personalagentur funktioniert" measured 307px inside a 280px column
@@ -2966,9 +2983,17 @@ p  { color: var(--text-2); line-height: 1.7; }
 /* The header carries 8 nav items, a language switcher and a primary action.
    German labels are materially longer than cs/en, so below ~1500px the nav
    metrics tighten to keep the primary action inside the viewport instead of
-   being clipped by the body's overflow-x guard. */
+   being clipped by the body's overflow-x guard.
+
+   The base gap above this breakpoint used to be 30px, which made the header
+   WIDEST exactly where its container stops growing: .container is capped at
+   1152px, so past ~1500px the nav expanded to 705px against a box that could
+   never expand with it, and the primary action was pushed out of the container
+   on every large screen. Nothing reported it, because body{overflow-x:hidden}
+   absorbs the document-level overflow and a scrollWidth check therefore sees a
+   clean page while the button sits outside the viewport. The gap is now capped
+   at the value the container can actually afford. */
 @media (max-width: 1500px) {
-  .nav { gap: 18px; }
   .nav a { font-size: 0.95rem; }
 }
 @media (max-width: 1340px) {
@@ -2976,12 +3001,27 @@ p  { color: var(--text-2); line-height: 1.7; }
   .nav a { font-size: 0.88rem; }
 }
 
+/* The header bar spans the viewport, but its inner container was capped at the
+   1152px reading column. On a Czech concept primary the row carries the logo,
+   eight nav items, the page-to-page locale switcher, the legacy EN/CS/DE widget
+   and the primary action — measured demand 1262px against a 1152px box. The
+   difference did not wrap or shrink; it left the container, and on screens
+   narrower than ~1700px it left the viewport, taking the primary action with
+   it. body{overflow-x:hidden} then absorbed the document overflow, so every
+   scrollWidth-based check reported a clean page while the button was off it.
+
+   A reading column and a navigation bar do not have to be the same width. The
+   header gets the width its own contents need; page content keeps 1152. */
+.header .container { max-width: 1400px; }
+
 /* Collapse the primary navigation to the mobile menu while the desktop nav
-   still fits. Between ~1024px and 1150px the eight nav items, the language
-   switcher and the primary action cannot fit the container — in German most of
-   all — and the action was being clipped by the body's overflow-x guard. The
-   mobile menu already carries every item, so it is the correct surface here. */
-@media (max-width: 1150px) {
+   still fits. Below this the eight nav items, both language controls and the
+   primary action cannot fit — in German and on two-switcher Czech pages most of
+   all. The mobile menu already carries every item, so it is the correct surface.
+   Raised from 1150px: at 1151–1250 the row did not fit and the action was
+   clipped rather than collapsed, which is the defect this boundary exists to
+   prevent. */
+@media (max-width: 1250px) {
   .nav, .header__right .btn { display: none; }
   .hamburger { display: flex; }
   .mobile-nav { display: flex; }

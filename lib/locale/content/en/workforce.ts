@@ -18,7 +18,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
     en: {
       title: 'Volume hiring: what changes at 20, 50 and 100 people',
       description:
-        'What actually changes as a hire grows: interview capacity, training capacity, then the facilities that have to carry the new people. A planning aid, with no figures and no promised lead times.',
+        'What changes as a hire grows: interview capacity, then training capacity, then the facilities that have to carry the new people. A planning aid, with no figures and no lead times.',
       h1: 'Volume hiring: what changes at 20, 50 and 100 people',
       intro:
         'Hiring twenty people and hiring a hundred are not the same task at a different scale. As the volume grows, what breaks is not the number of candidates approached: first interview capacity, then training capacity, and finally the facilities that have to carry the new people at all. What follows is a planning aid — what changes at each size, and what has to be in place before any approach begins. The numbers used are model situations for planning, not descriptions of work delivered; no specific figures or lead times are stated here.',
@@ -36,8 +36,17 @@ export const EN_WORKFORCE: LocaleCorpus = {
           heading: 'Capacity to secure before candidates',
           body: [
             'The most common mistake in volume hiring is to start approaching people before it is settled what happens to them once they start. A candidate who arrives and finds nobody has time for them leaves, and generally does not come back.',
-            'So it is worth going through the capacity list before anything begins: who runs interviews and how many a day, who trains and in what groups, how many people can be booked for an occupational health assessment at once, and how quickly access cards and personal protective equipment can be issued.',
           ],
+          list: {
+            intro: 'So it is worth going through the capacity list before anything begins.',
+            items: [
+              'Who runs interviews, and how many of them a day',
+              'Who trains, and in what group sizes',
+              'Booking lead times at the occupational health provider — how many people can be seen at once',
+              'How quickly access cards and personal protective equipment can be issued, and whether that equipment is available in the sizes needed',
+              'Changing rooms, catering and transport to the shift',
+            ],
+          },
         },
         {
           heading: 'Fitness for work is a real bottleneck',
@@ -63,7 +72,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
         {
           heading: 'Which routes combine at volume',
           body: [
-            'At larger numbers the routes are combined in practice. The permanent core is usually filled by direct recruitment, because the training investment is worth making. A fluctuation or a ramp-up is covered by agency employment, where the agency carries the employer administration.',
+            'At larger numbers the routes are combined in practice. The permanent core is usually filled by direct hire, because the training investment is worth making. A fluctuation or a ramp-up is covered by agency employment, where the agency carries the employer administration.',
             'For shortage occupations recruitment from abroad comes into play, but it has its own timing governed by permits, which cannot be shortened.',
           ],
         },
@@ -80,7 +89,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
     en: {
       title: 'Hiring for a production ramp-up: staffing a new line or shift',
       description:
-        'Staffing a new line or an additional shift: which roles to fill in which order, what has to exist before day one, and where ramp-ups usually stall — which is training, not recruitment.',
+        'Staffing a new line or an extra shift: which roles to fill in which order, what must exist before day one, and where ramp-ups stall — at training, not at recruitment.',
       h1: 'Hiring for a production ramp-up: staffing a new line or shift',
       intro:
         'A new line starting up, or an additional shift opening, differs from ordinary replacement hiring in one respect: it has a fixed date, derived from a customer or an investment, and that date usually cannot move. Staffing preparation therefore has to run backwards from it, rather than forwards from the moment someone notices people are missing. This page sets out the order in which roles are filled for a ramp-up, what has to exist before the start, and where ramp-ups most often stall — the weak point being training rather than recruitment itself.',
@@ -92,6 +101,15 @@ export const EN_WORKFORCE: LocaleCorpus = {
             'Start at the go-live date and work back: who has to be in place on day zero, who a month before, who earlier still. Seen that way, it becomes clear that the first roles to fill are not the operators but the people who will train them.',
             'A supervisor or shift leader, a setter and a maintenance technician need to be there earlier, because they have to learn the technology themselves. If they start at the same time as the operators, there is nobody to lead them and the ramp-up slips regardless of how many operators were found.',
           ],
+          list: {
+            intro: 'The order in which the roles are filled:',
+            ordered: true,
+            items: [
+              'Operational supervision and the key technical roles first',
+              'Then the setters and maintenance, who get the equipment running',
+              'Last the operator roles, in waves sized to training capacity',
+            ],
+          },
         },
         {
           heading: 'What has to exist before the first day',
@@ -110,15 +128,22 @@ export const EN_WORKFORCE: LocaleCorpus = {
         {
           heading: 'Where ramp-ups usually stall',
           body: [
-            'In practice, ramp-ups are held up at a few recurring points. The first is training — usually planned optimistically, without allowing that the experienced person doing the training is not producing meanwhile.',
-            'The second is a mismatch between the hiring date and candidates’ notice periods. The third is facilities: transport for an unusual shift, or changing-room capacity, gets addressed only when people are already starting.',
+            'In practice, ramp-ups are held up at a few recurring points, and the number of candidates is rarely one of them. They are worth going through while the schedule is still being drawn up rather than once people are already starting.',
           ],
+          list: {
+            items: [
+              'Training planned optimistically, without allowing that the experienced person doing the training is not producing meanwhile',
+              'A mismatch between the hiring date and candidates’ notice periods',
+              'Transport and facilities for an unusual shift — changing-room capacity among them',
+              'Missing procedures and documentation for the new workplace',
+            ],
+          },
         },
         {
           heading: 'Combining the routes',
           body: [
-            'For a ramp-up it works to separate the permanent core from the flexible part. The core — supervision, setters, maintenance — is worth filling by direct recruitment, because those are the people the most training is invested in.',
-            'The operator part can be covered by a combination of direct recruitment and agency employment, which allows for the fact that the real requirement usually becomes clearer during the ramp-up itself. That split is better decided in advance than during.',
+            'For a ramp-up it pays to separate the permanent core from the flexible part. The core — supervision, setters, maintenance — is worth filling by direct hire, because those are the people the most training is invested in.',
+            'The operator part can be covered by a combination of direct hire and agency employment, which allows for the fact that the real requirement usually becomes clearer during the ramp-up itself. That split is better decided in advance than during.',
           ],
         },
       ],
@@ -134,7 +159,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
     en: {
       title: 'Seasonal capacity: covering a peak without permanent headcount',
       description:
-        'Planning a recurring peak: how seasonal need differs from a shortage, which employment models suit it, and how to keep the seasonal people who worked out so each year does not start from nothing.',
+        'Planning a recurring peak: how seasonal need differs from a shortage, which employment models suit it, and how to keep the seasonal people who worked out.',
       h1: 'Seasonal capacity: covering a peak without permanent headcount',
       intro:
         'A seasonal peak has one advantage over other staffing situations: it can be foreseen. The pre-Christmas period in a warehouse, an agricultural season or summer shutdowns recur, and a company usually knows when they are coming. Even so, seasonal hiring is often addressed once the peak has begun, which is the most expensive possible moment. This page describes how seasonal need differs from topping up permanent headcount, which employment models suit it, and how to keep the people who worked out for the next season.',
@@ -151,16 +176,25 @@ export const EN_WORKFORCE: LocaleCorpus = {
           heading: 'Models that come into consideration',
           body: [
             'Several routes are used in practice, and they differ in who carries the employer’s responsibility and how flexibly capacity can be changed.',
-            'Agency employment in the form of temporary assignment under Czech Act 435/2004 Sb. is the most usual for regularly recurring fluctuations, because the agency remains the formal employer and the scope can be adjusted to the actual need. Fixed-term employees of your own suit longer and more predictable seasons. Agreements performed outside an employment relationship have statutory limits under Czech law and do not suit full shift cover.',
-            'For temporary assignment the requirement of comparable pay and working conditions applies.',
+            'Agency employment in the form of temporary assignment under Czech Act 435/2004 Sb. is the most usual for regularly recurring fluctuations, because the agency remains the formal employer and the scope can be adjusted to the actual need. Fixed-term employees of your own suit longer and more predictable seasons. Agreements on work performed outside an employment relationship have statutory limits under Czech law and do not suit full shift cover.',
+            'For temporary assignment, pay and working conditions comparable with the user’s own core employees are required. That is not a contractual arrangement between the parties but a statutory condition.',
           ],
         },
         {
           heading: 'Plan from your own operation’s data',
           body: [
-            'The best basis for a seasonal plan is your own records from previous years — how many extra people were genuinely needed, for how long, at which workplaces, and how many lasted the whole season.',
-            'A company already holds that data, and it is more reliable than any general estimate. Labour-market context can be added from the public sources of the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here, because they differ from region to region.',
+            'The best basis for a seasonal plan is your own records from previous years. A company already holds that data, and it is more reliable than any general estimate.',
+            'Labour-market context can be added from the public sources of the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here, because they differ from region to region.',
           ],
+          list: {
+            intro: 'What is worth having on record from each season:',
+            items: [
+              'How many extra people were genuinely needed, and for how long',
+              'At which workplaces the peak arises first',
+              'How many people left the season early, and why they left',
+              'Which seasonal workers came back more than once',
+            ],
+          },
         },
         {
           heading: 'Training is the main cost item',
@@ -214,8 +248,16 @@ export const EN_WORKFORCE: LocaleCorpus = {
           heading: 'An operational margin is an answer, not a failure',
           body: [
             'An operation planned at a hundred per cent occupancy is inherently unstable: any gap goes straight into output. A margin is therefore not a sign of poor planning but part of it.',
-            'A margin can take several forms — trained people who can cover more than one workplace, agreed flexible capacity through agency employment, or deliberately lower planned occupancy at critical workplaces. How large it should be depends on the actual rate of gaps in a particular operation; no general figure is stated here, because it would hold for nobody.',
+            'A margin can take several forms, and how large it should be depends on the actual rate of gaps in a particular operation; no general figure is stated here, because it would hold for nobody.',
           ],
+          list: {
+            items: [
+              'Cover — how many people can work more than one workplace',
+              'Flexible capacity, through agency employment for instance, agreed in advance rather than once a gap has opened',
+              'Deliberately lower planned occupancy at critical workplaces',
+              'A view of where the gaps actually arise',
+            ],
+          },
         },
         {
           heading: 'Cross-training is cheaper than a margin in people',
@@ -244,24 +286,24 @@ export const EN_WORKFORCE: LocaleCorpus = {
     en: {
       title: 'Direct hire: when to fill a role onto your own payroll',
       description:
-        'What direct hire means under the Czech Employment Act, how it differs from temporary assignment, what the company takes on, and how the two routes compare on the criteria that decide in practice.',
+        'What direct hire means under the Employment Act, how it differs from temporary assignment, what the company takes on as employer, and how the two routes compare.',
       h1: 'Direct hire: when to fill a role onto your own payroll',
       intro:
-        'Deciding whether to employ someone directly or to cover the need by temporary assignment is not only a question of price. It changes who the employer is, who runs payroll, who arranges the occupational health assessment and safety training, and how the arrangement ends. This page explains what direct hire means under the Czech Employment Act, how it differs from agency employment, and what specifically a company takes on when it employs someone itself. It includes a comparison of the two routes on the criteria that decide in operational practice.',
+        'Deciding whether to employ someone directly or to cover the need by temporary assignment is not only a question of price. It changes who the employer is, who runs payroll, who arranges the occupational health assessment and safety training, and how the arrangement ends. This page explains what direct hire means under Czech Act 435/2004 Sb. on employment, how it differs from agency employment, and what specifically a company takes on when it employs someone itself. It includes a comparison of the two routes on the criteria that decide in operational practice.',
       breadcrumb: 'Direct hire',
       sections: [
         {
           heading: 'What direct hire means legally',
           body: [
             'In direct hire an employment relationship arises directly between your company and the employee under the Czech Labour Code. You are the employer with everything that entails, and the person becomes a core employee. The agency’s role ends with finding, approaching and pre-selecting the candidate; it does not enter the employment relationship.',
-            'Searching for employees on behalf of an employer is nevertheless employment mediation within the meaning of Czech Act 435/2004 Sb. on employment, and is subject to a permit. The same applies to employing people for the purpose of assigning them temporarily to a user. The difference is therefore not whether a permit is needed, but who remains the employer.',
+            'Searching for employees on behalf of an employer is nevertheless employment mediation within the meaning of the Employment Act, and is subject to a permit. The same applies to employing people for the purpose of assigning them temporarily to a user. The difference is therefore not whether a permit is needed, but who remains the employer. Whether a particular agency holds that permit can be checked in the public register of employment agencies made available by the Czech state employment administration — the Ministry of Labour and Social Affairs and the Czech Labour Office.',
           ],
         },
         {
           heading: 'When your own payroll makes sense',
           body: [
             'Onto your own payroll belongs what is meant to last and what you do not want to lose. Typically the permanent core of the operation, roles carrying know-how and the setup of the technology, holders of certificates tied to the person, and any position that manages people or decides on quality. For these, a longer search is worth it, because the cost of turnover is higher than for easily replaceable posts.',
-            'Seasonal peaks, cover for long absences, a new line ramping up or an order with a defined end are better covered by temporary assignment — the need ends and the assignment ends with it, without you having to terminate an employment relationship. Many companies combine both.',
+            'Seasonal peaks, cover for long absences, a new line ramping up or an order with a defined end are better covered by temporary assignment — the need ends and the assignment ends with it, without you having to terminate an employment relationship. Many companies combine both routes: a stable core on their own payroll, with a flexible layer above it.',
           ],
         },
         {
@@ -269,13 +311,35 @@ export const EN_WORKFORCE: LocaleCorpus = {
           body: [
             'Direct hire means all employer duties stay with you. That is not an argument against it, only an item to count when comparing the two routes — part of it is carried by the agency, as formal employer, under temporary assignment.',
           ],
+          list: {
+            intro: 'What the item contains:',
+            items: [
+              'The employment contract, the pay agreement and internal regulations',
+              'Payroll, statutory contributions and tax duties — check the applicable rates with the Czech Social Security Administration, the health insurer and the tax administration',
+              'The entry occupational health assessment before the person starts, and further assessments to the extent set by the work category',
+              'Initial and repeat occupational-safety training, and the issue and recording of personal protective equipment',
+              'Working-time records, shift planning and wage compensation',
+              'Ending the employment relationship within the limits of the Labour Code, including the notice period',
+            ],
+          },
         },
         {
           heading: 'Direct hire compared with agency employment',
           body: [
-            'Both routes end with a person at the workplace doing the work. They differ in who employs them, who carries the administration, and how flexibly the arrangement can end. For temporary assignment there is in addition a statutory requirement of comparable pay and working conditions with your own core employees in a similar position — not a negotiable item but a condition of the model.',
-            'A practical guide: the more permanent the need and the more the role is bound to your know-how, the more it argues for your own payroll. The more variable the volume of work and the sooner capacity has to be available, the more assignment makes sense.',
+            'Both routes end with a person at the workplace doing the work. What differs is who employs them, who runs the payroll, how safety is allocated while they are on site, and what ending the arrangement actually consists of.',
+            'A practical guide: the more permanent the need and the more the role is bound to your know-how, the more it argues for your own payroll. The more variable the volume of work and the sooner capacity has to be available, the more assignment makes sense. Urgency on its own is not an argument for either route, because for qualified roles both run up against the availability of people and against notice periods.',
           ],
+          list: {
+            intro: 'The dimensions on which the two routes are compared:',
+            items: [
+              'The employer — your company in direct hire, the staffing agency under assignment',
+              'Instructions for the work — given in both cases by the user, that is, your own operation',
+              'Payroll and statutory contributions — run by the agency under assignment',
+              'Occupational safety at the workplace — ensured by the user for the duration of the assignment, while the agency retains its duties as employer',
+              'Ending — termination of the employment relationship under the Labour Code, as against ending the assignment on the terms agreed',
+              'Pay conditions — under assignment a statutory requirement of comparability with your own core employees in a similar position, not a negotiable item but a condition of the model',
+            ],
+          },
         },
         {
           heading: 'Fee models in outline',
@@ -307,7 +371,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
         'How temporary assignment works under Czech law: the relationship between agency, worker and user company, the requirement of comparable conditions, and shared responsibility for safety.',
       h1: 'Temporary agency employment in the Czech Republic',
       intro:
-        'Temporary assignment is the core of agency employment in the Czech Republic. The worker is an employee of the staffing agency, which assigns them for an agreed period to a user company where the work is actually performed. The model suits covering seasonal peaks, projects with a defined end, or temporary gaps in capacity. This page describes how temporary assignment works, what the relationship between the parties is, and what rules apply to pay and working conditions. It follows the Czech Labour Code and the Czech Employment Act.',
+        'Temporary assignment is the core of agency employment in the Czech Republic. The worker is an employee of the staffing agency, which assigns them for an agreed period to a user company where the work is actually performed. The model suits covering seasonal peaks, projects with a defined end, or temporary gaps in capacity. This page describes how temporary assignment works, what the relationship between the parties is, and what rules apply to pay and working conditions. It follows the Czech Labour Code and Czech Act 435/2004 Sb. on employment.',
       breadcrumb: 'Agency employment',
       sections: [
         {
@@ -320,8 +384,18 @@ export const EN_WORKFORCE: LocaleCorpus = {
         {
           heading: 'Comparable conditions and responsibility',
           body: [
-            'For temporary assignment, Czech law requires the agency worker’s pay and working conditions to be comparable with those of the user’s own core employees in a similar position. Responsibility for occupational safety and health is shared between the agency and the user.',
+            'For temporary assignment, Czech law requires the agency worker’s pay and working conditions to be comparable with those of the user’s own core employees in a similar position, and it does not leave responsibility for occupational safety and health with one side alone.',
+            'What the parties settle between themselves is how long the assignment runs and which of them does what; those are agreed in the contracts.',
           ],
+          list: {
+            intro: 'Points that should be clear before anyone starts:',
+            items: [
+              'Comparable pay and working conditions against the user’s core employees',
+              'Shared responsibility of the agency and the user for occupational safety and health',
+              'A period of assignment defined in time',
+              'A clear division of roles in the contracts',
+            ],
+          },
         },
         {
           heading: 'Who it suits',
@@ -342,7 +416,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
     en: {
       title: 'Agency fee models: how they are built, and why two quotes rarely compare',
       description:
-        'How staffing fee models are structured — a one-off fee for direct hire, an hourly rate for temporary assignment — what the hourly rate must legally carry, and how to tell two quotes are not on the same basis. No figures.',
+        'The two fee models: a one-off fee for direct hire, an hourly rate for temporary assignment, what that rate must carry by law, and why two quotes rarely compare. No figures.',
       h1: 'Agency fee models: how they are built, and why two quotes rarely compare',
       intro:
         'Staffing quotes compare worse than they first appear: two of them can sound alike while covering a different scope of service, a different basis for calculating the fee, and a different division of risk between supplier and buyer. You will therefore find no amount, rate or percentage on this page. It describes how each fee model is built, what an hourly rate for agency employment must carry by law, and how to tell that two quotes are not actually being compared on the same basis.',
@@ -359,21 +433,40 @@ export const EN_WORKFORCE: LocaleCorpus = {
           heading: 'How the one-off fee for direct hire is built',
           body: [
             'A direct-hire fee is usually derived from the earnings of the role being filled and expressed as a share of an agreed base. What decides is therefore not the share itself but the definition of the base: whether it is gross monthly pay or annual earnings, and whether it includes variable pay, shift premiums or a joining bonus. Two quotes with an identical share can end up far apart under a different definition.',
-            'The contract should also make clear what gives rise to the fee — signature of the employment contract, or an actual start — when it falls due, and what happens if the candidate does not start.',
+            'The rest is a matter for the contract, and it is worth settling before a search begins. This page states neither a share nor an amount; both follow from the brief, the scope of the service and the difficulty of the specific role.',
           ],
+          list: {
+            intro: 'What the contract should make explicit:',
+            items: [
+              'The exact definition of the base the fee is calculated from',
+              'The moment the entitlement arises: signature of the employment contract, or an actual start',
+              'When the fee falls due, and the invoicing terms',
+              'How it is handled if the candidate starts in a role other than the one they were presented for',
+            ],
+          },
         },
         {
           heading: 'What an hourly rate for temporary assignment must contain',
           body: [
-            'For temporary assignment the hourly rate is not a free commercial judgement. Under the Czech Labour Code an agency employee is entitled to pay and working conditions comparable with a comparable core employee of the user, so the rate has to carry pay at that level together with everything attached to it. Only above that base sit the agency’s own costs.',
-            'A quote noticeably below the others usually does not mean a better deal but different content: missing premiums, a different assumption about hours worked, or items moved into separate invoicing.',
+            'For temporary assignment the hourly rate is not a free commercial judgement. Under the Czech Labour Code an agency employee is entitled to pay and working conditions comparable with a comparable core employee of the user, so the rate has to carry pay at that level together with everything the law attaches to it. Only above that base sit the agency’s own costs.',
+            'A quote noticeably below the others usually does not mean a better deal but different content: missing premiums, a different assumption about hours worked, or items moved into separate invoicing. The more useful question than "how much" is therefore "what is contained in the rate, and what is charged on top".',
           ],
+          list: {
+            intro: 'What the rate has to carry:',
+            items: [
+              'Pay at the level of comparable pay conditions at the user',
+              'The employer’s statutory social and health insurance contributions',
+              'Holiday and wage compensation under the Labour Code',
+              'Premiums and allowances arising from shift scheduling and overtime',
+              'The agency’s own costs of recruitment, payroll and administration',
+            ],
+          },
         },
         {
           heading: 'Exclusivity, staging, and tying the fee to the outcome',
           body: [
             'The models also differ in when payment happens. A fee tied entirely to the outcome moves the risk of an unsuccessful search onto the supplier, and that division of risk is reflected in its size. A staged model, where part is paid at the start and the rest on the start date, divides the risk and gives the supplier a reason to devote capacity to a brief that is difficult and may not end in a placement.',
-            'Exclusivity is a separate arrangement, not a surcharge. Giving a brief to a single supplier removes the situation where two of them present the same candidate and a dispute begins about who brought them.',
+            'Exclusivity is a separate arrangement, not a surcharge. Giving a brief to a single supplier removes the situation where two of them present the same candidate and a dispute begins about who brought them; at the same time it binds you for the agreed period. If you do agree exclusivity, a period of validity and a clear procedure for the case where the brief is not filled belong with it.',
           ],
         },
         {
@@ -389,6 +482,16 @@ export const EN_WORKFORCE: LocaleCorpus = {
             'Quotes usually diverge in scope rather than in price. Establish what is included and what is charged on top: advertising, verification of certificates, coordinating occupational health assessments, protective equipment, transport and accommodation, administration for foreign workers, or payroll. The difference in content is usually larger than the difference in the number.',
             'The comparison also has to include an item that appears on no invoice — the cost of the unfilled role. Output not produced, overtime for the rest of the shift, orders declined and an overloaded operational management run every week the seat stays empty.',
           ],
+          list: {
+            intro: 'For two quotes to be comparable at all, the same things have to be on both sides:',
+            items: [
+              'The same scope of service',
+              'The same definition of the base the fee is calculated from',
+              'The same terms of payment and invoicing',
+              'A view of what is included and what is charged separately',
+              'The cost of the unfilled role over the search period, counted in both',
+            ],
+          },
         },
       ],
       cta: {
@@ -403,7 +506,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
     en: {
       title: 'Choosing a staffing agency: criteria you can verify',
       description:
-        'A buyer’s checklist: verifying the employment-mediation permit and its scope, insolvency insurance, who the employer will be, how comparable conditions are established, and the warning signs.',
+        'A buyer’s checklist: the mediation permit and its scope, insolvency insurance, who the employer will be, how comparable conditions are established, and the warning signs.',
       h1: 'Choosing a staffing agency: criteria you can verify',
       intro:
         'Choosing a staffing agency is a purchasing decision that can be made verifiably. Most of what matters is either traceable in a public register or answerable with a single question: whether the supplier holds a permit for employment mediation and of what scope, whether it is insured against its own insolvency, who will be the employer of the assigned people, and how candidates’ certificates are verified. What follows is written as a checklist for a buyer and is deliberately usable against us as well — we do not declare our own status verified here; check it in the public register yourself.',
@@ -413,14 +516,23 @@ export const EN_WORKFORCE: LocaleCorpus = {
           heading: 'The employment-mediation permit and its scope',
           body: [
             'Under Czech Act 435/2004 Sb. on employment, employment mediation is an activity requiring a permit. A permit is issued for particular forms of mediation, so the sentence "we have a permit" is not enough on its own. What matters is whether it covers the form you actually want — typically the temporary assignment of employees to a user.',
-            'Agencies holding a permit are listed in a publicly available register, and checking takes minutes: the permit is issued by the Czech Labour Office, and the register of employment agencies is published by the Ministry of Labour and Social Affairs. Check the name and identification number rather than a claim on a website.',
+            'Agencies holding a permit are listed in a publicly available register, and checking takes minutes: the permit is issued by the Czech Labour Office, and the register of employment agencies is published by the Ministry of Labour and Social Affairs. Check the name and identification number of the entity that will actually sign the contract — it can differ from the trading brand given in the quote.',
           ],
+          list: {
+            intro: 'What to check in the register:',
+            items: [
+              'That the permit exists, and its number',
+              'The forms of mediation the permit covers',
+              'That the permit is valid as at today',
+              'That the entity in the register is the entity on the contract',
+            ],
+          },
         },
         {
           heading: 'Insurance, and who the employer will be',
           body: [
-            'An agency assigning its employees to a user must, under the Czech Employment Act, be insured against its own insolvency so that the assigned people’s wage claims are secured. Asking for proof of that insurance and its expiry date before signing is entirely legitimate.',
-            'The second question is simple: who will employ the people working at your site. In agency employment it is the agency — it runs payroll, pays contributions and carries the employer’s duties. In direct hire you become the employer and the supplier’s role ends.',
+            'An agency assigning its employees to a user must, under the Employment Act, be insured against its own insolvency so that the assigned people’s wage claims are secured. Asking for proof of that insurance and its expiry date before signing is entirely legitimate.',
+            'The second question is simple: who will employ the people working at your site. In agency employment it is the agency — it runs payroll, pays contributions and carries the employer’s duties. In direct hire you become the employer and the supplier’s role ends. If the answer to that question comes back ambiguous, that is a finding in itself.',
           ],
         },
         {
@@ -433,17 +545,37 @@ export const EN_WORKFORCE: LocaleCorpus = {
         {
           heading: 'Questions about the selection method',
           body: [
-            'The difference between suppliers shows most in how they select. For specialist roles it matters whether anyone has actually seen the certificates and understands what they say — that for a welding certificate the test range decides rather than its mere existence, and that electrotechnical competence is divided according to the activity performed. It matters equally who conducts the interview and whether they have operational experience of the occupation.',
-            'Ask also what the supplier will not do, and where its service ends. Someone who can describe the boundaries has usually also described what is inside them.',
+            'The difference between suppliers shows most in how they select. For specialist roles it matters whether anyone has actually seen the certificates and understands what they say — that for a welder qualification certificate the tested range decides rather than its mere existence, and that electrotechnical competence is divided according to the activity performed.',
+            'Ask also what the supplier will not do, and where its service ends. Someone who can describe the boundaries has usually also described what is inside them. An answer of the "we can handle anything" kind describes no boundary at all.',
           ],
+          list: {
+            intro: 'Questions worth asking about the method itself:',
+            items: [
+              'Who conducts the interview, and what operational experience they have of the occupation',
+              'How the scope and the current validity of professional certificates are verified',
+              'How claimed experience is verified, and what is done with inconsistencies in a CV',
+              'How the shift pattern, the working environment and the place of work are communicated to the candidate',
+              'What happens if, after the start, it turns out the candidate does not meet the requirements',
+            ],
+          },
         },
         {
           heading: 'Warning signs',
           body: [
-            'Some signals are reliable precisely because they concern things a supplier does not control. A promised start date is one: it depends on the candidate’s notice period and, for workers from third countries, on an administrative procedure — that is, on third parties.',
-            'Treat claims about the size of a supplier’s own database with the same caution, because they cannot be verified. And treat with caution any claim that the supplier has been vetted or recommended by the state: state authorities issue permits and maintain registers, they do not issue recommendations of suppliers.',
-            'Pressure to sign quickly is a category of its own.',
+            'Some signals are reliable precisely because they concern things a supplier does not control. A promised start date is one: it depends on the candidate’s notice period and, for workers from third countries, on an administrative procedure — that is, on third parties. Claims about the size of a supplier’s own database are unverifiable in the same way, and a claim of state endorsement mistakes what the state does: authorities issue permits and maintain registers, they do not issue recommendations of suppliers.',
+            'Pressure to sign quickly is a category of its own. A brief that genuinely is urgent can be started on a short but written agreement, so willingness to put the terms on paper is a better indicator than speed of response.',
           ],
+          list: {
+            intro: 'The warning signs in one place:',
+            items: [
+              'A promise of the outcome, or of a specific start date',
+              'Unverifiable claims about the size of the supplier’s own candidate database',
+              'Claims of approval or recommendation by state authorities',
+              'Pressure to sign quickly, and unwillingness to put the terms in writing',
+              'A rate for temporary assignment that plainly will not cover the employee’s statutory entitlements',
+              'The absence of a named contact person answerable for the brief',
+            ],
+          },
         },
         {
           heading: 'References, and written terms before the start',
@@ -465,7 +597,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
     en: {
       title: 'The contract with a staffing agency: what to watch',
       description:
-        'What belongs in writing: the two different contractual relationships, comparable conditions that cannot be negotiated away, safety and protective equipment, candidate data, and early-departure compensation.',
+        'What belongs in writing: two different contractual relationships, the terms to settle before starting, comparable conditions, safety and protective equipment, and candidate data.',
       h1: 'The contract with a staffing agency: what to watch',
       intro:
         'A contract with a staffing agency decides the situations a quote does not address: what happens if a candidate does not start, if the brief changes during the search, if there is an accident at your workplace, or if the cooperation ends sooner than expected. Its shape differs fundamentally according to whether you are buying the search for a candidate for your own payroll, or the temporary assignment of agency employees. What follows summarises the points that should be agreed in writing, and the roles that cannot be moved between the parties by agreement. This is general information, not legal advice.',
@@ -479,18 +611,47 @@ export const EN_WORKFORCE: LocaleCorpus = {
           ],
         },
         {
+          heading: 'What should be agreed in writing',
+          body: [
+            'Whatever the model, disputes arise where an oral understanding was relied on, or the assumption that "this is simply customary". The list below is not exhaustive, but it covers the points that prove decisive in practice — and adding them once the cooperation has already started is usually one-sidedly disadvantageous.',
+          ],
+          list: {
+            items: [
+              'The scope of the brief: the role, the qualification requirements, the place of work, the shift pattern',
+              'The fee, the base on which it is calculated, and when it falls due',
+              'Exclusivity, and the period for which it is agreed',
+              'The term of the contract and how it is extended',
+              'Protection of presented candidates, and the period for which a presentation applies',
+              'Compensation, or return of part of the fee, on an early termination',
+              'The division of responsibility for occupational safety and protective equipment at the user’s workplace',
+              'Arranging occupational health assessments, and passing on information about the risks',
+              'Handling the personal data of candidates and employees',
+              'How the cooperation ends, and how briefs in progress are settled',
+            ],
+          },
+        },
+        {
           heading: 'Comparable conditions are not a matter for negotiation',
           body: [
             'In temporary assignment an agency employee is entitled under the Czech Labour Code to pay and working conditions comparable with a comparable core employee of the user. It is not a concession that can be traded away in negotiation; it is a statutory requirement, and a contract can only implement it, not change or exclude it.',
-            'In practice that means the user has to give the agency the data needed to meet it: who the comparable employee is, what pay conditions apply to the work, and what premiums and allowances attach to the shift schedule. Compliance is subject to inspection by the Czech labour inspection authorities.',
+            'In practice that means the user has to give the agency the data needed to meet it: who the comparable employee is, what pay conditions apply to the work, and what premiums and allowances attach to the shift schedule. Compliance is subject to inspection by the Czech labour inspection authorities, and the contract should therefore determine who supplies these data and how they are updated when conditions at the user change.',
           ],
         },
         {
           heading: 'Safety, protective equipment and health assessments',
           body: [
-            'The user runs the workplace but the agency is the formal employer, so responsibility is not one-sided and the contract should break it down into specific tasks rather than a general sentence about cooperation. The user knows the risks, the environment and the equipment; the agency keeps the employment documentation and is the addressee of the employer’s duties.',
-            'What belongs in the contract above all is who delivers training on the risks of the specific workplace, who provides and pays for protective equipment, how the data needed for occupational health assessments is passed on, who records time worked, and what happens in the event of an accident at work.',
+            'The user runs the workplace but the agency is the formal employer, so responsibility is not one-sided and the contract should break it down into specific tasks rather than a general sentence about "cooperation". The user knows the risks, the environment and the equipment; the agency keeps the employment documentation and is the addressee of the employer’s duties.',
           ],
+          list: {
+            intro: 'What belongs in the contract above all:',
+            items: [
+              'Initial and repeat training on the risks of the specific workplace',
+              'Who provides personal protective equipment, and who pays for it',
+              'Passing on the data needed for occupational health assessments',
+              'Recording time worked, and passing those records between the parties',
+              'The procedure in the event of an accident at work, including reporting and cooperation in the investigation',
+            ],
+          },
         },
         {
           heading: 'Protection of candidates’ personal data',
@@ -503,7 +664,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
           heading: 'Compensation for early termination, and ending the cooperation',
           body: [
             'A compensation arrangement is among the sensitive points, and among those that only get addressed once they are needed. It is not a promise that no departure will occur — nobody can give such a promise. It is an agreement on what happens if one does. In writing, therefore: the relevant period, the reasons that count within it, and the cases that exclude a claim — the role being cancelled, a substantial change to the brief, termination by the user, or conditions for starting not being met on the user’s side.',
-            'It should be equally clear how the cooperation ends: notice conditions, settlement of briefs in progress, and what becomes of candidates already presented.',
+            'It should be equally clear how the cooperation ends: notice conditions, settlement of briefs in progress, what becomes of candidates already presented, and which arrangements continue to apply after termination. For temporary assignment there is in addition the manner in which an assignment is recalled, and the run-off of the assigned employees’ wage claims.',
           ],
         },
       ],
