@@ -177,6 +177,7 @@ export const EN_EMPLOYER: LocaleCorpus = {
           heading: 'What is most often missing',
           body: [
             'Alongside the requirements on the candidate, a brief needs the information that decides whether a suitable person will consider the offer at all.',
+            'Whether to state a pay range is the employer’s own decision. Stating one usually raises the relevance of the responses and saves time on both sides. We do not state figures here; for orientation by occupation and region there is the Czech average-earnings information system (ISPV, Informační systém o průměrném výdělku).',
             'For qualified roles what nobody writes down is often decisive — why the seat is empty. A new position created by growth and a seat that keeps becoming vacant are two different offers, and experienced people ask.',
           ],
           list: {

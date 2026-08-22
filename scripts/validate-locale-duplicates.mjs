@@ -37,7 +37,34 @@ const DE = (await import('../lib/locale/content/de/index.ts')).DE_CONTENT
 const MIN_WORDS = 180
 const PROSE_TYPES = new Set(['guide', 'occupation', 'faq', 'reference', 'service'])
 /** Above this, run the noun-substitution test rather than failing outright. */
-const SIMILARITY_SCREEN = 0.4
+/**
+ * Above this, run the noun-substitution test rather than failing outright.
+ *
+ * Lowered from 0.40 to 0.25 because at 0.40 the test never executed at all: the
+ * real corpus tops out at 38.4% (en, warehouse-workers x logistics-workers) and
+ * 32.3% (de), so substitutedSentences() was dead code and the gate silently
+ * reduced to a word-count floor plus exact-string H1/intro equality — while its
+ * PASS line reported pages as "checked and distinct".
+ */
+const SIMILARITY_SCREEN = 0.25
+
+/**
+ * Above this, the pair fails on overlap alone, whatever the sentence-level
+ * tests say.
+ *
+ * Both other failure paths require EXACT equality — sentences identical after
+ * noun-stripping, or every heading shared — so a paraphrase defeats them at any
+ * overlap. A reviewer built one: logistics-workers reworded by function-word
+ * substitution (the->a, and->plus, with->via) with fresh headings and intro,
+ * installed as warehouse-workers. It scored 94.7% and the gate passed it,
+ * emitting "checked and distinct".
+ *
+ * 0.70 sits roughly twice the real corpus maximum, so it cannot fire on genuine
+ * sector pages that share vocabulary, and cannot be escaped by rewording —
+ * overlap that high is the same page whatever words changed.
+ */
+const HARD_DUPLICATE = 0.70
+
 /** Identical sentences after noun-stripping, beyond the standing disclaimers. */
 const MAX_SUBSTITUTED_SENTENCES = 3
 
@@ -126,7 +153,13 @@ export function auditDuplicates(corpora) {
         // High overlap — now find out whether it is doorway content.
         const subs = substitutedSentences(a.body, b.body, a.nouns, b.nouns)
         const sharedHeadings = a.headings.filter((h) => b.headings.includes(h))
-        if (subs.length > MAX_SUBSTITUTED_SENTENCES) {
+        if (sim >= HARD_DUPLICATE) {
+          errors.push(
+            `${locale}: ${a.id} and ${b.id} overlap ${(sim * 100).toFixed(1)}% — above ${(HARD_DUPLICATE * 100).toFixed(0)}% ` +
+              `two pages are the same page however the words differ, so this fails on magnitude and does not ` +
+              `depend on sentences matching exactly`,
+          )
+        } else if (subs.length > MAX_SUBSTITUTED_SENTENCES) {
           errors.push(
             `${locale}: ${a.id} and ${b.id} overlap ${(sim * 100).toFixed(1)}% AND ${subs.length} sentences ` +
               `become identical once concept nouns are removed — this is noun substitution, not two pages. ` +

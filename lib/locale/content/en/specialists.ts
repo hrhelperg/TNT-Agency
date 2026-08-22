@@ -51,6 +51,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'If the range is missing from the advertisement, the applicant supplies it themselves. Someone applies with a basic course in method 111 on sheet, because they are quite right to call themselves a welder — and arrives at a workplace where method 141 on stainless tube is specified, position PF, and a weld without root backing. Nobody lied; the two sides simply pictured different work under the same word.',
             'The cost is not only in wasted interviews. An imprecise brief also distorts how the position looks on the market: the company concludes that welders are unavailable, when in fact it has not yet described what it needs. A brief that states the range works the other way, as a filter: someone without that range usually does not apply, and whoever does apply brings a document that can be compared against the requirement.',
+            'Pay is the one item this page leaves to you: no wage figures and no ranges are stated here. Orientation by occupation and by region is published by the Czech average-earnings information system (Informační systém o průměrném výdělku, ISPV). What belongs in the decision itself is the breadth of qualification you are asking for, the shift pattern, and whether the work is in the workshop or on installation away from the plant.',
           ],
           list: {
             intro: 'What belongs in the advertisement:',
@@ -75,7 +76,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           heading: 'The trial weld is the decisive step',
           body: [
             'A document says what the person managed on the day of the test under test-house conditions. Whether they can do your work is decided by a trial weld. Prepare a piece that matches your ordinary order — the same material, thickness, position, joint preparation, and if possible the welding procedure used in your shop.',
-            'Watch more than the appearance of the finished weld: how the person sets up the power source, whether they read the drawing, how they prepare and clean the material, how they handle the shielding gas, and how they check the weld themselves. Leave the assessment to whoever is responsible for welding in your operation, and write it down — in disputed cases, and in a later round of recruitment, the record pays for itself. And because this is work with real risk, a candidate doing a trial weld must also be issued protective equipment and briefed on the rules of the workplace.',
+            'Watch more than the appearance of the finished weld: how the person sets up the power source, whether they read the drawing, how they prepare and clean the material, how they handle the shielding gas, and how they check the weld themselves. Leave the assessment to whoever is responsible for welding in your operation, and write it down — in disputed cases, and in a later round of recruitment, the record pays for itself. And because this is work with real risk, a candidate doing a trial weld must also be issued protective equipment and briefed on the rules of the workplace. The conditions should be the same for every applicant for the same position.',
           ],
         },
         {
@@ -246,6 +247,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'The three most commonly requested profiles differ enough in the nature of the work that they do not substitute for one another. A maintenance electrician finds and clears faults on machines while production runs: reads schematics, is at home with the periphery of control systems, with frequency converters, drives and sensors, and decides under the pressure of a stoppage. Diagnosis is the point, not routine.',
             'A plant electrician looks after the site’s electrical equipment and its operation — distribution, switchboards, lighting, minor modifications, material for inspections and clearing the faults they identify. An installation electrician, by contrast, works to projects: installs cable routes, fits and wires switchboards, and follows the project documentation, often in a team and on contracts away from the company. Each of these profiles draws on a different pool of candidates and is therefore differently easy to fill. A combination of roles can be asked for, but it has to appear both in the brief and in the pay grading.',
+            'What this page does not supply is the pay itself: we state no wage figures for electricians and do not invent them. Earnings data broken down by occupation are published by the Czech average-earnings information system (ISPV), and the current picture of the Czech labour market by the Czech Ministry of Labour and Social Affairs (MPSV), the Czech Labour Office (Úřad práce ČR) and the Czech Statistical Office (ČSÚ).',
           ],
         },
         {
@@ -340,6 +342,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'Acceptance of an offer here is often decided by a condition unrelated to expertise: how often and in what pattern on-call duty is held. The Czech Labour Code treats on-call duty as time when an employee is outside their rostered shifts, at an agreed place away from the workplace, ready for work. It must be agreed, remuneration for it is due under the Labour Code, and work performed during it beyond the set weekly working time is overtime.',
             'For a candidate it is an intrusion into private life, judged together with the travelling distance. State in the offer, therefore, how often on-call comes round, among how many people it rotates, and what travelling distance you expect. An operation that covers a continuous regime with a single maintenance technician is usually hard for candidates to accept, and remains a weakness after the role is filled.',
+            'No amounts and no ranges for these roles are stated here, and we do not derive them. Levels of earnings by occupation are published by the Czech average-earnings information system (Informační systém o průměrném výdělku, ISPV), and what each occupation actually covers is described by the Czech national occupations register (Národní soustava povolání). One distinction is worth keeping in the offer itself: remuneration for on-call duty is under the Labour Code a payment in its own right alongside the wage, so state the two separately rather than as a single number.',
           ],
           list: {
             intro: 'What the offer should settle about on-call duty:',
@@ -406,6 +409,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'Quality roles form a fairly clear sequence, and it is worth knowing which rung a brief is actually on. The difference between adjacent rungs is not diligence but what the person decides and what outputs they leave behind.',
             'In smaller operations the rungs merge and one person does inspection, metrology and complaints. That is legitimate, but it has to appear in the brief — otherwise candidates arrive from one rung while the company expects someone to cover three.',
+            'Which rung the role stands on also settles the order in which to think about the offer. Specific figures are not on this page: no wage amounts for quality roles are stated here. Earnings by occupation are published by the Czech average-earnings information system (Informační systém o průměrném výdělku, ISPV), the requirements of an occupation by the Czech national occupations register (Národní soustava povolání), and the standards of professional qualifications by the Czech national qualifications register (Národní soustava kvalifikací). Begin by fixing which rung you actually mean, not by weighing an amount.',
           ],
           list: {
             intro: 'The rungs, from inspection upward:',
@@ -528,6 +532,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'Self-assessment is no help here — almost every candidate says they can lead people. What works is concrete situations from their own practice and the question of what they did, not what they think about leadership.',
             'State the size of the team in the brief as a number from your own operation: leading five people and leading fifty are two different jobs even where the position has the same name. Add the shift pattern, who the role reports to, and what decisions it makes without consulting anyone.',
+            'Wage figures are not stated on this page, and we do not derive them. The source material on earnings by occupation is maintained by the Czech average-earnings information system (Informační systém o průměrném výdělku, ISPV), and the description of what an occupation requires by the Czech national occupations register (Národní soustava povolání). For a first line of management, earnings are in any case only half of what a candidate weighs: the other half is the decision-making authority attached to the role, and the two are judged together.',
           ],
           list: {
             intro: 'Situations worth asking about:',
@@ -608,6 +613,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
             'Regulated competence: if a person is to perform activity on electrical equipment, their competence is governed by Czech government regulation 194/2022 Sb. That is a legal requirement attached to the activity and the equipment, not to a job title. Where a company operates reserved technical equipment, Czech Act 250/2021 Sb. applies as well.',
             'Industry convention: knowledge of a particular control-system platform, experience with a particular type of fieldbus, or practice with a given manufacturer’s robots. None of that follows from any regulation, even though employers often state it as a condition.',
             'A company’s own choice: the systems in use, the language of the documentation, the way programs are managed, and remote access to equipment. This is set by the company alone, and a candidate cannot know it in advance.',
+            'The same separation answers whether the position can be filled from abroad: it can. What it adds is a check on the documents — with a qualification obtained outside the Czech Republic, establish whether and in what form it is recognised for the activity concerned before you count on it. Recognition of qualifications gained abroad is a subject in its own right and is dealt with separately.',
           ],
         },
         {
@@ -615,6 +621,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'Knowledge of a specific platform is the most common reason a brief narrows the pool unnecessarily. Environments differ between manufacturers, but the logic of the work largely transfers — a technician who understands what the control system is supposed to do will find their way around another environment, given time.',
             'It is therefore worth separating in the brief what is genuinely essential from what can be learned. In an operation with a single platform and no capacity to train, the requirement is justified. Where several systems sit side by side, the ability to read documentation and to look for the cause of a fault systematically usually matters more.',
+            'What the brief will not take from this page is a wage level. None is stated for these roles and we do not invent them; orientation is provided by the Czech average-earnings information system (ISPV), operated by the Czech Ministry of Labour and Social Affairs (MPSV), where the figures can be worked with by occupation and by region.',
           ],
           list: {
             intro: 'What the brief should answer:',
@@ -673,7 +680,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           heading: 'Four distinct worlds under one name',
           body: [
             'Engineering roles in manufacturing divide by what their output attaches to. Four groups recur, and design and manufacturing technology form a separate group among them, covered by a page of its own.',
-            'These worlds overlap, but their centres of gravity lie elsewhere, and candidates do not move between them automatically.',
+            'These worlds overlap, but their centres of gravity lie elsewhere, and candidates do not move between them automatically. In smaller companies process and manufacturing engineering are one role; in larger ones they are two separate ones.',
           ],
           list: {
             intro: 'What the output attaches to in each:',
@@ -699,6 +706,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'Engineering positions often carry an automatic requirement for a technical university degree. In many operations that is justified; in others it is a convention that needlessly excludes experienced people who worked their way to the role from production.',
             'More useful than a level of education is the question of what kind of problem the person has to be able to take apart independently. If the position rests on statistical evaluation and work with data, formal training makes sense. If it rests on knowledge of a specific technology and on the ability to push a change through the plant, what decides is experience, and how the person communicates with supervisors and operators.',
+            'That leaves the question of how to tell whether a candidate really did what they say they did. The most reliable route is to have them take one concrete case apart from the brief through to the result — what they measured, what they changed, and how the change showed. Methodologies in the abstract are learned faster than the ability to get a change adopted in a running plant.',
           ],
         },
         {
@@ -706,6 +714,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'Engineering positions fill better when the brief describes an outcome rather than a list of tools. "We are looking for someone to reduce the number of non-conforming parts on line X" is more usable for a search than a list of methodologies.',
             'It matters equally to say who the person will work with and what authority they have. An engineer expected to change an established procedure without backing from the plant’s management usually leaves before the change shows any effect, and candidates take that into account when they decide.',
+            'One item the brief will not find here is the wage: no specific pay levels for engineering roles are stated on this page. Orientation by occupation and by region is published by the Czech average-earnings information system (ISPV), and the total cost of a position can be worked through in our own calculator.',
           ],
           list: {
             intro: 'Four things belong in the brief:',
@@ -1074,6 +1083,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
             'Operational purchasing works inside given rules: it orders to the needs of production, watches confirmations and dates, handles expediting and deviations. It decides how, not from whom.',
             'Inventory planning sits between purchasing and production. It determines how much of what should be available and when, and carries the consequences of both errors — stopped production and money needlessly tied up in stock.',
             'Strategic purchasing selects suppliers, negotiates terms and carries responsibility for supplier risk. It calls for a different kind of person and is usually remunerated differently as well.',
+            'What this page does not do is put figures to those levels: no specific amounts are stated here. Orientation by occupation and by region is published by the Czech average-earnings information system (ISPV), operated by the Czech Ministry of Labour and Social Affairs (MPSV).',
           ],
         },
         {

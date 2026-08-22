@@ -241,6 +241,42 @@
      "state": "MISSING",
      "reason": "Auf der deutschen for-employers-Seite wird kein Lohnkostenrechner zur Modellierung einer konkreten Stelle genannt. 'wie sich die Kosten einer einzelnen Stelle schätzen lassen' übersetzt den tschechischen s5-Fließtext über die Kostenseiten; 'Rechner' steht nur im CTA des separaten cost-of-vacancy-Konzepts."
     }
+   },
+   "for-employers|SEO_PAGES|f0|4b19e618": {
+    "ref": "f0",
+    "cs": "Jak mám začít, když potřebuji obsadit pozice? Začněte definicí potřeby a volbou cesty náboru (interně vs. přes agenturu) a u zahraničních pracovníků zohledněte administrativu oprávnění. Odkazy na podrobné stránky najdete v sekci Související.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "If you are filling roles, start with which route to recruit through and how to organise the process."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Wenn Sie Stellen besetzen, beginnen Sie bei der Frage, über welchen Weg Sie rekrutieren und wie Sie den Prozess organisieren."
+    }
+   },
+   "for-employers|SEO_PAGES|f1|6b51ec9e": {
+    "ref": "f1",
+    "cs": "Co dělat s vysokou fluktuací? Nejprve zjistit příčiny, pak nasadit konkrétní opatření a systematicky pracovat na retenci. Tématu se věnují samostatné stránky o fluktuaci a retenci.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "This area covers turnover, its causes and how to reduce it, retention, onboarding and adaptation"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Dieser Bereich behandelt Fluktuation, ihre Ursachen und ihre Senkung, Mitarbeiterbindung, Onboarding und Einarbeitung"
+    }
+   },
+   "for-employers|SEO_PAGES|f2|3fc4a323": {
+    "ref": "f2",
+    "cs": "Kde zjistím skutečné náklady na zaměstnance? Stránky o nákladech vysvětlují strukturu nákladů a jak si sestavit vlastní odhad. Konkrétní sazby odvodů a daní ověřte u ČSSZ, zdravotních pojišťoven a finanční správy.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "For specific contribution and tax rates, always work from the current official sources cited on the relevant page."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei konkreten Beitrags- und Steuersätzen gehen Sie bitte immer von den aktuellen offiziellen Quellen aus, die auf der jeweiligen Seite genannt sind."
+    }
    }
   }
  },
@@ -341,6 +377,54 @@
     "de": {
      "state": "MISSING",
      "reason": "Die Rechnung als Grundlage für Entscheidungen über Vertretbarkeit und Personalreserve kommt im deutschen cost-of-vacancy-Konzept an keiner Stelle vor."
+    }
+   },
+   "cost-of-vacancy|SEO_PAGES|f0|ba743969": {
+    "ref": "f0",
+    "cs": "Kolik stojí neobsazená pozice? Univerzální částka neexistuje a neuvádíme ji. Náklad závisí na tom, co dané místo přináší, jak se výpadek pokrývá a jak dlouho trvá. Stránka popisuje metodu, jak si vlastní číslo sestavit z dat vašeho provozu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "This page offers a method for building your own number. It does not supply a figure."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Diese Seite bietet eine Methode, wie Sie Ihre eigene Zahl aufbauen. Einen konkreten Betrag nennt sie nicht."
+    }
+   },
+   "cost-of-vacancy|SEO_PAGES|f1|76778a88": {
+    "ref": "f1",
+    "cs": "Dá se použít obecný násobek roční mzdy? Nedoporučujeme to. Takové násobky se nevztahují ke konkrétnímu provozu a při obhajobě rozpočtu neobstojí. Vlastní propočet ze čtyř složek je průkaznější, i když je hrubý.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The most common mistake is to borrow a general multiple of annual salary. Such figures circulate, but they do not relate to your operation and will not survive the first conversation with finance."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Der häufigste Fehler ist ein übernommenes allgemeines Vielfaches des Jahresgehalts. Solche Zahlen kursieren, beziehen sich aber nicht auf Ihren Betrieb und halten dem ersten Gespräch mit der Finanzabteilung nicht stand."
+    }
+   },
+   "cost-of-vacancy|SEO_PAGES|f2|689ed689": {
+    "ref": "f2",
+    "cs": "Jak zahrnout dopady na kvalitu a termíny? Nejlépe rozpětím od nejmenšího po největší představitelný dopad, nikoli jedním číslem. Rozpětí je poctivější a pro rozhodování zpravidla dostačuje, protože ukáže řádovou velikost.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A range is more honest than a single number and is usually enough to decide with, because it shows the order of magnitude."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eine Spanne ist ehrlicher als eine einzelne Zahl und reicht für die Entscheidung meist aus, weil sie die Größenordnung zeigt."
+    }
+   },
+   "cost-of-vacancy|SEO_PAGES|f3|4efc222c": {
+    "ref": "f3",
+    "cs": "Souvisí to s náklady na zaměstnance? Ano, ale jde o opačnou stranu rovnice. Náklady na zaměstnance popisují, co stojí obsazené místo; tato stránka to, co stojí místo prázdné. Pro rozhodnutí jsou potřeba obě čísla.",
+    "en": {
+     "state": "MISSING",
+     "reason": "The cost-of-vacancy page never names employee cost as the opposite side of the equation, and never states that both numbers are needed for a hiring decision. That pairing exists in the EN corpus only on the for-employers page ('The cost of an employee describes what a filled seat costs; the cost of a vacancy describes what an empty one costs'), which is a different localized page. Grepping this concept block for 'cost of an employee', 'filled seat', 'equation' and 'both numbers' returns nothing."
+    },
+    "de": {
+     "state": "MISSING",
+     "reason": "Die DE-Seite cost-of-vacancy enthält keinerlei Bezug auf die Mitarbeiterkosten als Gegenseite der Gleichung und sagt nicht, dass für die Entscheidung beide Zahlen nötig sind. Diese Aussage steht nur auf der Seite for-employers ('Die Mitarbeiterkosten beschreiben, was eine besetzte Stelle kostet; die Kosten einer unbesetzten Stelle beschreiben, was der leere Platz kostet') – einer anderen Seite. Suche im Konzeptblock nach Mitarbeiterkosten/Gleichung/beide Zahlen: keine Treffer."
     }
    }
   }
@@ -563,6 +647,68 @@
      "state": "MISSING",
      "reason": "The speed of client feedback after the interview (Rückmeldung nach dem Gespräch) is not mentioned anywhere in the DE specialist-recruitment entry."
     }
+   },
+   "specialist-recruitment|SEO_PAGES|f0|c3d539eb": {
+    "ref": "f0",
+    "cs": "Čím se liší nábor odborné pozice od náboru operátorů? Užším okruhem lidí, kteří danou činnost umějí a smějí vykonávat, nutností ověřit doklady a jejich rozsah, pasivitou kandidátů a odloženým nástupem kvůli výpovědní době. U provozních rolí rozhoduje organizace výběru, u odborných přesnost zadání a adresné oslovení.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "For operational roles you work with a wide pool and the outcome is decided by how the selection is organised; for specialist positions the group of people who can do the work — and who are also permitted to do it — is far narrower"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei operativen Rollen arbeiten Sie mit einem breiten Kandidatenkreis, und über das Ergebnis entscheidet die Organisation der Auswahl"
+    }
+   },
+   "specialist-recruitment|SEO_PAGES|f1|47c91d73": {
+    "ref": "f1",
+    "cs": "Musí být u pohovoru náš technik? U technických rolí to doporučujeme. Personální rozhovor ověří praxi, motivaci a podmínky, ale rozdíl mezi obsluhou a seřizovačem nebo mezi kontrolorem a technikem kvality spolehlivě pozná jen odborník z provozu. Praktické ověření proto necháváme na straně zaměstnavatele.",
+    "en": {
+     "state": "MISSING",
+     "reason": "Nothing on the specialist-recruitment page recommends that the employer's own technician sit in on the interview, distinguishes what an HR interview can verify (experience, motivation, conditions) from what only an operations expert can judge (operator vs setter, inspector vs quality technician), or states that practical verification is left on the employer's side. The nearest text in the corpus, 'what needs technical assessment on your side', sits on the request-staff page, a different localized page. Greps of this concept block for interview / technical assess / verif / your side return nothing."
+    },
+    "de": {
+     "state": "MISSING",
+     "reason": "Die DE-Seite Fachkräfterekrutierung empfiehlt nirgends die Anwesenheit eines eigenen Technikers im Gespräch, trennt nicht das Personalgespräch von der fachlichen Beurteilung und sagt nicht, dass die praktische Prüfung beim Arbeitgeber bleibt. Das Nächstliegende ('was auf Ihrer Seite fachlich zu beurteilen bleibt') steht auf der Seite request-staff, nicht hier. Greps des Konzeptblocks nach Gespräch/beurteil/prüf/Ihrer Seite: keine einschlägigen Treffer."
+    }
+   },
+   "specialist-recruitment|SEO_PAGES|f2|dc074784": {
+    "ref": "f2",
+    "cs": "Obsazujete i vedoucí pozice? Tyto stránky se věnují provoznímu vedení – mistrům, vedoucím směn a vedoucím úseků navázaným na výrobu, sklad nebo údržbu. Vyhledávání do vrcholového vedení ani specializované role mimo výrobní a logistické zázemí zde nerozebíráme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "This area covers technical and specialist roles attached to manufacturing, warehousing and logistics operations, including first-line management. Executive search, psychometric assessment and taking over an entire recruitment function are not part of it."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Dieser Bereich betrifft technische und fachliche Rollen im Umfeld von Produktion, Lager und Logistik einschließlich der ersten Führungsebene."
+    }
+   },
+   "specialist-recruitment|SEO_PAGES|f3|67653d65": {
+    "ref": "f3",
+    "cs": "Za jak dlouho se odborná pozice obsadí? Termín nesdělujeme dopředu a nezavazujeme se k němu. Dobu určuje hlavně výpovědní doba vybraného kandidáta, dostupnost kvalifikace v regionu a rychlost rozhodování na straně zaměstnavatele. Jednotlivé vlivy rozebírá samostatná stránka o délce obsazení pozice.",
+    "en": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "We do not publish salary levels or time-to-hire.",
+     "reason": "The load-bearing half of the answer is the refusal itself — no date given in advance, no commitment to one — and it is stated verbatim on this page. The drivers the Czech then enumerates (the selected candidate's notice period, regional availability of the qualification, the employer's own decision speed) are the entire subject of the dedicated time-to-hire page in the same corpus, which the Czech answer itself defers to. The fold therefore removes a restatement, not a claim, and the page still refuses the promise the source refuses."
+    },
+    "de": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "Wir nennen keine Gehaltsniveaus und keine Besetzungsdauern.",
+     "reason": "Der tragende Teil der Antwort ist die Verweigerung selbst – kein Termin im Voraus, keine Zusage – und sie steht wörtlich auf der Seite. Die im Tschechischen anschließend aufgezählten Einflussgrößen (Kündigungsfrist, regionale Verfügbarkeit der Qualifikation, Entscheidungstempo des Arbeitgebers) sind der vollständige Gegenstand der eigenen Seite time-to-hire desselben Korpus, auf die schon der tschechische Text verweist. Gefaltet wurde eine Wiederholung, keine Aussage."
+    }
+   },
+   "specialist-recruitment|SEO_PAGES|f4|eded93d4": {
+    "ref": "f4",
+    "cs": "Kde zjistíme mzdovou úroveň konkrétní profese? Použijte Informační systém o průměrném výdělku (ISPV), který uvádí mzdová rozpětí podle profesí a regionů. Vlastní čísla neuvádíme, protože by nebyla ověřitelná a rychle by zastarala.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Salary ranges for a specific occupation and region belong to the official average-earnings information system"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Gehaltsspannen für einen bestimmten Beruf und eine bestimmte Region gehören in das offizielle Informationssystem über Durchschnittsverdienste"
+    }
    }
   }
  },
@@ -613,6 +759,42 @@
      "carriedBy": "überlässt die Person dem Einsatzunternehmen vorübergehend",
      "reason": "Same sentence as s0.b1; the agreement basis is echoed by the Dreiecksverhältnis section on the vertragliche Dokumentation.",
      "sharedEvidence": true
+    }
+   },
+   "how-agency-works|SEO_PAGES|f0|938d8ccc": {
+    "ref": "f0",
+    "cs": "Kdo je u agenturního pracovníka zaměstnavatelem? Formálním zaměstnavatelem je pracovní agentura. Pracovník je k firmě (uživateli) dočasně přidělen na základě dohody mezi agenturou a uživatelem.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In agency employment the agency remains the employer and assigns the worker temporarily to the user company."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei der Arbeitnehmerüberlassung bleibt die Agentur Arbeitgeber und überlässt die Person dem Einsatzunternehmen vorübergehend."
+    }
+   },
+   "how-agency-works|SEO_PAGES|f1|510cb1a8": {
+    "ref": "f1",
+    "cs": "Potřebuje agentura zvláštní povolení? Ano. Ke zprostředkování zaměstnání musí mít agentura platné povolení podle zákona o zaměstnanosti.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "To carry on employment mediation an agency must hold a valid permit under Czech Act 435/2004 Sb. on employment."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Für die Arbeitsvermittlung muss eine Agentur eine gültige Erlaubnis nach dem tschechischen Beschäftigungsgesetz besitzen."
+    }
+   },
+   "how-agency-works|SEO_PAGES|f2|eec16a28": {
+    "ref": "f2",
+    "cs": "Mají agenturní pracovníci stejné podmínky jako kmenoví? U agenturního zaměstnávání platí požadavek srovnatelných mzdových a pracovních podmínek s kmenovými zaměstnanci uživatele.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In agency employment, pay and working conditions must be comparable to those of the user company’s own employees."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei der Arbeitnehmerüberlassung gilt die Anforderung vergleichbarer Lohn- und Arbeitsbedingungen gegenüber den Stammbeschäftigten des Einsatzunternehmens."
     }
    }
   }
@@ -677,6 +859,42 @@
     "de": {
      "state": "MISSING",
      "reason": "No statement about measuring Abgänge in den ersten Monaten nach Eintritt. 'Onboarding' occurs once, as an area for gezielte Maßnahmen, which is a different claim from tracking early departures."
+    }
+   },
+   "employee-turnover|SEO_PAGES|f0|add3192e": {
+    "ref": "f0",
+    "cs": "Jaká míra fluktuace je „normální“? Univerzální hodnota neexistuje a liší se podle oboru a typu práce. Tato stránka cizí benchmarky neuvádí; smysluplnější je sledovat vlastní trend v čase.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "What is worth watching is the trend over time and the differences between teams or roles, rather than comparison with someone else’s numbers."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Diese Seite nennt bewusst kein „übliches“ Niveau."
+    }
+   },
+   "employee-turnover|SEO_PAGES|f1|d1f4e6e0": {
+    "ref": "f1",
+    "cs": "Jak fluktuaci jednoduše změřit? Poměřte počet odchodů za období vůči průměrnému počtu zaměstnanců a sledujte vývoj v čase a rozdíly mezi týmy a pozicemi.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The basic indicator compares departures over a period against the average headcount."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Grundkennzahl setzt die Zahl der Abgänge in einem Zeitraum ins Verhältnis zur durchschnittlichen Beschäftigtenzahl."
+    }
+   },
+   "employee-turnover|SEO_PAGES|f2|ade70f1a": {
+    "ref": "f2",
+    "cs": "Proč je fluktuace pro firmu drahá? Odchody přinášejí náklady na nový nábor, zaškolení a dočasný výpadek výkonu. Tématu nepřímých nákladů se věnuje samostatná stránka.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "It matters to employers because departures carry the cost of recruiting, training and a temporary drop in output."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Für Arbeitgeber ist sie deshalb wichtig, weil Abgänge Kosten für Rekrutierung, Einarbeitung und einen vorübergehenden Leistungsausfall mit sich bringen."
     }
    }
   }
@@ -743,6 +961,42 @@
      "state": "MISSING",
      "reason": "No mention of Anzeige, Inserat or Stellenausschreibung in the DE production-workers entry; the Rekrutierungs paragraph discusses only the choice of route, not targeting advertising at a specific type of production work."
     }
+   },
+   "production-workers|SEO_PAGES|f0|4336afb6": {
+    "ref": "f0",
+    "cs": "Jak rychle obsadit výpadek ve výrobě? Pružnou cestou bývá agenturní zaměstnávání, které umožní reagovat na výkyvy. U nedostatkových profesí pomáhá i nábor ze zahraničí, byť s delší přípravou kvůli oprávněním. Neslibujeme okamžité obsazení.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "agency employment for flexible cover of peaks, and for shortage occupations, recruitment from abroad"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Arbeitnehmerüberlassung nach tschechischem Recht für die flexible Abdeckung von Spitzen und bei Mangelberufen die Gewinnung aus dem Ausland"
+    }
+   },
+   "production-workers|SEO_PAGES|f1|a2d8c17a": {
+    "ref": "f1",
+    "cs": "Jaké role výroba obvykle obsazuje? Nejčastěji operátory strojů, montážní a pomocné a manipulační pracovníky. Každá role má jiné nároky na kvalifikaci a zaškolení.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Roles range from machine operation through manual assembly to support and materials handling, which means different qualification requirements."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Positionen reichen von der Maschinenbedienung über die manuelle Montage bis zu Hilfs- und Transporttätigkeiten, woraus unterschiedliche Qualifikationsanforderungen folgen."
+    }
+   },
+   "production-workers|SEO_PAGES|f2|ad5f992c": {
+    "ref": "f2",
+    "cs": "Uvádíte mzdy nebo počty volných míst? Ne. Konkrétní mzdy ani statistiky nevymýšlíme. Aktuální údaje patří do oficiálních zdrojů (ČSÚ, MPSV, Úřad práce ČR), na které odkazujeme.",
+    "en": {
+     "state": "MISSING",
+     "reason": "The page names no official source at all — no Czech Statistical Office, Ministry of Labour and Social Affairs or Labour Office — and carries no body prose refusing to state wages or vacancy counts. The only trace is the meta description ('A practical overview without invented numbers'), which is not body prose and drops the constructive half of the answer entirely: where the real data belongs. Greps of this concept block for wage / salary / statistic / official / source return only that description line."
+    },
+    "de": {
+     "state": "MISSING",
+     "reason": "Die Seite nennt keine einzige offizielle Quelle – weder das Tschechische Statistische Amt noch MPSV oder Úřad práce ČR – und enthält im Fließtext keine Verweigerung, Gehälter oder Zahlen offener Stellen anzugeben. Übrig bleibt nur die Meta-Beschreibung ('Ein praktischer Überblick ohne erfundene Zahlen'), also kein Seitentext, und der konstruktive Teil der Antwort – wohin die aktuellen Angaben gehören – fehlt vollständig."
+    }
    }
   }
  },
@@ -787,6 +1041,44 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Gewinnung aus dem Ausland – größerer Kandidatenkreis, mehr Verwaltung",
      "reason": "Only the dash changed (de/employer.ts:38)."
+    }
+   },
+   "recruitment-overview|SEO_PAGES|f0|4381da7c": {
+    "ref": "f0",
+    "cs": "Kdy se vyplatí agentura místo přímého náboru? Typicky u sezónních špiček, dočasných výpadků kapacity nebo když nemáte interní kapacitu vést nábor. Agentura přebírá část administrativy a u agenturního zaměstnávání je formálním zaměstnavatelem.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Seasonal peaks and temporary gaps usually suit agency employment."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Saisonale Spitzen und vorübergehende Ausfälle passen meist zur Arbeitnehmerüberlassung"
+    }
+   },
+   "recruitment-overview|SEO_PAGES|f1|1590f1f3": {
+    "ref": "f1",
+    "cs": "Je nábor ze zahraničí složitější? Přidává administrativu spojenou s pobytovými a pracovními oprávněními. Rozšiřuje ale okruh kandidátů. Podrobnosti popisují stránky o zaměstnávání cizinců a náboru zahraničních pracovníků.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Recruiting from abroad widens the pool of candidates but adds the administration attached to permits."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Gewinnung aus dem Ausland erweitert den Kreis der Kandidatinnen und Kandidaten, bringt aber die Verwaltung rund um die Erlaubnisse in Tschechien mit sich."
+    }
+   },
+   "recruitment-overview|SEO_PAGES|f2|ab30c677": {
+    "ref": "f2",
+    "cs": "Jak rychle lze obsadit pozici? Závisí na dostupnosti kandidátů, zvolené cestě a u cizinců na povolovacím řízení. Tato stránka neuvádí konkrétní lhůty; u oprávnění je ověřte u příslušných úřadů.",
+    "en": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "The useful criteria are urgency, the nature of the need — standing or temporary — how available the candidates are in your market, and your internal capacity to run a selection process and its paperwork.",
+     "reason": "Every determinant the answer names survives on this page, folded into the route-selection criteria instead of a separate Q/A: candidate availability and urgency in the sentence quoted, the chosen route throughout 'The main routes', and the permit procedure in 'If you are considering recruiting from abroad, allow for the permit administration described on the Czech pages covering the employment of foreign nationals.' The refusal half is honoured behaviourally — the page states no interval anywhere, and its intro commits to pointing at official sources for specific rules rather than restating them."
+    },
+    "de": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "Brauchbare Kriterien sind Dringlichkeit, die Art des Bedarfs – dauerhaft oder vorübergehend –, die Verfügbarkeit geeigneter Menschen in Ihrer Region und Ihre interne Kapazität, ein Auswahlverfahren samt Verwaltung zu führen.",
+     "reason": "Alle genannten Einflussgrößen stehen auf der Seite, nur in die Auswahlkriterien gefaltet statt als eigene Frage: Verfügbarkeit und Dringlichkeit im zitierten Satz, der gewählte Weg im Abschnitt 'Die Hauptwege', das Erlaubnisverfahren in 'rechnen Sie mit der Verwaltung der Erlaubnisse'. Die Verweigerung wird eingehalten, indem die Seite nirgends eine Frist nennt und im Intro für konkrete Regeln auf offizielle Quellen verweist."
     }
    }
   }
@@ -901,6 +1193,42 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Ob es sich um einen wiederholten Weggang aus derselben Stelle handelt"
     }
+   },
+   "recruitment-planning|SEO_PAGES|f0|cf8f45f5": {
+    "ref": "f0",
+    "cs": "Proč plánovat nábor předem? Akutní nábor na poslední chvíli bývá dražší a pomalejší a zvyšuje riziko ústupků v kvalitě. Plánování umožní spustit hledání včas a počítat s rezervou.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Reactive recruitment — looking for people only once they are missing — tends to be slower and more expensive than recruitment planned in advance."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Reaktive Personalgewinnung – die Suche beginnt erst, wenn Menschen fehlen – ist meist langsamer und teurer als geplante."
+    }
+   },
+   "recruitment-planning|SEO_PAGES|f1|be8d509b": {
+    "ref": "f1",
+    "cs": "Jak zohlednit nábor ze zahraničí v plánu? Připočtěte čas na pobytová a pracovní oprávnění, který harmonogram prodlužuje. Konkrétní lhůty ověřte u příslušných úřadů.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Where people are recruited from abroad, the time needed for residence and work authorisation extends the plan further."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei der Gewinnung aus dem Ausland verlängert die Zeit für Aufenthalts- und Arbeitserlaubnisse in Tschechien den Plan zusätzlich."
+    }
+   },
+   "recruitment-planning|SEO_PAGES|f2|c57a7b19": {
+    "ref": "f2",
+    "cs": "Jak naplánovat sezónní špičky? Oddělte stálou potřebu od dočasné. Sezónní špičky lze pokrýt například agenturním zaměstnáváním, které nabízí flexibilitu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "It is worth separating the standing requirement from temporary peaks, because a different recruitment route covers each."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Sinnvoll ist, den dauerhaften Bedarf von vorübergehenden Spitzen zu trennen, weil beide über unterschiedliche Wege der Personalgewinnung gedeckt werden."
+    }
    }
   }
  },
@@ -1014,6 +1342,56 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Der Grund, warum die Stelle frei ist"
     }
+   },
+   "role-brief|SEO_PAGES|f0|26899203": {
+    "ref": "f0",
+    "cs": "Proč se nedaří obsadit pozici, na kterou je dost uchazečů? Častou příčinou je zadání, které nerozlišuje nutné a vítané požadavky. Každý požadavek se pak chová jako podmínka a profil se stane nedosažitelným, přestože vhodní lidé mezi uchazeči jsou.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Without the split, every requirement behaves like a condition and the profile becomes unreachable."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ohne die Trennung wirkt jede Anforderung wie eine Bedingung, und das Profil wird unerreichbar."
+    }
+   },
+   "role-brief|SEO_PAGES|f1|907ebe53": {
+    "ref": "f1",
+    "cs": "Kolik požadavků má profil obsahovat? Počet není podstatný, rozdělení ano. Užitečné je vědět, bez čeho člověk nemůže nastoupit a co se dá doučit — u dlouho neobsazené pozice pomůže tento seznam projít znovu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Every requirement belongs in one of two groups: what someone cannot start without, and what makes settling in easier but can be learned."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Jede Anforderung gehört in eine von zwei Gruppen: das, ohne das jemand nicht anfangen kann, und das, was die Einarbeitung erleichtert, sich aber erlernen lässt."
+    }
+   },
+   "role-brief|SEO_PAGES|f2|1331bce5": {
+    "ref": "f2",
+    "cs": "Máme uvádět mzdové rozpětí? Rozhodnutí je na zaměstnavateli. Uvedení rozpětí zpravidla zvyšuje relevanci reakcí a šetří čas oběma stranám. Orientaci podle profese a regionu poskytuje ISPV; konkrétní částky zde neuvádíme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Whether to state a pay range is the employer’s own decision. Stating one usually raises the relevance of the responses a"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ob Sie eine Entgeltspanne angeben, entscheiden Sie als Arbeitgeber. Eine angegebene Spanne erhöht in der Regel die Relev"
+    }
+   },
+   "role-brief|SEO_PAGES|f3|e9cea401": {
+    "ref": "f3",
+    "cs": "Liší se zadání u provozních a odborných pozic? Struktura je stejná, těžiště jiné. U provozních rolí rozhodují směnný režim, dostupnost a zaškolení, u odborných pozic přesné vymezení požadované kvalifikace a oprávnění.",
+    "en": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "A regulated qualification is a specific certificate whose content and scope are set by the relevant regulation or standard.",
+     "reason": "The page presents one brief structure and names both centres of gravity inside it rather than as a comparison. The specialist emphasis — precise definition of the required qualification and authorisation — is the quoted sentence plus 'A legal requirement follows from regulation and cannot be waived — for example electrotechnical competence'. The operational emphasis is the 'What the brief needs to state' list: 'The shift pattern, and how regular it is.', 'Location, how reachable the site is, and any transport provided.', 'The scope and length of training.' Only the framing sentence 'same structure, different weight' is folded away, and the single-structure presentation asserts exactly that."
+    },
+    "de": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "Eine geregelte Qualifikation ist ein bestimmter Nachweis, dessen Inhalt und Umfang die jeweilige Vorschrift oder Norm festlegt.",
+     "reason": "Die Seite zeigt eine einzige Profilstruktur und benennt beide Schwerpunkte darin, statt sie zu vergleichen. Der fachliche Schwerpunkt – genaue Bestimmung von Qualifikation und Befähigung – steht im zitierten Satz und in 'Eine rechtliche Anforderung folgt aus Vorschriften und lässt sich nicht erlassen'. Der operative Schwerpunkt steht in der Liste 'Was im Profil stehen muss': 'Schichtmodell und seine Regelmäßigkeit', 'Standort, Erreichbarkeit und eine etwaige Beförderung zum Arbeitsplatz', 'Umfang und Dauer der Einarbeitung'. Gefaltet wurde nur der Rahmensatz 'Struktur gleich, Schwerpunkt anders', den die einheitliche Darstellung selbst behauptet."
+    }
    }
   }
  },
@@ -1126,7 +1504,9 @@
     },
     "de": {
      "state": "PRESERVED_IN_LIST",
-     "carriedBy": "Keine Referenzen beim derzeitigen Arbeitgeber ohne Wissen der angesprochenen Person einholen"
+     "carriedBy": "Keine Referenzen beim derzeitigen Arbeitgeber ohne Wissen der angesprochenen Person einholen",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
     }
    },
    "direct-sourcing|SEO_PAGES|s3.b3|929b0512": {
@@ -1202,6 +1582,68 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Rückmeldung bis zum vereinbarten Termin, auch wenn sie ablehnend ausfällt"
+    }
+   },
+   "direct-sourcing|SEO_PAGES|f0|d92e15d9": {
+    "ref": "f0",
+    "cs": "Proč nám na inzerát neodpovídají vhodní lidé? Inzerát osloví jen ty, kdo právě hledají. U odborných rolí je tato skupina malá, protože kdo hledanou kompetenci má, obvykle ji právě uplatňuje jinde. Řešením není delší text inzerátu, ale aktivní vyhledávání a oslovení konkrétních lidí.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "An advertisement is a passive instrument and reaches only the overlap of two groups: people with the competence, and people who happen to be looking."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eine Anzeige ist ein passives Instrument und erreicht nur die Schnittmenge zweier Gruppen: Menschen mit der gesuchten Kompetenz und Menschen, die gerade schauen."
+    }
+   },
+   "direct-sourcing|SEO_PAGES|f1|205695cd": {
+    "ref": "f1",
+    "cs": "Kolik kandidátů máte v databázi? Žádné číslo neuvádíme. Údaj o velikosti databáze nebo o dosahu není ověřitelný a nevypovídá o tom, kolik lidí s vaší konkrétní kompetencí je v daném regionu dosažitelných. Popsat vám umíme postup, ne velikost seznamu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "We state no such figure about our reach or the size of any database, and we will not."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Wir nennen keine solche Angabe zu unserer Reichweite oder zur Größe irgendeiner Datenbank, und wir werden es nicht tun."
+    }
+   },
+   "direct-sourcing|SEO_PAGES|f2|ceb54921": {
+    "ref": "f2",
+    "cs": "Je oslovení člověka pracujícího u jiné firmy korektní? Ano, pokud probíhá diskrétně a bez nátlaku: mimo pracovní kontakty, bez sdělování jména třetí straně bez souhlasu a bez ověřování referencí u současného zaměstnavatele. Rozhodnutí zůstává na kandidátovi a odmítnutí se respektuje.",
+    "en": {
+     "state": "PRESERVED_IN_LIST",
+     "carriedBy": "The candidate’s name is not given to the employer without their consent."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Keine Referenzen beim derzeitigen Arbeitgeber ohne Wissen der angesprochenen Person einholen",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    }
+   },
+   "direct-sourcing|SEO_PAGES|f3|43743d0a": {
+    "ref": "f3",
+    "cs": "Co když kandidát nabídku odmítne? Je to běžné a obvykle to vypovídá o načasování, ne o roli. Rozhovor se korektně ukončí a kontakt zůstává otevřený; k části oslovených má smysl se vrátit později, až se jejich situace změní.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A refusal at first approach is an ordinary response, and it usually concerns the moment rather than the role."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eine Absage bei der ersten Ansprache ist eine gewöhnliche Reaktion und betrifft meist den Zeitpunkt, nicht die Rolle."
+    }
+   },
+   "direct-sourcing|SEO_PAGES|f4|3699720c": {
+    "ref": "f4",
+    "cs": "Platí za oslovení kandidát? Ne. Zákon o zaměstnanosti neumožňuje požadovat úhradu za zprostředkování zaměstnání po uchazeči. Náklady nese zaměstnavatel a kandidát za účast ve výběru neplatí nic.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "no fee for mediation may be sought from the candidate. The cost is borne by the employer, never by the person approached."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "ein Entgelt für die Vermittlung darf von der Kandidatin oder dem Kandidaten nicht verlangt werden. Die Kosten trägt der Arbeitgeber, niemals die angesprochene Person."
     }
    }
   }
@@ -1432,6 +1874,68 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Erst danach die Kanäle wechseln und die Direktansprache von Kandidatinnen und Kandidaten erwägen"
     }
+   },
+   "hard-to-fill-roles|SEO_PAGES|f0|8aa1a1e2": {
+    "ref": "f0",
+    "cs": "Jak poznáme, že je problém v zadání, a ne na trhu? Porovnejte inzerát s lidmi, kteří tu práci u vás dnes dělají. Pokud by dnešní požadavky sami nesplnili, je zadání přísnější než skutečná potřeba. Druhým vodítkem je počet kandidátů, kteří prošli prvním kolem výběru, ale vypadli až v kolech pozdějších.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "would the person currently doing that job for you meet today’s advertisement? If not, the brief is stricter than the real need."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Würde die Person, die diese Arbeit heute bei Ihnen tut, die heutige Anzeige erfüllen? Wenn nicht, ist das Profil strenger als der tatsächliche Bedarf."
+    }
+   },
+   "hard-to-fill-roles|SEO_PAGES|f1|e933ceda": {
+    "ref": "f1",
+    "cs": "Máme zvýšit nabízenou mzdu? Obecně to říct nelze a žádné rozpětí zde neuvádíme. Vycházejte z dat o výdělcích podle profese, kvalifikace a regionu, která poskytuje ISPV, a teprve potom z toho, co pozice ve vašem rozpočtu unese. Mzda navíc nebývá jediným vázaným místem.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Publicly available data on earnings by occupation, qualification and region is published by the Czech average-earnings information system. This page states no amounts."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Öffentlich verfügbare Daten zu Verdiensten nach Beruf, Qualifikation und Region veröffentlicht das tschechische Informationssystem über Durchschnittsverdienste. Diese Seite nennt keine Beträge."
+    }
+   },
+   "hard-to-fill-roles|SEO_PAGES|f2|570af660": {
+    "ref": "f2",
+    "cs": "Kolik kol výběru je u odborné pozice únosné? Univerzální počet neexistuje. Rozhoduje, co každé kolo k rozhodnutí přidává a jak dlouhá je prodleva mezi nimi. Kola bez vlastního výstupu a čekání na volný termín odborného garanta patří k častým příčinám ztráty kandidátů.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The loss usually takes the form of delay: days pass between an interview and feedback, the technical assessment is scheduled for whenever th"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Der Verlust hat meist die Form einer Verzögerung: Zwischen Gespräch und Rückmeldung vergehen Tage, die fachliche Beurteilung wird auf einen "
+    }
+   },
+   "hard-to-fill-roles|SEO_PAGES|f3|209dad50": {
+    "ref": "f3",
+    "cs": "Pozice visí několik měsíců – má smysl hledat dál stejným způsobem? Opakování téhož postupu obvykle přinese stejný výsledek. Projděte nejprve profil, požadavky a vlastní proces. Teprve potom má smysl měnit kanály nebo přejít na přímé oslovení lidí, kteří práci aktivně nehledají.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The diagnosis is worth doing in order. First the brief, because an error there devalues any channel. Then your own constraints, which an adv"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Diagnose lohnt sich in dieser Reihenfolge. Zuerst das Profil, weil ein Fehler darin jeden Kanal entwertet. Dann die eigenen Einschränkun"
+    }
+   },
+   "hard-to-fill-roles|SEO_PAGES|f4|fab74d88": {
+    "ref": "f4",
+    "cs": "Může za to nedostatek lidí na trhu? Někdy ano, jenže na tuto příčinu zaměstnavatel reagovat nemůže. Diagnostika proto začíná u toho, co ovlivnit lze. Údaje o trhu práce zveřejňují MPSV, Úřad práce ČR a ČSÚ; tato stránka konkrétní čísla neuvádí.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "which ask first about the brief, then about your constraints, and only last about the market",
+     "reason": "The answer's guidance — the market may be a cause but is not one an employer can act on, so diagnose what you control first — is the page's stated ordering; the labour-market source list is the only clause not repeated here."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "die zuerst nach dem Profil fragen, dann nach den eigenen Einschränkungen und erst zuletzt nach dem Markt",
+     "reason": "Same ordering argument as EN: profile, own constraints, market last; the MPSV/Úřad práce/ČSÚ source list is not repeated on this page."
+    }
    }
   }
  },
@@ -1558,6 +2062,66 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Ob das Anforderungsprofil stabil ist oder sich während der Auswahl ändert"
     }
+   },
+   "time-to-hire|SEO_PAGES|f0|d54d6558": {
+    "ref": "f0",
+    "cs": "Za jak dlouho nám dodáte kandidáty? Konkrétní datum neslibujeme, protože ho z podstatné části určují třetí strany – dosavadní zaměstnavatel kandidáta, zkušebny, poskytovatel pracovnělékařských služeb a u cizinců správní úřady. Po upřesnění zadání vám popíšeme, jaké kroky mají proběhnout a kde se hledání nachází.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "it is a promise made on behalf of people the promiser does not control — the candidate, their current employer, the examining body, the occupational health provider and an administrative authority"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "ist aber ein Versprechen für Personen, die der Versprechende nicht in der Hand hat – die Kandidatin oder den Kandidaten, deren bisherigen Arbeitgeber, die Prüfstelle, den arbeitsmedizinischen Dienst und eine Behörde"
+    }
+   },
+   "time-to-hire|SEO_PAGES|f1|391c2412": {
+    "ref": "f1",
+    "cs": "Můžete zkrátit výpovědní dobu kandidáta? Ne. Délku i běh výpovědní doby stanoví zákoník práce a dřívější odchod je možný pouze dohodou mezi kandidátem a jeho dosavadním zaměstnavatelem. Agentura ani nový zaměstnavatel do tohoto vztahu nevstupuje.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Neither you nor an agency can shorten it. An earlier departure is possible only by agreement between the candidate and their current employer"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Verkürzen kann ihn weder eine Agentur noch Sie. Ein früherer Wechsel ist nur im Einvernehmen möglich"
+    }
+   },
+   "time-to-hire|SEO_PAGES|f2|1c924fc5": {
+    "ref": "f2",
+    "cs": "Co dobu obsazení nejvíc zkrátí na naší straně? Rychlá zpětná vazba k profilům, omezení počtu kol pohovorů na nezbytné minimum, předem známá dostupnost rozhodující osoby a stabilní zadání. Tyto části harmonogramu má zaměstnavatel plně ve svých rukou.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "It includes the delay between a profile being sent and feedback returning, the number of interview rounds, the availability of the person who decides, and how quickly a concrete offer follows an interview."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Dazu gehören die Zeit zwischen Übersendung eines Profils und der Rückmeldung, die Zahl der Gesprächsrunden, die Verfügbarkeit der entscheidenden Person und die Geschwindigkeit, mit der nach einem Gespräch ein konkretes Angebot folgt."
+    }
+   },
+   "time-to-hire|SEO_PAGES|f3|90c8e49a": {
+    "ref": "f3",
+    "cs": "Jak dlouho trvá vyřízení oprávnění u pracovníka ze třetí země? Řízení vede stát a jeho délku neurčujeme. Postup a lhůty vyplývají z předpisů; aktuální informace zveřejňují Ministerstvo vnitra ČR, Úřad práce ČR a Ministerstvo zahraničních věcí ČR. Do plánu je vhodné tento krok zahrnout jako samostatnou fázi.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Current information is published by the Czech Ministry of the Interior, the Czech Labour Office and the Czech Ministry of Foreign Affairs. No time limits are stated on this page."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Aktuelle Informationen veröffentlichen das tschechische Innenministerium, das Arbeitsamt der Tschechischen Republik (Úřad práce ČR) und das tschechische Außenministerium. Konkrete Fristen nennt diese Seite nicht."
+    }
+   },
+   "time-to-hire|SEO_PAGES|f4|050042e4": {
+    "ref": "f4",
+    "cs": "Uvádíte průměrnou dobu obsazení pozice? Neuvádíme. U odborných a technických pozic se zadání liší rozsahem oprávnění, směnností i regionem natolik, že by průměr nesl zdání přesnosti bez skutečné vypovídací hodnoty.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "we do not work with an average time to fill either: for specialist and technical roles individual briefs differ so much that an average would mislead an employer rather than orient them."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "arbeiten auch nicht mit einer durchschnittlichen Besetzungsdauer: Bei Fach- und technischen Stellen unterscheiden sich die einzelnen Aufträge so stark, dass ein Durchschnitt eher verwirrt als orientiert."
+    }
    }
   }
  },
@@ -1623,6 +2187,44 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Klare Erwartungen und die ersten Aufgaben"
     }
+   },
+   "onboarding|SEO_PAGES|f0|2f954dd4": {
+    "ref": "f0",
+    "cs": "Co má onboarding obsahovat? Administrativní část (smlouva, přihlášení k pojištění, vstupní školení BOZP) a praktickou (seznámení s pracovištěm, nástroji, týmem a očekáváním). Obě je vhodné připravit předem.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Onboarding joins an administrative part — the contract, insurance registration, initial health-and-safety training — with a practical one: familiarisation with the workplace, the tools, the team and what is expected."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Onboarding verbindet einen administrativen Teil – Vertrag, Anmeldung zur Versicherung, Arbeitsschutzunterweisung – mit einem praktischen: Einführung in Arbeitsplatz, Werkzeuge, Team und Erwartungen."
+    }
+   },
+   "onboarding|SEO_PAGES|f1|9f27f8af": {
+    "ref": "f1",
+    "cs": "Proč onboarding ovlivňuje fluktuaci? První dny a týdny rozhodují, zda člověk zůstane. Nezvládnutý nástup patří mezi časté příčiny brzkých odchodů, zatímco připravený onboarding urychluje zapracování.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The first days and weeks strongly influence whether a new person stays."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die ersten Tage und Wochen beeinflussen stark, ob eine neue Person bleibt."
+    }
+   },
+   "onboarding|SEO_PAGES|f2|73abf49a": {
+    "ref": "f2",
+    "cs": "Je vstupní školení BOZP povinné? Bezpečnost a ochrana zdraví při práci patří mezi povinnosti zaměstnavatele. Konkrétní rozsah ověřte podle předpisů; jde o standardní součást nástupu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "for specific duties such as initial health-and-safety training it points to the regulations and official sources",
+     "reason": "Treated as a duty on joining whose exact scope belongs in the regulations, and listed as a standard step of the start; that is the whole of the Czech answer."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "für konkrete Pflichten wie die Arbeitsschutzunterweisung nach tschechischem Recht verweist sie auf die geltenden Vorschriften und die offiziellen Quellen",
+     "reason": "Same framing as EN: named as an employer duty, scope referred to the Czech regulations, and carried as a standard onboarding step in the list."
+    }
    }
   }
  },
@@ -1687,6 +2289,42 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Stabilität der Schichten und praktisches Umfeld"
+    }
+   },
+   "employee-retention|SEO_PAGES|f0|ffe773bc": {
+    "ref": "f0",
+    "cs": "Jaký je rozdíl mezi retencí a snižováním fluktuace? Snižování fluktuace je obvykle reakce na zvýšené odchody, retence je proaktivní a počítá s udržením lidí už od náboru a onboardingu. Obě se doplňují.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Reducing turnover is often a reaction to departures having risen. Retention is proactive"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Das Senken der Fluktuation ist oft eine Reaktion auf gestiegene Abgänge. Bindung ist vorausschauend"
+    }
+   },
+   "employee-retention|SEO_PAGES|f1|5e222d91": {
+    "ref": "f1",
+    "cs": "Kde začít s retencí? U fází s největším dopadem – kvalitní nábor a onboarding, srozumitelné podmínky a vedení. Účinnost ověřujte na vlastních datech.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "you should be able to say which phases of the employee life cycle to invest in — recruitment, onboarding, development — and how to track whether people stay, against your own data"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "sollten Sie bestimmen können, in welche Phasen des Beschäftigungsverlaufs Sie investieren – Gewinnung, Onboarding, Entwicklung – und wie Sie das Halten an den eigenen Daten verfolgen."
+    }
+   },
+   "employee-retention|SEO_PAGES|f2|d59550b2": {
+    "ref": "f2",
+    "cs": "Vyplatí se retence i u dělnických profesí? Ano, zejména u nedostatkových profesí, kde je nový nábor nákladný. Roli hraje i stabilita směn a praktické zázemí.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "which pays off particularly in shortage occupations"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "sie bietet einen Rahmen, Bindung als laufende Aufgabe zu behandeln, was sich besonders bei Mangelberufen auszahlt."
     }
    }
   }
@@ -1803,7 +2441,9 @@
     },
     "de": {
      "state": "PRESERVED_IN_LIST",
-     "carriedBy": "Die Unterscheidung zwischen Werkstattarbeit und Montage auf der Baustelle oder beim Kunden"
+     "carriedBy": "Die Unterscheidung zwischen Werkstattarbeit und Montage auf der Baustelle oder beim Kunden",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
     }
    },
    "welders|SEO_PAGES|s1.b2|c7abac6c": {
@@ -1823,7 +2463,9 @@
     "cs": "Uveďte, zda požadujete platné osvědčení, nebo zda stačí průkaz a zaučení",
     "en": {
      "state": "PRESERVED_IN_LIST",
-     "carriedBy": "Whether you require a valid test certificate, or whether a logbook and instruction are enough"
+     "carriedBy": "Whether you require a valid test certificate, or whether a logbook and instruction are enough",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
     },
     "de": {
      "state": "PRESERVED_IN_LIST",
@@ -1967,6 +2609,70 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Die Unterweisung über die Gefährdungen des Arbeitsplatzes; bei einer vorübergehenden Zuweisung nach tschechischem Recht stellt sie das Einsatzunternehmen sicher",
      "reason": "'zeitweiligen Überlassung' -> 'vorübergehenden Zuweisung' and 'Entleiher' -> 'Einsatzunternehmen'; the uzivatel-provides-it meaning is intact. Now the 4th (last) item of the DE list, since Czech s5.b3 was folded into body prose (de/specialists.ts:101)."
+    }
+   },
+   "welders|SEO_PAGES|f0|6f7ee307": {
+    "ref": "f0",
+    "cs": "Co má být v inzerátu na svářeče? Metoda podle číselného označení, skupina materiálu, typ výrobku a svaru, poloha, rozsah tlouštěk a informace o podložení kořene. Dále to, zda jde o dílnu, nebo montáž, zda se pracuje podle postupu svařování a jaký doklad požadujete. Bez toho se uchazeči nemají podle čeho rozhodnout.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Whether you require a valid test certificate, or whether a logbook and instruction are enough",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Unterscheidung zwischen Werkstattarbeit und Montage auf der Baustelle oder beim Kunden",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    }
+   },
+   "welders|SEO_PAGES|f1|d4bf18b1": {
+    "ref": "f1",
+    "cs": "Stačí svářečský průkaz, nebo je potřeba osvědčení o zkoušce? Záleží na tom, co po vás chce výrobková norma nebo zákazník. Pro běžnou dílenskou práci bez zvláštních požadavků může stačit průkaz a zaučení; tam, kde se kvalita svařování dokládá, je potřeba zkouška podle ČSN EN ISO 9606-1 a svářečský dozor, který kvalifikace spravuje.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "For ordinary workshop production without special requirements, a logbook and instruction may suffice."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Für gewöhnliche Werkstattfertigung ohne besondere Anforderungen können Pass und Einweisung genügen."
+    }
+   },
+   "welders|SEO_PAGES|f2|2b98a466": {
+    "ref": "f2",
+    "cs": "Jak dlouho platí osvědčení svářeče? Platnost je omezená a norma ji váže na pravidelné potvrzování, že svářeč v daném rozsahu pracuje. Konkrétní data i rozsah jsou uvedeny přímo v dokladu a podmínky obnovení ověřte u orgánu, který osvědčení vydal. Proto si u svářečů veďte evidenci dat platnosti.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A certificate is not for life. The standard ties it to periodic confirmation that the welder actually works within the given range, and to a limited validity with conditions for renewal."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ein Zeugnis gilt nicht lebenslang. Die Norm knüpft daran eine regelmäßige Bestätigung, dass tatsächlich im angegebenen Bereich geschweißt wird, sowie eine befristete Gültigkeit mit Bedingungen für die Erneuerung."
+    }
+   },
+   "welders|SEO_PAGES|f3|8d56a89f": {
+    "ref": "f3",
+    "cs": "Jakou mzdu u svářečů nabídnout? Konkrétní mzdy ani rozpětí zde neuvádíme. Orientaci podle profesí a regionů poskytuje Informační systém o průměrném výdělku (ISPV). Do rozhodování promítněte i rozsah kvalifikace, režim směn a to, zda jde o dílenskou práci, nebo o montáž mimo provoz.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Pay is the one item this page leaves to you: no wage figures and no ranges are stated here. Orientation by occupation an"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Konkrete Löhne oder Lohnspannen für Schweißer nennt diese Seite nicht. Eine Orientierung nach Berufen und Regionen biete"
+    }
+   },
+   "welders|SEO_PAGES|f4|b22caf30": {
+    "ref": "f4",
+    "cs": "Můžeme zkušební svar požadovat po každém uchazeči? Praktické ověření je u této profese obvyklé a bývá rozhodujícím krokem výběru. Podmínky mají být pro všechny uchazeče o stejnou pozici shodné, uchazeč musí dostat OOPP a být seznámen s riziky a hodnocení má provádět ten, kdo u vás za svařování odpovídá.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The conditions should be the same for every applicant for the same position."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Bedingungen sollten für alle Bewerbenden auf dieselbe Position gleich sein."
     }
    }
   }
@@ -2126,6 +2832,72 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Prüfen Sie die Erreichbarkeit des Arbeitsorts zu Schichtbeginn und Schichtende"
+    }
+   },
+   "cnc-operators|SEO_PAGES|f0|579a8563": {
+    "ref": "f0",
+    "cs": "Jaký je rozdíl mezi operátorem a seřizovačem CNC? Operátor obsluhuje stroj v běžícím programu a kontroluje díly. Seřizovač připravuje stroj na novou zakázku – upnutí, nástroje a korekce, nulový bod, první kus. Jde o dvě různé pozice s odlišnou dostupností na trhu i odlišnou dobou zapracování.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Changeover time and scrap rate are decided here, and that is why a setter is usually harder to come by than an operator."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Hier entscheiden sich Rüstzeit und Ausschuss, und deshalb ist ein Einrichter meist schlechter verfügbar als ein Bediener."
+    }
+   },
+   "cnc-operators|SEO_PAGES|f1|8e80a486": {
+    "ref": "f1",
+    "cs": "Musí kandidát znát právě náš řídicí systém? Znalost systému je reálná výhoda, ale bývá naučitelná. Kdo rozumí technologii, čte výkres a umí měřit, přejde na jiné rozhraní rychleji. Pokud shodu vyžadujete jako podmínku, počítejte s užším okruhem kandidátů a delším obsazováním.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "It is also a learnable one: a person who understands machining technology, reads drawings and can measure retrains onto another interface more easily"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Zugleich ist sie erlernbar: Wer die Zerspanungstechnologie versteht, Zeichnungen liest und messen kann, findet sich in einer anderen Oberfläche leichter zurecht"
+    }
+   },
+   "cnc-operators|SEO_PAGES|f2|12daa2c1": {
+    "ref": "f2",
+    "cs": "Má smysl zvát kandidáta z jiného oboru obrábění? Ano, pokud rozdíl pojmenujete. Přenáší se měření, čtení výkresu a práce s nástrojem; hůř se přenáší zkušenost s konkrétním materiálem, velikostí série a zákaznickou dokumentací. Praktická ukázka u stroje to ověří lépe než životopis.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Neither is worse — you simply need to know what the operation actually needs.",
+     "reason": "The page argues the cross-domain case in prose: name the difference between production types, treat measuring and drawing reading as what transfers, and settle it with a practical trial at the machine rather than the CV."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Keines von beidem ist schlechter – man muss nur wissen, was der Betrieb wirklich braucht.",
+     "reason": "Same argument in German: the difference between Großserie and Einzel-/Kleinserie is named, Messmittel und Zeichnung are the transferable core, and the praktische Probe verifies it better than the Lebenslauf."
+    }
+   },
+   "cnc-operators|SEO_PAGES|f3|2d5e0c83": {
+    "ref": "f3",
+    "cs": "Proč se nám pozice neobsazuje, i když nabídka není špatná? Obvykle za tím stojí jedna ze tří věcí: zadání míchá obsluhu se seřizovačem, znalost řídicího systému je nastavena jako tvrdá podmínka, nebo je překážkou směnný režim. Vyplatí se projít je v tomto pořadí, než se sáhne k úpravě mzdové nabídky.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "This page sets out what actually decides whether a CNC position can be filled: knowledge of the control system, working with gauges and drawings, running one machine or several, the shift pattern, and what a practical trial should look like.",
+     "reason": "All three named causes are argued on the page — the brief mixing operator with setter, an exact control-system match set as a condition, and the shift pattern — and the page states no wages, matching the answer's advice to work through these before touching the offer."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Diese Seite behandelt, was die Besetzbarkeit einer CNC-Stelle tatsächlich bestimmt: Kenntnis der Steuerung, Umgang mit Messmittel und Zeichnung, Bedienung einer oder mehrerer Maschinen, Schichtmodell und die Form einer praktischen Probe.",
+     "reason": "Same three causes are developed in the German sections (vermischte Positionen, Steuerung als Bedingung, Schichtmodell), and Löhne are explicitly excluded from the page."
+    }
+   },
+   "cnc-operators|SEO_PAGES|f4|f24dfb99": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdy CNC operátorů a seřizovačů? Ne. Konkrétní částky ani rozpětí nevymýšlíme. Údaje o výdělcích členěné podle povolání zveřejňuje ISPV, aktuální situaci na trhu práce pak MPSV a Úřad práce ČR.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "No wages and no times to fill are stated here.",
+     "reason": "The refusal to state amounts or ranges is explicit in the intro; only the naming of ISPV/MPSV/Labour Office as where to look is not repeated on this particular page."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Löhne und Besetzungsfristen nennen wir hier nicht.",
+     "reason": "The refusal is explicit in the German intro as well; the ISPV/MPSV/Arbeitsamt pointers are the only part of the answer not restated here."
     }
    }
   }
@@ -2308,6 +3080,68 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Die geforderten Nachweise samt ihrem Geltungsbereich und ihrer Gültigkeitsdauer"
+    }
+   },
+   "electricians|SEO_PAGES|f0|aed76933": {
+    "ref": "f0",
+    "cs": "Kandidát píše, že má „paragraf 6“. Co si z toho můžeme vzít? Že se hlásí k některému ze stupňů dřívější vyhlášky č. 50/1978 Sb. Doklady se dnes vydávají podle nařízení vlády č. 194/2022 Sb., proto si vyžádejte samotný doklad a přečtěte z něj činnost, zařízení a platnost. Hovorové označení není podkladem pro přidělení práce.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The colloquial label therefore has no basis in the regulation in force"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die umgangssprachliche Bezeichnung hat also keine Grundlage in der geltenden Vorschrift"
+    }
+   },
+   "electricians|SEO_PAGES|f1|49ad2e8a": {
+    "ref": "f1",
+    "cs": "Platí doklady vydané ještě podle staré vyhlášky? Přechod mezi předpisy řeší přechodná ustanovení, jejichž znění je nutné ověřit v aktuálním textu zákona č. 250/2021 Sb. a nařízení vlády č. 194/2022 Sb. Vlastní znění zde neinterpretujeme; u konkrétního dokladu vycházejte z jeho obsahu a z data platnosti.",
+    "en": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "they belong in the current wording of the regulation and should be checked there",
+     "reason": "The page names both instruments (250/2021 Sb. and 194/2022 Sb.), states that the old and new structures cannot be mapped onto one another mechanically, expressly declines to interpret the wording itself, and directs the reader to the document and its validity date. The Czech answer's operative instruction survives whole; only the term 'transitional provisions' is folded into that argument."
+    },
+    "de": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "sie gehören in die geltende Fassung der Verordnung und sind dort zu prüfen",
+     "reason": "The German page likewise names both Czech instruments, says the alte und neue Gliederung cannot be converted mechanically, declines to quote the wording, and tells the reader to obtain the Nachweis and read who issued it, for what activity and equipment, and until when it is valid — the answer's substance without the label 'Übergangsbestimmungen'."
+    }
+   },
+   "electricians|SEO_PAGES|f2|9c441569": {
+    "ref": "f2",
+    "cs": "Jak poznáme, jaký stupeň způsobilosti potřebujeme? Odvíjí se od činnosti, zařízení a míry samostatnosti, ne od názvu pozice. Popište, co se bude dělat, na čem, při jakém napětí a zda pod dohledem, samostatně, či s řízením dalších lidí; podle toho se stupeň určí podle nařízení vlády.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "What decides is a combination of three things: what activity is to be performed, on what equipment, and under what regime."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Entscheidend ist die Kombination dreier Dinge: welche Tätigkeit auszuüben ist, an welcher Anlage und in welchem Betriebszustand."
+    }
+   },
+   "electricians|SEO_PAGES|f3|962c939b": {
+    "ref": "f3",
+    "cs": "Potřebujeme údržbáře, nebo elektromontéra? Jde-li o odstraňování poruch strojů za chodu výroby, hledáte údržbáře-elektrikáře a rozhoduje diagnostika a čtení schémat. Jde-li o montáž podle projektové dokumentace, hledáte elektromontéra. Profily se běžně nezastupují a mají odlišný okruh kandidátů.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A maintenance electrician finds and clears faults on machines while production runs: reads schematics"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ein Instandhaltungselektriker sucht und beseitigt Störungen an Maschinen im laufenden Betrieb: liest Schaltpläne"
+    }
+   },
+   "electricians|SEO_PAGES|f4|5ad59300": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdy elektrikářů? Ne, mzdové údaje nevymýšlíme. Členěná data o výdělcích podle povolání zveřejňuje ISPV; aktuální obraz trhu práce MPSV, Úřad práce ČR a ČSÚ.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "What this page does not supply is the pay itself: we state no wage figures for electricians and do not invent them. Earn"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Löhne für Elektriker nennen wir hier nicht, und wir denken uns keine Lohnangaben aus. Gegliederte Daten zu den Verdienst"
     }
    }
   }
@@ -2592,6 +3426,66 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Rechnen Sie damit, dass der frei werdende Platz in der Produktion nachbesetzt werden muss"
     }
+   },
+   "maintenance-technicians|SEO_PAGES|f0|7d9520cc": {
+    "ref": "f0",
+    "cs": "Jakou odbornou způsobilost potřebuje údržbář, který zasahuje do elektrické části stroje? Požadavky stanoví nařízení vlády č. 194/2022 Sb., které nahradilo dřívější vyhlášku č. 50/1978 Sb. a rozlišuje rozsah činností podle stupně způsobilosti. Rozhodující je, aby rozsah dokladu odpovídal tomu, co má člověk skutečně dělat; u vyhrazených technických zařízení platí navíc úprava podle zákona č. 250/2021 Sb. Konkrétní zařazení ověřte podle platného znění.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Intervention in the electrical part of equipment is tied to electrotechnical competence under Czech government regulation 194/2022 Sb., which replaced the earlier decree 50/1978 Sb."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ein Eingriff in den elektrischen Teil einer Anlage ist an die fachliche Befähigung in der Elektrotechnik nach der tschechischen Regierungsverordnung Nr. 194/2022 Sb. gebunden, die die frühere Verordnung Nr. 50/1978 Sb. abgelöst hat"
+    }
+   },
+   "maintenance-technicians|SEO_PAGES|f1|b8ff7891": {
+    "ref": "f1",
+    "cs": "Má být pohotovost uvedena už v inzerátu? Ano. Pohotovost a dojezd patří k podmínkám, kvůli kterým kandidáti nabídku odmítají, a to obvykle až ve chvíli, kdy do výběru investovaly obě strany. Uvedení režimu, četnosti a způsobu odměňování předem výběr zkracuje.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "State in the offer, therefore, how often on-call comes round, among how many people it rotates, and what travelling distance you expect."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Nennen Sie deshalb schon im Angebot, wie häufig die Rufbereitschaft anfällt, unter wie vielen Personen sie rotiert und welche Anfahrt Sie erwarten."
+    }
+   },
+   "maintenance-technicians|SEO_PAGES|f2|d7ca7d74": {
+    "ref": "f2",
+    "cs": "Vyplatí se povýšit operátora do údržby? Je to plnohodnotná cesta, pokud ji připravíte. Člověk z provozu zná strojní park i technologii a odpadá dlouhé seznamování. Potřebuje ale kvalifikační cestu (u elektra podle nařízení vlády č. 194/2022 Sb.), mentora a vymezené období, kdy zatím nezasahuje samostatně.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "This route needs time, a mentor from maintenance, and a named period during which the person does not yet intervene alone."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Dieser Weg braucht jedoch Zeit, einen Mentor aus der Instandhaltung und einen benannten Zeitraum, in dem die Person noch nicht allein eingreift."
+    }
+   },
+   "maintenance-technicians|SEO_PAGES|f3|62db005d": {
+    "ref": "f3",
+    "cs": "Proč na údržbářské pozice nereaguje inzerce? Protože vhodní lidé zpravidla práci aktivně nehledají. U pasivních kandidátů rozhoduje doporučení, přímé oslovení a srozumitelnost nabídky, ne objem inzerce. Konkrétní dostupnost závisí na trhu práce a regionu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "an advertisement alone is generally not enough, referrals and direct approaches matter, selection runs longer"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eine Anzeige genügt meist nicht, Empfehlungen und Direktansprache spielen eine Rolle, die Auswahl dauert länger"
+    }
+   },
+   "maintenance-technicians|SEO_PAGES|f4|8c95171a": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdová rozpětí pro pozice v údržbě? Ne, žádné částky ani rozpětí zde neuvádíme a nedovozujeme je. Úrovně výdělků podle povolání zveřejňuje Informační systém o průměrném výdělku (ISPV) a obsah jednotlivých povolání popisuje Národní soustava povolání. U údržby počítejte s tím, že odměna za pracovní pohotovost je podle zákoníku práce samostatné plnění vedle mzdy, a v nabídce je proto vhodné obojí odlišit.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "No amounts and no ranges for these roles are stated here, and we do not derive them. Levels of earnings by occupation ar"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Beträge oder Spannen für Stellen in der Instandhaltung nennt diese Seite nicht und leitet sie auch nicht ab. Die Höhe de"
+    }
    }
   }
  },
@@ -2603,12 +3497,15 @@
     "cs": "Kontrolor kvality – měření a vizuální kontrola podle kontrolního plánu, záznam výsledků, blokace neshodných kusů",
     "en": {
      "state": "PRESERVED_IN_LIST",
-     "carriedBy": "Quality inspector — measurement and visual inspection to the control plan, recording results, blocking non-conforming parts"
+     "carriedBy": "Quality inspector — measurement and visual inspection to the control plan, recording results, blocking non-conforming parts",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
     },
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Qualitätsprüfer – Messung und Sichtprüfung nach Prüfplan, Aufzeichnung der Ergebnisse, Sperrung abweichender Teile",
-     "reason": "Ordered list in 'Die Stufen von der Prüfung bis zur Leitung'; em-dash to en-dash only."
+     "reason": "Ordered list in 'Die Stufen von der Prüfung bis zur Leitung'; em-dash to en-dash only.",
+     "sharedEvidence": true
     }
    },
    "quality-roles|SEO_PAGES|s0.b1|b236a9fd": {
@@ -2812,6 +3709,70 @@
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Prüfen Sie außerdem die Verständlichkeit des schriftlichen Ausdrucks, am besten an einer kurzen schriftlichen Aufgabe"
     }
+   },
+   "quality-roles|SEO_PAGES|f0|5dbe53c2": {
+    "ref": "f0",
+    "cs": "Jaký je rozdíl mezi kontrolorem a technikem kvality? Kontrolor měří a kontroluje podle daného kontrolního plánu a zaznamenává výsledky. Technik kvality kontrolní postupy připravuje, řeší neshody v provozu a komunikuje s výrobou i dodavatelem. Rozdíl je v tom, kdo pravidla tvoří a kdo je plní; podle toho se liší i okruh kandidátů.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Quality inspector — measurement and visual inspection to the control plan, recording results, blocking non-conforming parts",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Qualitätsprüfer – Messung und Sichtprüfung nach Prüfplan, Aufzeichnung der Ergebnisse, Sperrung abweichender Teile",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    }
+   },
+   "quality-roles|SEO_PAGES|f1|6d0554e8": {
+    "ref": "f1",
+    "cs": "Musí mít podnikový metrolog zvláštní oprávnění? Zákon č. 505/1990 Sb. o metrologii vymezuje členění měřidel a u stanovených měřidel vyžaduje ověření, které je svěřeno státní metrologii a autorizovaným subjektům, nikoli podnikovému metrologovi. Interní metrolog obvykle odpovídá za evidenci měřidel, kalibrační lhůty a metrologický řád firmy. Konkrétní povinnosti ověřte podle platného znění.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "under that act verification is entrusted to state metrology and authorised bodies, not to a company metrologist"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "diese ist nach jenem Gesetz der staatlichen Metrologie und autorisierten Stellen anvertraut, nicht einem betrieblichen Metrologen"
+    }
+   },
+   "quality-roles|SEO_PAGES|f2|b3f1be88": {
+    "ref": "f2",
+    "cs": "Požadujeme zkušenost s IATF 16949 – co to znamená pro zadání? Uveďte, zda systém u vás běží, zavádí se, nebo se obnovuje, a zda hledáte člověka auditovaného, nebo interního auditora. Standardy tohoto typu zmiňujeme jako požadavky zaměstnavatelů, nejde o certifikace držené agenturou práce. Prakticky z nich plyne nárok na práci s dokumentací, záznamy a audity.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "We describe these as requirements employers state, not as certifications held by a staffing agency."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Wir beschreiben sie als Anforderungen, die Arbeitgeber stellen, und nicht als Zertifizierungen, die eine Personalagentur besitzt."
+    }
+   },
+   "quality-roles|SEO_PAGES|f3|a248f878": {
+    "ref": "f3",
+    "cs": "Proč trváte na vyjasnění, komu kvalita podléhá? Protože pravomoc zastavit dávku je jádrem role. Pokud je kontrola hodnocena podle výstupu směny, dostává se do konfliktu zájmů a zkušení kandidáti to poznají už na pohovoru. Vymezení nadřízenosti a rozsahu rozhodování patří do zadání, ne až k nástupu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Before opening the position, settle who the role reports to, what it may decide alone, and who decides in a dispute with production."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Klären Sie vor der Ausschreibung, wem die Rolle unterstellt ist, was sie allein entscheiden darf und wer im Streit mit der Produktion entscheidet."
+    }
+   },
+   "quality-roles|SEO_PAGES|f4|9d2f6fad": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdová rozpětí pro pozice v kvalitě? Ne, konkrétní částky na této stránce nenajdete. Údaje o výdělcích podle povolání zveřejňuje Informační systém o průměrném výdělku (ISPV), požadavky povolání popisuje Národní soustava povolání a standardy profesních kvalifikací Národní soustava kvalifikací. V kvalitě navíc rozhoduje, na které příčce žebříčku role skutečně stojí – proto začněte vymezením role, ne úvahou o částce.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Which rung the role stands on also settles the order in which to think about the offer. Specific figures are not on this"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Konkrete Beträge für Stellen in der Qualität finden Sie auf dieser Seite nicht. Angaben zu den Verdiensten nach Berufen "
+    }
    }
   }
  },
@@ -3009,6 +3970,66 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Eine vorab vereinbarte Möglichkeit der Rückkehr auf die frühere Position"
     }
+   },
+   "shift-supervisors|SEO_PAGES|f0|dabff3f8": {
+    "ref": "f0",
+    "cs": "Je lepší povýšit zevnitř, nebo najmout zvenčí? Univerzální odpověď neexistuje. Povýšení zevnitř vyhrává tam, kde jde o kontinuitu a znalost technologie; nábor zvenčí tam, kde chcete změnit způsob vedení. Liší se i riziko: u povýšení riskujete ztrátu dobrého operátora, u externího nástupu období, kdy člověk ještě nemůže rozhodovat sám.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The two have different costs and different risks, and neither is universally right."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Beide Wege haben unterschiedliche Kosten und unterschiedliche Risiken, und keiner ist allgemein richtig."
+    }
+   },
+   "shift-supervisors|SEO_PAGES|f1|3c7d1aec": {
+    "ref": "f1",
+    "cs": "Co má být v zadání pozice mistra? Počet přímo vedených lidí, směnný režim, typ provozu a technologie, komu role podléhá, jaká rozhodnutí dělá samostatně a kdo provádí hodnocení. Bez těchto údajů přicházejí kandidáti z nesrovnatelně odlišných provozů a výběr se protahuje.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Add the shift pattern, who the role reports to, and what decisions it makes without consulting anyone."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ergänzen Sie das Schichtmodell, wem die Rolle unterstellt ist und welche Entscheidungen sie ohne Rücksprache trifft."
+    }
+   },
+   "shift-supervisors|SEO_PAGES|f2|17505da7": {
+    "ref": "f2",
+    "cs": "Jak ověřit, že kandidát skutečně vedl lidi? Ptejte se na konkrétní situace – předání směny, reakci na dva chybějící lidi při nezměněném plánu, konflikt na směně, moment, kdy volal nadřízenému. Popis toho, co člověk udělal, rozliší kandidáty spolehlivěji než obecné otázky na styl vedení.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "What works is concrete situations from their own practice and the question of what they did, not what they think about leadership."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Brauchbar sind konkrete Situationen aus der eigenen Praxis und die Frage, was jemand getan hat, nicht was er über Führung denkt."
+    }
+   },
+   "shift-supervisors|SEO_PAGES|f3|27983724": {
+    "ref": "f3",
+    "cs": "Nese mistr odpovědnost za BOZP? Zákoník práce řadí péči o bezpečnost a ochranu zdraví při práci mezi nedílné součásti pracovních povinností vedoucích zaměstnanců na všech stupních řízení. Konkrétní rozsah odpovědnosti je vhodné vymezit písemně; dodržování povinností v této oblasti kontroluje inspekce práce.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The Labour Code places care for occupational safety and health among the inseparable parts of the work duties of managing employees at every level of management"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Das tschechische Arbeitsgesetzbuch zählt die Sorge um Sicherheit und Gesundheitsschutz bei der Arbeit zu den untrennbaren Bestandteilen der Arbeitspflichten leitender Beschäftigter auf allen Führungsebenen"
+    }
+   },
+   "shift-supervisors|SEO_PAGES|f4|77b429f7": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdová rozpětí pro mistry a vedoucí směn? Ne, mzdové údaje si nedovozujeme a na stránce je neuvádíme. Podklady k výdělkům podle povolání spravuje Informační systém o průměrném výdělku (ISPV), popis požadavků povolání Národní soustava povolání. U první linie vedení je vedle výdělku podstatné i to, jaká rozhodovací pravomoc je s rolí spojena – kandidáti obojí posuzují společně.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Wage figures are not stated on this page, and we do not derive them. The source material on earnings by occupation is ma"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Lohnspannen für Meister und Schichtleiter leiten wir nicht ab und nennen sie auf dieser Seite nicht. Die Unterlagen zu d"
+    }
    }
   }
  },
@@ -3172,6 +4193,68 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Die Bereitschaft zu Einsätzen vor Ort oder zu Rufbereitschaft, sofern der Betrieb sie verlangt"
     }
+   },
+   "automation-technicians|SEO_PAGES|f0|d238ea98": {
+    "ref": "f0",
+    "cs": "Potřebuje technik automatizace elektrotechnickou způsobilost? Pokud má vykonávat činnost na elektrickém zařízení, řídí se jeho odborná způsobilost nařízením vlády č. 194/2022 Sb. Rozhoduje charakter činnosti a zařízení, nikoli název pozice. Rozsah je proto vhodné vymezit už v zadání.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "if a person is to perform activity on electrical equipment, their competence is governed by Czech government regulation 194/2022 Sb."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Soll eine Person an einer elektrischen Anlage tätig werden, richtet sich ihre fachliche Befähigung nach der tschechischen Regierungsverordnung Nr. 194/2022 Sb."
+    }
+   },
+   "automation-technicians|SEO_PAGES|f1|f3299a07": {
+    "ref": "f1",
+    "cs": "Je znalost konkrétní platformy nutná? Ze žádného předpisu nevyplývá – jde o požadavek provozu. Zda je nezbytná od prvního dne, závisí na tom, kolik systémů máte nasazených a zda má kdo nového člověka uvést do prostředí.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Knowledge of a specific platform is the most common reason a brief narrows the pool unnecessarily."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Kenntnis einer bestimmten SPS-Plattform ist der häufigste Grund, aus dem eine Beschreibung den Kreis unnötig verengt."
+    }
+   },
+   "automation-technicians|SEO_PAGES|f2|27dc1968": {
+    "ref": "f2",
+    "cs": "Jaký je rozdíl mezi technikem automatizace a údržbářem? Hranice se v praxi překrývají a v menších provozech jde často o jednoho člověka. Podstatný je poměr mezi diagnostikou a zásahy do řídicí části. Obsazování údržby popisujeme samostatně.",
+    "en": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "The difference between them matters more for recruitment than the job title itself.",
+     "reason": "The FAQ answer's substance is that the boundary is blurry and that the real distinguishing axis is diagnosis of running equipment versus intervention in the control part, with maintenance staffing handled on its own page. The page folds this into the 'What sits under \"automation\"' section, whose list explicitly places 'Maintenance and diagnosis of equipment already in operation' alongside 'Designing the control part of equipment and its documentation' under the same title - which is exactly the overlap and exactly the axis - and the CTA sends the reader to the maintenance-technicians page. Only the incidental 'in small plants it is one person' detail is dropped."
+    },
+    "de": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "Der Unterschied zwischen ihnen ist für die Besetzung wesentlicher als die Stellenbezeichnung selbst.",
+     "reason": "Der Kern der Antwort - unscharfe Grenze, Unterscheidungsachse zwischen Diagnose betriebener Anlagen und Eingriff in den Steuerungsteil, eigene Seite zur Instandhaltung - ist in den Abschnitt 'Was sich unter Automatisierung verbirgt' gefaltet: Die Liste nennt 'Instandhaltung und Diagnose bereits betriebener Anlagen' und 'Entwurf des Steuerungsteils einer Anlage und dessen Dokumentation' unter derselben Bezeichnung, und der CTA verweist auf die Instandhaltungsseite. Nur das Nebendetail 'in kleinen Betrieben oft eine Person' entfällt."
+    }
+   },
+   "automation-technicians|SEO_PAGES|f3|69a4da7f": {
+    "ref": "f3",
+    "cs": "Uvádíte mzdové úrovně těchto pozic? Ne. Mzdové údaje nevymýšlíme. Orientaci poskytuje Informační systém o průměrném výdělku (ISPV) provozovaný MPSV, kde lze pracovat s údaji podle profese a regionu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "What the brief will not take from this page is a wage level. None is stated for these roles and we do not invent them; o"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Lohnniveaus für diese Positionen nennen wir nicht; Lohnangaben denken wir uns nicht aus. Eine Orientierung bietet das ts"
+    }
+   },
+   "automation-technicians|SEO_PAGES|f4|7f4f737a": {
+    "ref": "f4",
+    "cs": "Dá se tato pozice obsadit ze zahraničí? Ano, s tím, že u dokladů ze zahraničí je potřeba ověřit, zda a jak se uznávají pro danou činnost. Této otázce se věnuje samostatná stránka o uznávání kvalifikace.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The same separation answers whether the position can be filled from abroad: it can. What it adds is a check on the docum"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Aus dem Ausland lässt sich diese Position besetzen. Bei Nachweisen aus dem Ausland ist dabei zu prüfen, ob und in welche"
+    }
    }
   }
  },
@@ -3281,6 +4364,54 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Welcher Teil der Arbeit unmittelbar im Betrieb stattfindet"
     }
+   },
+   "engineering-roles|SEO_PAGE_TIERS|f0|14434679": {
+    "ref": "f0",
+    "cs": "Musí mít inženýr ve výrobě vysokou školu? Ze zákona ne. U většiny inženýrských pozic ve zpracovatelském průmyslu jde o název pozice, nikoli o regulovanou činnost. Výjimkou jsou vybrané činnosti ve výstavbě, kde se uplatní autorizace podle zákona č. 360/1992 Sb.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "for the great majority of engineering positions in manufacturing, no comparable regulation exists"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei der überwiegenden Mehrheit der Ingenieurpositionen in der verarbeitenden Industrie besteht keine vergleichbare Regelung."
+    }
+   },
+   "engineering-roles|SEO_PAGE_TIERS|f1|51b3ae13": {
+    "ref": "f1",
+    "cs": "Jaký je rozdíl mezi procesním a výrobním inženýrem? Procesní inženýrství se soustředí na chování a stabilitu procesu, výrobní inženýrství na náběhy a změny. V menších firmách je to jedna role, ve větších dvě oddělené. V zadání je proto vhodné popsat očekávaný výsledek.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In smaller companies process and manufacturing engineering are one role; in larger ones they are two separate ones."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In kleineren Unternehmen sind Prozess- und Fertigungstechnik eine Rolle, in größeren zwei getrennte."
+    }
+   },
+   "engineering-roles|SEO_PAGE_TIERS|f2|5b39f7a9": {
+    "ref": "f2",
+    "cs": "Jak poznáme, že kandidát skutečně dělal to, co uvádí? Nejspolehlivější je nechat ho popsat jeden konkrétní případ od zadání po výsledek – co měřil, co změnil a jak se to projevilo. Obecné metodiky se naučí rychleji než schopnost prosadit změnu v provozu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "That leaves the question of how to tell whether a candidate really did what they say they did. The most reliable route i"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ob jemand tatsächlich getan hat, was im Lebenslauf steht, zeigt sich am verlässlichsten an einem einzigen konkreten Fall"
+    }
+   },
+   "engineering-roles|SEO_PAGE_TIERS|f3|cebb0ac4": {
+    "ref": "f3",
+    "cs": "Uvádíte platy inženýrských pozic? Ne. Konkrétní mzdové úrovně zde neuvádíme. Orientaci podle profese a regionu poskytuje ISPV; celkové náklady na pozici si můžete propočítat v naší kalkulačce.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "One item the brief will not find here is the wage: no specific pay levels for engineering roles are stated on this page."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Konkrete Lohnniveaus für Ingenieurpositionen nennt diese Seite nicht. Eine Orientierung nach Beruf und Region bietet das"
+    }
    }
   }
  },
@@ -3388,6 +4519,54 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Wer die Vorgabe übergibt und wer das Ergebnis übernimmt"
+    }
+   },
+   "process-and-design-engineers|SEO_PAGE_TIERS|f0|c204e4af": {
+    "ref": "f0",
+    "cs": "Je technolog totéž co konstruktér? Ne. Konstruktér odpovídá za návrh dílu a jeho dokumentaci, technolog za způsob, jakým se díl v daném provozu vyrobí. V menších firmách se role spojují, v zadání je pak vhodné uvést, která část převažuje.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A process engineer takes that documentation and converts it into a manufacturing procedure."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Der Technologe übernimmt diese Dokumentation und überführt sie in einen Fertigungsablauf."
+    }
+   },
+   "process-and-design-engineers|SEO_PAGE_TIERS|f1|4347f364": {
+    "ref": "f1",
+    "cs": "Je nutná znalost konkrétního CAD systému? Nevyplývá z žádného předpisu, jde o požadavek provozu. Zkušení lidé mezi systémy přecházejí, otázkou je, zda máte kapacitu na zaučení a jak rychle má člověk přebírat samostatnou práci.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The particular CAD or CAM system is chosen by the company. No regulation prescribes it"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Das konkrete CAD- oder CAM-System wählt das Unternehmen. Keine Vorschrift schreibt es vor"
+    }
+   },
+   "process-and-design-engineers|SEO_PAGE_TIERS|f2|8becec2a": {
+    "ref": "f2",
+    "cs": "Jak ověřit skutečnou úroveň kandidáta? Nejspolehlivější je krátké praktické ověření nad reálným výkresem z vašeho provozu, doplněné rozhovorem o tom, jak by kandidát postupoval. Ověřuje to porozumění, ne znalost prostředí.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A practical check over a real drawing from your own operation says more in a few minutes than a list of software in a CV"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eine praktische Prüfung an einer echten Zeichnung aus Ihrem Betrieb sagt binnen Minuten mehr als eine Programmliste im Lebenslauf"
+    }
+   },
+   "process-and-design-engineers|SEO_PAGE_TIERS|f3|e02abdb4": {
+    "ref": "f3",
+    "cs": "Hledáme technologa i konstruktéra v jedné osobě. Je to reálné? V menších provozech to běžné je, u složitější výroby to zpravidla znamená ústupek v jedné z obou částí. Vyplatí se předem určit, která z nich je pro vás důležitější.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In smaller companies the two roles merge into one, and the brief then has to say which part predominates."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In kleineren Unternehmen verschmelzen beide Rollen zu einer, und die Beschreibung muss dann sagen, welcher Teil überwiegt."
     }
    }
   }
@@ -3593,6 +4772,67 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Listen Sie die erforderlichen Nachweise samt Geltungsbereich und geforderter Gültigkeit auf"
     }
+   },
+   "engineering-trades|SEO_PAGES|f0|a697afac": {
+    "ref": "f0",
+    "cs": "Proč nestačí zadání „hledáme strojaře“? Protože obráběč, svářeč, zámečník a nástrojař mají odlišný výcvik i doklady a jejich okruhy kandidátů se překrývají jen zčásti. Zadání bez konkrétní profese, úrovně a strojů obvykle přinese přihlášky mimo potřebu provozu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Engineering trades cover several separate crafts with different training, different documents and differently sized candidate pools."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Unter den Metallberufen verbergen sich mehrere eigenständige Handwerke mit unterschiedlicher Ausbildung, unterschiedlichen Nachweisen und unterschiedlich großen Kandidatenkreisen."
+    }
+   },
+   "engineering-trades|SEO_PAGES|f1|7363fcd8": {
+    "ref": "f1",
+    "cs": "Podle čeho se pozná zkušený obráběč u pohovoru? Především podle práce s výkresem a měřidlem: co vyčte z tolerancí a drsnosti, čím by rozměr ověřil a jak postupoval, když díl nevyhověl. Tyto otázky odliší rutinu od samostatnosti lépe než délka praxe v životopisu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Two areas of questioning yield the most in selection: what the candidate reads from a drawing, and what they do with a gauge."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Zwei Fragenkreise bringen in der Auswahl am meisten: was jemand aus einer Zeichnung liest und was er mit einem Messmittel tut."
+    }
+   },
+   "engineering-trades|SEO_PAGES|f2|b28e6adc": {
+    "ref": "f2",
+    "cs": "Má smysl oslovit kandidáta z jiného odvětví? Často ano. Řemeslný základ se přenáší dobře, hůř přechází zkušenost navázaná na materiál, velikost série a dokumentaci. U svařování je ale rozhodující zkušební rozsah uvedený v osvědčení, který praxe z jiného oboru nenahradí.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Experience from another sector transfers unevenly."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Praxis aus einer anderen Branche überträgt sich ungleichmäßig."
+    }
+   },
+   "engineering-trades|SEO_PAGES|f3|d64073d5": {
+    "ref": "f3",
+    "cs": "Jak doložit kvalifikaci u kandidáta bez výučního listu? Cestou je profesní kvalifikace podle Národní soustavy kvalifikací – zkouška u autorizované osoby a osvědčení k dané kvalifikaci. U činností, které upravuje zvláštní předpis, tím ovšem nelze nahradit doklad, který tento předpis vyžaduje.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "a route opens to candidates who know the trade but do not hold the corresponding apprenticeship certificate"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "zugleich öffnet sich ein Weg zu Menschen, die das Handwerk beherrschen, aber keinen entsprechenden Lehrabschluss haben"
+    }
+   },
+   "engineering-trades|SEO_PAGES|f4|42c2b72d": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdové rozpětí strojírenských profesí? Ne, mzdová data nevymýšlíme. Členěné údaje o výdělcích podle povolání zveřejňuje Informační systém o průměrném výdělku (ISPV); obraz trhu práce pak MPSV, Úřad práce ČR a ČSÚ.",
+    "en": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "No pay or market figures are stated here; those belong in official sources.",
+     "reason": "The answer has two moves: the refusal to invent pay or market figures, and a redirect to the official Czech sources. The page's intro carries both - it states outright that no pay or market figures appear here and sends the reader to official sources - so the guidance a reader acts on survives intact; only the enumeration of which bodies (earnings information system, ministry, labour office, statistical office) is folded into the phrase 'official sources', and those same bodies are named elsewhere in the corpus."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Lohnspannen für die Metallberufe nennen wir nicht, und Lohndaten denken wir uns nicht aus. Gegliederte Angaben zu den Ve"
+    }
    }
   }
  },
@@ -3750,6 +4990,66 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Was an Vorkenntnissen nötig ist und was sich bei Ihnen aneignen lässt"
+    }
+   },
+   "technical-office-roles|SEO_PAGES|f0|e87e6bfc": {
+    "ref": "f0",
+    "cs": "Je THP právní kategorie? Není. Zákoník práce pojem technicko-hospodářský pracovník nezná a nepojí s ním žádná zvláštní práva ani povinnosti. Jde o provozní a organizační členění, které si firmy vedou samy, takže jeho hranice se podnik od podniku liší.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "the Czech Labour Code does not recognise such a category and attaches no special rights or duties to it"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "das tschechische Arbeitsgesetzbuch kennt eine solche Kategorie nicht und knüpft daran keine besonderen Rechte oder Pflichten"
+    }
+   },
+   "technical-office-roles|SEO_PAGES|f1|e224bd2d": {
+    "ref": "f1",
+    "cs": "Patří mistr mezi THP pozice? V mnoha provozech ano, protože jde o první linii řízení mimo dělnickou kategorii; jinde se vede odděleně. Pro nábor je podstatnější než zařazení popis toho, co má mistr dělat – tomu se věnuje samostatná stránka o mistrech a vedoucích směn.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In one place it covers only technical preparation of production; in another it takes in supervisors, planning, purchasing and payroll."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Irgendwo umfasst sie nur die technische Produktionsvorbereitung, anderswo auch Meister, Planung, Einkauf und Lohnbuchhaltung."
+    }
+   },
+   "technical-office-roles|SEO_PAGES|f2|ba607123": {
+    "ref": "f2",
+    "cs": "Proč se u THP tak často míjí představa firmy a kandidáta? Protože název pozice nese v každé firmě jiný obsah. Plánovač, technolog i nákupčí mohou znamenat výrazně odlišnou práci podle velikosti provozu a používaných systémů. Pomáhá popsat výstupy, systémy a rozhraní místo obecných vlastností.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A brief is easier to sharpen through outputs and interfaces than through personal qualities."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eine Beschreibung schärft sich leichter über Ergebnisse und Schnittstellen als über persönliche Eigenschaften."
+    }
+   },
+   "technical-office-roles|SEO_PAGES|f3|1cc12fa2": {
+    "ref": "f3",
+    "cs": "Obsazujete i mzdovou účtárnu a personální administrativu? Tyto stránky se věnují zázemí výrobních, skladových a logistických provozů. Vrcholové finanční řízení a úzce specializované role mimo tento kontext zde nepopisujeme, protože mají jiné nároky na posouzení odbornosti.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "senior financial management and narrowly specialised roles outside that context are not covered here"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "die oberste Finanzsteuerung und eng spezialisierte Rollen außerhalb dieses Zusammenhangs behandeln wir hier nicht"
+    }
+   },
+   "technical-office-roles|SEO_PAGES|f4|212e757a": {
+    "ref": "f4",
+    "cs": "Podle čeho poznáme, že je zadání THP pozice hotové? Když z něj jde sestavit otázka na pohovor. Pokud si z popisu nedokážete odvodit, co se kandidáta zeptáte, aby se ukázal rozdíl mezi tím, kdo práci dělal, a tím, kdo ji viděl dělat, chybí v zadání výstupy, systémy nebo rozsah agendy. Pomůže i porovnání s popisem povolání v Národní soustavě povolání.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A brief like that can be used both in approaching people and at interview, and the questions that verify competence follow straight from it."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eine solche Beschreibung lässt sich bei der Ansprache wie im Gespräch verwenden, und die Fragen, mit denen sich Kompetenz prüfen lässt, folgen unmittelbar aus ihr."
     }
    }
   }
@@ -3920,6 +5220,66 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Ob eine Systemeinführung oder -anpassung durchlaufen wurde und wofür die Person dabei konkret zuständig war"
     }
+   },
+   "logistics-specialists|SEO_PAGES|f0|52ed57d2": {
+    "ref": "f0",
+    "cs": "Čím se odborné pozice v logistice liší od skladových rolí? Provozní role plán vykonávají, odborné ho tvoří a mění. Z toho plyne jiná odpovědnost, jiné kritérium výběru (systémy, plánování, vedení lidí) i jiný způsob hledání kandidátů. Provozním rolím se věnují samostatné stránky o pracovnících do logistiky a o logistických pracovnících.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The boundary is best drawn by who carries out the plan and who creates it."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Grenze zieht man am besten danach, wer den Plan ausführt und wer ihn erstellt."
+    }
+   },
+   "logistics-specialists|SEO_PAGES|f1|d34ad9b9": {
+    "ref": "f1",
+    "cs": "Má smysl vyžadovat konkrétní systém WMS? Obvykle ne jako tvrdou podmínku. Podstatnější je hloubka práce se systémem a pochopení procesu, které je mezi systémy přenositelné. Konkrétní značka jako povinný požadavek zužuje okruh kandidátů víc, než kolik přinese.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "It is not about the brand of WMS or ERP named in a CV. What decides is depth"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Es geht nicht um die im Lebenslauf genannte Marke eines WMS oder ERP. Entscheidend ist die Tiefe"
+    }
+   },
+   "logistics-specialists|SEO_PAGES|f2|5125bb12": {
+    "ref": "f2",
+    "cs": "Kdy potřebujeme vlastního celního deklaranta? Tehdy, když zboží překračuje hranici unijního celního území a agendu neřeší externí zástupce. Rozsah role popište podle režimů a směrů toku, které skutečně máte. Konkrétní celní pravidla a podmínky zastupování ověřujte u celní správy; zde je neuvádíme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Where goods cross the boundary of the EU customs territory, you need someone who can prepare and lodge customs documents"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Überschreitet Ware die Grenze des Zollgebiets der Union, brauchen Sie jemanden, der Zolldokumente vorbereiten und abgeben"
+    }
+   },
+   "logistics-specialists|SEO_PAGES|f3|1f8d1620": {
+    "ref": "f3",
+    "cs": "Vyplatí se povýšit vedoucího směny z vlastních lidí? Často ano, protože zná provoz i lidi. Počítejte ale s tím, že plánování, jednání s dopravci a vedení lidí jsou nové dovednosti, které potřebují čas a oporu. Bez připraveného zaškolení se povýšení často vrací zpět.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "With promotion from within, what decides is whether you can give the person time and support for what they have not done before"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei der Beförderung von innen entscheidet, ob Sie der Person Zeit und Rückhalt für das geben können, was sie bisher nicht getan hat"
+    }
+   },
+   "logistics-specialists|SEO_PAGES|f4|00937d05": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdy pro tyto pozice? Ne. Žádné částky ani rozpětí zde neuvádíme. Pro mzdové srovnání podle profesí a kvalifikace použijte ISPV; ostatní údaje o trhu práce zveřejňují MPSV, Úřad práce ČR a ČSÚ.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Publicly available data on earnings by occupation is provided by the Czech average earnings information system; this page states no amounts."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Öffentlich zugängliche Daten zu Verdiensten nach Berufen liefert das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV); diese Seite nennt keine Beträge."
+    }
    }
   }
  },
@@ -4071,6 +5431,58 @@
      "carriedBy": "Reaktion auf sich allmählich verschlechternde Termine, nicht erst auf den Ausfall",
      "reason": "Conflict resolved as distinct meanings, not shared evidence. Czech s4.b1 is 'Připravená záložní varianta u kritických položek' (a prepared fallback) and s4.b3 is 'Reakce na postupné zhoršování termínů, ne až na výpadek' (reacting to gradually slipping dates). The DE list in 'Lieferantenrisiko als eigene Fähigkeit' has a separate item for each: b1 is carried by 'Eine vorbereitete Ersatzvariante bei kritischen Positionen', and b3 by the text returned here. No shared sentence is needed."
     }
+   },
+   "purchasing-and-supply|SEO_PAGES|f0|6f2b0979": {
+    "ref": "f0",
+    "cs": "Jaký je rozdíl mezi nákupčím a strategickým nákupem? Rozhodovací pravomocí. Operativní nákup pracuje uvnitř zadaných pravidel a hlídá průběh, strategický nákup vybírá dodavatele a vyjednává podmínky. Rozdíl je vhodné popsat přímo v zadání.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The difference between them is not experience but the degree of decision-making authority"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Der Unterschied liegt nicht in der Erfahrung, sondern im Maß der Entscheidungsbefugnis"
+    }
+   },
+   "purchasing-and-supply|SEO_PAGES|f1|f60f5ae5": {
+    "ref": "f1",
+    "cs": "Je nutná znalost konkrétního podnikového systému? Zpravidla ne. Systém je specifikum firmy a patří do zapracování. Podstatnější bývá znalost komoditní skupiny, kterou nelze rychle dohnat.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The practical consequence for a brief: asking for commodity knowledge makes sense, while asking for knowledge of the system usually narrows the pool of people for no good reason.",
+     "reason": "The preceding paragraph also states the enterprise system is a company specific and 'a matter of onboarding, not of selection', so both halves of the answer stand in prose."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die praktische Folge für die Beschreibung: Warengruppenkenntnis zu verlangen ist sinnvoll, Systemkenntnis zu verlangen verengt den Kreis der Menschen meist unnötig.",
+     "reason": "Der Absatz davor nennt das Unternehmenssystem als betriebsspezifisch und sagt, man lerne es im Betrieb und solle es nicht zur Einstiegsvoraussetzung machen."
+    }
+   },
+   "purchasing-and-supply|SEO_PAGES|f2|4e0301ca": {
+    "ref": "f2",
+    "cs": "Patří do nákupu i celní agenda? Záleží na firmě. U dovozu ze třetích zemí se nákup s celní problematikou potkává, samotné celní odbavení ale často zajišťuje logistika nebo externí zástupce. Rozdělení je vhodné vymezit předem.",
+    "en": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "On supplier complaints it overlaps with quality management, on imports with customs and transport, on planning with production.",
+     "reason": "The customs question is folded into the general interfaces section: purchasing meets customs on imports, and the very next sentence tells the reader to establish which part of those interfaces falls inside the role, i.e. to delimit it in advance. Only the illustrative aside about who performs clearance is dropped; the decision-relevant guidance is intact."
+    },
+    "de": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "Bei Reklamationen gegenüber Lieferanten greift er in die Qualitätssicherung, bei Importen in Zoll und Transport, bei der Planung in die Fertigung.",
+     "reason": "Die Zollfrage ist in den allgemeinen Berührungsflächen-Abschnitt gefaltet; der Folgesatz verlangt zu klären, welcher Teil dieser Berührungsflächen in die Rolle fällt. Nur das Beispiel, wer die Abfertigung faktisch macht, entfällt."
+    }
+   },
+   "purchasing-and-supply|SEO_PAGES|f3|51652938": {
+    "ref": "f3",
+    "cs": "Uvádíte obvyklé mzdy v nákupu? Ne. Konkrétní částky zde neuvádíme. Orientaci podle profese a regionu poskytuje ISPV provozovaný MPSV.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "What this page does not do is put figures to those levels: no specific amounts are stated here. Orientation by occupatio"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Übliche Löhne im Einkauf nennen wir nicht; konkrete Beträge finden Sie auf dieser Seite nicht. Eine Orientierung nach Be"
+    }
    }
   }
  },
@@ -4125,6 +5537,52 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Bei langfristigem Mangel den Kreis über die Personalgewinnung aus dem Ausland erweitern"
+    }
+   },
+   "warehouse-workers|SEO_PAGES|f0|961a69f4": {
+    "ref": "f0",
+    "cs": "Jak zvládnout sezónní špičky ve skladu? Kombinací stálého jádra a flexibilní agenturní kapacity, kterou lze navýšit na špičku a snížit mimo ni, s náborem naplánovaným s předstihem.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A combination of a permanent core and flexible capacity works for a warehouse.",
+     "reason": "The capacity-planning section adds the lead-time half: 'Warehouse capacity is best planned against order volume and seasonality, ahead of the peaks', plus scaling down outside a peak; the list item 'Bursts of volume through agency capacity' names the agency route.",
+     "sharedEvidence": false
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Für ein Lager bewährt sich die Verbindung eines festen Kerns mit flexibler Kapazität.",
+     "reason": "Die Kapazitätsplanung ergänzt den Vorlauf: 'Die Lagerkapazität plant man sinnvoll nach Auftragsvolumen und Saisonalität, mit Vorlauf vor den Spitzen.'",
+     "sharedEvidence": false
+    }
+   },
+   "warehouse-workers|SEO_PAGES|f1|c8787d35": {
+    "ref": "f1",
+    "cs": "Potřebují skladníci oprávnění? Část pozic ano, například na manipulační techniku. Tyto role vyžadují příslušné oprávnění a zaučení; vstupní školení BOZP je standardní součástí nástupu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A warehouse worker starting involves initial health-and-safety training, familiarisation with the warehouse processes, and — for handling equipment — the relevant authorisation and instruction.",
+     "reason": "Carries all three elements of the answer: authorisation for handling equipment, instruction, and initial health-and-safety training as a standard part of starting. The section above adds 'Some positions require an authorisation'."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Der Eintritt umfasst die Arbeitsschutzunterweisung nach tschechischem Recht, die Einführung in die Lagerprozesse und – bei Flurförderzeugen – die entsprechende Berechtigung und Einweisung.",
+     "reason": "Trägt Berechtigung, Einweisung und Arbeitsschutzunterweisung; ergänzt durch 'Ein Teil der Positionen erfordert eine Berechtigung, etwa für Flurförderzeuge'."
+    }
+   },
+   "warehouse-workers|SEO_PAGES|f2|a723a675": {
+    "ref": "f2",
+    "cs": "Uvádíte mzdy skladníků? Ne. Konkrétní mzdy nevymýšlíme. Aktuální údaje patří do oficiálních zdrojů (ČSÚ, MPSV, Úřad práce ČR), na které odkazujeme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
+     "sharedEvidence": true,
+     "reason": "Both halves of the answer — the refusal and the three official sources — stand verbatim in the capacity-planning section. The same standing sentence closes each of the five industry pages."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
+     "sharedEvidence": true,
+     "reason": "Verweigerung und die drei amtlichen Quellen stehen wörtlich; derselbe Satz schließt jede der fünf Branchenseiten."
     }
    }
   }
@@ -4218,6 +5676,78 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Die Wahl der Form richtet sich sinnvollerweise nach Dauer und Wiederholbarkeit des Bedarfs"
     }
+   },
+   "logistics-workers|SEO_PAGES|f0|f067e2b1": {
+    "ref": "f0",
+    "cs": "Jakou formou pokrýt sezónní špičku v logistice? Zákon nabízí několik cest — pracovní poměr na dobu určitou, dohody mimo pracovní poměr (DPP a DPČ) nebo dočasné přidělení přes agenturu práce. Volba závisí na délce a opakovatelnosti potřeby; každá forma má svá pravidla podle zákoníku práce a zákona o zaměstnanosti. Univerzální „nejlepší“ řešení neexistuje.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Seasonal peaks in logistics can be covered lawfully in more than one form: fixed-term employment, agreements on work performed outside an employment relationship",
+     "reason": "The sentence continues with DPP/DPČ and temporary assignment through a staffing agency, and names the Czech Labour Code and Act 435/2004 Sb. The list item 'Which form to choose is best driven by how long the need lasts and how often it recurs' carries the 'no universal best' half."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Saisonale Spitzen in der Logistik lassen sich in mehreren Formen rechtmäßig abdecken: durch ein befristetes Arbeitsverhältnis, durch Vereinbarungen außerhalb eines Arbeitsverhältnisses",
+     "reason": "Der Satz führt DPP/DPČ und die vorübergehende Zuweisung fort und nennt Arbeitsgesetzbuch und Beschäftigungsgesetz; der Listenpunkt zur Wahl nach Dauer und Wiederholbarkeit trägt das 'keine Universallösung'."
+    }
+   },
+   "logistics-workers|SEO_PAGES|f1|848f54dc": {
+    "ref": "f1",
+    "cs": "Musí mít agenturní pracovník stejné podmínky jako naši kmenoví lidé? U dočasného přidělení vyžaduje zákoník práce srovnatelné pracovní a mzdové podmínky vůči kmenovému zaměstnanci na obdobné pozici. Agentura práce navíc musí mít povolení ke zprostředkování zaměstnání; v našem ekosystému je jeho držitelem agentura, nikoli tato platforma.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "For temporary assignment, the agency worker must have pay and working conditions comparable to a core employee in a similar position, and the staffing agency must hold an employment-mediation permit.",
+     "reason": "The following sentence adds the ecosystem clarification: the permit is held by the staffing agency, not the platform."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei der vorübergehenden Zuweisung müssen überlassene Beschäftigte vergleichbare Arbeits- und Lohnbedingungen wie Stammbeschäftigte auf vergleichbarer Position haben, und die Personalagentur muss die tschechische Erlaubnis zur Arbeitsvermittlung besitzen.",
+     "reason": "Der Folgesatz ergänzt, dass die Erlaubnis die Personalagentur hält, nicht die Plattform."
+    }
+   },
+   "logistics-workers|SEO_PAGES|f2|dd62e273": {
+    "ref": "f2",
+    "cs": "Jak zvládnout sezónní výkyvy v logistice? Kombinací stálého jádra a flexibilní agenturní kapacity navýšené na špičku, s náborem naplánovaným s předstihem. Okamžitou dostupnost neslibujeme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A fluctuating requirement is well covered by a combination of a permanent core and flexible agency capacity, which can be raised for a peak and lowered outside it.",
+     "reason": "The list item 'Recruitment planned in good time, ahead of the peak' and the intro's 'recruitment is planned ahead of a seasonal peak rather than during it' carry the planning-ahead half and, with it, the refusal to imply instant availability."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Einen schwankenden Bedarf deckt die Verbindung eines festen Kerns mit flexibler Kapazität einer tschechischen Personalagentur gut ab, die sich zur Spitze erhöhen und danach wieder senken lässt.",
+     "reason": "Der Listenpunkt 'Die Personalgewinnung mit Vorlauf vor der Spitze planen' und der Intro-Satz zur Planung vor der Spitze tragen den Vorlauf und damit die Absage an sofortige Verfügbarkeit."
+    }
+   },
+   "logistics-workers|SEO_PAGES|f3|c0a0a46d": {
+    "ref": "f3",
+    "cs": "Jaké role logistika obsazuje? Skladové a manipulační pozice, kompletaci, podporu distribuce a expedice a další navazující role. Poměr závisí na typu provozu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Logistics covers a series of connected roles — from warehouse and handling positions to support for distribution and dispatch — and often runs in shifts.",
+     "reason": "Names the same role families as the Czech answer; the intro adds receiving, storage and assembly. The 'ratio depends on the type of operation' clause is carried by the neighbouring statement that volume fluctuates markedly with season and demand across those connected roles."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Logistik umfasst eine Reihe aufeinanderfolgender Rollen – von Lager- und Handlingpositionen bis zur Unterstützung von Distribution und Versand – und läuft häufig in Schichten.",
+     "reason": "Nennt dieselben Rollenfamilien; das Intro ergänzt Wareneingang, Lagerung und Kommissionierung."
+    }
+   },
+   "logistics-workers|SEO_PAGES|f4|a9a00ea7": {
+    "ref": "f4",
+    "cs": "Uvádíte statistiky nebo mzdy? Ne. Konkrétní čísla nevymýšlíme. Aktuální údaje patří do oficiálních zdrojů (ČSÚ, MPSV, Úřad práce ČR), na které odkazujeme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
+     "sharedEvidence": true,
+     "reason": "The refusal of figures and the three official sources stand verbatim in the capacity-planning section of the logistics page."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
+     "sharedEvidence": true,
+     "reason": "Verweigerung und amtliche Quellen stehen wörtlich im Abschnitt zur Kapazitätsplanung der Logistikseite."
+    }
    }
   }
  },
@@ -4271,6 +5801,50 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Bei Mangelgewerken die Personalgewinnung aus dem Ausland hinzunehmen"
+    }
+   },
+   "construction-workers|SEO_PAGES|f0|592b9f9a": {
+    "ref": "f0",
+    "cs": "Jak zajistit kapacitu na stavební zakázky? Kombinací vlastního jádra klíčových řemesel, flexibilní nebo subdodavatelské kapacity a u nedostatkových řemesel náboru ze zahraničí, naplánovaného s ohledem na lhůty oprávnění.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "It is worth knowing in advance which trades to hold in your own core and what to cover flexibly or by subcontract, and — where recruitment from abroad is involved — allowing for the time permits take.",
+     "reason": "Carries all four elements: own core of key trades, flexible or subcontracted capacity, recruitment from abroad, and planning around permit lead times."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Es lohnt sich, vorab zu wissen, welche Gewerke im eigenen Kern bleiben und was flexibel oder über Nachunternehmer abgedeckt wird – und bei der Personalgewinnung aus dem Ausland mit den Fristen für die Erlaubnisse in Tschechien zu rechnen.",
+     "reason": "Trägt eigener Kern, flexible bzw. subunternehmerische Kapazität, Auslandsgewinnung und die Erlaubnisfristen."
+    }
+   },
+   "construction-workers|SEO_PAGES|f1|364786cf": {
+    "ref": "f1",
+    "cs": "Čím je nábor ve stavebnictví specifický? Projektovostí, sezónností a počasím a kombinací kvalifikovaných řemesel s pomocnými pozicemi. Potřeba lidí kolísá podle fáze a počtu zakázek.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Construction work is often tied to specific projects with a defined beginning and end, is subject to season and weather, and combines skilled trades with support positions.",
+     "reason": "The next sentence adds the fluctuation half: 'The need for people changes with the phase of a project and with how many contracts run in parallel'."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bauarbeiten sind häufig an konkrete Projekte mit definiertem Anfang und Ende gebunden, unterliegen Saison und Witterung und verbinden qualifizierte Handwerksberufe mit Hilfspositionen.",
+     "reason": "Der Folgesatz ergänzt die Schwankung nach Projektphase und Zahl paralleler Aufträge."
+    }
+   },
+   "construction-workers|SEO_PAGES|f2|d05b7f8d": {
+    "ref": "f2",
+    "cs": "Uvádíte mzdy řemeslníků? Ne. Konkrétní mzdy nevymýšlíme. Aktuální údaje patří do oficiálních zdrojů (ČSÚ, MPSV, Úřad práce ČR), na které odkazujeme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
+     "sharedEvidence": true,
+     "reason": "The wage refusal and the three official sources stand verbatim in the construction page's planning section."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
+     "sharedEvidence": true,
+     "reason": "Lohnverweigerung und amtliche Quellen stehen wörtlich im Planungsabschnitt der Bauseite."
     }
    }
   }
@@ -4360,6 +5934,78 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Die Arbeit in der Kälte, die Schutzausrüstung und etwaige gesundheitliche Anforderungen gehören bereits in die Anzeige"
+    }
+   },
+   "food-production-workers|SEO_PAGES|f0|bedf97fe": {
+    "ref": "f0",
+    "cs": "Musí zaměstnavatel poskytovat ochranné prostředky pro práci v chladu? Zákoník práce ukládá zaměstnavateli poskytovat osobní ochranné pracovní prostředky bezplatně tam, kde to prostředí a rizika vyžadují, a v zákonem stanovených případech i ochranné nápoje. Konkrétní rozsah a podmínky stanoví prováděcí předpisy a je vhodné je ověřit podle charakteru provozu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The Czech Labour Code also requires personal protective equipment to be provided free of charge where the environment and the risks require it, and, in the cases the law specifies, protective drinks as well",
+     "reason": "The same sentence continues '...the precise scope and conditions are set by implementing regulations, which have to be verified', which is the verification half of the answer."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Das tschechische Arbeitsgesetzbuch verlangt zudem, persönliche Schutzausrüstung dort unentgeltlich bereitzustellen, wo Umgebung und Gefährdungen es erfordern, und in den gesetzlich bestimmten Fällen auch Schutzgetränke",
+     "reason": "Derselbe Satz führt fort, dass Umfang und Bedingungen die Durchführungsvorschriften festlegen, die zu prüfen sind."
+    }
+   },
+   "food-production-workers|SEO_PAGES|f1|b6b39256": {
+    "ref": "f1",
+    "cs": "Platí pro chlazené a mrazírenské provozy zvláštní povinnosti BOZP? Zaměstnavatel má podle zákoníku práce a předpisů o BOZP zajišťovat bezpečné a zdraví neohrožující pracovní prostředí, včetně zohlednění zátěžových faktorů, jako je nízká teplota. Konkrétní parametry a opatření vycházejí z prováděcích předpisů a jejich dodržování dozoruje Státní úřad inspekce práce.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Under the Czech Labour Code an employer has a duty to provide a safe working environment that does not endanger health, and to adapt the organisation of work to it; that duty applies to work at low temperatures as well.",
+     "reason": "The following paragraph names implementing regulations and burden factors such as temperature, and the list adds that compliance is supervised by the Czech State Labour Inspection Office."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Nach dem tschechischen Arbeitsgesetzbuch hat der Arbeitgeber die Pflicht, eine sichere und die Gesundheit nicht gefährdende Arbeitsumgebung sicherzustellen und die Arbeitsorganisation daran anzupassen; diese Pflicht erfasst auch die Arbeit bei niedrigen Temperaturen.",
+     "reason": "Der Folgeabsatz nennt Durchführungsvorschriften und belastende Faktoren wie Temperatur; die Liste nennt die Aufsicht des Staatlichen Arbeitsinspektionsamts."
+    }
+   },
+   "food-production-workers|SEO_PAGES|f2|1d023390": {
+    "ref": "f2",
+    "cs": "Co je u potravinářství při náboru specifické? Přísné hygienické požadavky, kontinuita provozu a směnnost. U některých pozic mohou platit zvláštní zdravotní a hygienické požadavky; konkrétní povinnosti vycházejí z předpisů.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A food operation puts the emphasis on hygiene, on following procedures and on food safety, and usually requires production to be continuous across shifts.",
+     "reason": "The next sentence adds 'For some positions there are particular health and hygiene requirements that affect when someone can start', and the training section states the specific duties follow from the regulations."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ein Lebensmittelbetrieb legt Wert auf Hygiene, die Einhaltung von Verfahren und Lebensmittelsicherheit und verlangt in der Regel eine kontinuierliche Produktion über Schichten.",
+     "reason": "Der Folgesatz ergänzt besondere gesundheitliche und hygienische Anforderungen für einen Teil der Positionen."
+    }
+   },
+   "food-production-workers|SEO_PAGES|f3|f5551c46": {
+    "ref": "f3",
+    "cs": "Potřebují pracovníci zdravotní průkaz? U části pozic mohou být potřeba zdravotní průkazy či splnění hygienických požadavků. Konkrétní povinnosti ověřte podle platných předpisů a charakteru provozu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Some positions may require health certification or the meeting of hygiene requirements; the specific duties follow from the regulations.",
+     "reason": "Carries both halves: health certification for part of the positions, and verification against the regulations."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Für einige Positionen können Gesundheitsnachweise oder die Erfüllung hygienischer Anforderungen nötig sein; die konkreten Pflichten ergeben sich aus den tschechischen Vorschriften.",
+     "reason": "Trägt Gesundheitsnachweise für einen Teil der Positionen und die Prüfung nach den Vorschriften."
+    }
+   },
+   "food-production-workers|SEO_PAGES|f4|04790755": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdy nebo počty? Ne. Konkrétní čísla nevymýšlíme. Aktuální údaje patří do oficiálních zdrojů (ČSÚ, MPSV, Úřad práce ČR), na které odkazujeme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
+     "sharedEvidence": true,
+     "reason": "The refusal of wages and counts and the three official sources stand verbatim in the continuity-planning section."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
+     "sharedEvidence": true,
+     "reason": "Verweigerung von Löhnen und Zahlen sowie die amtlichen Quellen stehen wörtlich im Abschnitt zur Betriebskontinuität."
     }
    }
   }
@@ -4451,6 +6097,78 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Den Schichtplan setzt der Arbeitgeber in den Grenzen des Gesetzes; die Form ist sinnvollerweise nach dem tatsächlichen Betrieb zu wählen.",
      "reason": "Same list item; 'die Arbeitgeberin' was changed to 'der Arbeitgeber' and the second clause is now spelled out. Carries both halves of the Czech bullet."
+    }
+   },
+   "automotive-workers|SEO_PAGES|f0|423ee15b": {
+    "ref": "f0",
+    "cs": "Jak zákon upravuje nepřetržitý nebo vícesměnný provoz na automotive lince? Zákoník práce rozlišuje rovnoměrné a nerovnoměrné rozvržení pracovní doby a stanoví pravidla pro směnné i nepřetržité provozy včetně minimálního odpočinku mezi směnami a v týdnu. Konkrétní rozvrh směn nastavuje zaměstnavatel v mezích zákona; přesné délky zde neuvádíme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The Czech Labour Code distinguishes even from uneven distribution of working time and sets the framework for shift and continuous operations",
+     "reason": "The same section adds 'Uninterrupted rest between shifts and in the week, and breaks at work, are minimum standards set by the Czech Labour Code' plus 'No specific lengths are stated here', and the list item that the employer sets the roster within the limits of the law."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Das tschechische Arbeitsgesetzbuch unterscheidet die gleichmäßige von der ungleichmäßigen Verteilung der Arbeitszeit und setzt den Rahmen für Schicht- und Dauerbetriebe",
+     "reason": "Derselbe Abschnitt nennt die Mindeststandards für Ruhezeiten, 'konkrete Längen nennen wir hier nicht' und den Listenpunkt, dass der Arbeitgeber den Schichtplan in den Grenzen des Gesetzes setzt."
+    }
+   },
+   "automotive-workers|SEO_PAGES|f1|cc19e9d8": {
+    "ref": "f1",
+    "cs": "K čemu v automotive slouží konto pracovní doby? Je to zvláštní způsob rozvržení pracovní doby podle zákoníku práce, který lze zavést jen kolektivní smlouvou nebo vnitřním předpisem a který umožňuje vyrovnávat odpracované hodiny ve vyrovnávacím období. Hodí se pro provozy s kolísáním výroby, jako jsou náběhy modelů nebo výkyvy odvolávek.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A working-time account is, under the Czech Labour Code, a particular method of distributing working time that may be introduced only by a collective agreement or an internal regulation.",
+     "reason": "The same sentence continues that it suits operations with fluctuating output — new model ramp-ups, swings in call-offs — because hours can be balanced across a reference period."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Das Arbeitszeitkonto ist nach dem tschechischen Arbeitsgesetzbuch eine besondere Art der Arbeitszeitverteilung, die sich nur durch einen Kollektivvertrag oder eine innerbetriebliche Vorschrift einführen lässt.",
+     "reason": "Der Folgesatz nennt Anläufe neuer Modelle und Abrufschwankungen sowie den Ausgleichszeitraum."
+    }
+   },
+   "automotive-workers|SEO_PAGES|f2|e9c18664": {
+    "ref": "f2",
+    "cs": "Co je u automotive při náboru specifické? Práce na lince v daném taktu, vysoké nároky na kvalitu a kontinuita ve směnách. Výpadek nebo nedodržení kvality ovlivní celou linku a dodávky.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Automotive is characterised by work on assembly lines at a set takt, high quality requirements, and continuity across shifts.",
+     "reason": "The next sentence adds the consequence: 'A gap in people, or a lapse in quality, feeds through the whole line and into the deliveries that depend on it.'"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Automotive ist gekennzeichnet durch Arbeit an Montagelinien mit vorgegebenem Takt, hohe Qualitätsanforderungen und Kontinuität über Schichten.",
+     "reason": "Der Folgesatz ergänzt die Wirkung einer Lücke oder Qualitätsabweichung auf Linie und Lieferungen."
+    }
+   },
+   "automotive-workers|SEO_PAGES|f3|75c4138a": {
+    "ref": "f3",
+    "cs": "Jak pokrýt náběhy výroby? Stálým jádrem doplněným flexibilní agenturní kapacitou zajištěnou s předstihem, s opakovatelným onboardingem. Okamžitou dostupnost neslibujeme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Cross-trained cover, a margin for gaps and securing flexible capacity in good time all help.",
+     "reason": "The permanent-core half stands in the recruiting list ('A permanent core for quality and continuity', 'Flexible capacity for ramp-ups and swings in production'), and the training section carries the repeatable onboarding: 'A prepared and repeatable onboarding matters most during a production ramp-up'. Securing capacity 'in good time' carries the refusal of instant availability."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Mehrfachqualifizierung, eine Reserve für Ausfälle und die rechtzeitige Sicherung flexibler Kapazität helfen dabei.",
+     "reason": "Fester Kern und flexible Kapazität stehen in der Liste; das wiederholbare Onboarding im Satz 'Ein vorbereitetes und wiederholbares Onboarding ist besonders beim Produktionsanlauf ... wichtig.'"
+    }
+   },
+   "automotive-workers|SEO_PAGES|f4|04790755": {
+    "ref": "f4",
+    "cs": "Uvádíte mzdy nebo počty? Ne. Konkrétní čísla nevymýšlíme. Aktuální údaje patří do oficiálních zdrojů (ČSÚ, MPSV, Úřad práce ČR), na které odkazujeme.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
+     "sharedEvidence": true,
+     "reason": "The refusal of wages and counts and the three official sources stand verbatim in the shift-and-ramp-up planning section."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
+     "sharedEvidence": true,
+     "reason": "Verweigerung von Löhnen und Zahlen sowie die amtlichen Quellen stehen wörtlich im Abschnitt zur Planung von Schichten und Anläufen."
     }
    }
   }
@@ -4553,6 +6271,62 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Umkleiden, Verpflegung und Transport zur Schicht"
     }
+   },
+   "volume-hiring|SEO_PAGES|f0|94fe7e36": {
+    "ref": "f0",
+    "cs": "Zvládnete obsadit 50 nebo 100 pozic? Rozsah vždy závisí na profesi, lokalitě, termínu a nabízených podmínkách. Konkrétní počty ani lhůty předem neslibujeme – po popisu zadání vám řekneme, co je v daném regionu a čase reálné.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The numbers used are model situations for planning, not descriptions of work delivered; no specific figures or lead times are stated here.",
+     "reason": "The refusal to promise counts or lead times stands here; the dependence on occupation, location and conditions stands in 'How large a margin depends on the occupation, the location and the conditions', and the CTA invites the brief first."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die genannten Zahlen sind Modellsituationen für die Planung und keine Beschreibung durchgeführter Aufträge; konkrete Zahlen und Fristen nennen wir hier nicht.",
+     "reason": "Die Abhängigkeit von Beruf, Standort und Bedingungen steht in 'Wie groß die Reserve sein sollte, hängt von Beruf, Standort und Bedingungen ab.'"
+    }
+   },
+   "volume-hiring|SEO_PAGES|f1|78860dc4": {
+    "ref": "f1",
+    "cs": "Za jak dlouho lze hromadný nábor zvládnout? Termín zde neuvádíme, protože jej neurčuje nábor sám. Rozhoduje kapacita pohovorů a zaškolení, objednací lhůty pracovnělékařských prohlídek, výpovědní doby kandidátů a u zahraničních pracovníků řízení o oprávněních.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "These have their own lead times, and adding recruiters does not shorten them.",
+     "reason": "Carries the answer's core claim that the timeline is not set by recruitment. The determinants land alongside it: interview and training capacity ('someone has to run interviews full time, and training can no longer be left to normal operations'), occupational-health booking lead times in the capacity list, and permits ('it has its own timing governed by permits, which cannot be shortened'). Only candidates' notice periods are not enumerated on this page."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Diese Dinge haben eigene Vorlaufzeiten, die sich nicht dadurch verkürzen, dass man mehr Kapazität in die Personalgewinnung steckt.",
+     "reason": "Kern der Antwort — die Frist bestimmt nicht die Suche. Gesprächs- und Einarbeitungskapazität, Vorlaufzeiten beim arbeitsmedizinischen Dienst und die Erlaubnisfristen stehen daneben; nur die Kündigungsfristen sind auf dieser Seite nicht aufgezählt."
+    }
+   },
+   "volume-hiring|SEO_PAGES|f2|b2aa4326": {
+    "ref": "f2",
+    "cs": "Co bývá při hromadném náboru největší překážkou? Nejčastěji ne počet kandidátů, ale kapacita provozu je přijmout – pohovory, zaškolení, prohlídky a zázemí. Proto doporučujeme tyto kapacity zajistit dřív, než začne oslovování.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The most common mistake in volume hiring is to start approaching people before it is settled what happens to them once they start.",
+     "reason": "The constraint-shift half stands in 'At a hundred, recruitment stops being the constraint and the facilities become one — changing rooms, catering, transport, accommodation, the number of entry medical assessments, the capacity of trainers', and 'Agree that capacity before approaches begin'."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Der häufigste Fehler bei der Massenrekrutierung ist, Menschen anzusprechen, bevor geklärt ist, was nach ihrem Eintritt mit ihnen geschieht.",
+     "reason": "Ergänzt durch 'Bei hundert ist nicht mehr die Suche die Grenze, sondern das Umfeld' und 'Vereinbaren Sie sie, bevor die Ansprache beginnt'."
+    }
+   },
+   "volume-hiring|SEO_PAGES|f3|b4d88fe4": {
+    "ref": "f3",
+    "cs": "Má smysl nechat všechny nastoupit najednou? Zpravidla ne. Nástupy ve vlnách podle kapacity zaškolení bývají pro provoz snesitelnější a umožní se poučit z první skupiny dřív, než nastoupí další.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Splitting starts into waves sized to training capacity is usually easier for an operation to absorb, even though it takes longer overall.",
+     "reason": "The next sentence adds 'Waves also let you learn from the first group before the second arrives', and the paragraph opens by rejecting a single start date."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eintritte in Wellen, bemessen an der Einarbeitungskapazität, sind für einen Betrieb meist erträglicher, auch wenn es insgesamt länger dauert.",
+     "reason": "Der Folgesatz ergänzt das Lernen aus der ersten Gruppe; der Absatz beginnt mit der Absage an einen gemeinsamen Starttag."
+    }
    }
   }
  },
@@ -4642,6 +6416,62 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Fehlende Arbeitsanweisungen und Dokumentation für den neuen Arbeitsplatz"
     }
+   },
+   "production-ramp-up|SEO_PAGES|f0|0e1da52f": {
+    "ref": "f0",
+    "cs": "Kdy začít s náborem před spuštěním nové linky? Konkrétní počet týdnů neuvádíme, protože závisí na profesích a lokalitě. Pořadí je ale stálé: nejdřív provozní vedení a technické role, které budou zaškolovat, teprve poté operátorské pozice.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "it becomes clear that the first roles to fill are not the operators but the people who will train them",
+     "reason": "The fixed order is then spelt out in the ordered list — supervision and key technical roles, then setters and maintenance, last the operator roles. The page states no week count anywhere, matching the Czech refusal."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "So betrachtet zeigt sich, dass zuerst nicht die Bedienpositionen zu besetzen sind, sondern die Menschen, die die anderen einarbeiten.",
+     "reason": "Die feste Reihenfolge steht danach in der nummerierten Liste; eine Wochenzahl nennt die Seite nirgends."
+    }
+   },
+   "production-ramp-up|SEO_PAGES|f1|ad9f76eb": {
+    "ref": "f1",
+    "cs": "Co bývá u náběhu úzkým hrdlem? Nejčastěji zaškolení, ne nábor. Zkušený člověk, který zaškoluje, v té době nevyrábí, a s tímto výpadkem harmonogramy zpravidla nepočítají.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "the weak point being training rather than recruitment itself",
+     "reason": "The second half — the trainer's lost output being left out of schedules — stands in the stall list: 'Training planned optimistically, without allowing that the experienced person doing the training is not producing meanwhile'."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "die schwache Stelle ist die Einarbeitung, nicht die Suche",
+     "reason": "Die zweite Hälfte steht im Abschnitt 'Woran Anläufe am häufigsten hängen': die erfahrene Person, die einarbeitet, produziert währenddessen nicht."
+    }
+   },
+   "production-ramp-up|SEO_PAGES|f2|e4e12a46": {
+    "ref": "f2",
+    "cs": "Je otevření nové směny jednodušší než nová linka? Ne nutně. Zaškolení musí zajistit stávající tým při běžícím provozu a netypický směnný režim zužuje okruh kandidátů. Obojí je vhodné zohlednit předem.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "New people have to be trained by the existing team, which has to keep producing at the same time",
+     "reason": "The paragraph opens with 'looks simpler but has its own difficulty' (the 'not necessarily' answer) and continues 'A night or weekend shift narrows the group of people willing to start, which belongs in both the schedule and the conditions.'"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die neuen Menschen muss das bestehende Team einarbeiten, das dabei weiter produzieren soll",
+     "reason": "Der Absatz beginnt mit 'wirkt einfacher, hat aber eigene Tücken' und ergänzt, dass eine Nacht- oder Wochenendschicht den Kandidatenkreis verengt und in Zeitplan und Bedingungen gehört."
+    }
+   },
+   "production-ramp-up|SEO_PAGES|f3|342f6000": {
+    "ref": "f3",
+    "cs": "Co musí být připraveno před nástupem lidí na nové pracoviště? Zejména pracovní postupy, zaškolovací plán, hodnocení rizik, rozsah OOPP a zařazení prací do kategorií, od nějž se odvíjí rozsah pracovnělékařských prohlídek.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "work procedures, a training plan, risk assessment for the new workplaces, the scope of personal protective equipment, and the categorisation of the work, which determines the scope of occupational health assessments.",
+     "reason": "An item-for-item match with the Czech answer, including the categorisation driving the scope of occupational health assessments."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Arbeitsanweisungen, ein Einarbeitungsplan, die Gefährdungsbeurteilung der neuen Arbeitsplätze, der Umfang der persönlichen Schutzausrüstung und die Einstufung der Tätigkeiten, von der der Umfang der arbeitsmedizinischen Untersuchungen abhängt.",
+     "reason": "Deckungsgleich mit der tschechischen Antwort, einschließlich der Einstufung als Maßstab für die arbeitsmedizinischen Untersuchungen."
+    }
    }
   }
  },
@@ -4694,6 +6524,62 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Welche Saisonkräfte wiederholt zurückgekehrt sind"
+    }
+   },
+   "seasonal-capacity|SEO_PAGES|f0|238f3477": {
+    "ref": "f0",
+    "cs": "Kdy začít se sezónním náborem? Dřív, než začne špička. Konkrétní předstih zde neuvádíme, protože závisí na profesi a regionu; osvědčuje se ale vycházet z vlastních dat o minulých sezónách a oslovit dřívější pracovníky s předstihem.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "they stay in contact with people who have already worked for them, and approach them ahead of the next season",
+     "reason": "Carries the 'approach former workers in advance' half. The 'start before the peak' half stands in the intro ('seasonal hiring is often addressed once the peak has begun, which is the most expensive possible moment'), the own-data half in 'The best basis for a seasonal plan is your own records from previous years', and the refusal in 'No figures are stated here, because they differ from region to region.'"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Sie halten Kontakt zu Menschen, die schon einmal bei ihnen gearbeitet haben, und sprechen sie vor der nächsten Saison rechtzeitig an.",
+     "reason": "Der Vorlauf steht im Intro ('der teuerste denkbare Zeitpunkt'), die eigenen Daten in 'Die beste Grundlage für einen Saisonplan sind die eigenen Aufzeichnungen der Vorjahre', die Verweigerung in 'Konkrete Zahlen nennen wir hier nicht, weil sie sich von Region zu Region unterscheiden.'"
+    }
+   },
+   "seasonal-capacity|SEO_PAGES|f1|95f25283": {
+    "ref": "f1",
+    "cs": "Je pro sezónu vhodnější agentura, nebo vlastní zaměstnanci? Záleží na délce a předvídatelnosti. U opakovaných výkyvů bývá pružnější agenturní zaměstnávání, protože administrativu zaměstnavatele nese agentura; u delších a jistých sezón mohou dávat smysl vlastní zaměstnanci na dobu určitou.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "is the most usual for regularly recurring fluctuations, because the agency remains the formal employer and the scope can be adjusted to the actual need. Fixed-term employees of your own suit longer and more predictable seasons.",
+     "reason": "Both branches of the answer stand in one passage: agency for recurring fluctuations (with the agency carrying the employer role), own fixed-term staff for longer, predictable seasons."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "ist für regelmäßig wiederkehrende Schwankungen am üblichsten, weil die Agentur formaler Arbeitgeber bleibt und der Umfang dem tatsächlichen Bedarf angepasst werden kann. Eigene befristet Beschäftigte passen zu längeren und gut vorhersehbaren Saisons.",
+     "reason": "Beide Zweige der Antwort stehen in einer Passage, einschließlich der Arbeitgeberrolle der Agentur."
+    }
+   },
+   "seasonal-capacity|SEO_PAGES|f2|906a43c5": {
+    "ref": "f2",
+    "cs": "Musí mít sezónní pracovníci srovnatelné podmínky? U dočasného přidělení ano – srovnatelné mzdové a pracovní podmínky s kmenovými zaměstnanci uživatele na obdobné pozici jsou zákonným požadavkem, nikoli předmětem dohody.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "That is not a contractual arrangement between the parties but a statutory condition.",
+     "reason": "The preceding sentence establishes the requirement itself: 'For temporary assignment, pay and working conditions comparable with the user's own core employees are required.'"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Das ist keine vertragliche Vereinbarung, sondern eine gesetzliche Bedingung nach tschechischem Recht.",
+     "reason": "Der Satz davor nennt den Anspruch auf vergleichbare Lohn- und Arbeitsbedingungen bei der vorübergehenden Zuweisung."
+    }
+   },
+   "seasonal-capacity|SEO_PAGES|f3|04dcbcbb": {
+    "ref": "f3",
+    "cs": "Kolik lidí navíc na sezónu potřebujeme? Obecné číslo neexistuje a neuvádíme ho. Nejspolehlivějším podkladem jsou vlastní údaje z minulých sezón doplněné o plán objemu na tu nadcházející.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A company already holds that data, and it is more reliable than any general estimate.",
+     "reason": "Rejects a general number and points to the company's own records; the list adds 'How many extra people were genuinely needed, and for how long', and the same section states no figures are given because they differ by region."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Diese Daten hat ein Unternehmen bereits, und sie sind verlässlicher als jede allgemeine Schätzung.",
+     "reason": "Weist die allgemeine Zahl zurück; die Liste ergänzt, wie viele Menschen in vergangenen Saisons tatsächlich zusätzlich gebraucht wurden und wie lange."
     }
    }
   }
@@ -4797,6 +6683,56 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Ein Überblick darüber, wo die Ausfälle tatsächlich entstehen"
+    }
+   },
+   "absence-cover|SEO_PAGES|f0|556ec591": {
+    "ref": "f0",
+    "cs": "Jaká míra absence je normální? Obecné číslo zde neuvádíme – liší se podle oboru, typu práce a regionu. Užitečnější než srovnání s cizí hodnotou je sledovat vlastní vývoj a to, kde se výpadky koncentrují.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "no general figure is stated here, because it would hold for nobody",
+     "reason": "The 'watch your own operation instead' half stands in 'Absence is not evenly distributed. It usually concentrates in particular workplaces, shifts or groups of people, and that distribution is the most valuable information a company has.'"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "eine allgemeine Zahl nennen wir nicht, weil sie für niemanden gälte",
+     "reason": "Die zweite Hälfte steht in 'Abwesenheit ist nicht gleichmäßig verteilt. Sie konzentriert sich meist auf bestimmte Arbeitsplätze, Schichten oder Gruppen, und genau diese Verteilung ist die wertvollste Information, die ein Unternehmen hat.'"
+    }
+   },
+   "absence-cover|SEO_PAGES|f1|d99390f9": {
+    "ref": "f1",
+    "cs": "Jak se absence liší od fluktuace? U fluktuace lidé odcházejí, u absence chybějí na konkrétní směně. Zvýšená absence na jednom pracovišti ale často odchodům předchází, takže funguje jako včasný signál.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Raised absence at a particular workplace often precedes departures"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Erhöhte Abwesenheit an einem bestimmten Arbeitsplatz geht Abgängen häufig voraus"
+    }
+   },
+   "absence-cover|SEO_PAGES|f2|12d0a688": {
+    "ref": "f2",
+    "cs": "Pomůže proti absenci přísnější docházkový režim? Jen u neomluvené absence. Na nepřítomnost z důvodu pracovní neschopnosti nebo na překážky v práci, které mají svůj právní rámec, vliv nemá – a může zhoršit ochotu lidí zůstat.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "An employer who responds to sickness by tightening attendance rules usually just increases unexcused departures."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Wer auf Krankenstand mit strengeren Anwesenheitsregeln reagiert, erhöht meist nur das unentschuldigte Fehlen."
+    }
+   },
+   "absence-cover|SEO_PAGES|f3|92847f1c": {
+    "ref": "f3",
+    "cs": "Jak velkou rezervu si držet? Vychází z vlastní míry výpadků na konkrétních pracovištích. Obecné doporučení neuvádíme; levnější než držet volnou kapacitu bývá zvýšit zastupitelnost stávajících lidí.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "how large it should be depends on the actual rate of gaps in a particular operation; no general figure is stated here"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "hängt von der tatsächlichen Ausfallquote im konkreten Betrieb ab; eine allgemeine Zahl nennen wir nicht"
     }
    }
   }
@@ -4993,6 +6929,66 @@
      "carriedBy": "Lohnbedingungen – bei der Zuweisung die gesetzliche Anforderung der Vergleichbarkeit",
      "reason": "Same list item, en-dash only."
     }
+   },
+   "direct-hire|SEO_PAGES|f0|636f9284": {
+    "ref": "f0",
+    "cs": "Kdo je zaměstnavatelem u přímého náboru? Vaše firma. Pracovní poměr vzniká přímo mezi vámi a zaměstnancem podle zákoníku práce a agentura do něj nevstupuje. U dočasného přidělení je to naopak: formálním zaměstnavatelem zůstává agentura práce a vy jste v postavení uživatele.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "an employment relationship arises directly between your company and the employee under the Czech Labour Code"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "entsteht ein Arbeitsverhältnis unmittelbar zwischen Ihrem Unternehmen und der Person nach dem tschechischen Arbeitsgesetzbuch"
+    }
+   },
+   "direct-hire|SEO_PAGES|f1|a637f6f5": {
+    "ref": "f1",
+    "cs": "Potřebuje agentura povolení, i když kandidáta jen vyhledá? Vyhledávání zaměstnanců pro zaměstnavatele je zprostředkováním zaměstnání podle zákona o zaměstnanosti a povolení vyžaduje. Zda je konkrétní agentura držitelem povolení, si ověřte ve veřejné evidenci agentur práce zpřístupňované státní správou zaměstnanosti.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Searching for employees on behalf of an employer is nevertheless employment mediation within the meaning of the Employment Act, and is subject to a permit."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Suche nach Beschäftigten für einen Arbeitgeber ist allerdings Arbeitsvermittlung im Sinne des tschechischen Gesetzes Nr. 435/2004 Sb. über die Beschäftigung und erlaubnispflichtig."
+    }
+   },
+   "direct-hire|SEO_PAGES|f2|b67f9fba": {
+    "ref": "f2",
+    "cs": "Lze agenturního zaměstnance převést do kmenového stavu? Přechod je věcí dohody mezi uživatelem, agenturou a zaměstnancem. Není to automatický nárok ani zakázaný krok – podmínky včetně případné odměny je vhodné sjednat písemně předem, aby se o nich neřešilo až ve chvíli, kdy o člověka stojíte.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Moving an assigned agency worker onto your own payroll belongs in the same category. It is a matter for agreement betwee"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In dieselbe Vereinbarung gehört der umgekehrte Fall: ob eine überlassene Person später in Ihren eigenen Stand übernommen"
+    }
+   },
+   "direct-hire|SEO_PAGES|f3|68058583": {
+    "ref": "f3",
+    "cs": "Kolik přímý nábor stojí? Ceny ani procenta zde neuvádíme. Odměna se u přímého náboru obvykle váže na nástup a odvozuje od sjednaného výdělku kandidáta; strukturu modelů popisuje stránka o ceně služeb a vlastní propočet umožní kalkulačka nákladů.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "usually tied to the chosen candidate starting and derived from their agreed earnings"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "ist die Vergütung der Agentur üblicherweise an den Eintritt der ausgewählten Person gebunden und leitet sich aus deren vereinbartem Verdienst ab"
+    }
+   },
+   "direct-hire|SEO_PAGES|f4|1514aed6": {
+    "ref": "f4",
+    "cs": "Které povinnosti zůstávají nám při dočasném přidělení? Přidělujete práci a dáváte pokyny, odpovídáte za podmínky na pracovišti a po dobu dočasného přidělení zajišťujete bezpečnost a ochranu zdraví při práci; agentuře přitom zůstávají povinnosti, které vůči svému zaměstnanci má jako zaměstnavatel. Zajišťujete také srovnatelné pracovní podmínky ve vztahu ke svým kmenovým zaměstnancům na obdobné pozici. Mzdovou agendu vede agentura.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Pay conditions — under assignment a statutory requirement of comparability with your own core employees in a similar position, not a negotia"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei der vorübergehenden Zuweisung gilt zusätzlich die gesetzliche Anforderung vergleichbarer Lohn- und Arbeitsbedingungen gegenüber Ihren St"
+    }
    }
   }
  },
@@ -5044,7 +7040,47 @@
     },
     "de": {
      "state": "PRESERVED_IN_LIST",
-     "carriedBy": "Eine klare Rollenverteilung in den Verträgen"
+     "carriedBy": "Eine klare Rollenverteilung in den Verträgen",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    }
+   },
+   "agency-employment|SEO_PAGES|f0|47d6c277": {
+    "ref": "f0",
+    "cs": "Kdo je zaměstnavatelem dočasně přiděleného pracovníka? Formálním zaměstnavatelem je pracovní agentura. Pracovník je k uživateli přidělen na základě dohody a pracuje podle jeho pokynů.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The worker performs the work at the user’s premises and under its instructions, but the agency remains the formal employer."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Person leistet die Arbeit beim Einsatzunternehmen und nach dessen Weisungen, formaler Arbeitgeber bleibt jedoch die Agentur."
+    }
+   },
+   "agency-employment|SEO_PAGES|f1|1ac0a499": {
+    "ref": "f1",
+    "cs": "Musí mít přidělený pracovník stejné podmínky jako kmenoví? Platí požadavek srovnatelných mzdových a pracovních podmínek s kmenovými zaměstnanci uživatele na obdobné pozici.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Czech law requires the agency worker’s pay and working conditions to be comparable with those of the user’s own core employees in a similar position"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "dass Lohn- und Arbeitsbedingungen der überlassenen Person mit denen der Stammbeschäftigten des Einsatzunternehmens auf vergleichbarer Position vergleichbar sind"
+    }
+   },
+   "agency-employment|SEO_PAGES|f2|3bbd2668": {
+    "ref": "f2",
+    "cs": "Kdo odpovídá za bezpečnost práce? Za BOZP nesou agentura i uživatel společnou odpovědnost. Konkrétní rozdělení je vhodné ošetřit smluvně.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "What the parties settle between themselves is how long the assignment runs and which of them does what; those are agreed in the contracts."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Eine klare Rollenverteilung in den Verträgen",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
     }
    }
   }
@@ -5128,7 +7164,9 @@
     },
     "de": {
      "state": "PRESERVED_IN_LIST",
-     "carriedBy": "Die gesetzlichen Arbeitgeberbeiträge zur Sozial- und Krankenversicherung"
+     "carriedBy": "Die gesetzlichen Arbeitgeberbeiträge zur Sozial- und Krankenversicherung",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
     }
    },
    "agency-fees|SEO_PAGES|s2.b2|3dc6e12c": {
@@ -5225,6 +7263,68 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Die eingerechneten Kosten der unbesetzten Stelle für die Dauer der Suche"
+    }
+   },
+   "agency-fees|SEO_PAGES|f0|3c2550d7": {
+    "ref": "f0",
+    "cs": "Kolik stojí služby personální agentury? Jedním číslem to říct nelze a tato stránka žádné neuvádí. Odměna se odvíjí od modelu spolupráce, rozsahu služby a náročnosti konkrétní pozice. Nabídku dáváme vždy ke konkrétnímu zadání, ne jako ceník.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "You will therefore find no amount, rate or percentage on this page."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Auf dieser Seite finden Sie deshalb weder Betrag noch Satz noch Anteil."
+    }
+   },
+   "agency-fees|SEO_PAGES|f1|0e99754f": {
+    "ref": "f1",
+    "cs": "Proč zde není uvedeno procento ani hodinová sazba? Bez definovaného základu, rozsahu služby a parametrů pozice by takové číslo bylo zavádějící. Stejný podíl při jiné definici základu znamená jinou částku, a stejná sazba může obsahovat jiné položky.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Two quotes with an identical share can end up far apart under a different definition."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Zwei Angebote mit gleichem Anteil können bei anderer Grundlage deutlich auseinanderliegen."
+    }
+   },
+   "agency-fees|SEO_PAGES|f2|adbf255a": {
+    "ref": "f2",
+    "cs": "Co všechno musí obsahovat hodinová sazba u dočasného přidělení? Musí unést mzdu na úrovni srovnatelných mzdových podmínek u uživatele, povinné odvody zaměstnavatele, dovolenou a náhrady mzdy a příplatky plynoucí z rozvržení směn. Teprve nad tím stojí náklady agentury.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Under the Czech Labour Code an agency employee is entitled to pay and working conditions comparable with a comparable core employee of the u"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die gesetzlichen Arbeitgeberbeiträge zur Sozial- und Krankenversicherung",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    }
+   },
+   "agency-fees|SEO_PAGES|f3|c935019d": {
+    "ref": "f3",
+    "cs": "Znamená nižší sazba nižší náklad? Nemusí. Nižší sazba často znamená jiný obsah – například odlišný předpoklad odpracovaných hodin nebo položky fakturované zvlášť. Porovnávejte rozsah a obsah, nikoli jen výslednou číslici.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A quote noticeably below the others usually does not mean a better deal but different content: missing premiums, a different assumption about hours worked, or items moved into separate invoicing."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ein Angebot spürbar unter den übrigen bedeutet meist kein besseres Geschäft, sondern einen anderen Inhalt"
+    }
+   },
+   "agency-fees|SEO_PAGES|f4|e77af8c9": {
+    "ref": "f4",
+    "cs": "Musíme sjednat exkluzivitu? Nemusíte. Je to obchodní ujednání, které odstraňuje spory o původ kandidáta a dodavateli usnadňuje plánování kapacity, ale zároveň vás na sjednanou dobu váže. Pokud ji sjednáte, sjednejte i její dobu a postup při nenaplnění zadání.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "If you do agree exclusivity, a period of validity and a clear procedure for the case where the brief is not filled belong with it."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Wenn Sie Exklusivität vereinbaren, gehören eine Laufzeit und ein klares Vorgehen für den Fall dazu, dass sich der Auftrag nicht erfüllen lässt."
     }
    }
   }
@@ -5412,6 +7512,67 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Das Fehlen einer konkreten, für den Auftrag verantwortlichen Ansprechperson"
     }
+   },
+   "choosing-an-agency|SEO_PAGES|f0|94cda5ad": {
+    "ref": "f0",
+    "cs": "Kde ověřím, že agentura má povolení ke zprostředkování zaměstnání? Ve veřejně dostupné evidenci agentur práce: povolení vydává podle zákona č. 435/2004 Sb., o zaměstnanosti, Úřad práce ČR a evidenci zveřejňuje MPSV. Ověřte číslo povolení, formy zprostředkování, které pokrývá, jeho platnost i shodu s názvem a IČO subjektu na smlouvě.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "the permit is issued by the Czech Labour Office, and the register of employment agencies is published by the Ministry of Labour and Social Affairs"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Erlaubnis erteilt das Arbeitsamt der Tschechischen Republik (Úřad práce ČR), und das Verzeichnis der Personalagenturen veröffentlicht das tschechische Ministerium für Arbeit und Soziales (MPSV)."
+    }
+   },
+   "choosing-an-agency|SEO_PAGES|f1|167925c4": {
+    "ref": "f1",
+    "cs": "Platí tato kritéria i na vás? Ano, a to je celý smysl této stránky. Náš vlastní stav zde neprohlašujeme za ověřený; ověřte si ho v evidenci stejně jako u kohokoli jiného a stejné otázky nám položte.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "we do not declare our own status verified here; check it in the public register yourself"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "wir erklären hier den eigenen Status nicht für geprüft; prüfen Sie ihn selbst im öffentlichen Verzeichnis"
+    }
+   },
+   "choosing-an-agency|SEO_PAGES|f2|9a7bf4e3": {
+    "ref": "f2",
+    "cs": "Co si mám myslet o dodavateli, který slíbí termín nástupu? Slibuje za osoby, které neovlivňuje – za kandidáta, jeho dosavadního zaměstnavatele a u cizinců za správní úřad. Poctivá odpověď popisuje kroky a jejich pořadí, nikoli datum.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "A promised start date is one: it depends on the candidate’s notice period and, for workers from third countries, on an administrative procedure — that is, on third parties."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Ein zugesagter Eintrittstermin ist eines davon: Er hängt von der Kündigungsfrist der Person und bei Menschen aus Drittstaaten von einem Verwaltungsverfahren ab, also von Dritten."
+    }
+   },
+   "choosing-an-agency|SEO_PAGES|f3|079b95ef": {
+    "ref": "f3",
+    "cs": "Jak poznám, že je nabídnutá hodinová sazba udržitelná? Ptejte se, co obsahuje. U dočasného přidělení musí unést mzdu na úrovni srovnatelných podmínek u uživatele, odvody zaměstnavatele, dovolenou a náhrady i příplatky za rozvržení směn. Sazba, která na to zjevně nestačí, je riziko pro obě strany.",
+    "en": {
+     "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
+     "carriedBy": "A rate for temporary assignment that plainly will not cover the employee’s statutory entitlements",
+     "reason": "The Czech answer enumerates the cost components a rate must carry (comparable-level pay, employer contributions, leave and wage compensation, shift premiums). On the EN selection page that enumeration is compressed into the single warning sign quoted, which names the same content as the employee's statutory entitlements and keeps the load-bearing judgement that a rate visibly too low is a risk; the itemised breakdown is enumerated in full on the fee-models page this page links to, and the comparable-conditions section here already asks how premiums from shift scheduling and overtime are handled."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bei der vorübergehenden Zuweisung muss er den Lohn auf dem Niveau vergleichbarer Bedingungen im Einsatzunternehmen tragen"
+    }
+   },
+   "choosing-an-agency|SEO_PAGES|f4|b9c64f39": {
+    "ref": "f4",
+    "cs": "Musí být podmínky sjednané ještě před zahájením hledání? Doporučujeme to. Rozsah, odměna, splatnost, exkluzivita a ochrana předaných kandidátů se nejhůř dojednávají zpětně. Jednotlivým bodům se věnuje stránka o smlouvě s personální agenturou.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Have the terms in writing before a search begins — the scope of the brief, the fee and when it falls due, exclusivity, protection of presented candidates, and the procedure for early termination."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Halten Sie die Bedingungen schriftlich fest, bevor eine Suche beginnt – Umfang des Auftrags, Vergütung und Fälligkeit, Exklusivität, Schutz vorgestellter Personen und das Vorgehen bei vorzeitiger Beendigung."
+    }
    }
   }
  },
@@ -5597,6 +7758,66 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Vorgehen bei einem Arbeitsunfall, einschließlich der Meldung und der Mitwirkung an seiner Untersuchung"
     }
+   },
+   "agency-contract|SEO_PAGES|f0|fe6a3d82": {
+    "ref": "f0",
+    "cs": "Čím se liší smlouva u přímého náboru a dohoda o dočasném přidělení? U přímého náboru je předmětem vyhledání kandidáta a zaměstnavatelem se stáváte vy. U dočasného přidělení zůstává zaměstnavatelem agentura práce a dohoda navíc řeší rozdělení povinností na pracovišti uživatele, srovnatelné podmínky a dobu přidělení.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The agency remains the employer, concludes an agreement on temporary assignment with you as the user"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Arbeitgeber bleibt die Agentur, mit Ihnen als Einsatzunternehmen schließt sie eine Vereinbarung über die vorübergehende Zuweisung"
+    }
+   },
+   "agency-contract|SEO_PAGES|f1|8067974b": {
+    "ref": "f1",
+    "cs": "Slibujete náhradu, když zaměstnanec brzy odejde? Předem nic takového neslibujeme. Podmínky náhrady nebo vrácení části odměny jsou smluvní ujednání – s určeným rozhodným obdobím, důvody a případy, které nárok vylučují. Sjednávají se před zahájením spolupráce, ne po odchodu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "It is not a promise that no departure will occur — nobody can give such a promise. It is an agreement on what happens if one does."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben."
+    }
+   },
+   "agency-contract|SEO_PAGES|f2|ee9bba7f": {
+    "ref": "f2",
+    "cs": "Kdo odpovídá za BOZP a OOPP u přidělených zaměstnanců? BOZP na pracovišti zajišťuje po dobu dočasného přidělení uživatel, který pracoviště řídí a zná jeho rizika; agentuře jako zaměstnavateli zůstávají povinnosti, které vůči svému zaměstnanci má. Smlouva by měla rozepsat konkrétní úkony: školení o rizicích, poskytnutí a úhradu OOPP, evidenci pracovní doby a postup při pracovním úrazu.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "so responsibility is not one-sided and the contract should break it down into specific tasks"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "die Verantwortung ist deshalb nicht einseitig, und der Vertrag sollte sie in konkrete Aufgaben zerlegen"
+    }
+   },
+   "agency-contract|SEO_PAGES|f3|c4c2394d": {
+    "ref": "f3",
+    "cs": "Lze se smluvně dohodnout na horších podmínkách, než mají kmenoví zaměstnanci? Nelze. Nárok na srovnatelné mzdové a pracovní podmínky vyplývá ze zákoníku práce a smlouva jej může pouze provést. Ujednání, které by jej obcházelo, vystavuje riziku obě strany včetně uživatele.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "it is a statutory requirement, and a contract can only implement it, not change or exclude it"
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "es ist eine gesetzliche Anforderung, und ein Vertrag kann sie nur ausführen, nicht ändern oder ausschließen"
+    }
+   },
+   "agency-contract|SEO_PAGES|f4|01a372c9": {
+    "ref": "f4",
+    "cs": "Nahrazuje tato stránka právní poradenství? Nenahrazuje. Jde o obecné informace o tom, které body je vhodné mít ošetřené písemně. Konkrétní znění smlouvy je namístě posoudit s vlastním právním zástupcem.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "This is general information, not legal advice."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Es handelt sich um allgemeine Informationen zum tschechischen Recht, nicht um Rechtsberatung."
+    }
    }
   }
  },
@@ -5661,6 +7882,78 @@
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Kosten von Mitarbeitenden"
+    }
+   },
+   "employer-faq|SEO_PAGES|f0|1c3d703c": {
+    "ref": "f0",
+    "cs": "Jak se rozhodnout mezi přímým náborem a agenturou? Podle naléhavosti, charakteru potřeby (stálá vs. dočasná) a vlastní kapacity. Pro špičky a dočasné výpadky bývá vhodná agentura, pro klíčové stálé role přímý nábor. Viz stránka o náboru pracovníků.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "By urgency, by the nature of the need — standing or temporary — and by your own capacity. Peaks and temporary gaps usually suit an agency; key permanent roles usually suit direct hire."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Nach Dringlichkeit, nach der Art des Bedarfs – dauerhaft oder vorübergehend – und nach der eigenen Kapazität."
+    }
+   },
+   "employer-faq|SEO_PAGES|f1|dc2d4cbe": {
+    "ref": "f1",
+    "cs": "Jak snížit fluktuaci? Začít měřením a zjištěním příčin, pak nasadit cílená opatření a pracovat na retenci. Tématu se věnují stránky o fluktuaci, jejích příčinách, snižování a retenci.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Start by measuring it and establishing the causes, then apply targeted measures and work on retention."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Zuerst messen und die Ursachen feststellen, dann gezielte Maßnahmen ergreifen und an der Bindung arbeiten."
+    }
+   },
+   "employer-faq|SEO_PAGES|f2|df0ac3fd": {
+    "ref": "f2",
+    "cs": "Jak zvládnout nedostatek pracovníků v našem oboru? Kombinací stálého jádra, flexibilní či agenturní kapacity a u nedostatkových profesí náboru ze zahraničí. Samostatné stránky se věnují výrobě, logistice, skladům a stavebnictví.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "By combining a permanent core, flexible or agency capacity, and — for shortage occupations — recruitment from abroad."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Mit einer Kombination aus festem Kern, flexibler oder überlassener Kapazität und – bei Mangelberufen – der Gewinnung aus dem Ausland."
+    }
+   },
+   "employer-faq|SEO_PAGES|f3|b9806277": {
+    "ref": "f3",
+    "cs": "Kolik skutečně stojí zaměstnanec? Více než hrubá mzda – k ní patří odvody a nepřímé náklady. Jedním číslem to říct nelze; stránky o nákladech ukazují, jak si odhad sestavit z ověřených sazeb (ČSSZ, pojišťovny, finanční správa).",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "More than the gross wage: employer contributions and indirect costs come on top. It cannot be stated as a single number."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Mehr als den Bruttolohn: Arbeitgeberbeiträge und indirekte Kosten kommen hinzu. Als einzelne Zahl lässt es sich nicht sagen."
+    }
+   },
+   "employer-faq|SEO_PAGES|f4|031e9109": {
+    "ref": "f4",
+    "cs": "Proč je onboarding tak důležitý? První dny a týdny rozhodují, zda nový člověk zůstane. Zvládnutý onboarding urychluje zapracování a snižuje brzké odchody. Viz stránky o onboardingu a adaptaci.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The first days and weeks decide whether a new person stays. A well-run onboarding speeds up settling in and reduces early departures."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die ersten Tage und Wochen entscheiden, ob eine neue Person bleibt. Ein gelungenes Onboarding verkürzt die Einarbeitung und senkt frühe Abgänge."
+    }
+   },
+   "employer-faq|SEO_PAGES|f5|e1e9d480": {
+    "ref": "f5",
+    "cs": "Slibujete konkrétní výsledky nebo úspory? Ne. Neuvádíme vymyšlená čísla úspor ani záruky. Nabízíme praktické rámce a u dat odkazujeme na oficiální zdroje.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "No. We state no invented savings figures and give no guarantees. We offer practical frameworks, and for data we point to official sources."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Nein. Wir nennen keine erfundenen Einsparungszahlen und geben keine Garantien. Wir bieten praktische Rahmen und verweisen bei Daten auf offizielle Quellen."
     }
    }
   }
@@ -5750,12 +8043,15 @@
     "cs": "Retence – systematické udržení zaměstnanců.",
     "en": {
      "state": "PRESERVED_IN_LIST",
-     "carriedBy": "Retention — the systematic keeping of employees."
+     "carriedBy": "Retention — the systematic keeping of employees.",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
     },
     "de": {
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Bindung (Retention) – das systematische Halten von Mitarbeitenden im Unternehmen.",
-     "reason": "Same glossary entry, en-dash only."
+     "reason": "Same glossary entry, en-dash only.",
+     "sharedEvidence": true
     }
    },
    "employer-glossary|SEO_PAGES|s1.b2|361967ab": {
@@ -5834,6 +8130,46 @@
      "state": "PRESERVED_IN_LIST",
      "carriedBy": "Gesetzliche Arbeitgeberbeiträge – die vom Arbeitgeber getragenen Versicherungsbeiträge; die Sätze stehen bei den offiziellen tschechischen Quellen.",
      "reason": "Same glossary entry, en-dash only; the deferral of rates to official Czech sources is intact."
+    }
+   },
+   "employer-glossary|SEO_PAGES|f0|897eb8dc": {
+    "ref": "f0",
+    "cs": "Jaký je rozdíl mezi fluktuací a retencí? Fluktuace popisuje míru odchodů a nahrazování zaměstnanců, retence je systematické udržení lidí ve firmě. Snižování fluktuace a retence se doplňují.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Retention — the systematic keeping of employees.",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Bindung (Retention) – das systematische Halten von Mitarbeitenden im Unternehmen.",
+     "sharedEvidence": true,
+     "reason": "Compound source item: this FAQ answer enumerates several requirements, and the localized page carries them across adjacent sentences rather than in one. This sentence carries the enumerated element it shares with the sibling source item; the answer's remaining elements are carried by the neighbouring sentences on the same page, each verified separately. Declared shared so the overlap is a recorded decision rather than an unnoticed collision."
+    }
+   },
+   "employer-glossary|SEO_PAGES|f1|1f0660c2": {
+    "ref": "f1",
+    "cs": "Co je agenturní zaměstnávání? Model, kdy je pracovník zaměstnancem pracovní agentury a je dočasně přidělen k uživateli, u něhož vykonává práci. Agentura musí mít platné povolení ke zprostředkování.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "In agency employment the worker stays an employee of the agency and does the work at the user company to which they are temporarily assigned, and the agency must hold a valid employment-mediation permit."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Agentur muss nach tschechischem Recht eine gültige Erlaubnis zur Arbeitsvermittlung besitzen."
+    }
+   },
+   "employer-glossary|SEO_PAGES|f2|f4d361d5": {
+    "ref": "f2",
+    "cs": "Je slovník závazný? Ne. Definice jsou zjednodušené pro orientaci a nenahrazují závazné znění předpisů. Konkrétní podmínky ověřte u příslušného úřadu nebo na podrobné stránce.",
+    "en": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "The definitions are simplified for orientation and do not replace the binding wording of regulations."
+    },
+    "de": {
+     "state": "PRESERVED_IN_PROSE",
+     "carriedBy": "Die Definitionen sind zur Orientierung vereinfacht und ersetzen nicht den verbindlichen Wortlaut der Vorschriften."
     }
    }
   }

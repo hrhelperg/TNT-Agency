@@ -342,7 +342,17 @@ describe('Ecosystem — layout safety and performance', () => {
   })
 
   it('keeps the mobile menu clear of banner + header', () => {
-    expect(CSS).toContain('padding-top: calc(88px + var(--eco-total))')
+    // The offset is still derived from the banner height rather than hardcoded,
+    // but it is now the menu's TOP EDGE rather than its padding.
+    //
+    // Padding could not do this job. It scrolls away with the content, so at
+    // maximum scroll the menu's last item slid underneath the opaque header
+    // (z-index 100 against the menu's 99) — on a 640x360 landscape phone 39 of
+    // the primary action's 54px were covered and a real click at its centre hit
+    // the header. Its height also counted toward a border-box floor that stopped
+    // the consent-banner reserve from shrinking the box on short screens.
+    expect(CSS).toContain('--mobile-nav-top: calc(88px + var(--eco-total))')
+    expect(CSS).toContain('top: var(--mobile-nav-top)')
   })
 
   it('respects reduced-motion and adds no animation', () => {

@@ -213,6 +213,16 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
       // Two items resting on one sentence is possible but must be deliberate.
       const key = `${item.conceptId}|${l}|${needle}`
       const prior = evidenceUse.get(key)
+      // sharedEvidence must be argued, not merely asserted. It is the one way to
+      // silence this check, so an unreasoned flag would turn the check into an
+      // opt-out — and a compound FAQ answer resting on one sentence is exactly
+      // the case where "why" is the whole question.
+      if (prior && record.sharedEvidence && normalise(record.reason ?? '').length < MIN_REASON) {
+        errors.push(
+          `${item.id} [${l}]: sharedEvidence set without an argued reason — say what this item contributes ` +
+            `beyond ${prior}, and where the rest of it is carried`,
+        )
+      }
       if (prior && !record.sharedEvidence) {
         errors.push(
           `${item.id} [${l}]: rests on the same localized text as ${prior} — if one sentence genuinely carries both,` +

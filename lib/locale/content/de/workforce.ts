@@ -372,6 +372,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
           body: [
             'Bevor die Suche beginnt, sollten schriftlich feststehen: der Umfang des Auftrags, Art und Fälligkeit der Vergütung, die Geltungsdauer der Vereinbarung, der Umgang mit Bewerberdaten und die Bedingungen für das Ende der Zusammenarbeit. Bei der vorübergehenden Zuweisung kommt die Aufteilung der Verantwortung für Arbeitsschutz und Schutzausrüstung am Arbeitsplatz hinzu sowie die Frage, wer die arbeitsmedizinischen Untersuchungen veranlasst.',
             'Wie vorzugehen ist, wenn die ausgewählte Person früh geht, ist Sache der vertraglichen Vereinbarung – regeln Sie sie schriftlich, bevor die Suche beginnt. Weder ein Ersatz noch der Verbleib einer Person lässt sich im Voraus versprechen, weil über beides diese Person selbst entscheidet.',
+            'In dieselbe Vereinbarung gehört der umgekehrte Fall: ob eine überlassene Person später in Ihren eigenen Stand übernommen werden kann. Das ist Sache einer Verständigung zwischen dem Einsatzunternehmen, der Agentur und der Person selbst – kein automatischer Anspruch, aber auch kein verbotener Schritt. Die Bedingungen einschließlich einer etwaigen Vergütung dafür sollten schriftlich und im Voraus feststehen, damit sie nicht erst in dem Moment verhandelt werden müssen, in dem Ihnen an dem Menschen gelegen ist.',
           ],
         },
       ],
@@ -582,7 +583,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
           body: [
             'Manche Signale sind gerade deshalb verlässlich, weil sie Dinge betreffen, die ein Anbieter nicht in der Hand hat. Ein zugesagter Eintrittstermin ist eines davon: Er hängt von der Kündigungsfrist der Person und bei Menschen aus Drittstaaten von einem Verwaltungsverfahren ab, also von Dritten.',
             'Mit derselben Vorsicht behandeln Sie Aussagen über die Größe einer eigenen Datenbank, die sich nicht überprüfen lässt. Und ebenso jede Aussage, ein Anbieter sei vom Staat geprüft oder empfohlen: Staatliche Stellen erteilen Erlaubnisse und führen Verzeichnisse, Empfehlungen für Anbieter stellen sie nicht aus.',
-            'Druck auf eine schnelle Unterschrift ist eine eigene Kategorie. Ein Auftrag, der wirklich eilt, lässt sich auch mit einer kurzen, aber schriftlichen Vereinbarung beginnen; die Bereitschaft, die Bedingungen zu Papier zu bringen, ist deshalb ein besserer Indikator als die Reaktionsgeschwindigkeit.',
+            'Druck auf eine schnelle Unterschrift ist eine eigene Kategorie. Ein Auftrag, der wirklich eilt, lässt sich auch mit einer kurzen, aber schriftlichen Vereinbarung beginnen; die Bereitschaft, die Bedingungen zu Papier zu bringen, ist deshalb ein besserer Indikator als die Reaktionsgeschwindigkeit. Fragen Sie bei einem Stundensatz danach, was er enthält: Bei der vorübergehenden Zuweisung muss er den Lohn auf dem Niveau vergleichbarer Bedingungen im Einsatzunternehmen tragen, dazu die Arbeitgeberabgaben, den Urlaub samt Entgeltfortzahlung sowie die Zuschläge für die Verteilung der Schichten.',
           ],
           list: {
             intro: 'Die Signale, auf die es ankommt:',

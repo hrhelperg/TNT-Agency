@@ -58,6 +58,29 @@ const withEdit = (corpus, id, locale, fn) => {
   return next
 }
 
+/**
+ * Reword a donor page instead of cloning it: function-word substitution, fresh
+ * headings, fresh h1/intro. Every exact-match test the gate had was blind to
+ * this — a reviewer's version scored 94.7% and passed, with the gate reporting
+ * the pair as "checked and distinct".
+ */
+const paraphraseClone = (corpus, locale, victimId, donorId, headings) => {
+  const next = clone(corpus)
+  const donor = next[donorId][locale]
+  const reword = (t) =>
+    t.replace(/\bthe\b/g, 'a').replace(/\band\b/g, 'plus').replace(/\bwith\b/g, 'via').replace(/,/g, ' —')
+  next[victimId][locale] = {
+    ...donor,
+    h1: `${victimId} rewritten, sharing no phrasing with its heading`,
+    intro: 'A distinct opening sentence that shares no phrasing with its donor page at all.',
+    sections: donor.sections.map((sec, i) => ({
+      heading: headings[i] || `Section ${i}`,
+      body: sec.body.map(reword),
+    })),
+  }
+  return next
+}
+
 const MUTATIONS = [
   {
     name: '1. warehouse-workers is a noun-substituted clone of logistics-workers (EN)',
@@ -68,7 +91,7 @@ const MUTATIONS = [
       ]),
       de: DE,
     }),
-    expect: /noun substitution, not two pages/,
+    expect: /noun substitution, not two pages|the same page however the words differ/,
   },
   {
     name: '2. the same clone in German (Lager ← Logistik)',
@@ -79,7 +102,7 @@ const MUTATIONS = [
         ['Logistik', 'Lager'],
       ]),
     }),
-    expect: /noun substitution, not two pages/,
+    expect: /noun substitution, not two pages|the same page however the words differ/,
   },
   {
     name: '3. two concepts share an H1',
@@ -122,9 +145,56 @@ const MUTATIONS = [
       }),
       de: DE,
     }),
-    expect: /identical heading structure|noun substitution/,
+    expect: /identical heading structure|noun substitution|the same page however the words differ/,
   },
 ]
+
+MUTATIONS.push({
+  name: '7. a PARAPHRASED duplicate — reworded, not cloned, with fresh headings',
+  corpora: () => ({
+    en: paraphraseClone(EN, 'en', 'warehouse-workers', 'logistics-workers', [
+      'Warehouse intake', 'Warehouse flow', 'Warehouse peaks', 'Warehouse training', 'Warehouse planning',
+    ]),
+    de: DE,
+  }),
+  expect: /the same page however the words differ|noun substitution, not two pages/,
+})
+
+/**
+ * The magnitude path now catches the extreme shapes first, which is correct but
+ * would leave the finer paths unexercised and free to rot. These two damage the
+ * corpus just enough to trip those paths while staying UNDER the magnitude
+ * threshold, so all three remain proven live rather than shadowed.
+ */
+MUTATIONS.push({
+  name: '8. noun-substituted sentences at moderate overlap (below the magnitude threshold)',
+  corpora: () => {
+    const en = clone(EN)
+    const donor = EN['logistics-workers'].en
+    const victim = en['warehouse-workers'].en
+    // Splice a handful of donor sentences, noun-swapped, into an otherwise
+    // untouched page: enough identical-after-noun-stripping sentences to trip
+    // the substitution rule without the pages becoming the same page.
+    const swapped = donor.sections
+      .flatMap((s) => s.body)
+      .slice(0, 5)
+      .map((b) => b.replace(/logistics operation/gi, 'warehouse').replace(/logistics/gi, 'warehouse'))
+    victim.sections = victim.sections.map((s, i) =>
+      i === 0 ? { ...s, body: [...s.body, ...swapped] } : s,
+    )
+    return { en, de: DE }
+  },
+  expect: /noun substitution, not two pages|the same page however the words differ/,
+})
+
+MUTATIONS.push({
+  name: '9. the similarity screen must actually execute on the real corpus',
+  corpora: () => ({ en: EN, de: DE }),
+  // Not a damage case: asserts the substantive test is reachable at all. At the
+  // old 0.40 screen the real corpus topped out at 38.4%, so substitutedSentences()
+  // never ran and the gate quietly reduced to a word-count floor.
+  expectNote: /overlap \d+\.\d+% — checked and distinct/,
+})
 
 console.log('Mutation tests: locale duplicate-content gate\n')
 
@@ -140,7 +210,13 @@ if (control.errors.length) {
 console.log('  ✓ control: the real corpus passes')
 
 for (const m of MUTATIONS) {
-  const { errors } = auditDuplicates(m.corpora())
+  const { errors, notes } = auditDuplicates(m.corpora())
+  if (m.expectNote) {
+    const noteHit = notes.find((n) => m.expectNote.test(n))
+    if (noteHit) { caught++; console.log(`  ✓ ${m.name}`); console.log(`      → ${noteHit.slice(0, 150)}`) }
+    else { failures.push(`${m.name}\n      expected a note matching /${m.expectNote.source}/\n      got: ${notes.slice(0, 3).join(' | ') || '(no notes)'}`); console.log(`  ✗ ${m.name}`) }
+    continue
+  }
   const hit = errors.find((e) => m.expect.test(e))
   if (hit) {
     caught++

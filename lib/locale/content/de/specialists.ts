@@ -52,6 +52,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Fehlt der Bereich in der Anzeige, ergänzt ihn die bewerbende Person selbst. Es meldet sich jemand mit einem Grundkurs im Verfahren 111 an Blechen, weil er sich zu Recht Schweißer nennt – und kommt an einen Arbeitsplatz, an dem Verfahren 141 an nichtrostenden Rohren vorgeschrieben ist, Position PF und eine Naht ohne Wurzelunterlage. Niemand hat gelogen; beide Seiten haben sich unter demselben Wort verschiedene Arbeit vorgestellt.',
             'Der Aufwand liegt nicht nur in vergeblichen Gesprächen. Eine ungenaue Beschreibung verzerrt auch das Bild vom Markt: Das Unternehmen gewinnt den Eindruck, es gebe keine Schweißer, obwohl es in Wahrheit noch nicht beschrieben hat, was es braucht. Eine Beschreibung mit Bereich wirkt umgekehrt als Filter: Wer den Bereich nicht hat, bewirbt sich meist nicht, und wer sich bewirbt, bringt einen Nachweis mit, der sich mit der Anforderung vergleichen lässt.',
+            'Konkrete Löhne oder Lohnspannen für Schweißer nennt diese Seite nicht. Eine Orientierung nach Berufen und Regionen bietet das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV). In die eigene Entscheidung gehören daneben der Umfang der Qualifikation, das Schichtmodell und die Frage, ob es um Werkstattarbeit oder um Montage außerhalb des Betriebs geht.',
           ],
           list: {
             intro: 'In die Anzeige gehört deshalb:',
@@ -76,7 +77,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           heading: 'Die Probeschweißung entscheidet',
           body: [
             'Ein Nachweis sagt, was jemand am Prüfungstag unter den Bedingungen der Prüfstelle bewältigt hat. Ob er Ihre Arbeit bewältigt, entscheidet die Probeschweißung. Bereiten Sie ein Stück vor, das Ihrem üblichen Auftrag entspricht – gleicher Werkstoff, gleiche Dicke, Position, Nahtvorbereitung und möglichst auch die bei Ihnen verwendete Schweißanweisung.',
-            'Achten Sie dabei auf mehr als das Aussehen der Naht: wie die Person die Stromquelle einstellt, ob sie die Zeichnung liest, wie sie den Werkstoff vorbereitet und reinigt, wie sie mit dem Schutzgas umgeht und wie sie die Naht selbst prüft. Überlassen Sie die Bewertung der Person, die bei Ihnen für das Schweißen verantwortlich ist, und halten Sie sie schriftlich fest – in strittigen Fällen und in einer weiteren Besetzungsrunde zahlt sich der Eintrag aus. Und weil es sich um Arbeit mit realem Risiko handelt, muss auch die bewerbende Person bei der Probeschweißung Schutzausrüstung erhalten und über die Regeln des Arbeitsplatzes unterwiesen werden.',
+            'Achten Sie dabei auf mehr als das Aussehen der Naht: wie die Person die Stromquelle einstellt, ob sie die Zeichnung liest, wie sie den Werkstoff vorbereitet und reinigt, wie sie mit dem Schutzgas umgeht und wie sie die Naht selbst prüft. Überlassen Sie die Bewertung der Person, die bei Ihnen für das Schweißen verantwortlich ist, und halten Sie sie schriftlich fest – in strittigen Fällen und in einer weiteren Besetzungsrunde zahlt sich der Eintrag aus. Und weil es sich um Arbeit mit realem Risiko handelt, muss auch die bewerbende Person bei der Probeschweißung Schutzausrüstung erhalten und über die Regeln des Arbeitsplatzes unterwiesen werden. Die Bedingungen sollten für alle Bewerbenden auf dieselbe Position gleich sein.',
           ],
         },
         {
@@ -247,6 +248,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Die drei am häufigsten gesuchten Profile unterscheiden sich in der Art der Arbeit so weit, dass sie einander nicht vertreten. Ein Instandhaltungselektriker sucht und beseitigt Störungen an Maschinen im laufenden Betrieb: liest Schaltpläne, kennt sich in der Peripherie von Steuerungen, in Frequenzumrichtern, Antrieben und Sensoren aus und entscheidet unter dem Druck des Stillstands. Entscheidend ist die Diagnose, nicht die Routine.',
             'Ein Betriebselektriker betreut die elektrischen Anlagen des Geländes und ihren Betrieb – Verteilung, Schaltschränke, Beleuchtung, kleinere Anpassungen, Unterlagen für Prüfungen und die Beseitigung festgestellter Mängel. Ein Elektromonteur arbeitet dagegen projektbezogen: Er montiert Kabeltrassen, bestückt und verdrahtet Schaltschränke und folgt der Projektdokumentation, oft im Team und auf Aufträgen außerhalb des Unternehmens. Jedes dieser Profile hat einen anderen Kandidatenkreis und damit eine andere Besetzbarkeit; eine Kombination von Rollen lässt sich anfragen, sie muss aber sowohl in der Beschreibung als auch in der Entgelteinstufung stehen.',
+            'Löhne für Elektriker nennen wir hier nicht, und wir denken uns keine Lohnangaben aus. Gegliederte Daten zu den Verdiensten nach Berufen veröffentlicht das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV); ein aktuelles Bild des Arbeitsmarktes geben das tschechische Ministerium für Arbeit und Soziales (MPSV), das Arbeitsamt der Tschechischen Republik (Úřad práce ČR) und das Tschechische Statistische Amt (ČSÚ).',
           ],
         },
         {
@@ -341,6 +343,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Über die Annahme eines Angebots entscheidet hier oft eine Bedingung, die mit Fachlichkeit nichts zu tun hat: wie häufig und in welcher Form Rufbereitschaft gehalten wird. Das tschechische Arbeitsgesetzbuch regelt die Arbeitsbereitschaft als Zeit, in der Beschäftigte außerhalb ihres Schichtplans an einem vereinbarten Ort außerhalb des Arbeitsplatzes zur Arbeit bereit sind; sie muss vereinbart werden, es steht dafür eine Vergütung nach dem Arbeitsgesetzbuch zu, und während ihrer über die festgelegte Wochenarbeitszeit hinaus geleistete Arbeit ist Überstundenarbeit.',
             'Für die Person ist es ein Eingriff ins Private, den sie gemeinsam mit der Anfahrtsstrecke abwägt. Nennen Sie deshalb schon im Angebot, wie häufig die Rufbereitschaft anfällt, unter wie vielen Personen sie rotiert und welche Anfahrt Sie erwarten. Ein Betrieb, der den Dauerbetrieb mit einer einzigen Instandhaltungskraft abdeckt, ist für Kandidatinnen und Kandidaten meist schwer annehmbar und bleibt auch nach der Besetzung eine Schwachstelle.',
+            'Beträge oder Spannen für Stellen in der Instandhaltung nennt diese Seite nicht und leitet sie auch nicht ab. Die Höhe der Verdienste nach Berufen veröffentlicht das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV), den Inhalt der einzelnen Berufe beschreibt das tschechische Berufsverzeichnis (Národní soustava povolání). Für die Instandhaltung kommt hinzu, dass die Vergütung der Arbeitsbereitschaft nach dem tschechischen Arbeitsgesetzbuch eine eigenständige Leistung neben dem Lohn ist – im Angebot gehört beides deshalb getrennt ausgewiesen.',
           ],
           list: {
             intro: 'Zu klären ist dabei:',
@@ -407,6 +410,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Die Rollen in der Qualität bilden eine recht klare Abfolge, und es lohnt sich zu wissen, auf welcher Stufe eine Beschreibung tatsächlich steht. Der Unterschied zwischen benachbarten Stufen liegt nicht im Fleiß, sondern darin, worüber jemand entscheidet und welche Ergebnisse von ihm bleiben.',
             'In kleineren Betrieben verschmelzen die Stufen, und eine Person macht Prüfung, Metrologie und Reklamationen. Das ist legitim, muss aber in der Beschreibung stehen – sonst kommen Bewerbungen von einer Stufe, während das Unternehmen jemanden erwartet, der drei abdeckt.',
+            'Konkrete Beträge für Stellen in der Qualität finden Sie auf dieser Seite nicht. Angaben zu den Verdiensten nach Berufen veröffentlicht das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV), die Anforderungen der Berufe beschreibt das tschechische Berufsverzeichnis (Národní soustava povolání) und die Standards der Berufsqualifikationen das tschechische Qualifikationsverzeichnis (Národní soustava kvalifikací). In der Qualität entscheidet ohnehin, auf welcher Stufe dieser Abfolge die Rolle tatsächlich steht – beginnen Sie deshalb mit der Abgrenzung der Rolle und nicht mit der Überlegung zum Betrag.',
           ],
           list: {
             intro: 'Die Abfolge sieht in Fertigungsbetrieben so aus:',
@@ -527,6 +531,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Selbsteinschätzung hilft hier nicht – nahezu alle sagen von sich, sie könnten Menschen führen. Brauchbar sind konkrete Situationen aus der eigenen Praxis und die Frage, was jemand getan hat, nicht was er über Führung denkt.',
             'Nennen Sie die Teamgröße in der Beschreibung als Zahl aus dem eigenen Betrieb: fünf Menschen zu führen und fünfzig sind zwei verschiedene Arbeiten, auch wenn die Position gleich heißt. Ergänzen Sie das Schichtmodell, wem die Rolle unterstellt ist und welche Entscheidungen sie ohne Rücksprache trifft.',
+            'Lohnspannen für Meister und Schichtleiter leiten wir nicht ab und nennen sie auf dieser Seite nicht. Die Unterlagen zu den Verdiensten nach Berufen führt das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV), die Beschreibung der Anforderungen eines Berufs das tschechische Berufsverzeichnis (Národní soustava povolání). Bei der ersten Führungsebene ist neben dem Verdienst ebenso wesentlich, welche Entscheidungsbefugnis mit der Rolle verbunden ist – Kandidatinnen und Kandidaten beurteilen beides gemeinsam.',
           ],
           list: {
             intro: 'Im Gespräch helfen konkrete Fragen:',
@@ -606,6 +611,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
             'Geregelte Befähigung: Soll eine Person an einer elektrischen Anlage tätig werden, richtet sich ihre fachliche Befähigung nach der tschechischen Regierungsverordnung Nr. 194/2022 Sb. Das ist eine rechtliche Anforderung, die an Tätigkeit und Anlage knüpft und nicht an eine Stellenbezeichnung. Betreibt ein Unternehmen vorbehaltene technische Anlagen, gilt zusätzlich die Regelung nach dem tschechischen Gesetz Nr. 250/2021 Sb.',
             'Branchenüblichkeit: Kenntnis einer bestimmten Steuerungsplattform, Erfahrung mit einem bestimmten Bustyp oder Praxis mit Robotern eines bestimmten Herstellers. Nichts davon folgt aus einer Vorschrift, auch wenn Arbeitgeber es häufig als Bedingung nennen.',
             'Betriebliche Wahl: die eingesetzten Systeme, die Sprache der Dokumentation, die Art der Programmverwaltung und der Fernzugriff auf die Anlagen. Das legt allein das Unternehmen fest, und eine Bewerberin oder ein Bewerber kann es vorab nicht wissen.',
+            'Aus dem Ausland lässt sich diese Position besetzen. Bei Nachweisen aus dem Ausland ist dabei zu prüfen, ob und in welcher Form sie für die jeweilige Tätigkeit anerkannt werden; die Anerkennung ausländischer Qualifikationen ist eine eigene Frage, die diese Seite nicht behandelt.',
           ],
         },
         {
@@ -613,6 +619,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Die Kenntnis einer bestimmten SPS-Plattform ist der häufigste Grund, aus dem eine Beschreibung den Kreis unnötig verengt. Die Umgebungen der Hersteller unterscheiden sich, die Logik der Arbeit überträgt sich jedoch weitgehend – wer versteht, was die Steuerung tun soll, findet sich in einer anderen Umgebung zurecht, wenn er Zeit dafür bekommt.',
             'Es lohnt sich deshalb, in der Beschreibung zu trennen, was vom ersten Tag an wirklich notwendig ist und was sich nachlernen lässt. In einem Betrieb mit einer einzigen Plattform und ohne Kapazität für Einarbeitung ist die Anforderung berechtigt. Wo mehrere Systeme nebeneinander laufen, zählt meist mehr, Dokumentation lesen und die Ursache einer Störung systematisch suchen zu können.',
+            'Lohnniveaus für diese Positionen nennen wir nicht; Lohnangaben denken wir uns nicht aus. Eine Orientierung bietet das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV), betrieben vom tschechischen Ministerium für Arbeit und Soziales (MPSV), in dem sich mit Angaben nach Beruf und Region arbeiten lässt.',
           ],
           list: {
             intro: 'In der Beschreibung klären Sie deshalb:',
@@ -669,7 +676,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           heading: 'Vier verschiedene Welten unter einem Namen',
           body: [
             'Ingenieurrollen in der Fertigung lassen sich danach unterscheiden, woran ihr Ergebnis hängt. Vier Gruppen kommen dabei regelmäßig vor, und Konstruktion und Technologie bilden darunter eine eigene Gruppe, der eine eigene Seite gewidmet ist.',
-            'Diese Welten überschneiden sich, ihr Schwerpunkt liegt aber jeweils anderswo, und wer in einer von ihnen arbeitet, wechselt nicht automatisch in eine andere.',
+            'Diese Welten überschneiden sich, ihr Schwerpunkt liegt aber jeweils anderswo, und wer in einer von ihnen arbeitet, wechselt nicht automatisch in eine andere. In kleineren Unternehmen sind Prozess- und Fertigungstechnik eine Rolle, in größeren zwei getrennte.',
           ],
           list: {
             intro: 'Woran das Ergebnis jeweils hängt:',
@@ -695,6 +702,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Bei Ingenieurpositionen wird häufig automatisch ein technischer Hochschulabschluss verlangt. In vielen Betrieben ist das begründet, in anderen eher eine Gewohnheit, die erfahrene Menschen ausschließt, die sich aus der Fertigung zu der Rolle hochgearbeitet haben.',
             'Nützlicher als eine Ausbildungsstufe ist die Frage, welche Art von Problem die Person selbstständig zerlegen können muss. Steht die Position auf statistischer Auswertung und Arbeit mit Daten, ist eine formale Ausbildung sinnvoll. Steht sie auf der Kenntnis einer bestimmten Technologie und darauf, eine Änderung im Betrieb durchzusetzen, entscheiden eher die Praxis und die Art, wie jemand mit Meistern und Bedienern spricht.',
+            'Ob jemand tatsächlich getan hat, was im Lebenslauf steht, zeigt sich am verlässlichsten an einem einzigen konkreten Fall, den die Person von der Aufgabenstellung bis zum Ergebnis beschreibt – was sie gemessen hat, was sie geändert hat und wie sich das ausgewirkt hat. Allgemeine Methoden lernt jemand schneller als die Fähigkeit, eine Änderung im Betrieb durchzusetzen.',
           ],
         },
         {
@@ -702,6 +710,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Ingenieurpositionen besetzen sich besser, wenn die Beschreibung ein Ergebnis nennt statt einer Werkzeugliste. „Wir suchen jemanden, der die Zahl der abweichenden Teile an Linie X senkt“ ist für eine Suche brauchbarer als eine Aufzählung von Methoden.',
             'Ebenso wichtig ist anzugeben, mit wem die Person arbeitet und welche Befugnisse sie hat. Wer ein eingefahrenes Verfahren ändern soll, ohne Rückhalt in der Betriebsleitung zu haben, geht meist, bevor die Änderung wirkt. Diese Information beziehen Kandidatinnen und Kandidaten in ihre Entscheidung ein.',
+            'Konkrete Lohnniveaus für Ingenieurpositionen nennt diese Seite nicht. Eine Orientierung nach Beruf und Region bietet das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV); die Gesamtkosten einer Stelle lassen sich in unserem Rechner durchrechnen.',
           ],
           list: {
             intro: 'In die Beschreibung gehört deshalb:',
@@ -867,6 +876,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Für die Beschreibung einer Stelle lohnt es sich, keine eigene Terminologie zu erfinden. Das tschechische Berufsverzeichnis (Národní soustava povolání) beschreibt Berufe, Typuspositionen und ihre fachlichen Anforderungen; das tschechische Qualifikationsverzeichnis (Národní soustava kvalifikací) ordnet ihnen Berufsqualifikationen mit einem Bewertungsstandard zu, die sich nach einer Prüfung vor einer autorisierten Person nach dem tschechischen Gesetz über die Überprüfung und Anerkennung der Ergebnisse der Weiterbildung durch ein Zeugnis belegen lassen. Für Arbeitgeber ist das doppelt praktisch: Die Beschreibung bekommt eine verständliche Form, und zugleich öffnet sich ein Weg zu Menschen, die das Handwerk beherrschen, aber keinen entsprechenden Lehrabschluss haben.',
             'Daneben gibt es Nachweise, die sich durch nichts ersetzen lassen. Beim Schweißen ist es das Zeugnis über die Schweißerprüfung nach der einschlägigen Norm mit dem angegebenen Geltungsbereich, bei Arbeiten an elektrischen Anlagen der Nachweis der fachlichen Befähigung in der Elektrotechnik, bei den nach tschechischem Recht vorbehaltenen technischen Anlagen das entsprechende Zeugnis. Diese Nachweise sind befristet und gehören gleich zu Beginn in die Beschreibung, nicht erst zur Vertragsunterzeichnung.',
+            'Lohnspannen für die Metallberufe nennen wir nicht, und Lohndaten denken wir uns nicht aus. Gegliederte Angaben zu den Verdiensten nach Berufen veröffentlicht das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV); ein Bild des Arbeitsmarktes geben dann das tschechische Ministerium für Arbeit und Soziales (MPSV), das Arbeitsamt der Tschechischen Republik (Úřad práce ČR) und das Tschechische Statistische Amt (ČSÚ).',
           ],
           list: {
             intro: 'Fünf Angaben machen eine Beschreibung brauchbar:',
@@ -1069,6 +1079,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
             'Der operative Einkauf arbeitet innerhalb vorgegebener Regeln: bestellt nach dem Bedarf der Fertigung, verfolgt Bestätigungen und Termine, bearbeitet Eilfälle und Abweichungen. Er entscheidet über den Ablauf, nicht darüber, bei wem gekauft wird.',
             'Die Bestandsplanung steht zwischen Einkauf und Fertigung. Sie bestimmt, wovon wie viel und wann verfügbar sein soll, und trägt die Folgen beider Fehler – stehender Fertigung und unnötig gebundener Mittel.',
             'Der strategische Einkauf wählt Lieferanten aus, verhandelt Bedingungen und trägt die Verantwortung für das Lieferantenrisiko. Diese Rolle verlangt einen anderen Typ Mensch und wird üblicherweise auch anders vergütet.',
+            'Übliche Löhne im Einkauf nennen wir nicht; konkrete Beträge finden Sie auf dieser Seite nicht. Eine Orientierung nach Beruf und Region bietet das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV), betrieben vom tschechischen Ministerium für Arbeit und Soziales (MPSV).',
           ],
         },
         {

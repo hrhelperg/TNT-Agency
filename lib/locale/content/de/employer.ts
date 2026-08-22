@@ -176,6 +176,7 @@ export const DE_EMPLOYER: LocaleCorpus = {
           heading: 'Was am häufigsten fehlt',
           body: [
             'Neben den Anforderungen gehören in das Profil die Angaben, die darüber entscheiden, ob eine geeignete Person das Angebot überhaupt erwägt.',
+            'Ob Sie eine Entgeltspanne angeben, entscheiden Sie als Arbeitgeber. Eine angegebene Spanne erhöht in der Regel die Relevanz der Reaktionen und spart beiden Seiten Zeit. Eine Orientierung nach Beruf und Region liefert das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV); konkrete Beträge nennen wir hier nicht.',
             'Gerade bei qualifizierten Rollen ist oft entscheidend, was niemand aufschreibt – warum die Stelle frei ist. Eine neue Stelle aus Wachstum und ein Platz, der immer wieder frei wird, sind für Kandidatinnen und Kandidaten zwei verschiedene Angebote, und erfahrene Menschen fragen danach.',
           ],
           list: {

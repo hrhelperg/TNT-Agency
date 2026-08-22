@@ -353,6 +353,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
           body: [
             'Before a search begins, have in writing the scope of the brief, the method and timing of payment, how long the arrangement is valid, the handling of candidates’ data, and the conditions for ending the cooperation. For temporary assignment, add the division of responsibility for occupational safety and protective equipment at the workplace, and who arranges the occupational health assessments.',
             'What happens if the chosen person leaves early is a matter for the contract — agree it in writing before the search begins. Neither a replacement nor a candidate’s continued service can be promised in advance, because both depend on that person’s own decision.',
+            'Moving an assigned agency worker onto your own payroll belongs in the same category. It is a matter for agreement between the user, the agency and the employee: neither an automatic entitlement nor a prohibited step. Settle the conditions, including any fee for the transfer, in writing in advance, so that they are not being negotiated at the moment you have decided you want to keep the person.',
           ],
         },
       ],

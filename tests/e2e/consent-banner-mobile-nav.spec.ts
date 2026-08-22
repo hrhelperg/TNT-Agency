@@ -22,16 +22,27 @@ import { test, expect, type Page } from '@playwright/test'
  * viewport.
  *
  * THE FIX. CookieBanner.tsx measures its own rendered height and publishes it
- * as `--consent-banner-h` on <html>, updated on resize and reset to `0px` on
- * unmount. `.mobile-nav` then ENDS where the banner begins
- * (`inset: 0 0 var(--consent-banner-h) 0`) rather than running underneath it.
+ * as `--consent-banner-h`, tracked through the web font's late re-wrap and
+ * reset to `0px` on unmount. `.mobile-nav` occupies the band between the header
+ * and the banner via `top`/`bottom`, not padding.
  *
- * Reserving the space as bottom PADDING was tried first and was not enough: it
- * created a scroll position where the CTA cleared the banner, but the menu
- * still drew items beneath it, so on open the CTA rendered at 769–823px with
- * the banner starting at 542px — looking tappable while `elementFromPoint`
- * returned the banner's accept button. Shortening the overlay makes that state
- * unrepresentable at any scroll position.
+ * Three attempts were needed, and each failure is worth keeping:
+ *
+ *   1. Bottom PADDING reserved the space but the menu still DREW items beneath
+ *      the banner — on open the CTA rendered at 769–823px with the banner
+ *      starting at 542px, looking tappable while `elementFromPoint` returned
+ *      the banner's accept button.
+ *   2. Clearing the header with `padding-top` failed for the mirror-image
+ *      reason: padding scrolls away, so at maximum scroll the CTA slid under
+ *      the opaque header. Its height also formed a border-box floor that
+ *      stopped the bottom reserve from shrinking the box on short screens.
+ *   3. A `min-height` floor pushed the box past the bottom of the screen,
+ *      stranding its last 32px where nothing could scroll it into view.
+ *
+ * On a landscape phone the reserve is geometrically impossible — at 568x320 the
+ * header ends at 117px and a German banner starts at 131px — so it is clamped
+ * to what can be spared and an open menu outranks the banner where the clamp
+ * bites. The banner returns, still unanswered, when the menu closes.
  *
  * These tests assert the fix by GEOMETRY, not by "the click eventually landed"
  * — Playwright can force a click through an overlay a real thumb cannot. They
@@ -148,13 +159,31 @@ test.describe('consent banner does not obstruct the mobile-nav CTA', () => {
           `${path}@${width}: painted CTA ${JSON.stringify(geometry.visible)} overlaps banner ${JSON.stringify(geometry.banner)} — ` +
             `elementFromPoint at its visible centre resolves to "${geometry.elementAtCenter}"`,
         ).toBe(false)
-        // The menu's own viewport must stop at or above the banner, so nothing
-        // inside it can be drawn underneath — this is the structural guarantee,
-        // independent of where the CTA happens to be scrolled to.
+        // The structural guarantee — the menu's viewport stops at or above the
+        // banner — is asserted once LAYOUT HAS SETTLED, and settled is defined
+        // by a real signal rather than a sleep.
+        //
+        // Why it cannot be asserted in the frame above: the reserve is a
+        // JS-measured custom property, so a banner reflow (the web font
+        // arriving and re-wrapping the text) and the menu's re-layout from the
+        // new value are necessarily one frame apart — measure, setProperty,
+        // relayout. Measured at 412x844: banner 189.16 -> 211.55px, and for one
+        // frame the menu box still ended at the old 654 while the banner had
+        // moved up to 632.45.
+        //
+        // That frame is not an actionable defect and the check above is what
+        // proves it: an open menu is z-index 10000 against the banner's 9999,
+        // so the CTA stays on top and clickable throughout. The overlap is
+        // cosmetic and lasts one frame. Asserting the structural property here
+        // instead of in the transient frame tests the real invariant without
+        // pretending the transient does not exist.
+        await page.evaluate(() => (document as any).fonts?.ready).catch(() => {})
+        const settled = await ctaBannerGeometry(page)
         expect(
-          geometry.navViewport.bottom,
-          `${path}@${width}: the menu's viewport (${JSON.stringify(geometry.navViewport)}) extends past the banner top ${geometry.banner?.top}`,
-        ).toBeLessThanOrEqual((geometry.banner?.top ?? 0) + 1)
+          settled.navViewport.bottom,
+          `${path}@${width}: once settled, the menu's viewport (${JSON.stringify(settled.navViewport)}) still extends past the banner top ${settled.banner?.top}`,
+        ).toBeLessThanOrEqual((settled.banner?.top ?? 0) + 1)
+        expect(settled.overlaps, `${path}@${width}: settled CTA overlaps the banner`).toBe(false)
 
         // Scroll to the end of the menu — the realistic "user reaches for the
         // last item" gesture — and re-check: the fix must hold there too, not

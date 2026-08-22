@@ -110,13 +110,33 @@ export default function CookieBanner() {
     // Fallback for anything without ResizeObserver, plus orientation changes
     // that can alter layout without resizing the element's own box.
     window.addEventListener('resize', measure)
-    // Fonts settling is the specific case the observer exists for; ask
-    // directly too, so the correction lands even if the observer is absent.
-    ;(document as Document & { fonts?: FontFaceSet }).fonts?.ready?.then(measure).catch(() => {})
+
+    // Close the font-reflow window.
+    //
+    // A ResizeObserver reports a size change AFTER layout, so the corrected
+    // value lands one frame late. Measured on a 375x844 first load: at frame 3
+    // the web font finished and the banner reflowed 257 -> 279.5px while the
+    // published value still read 258; frame 4 corrected it. For one frame the
+    // reserve was 21.5px — one text line — short of the truth.
+    //
+    // The cause is specific and observable, so it is tracked rather than
+    // guessed at with a timeout: republish every frame for as long as fonts
+    // report as loading, then stop and leave the observer to handle anything
+    // later. No arbitrary delay, and no window where the value is knowably
+    // stale.
+    const fonts = (document as Document & { fonts?: FontFaceSet }).fonts
+    let rafId = 0
+    const trackFontLoading = () => {
+      measure()
+      if (!fonts || fonts.status === 'loading') rafId = requestAnimationFrame(trackFontLoading)
+    }
+    if (!fonts || fonts.status === 'loading') rafId = requestAnimationFrame(trackFontLoading)
+    fonts?.ready?.then(measure).catch(() => {})
 
     return () => {
       observer?.disconnect()
       window.removeEventListener('resize', measure)
+      if (rafId) cancelAnimationFrame(rafId)
       publishBannerHeight(null)
     }
   }, [visible, lang])

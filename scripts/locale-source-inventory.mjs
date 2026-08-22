@@ -54,12 +54,25 @@ export function czechSourcePages() {
 }
 
 /**
- * The structured items of one source page: its section bullets.
+ * The structured items of one source page: its section bullets AND its FAQ.
  *
- * Bullets are the structured items — the thing the localized content model could
- * not represent and therefore the thing that was lost. Body paragraphs are prose
- * on both sides and are covered by the announcement-gap and reconciliation work,
- * not by this inventory.
+ * Both are structure the localized content model cannot hold — `LocaleSection`
+ * gained a list, but `LocalePageContent` still has no `faq` field — which makes
+ * them exactly the category this machinery exists to catch.
+ *
+ * FAQ was missing here at first, and that was the same defect the inventory was
+ * built to prevent, committed by the inventory itself: 183 q/a pairs across 43
+ * in-scope concepts never entered the set-equality assertion, so they could
+ * never be reported MISSING, while the gate's headline read "451 Czech source
+ * items, 451 mapped, both directions equal" as though that were total coverage.
+ * A scope that quietly excludes a category is complete by construction and
+ * proves nothing. On employer-faq — a concept whose entire purpose is a Q&A hub
+ * — the excluded FAQ (6 entries) outnumbered the included bullets (5).
+ *
+ * Body paragraphs remain out of scope, and that exclusion is different in kind:
+ * they are prose on both sides, the localized model CAN hold them, and the
+ * announcement-gap and reconciliation passes cover them. Structure with no
+ * localized representation is what belongs here.
  */
 export function itemsForPage(conceptId, entry) {
   const { page, exportName } = entry
@@ -76,6 +89,24 @@ export function itemsForPage(conceptId, entry) {
         cs: bullet,
         hash: textHash(bullet),
       })
+    })
+  })
+  // Page-level FAQ. Identified as f<index> and carrying the question and answer
+  // together, because the answer is the load-bearing half and a classification
+  // that pointed only at a matching question would certify nothing.
+  ;(page.faq ?? []).forEach((entryFaq, fi) => {
+    const ref = `f${fi}`
+    const cs = `${entryFaq.q} ${entryFaq.a}`
+    items.push({
+      id: `${conceptId}|${exportName}|${ref}|${textHash(cs)}`,
+      conceptId,
+      exportName,
+      ref,
+      sectionHeading: 'FAQ',
+      cs,
+      question: entryFaq.q,
+      answer: entryFaq.a,
+      hash: textHash(cs),
     })
   })
   return items
