@@ -13,10 +13,39 @@
 
 import type { Locale } from '../registry'
 
+/**
+ * A list inside a section.
+ *
+ * The Czech source pages carry `bullets` on their sections — 395 across the 37
+ * concepts that have a source — and this type had nowhere to put any of them.
+ * Everything bulleted was therefore folded into prose or dropped when the
+ * localized pages were authored, and an audit of all 38 concepts found 240
+ * load-bearing items gone: role ladders whose rungs are never named, "a sequence
+ * of steps" that lists no step, checklists reduced to the sentence announcing
+ * them. The announcing sentence usually survived, so the page went on promising
+ * what it no longer delivered.
+ *
+ * Lists are therefore representable, and structural — not a paragraph of
+ * semicolons impersonating a list, which is what prose-folding produced.
+ */
+export interface LocaleList {
+  /** Sentence introducing the list, where the source has one. */
+  readonly intro?: string
+  /**
+   * Ordered ONLY where the source describes a sequence — steps that occur in an
+   * order, not a set of things that happen to be enumerated. Nearly every Czech
+   * bullet block is unordered, which is the default.
+   */
+  readonly ordered?: boolean
+  readonly items: readonly string[]
+}
+
 export interface LocaleSection {
   readonly heading: string
   /** Paragraphs. Plain strings — no markup, so nothing can inject structure. */
   readonly body: readonly string[]
+  /** Rendered after the body paragraphs, mirroring the Czech `bullets` field. */
+  readonly list?: LocaleList
 }
 
 export interface LocalePageContent {

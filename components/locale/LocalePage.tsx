@@ -4,9 +4,27 @@ import Footer from '../Footer'
 import LocaleAlternates from './LocaleAlternates'
 import { ALL_CONCEPTS, urlFor, type Locale } from '../../lib/locale/registry'
 import { CHROME_ARIA, HOME_LABEL } from '../../lib/locale/chrome'
-import type { LocalePageContent } from '../../lib/locale/content/types'
+import type { LocaleList, LocalePageContent } from '../../lib/locale/content/types'
 
 const ORIGIN = 'https://talentpartnerid.com'
+
+/**
+ * A section's list, rendered as a real list.
+ *
+ * Server-rendered like everything else on this page: a crawler and a visitor
+ * with JavaScript unavailable both receive the items. `ul` versus `ol` follows
+ * the source — an ordered list asserts that the order carries meaning, so it is
+ * used only where the source says the steps happen in sequence.
+ */
+function SectionList({ list }: { list: LocaleList }) {
+  const items = list.items.map((item) => <li key={item.slice(0, 48)}>{item}</li>)
+  return (
+    <>
+      {list.intro && <p>{list.intro}</p>}
+      {list.ordered ? <ol className="locale-list">{items}</ol> : <ul className="locale-list">{items}</ul>}
+    </>
+  )
+}
 
 export interface LocalePageProps {
   /** Registry concept id. Everything else resolves from it. */
@@ -40,6 +58,15 @@ export default function LocalePage({ conceptId, locale, content, afterContent }:
   if (!selfUrl) throw new Error(`LocalePage: concept "${conceptId}" declares no ${locale} url`)
 
   const ctaConcept = ALL_CONCEPTS.find((c) => c.id === content.cta.targetConceptId)
+  // The two lookups above this one throw on an unknown id; this one used to
+  // return undefined, which made ctaHref undefined, which made the whole
+  // <p class="locale-cta"> render nothing. A one-character typo therefore
+  // deleted a page's conversion CTA in silence: no gate reads localized CTAs,
+  // and the only layer that noticed did so by timing out at 90s rather than by
+  // asserting anything — a routine actionTimeout would have made it pass.
+  if (!ctaConcept) {
+    throw new Error(`locale CTA references unknown concept "${content.cta.targetConceptId}"`)
+  }
   const ctaHref = ctaConcept ? urlFor(ctaConcept, locale) ?? urlFor(ctaConcept, 'cs') : undefined
   const localeHome = locale === 'en' ? '/en' : '/de'
 
@@ -73,6 +100,7 @@ export default function LocalePage({ conceptId, locale, content, afterContent }:
               {s.body.map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
+              {s.list && <SectionList list={s.list} />}
             </section>
           ))}
 

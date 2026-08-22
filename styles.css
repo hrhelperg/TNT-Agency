@@ -413,7 +413,10 @@ p  { color: var(--text-2); line-height: 1.7; }
 .nav {
   display: flex;
   align-items: center;
-  gap: 30px;
+  /* Capped at what .container can afford. See the header note near the
+     max-width:1500px block: a 30px gap made the nav widest exactly where the
+     container stops growing. */
+  gap: 18px;
 }
 .nav a {
   font-size: 0.9rem;
@@ -466,11 +469,64 @@ p  { color: var(--text-2); line-height: 1.7; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* --consent-banner-h — real rendered height of .cookie-banner, published by
+   CookieBanner.tsx while it is on screen and 0px once answered. Defaulted here
+   so a frame before JS measures it, or a no-JS visit, still gets the menu's
+   original safe-area reserve rather than an unset var. */
+:root {
+  --consent-banner-h: 0px;
+  /* Where the mobile menu's top edge sits: below the ecosystem bar and header. */
+  /* The fallback is the header's measured CSS height, not the 88px literal that
+     used to sit here: 88 over-reserved a 72px header by 16px and left a live
+     click-through band between the header and the open menu. Header.tsx
+     republishes --header-h from the real element, which also covers the
+     .scrolled state and any rewrap. */
+  --mobile-nav-top: calc(var(--header-h, 72px) + var(--eco-total));
+}
+
 /* Mobile nav */
 .mobile-nav {
   display: none;
   position: fixed;
-  inset: 0;
+  /* The menu occupies exactly the band between the fixed header and whatever
+     the consent banner is currently using — it does not underlap either.
+     Both edges are structural, not padding, because padding cannot do this
+     job in a scroll container:
+
+     TOP. Clearing the header with `padding-top` fails, since padding scrolls
+     away with the content. At maximum scroll the last item slid under the
+     opaque header (z-index 100 against this element's 99): on a 640x360
+     landscape phone 39 of the CTA's 54px were covered and a real click at its
+     centre hit `.header`.
+
+     BOTTOM. `bottom` rather than a bottom padding reserve, so no item is ever
+     drawn beneath the banner at any scroll offset.
+
+     The two together also remove a height floor. This element is border-box,
+     so the old 132px + 32px of vertical padding set a 164px minimum: whenever
+     the banner grew past `100vh - 164px` — routine for German at 302px on a
+     short screen — the box could not shrink to meet it and overran the banner
+     top by up to 33px, silently re-creating the defect the bottom reserve
+     exists to prevent. With both edges positioned and the padding small, the
+     box tracks the space it is actually given. */
+  top: var(--mobile-nav-top);
+  left: 0;
+  right: 0;
+  /* Reserve the banner's space — but only as much as can be spared.
+     On a landscape phone the honest reserve is geometrically impossible: at
+     568x320 the header ends at 117px and a German banner starts at 131px,
+     leaving a 14px band, and reserving it produces a menu too small to use.
+     So the reserve is clamped to whatever is left after the menu keeps a
+     usable 220px, and floored at 0.
+
+     Expressed as a clamp rather than a min-height because a min-height pushes
+     the BOX past the bottom of the screen — measured at 568x320: box 132–352
+     against a 320px viewport, stranding its last 32px where nothing can scroll
+     it into view. This form can never exceed the viewport.
+
+     Where the clamp bites, the menu necessarily overlaps the banner, so an
+     open menu also outranks it — see .mobile-nav.open. */
+  bottom: max(0px, min(var(--consent-banner-h), 100vh - var(--mobile-nav-top) - 220px));
   z-index: 99;
   background: rgba(255,255,255,0.97);
   -webkit-backdrop-filter: blur(16px);
@@ -479,9 +535,11 @@ p  { color: var(--text-2); line-height: 1.7; }
   align-items: center;
   justify-content: flex-start;
   gap: 20px;
-  /* Clear the fixed header, respect the notch/home-indicator, and let the menu
-     scroll so the CTA is always reachable on short screens. */
-  padding: calc(88px + env(safe-area-inset-top)) 24px calc(32px + env(safe-area-inset-bottom));
+  /* Header and banner are handled by `top`/`bottom` above, so this is only
+     breathing room. Keep it small: every vertical pixel here is a height floor
+     on a border-box element, and a floor is what defeated the banner reserve
+     on short screens. */
+  padding: 20px 24px calc(20px + env(safe-area-inset-bottom));
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
@@ -489,7 +547,13 @@ p  { color: var(--text-2); line-height: 1.7; }
   pointer-events: none;
   transition: opacity var(--tr);
 }
-.mobile-nav.open { opacity: 1; pointer-events: all; }
+/* An open menu is a modal surface and outranks the consent banner (z-index
+   9999). This matters only where the floor above has forced an overlap: without
+   it the banner would sit on top and the menu's own controls would be
+   unclickable, which is the defect this pair of rules exists to prevent. The
+   banner is not dismissed or bypassed — it is behind the menu for as long as
+   the menu is open, and returns the moment it closes, still unanswered. */
+.mobile-nav.open { opacity: 1; pointer-events: all; z-index: 10000; }
 .mobile-nav a {
   font-size: 1.4rem;
   font-weight: 700;
@@ -1334,7 +1398,6 @@ p  { color: var(--text-2); line-height: 1.7; }
   .section { padding: var(--s10) 0; }
   .section-head { margin-bottom: var(--s5); }
   .section-head p { font-size: 1.05rem; }
-
 
   .hero { padding: 148px 0 84px; }
   .hero__sub { margin-bottom: var(--s5); }
@@ -2411,6 +2474,39 @@ p  { color: var(--text-2); line-height: 1.7; }
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+/* Section lists on localized pages.
+   The Czech spine styles its source bullets through `.seo-body ul` (see the
+   rule of that name); these are the same metrics for `.locale-page`, so a list
+   reads identically in all three languages. The global reset sets
+   `ul { list-style: none }`, so markers have to be asked for explicitly —
+   without this the restored items would render as an unmarked run of lines,
+   which is the prose-folding defect again wearing list markup. */
+.locale-page .locale-list {
+  margin: 0 0 22px 20px;
+  list-style: disc;
+}
+.locale-page ol.locale-list { list-style: decimal; }
+.locale-page .locale-list li { margin-bottom: 9px; padding-left: 4px; }
+
+/* The locale CTA is a .btn, and .btn is `white-space: nowrap` — so a long
+   German label cannot wrap and sets the page's min-content width on its own.
+   "Wie eine Personalagentur funktioniert" measured 307px inside a 280px column
+   at 320px, pushing the document to 327px.
+
+   Same remedy the .pillar__foot .btn rule above already uses for exactly this:
+   let the label wrap and let the button grow, rather than clipping it or
+   shortening copy to fit a box. Applied at the same breakpoint, so the two
+   behave alike. */
+@media (max-width: 520px) {
+  .locale-cta .btn {
+    white-space: normal;
+    height: auto;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    line-height: 1.35;
+  }
+}
 .pcalc__panel, .pcalc__results { min-width: 0; max-width: 100%; }
 .pcalc-mode-btn { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
 .pcalc-card__label, .pcalc-card__value,
@@ -2947,9 +3043,17 @@ p  { color: var(--text-2); line-height: 1.7; }
 /* The header carries 8 nav items, a language switcher and a primary action.
    German labels are materially longer than cs/en, so below ~1500px the nav
    metrics tighten to keep the primary action inside the viewport instead of
-   being clipped by the body's overflow-x guard. */
+   being clipped by the body's overflow-x guard.
+
+   The base gap above this breakpoint used to be 30px, which made the header
+   WIDEST exactly where its container stops growing: .container is capped at
+   1152px, so past ~1500px the nav expanded to 705px against a box that could
+   never expand with it, and the primary action was pushed out of the container
+   on every large screen. Nothing reported it, because body{overflow-x:hidden}
+   absorbs the document-level overflow and a scrollWidth check therefore sees a
+   clean page while the button sits outside the viewport. The gap is now capped
+   at the value the container can actually afford. */
 @media (max-width: 1500px) {
-  .nav { gap: 18px; }
   .nav a { font-size: 0.95rem; }
 }
 @media (max-width: 1340px) {
@@ -2957,12 +3061,56 @@ p  { color: var(--text-2); line-height: 1.7; }
   .nav a { font-size: 0.88rem; }
 }
 
+/* The header bar spans the viewport, but its inner container was capped at the
+   1152px reading column. On a Czech concept primary the row carries the logo,
+   eight nav items, the page-to-page locale switcher, the legacy EN/CS/DE widget
+   and the primary action — measured demand 1262px against a 1152px box. The
+   difference did not wrap or shrink; it left the container, and on screens
+   narrower than ~1700px it left the viewport, taking the primary action with
+   it. body{overflow-x:hidden} then absorbed the document overflow, so every
+   scrollWidth-based check reported a clean page while the button was off it.
+
+   A reading column and a navigation bar do not have to be the same width. The
+   header gets the width its own contents need; page content keeps 1152. */
+/* The Czech header needs more width than the reading column; the localized ones
+   do not.
+
+   Measured at a 1200px column: the English and German headers have 13-24px to
+   spare at every width from 1251px up, while the Czech header overflows by up
+   to 114px — its header__right is 402.7px against ~230px, because the Czech
+   pages carry an extra legacy language control the localized pages do not. The
+   first fix widened the column for EVERY page, so 96 pages that already fitted
+   were pushed off the shared grid to solve a problem only 185 other pages had:
+   the logo landed 100px left of the text below it, giving header, footer,
+   content and eco-bar four different left edges.
+
+   So the wider column is scoped to the pages that need it, and above 1480px
+   even those take the extra width on the right only and keep the shared left
+   edge. Between 1251px and 1480px the Czech header cannot do both, and fitting
+   wins there — an unreachable CTA is worse than a misaligned logo. */
+.header--legacy-lang .container { max-width: 1400px; }
+
+
+@media (min-width: 1480px) {
+  .header--legacy-lang .container {
+    /* width:auto, not the inherited width:100%. With a left margin and a
+       percentage width the box is sized from the viewport and then pushed
+       right, so it hangs off the edge — measured 36px past the viewport at
+       exactly 1480px. Letting the width resolve from both edges keeps it in. */
+    width: auto;
+    margin-left: calc((100vw - 1200px) / 2);
+    margin-right: 0;
+  }
+}
+
 /* Collapse the primary navigation to the mobile menu while the desktop nav
-   still fits. Between ~1024px and 1150px the eight nav items, the language
-   switcher and the primary action cannot fit the container — in German most of
-   all — and the action was being clipped by the body's overflow-x guard. The
-   mobile menu already carries every item, so it is the correct surface here. */
-@media (max-width: 1150px) {
+   still fits. Below this the eight nav items, both language controls and the
+   primary action cannot fit — in German and on two-switcher Czech pages most of
+   all. The mobile menu already carries every item, so it is the correct surface.
+   Raised from 1150px: at 1151–1250 the row did not fit and the action was
+   clipped rather than collapsed, which is the defect this boundary exists to
+   prevent. */
+@media (max-width: 1250px) {
   .nav, .header__right .btn { display: none; }
   .hamburger { display: flex; }
   .mobile-nav { display: flex; }
@@ -3053,10 +3201,13 @@ body { padding-top: var(--eco-total); }
 html { scroll-padding-top: calc(var(--eco-total) + 88px); }
 .article-content [id] { scroll-margin-top: calc(var(--eco-total) + 88px); }
 
-/* The mobile menu is fixed inset:0 and must start below banner + header. */
-.mobile-nav {
-  padding-top: calc(88px + var(--eco-total));
-}
+/* The mobile menu now POSITIONS its top edge below the ecosystem bar and the
+   header (see the .mobile-nav rule near the top of this file) rather than
+   padding itself clear of them. Padding could not do that job: it scrolls away
+   with the content, so the last item slid under the opaque header at maximum
+   scroll, and its height counted against a border-box floor that stopped the
+   consent-banner reserve from shrinking the box on short screens. The `top`
+   there already includes var(--eco-total); nothing is needed here. */
 
 .eco-bar {
   position: fixed;
@@ -3190,7 +3341,8 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
 
 /* Screen-reader-only utility (scoped name to avoid clashing with site CSS). */
 .eco-bar .sr-only,
-.eco-dir .sr-only {
+.eco-dir .sr-only,
+.locale-switcher .sr-only {
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0 0 0 0); white-space: nowrap; border: 0;

@@ -2,6 +2,16 @@ import { describe, it, expect } from 'vitest';
 import { createRequire } from 'module';
 import fs from 'fs';
 import path from 'path';
+import { CZECH_ROUTES, PUBLISHED_LOCALIZED_ROUTES } from '../locale/registry'
+
+/**
+ * 185 Czech + 20 L0 + the L1 routes published so far.
+ * Derived from the registry rather than hard-coded, so a cluster landing does
+ * not require editing an unrelated test — while still failing if the sitemap
+ * and the registry ever disagree about what is published.
+ */
+const EXPECTED_SITEMAP_URLS = CZECH_ROUTES.length + PUBLISHED_LOCALIZED_ROUTES.length
+
 
 // The sitemap tooling is CommonJS (Node scripts). Load it through createRequire
 // so the test exercises the exact modules that run in the post-deploy pipeline.
@@ -23,22 +33,21 @@ const xml = fs.readFileSync(SITEMAP_PATH, 'utf8');
 const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]);
 
 describe('sitemap hygiene', () => {
-  it('1. contains exactly the canonical route inventory (195 Next + 10 static = 205)', () => {
-    // 154 after the indexing-coverage consolidation removed the duplicate
-    // /privacy.html; +1 Next route in Batch 2 for the new /o-nas trust page = 155;
-    // +1 Next route in Batch C for the /redakcni-zasady editorial-standards page = 156;
-    // +19 Next routes for the Wave 1 professional/specialist recruitment cohort
-    // = 175; +10 for the Wave 2 technical-talent / employer-problem / knowledge
-    // cohort (both declared in lib/content/growth-cohorts.ts) = 185.
+  it('1. contains exactly the canonical route inventory', () => {
+    // The Next-route count is no longer a constant to maintain by hand. It was
+    // 175 after Wave 2, 195 after Locale L0, and L1 raises it once per cluster
+    // — so a literal here would be edited five more times and would stop being
+    // a check and start being a chore.
     //
-    // Locale L0 added 20 prerendered locale routes — 10 EN and 10 DE, declared
-    // in lib/locale/registry.ts — bringing Next routes to 195 and the canonical
-    // inventory to 205. A deliberate re-baseline, not drift: the 185 Czech
-    // canonicals are unchanged and remain the prefix of the sitemap.
+    // What must remain true is the relationship: the canonical inventory is the
+    // Czech spine plus exactly the localized routes the registry says are
+    // PUBLISHED. That fails if a page exists without being published, or is
+    // published without existing, which is the defect worth catching.
     const inv = buildRouteInventory(ROOT);
-    expect(inv.nextRoutes.length).toBe(195);
+    // Czech Next routes (175) + every published localized route.
+    expect(inv.nextRoutes.length).toBe(175 + PUBLISHED_LOCALIZED_ROUTES.length);
     expect(inv.staticRoutes.length).toBe(10);
-    expect(inv.urls.size).toBe(205);
+    expect(inv.urls.size).toBe(EXPECTED_SITEMAP_URLS);
     // Sets must match exactly, both directions.
     const sitemapSet = new Set(locs);
     expect(Array.from(sitemapSet).filter((u) => !inv.urls.has(u))).toEqual([]);
@@ -48,7 +57,7 @@ describe('sitemap hygiene', () => {
   });
 
   it('2. all URLs are unique', () => {
-    expect(locs.length).toBe(205);
+    expect(locs.length).toBe(EXPECTED_SITEMAP_URLS);
     expect(new Set(locs).size).toBe(locs.length);
   });
 
@@ -90,8 +99,8 @@ describe('sitemap hygiene', () => {
 
   it('10. IndexNow URL extraction returns the same 205 canonical URLs', () => {
     const urls = getSitemapUrls();
-    expect(urls.length).toBe(205);
-    expect(new Set(urls).size).toBe(205);
+    expect(urls.length).toBe(EXPECTED_SITEMAP_URLS);
+    expect(new Set(urls).size).toBe(EXPECTED_SITEMAP_URLS);
     expect(urls).toEqual(locs);
   });
 

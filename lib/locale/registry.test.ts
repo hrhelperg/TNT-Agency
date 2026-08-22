@@ -7,6 +7,13 @@ import {
   COLLAPSED_CZECH_ROUTES, LOCALIZED_ROUTES, PUBLISHED_LOCALIZED_ROUTES, isPublished,
   urlFor, conceptForRoute, localeForRoute, alternatesFor,
 } from './registry'
+import { L1_CONCEPTS } from './l1-concepts'
+
+/** The ten concepts L0 shipped. Frozen: L1 adds to the registry, never edits these. */
+const L0_IDS = [
+  'about-us', 'contact', 'cost-of-vacancy', 'employee-turnover', 'for-employers',
+  'home', 'how-agency-works', 'production-workers', 'request-staff', 'specialist-recruitment',
+] as const
 
 // The registry is the single source of truth for page identity across locales.
 // These pin the five design rules in its header — especially the ones whose
@@ -191,11 +198,18 @@ describe('resolution helpers', () => {
     }
   })
 
-  it('declares the L0 ten and nothing more', () => {
-    expect(LOCALE_CONCEPTS.map((c) => c.id).sort()).toEqual([
-      'about-us', 'contact', 'cost-of-vacancy', 'employee-turnover', 'for-employers',
-      'home', 'how-agency-works', 'production-workers', 'request-staff', 'specialist-recruitment',
-    ])
+  it('declares the L0 concepts plus the frozen L1 set, and nothing else', () => {
+    // This asserted the exact ten L0 ids. That was right while L0 was the whole
+    // registry; L1 adds thirty-eight, so an exact-list assertion would have to
+    // be rewritten on every cluster and would stop meaning anything.
+    //
+    // What still needs protecting is that the registry contains exactly what
+    // the two frozen sources declare — nothing invented, nothing dropped — so
+    // that is what is checked instead.
+    const declared = [...L0_IDS, ...L1_CONCEPTS.map((c) => c.id)].sort()
+    expect(LOCALE_CONCEPTS.map((c) => c.id).sort()).toEqual(declared)
+    expect(new Set(declared).size, 'a concept id is declared twice').toBe(declared.length)
+    expect(L0_IDS).toHaveLength(10)
   })
 
   it('x-default points at the Czech root', () => {

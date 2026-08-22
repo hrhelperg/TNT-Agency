@@ -110,6 +110,24 @@ describe('the server chrome copy cannot drift from the client dictionary', () =>
   })
 })
 
+/**
+ * The concept a chrome target resolves to, mirroring resolveNavHref.
+ *
+ * `conceptId` is an OVERRIDE, needed only where the Czech URL is not the
+ * concept's own primary — the legal pages, whose hrefs are /terms-cs.html and
+ * friends. Everywhere else the concept is DERIVED from `czechHref === csPrimary`.
+ *
+ * These tests previously encoded the id as the only path, which is why they
+ * agreed with the defect they were meant to catch: when L1 published English and
+ * German pages for direct-hire, agency-employment and editorial-policy, their
+ * three footer entries kept pointing at Czech on all 96 localized pages, and
+ * this suite asserted that was correct. Deriving here means the test fails if
+ * the resolver ever stops deriving.
+ */
+const conceptForTarget = (t: { conceptId?: string; czechHref: string }) =>
+  (t.conceptId ? ALL_CONCEPTS.find((c) => c.id === t.conceptId) : undefined) ??
+  ALL_CONCEPTS.find((c) => c.csPrimary === t.czechHref)
+
 describe('header links from a locale page', () => {
   it('never invents a localized URL for a page that has none', () => {
     // A localized destination is NOT identifiable by a /en or /de prefix. The
@@ -121,7 +139,7 @@ describe('header links from a locale page', () => {
     for (const locale of ['en', 'de'] as const) {
       for (const t of [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS]) {
         const { href } = resolveNavHref(t, locale)
-        const concept = t.conceptId ? ALL_CONCEPTS.find((c) => c.id === t.conceptId) : undefined
+        const concept = conceptForTarget(t)
         if (concept && concept.published.includes(locale)) {
           expect(href, `${t.key} in ${locale}`).toBe(urlFor(concept, locale))
         } else {
@@ -140,7 +158,7 @@ describe('header links from a locale page', () => {
     for (const locale of ['en', 'de'] as const) {
       for (const t of [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS]) {
         const { href, hreflang } = resolveNavHref(t, locale)
-        const concept = t.conceptId ? ALL_CONCEPTS.find((c) => c.id === t.conceptId) : undefined
+        const concept = conceptForTarget(t)
         const servedInPageLocale = Boolean(concept && concept.published.includes(locale))
         expect(hreflang, `${locale} ${t.key} -> ${href}`).toBe(servedInPageLocale ? undefined : 'cs')
       }

@@ -3,6 +3,20 @@ import { CHROME_ARIA, CHROME_NAV } from '../../lib/locale/chrome'
 
 const LABEL: Record<string, string> = { cs: 'Čeština', en: 'English', de: 'Deutsch' }
 
+/**
+ * Header form of the same labels.
+ *
+ * Endonyms are the right label wherever there is room, and the mobile menu has
+ * room. The header does not: on a Czech concept primary this switcher sits
+ * beside the legacy EN/CS/DE widget and the primary action, and "Čeština
+ * English Deutsch" costs 169px of a row already wider than its container.
+ * Shortening the VISIBLE text to the same codes the neighbouring widget already
+ * uses keeps both controls, changes no font size, and halves that cost. The
+ * endonym remains the accessible name, so a screen reader still hears
+ * "Deutsch", not "D E".
+ */
+const SHORT: Record<string, string> = { cs: 'CS', en: 'EN', de: 'DE' }
+
 /** Storage key the client dictionary in public/script.js reads on unlocked pages. */
 export const LANG_STORAGE_KEY = 'tnt-lang'
 
@@ -36,6 +50,9 @@ export default function LanguageSwitcher({ route, className }: { route: string; 
   if (alternates.length < 2) return null
   const current = localeForRoute(route)
   const uiLocale: Locale = current ?? 'cs'
+  // The header copy is the space-constrained one; the mobile copy keeps endonyms.
+  const compact = className === 'locale-switcher--header'
+  const text = (locale: string) => (compact ? SHORT[locale] : LABEL[locale])
 
   return (
     <nav className={className ? `locale-switcher ${className}` : 'locale-switcher'} aria-label={CHROME_NAV[uiLocale].language}>
@@ -43,13 +60,33 @@ export default function LanguageSwitcher({ route, className }: { route: string; 
         {alternates.map((a) => (
           <li key={a.locale}>
             {a.locale === current ? (
-              <span aria-current="true" lang={LOCALE_LANG[a.locale]}>{LABEL[a.locale]}</span>
+              <span aria-current="true" lang={LOCALE_LANG[a.locale]} title={compact ? LABEL[a.locale] : undefined}>
+                {/* The current locale is a plain span, and `aria-label` is
+                    ignored on a generic role — so the compact variant's endonym
+                    was exposed to nobody: an AX-tree dump read
+                    `role=generic name="English"` beside `role=link
+                    name="Deutsch"`, and a generic with a name is not announced.
+                    Visually-hidden real text is announced, because it is text. */}
+                {compact ? (
+                  <>
+                    <span lang={LOCALE_LANG[a.locale]} aria-hidden="true">
+                      {SHORT[a.locale]}
+                    </span>
+                    <span lang={LOCALE_LANG[a.locale]} className="sr-only">
+                      {LABEL[a.locale]}
+                    </span>
+                  </>
+                ) : (
+                  text(a.locale)
+                )}
+              </span>
             ) : (
               <a
                 href={a.url}
                 {...{ hreflang: LOCALE_LANG[a.locale] }}
                 lang={LOCALE_LANG[a.locale]}
                 data-locale-choice={a.locale}
+                {...(compact ? { 'aria-label': LABEL[a.locale], title: LABEL[a.locale] } : {})}
                 onClick={() => {
                   try {
                     window.localStorage.setItem(LANG_STORAGE_KEY, a.locale)
@@ -59,7 +96,7 @@ export default function LanguageSwitcher({ route, className }: { route: string; 
                   }
                 }}
               >
-                {LABEL[a.locale]}
+                {text(a.locale)}
               </a>
             )}
           </li>

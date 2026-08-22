@@ -169,7 +169,7 @@ export default function SeoArticle({ page: given, activePage = 'guides', topSlot
             ) : null}
 
             <article className="seo-body" lang="cs">
-              <ArticleLanguageNotice />
+              <ArticleLanguageNotice route={`/${page.slug}`} />
               <p className="seo-intro">{page.intro}</p>
 
               {sections.map((section) => (

@@ -141,3 +141,41 @@ The window is therefore not merely brief, it is invisible: the first frame
 carrying content is already styled. A screenshot is captured the moment FCP is
 reported and attached to the Playwright report, so this can be looked at rather
 than believed.
+
+---
+
+## PRE-EXISTING L0 DEFECTS FIXED BY GLOBAL LOCALE GATE
+
+**Status:** fixed. Recorded here because the fix touches L0 content from an L1
+corrective pass, and that needs a stated reason rather than a silent diff.
+
+L1 introduced a global German jurisdiction invariant, enforced by
+`validate:locale-jurisdiction`: wherever a jurisdiction-loaded German term
+appears — `Arbeitnehmerüberlassung`, `Erlaubnis`, `Arbeitserlaubnis`,
+`zuständige Behörden`, `Arbeitsschutzunterweisung` and the like — Czech
+jurisdiction must be explicit **at or before** that first loaded use, reading the
+page in the order a reader meets it.
+
+The gate is global by construction: it audits all 48 German pages, because a
+reader cannot tell which pages were written in which release. Running it for the
+first time failed **11** pages. Nine were L1. Two were **L0**, and neither had
+been found by the L1-scoped sweep that preceded it:
+
+| Page | Loaded term | Where | Fix |
+|---|---|---|---|
+| `/de` | `Arbeitnehmerüberlassung` | `s0.p1` | `…und die Arbeitnehmerüberlassung **nach tschechischem Recht**, bei der…` |
+| `/de/produktionsmitarbeiter` | `Arbeitnehmerüberlassung` | `s1.p0` | `…Arbeitnehmerüberlassung **nach tschechischem Recht** für die flexible Abdeckung…` |
+
+**Why they were fixed rather than exempted.** The alternative was to ship a gate
+that fails on two of the pages it governs, or to add two exemptions asserting
+that those pages do not need an anchor — which is not true of them and would have
+made the exemption list a place to put inconvenient results. Both pages state a
+staffing model in German with no country named, which is the exact reader harm
+the invariant exists to prevent: a German reader parses `Arbeitnehmerüberlassung`
+as the AÜG-regulated activity under German law.
+
+**Scope, deliberately narrow.** Each fix is a single prepositional phrase naming
+the governing law. No new legal claim, no licence assertion, no permit number, no
+statutory citation, and no other edit to either page. These are prerequisite
+corrections required by the new invariant — **not** a licence to rewrite L0.
+Other L0 debt in this file remains untouched and unscheduled.

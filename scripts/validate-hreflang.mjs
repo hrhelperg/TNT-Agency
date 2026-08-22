@@ -61,6 +61,7 @@ const primary = (tag) => String(tag).toLowerCase().split('-')[0]
  * member of a real cluster.
  */
 const LOCALE_REGISTRY = await import('../lib/locale/registry.ts')
+const { L1_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
 
 export const XDEFAULT_ALLOWED = Object.fromEntries(
   LOCALE_REGISTRY.LOCALE_CONCEPTS.flatMap((c) => {
@@ -74,11 +75,21 @@ export const XDEFAULT_ALLOWED = Object.fromEntries(
 )
 
 /**
- * Minimum prerendered Next pages; a drop means locale work went dynamic.
- * Re-baselined 175 -> 195 in Locale L0 (175 Czech + 10 EN + 10 DE, all static).
- * A deliberate change, not drift.
+ * The exact number of prerendered Next documents, from the frozen manifest
+ * (271 route pages + /404 + /500).
+ *
+ * This was a floor, `MIN_STATIC_PAGES = 195`, re-baselined by hand in Locale L0.
+ * L1 added 76 pages and did not re-baseline it, so the floor sat 78 pages below
+ * reality and the one gate whose stated job is catching a page-count drop could
+ * not see 78 pages disappear. An independent refuter removed a five-page EN
+ * cluster and every gate in the repo stayed green.
+ *
+ * A floor is the wrong shape for this: it only ever detects catastrophe, and it
+ * silently decays every time the site grows. An exact count derived from the
+ * manifest cannot decay, and an intended change has to be stated in one place
+ * a reviewer reads.
  */
-export const MIN_STATIC_PAGES = 195
+export const EXPECTED_STATIC_PAGES = L1_EXPECTED.prerenderedPages
 
 /** Parses one HTML document into the shape the audit works on. */
 export function parseDoc(html, file = '') {
@@ -220,8 +231,11 @@ for (const [route, d] of parsed) {
 // prerendered. _document now resolves <html lang> per route; if that ever opts
 // pages into request-time rendering, the built HTML files disappear and this
 // count collapses — so the count is the gate.
-if (staticPages < MIN_STATIC_PAGES) {
-  errors.push(`static prerender regression: ${staticPages} prerendered Next pages, expected >= ${MIN_STATIC_PAGES}`)
+if (staticPages !== Infinity && staticPages !== EXPECTED_STATIC_PAGES) {
+  errors.push(
+    `prerendered page count is ${staticPages}, but lib/locale/l1-manifest.ts freezes it at ${EXPECTED_STATIC_PAGES} — ` +
+      `${staticPages < EXPECTED_STATIC_PAGES ? 'pages have gone missing or opted into request-time rendering' : 'pages were added without updating the manifest'}`,
+  )
 }
 
   return { errors, withAlts }

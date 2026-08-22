@@ -1,4 +1,4 @@
-import type { LocaleCorpus } from './types'
+import type { LocaleCorpus } from '../types'
 
 /**
  * German L0 content.
@@ -11,15 +11,15 @@ import type { LocaleCorpus } from './types'
  * A note on terminology, because it carries legal weight. "Arbeitnehmer-
  * überlassung" is the established German term for the model the Czech calls
  * agenturní zaměstnávání, and it is used descriptively here. The rules
- * referenced are CZECH — the Employment Act and the Czech Labour Code — and the
+ * referenced are CZECH – the Employment Act and the Czech Labour Code – and the
  * text says so, because a German reader would otherwise reasonably assume the
  * German AÜG framework applies. Where the Czech names a Czech institution, the
  * German names it as Czech too.
  */
-export const DE_CONTENT: LocaleCorpus = {
+export const DE_L0: LocaleCorpus = {
   home: {
     de: {
-      title: 'TalentPartnerID | Personalvermittlung und Zeitarbeit in Tschechien',
+      title: 'TalentPartnerID | Direktvermittlung und Arbeitnehmerüberlassung in Tschechien',
       description:
         'TalentPartnerID unterstützt Arbeitgeber dabei, die richtigen Mitarbeiterinnen und Mitarbeiter zu finden – für operative Aufgaben in Produktion, Lager und Logistik sowie für die daran anschließenden Fach- und technischen Positionen.',
       h1: 'Wir verbinden die richtigen Menschen mit den richtigen Unternehmen',
@@ -31,7 +31,7 @@ export const DE_CONTENT: LocaleCorpus = {
           heading: 'Was wir tun',
           body: [
             'Wir arbeiten mit Arbeitgebern, die operative Stellen in Produktion, Lager und Logistik besetzen müssen – sowie die technischen und fachlichen Positionen, die zu diesen Betrieben gehören.',
-            'Dafür stehen zwei Modelle zur Verfügung: die Personalvermittlung, bei der Sie die Person direkt anstellen, und die Arbeitnehmerüberlassung, bei der die Mitarbeiterin oder der Mitarbeiter bei uns angestellt bleibt und Ihnen vorübergehend überlassen wird.',
+            'Dafür stehen zwei Modelle zur Verfügung: die Direktvermittlung, bei der Sie die Person direkt anstellen, und die Arbeitnehmerüberlassung nach tschechischem Recht, bei der die Mitarbeiterin oder der Mitarbeiter bei uns angestellt bleibt und Ihnen vorübergehend überlassen wird.',
           ],
         },
         {
@@ -198,15 +198,15 @@ export const DE_CONTENT: LocaleCorpus = {
         {
           heading: 'Wie Sie uns überprüfen können',
           body: [
-            'Die Unternehmensangaben lassen sich im öffentlichen Handelsregister und im Wirtschaftsregister ARES prüfen. Personalagenturen, die in Tschechien tätig sind, müssen eine gültige Erlaubnis nach dem tschechischen Beschäftigungsgesetz besitzen; das Verzeichnis der Erlaubnisinhaber führt das Ministerium für Arbeit und Soziales.',
-            'Veröffentlicht wird hier nur, was wir überprüft haben — die Firmierung, der Sitz und die Kontaktdaten, jeweils aus dem Handelsregister. '
+            'Die Unternehmensangaben lassen sich im öffentlichen Handelsregister und im Wirtschaftsregister ARES prüfen. Personalagenturen, die in Tschechien tätig sind, müssen eine gültige Erlaubnis nach dem tschechischen Beschäftigungsgesetz besitzen; das Verzeichnis der Erlaubnisinhaber führt das tschechische Ministerium für Arbeit und Soziales (MPSV).',
+            'Veröffentlicht wird hier nur, was wir überprüft haben – die Firmierung, der Sitz und die Kontaktdaten, jeweils aus dem Handelsregister. '
             + 'Die Angaben zur Erlaubnis führen wir bewusst nicht als Tatsache auf, solange wir sie nicht unmittelbar aus dem amtlichen Verzeichnis bestätigt haben; geschätzte oder ungefähre Werte nennen wir in der Zwischenzeit nicht.',
           ],
         },
         {
           heading: 'Was diese Website nicht tut',
           body: [
-            'Wir veröffentlichen keine Gehaltsniveaus und keine Besetzungsdauern. Gehaltsspannen für einen bestimmten Beruf und eine bestimmte Region gehören in das offizielle Informationssystem über Durchschnittsverdienste; Arbeitsmarktdaten veröffentlichen das Ministerium für Arbeit und Soziales, das Arbeitsamt der Tschechischen Republik und das Tschechische Statistische Amt.',
+            'Wir veröffentlichen keine Gehaltsniveaus und keine Besetzungsdauern. Gehaltsspannen für einen bestimmten Beruf und eine bestimmte Region gehören in das offizielle Informationssystem über Durchschnittsverdienste; Arbeitsmarktdaten veröffentlichen das MPSV, das Arbeitsamt der Tschechischen Republik (Úřad práce ČR) und das Tschechische Statistische Amt.',
           ],
         },
       ],
@@ -248,11 +248,11 @@ export const DE_CONTENT: LocaleCorpus = {
         'Fachkräfte- und Technikrekrutierung: worin sie sich von der Volumenbesetzung unterscheidet, welche Berufsfamilien sie umfasst, was in die Stellenbeschreibung gehört und wie die Suche abläuft.',
       h1: 'Fachkräfterekrutierung: worin sie sich von operativer Besetzung unterscheidet',
       intro:
-        'Zwanzig Plätze an einer Linie zu besetzen und eine einzelne Stelle als Einrichter oder Qualitätstechniker zu besetzen sind zwei verschiedene Disziplinen, auch wenn beides Rekrutierung heißt. Bei operativen Rollen arbeiten Sie mit einem breiten Bewerberkreis, und über das Ergebnis entscheidet die Organisation der Auswahl; bei Fachpositionen ist der Kreis der Menschen, die die Tätigkeit können und zugleich ausüben dürfen, um ein Vielfaches enger, und ein Teil von ihnen ist an Befähigungsnachweise gebunden.',
+        'Zwanzig Plätze an einer Linie zu besetzen und eine einzelne Stelle als Einrichter oder Qualitätstechniker zu besetzen sind zwei verschiedene Disziplinen, auch wenn beides Rekrutierung heißt. Bei operativen Rollen arbeiten Sie mit einem breiten Kandidatenkreis, und über das Ergebnis entscheidet die Organisation der Auswahl; bei Fachpositionen ist der Kreis der Menschen, die die Tätigkeit können und zugleich ausüben dürfen, um ein Vielfaches enger, und ein Teil von ihnen ist an Befähigungsnachweise gebunden.',
       breadcrumb: 'Fachkräfterekrutierung',
       sections: [
         {
-          heading: 'Worin sich Fachrekrutierung strukturell unterscheidet',
+          heading: 'Worin sich die Fachkräfterekrutierung strukturell unterscheidet',
           body: [
             'Der erste Unterschied ist die Zahl. Bei Hilfs- und Bedienrollen ist die Einstiegshürde niedrig und der Kreis der Menschen, die anfangen können, breit. Bei einem qualifizierten Beruf ergibt sich der Kreis aus Ausbildung, Erfahrung an einer bestimmten Technologie oder einem gültigen Nachweis – und er verengt sich von dort weiter.',
             'Der zweite Unterschied liegt im Verhalten der Kandidatinnen und Kandidaten. Menschen mit gefragter Qualifikation haben in der Regel Arbeit und suchen nicht aktiv; sie reagieren daher wenig auf Anzeigen und haben oft keinen Lebenslauf vorbereitet. Die Ansprache erfolgt deshalb gezielt, und die erste Reaktion fällt meist zurückhaltend aus.',
@@ -267,14 +267,14 @@ export const DE_CONTENT: LocaleCorpus = {
         {
           heading: 'Befähigungsnachweise: was den Eintritt wirklich blockiert',
           body: [
-            'Bei vielen technischen Tätigkeiten entscheidet nicht allein das Können, sondern die Berechtigung zur Ausübung. Die fachliche Befähigung für Arbeiten an elektrischen Anlagen richtet sich nach der Regierungsverordnung über die fachliche Befähigung in der Elektrotechnik, die die zuvor angewandte Verordnung abgelöst hat.',
+            'Bei vielen technischen Tätigkeiten entscheidet nicht allein das Können, sondern die Berechtigung zur Ausübung. Die fachliche Befähigung für Arbeiten an elektrischen Anlagen richtet sich nach der tschechischen Regierungsverordnung Nr. 194/2022 Sb. über die fachliche Befähigung in der Elektrotechnik, die die zuvor angewandte Verordnung abgelöst hat.',
             'Für die Rekrutierung folgt daraus praktisch: Nachweise haben eine Gültigkeit und einen begrenzten Umfang, sie müssen vor dem Eintritt gelesen und nicht nur erfasst werden.',
           ],
         },
         {
           heading: 'Was Sie auf diesen Seiten nicht finden',
           body: [
-            'Wir nennen keine Gehaltsniveaus und keine Besetzungsdauern. Gehaltsspannen für einen bestimmten Beruf und eine bestimmte Region gehören in das offizielle Informationssystem über Durchschnittsverdienste; Arbeitsmarktdaten veröffentlichen das Ministerium für Arbeit und Soziales, das Arbeitsamt der Tschechischen Republik und das Tschechische Statistische Amt; Anforderungsprofile einzelner Berufe führt das nationale Berufsverzeichnis.',
+            'Wir nennen keine Gehaltsniveaus und keine Besetzungsdauern. Gehaltsspannen für einen bestimmten Beruf und eine bestimmte Region gehören in das offizielle Informationssystem über Durchschnittsverdienste; Arbeitsmarktdaten veröffentlichen das tschechische Ministerium für Arbeit und Soziales (MPSV), das Arbeitsamt der Tschechischen Republik (Úřad práce ČR) und das Tschechische Statistische Amt; Anforderungsprofile einzelner Berufe führt das nationale Berufsverzeichnis.',
             'Auch der Umfang dieser Seiten ist begrenzt. Dieser Bereich betrifft technische und fachliche Rollen im Umfeld von Produktion, Lager und Logistik einschließlich der ersten Führungsebene. Die Suche für die Unternehmensleitung, psychodiagnostische Verfahren und die Übernahme einer gesamten Rekrutierungsfunktion gehören nicht dazu.',
           ],
         },
@@ -291,16 +291,16 @@ export const DE_CONTENT: LocaleCorpus = {
     de: {
       title: 'Wie eine Personalagentur funktioniert: Modelle und Regeln',
       description:
-        'Wie eine Personalagentur in Tschechien funktioniert – Personalvermittlung gegenüber Arbeitnehmerüberlassung, die Erlaubnis zur Arbeitsvermittlung und das Dreiecksverhältnis zwischen Agentur, Mitarbeiter und Unternehmen.',
+        'Wie eine Personalagentur in Tschechien funktioniert – Direktvermittlung gegenüber Arbeitnehmerüberlassung, die Erlaubnis zur Arbeitsvermittlung und das Dreiecksverhältnis zwischen Agentur, Mitarbeiter und Unternehmen.',
       h1: 'Wie eine Personalagentur funktioniert: Modelle und Regeln',
       intro:
-        'Eine Personalagentur bringt Unternehmen, die Mitarbeiterinnen und Mitarbeiter suchen, mit Menschen zusammen, die Arbeit suchen. In der Praxis bietet sie zwei Hauptmodelle: die Suche einer Kandidatin oder eines Kandidaten für die direkte Anstellung im Unternehmen (Personalvermittlung) und die Arbeitnehmerüberlassung, bei der die Person bei der Agentur angestellt ist und einem Einsatzunternehmen vorübergehend überlassen wird. Diese Seite erklärt, wie beide Modelle funktionieren und welche Regeln gelten.',
+        'Eine Personalagentur bringt Unternehmen, die Mitarbeiterinnen und Mitarbeiter suchen, mit Menschen zusammen, die Arbeit suchen. In der Praxis bietet sie zwei Hauptmodelle: die Suche einer Kandidatin oder eines Kandidaten für die direkte Anstellung im Unternehmen (Direktvermittlung) und die Arbeitnehmerüberlassung, bei der die Person bei der Agentur angestellt ist und einem Einsatzunternehmen vorübergehend überlassen wird. Diese Seite erklärt, wie beide Modelle funktionieren und welche Regeln gelten.',
       breadcrumb: 'Wie eine Personalagentur funktioniert',
       sections: [
         {
           heading: 'Die zwei Grundmodelle',
           body: [
-            'Bei der Personalvermittlung sucht und sichtet die Agentur Kandidatinnen und Kandidaten vor, und das Unternehmen schließt das Arbeitsverhältnis mit der ausgewählten Person selbst. Bei der Arbeitnehmerüberlassung bleibt die Agentur Arbeitgeber und überlässt die Person dem Einsatzunternehmen vorübergehend.',
+            'Bei der Direktvermittlung sucht und sichtet die Agentur Kandidatinnen und Kandidaten vor, und das Unternehmen schließt das Arbeitsverhältnis mit der ausgewählten Person selbst. Bei der Arbeitnehmerüberlassung bleibt die Agentur Arbeitgeber und überlässt die Person dem Einsatzunternehmen vorübergehend.',
           ],
         },
         {
@@ -361,10 +361,10 @@ export const DE_CONTENT: LocaleCorpus = {
 
   'production-workers': {
     de: {
-      title: 'Produktionsmitarbeiter: Rekrutierung und Personalsicherung',
+      title: 'Produktionsmitarbeiter: Personalgewinnung und personelle Sicherung',
       description:
-        'Produktionsmitarbeiter – wie Sie einen Fertigungsbetrieb personell sichern: Rollen, Rekrutierungswege, Einarbeitung und Kapazitätsplanung für die Kontinuität der Produktion. Ein praktischer Überblick ohne erfundene Zahlen.',
-      h1: 'Produktionsmitarbeiter: Rekrutierung und Personalsicherung',
+        'Einen Fertigungsbetrieb in Tschechien personell sichern: Rollen, Rekrutierungswege, Einarbeitung und Kapazitätsplanung für die Kontinuität der Produktion. Ein praktischer Überblick ohne erfundene Zahlen.',
+      h1: 'Produktionsmitarbeiter: Personalgewinnung und personelle Sicherung',
       intro:
         'Die personelle Sicherung der Produktion verbindet die Besetzung einzelner Stellen mit der Notwendigkeit, den Betrieb auch bei schwankenden Aufträgen und bei Fluktuation aufrechtzuerhalten. Fertigungsunternehmen kombinieren üblicherweise Bedien-, Montage- und Hilfsrollen im Schichtbetrieb, und jede stellt andere Anforderungen an Rekrutierung und Einarbeitung. Diese Seite gibt einen Überblick über das Vorgehen.',
       breadcrumb: 'Produktionsmitarbeiter',
@@ -378,13 +378,13 @@ export const DE_CONTENT: LocaleCorpus = {
         {
           heading: 'Überlegungen zur Rekrutierung',
           body: [
-            'Bei Produktionsstellen bewährt sich eine Kombination der Wege: direkte Rekrutierung für den festen Kern, Arbeitnehmerüberlassung für die flexible Abdeckung von Spitzen und bei Mangelberufen die Gewinnung aus dem Ausland. Die Wahl hängt von der Dringlichkeit ab und davon, ob es sich um einen dauerhaften oder einen zeitweiligen Bedarf handelt.',
+            'Bei Produktionsstellen bewährt sich eine Kombination der Wege: Direktvermittlung für den festen Kern, Arbeitnehmerüberlassung nach tschechischem Recht für die flexible Abdeckung von Spitzen und bei Mangelberufen die Gewinnung aus dem Ausland. Die Wahl hängt von der Dringlichkeit ab und davon, ob es sich um einen dauerhaften oder einen zeitweiligen Bedarf handelt.',
           ],
         },
         {
           heading: 'Einarbeitung und Eintritt',
           body: [
-            'Der Eintritt in die Produktion umfasst die Arbeitsschutzunterweisung, die Einführung in Arbeitsplatz und Maschinen sowie die schrittweise Einarbeitung. Bei Maschinen- und Montagepositionen ist die Zeit bis zur vollen Produktivität länger; es lohnt sich daher, die Einarbeitung gut vorzubereiten und eine feste Ansprechperson zu benennen.',
+            'Der Eintritt in die Produktion umfasst die Arbeitsschutzunterweisung nach tschechischem Recht, die Einführung in Arbeitsplatz und Maschinen sowie die schrittweise Einarbeitung. Bei Maschinen- und Montagepositionen ist die Zeit bis zur vollen Produktivität länger; es lohnt sich daher, die Einarbeitung gut vorzubereiten und eine feste Ansprechperson zu benennen.',
           ],
         },
         {

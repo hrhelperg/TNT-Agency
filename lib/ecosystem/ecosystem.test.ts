@@ -12,6 +12,16 @@ import {
   type ChannelKind,
 } from './registry'
 import { ECOSYSTEM_COPY } from './copy'
+import { CZECH_ROUTES, PUBLISHED_LOCALIZED_ROUTES } from '../locale/registry'
+
+/**
+ * 185 Czech + 20 L0 + the L1 routes published so far.
+ * Derived from the registry rather than hard-coded, so a cluster landing does
+ * not require editing an unrelated test — while still failing if the sitemap
+ * and the registry ever disagree about what is published.
+ */
+const EXPECTED_SITEMAP_URLS = CZECH_ROUTES.length + PUBLISHED_LOCALIZED_ROUTES.length
+
 
 const ROOT = process.cwd()
 const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8')
@@ -332,7 +342,29 @@ describe('Ecosystem — layout safety and performance', () => {
   })
 
   it('keeps the mobile menu clear of banner + header', () => {
-    expect(CSS).toContain('padding-top: calc(88px + var(--eco-total))')
+    // The offset is still derived from the banner height rather than hardcoded,
+    // but it is now the menu's TOP EDGE rather than its padding.
+    //
+    // Padding could not do this job. It scrolls away with the content, so at
+    // maximum scroll the menu's last item slid underneath the opaque header
+    // (z-index 100 against the menu's 99) — on a 640x360 landscape phone 39 of
+    // the primary action's 54px were covered and a real click at its centre hit
+    // the header. Its height also counted toward a border-box floor that stopped
+    // the consent-banner reserve from shrinking the box on short screens.
+    //
+    // The header offset is measured, not asserted. It was `calc(88px + ...)`,
+    // and the header renders 72px tall, so the menu opened 15px below the
+    // header's bottom edge and the page underneath stayed live in the gap: a
+    // real coordinate click in that band navigated away with the menu open, and
+    // a wheel over it scrolled the page behind a surface meant to be modal.
+    // Header.tsx publishes --header-h from the element itself, which also tracks
+    // the .scrolled padding change and any rewrap.
+    expect(CSS).toContain('--mobile-nav-top: calc(var(--header-h, 72px) + var(--eco-total))')
+    expect(CSS).toContain('top: var(--mobile-nav-top)')
+
+    // Guard the class of defect rather than the one instance: a literal header
+    // height in this variable is what produced the click-through band.
+    expect(CSS).not.toMatch(/--mobile-nav-top:\s*calc\(\s*\d+px\s*\+/)
   })
 
   it('respects reduced-motion and adds no animation', () => {
@@ -379,7 +411,7 @@ describe('Ecosystem — must not disturb existing SEO or privacy', () => {
     // the content layer and the locale registry, never from the ecosystem
     // banner, which is exactly what this assertion keeps true.
     const sitemap = read('public/sitemap.xml')
-    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(205)
+    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(EXPECTED_SITEMAP_URLS)
     expect(sitemap).not.toContain('helperg.com')
   })
 

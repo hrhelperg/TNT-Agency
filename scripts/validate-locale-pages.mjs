@@ -24,8 +24,8 @@ const BUILD = path.join(ROOT, '.next/server/pages')
 const ORIGIN = 'https://talentpartnerid.com'
 
 const R = await import('../lib/locale/registry.ts')
-const EN = await import('../lib/locale/content/en.ts')
-const DE = await import('../lib/locale/content/de.ts')
+const EN = await import('../lib/locale/content/en/index.ts')
+const DE = await import('../lib/locale/content/de/index.ts')
 const CONTENT = { en: EN.EN_CONTENT, de: DE.DE_CONTENT }
 
 const pageFile = (route) => {
@@ -193,6 +193,51 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
     }
     if (/<div class="footer__legal">[\s\S]*?hreflang="cs"[\s\S]*?<\/div>/.test(html)) {
       errors.push(`${route}: a legal link is declared hreflang="cs"`)
+    }
+  }
+
+  // 4b. EVERY chrome destination — not only the legal three — must reach this
+  //     locale's own page when one is published.
+  //
+  //     The legal links above were checked because they had already broken once.
+  //     Nothing checked the rest, so when L1 published direct-hire,
+  //     agency-employment and editorial-policy, their three footer entries kept
+  //     pointing at Czech on all 96 localized pages and no gate objected. The
+  //     destination existed, returned 200, and sat one hand-maintained id away.
+  //
+  //     So the assertion is about the READER, not the data: if a localized
+  //     equivalent is published, the rendered page must link to it, and must not
+  //     still be carrying the Czech URL for that same target.
+  for (const [route, locale] of localeRoutes(concepts)) {
+    const raw = readRoute(route)
+    if (!raw) continue
+    // Scope to the chrome. Two other things on the page legitimately carry a
+    // Czech URL and must not be read as a chrome link that failed to localize:
+    // the <head> alternates, and the language switcher, whose whole job is to
+    // point at this page's Czech equivalent. Where a concept's own Czech primary
+    // happens to equal a chrome target's czechHref — agency-employment,
+    // editorial-policy and direct-hire all do — an unscoped check fails the page
+    // for doing exactly the right thing.
+    const html = raw
+      .replace(/<head[\s\S]*?<\/head>/i, '')
+      .replace(/<nav class="locale-switcher[\s\S]*?<\/nav>/g, '')
+    for (const target of [...C.NAV_TARGETS, ...C.FOOTER_TARGETS]) {
+      const concept =
+        (target.conceptId && R.ALL_CONCEPTS.find((c) => c.id === target.conceptId)) ||
+        R.ALL_CONCEPTS.find((c) => c.csPrimary === target.czechHref)
+      if (!concept || !concept.published.includes(locale)) continue
+      const localized = R.urlFor(concept, locale)
+      if (!localized) continue
+      if (!html.includes(`href="${localized}"`)) {
+        errors.push(
+          `${route}: chrome target "${target.key}" has a published ${locale} page (${localized}) but the page does not link to it`,
+        )
+      }
+      if (html.includes(`href="${target.czechHref}" hreflang="cs"`)) {
+        errors.push(
+          `${route}: chrome target "${target.key}" still points at Czech ${target.czechHref} although ${localized} is published`,
+        )
+      }
     }
   }
 
