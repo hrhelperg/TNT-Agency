@@ -95,7 +95,7 @@ export const DE_INDUSTRIES: LocaleCorpus = {
         {
           heading: 'Wie Sie für die Logistik gewinnen',
           body: [
-            'Einen schwankenden Bedarf deckt die Verbindung eines festen Kerns mit flexibler Kapazität einer tschechischen Personalagentur gut ab, die sich zur Spitze erhöhen und danach wieder senken lässt.',
+            'Einen schwankenden Bedarf deckt die Verbindung eines festen Kerns mit flexibler Kapazität einer tschechischen Personalagentur gut ab, die sich zur Spitze erhöhen und danach wieder senken lässt. Eine sofortige Verfügbarkeit sagen wir nicht zu.',
           ],
           list: {
             intro: 'Wie diese Verbindung in der Praxis aussieht:',
@@ -310,14 +310,14 @@ export const DE_INDUSTRIES: LocaleCorpus = {
         {
           heading: 'Planung von Schichten und Anläufen',
           body: [
-            'Die Kapazitätsplanung muss Linientakt, Schichten und Produktionsanläufe in Einklang bringen. Mehrfachqualifizierung, eine Reserve für Ausfälle und die rechtzeitige Sicherung flexibler Kapazität helfen dabei. Bei der Personalgewinnung aus dem Ausland ist mit den Fristen für die Erlaubnisse in Tschechien zu rechnen.',
+            'Die Kapazitätsplanung muss Linientakt, Schichten und Produktionsanläufe in Einklang bringen. Mehrfachqualifizierung, eine Reserve für Ausfälle und die rechtzeitige Sicherung flexibler Kapazität helfen dabei. Eine sofortige Verfügbarkeit sagen wir nicht zu. Bei der Personalgewinnung aus dem Ausland ist mit den Fristen für die Erlaubnisse in Tschechien zu rechnen.',
             'Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.',
           ],
         },
         {
           heading: 'Dauerbetrieb und die Verteilung der Arbeitszeit',
           body: [
-            'Automotive läuft typischerweise mehrschichtig oder durchgehend. Das tschechische Arbeitsgesetzbuch unterscheidet die gleichmäßige von der ungleichmäßigen Verteilung der Arbeitszeit und setzt den Rahmen für Schicht- und Dauerbetriebe, in den der Linienplan passen muss.',
+            'Automotive läuft typischerweise mehrschichtig oder durchgehend. Das tschechische Arbeitsgesetzbuch unterscheidet die gleichmäßige von der ungleichmäßigen Verteilung der Arbeitszeit und setzt den Rahmen für Schicht- und Dauerbetriebe, in den der Linienplan passen muss. Genaue Schichtlängen nennen wir hier nicht; sie legt der Arbeitgeber im gesetzlichen Rahmen fest.',
             'Das Arbeitszeitkonto ist nach dem tschechischen Arbeitsgesetzbuch eine besondere Art der Arbeitszeitverteilung, die sich nur durch einen Kollektivvertrag oder eine innerbetriebliche Vorschrift einführen lässt. Es passt zu Betrieben mit schwankender Produktion – Anläufen neuer Modelle, Schwankungen der Abrufe –, weil es erlaubt, die geleistete Zeit über einen Ausgleichszeitraum auszugleichen. Nachtarbeit und die Nachtschicht haben im tschechischen Arbeitsgesetzbuch eine eigene Regelung, und Nachtarbeitenden steht ein besonderer Schutz zu – mit Blick auf den Arbeitsschutz einschließlich der Beurteilung der gesundheitlichen Eignung.',
             'Die ununterbrochene Ruhe zwischen den Schichten und in der Woche sowie die Arbeitspausen sind vom tschechischen Arbeitsgesetzbuch festgelegte Mindeststandards, die der Schichtplan der Linie einhalten muss; konkrete Längen nennen wir hier nicht. Für Arbeit in der Nacht, am Wochenende, an Feiertagen und für Überstunden stehen den Beschäftigten Zuschläge nach dem tschechischen Arbeitsgesetzbuch zu; konkrete Sätze nennen wir nicht, sie richten sich nach der gesetzlichen Regelung und nach einem etwaigen Kollektivvertrag.',
           ],

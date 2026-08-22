@@ -102,7 +102,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
         'Eine neue Linie oder Schicht besetzen: in welcher Reihenfolge, was vor dem ersten Tag fertig sein muss und woran Anläufe hängen – an der Einarbeitung, nicht an der Suche.',
       h1: 'Personal für den Produktionsanlauf: neue Linie oder neue Schicht besetzen',
       intro:
-        'Der Anlauf einer neuen Linie oder die Eröffnung einer weiteren Schicht unterscheidet sich vom gewöhnlichen Auffüllen in einem Punkt: Es gibt ein festes Datum, das sich aus einem Kunden oder einer Investition ergibt, und dieses Datum lässt sich in der Regel nicht verschieben. Die personelle Vorbereitung muss deshalb rückwärts von diesem Punkt laufen und nicht vorwärts von dem Moment, in dem jemand bemerkt, dass Menschen fehlen. Diese Seite beschreibt, in welcher Reihenfolge beim Anlauf besetzt wird, was vor dem Start fertig sein muss und wo Anläufe am häufigsten hängen bleiben – die schwache Stelle ist die Einarbeitung, nicht die Suche.',
+        'Der Anlauf einer neuen Linie oder die Eröffnung einer weiteren Schicht unterscheidet sich vom gewöhnlichen Auffüllen in einem Punkt: Es gibt ein festes Datum, das sich aus einem Kunden oder einer Investition ergibt, und dieses Datum lässt sich in der Regel nicht verschieben. Die personelle Vorbereitung muss deshalb rückwärts von diesem Punkt laufen und nicht vorwärts von dem Moment, in dem jemand bemerkt, dass Menschen fehlen. Diese Seite beschreibt, in welcher Reihenfolge beim Anlauf besetzt wird, was vor dem Start fertig sein muss und wo Anläufe am häufigsten hängen bleiben – die schwache Stelle ist die Einarbeitung, nicht die Suche. Wie viele Wochen Vorlauf nötig sind, nennen wir hier nicht, weil es von den Berufen und vom Standort abhängt.',
       breadcrumb: 'Produktionsanlauf',
       sections: [
         {
@@ -173,7 +173,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
         'Eine wiederkehrende Spitze planen: worin sich saisonaler Bedarf vom Personalmangel unterscheidet, welche Modelle passen und wie sich bewährte Saisonkräfte halten lassen.',
       h1: 'Saisonale Kapazität: die Spitze abdecken ohne dauerhaften Stellenaufbau',
       intro:
-        'Eine saisonale Spitze hat gegenüber anderen Personalsituationen einen Vorteil: Sie lässt sich vorhersehen. Das Vorweihnachtsgeschäft im Lager, die landwirtschaftliche Saison oder Sommerabstellungen wiederholen sich, und ein Unternehmen weiß in der Regel, wann sie kommen. Dennoch wird die Saisonbesetzung oft erst angegangen, wenn die Spitze beginnt – der teuerste denkbare Zeitpunkt. Diese Seite beschreibt, wie sich saisonaler Bedarf vom Auffüllen des Stammpersonals unterscheidet, welche Beschäftigungsmodelle dafür infrage kommen und wie sich bewährte Menschen für die nächste Saison halten lassen.',
+        'Eine saisonale Spitze hat gegenüber anderen Personalsituationen einen Vorteil: Sie lässt sich vorhersehen. Das Vorweihnachtsgeschäft im Lager, die landwirtschaftliche Saison oder Sommerabstellungen wiederholen sich, und ein Unternehmen weiß in der Regel, wann sie kommen. Dennoch wird die Saisonbesetzung oft erst angegangen, wenn die Spitze beginnt – der teuerste denkbare Zeitpunkt. Diese Seite beschreibt, wie sich saisonaler Bedarf vom Auffüllen des Stammpersonals unterscheidet, welche Beschäftigungsmodelle dafür infrage kommen und wie sich bewährte Menschen für die nächste Saison halten lassen. Wie viel Vorlauf nötig ist, nennen wir hier nicht, weil es vom Beruf und von der Region abhängt.',
       breadcrumb: 'Saisonale Kapazität',
       sections: [
         {

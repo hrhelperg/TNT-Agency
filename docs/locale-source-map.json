@@ -384,11 +384,13 @@
     "cs": "Kolik stojí neobsazená pozice? Univerzální částka neexistuje a neuvádíme ji. Náklad závisí na tom, co dané místo přináší, jak se výpadek pokrývá a jak dlouho trvá. Stránka popisuje metodu, jak si vlastní číslo sestavit z dat vašeho provozu.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "This page offers a method for building your own number. It does not supply a figure."
+     "carriedBy": "This page offers a method for building your own number. It does not supply a figure.",
+     "refusalCarriedBy": "It does not supply a figure."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Diese Seite bietet eine Methode, wie Sie Ihre eigene Zahl aufbauen. Einen konkreten Betrag nennt sie nicht."
+     "carriedBy": "Diese Seite bietet eine Methode, wie Sie Ihre eigene Zahl aufbauen. Einen konkreten Betrag nennt sie nicht.",
+     "refusalCarriedBy": "Einen konkreten Betrag nennt sie nicht."
     }
    },
    "cost-of-vacancy|SEO_PAGES|f1|76778a88": {
@@ -703,11 +705,13 @@
     "cs": "Kde zjistíme mzdovou úroveň konkrétní profese? Použijte Informační systém o průměrném výdělku (ISPV), který uvádí mzdová rozpětí podle profesí a regionů. Vlastní čísla neuvádíme, protože by nebyla ověřitelná a rychle by zastarala.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Salary ranges for a specific occupation and region belong to the official average-earnings information system"
+     "carriedBy": "Salary ranges for a specific occupation and region belong to the official average-earnings information system",
+     "refusalCarriedBy": "We do not publish salary levels or time-to-hire."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Gehaltsspannen für einen bestimmten Beruf und eine bestimmte Region gehören in das offizielle Informationssystem über Durchschnittsverdienste"
+     "carriedBy": "Gehaltsspannen für einen bestimmten Beruf und eine bestimmte Region gehören in das offizielle Informationssystem über Durchschnittsverdienste",
+     "refusalCarriedBy": "Wir nennen keine Gehaltsniveaus und keine Besetzungsdauern."
     }
    }
   }
@@ -967,11 +971,13 @@
     "cs": "Jak rychle obsadit výpadek ve výrobě? Pružnou cestou bývá agenturní zaměstnávání, které umožní reagovat na výkyvy. U nedostatkových profesí pomáhá i nábor ze zahraničí, byť s delší přípravou kvůli oprávněním. Neslibujeme okamžité obsazení.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "agency employment for flexible cover of peaks, and for shortage occupations, recruitment from abroad"
+     "carriedBy": "agency employment for flexible cover of peaks, and for shortage occupations, recruitment from abroad",
+     "refusalCarriedBy": "A practical overview without invented numbers."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Arbeitnehmerüberlassung nach tschechischem Recht für die flexible Abdeckung von Spitzen und bei Mangelberufen die Gewinnung aus dem Ausland"
+     "carriedBy": "Arbeitnehmerüberlassung nach tschechischem Recht für die flexible Abdeckung von Spitzen und bei Mangelberufen die Gewinnung aus dem Ausland",
+     "refusalCarriedBy": "Ein praktischer Überblick ohne erfundene Zahlen."
     }
    },
    "production-workers|SEO_PAGES|f1|a2d8c17a": {
@@ -1372,11 +1378,13 @@
     "cs": "Máme uvádět mzdové rozpětí? Rozhodnutí je na zaměstnavateli. Uvedení rozpětí zpravidla zvyšuje relevanci reakcí a šetří čas oběma stranám. Orientaci podle profese a regionu poskytuje ISPV; konkrétní částky zde neuvádíme.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Whether to state a pay range is the employer’s own decision. Stating one usually raises the relevance of the responses a"
+     "carriedBy": "Whether to state a pay range is the employer’s own decision. Stating one usually raises the relevance of the responses a",
+     "refusalCarriedBy": "We do not state figures here"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Ob Sie eine Entgeltspanne angeben, entscheiden Sie als Arbeitgeber. Eine angegebene Spanne erhöht in der Regel die Relev"
+     "carriedBy": "Ob Sie eine Entgeltspanne angeben, entscheiden Sie als Arbeitgeber. Eine angegebene Spanne erhöht in der Regel die Relev",
+     "refusalCarriedBy": "konkrete Beträge nennen wir hier nicht"
     }
    },
    "role-brief|SEO_PAGES|f3|e9cea401": {
@@ -1601,11 +1609,13 @@
     "cs": "Kolik kandidátů máte v databázi? Žádné číslo neuvádíme. Údaj o velikosti databáze nebo o dosahu není ověřitelný a nevypovídá o tom, kolik lidí s vaší konkrétní kompetencí je v daném regionu dosažitelných. Popsat vám umíme postup, ne velikost seznamu.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "We state no such figure about our reach or the size of any database, and we will not."
+     "carriedBy": "We state no such figure about our reach or the size of any database, and we will not.",
+     "refusalCarriedBy": "We state no such figure about our reach or the size of any database, and we will not."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Wir nennen keine solche Angabe zu unserer Reichweite oder zur Größe irgendeiner Datenbank, und wir werden es nicht tun."
+     "carriedBy": "Wir nennen keine solche Angabe zu unserer Reichweite oder zur Größe irgendeiner Datenbank, und wir werden es nicht tun.",
+     "refusalCarriedBy": "Wir nennen keine solche Angabe zu unserer Reichweite oder zur Größe irgendeiner Datenbank, und wir werden es nicht tun."
     }
    },
    "direct-sourcing|SEO_PAGES|f2|ceb54921": {
@@ -1892,11 +1902,13 @@
     "cs": "Máme zvýšit nabízenou mzdu? Obecně to říct nelze a žádné rozpětí zde neuvádíme. Vycházejte z dat o výdělcích podle profese, kvalifikace a regionu, která poskytuje ISPV, a teprve potom z toho, co pozice ve vašem rozpočtu unese. Mzda navíc nebývá jediným vázaným místem.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Publicly available data on earnings by occupation, qualification and region is published by the Czech average-earnings information system. This page states no amounts."
+     "carriedBy": "Publicly available data on earnings by occupation, qualification and region is published by the Czech average-earnings information system. This page states no amounts.",
+     "refusalCarriedBy": "No wage rates or ranges are stated here."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Öffentlich verfügbare Daten zu Verdiensten nach Beruf, Qualifikation und Region veröffentlicht das tschechische Informationssystem über Durchschnittsverdienste. Diese Seite nennt keine Beträge."
+     "carriedBy": "Öffentlich verfügbare Daten zu Verdiensten nach Beruf, Qualifikation und Region veröffentlicht das tschechische Informationssystem über Durchschnittsverdienste. Diese Seite nennt keine Beträge.",
+     "refusalCarriedBy": "Gehaltssätze oder Spannen nennen wir hier nicht."
     }
    },
    "hard-to-fill-roles|SEO_PAGES|f2|570af660": {
@@ -2068,11 +2080,13 @@
     "cs": "Za jak dlouho nám dodáte kandidáty? Konkrétní datum neslibujeme, protože ho z podstatné části určují třetí strany – dosavadní zaměstnavatel kandidáta, zkušebny, poskytovatel pracovnělékařských služeb a u cizinců správní úřady. Po upřesnění zadání vám popíšeme, jaké kroky mají proběhnout a kde se hledání nachází.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "it is a promise made on behalf of people the promiser does not control — the candidate, their current employer, the examining body, the occupational health provider and an administrative authority"
+     "carriedBy": "it is a promise made on behalf of people the promiser does not control — the candidate, their current employer, the examining body, the occupational health provider and an administrative authority",
+     "refusalCarriedBy": "We promise no date for filling a role."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "ist aber ein Versprechen für Personen, die der Versprechende nicht in der Hand hat – die Kandidatin oder den Kandidaten, deren bisherigen Arbeitgeber, die Prüfstelle, den arbeitsmedizinischen Dienst und eine Behörde"
+     "carriedBy": "ist aber ein Versprechen für Personen, die der Versprechende nicht in der Hand hat – die Kandidatin oder den Kandidaten, deren bisherigen Arbeitgeber, die Prüfstelle, den arbeitsmedizinischen Dienst und eine Behörde",
+     "refusalCarriedBy": "Wir versprechen kein Besetzungsdatum."
     }
    },
    "time-to-hire|SEO_PAGES|f1|391c2412": {
@@ -2116,11 +2130,13 @@
     "cs": "Uvádíte průměrnou dobu obsazení pozice? Neuvádíme. U odborných a technických pozic se zadání liší rozsahem oprávnění, směnností i regionem natolik, že by průměr nesl zdání přesnosti bez skutečné vypovídací hodnoty.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "we do not work with an average time to fill either: for specialist and technical roles individual briefs differ so much that an average would mislead an employer rather than orient them."
+     "carriedBy": "we do not work with an average time to fill either: for specialist and technical roles individual briefs differ so much that an average would mislead an employer rather than orient them.",
+     "refusalCarriedBy": "we do not work with an average time to fill either"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "arbeiten auch nicht mit einer durchschnittlichen Besetzungsdauer: Bei Fach- und technischen Stellen unterscheiden sich die einzelnen Aufträge so stark, dass ein Durchschnitt eher verwirrt als orientiert."
+     "carriedBy": "arbeiten auch nicht mit einer durchschnittlichen Besetzungsdauer: Bei Fach- und technischen Stellen unterscheiden sich die einzelnen Aufträge so stark, dass ein Durchschnitt eher verwirrt als orientiert.",
+     "refusalCarriedBy": "arbeiten auch nicht mit einer durchschnittlichen Besetzungsdauer"
     }
    }
   }
@@ -2656,11 +2672,13 @@
     "cs": "Jakou mzdu u svářečů nabídnout? Konkrétní mzdy ani rozpětí zde neuvádíme. Orientaci podle profesí a regionů poskytuje Informační systém o průměrném výdělku (ISPV). Do rozhodování promítněte i rozsah kvalifikace, režim směn a to, zda jde o dílenskou práci, nebo o montáž mimo provoz.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Pay is the one item this page leaves to you: no wage figures and no ranges are stated here. Orientation by occupation an"
+     "carriedBy": "Pay is the one item this page leaves to you: no wage figures and no ranges are stated here. Orientation by occupation an",
+     "refusalCarriedBy": "no wage figures and no ranges are stated here"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Konkrete Löhne oder Lohnspannen für Schweißer nennt diese Seite nicht. Eine Orientierung nach Berufen und Regionen biete"
+     "carriedBy": "Konkrete Löhne oder Lohnspannen für Schweißer nennt diese Seite nicht. Eine Orientierung nach Berufen und Regionen biete",
+     "refusalCarriedBy": "Konkrete Löhne oder Lohnspannen für Schweißer nennt diese Seite nicht."
     }
    },
    "welders|SEO_PAGES|f4|b22caf30": {
@@ -2892,12 +2910,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "No wages and no times to fill are stated here.",
-     "reason": "The refusal to state amounts or ranges is explicit in the intro; only the naming of ISPV/MPSV/Labour Office as where to look is not repeated on this particular page."
+     "reason": "The refusal to state amounts or ranges is explicit in the intro; only the naming of ISPV/MPSV/Labour Office as where to look is not repeated on this particular page.",
+     "refusalCarriedBy": "No wages and no times to fill are stated here."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Löhne und Besetzungsfristen nennen wir hier nicht.",
-     "reason": "The refusal is explicit in the German intro as well; the ISPV/MPSV/Arbeitsamt pointers are the only part of the answer not restated here."
+     "reason": "The refusal is explicit in the German intro as well; the ISPV/MPSV/Arbeitsamt pointers are the only part of the answer not restated here.",
+     "refusalCarriedBy": "Löhne und Besetzungsfristen nennen wir hier nicht."
     }
    }
   }
@@ -3137,11 +3157,13 @@
     "cs": "Uvádíte mzdy elektrikářů? Ne, mzdové údaje nevymýšlíme. Členěná data o výdělcích podle povolání zveřejňuje ISPV; aktuální obraz trhu práce MPSV, Úřad práce ČR a ČSÚ.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "What this page does not supply is the pay itself: we state no wage figures for electricians and do not invent them. Earn"
+     "carriedBy": "What this page does not supply is the pay itself: we state no wage figures for electricians and do not invent them. Earn",
+     "refusalCarriedBy": "What this page does not supply is the pay itself: we state no wage figures for electricians and do not invent them."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Löhne für Elektriker nennen wir hier nicht, und wir denken uns keine Lohnangaben aus. Gegliederte Daten zu den Verdienst"
+     "carriedBy": "Löhne für Elektriker nennen wir hier nicht, und wir denken uns keine Lohnangaben aus. Gegliederte Daten zu den Verdienst",
+     "refusalCarriedBy": "Löhne für Elektriker nennen wir hier nicht, und wir denken uns keine Lohnangaben aus."
     }
    }
   }
@@ -3480,11 +3502,13 @@
     "cs": "Uvádíte mzdová rozpětí pro pozice v údržbě? Ne, žádné částky ani rozpětí zde neuvádíme a nedovozujeme je. Úrovně výdělků podle povolání zveřejňuje Informační systém o průměrném výdělku (ISPV) a obsah jednotlivých povolání popisuje Národní soustava povolání. U údržby počítejte s tím, že odměna za pracovní pohotovost je podle zákoníku práce samostatné plnění vedle mzdy, a v nabídce je proto vhodné obojí odlišit.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "No amounts and no ranges for these roles are stated here, and we do not derive them. Levels of earnings by occupation ar"
+     "carriedBy": "No amounts and no ranges for these roles are stated here, and we do not derive them. Levels of earnings by occupation ar",
+     "refusalCarriedBy": "No amounts and no ranges for these roles are stated here, and we do not derive them."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Beträge oder Spannen für Stellen in der Instandhaltung nennt diese Seite nicht und leitet sie auch nicht ab. Die Höhe de"
+     "carriedBy": "Beträge oder Spannen für Stellen in der Instandhaltung nennt diese Seite nicht und leitet sie auch nicht ab. Die Höhe de",
+     "refusalCarriedBy": "Beträge oder Spannen für Stellen in der Instandhaltung nennt diese Seite nicht und leitet sie auch nicht ab."
     }
    }
   }
@@ -4024,11 +4048,13 @@
     "cs": "Uvádíte mzdová rozpětí pro mistry a vedoucí směn? Ne, mzdové údaje si nedovozujeme a na stránce je neuvádíme. Podklady k výdělkům podle povolání spravuje Informační systém o průměrném výdělku (ISPV), popis požadavků povolání Národní soustava povolání. U první linie vedení je vedle výdělku podstatné i to, jaká rozhodovací pravomoc je s rolí spojena – kandidáti obojí posuzují společně.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Wage figures are not stated on this page, and we do not derive them. The source material on earnings by occupation is ma"
+     "carriedBy": "Wage figures are not stated on this page, and we do not derive them. The source material on earnings by occupation is ma",
+     "refusalCarriedBy": "Wage figures are not stated on this page, and we do not derive them."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Lohnspannen für Meister und Schichtleiter leiten wir nicht ab und nennen sie auf dieser Seite nicht. Die Unterlagen zu d"
+     "carriedBy": "Lohnspannen für Meister und Schichtleiter leiten wir nicht ab und nennen sie auf dieser Seite nicht. Die Unterlagen zu d",
+     "refusalCarriedBy": "Lohnspannen für Meister und Schichtleiter leiten wir nicht ab und nennen sie auf dieser Seite nicht."
     }
    }
   }
@@ -4237,11 +4263,13 @@
     "cs": "Uvádíte mzdové úrovně těchto pozic? Ne. Mzdové údaje nevymýšlíme. Orientaci poskytuje Informační systém o průměrném výdělku (ISPV) provozovaný MPSV, kde lze pracovat s údaji podle profese a regionu.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "What the brief will not take from this page is a wage level. None is stated for these roles and we do not invent them; o"
+     "carriedBy": "What the brief will not take from this page is a wage level. None is stated for these roles and we do not invent them; o",
+     "refusalCarriedBy": "None is stated for these roles and we do not invent them; orientation is provided by the Czech average-earnings information system (ISPV), operated by"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Lohnniveaus für diese Positionen nennen wir nicht; Lohnangaben denken wir uns nicht aus. Eine Orientierung bietet das ts"
+     "carriedBy": "Lohnniveaus für diese Positionen nennen wir nicht; Lohnangaben denken wir uns nicht aus. Eine Orientierung bietet das ts",
+     "refusalCarriedBy": "Lohnniveaus für diese Positionen nennen wir nicht; Lohnangaben denken wir uns nicht aus."
     }
    },
    "automation-technicians|SEO_PAGES|f4|7f4f737a": {
@@ -4406,11 +4434,13 @@
     "cs": "Uvádíte platy inženýrských pozic? Ne. Konkrétní mzdové úrovně zde neuvádíme. Orientaci podle profese a regionu poskytuje ISPV; celkové náklady na pozici si můžete propočítat v naší kalkulačce.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "One item the brief will not find here is the wage: no specific pay levels for engineering roles are stated on this page."
+     "carriedBy": "One item the brief will not find here is the wage: no specific pay levels for engineering roles are stated on this page.",
+     "refusalCarriedBy": "One item the brief will not find here is the wage: no specific pay levels for engineering roles are stated on this page."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Konkrete Lohnniveaus für Ingenieurpositionen nennt diese Seite nicht. Eine Orientierung nach Beruf und Region bietet das"
+     "carriedBy": "Konkrete Lohnniveaus für Ingenieurpositionen nennt diese Seite nicht. Eine Orientierung nach Beruf und Region bietet das",
+     "refusalCarriedBy": "Konkrete Lohnniveaus für Ingenieurpositionen nennt diese Seite nicht."
     }
    }
   }
@@ -4827,11 +4857,13 @@
     "en": {
      "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
      "carriedBy": "No pay or market figures are stated here; those belong in official sources.",
-     "reason": "The answer has two moves: the refusal to invent pay or market figures, and a redirect to the official Czech sources. The page's intro carries both - it states outright that no pay or market figures appear here and sends the reader to official sources - so the guidance a reader acts on survives intact; only the enumeration of which bodies (earnings information system, ministry, labour office, statistical office) is folded into the phrase 'official sources', and those same bodies are named elsewhere in the corpus."
+     "reason": "The answer has two moves: the refusal to invent pay or market figures, and a redirect to the official Czech sources. The page's intro carries both - it states outright that no pay or market figures appear here and sends the reader to official sources - so the guidance a reader acts on survives intact; only the enumeration of which bodies (earnings information system, ministry, labour office, statistical office) is folded into the phrase 'official sources', and those same bodies are named elsewhere in the corpus.",
+     "refusalCarriedBy": "No pay or market figures are stated here; those belong in official sources."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Lohnspannen für die Metallberufe nennen wir nicht, und Lohndaten denken wir uns nicht aus. Gegliederte Angaben zu den Ve"
+     "carriedBy": "Lohnspannen für die Metallberufe nennen wir nicht, und Lohndaten denken wir uns nicht aus. Gegliederte Angaben zu den Ve",
+     "refusalCarriedBy": "Lohnspannen für die Metallberufe nennen wir nicht, und Lohndaten denken wir uns nicht aus."
     }
    }
   }
@@ -5250,11 +5282,13 @@
     "cs": "Kdy potřebujeme vlastního celního deklaranta? Tehdy, když zboží překračuje hranici unijního celního území a agendu neřeší externí zástupce. Rozsah role popište podle režimů a směrů toku, které skutečně máte. Konkrétní celní pravidla a podmínky zastupování ověřujte u celní správy; zde je neuvádíme.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Where goods cross the boundary of the EU customs territory, you need someone who can prepare and lodge customs documents"
+     "carriedBy": "Where goods cross the boundary of the EU customs territory, you need someone who can prepare and lodge customs documents",
+     "refusalCarriedBy": "Specific conditions, the scope of representation, deadlines and fees are not stated here — customs rules derive from EU legislation and its Czech impl"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Überschreitet Ware die Grenze des Zollgebiets der Union, brauchen Sie jemanden, der Zolldokumente vorbereiten und abgeben"
+     "carriedBy": "Überschreitet Ware die Grenze des Zollgebiets der Union, brauchen Sie jemanden, der Zolldokumente vorbereiten und abgeben",
+     "refusalCarriedBy": "Konkrete Bedingungen, den Umfang der Vertretung, Fristen oder Gebühren nennen wir hier nicht – die Zollregeln gehen auf das Unionsrecht und seine tsch"
     }
    },
    "logistics-specialists|SEO_PAGES|f3|1f8d1620": {
@@ -5274,11 +5308,13 @@
     "cs": "Uvádíte mzdy pro tyto pozice? Ne. Žádné částky ani rozpětí zde neuvádíme. Pro mzdové srovnání podle profesí a kvalifikace použijte ISPV; ostatní údaje o trhu práce zveřejňují MPSV, Úřad práce ČR a ČSÚ.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Publicly available data on earnings by occupation is provided by the Czech average earnings information system; this page states no amounts."
+     "carriedBy": "Publicly available data on earnings by occupation is provided by the Czech average earnings information system; this page states no amounts.",
+     "refusalCarriedBy": "Publicly available data on earnings by occupation is provided by the Czech average earnings information system; this page states no amounts."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Öffentlich zugängliche Daten zu Verdiensten nach Berufen liefert das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV); diese Seite nennt keine Beträge."
+     "carriedBy": "Öffentlich zugängliche Daten zu Verdiensten nach Berufen liefert das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV); diese Seite nennt keine Beträge.",
+     "refusalCarriedBy": "diese Seite nennt keine Beträge"
     }
    }
   }
@@ -5477,11 +5513,13 @@
     "cs": "Uvádíte obvyklé mzdy v nákupu? Ne. Konkrétní částky zde neuvádíme. Orientaci podle profese a regionu poskytuje ISPV provozovaný MPSV.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "What this page does not do is put figures to those levels: no specific amounts are stated here. Orientation by occupatio"
+     "carriedBy": "What this page does not do is put figures to those levels: no specific amounts are stated here. Orientation by occupatio",
+     "refusalCarriedBy": "What this page does not do is put figures to those levels: no specific amounts are stated here."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Übliche Löhne im Einkauf nennen wir nicht; konkrete Beträge finden Sie auf dieser Seite nicht. Eine Orientierung nach Be"
+     "carriedBy": "Übliche Löhne im Einkauf nennen wir nicht; konkrete Beträge finden Sie auf dieser Seite nicht. Eine Orientierung nach Be",
+     "refusalCarriedBy": "Übliche Löhne im Einkauf nennen wir nicht; konkrete Beträge finden Sie auf dieser Seite nicht."
     }
    }
   }
@@ -5576,13 +5614,15 @@
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
      "sharedEvidence": true,
-     "reason": "Both halves of the answer — the refusal and the three official sources — stand verbatim in the capacity-planning section. The same standing sentence closes each of the five industry pages."
+     "reason": "Both halves of the answer — the refusal and the three official sources — stand verbatim in the capacity-planning section. The same standing sentence closes each of the five industry pages.",
+     "refusalCarriedBy": "It states no wages and no vacancy counts; it is a practical framework a company fills with its own verified data."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
      "sharedEvidence": true,
-     "reason": "Verweigerung und die drei amtlichen Quellen stehen wörtlich; derselbe Satz schließt jede der fünf Branchenseiten."
+     "reason": "Verweigerung und die drei amtlichen Quellen stehen wörtlich; derselbe Satz schließt jede der fünf Branchenseiten.",
+     "refusalCarriedBy": "Löhne und Zahlen offener Stellen nennen wir nicht; es ist ein praktischer Rahmen, den jedes Unternehmen mit eigenen, geprüften Daten füllt."
     }
    }
   }
@@ -5711,12 +5751,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "A fluctuating requirement is well covered by a combination of a permanent core and flexible agency capacity, which can be raised for a peak and lowered outside it.",
-     "reason": "The list item 'Recruitment planned in good time, ahead of the peak' and the intro's 'recruitment is planned ahead of a seasonal peak rather than during it' carry the planning-ahead half and, with it, the refusal to imply instant availability."
+     "reason": "The list item 'Recruitment planned in good time, ahead of the peak' and the intro's 'recruitment is planned ahead of a seasonal peak rather than during it' carry the planning-ahead half and, with it, the refusal to imply instant availability.",
+     "refusalCarriedBy": "Immediate availability is not something we promise."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Einen schwankenden Bedarf deckt die Verbindung eines festen Kerns mit flexibler Kapazität einer tschechischen Personalagentur gut ab, die sich zur Spitze erhöhen und danach wieder senken lässt.",
-     "reason": "Der Listenpunkt 'Die Personalgewinnung mit Vorlauf vor der Spitze planen' und der Intro-Satz zur Planung vor der Spitze tragen den Vorlauf und damit die Absage an sofortige Verfügbarkeit."
+     "reason": "Der Listenpunkt 'Die Personalgewinnung mit Vorlauf vor der Spitze planen' und der Intro-Satz zur Planung vor der Spitze tragen den Vorlauf und damit die Absage an sofortige Verfügbarkeit.",
+     "refusalCarriedBy": "Eine sofortige Verfügbarkeit sagen wir nicht zu."
     }
    },
    "logistics-workers|SEO_PAGES|f3|c0a0a46d": {
@@ -5740,13 +5782,15 @@
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
      "sharedEvidence": true,
-     "reason": "The refusal of figures and the three official sources stand verbatim in the capacity-planning section of the logistics page."
+     "reason": "The refusal of figures and the three official sources stand verbatim in the capacity-planning section of the logistics page.",
+     "refusalCarriedBy": "It states no wages and no vacancy counts; it is a practical framework a company fills with its own verified data."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
      "sharedEvidence": true,
-     "reason": "Verweigerung und amtliche Quellen stehen wörtlich im Abschnitt zur Kapazitätsplanung der Logistikseite."
+     "reason": "Verweigerung und amtliche Quellen stehen wörtlich im Abschnitt zur Kapazitätsplanung der Logistikseite.",
+     "refusalCarriedBy": "Löhne und Zahlen offener Stellen nennen wir nicht; es ist ein praktischer Rahmen, den jedes Unternehmen mit eigenen, geprüften Daten füllt."
     }
    }
   }
@@ -5838,13 +5882,15 @@
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
      "sharedEvidence": true,
-     "reason": "The wage refusal and the three official sources stand verbatim in the construction page's planning section."
+     "reason": "The wage refusal and the three official sources stand verbatim in the construction page's planning section.",
+     "refusalCarriedBy": "It states no wages and no counts; it is a practical framework for construction firms that takes account of project working, seasonality and the need f"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
      "sharedEvidence": true,
-     "reason": "Lohnverweigerung und amtliche Quellen stehen wörtlich im Planungsabschnitt der Bauseite."
+     "reason": "Lohnverweigerung und amtliche Quellen stehen wörtlich im Planungsabschnitt der Bauseite.",
+     "refusalCarriedBy": "Löhne und Zahlen nennen wir nicht; es ist ein praktischer Rahmen für Bauunternehmen, der Projektarbeit, Saisonalität und den Bedarf an qualifizierten "
     }
    }
   }
@@ -5999,13 +6045,15 @@
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
      "sharedEvidence": true,
-     "reason": "The refusal of wages and counts and the three official sources stand verbatim in the continuity-planning section."
+     "reason": "The refusal of wages and counts and the three official sources stand verbatim in the continuity-planning section.",
+     "refusalCarriedBy": "It states no wages and no counts; it is a practical framework for food companies that takes account of hygiene, continuity and shift working, and of w"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
      "sharedEvidence": true,
-     "reason": "Verweigerung von Löhnen und Zahlen sowie die amtlichen Quellen stehen wörtlich im Abschnitt zur Betriebskontinuität."
+     "reason": "Verweigerung von Löhnen und Zahlen sowie die amtlichen Quellen stehen wörtlich im Abschnitt zur Betriebskontinuität.",
+     "refusalCarriedBy": "Löhne und Zahlen nennen wir nicht; es ist ein praktischer Rahmen für Lebensmittelunternehmen, der Hygiene, Kontinuität und Schichtbetrieb sowie die An"
     }
    }
   }
@@ -6105,12 +6153,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "The Czech Labour Code distinguishes even from uneven distribution of working time and sets the framework for shift and continuous operations",
-     "reason": "The same section adds 'Uninterrupted rest between shifts and in the week, and breaks at work, are minimum standards set by the Czech Labour Code' plus 'No specific lengths are stated here', and the list item that the employer sets the roster within the limits of the law."
+     "reason": "The same section adds 'Uninterrupted rest between shifts and in the week, and breaks at work, are minimum standards set by the Czech Labour Code' plus 'No specific lengths are stated here', and the list item that the employer sets the roster within the limits of the law.",
+     "refusalCarriedBy": "No specific lengths are stated here."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Das tschechische Arbeitsgesetzbuch unterscheidet die gleichmäßige von der ungleichmäßigen Verteilung der Arbeitszeit und setzt den Rahmen für Schicht- und Dauerbetriebe",
-     "reason": "Derselbe Abschnitt nennt die Mindeststandards für Ruhezeiten, 'konkrete Längen nennen wir hier nicht' und den Listenpunkt, dass der Arbeitgeber den Schichtplan in den Grenzen des Gesetzes setzt."
+     "reason": "Derselbe Abschnitt nennt die Mindeststandards für Ruhezeiten, 'konkrete Längen nennen wir hier nicht' und den Listenpunkt, dass der Arbeitgeber den Schichtplan in den Grenzen des Gesetzes setzt.",
+     "refusalCarriedBy": "Genaue Schichtlängen nennen wir hier nicht"
     }
    },
    "automotive-workers|SEO_PAGES|f1|cc19e9d8": {
@@ -6147,12 +6197,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Cross-trained cover, a margin for gaps and securing flexible capacity in good time all help.",
-     "reason": "The permanent-core half stands in the recruiting list ('A permanent core for quality and continuity', 'Flexible capacity for ramp-ups and swings in production'), and the training section carries the repeatable onboarding: 'A prepared and repeatable onboarding matters most during a production ramp-up'. Securing capacity 'in good time' carries the refusal of instant availability."
+     "reason": "The permanent-core half stands in the recruiting list ('A permanent core for quality and continuity', 'Flexible capacity for ramp-ups and swings in production'), and the training section carries the repeatable onboarding: 'A prepared and repeatable onboarding matters most during a production ramp-up'. Securing capacity 'in good time' carries the refusal of instant availability.",
+     "refusalCarriedBy": "Immediate availability is not something we promise."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Mehrfachqualifizierung, eine Reserve für Ausfälle und die rechtzeitige Sicherung flexibler Kapazität helfen dabei.",
-     "reason": "Fester Kern und flexible Kapazität stehen in der Liste; das wiederholbare Onboarding im Satz 'Ein vorbereitetes und wiederholbares Onboarding ist besonders beim Produktionsanlauf ... wichtig.'"
+     "reason": "Fester Kern und flexible Kapazität stehen in der Liste; das wiederholbare Onboarding im Satz 'Ein vorbereitetes und wiederholbares Onboarding ist besonders beim Produktionsanlauf ... wichtig.'",
+     "refusalCarriedBy": "Eine sofortige Verfügbarkeit sagen wir nicht zu."
     }
    },
    "automotive-workers|SEO_PAGES|f4|04790755": {
@@ -6162,13 +6214,15 @@
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.",
      "sharedEvidence": true,
-     "reason": "The refusal of wages and counts and the three official sources stand verbatim in the shift-and-ramp-up planning section."
+     "reason": "The refusal of wages and counts and the three official sources stand verbatim in the shift-and-ramp-up planning section.",
+     "refusalCarriedBy": "It states no wages and no counts; it is a practical framework for companies in the sector that takes account of line work, quality and shift working, "
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.",
      "sharedEvidence": true,
-     "reason": "Verweigerung von Löhnen und Zahlen sowie die amtlichen Quellen stehen wörtlich im Abschnitt zur Planung von Schichten und Anläufen."
+     "reason": "Verweigerung von Löhnen und Zahlen sowie die amtlichen Quellen stehen wörtlich im Abschnitt zur Planung von Schichten und Anläufen.",
+     "refusalCarriedBy": "Löhne und Zahlen nennen wir nicht; es ist ein praktischer Rahmen für Unternehmen der Branche, der Linienarbeit, Qualität und Schichtbetrieb sowie die "
     }
    }
   }
@@ -6278,12 +6332,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "The numbers used are model situations for planning, not descriptions of work delivered; no specific figures or lead times are stated here.",
-     "reason": "The refusal to promise counts or lead times stands here; the dependence on occupation, location and conditions stands in 'How large a margin depends on the occupation, the location and the conditions', and the CTA invites the brief first."
+     "reason": "The refusal to promise counts or lead times stands here; the dependence on occupation, location and conditions stands in 'How large a margin depends on the occupation, the location and the conditions', and the CTA invites the brief first.",
+     "refusalCarriedBy": "The numbers used are model situations for planning, not descriptions of work delivered; no specific figures or lead times are stated here."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Die genannten Zahlen sind Modellsituationen für die Planung und keine Beschreibung durchgeführter Aufträge; konkrete Zahlen und Fristen nennen wir hier nicht.",
-     "reason": "Die Abhängigkeit von Beruf, Standort und Bedingungen steht in 'Wie groß die Reserve sein sollte, hängt von Beruf, Standort und Bedingungen ab.'"
+     "reason": "Die Abhängigkeit von Beruf, Standort und Bedingungen steht in 'Wie groß die Reserve sein sollte, hängt von Beruf, Standort und Bedingungen ab.'",
+     "refusalCarriedBy": "Die genannten Zahlen sind Modellsituationen für die Planung und keine Beschreibung durchgeführter Aufträge; konkrete Zahlen und Fristen nennen wir hie"
     }
    },
    "volume-hiring|SEO_PAGES|f1|78860dc4": {
@@ -6292,12 +6348,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "These have their own lead times, and adding recruiters does not shorten them.",
-     "reason": "Carries the answer's core claim that the timeline is not set by recruitment. The determinants land alongside it: interview and training capacity ('someone has to run interviews full time, and training can no longer be left to normal operations'), occupational-health booking lead times in the capacity list, and permits ('it has its own timing governed by permits, which cannot be shortened'). Only candidates' notice periods are not enumerated on this page."
+     "reason": "Carries the answer's core claim that the timeline is not set by recruitment. The determinants land alongside it: interview and training capacity ('someone has to run interviews full time, and training can no longer be left to normal operations'), occupational-health booking lead times in the capacity list, and permits ('it has its own timing governed by permits, which cannot be shortened'). Only candidates' notice periods are not enumerated on this page.",
+     "refusalCarriedBy": "The numbers used are model situations for planning, not descriptions of work delivered; no specific figures or lead times are stated here."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Diese Dinge haben eigene Vorlaufzeiten, die sich nicht dadurch verkürzen, dass man mehr Kapazität in die Personalgewinnung steckt.",
-     "reason": "Kern der Antwort — die Frist bestimmt nicht die Suche. Gesprächs- und Einarbeitungskapazität, Vorlaufzeiten beim arbeitsmedizinischen Dienst und die Erlaubnisfristen stehen daneben; nur die Kündigungsfristen sind auf dieser Seite nicht aufgezählt."
+     "reason": "Kern der Antwort — die Frist bestimmt nicht die Suche. Gesprächs- und Einarbeitungskapazität, Vorlaufzeiten beim arbeitsmedizinischen Dienst und die Erlaubnisfristen stehen daneben; nur die Kündigungsfristen sind auf dieser Seite nicht aufgezählt.",
+     "refusalCarriedBy": "Die genannten Zahlen sind Modellsituationen für die Planung und keine Beschreibung durchgeführter Aufträge; konkrete Zahlen und Fristen nennen wir hie"
     }
    },
    "volume-hiring|SEO_PAGES|f2|b2aa4326": {
@@ -6423,12 +6481,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "it becomes clear that the first roles to fill are not the operators but the people who will train them",
-     "reason": "The fixed order is then spelt out in the ordered list — supervision and key technical roles, then setters and maintenance, last the operator roles. The page states no week count anywhere, matching the Czech refusal."
+     "reason": "The fixed order is then spelt out in the ordered list — supervision and key technical roles, then setters and maintenance, last the operator roles. The page states no week count anywhere, matching the Czech refusal.",
+     "refusalCarriedBy": "How many weeks of lead time to allow is not stated here"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "So betrachtet zeigt sich, dass zuerst nicht die Bedienpositionen zu besetzen sind, sondern die Menschen, die die anderen einarbeiten.",
-     "reason": "Die feste Reihenfolge steht danach in der nummerierten Liste; eine Wochenzahl nennt die Seite nirgends."
+     "reason": "Die feste Reihenfolge steht danach in der nummerierten Liste; eine Wochenzahl nennt die Seite nirgends.",
+     "refusalCarriedBy": "Wie viele Wochen Vorlauf nötig sind, nennen wir hier nicht"
     }
    },
    "production-ramp-up|SEO_PAGES|f1|ad9f76eb": {
@@ -6532,12 +6592,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "they stay in contact with people who have already worked for them, and approach them ahead of the next season",
-     "reason": "Carries the 'approach former workers in advance' half. The 'start before the peak' half stands in the intro ('seasonal hiring is often addressed once the peak has begun, which is the most expensive possible moment'), the own-data half in 'The best basis for a seasonal plan is your own records from previous years', and the refusal in 'No figures are stated here, because they differ from region to region.'"
+     "reason": "Carries the 'approach former workers in advance' half. The 'start before the peak' half stands in the intro ('seasonal hiring is often addressed once the peak has begun, which is the most expensive possible moment'), the own-data half in 'The best basis for a seasonal plan is your own records from previous years', and the refusal in 'No figures are stated here, because they differ from region to region.'",
+     "refusalCarriedBy": "How far ahead to begin is not stated here"
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Sie halten Kontakt zu Menschen, die schon einmal bei ihnen gearbeitet haben, und sprechen sie vor der nächsten Saison rechtzeitig an.",
-     "reason": "Der Vorlauf steht im Intro ('der teuerste denkbare Zeitpunkt'), die eigenen Daten in 'Die beste Grundlage für einen Saisonplan sind die eigenen Aufzeichnungen der Vorjahre', die Verweigerung in 'Konkrete Zahlen nennen wir hier nicht, weil sie sich von Region zu Region unterscheiden.'"
+     "reason": "Der Vorlauf steht im Intro ('der teuerste denkbare Zeitpunkt'), die eigenen Daten in 'Die beste Grundlage für einen Saisonplan sind die eigenen Aufzeichnungen der Vorjahre', die Verweigerung in 'Konkrete Zahlen nennen wir hier nicht, weil sie sich von Region zu Region unterscheiden.'",
+     "refusalCarriedBy": "Wie viel Vorlauf nötig ist, nennen wir hier nicht"
     }
    },
    "seasonal-capacity|SEO_PAGES|f1|95f25283": {
@@ -6574,12 +6636,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "A company already holds that data, and it is more reliable than any general estimate.",
-     "reason": "Rejects a general number and points to the company's own records; the list adds 'How many extra people were genuinely needed, and for how long', and the same section states no figures are given because they differ by region."
+     "reason": "Rejects a general number and points to the company's own records; the list adds 'How many extra people were genuinely needed, and for how long', and the same section states no figures are given because they differ by region.",
+     "refusalCarriedBy": "No figures are stated here, because they differ from region to region."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "Diese Daten hat ein Unternehmen bereits, und sie sind verlässlicher als jede allgemeine Schätzung.",
-     "reason": "Weist die allgemeine Zahl zurück; die Liste ergänzt, wie viele Menschen in vergangenen Saisons tatsächlich zusätzlich gebraucht wurden und wie lange."
+     "reason": "Weist die allgemeine Zahl zurück; die Liste ergänzt, wie viele Menschen in vergangenen Saisons tatsächlich zusätzlich gebraucht wurden und wie lange.",
+     "refusalCarriedBy": "Konkrete Zahlen nennen wir hier nicht, weil sie sich von Region zu Region unterscheiden."
     }
    }
   }
@@ -6691,12 +6755,14 @@
     "en": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "no general figure is stated here, because it would hold for nobody",
-     "reason": "The 'watch your own operation instead' half stands in 'Absence is not evenly distributed. It usually concentrates in particular workplaces, shifts or groups of people, and that distribution is the most valuable information a company has.'"
+     "reason": "The 'watch your own operation instead' half stands in 'Absence is not evenly distributed. It usually concentrates in particular workplaces, shifts or groups of people, and that distribution is the most valuable information a company has.'",
+     "refusalCarriedBy": "No general percentage."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
      "carriedBy": "eine allgemeine Zahl nennen wir nicht, weil sie für niemanden gälte",
-     "reason": "Die zweite Hälfte steht in 'Abwesenheit ist nicht gleichmäßig verteilt. Sie konzentriert sich meist auf bestimmte Arbeitsplätze, Schichten oder Gruppen, und genau diese Verteilung ist die wertvollste Information, die ein Unternehmen hat.'"
+     "reason": "Die zweite Hälfte steht in 'Abwesenheit ist nicht gleichmäßig verteilt. Sie konzentriert sich meist auf bestimmte Arbeitsplätze, Schichten oder Gruppen, und genau diese Verteilung ist die wertvollste Information, die ein Unternehmen hat.'",
+     "refusalCarriedBy": "Ohne allgemeine Zahl."
     }
    },
    "absence-cover|SEO_PAGES|f1|d99390f9": {
@@ -6728,11 +6794,13 @@
     "cs": "Jak velkou rezervu si držet? Vychází z vlastní míry výpadků na konkrétních pracovištích. Obecné doporučení neuvádíme; levnější než držet volnou kapacitu bývá zvýšit zastupitelnost stávajících lidí.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "how large it should be depends on the actual rate of gaps in a particular operation; no general figure is stated here"
+     "carriedBy": "how large it should be depends on the actual rate of gaps in a particular operation; no general figure is stated here",
+     "refusalCarriedBy": "A margin can take several forms, and how large it should be depends on the actual rate of gaps in a particular operation; no general figure is stated "
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "hängt von der tatsächlichen Ausfallquote im konkreten Betrieb ab; eine allgemeine Zahl nennen wir nicht"
+     "carriedBy": "hängt von der tatsächlichen Ausfallquote im konkreten Betrieb ab; eine allgemeine Zahl nennen wir nicht",
+     "refusalCarriedBy": "Wie groß sie sein sollte, hängt von der tatsächlichen Ausfallquote im konkreten Betrieb ab; eine allgemeine Zahl nennen wir nicht, weil sie für nieman"
     }
    }
   }
@@ -6971,11 +7039,13 @@
     "cs": "Kolik přímý nábor stojí? Ceny ani procenta zde neuvádíme. Odměna se u přímého náboru obvykle váže na nástup a odvozuje od sjednaného výdělku kandidáta; strukturu modelů popisuje stránka o ceně služeb a vlastní propočet umožní kalkulačka nákladů.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "usually tied to the chosen candidate starting and derived from their agreed earnings"
+     "carriedBy": "usually tied to the chosen candidate starting and derived from their agreed earnings",
+     "refusalCarriedBy": "No amounts or percentages are stated here."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "ist die Vergütung der Agentur üblicherweise an den Eintritt der ausgewählten Person gebunden und leitet sich aus deren vereinbartem Verdienst ab"
+     "carriedBy": "ist die Vergütung der Agentur üblicherweise an den Eintritt der ausgewählten Person gebunden und leitet sich aus deren vereinbartem Verdienst ab",
+     "refusalCarriedBy": "Beträge oder Prozentsätze nennen wir hier nicht."
     }
    },
    "direct-hire|SEO_PAGES|f4|1514aed6": {
@@ -7776,11 +7846,13 @@
     "cs": "Slibujete náhradu, když zaměstnanec brzy odejde? Předem nic takového neslibujeme. Podmínky náhrady nebo vrácení části odměny jsou smluvní ujednání – s určeným rozhodným obdobím, důvody a případy, které nárok vylučují. Sjednávají se před zahájením spolupráce, ne po odchodu.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "It is not a promise that no departure will occur — nobody can give such a promise. It is an agreement on what happens if one does."
+     "carriedBy": "It is not a promise that no departure will occur — nobody can give such a promise. It is an agreement on what happens if one does.",
+     "refusalCarriedBy": "It is not a promise that no departure will occur — nobody can give such a promise."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben."
+     "carriedBy": "Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben.",
+     "refusalCarriedBy": "Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben."
     }
    },
    "agency-contract|SEO_PAGES|f2|ee9bba7f": {
@@ -7949,11 +8021,13 @@
     "cs": "Slibujete konkrétní výsledky nebo úspory? Ne. Neuvádíme vymyšlená čísla úspor ani záruky. Nabízíme praktické rámce a u dat odkazujeme na oficiální zdroje.",
     "en": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "No. We state no invented savings figures and give no guarantees. We offer practical frameworks, and for data we point to official sources."
+     "carriedBy": "No. We state no invented savings figures and give no guarantees. We offer practical frameworks, and for data we point to official sources.",
+     "refusalCarriedBy": "We state no invented savings figures and give no guarantees."
     },
     "de": {
      "state": "PRESERVED_IN_PROSE",
-     "carriedBy": "Nein. Wir nennen keine erfundenen Einsparungszahlen und geben keine Garantien. Wir bieten praktische Rahmen und verweisen bei Daten auf offizielle Quellen."
+     "carriedBy": "Nein. Wir nennen keine erfundenen Einsparungszahlen und geben keine Garantien. Wir bieten praktische Rahmen und verweisen bei Daten auf offizielle Quellen.",
+     "refusalCarriedBy": "Wir nennen keine erfundenen Einsparungszahlen und geben keine Garantien."
     }
    }
   }

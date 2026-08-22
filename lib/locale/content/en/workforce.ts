@@ -92,7 +92,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
         'Staffing a new line or an extra shift: which roles to fill in which order, what must exist before day one, and where ramp-ups stall — at training, not at recruitment.',
       h1: 'Hiring for a production ramp-up: staffing a new line or shift',
       intro:
-        'A new line starting up, or an additional shift opening, differs from ordinary replacement hiring in one respect: it has a fixed date, derived from a customer or an investment, and that date usually cannot move. Staffing preparation therefore has to run backwards from it, rather than forwards from the moment someone notices people are missing. This page sets out the order in which roles are filled for a ramp-up, what has to exist before the start, and where ramp-ups most often stall — the weak point being training rather than recruitment itself.',
+        'A new line starting up, or an additional shift opening, differs from ordinary replacement hiring in one respect: it has a fixed date, derived from a customer or an investment, and that date usually cannot move. Staffing preparation therefore has to run backwards from it, rather than forwards from the moment someone notices people are missing. This page sets out the order in which roles are filled for a ramp-up, what has to exist before the start, and where ramp-ups most often stall — the weak point being training rather than recruitment itself. How many weeks of lead time to allow is not stated here, because it depends on the occupations and the location.',
       breadcrumb: 'Production ramp-up',
       sections: [
         {
@@ -162,7 +162,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
         'Planning a recurring peak: how seasonal need differs from a shortage, which employment models suit it, and how to keep the seasonal people who worked out.',
       h1: 'Seasonal capacity: covering a peak without permanent headcount',
       intro:
-        'A seasonal peak has one advantage over other staffing situations: it can be foreseen. The pre-Christmas period in a warehouse, an agricultural season or summer shutdowns recur, and a company usually knows when they are coming. Even so, seasonal hiring is often addressed once the peak has begun, which is the most expensive possible moment. This page describes how seasonal need differs from topping up permanent headcount, which employment models suit it, and how to keep the people who worked out for the next season.',
+        'A seasonal peak has one advantage over other staffing situations: it can be foreseen. The pre-Christmas period in a warehouse, an agricultural season or summer shutdowns recur, and a company usually knows when they are coming. Even so, seasonal hiring is often addressed once the peak has begun, which is the most expensive possible moment. This page describes how seasonal need differs from topping up permanent headcount, which employment models suit it, and how to keep the people who worked out for the next season. How far ahead to begin is not stated here, because it depends on the occupation and the region.',
       breadcrumb: 'Seasonal capacity',
       sections: [
         {

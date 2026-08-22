@@ -67,6 +67,83 @@ const { L1_CONCEPTS } = await import('../lib/locale/l1-concepts.ts')
 
 const L1_IDS = new Set(L1_CONCEPTS.map((c) => c.id))
 
+/**
+ * Published localized concepts whose Czech source is not a lib/content/pages
+ * object, and therefore contributes no inventory items.
+ *
+ * Without this list such a concept vanishes from set equality in BOTH
+ * directions and is reported as a note — which is how editorial-policy, an L1
+ * concept published in English and German and present in the sitemap, came to
+ * have no record in the source map at all while every gate stayed green. Its
+ * content turned out to be complete, but no gate could have told us otherwise:
+ * exactly the kind of silence this file exists to eliminate.
+ *
+ * An entry is a claim that the concept has no enumerable source, and where a
+ * structural check is possible it is stated as `verify` and RUN, so the
+ * exemption is re-earned on every execution rather than trusted once.
+ */
+const NO_INVENTORY_SOURCE = new Map([
+  ['home', { reason: 'Locale home page; assembled from chrome and concept links, no Czech article source.' }],
+  ['request-staff', { reason: 'A form page. Its substance is the form, checked field-by-field by validate-locale-pages.' }],
+  ['about-us', { reason: 'Operator identity page; its facts are checked by validate-trust and validate-legal.' }],
+  ['contact', { reason: 'Contact details only; no Czech article source to enumerate.' }],
+  [
+    'editorial-policy',
+    {
+      reason:
+        'The Czech source is the page component pages/redakcni-zasady.tsx rather than a lib/content/pages object, ' +
+        'so it yields no enumerable items. Its structure is a list of editorial rules, so the count of those rules ' +
+        'is checked directly instead.',
+      // Mechanical, re-run every time: the Czech page's rules must all survive.
+      verify: ({ enEntry, deEntry }) => {
+        const czech = fs.readFileSync(path.join(ROOT, 'pages/redakcni-zasady.tsx'), 'utf8')
+        const czechItems = (czech.match(/<li>/g) || []).length
+        const count = (entry) => (entry ? entry.sections.reduce((n, sec) => n + (sec.list ? sec.list.items.length : 0), 0) : 0)
+        const en = count(enEntry)
+        const de = count(deEntry)
+        if (czechItems === 0) return `pages/redakcni-zasady.tsx has no list items — the exemption's premise no longer holds`
+        if (en !== czechItems || de !== czechItems) {
+          return `Czech editorial rules: ${czechItems}, but en carries ${en} and de carries ${de} list items`
+        }
+        return null
+      },
+    },
+  ],
+])
+
+/**
+ * Refusals must survive translation, and the existence test alone cannot see it.
+ *
+ * The evidence check asks only whether a carriedBy needle appears somewhere in
+ * the localized text. A COMPOUND Czech item — "cover peaks this way. We do not
+ * promise immediate availability." — passes as soon as its first half matches,
+ * so the refusal in the second half can vanish while the record still reads
+ * PRESERVED_IN_PROSE. Two L1 items did exactly that: logistics-workers and
+ * automotive-workers dropped "Okamžitou dostupnost neslibujeme" in both
+ * locales, and no gate objected.
+ *
+ * A refusal is the half most worth keeping. This site's editorial claim is that
+ * it declines to state what it does not know, so losing one is not a shortened
+ * translation — it is the page quietly ceasing to say what it will not promise.
+ * Checked page-locally, because a refusal on some other page does not help the
+ * reader in front of this one.
+ */
+const CZECH_REFUSAL = /neslibujeme|neuvádíme|nevymýšlíme|nedovozujeme|nezveřejňujeme/i
+
+/**
+ * A negation, checked against the NAMED refusal evidence — never the page.
+ *
+ * A page-wide scan for "do not" is worthless here: an article of any length
+ * contains one somewhere, so the check passed even with the refusal deleted.
+ * Its only catch was a page that happened to contain no negation at all. The
+ * refusal must therefore be pointed at, exactly like every other claim in this
+ * map, and the pointer is what gets verified.
+ */
+const NEGATION = {
+  en: /\b(do|does|did|is|are|will|can|cannot|neither|nor)\s*n[o']?t\b|\bno\b|\bnever\b|\bwithout\b/i,
+  de: /\bnicht\b|\bkeine?[nmrs]?\b|\bweder\b|\bohne\b/i,
+}
+
 const STATES = new Set([
   'PRESERVED_IN_PROSE',
   'PRESERVED_IN_LIST',
@@ -85,6 +162,21 @@ const readRouteHtml = (route) => {
   const f = path.join(BUILD, `${rel}.html`)
   return fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null
 }
+
+/**
+ * This gate has two halves — the map must be honest, and the evidence must
+ * actually reach a reader — and the second half was satisfiable by omission.
+ *
+ * Every rendered check sat behind `if (!html) continue`, so with no .next on
+ * disk the gate skipped all of them and still printed PASS and exited 0. The
+ * half is not decorative: feeding it empty HTML against the real corpus raises
+ * 1208 errors. Nothing in the repo ordered a build before the gate either, so
+ * "validate:locale-fidelity is green" could mean "half of it did not run".
+ *
+ * That is exactly the failure this whole release is written against, so the
+ * absence of a build is now an error rather than a silent downgrade.
+ */
+const buildIsPresent = () => fs.existsSync(BUILD) && fs.existsSync(path.join(ROOT, '.next/BUILD_ID'))
 
 const decode = (s) =>
   s
@@ -110,6 +202,18 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
       `${d.conceptId}: duplicate source identity — ${d.refs.join(' and ')} carry identical text, ` +
         `so one classification cannot honestly cover both: "${normalise(d.cs).slice(0, 60)}"`,
     )
+  }
+
+  // Refuse to certify on half the checks. `readPage` being overridden means a
+  // caller (the mutation suite) is deliberately supplying HTML, which is fine;
+  // an absent build with the default reader is not.
+  if (readPage === readRouteHtml && !buildIsPresent()) {
+    errors.push(
+      'no production build found at .next — the rendered-HTML half of this gate cannot run, and it is ' +
+        'load-bearing (empty HTML raises 1208 errors against the real corpus). Run `npm run build` first; ' +
+        'a green result without a build would certify only that the map is self-consistent',
+    )
+    return { errors, notes, l0Debt }
   }
 
   let sourceMap = map
@@ -210,6 +314,41 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
         continue
       }
 
+      // If the Czech item makes a refusal, the localized page must make one too.
+      // The evidence match above can be satisfied by the item's other half,
+      // which is exactly how two of these were lost.
+      if (CZECH_REFUSAL.test(item.cs)) {
+        const refusal = record?.refusalCarriedBy
+        const refusalNeedle = refusal ? normalise(refusal) : ''
+        const present =
+          refusalNeedle &&
+          NEGATION[l].test(refusalNeedle) &&
+          [...proseTexts, ...listTexts].some((x) => normalise(x).includes(refusalNeedle)) &&
+          (() => {
+            // Read the page here rather than reusing the `html` binding below:
+            // it is declared after this block, and referencing it threw
+            // "Cannot access 'html' before initialization" — which the gate's
+            // own green output hid, because the throw only surfaced under the
+            // negative control that exercised this path.
+            const route = R.urlFor(concept, l)
+            const page = route ? readPage(route) : null
+            return page ? normalise(decode(page.replace(/<script[\s\S]*?<\/script>/g, ''))).includes(refusalNeedle) : false
+          })()
+        if (!present) {
+          const line =
+            `${item.id} [${l}]: the Czech item makes a refusal ("${normalise(item.cs).slice(-70)}") but the map ` +
+            `names no "refusalCarriedBy" that is a negation, present in the ${l} corpus AND in the rendered page. A ` +
+            `compound item whose refusal half is dropped still matches its ordinary evidence, so the record would ` +
+            `read preserved while the page had stopped saying what it does not promise`
+          // Scoped like MISSING: L1 blocks, L0 is recorded as pre-existing debt.
+          // production-workers drops "Neslibujeme okamžité obsazení" this way and
+          // predates this branch; fixing it would exceed the agreed L0 bound, so
+          // it is reported every run rather than quietly exempted.
+          if (L1_IDS.has(item.conceptId)) errors.push(line)
+          else l0Debt.push(line)
+        }
+      }
+
       // Two items resting on one sentence is possible but must be deliberate.
       const key = `${item.conceptId}|${l}|${needle}`
       const prior = evidenceUse.get(key)
@@ -233,7 +372,10 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
       // And it must reach the reader, not merely the data.
       const route = R.urlFor(concept, l)
       const html = route ? readPage(route) : null
-      if (!html) continue
+      if (!html) {
+        errors.push(`${item.id} [${l}]: no rendered HTML for ${route} — evidence cannot be confirmed to reach a reader`)
+        continue
+      }
       if (!normalise(decode(html.replace(/<script[\s\S]*?<\/script>/g, ''))).includes(needle)) {
         errors.push(`${item.id} [${l}]: evidence absent from the rendered ${route} — "${needle.slice(0, 60)}"`)
       }
@@ -263,8 +405,23 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
     `states — in list: ${tally.PRESERVED_IN_LIST}, in prose: ${tally.PRESERVED_IN_PROSE}, ` +
       `collapsed with evidence: ${tally.INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS}, MISSING: ${tally.MISSING}`,
   )
-  if (inv.conceptsWithoutSource.length) {
-    notes.push(`no Czech source page (nothing to classify): ${inv.conceptsWithoutSource.map((c) => c.conceptId).join(', ')}`)
+  for (const { conceptId } of inv.conceptsWithoutSource) {
+    const exemption = NO_INVENTORY_SOURCE.get(conceptId)
+    if (!exemption) {
+      errors.push(
+        `${conceptId}: published in a non-Czech locale but contributes no inventory items, so it is absent from set ` +
+          `equality in both directions and no gate can see it. Give it a source, or an argued entry in ` +
+          `NO_INVENTORY_SOURCE`,
+      )
+      continue
+    }
+    if (exemption.verify) {
+      const failure = exemption.verify({ enEntry: en[conceptId]?.en, deEntry: de[conceptId]?.de })
+      if (failure) errors.push(`${conceptId}: exemption check failed — ${failure}`)
+      else notes.push(`${conceptId}: no enumerable source, exemption verified structurally — ${exemption.reason}`)
+    } else {
+      notes.push(`${conceptId}: no enumerable source — ${exemption.reason}`)
+    }
   }
   return { errors, notes, l0Debt }
 }

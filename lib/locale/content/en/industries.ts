@@ -94,7 +94,7 @@ export const EN_INDUSTRIES: LocaleCorpus = {
         {
           heading: 'How to recruit for logistics',
           body: [
-            'A fluctuating requirement is well covered by a combination of a permanent core and flexible agency capacity, which can be raised for a peak and lowered outside it.',
+            'A fluctuating requirement is well covered by a combination of a permanent core and flexible agency capacity, which can be raised for a peak and lowered outside it. Immediate availability is not something we promise.',
           ],
           list: {
             intro: 'What that combination looks like in practice:',
@@ -309,7 +309,7 @@ export const EN_INDUSTRIES: LocaleCorpus = {
         {
           heading: 'Planning shifts and ramp-ups',
           body: [
-            'Capacity planning has to reconcile line takt, shifts and production ramp-ups. Cross-trained cover, a margin for gaps and securing flexible capacity in good time all help. Where recruitment from abroad is involved, allow for the time permits take.',
+            'Capacity planning has to reconcile line takt, shifts and production ramp-ups. Cross-trained cover, a margin for gaps and securing flexible capacity in good time all help. Immediate availability is not something we promise. Where recruitment from abroad is involved, allow for the time permits take.',
             'Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.',
           ],
         },
