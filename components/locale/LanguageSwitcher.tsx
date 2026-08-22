@@ -60,12 +60,25 @@ export default function LanguageSwitcher({ route, className }: { route: string; 
         {alternates.map((a) => (
           <li key={a.locale}>
             {a.locale === current ? (
-              <span
-                aria-current="true"
-                lang={LOCALE_LANG[a.locale]}
-                {...(compact ? { 'aria-label': LABEL[a.locale], title: LABEL[a.locale] } : {})}
-              >
-                {text(a.locale)}
+              <span aria-current="true" lang={LOCALE_LANG[a.locale]} title={compact ? LABEL[a.locale] : undefined}>
+                {/* The current locale is a plain span, and `aria-label` is
+                    ignored on a generic role — so the compact variant's endonym
+                    was exposed to nobody: an AX-tree dump read
+                    `role=generic name="English"` beside `role=link
+                    name="Deutsch"`, and a generic with a name is not announced.
+                    Visually-hidden real text is announced, because it is text. */}
+                {compact ? (
+                  <>
+                    <span lang={LOCALE_LANG[a.locale]} aria-hidden="true">
+                      {SHORT[a.locale]}
+                    </span>
+                    <span lang={LOCALE_LANG[a.locale]} className="sr-only">
+                      {LABEL[a.locale]}
+                    </span>
+                  </>
+                ) : (
+                  text(a.locale)
+                )}
               </span>
             ) : (
               <a

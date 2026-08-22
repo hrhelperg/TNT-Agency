@@ -12,7 +12,7 @@
 //
 // Run: node scripts/mutate-hreflang.mjs   (npm run test:mutate-hreflang)
 
-import { auditHreflang, DOCUMENTS, STATIC_PAGE_COUNT, MIN_STATIC_PAGES } from './validate-hreflang.mjs'
+import { auditHreflang, DOCUMENTS, STATIC_PAGE_COUNT, EXPECTED_STATIC_PAGES } from './validate-hreflang.mjs'
 
 const clone = () => new Map([...DOCUMENTS].map(([k, v]) => [k, { ...v, alts: v.alts.map((a) => ({ ...a })) }]))
 const run = (docs, staticPages = STATIC_PAGE_COUNT) => auditHreflang(docs, { staticPages })
@@ -141,9 +141,13 @@ for (const m of MUTATIONS) {
 
 // ── 10. Static-render regression ────────────────────────────────────────────
 {
-  const { errors } = run(clone(), MIN_STATIC_PAGES - 1)
-  const caught = errors.some((e) => /static prerender regression/.test(e))
-  if (caught) console.log('  ✓ 10. static prerender regression (locale work going dynamic)')
+  // One page short, not "below an old floor". The floor this used to probe sat
+  // 78 pages under reality after L1 added 76 pages without re-baselining it, so
+  // this mutation passed while proving only that a catastrophic drop was
+  // visible. An exact count makes the smallest real regression the test case.
+  const { errors } = run(clone(), EXPECTED_STATIC_PAGES - 1)
+  const caught = errors.some((e) => /prerendered page count/.test(e))
+  if (caught) console.log('  ✓ 10. static prerender regression (one page short of the frozen count)')
   else {
     console.error('  ✗ 10. static prerender regression — NOT CAUGHT')
     failures++

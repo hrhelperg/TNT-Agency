@@ -289,7 +289,7 @@ export const DE_INDUSTRIES: LocaleCorpus = {
         {
           heading: 'Wie Sie für Automotive gewinnen',
           body: [
-            'Anläufe und Spitzen deckt üblicherweise die Arbeitnehmerüberlassung nach tschechischem Recht ab.',
+            'Anläufe und Spitzen abzudecken hilft die Arbeitnehmerüberlassung nach tschechischem Recht.',
           ],
           list: {
             intro: 'Was sich in einem Automotive-Betrieb bewährt:',

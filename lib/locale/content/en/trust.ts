@@ -188,7 +188,7 @@ export const EN_TRUST: LocaleCorpus = {
           heading: 'Which sources we draw on',
           body: [
             'Content is built on official, publicly verifiable sources. Specific figures, rates and time limits are linked directly to those sources, because they change over time.',
-            'On the Czech pages, each content page lists the sources it used under "Zdroje" and a short note on method under "Metodika", and for online institutional sources it states the date on which they were checked. These English pages name their sources in the running text instead, as this one does below.',
+            'On the Czech pages, each content page lists the sources it used under "Zdroje" and a short note on method under "Metodika", and for online institutional sources it states the date on which they were checked.',
           ],
           list: {
             items: [

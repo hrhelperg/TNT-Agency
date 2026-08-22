@@ -253,6 +253,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
           body: [
             'Abwesenheit ist nicht gleichmäßig verteilt. Sie konzentriert sich meist auf bestimmte Arbeitsplätze, Schichten oder Gruppen, und genau diese Verteilung ist die wertvollste Information, die ein Unternehmen hat.',
             'Entstehen die Ausfälle vor allem an einem Arbeitsplatz, liegt die Ursache meist in der Arbeit selbst – körperliche Belastung, Umgebung, Beziehungen oder Führung. Hängen sie an der Nachtschicht, ist es eher das Modell. Betreffen sie neue Menschen in den ersten Wochen, ist es in Wahrheit ein Einarbeitungsproblem, das sich als Abwesenheit zeigt.',
+            'Welche Ausfallquote normal ist, nennen wir hier nicht: Sie unterscheidet sich nach Branche, Art der Arbeit und Region. Nützlicher als der Vergleich mit einem fremden Wert ist die eigene Entwicklung im Zeitverlauf und die Frage, wo sich die Ausfälle häufen.',
           ],
         },
         {
@@ -296,10 +297,10 @@ export const DE_WORKFORCE: LocaleCorpus = {
 
   'direct-hire': {
     de: {
-      title: 'Direktvermittlung: wann eine Stelle in den eigenen Stand gehört',
+      title: 'Direktvermittlung: wann eine Stelle in die Stammbelegschaft gehört',
       description:
         'Was Direktvermittlung nach dem tschechischen Beschäftigungsgesetz bedeutet, worin sie sich von der vorübergehenden Zuweisung unterscheidet und was Ihr Unternehmen selbst übernimmt.',
-      h1: 'Direktvermittlung: wann eine Stelle in den eigenen Stand gehört',
+      h1: 'Direktvermittlung: wann eine Stelle in die Stammbelegschaft gehört',
       intro:
         'Die Entscheidung, eine Person direkt anzustellen oder den Bedarf durch vorübergehende Zuweisung zu decken, ist nicht nur eine Preisfrage. Mit ihr ändert sich, wer Arbeitgeber ist, wer die Lohnabrechnung führt, wer die arbeitsmedizinische Untersuchung und die Arbeitsschutzunterweisung veranlasst und wie die Zusammenarbeit endet. Diese Seite erklärt, was Direktvermittlung im Regime des tschechischen Beschäftigungsgesetzes bedeutet, worin sie sich von der Arbeitnehmerüberlassung unterscheidet und was ein Unternehmen konkret übernimmt, wenn es selbst anstellt. Dazu gehört ein Vergleich beider Wege nach den Kriterien, die in der betrieblichen Praxis entscheiden.',
       breadcrumb: 'Direktvermittlung',
@@ -312,10 +313,10 @@ export const DE_WORKFORCE: LocaleCorpus = {
           ],
         },
         {
-          heading: 'Wann der eigene Stand sinnvoll ist',
+          heading: 'Wann die Stammbelegschaft sinnvoll ist',
           body: [
-            'In den eigenen Stand gehört, was dauern soll und was Sie nicht verlieren möchten. Typischerweise der feste Kern des Betriebs, Rollen, die Wissen und die Einstellung der Technik tragen, Inhaberinnen und Inhaber personengebundener Nachweise und jede Position, die Menschen führt oder über Qualität entscheidet. Bei diesen lohnt sich eine längere Suche, weil die Kosten eines Wechsels höher sind als bei leicht ersetzbaren Stellen.',
-            'Saisonale Spitzen, Vertretung langer Abwesenheiten, der Anlauf einer neuen Linie oder ein Auftrag mit definiertem Ende lassen sich besser durch vorübergehende Zuweisung decken – der Bedarf endet und mit ihm die Zuweisung, ohne dass auf Ihrer Seite ein Arbeitsverhältnis zu beenden wäre. Viele Unternehmen kombinieren beide Wege: einen stabilen Kern im eigenen Stand und darüber eine flexible Schicht.',
+            'In die Stammbelegschaft gehört, was dauern soll und was Sie nicht verlieren möchten. Typischerweise der feste Kern des Betriebs, Rollen, die Wissen und die Einstellung der Technik tragen, Inhaberinnen und Inhaber personengebundener Nachweise und jede Position, die Menschen führt oder über Qualität entscheidet. Bei diesen lohnt sich eine längere Suche, weil die Kosten eines Wechsels höher sind als bei leicht ersetzbaren Stellen.',
+            'Saisonale Spitzen, Vertretung langer Abwesenheiten, der Anlauf einer neuen Linie oder ein Auftrag mit definiertem Ende lassen sich besser durch vorübergehende Zuweisung decken – der Bedarf endet und mit ihm die Zuweisung, ohne dass auf Ihrer Seite ein Arbeitsverhältnis zu beenden wäre. Viele Unternehmen kombinieren beide Wege: einen stabilen Kern in der Stammbelegschaft und darüber eine flexible Schicht.',
           ],
           list: {
             items: [
@@ -337,7 +338,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
               'Lohnabrechnung, gesetzliche Abgaben und steuerliche Pflichten – die Sätze prüfen Sie bei der tschechischen Sozialversicherungsanstalt (ČSSZ), der Krankenkasse und der Finanzverwaltung',
               'Die arbeitsmedizinische Eingangsuntersuchung vor Arbeitsantritt und weitere Untersuchungen in dem Umfang, den die Kategorie der Tätigkeit vorgibt',
               'Erst- und Wiederholungsunterweisungen im Arbeitsschutz sowie Ausgabe und Aufzeichnung der persönlichen Schutzausrüstung',
-              'Arbeitszeiterfassung, Schichtplanung und Lohnersatzleistungen',
+              'Arbeitszeiterfassung, Schichtplanung und Entgeltfortzahlung',
               'Die Beendigung des Arbeitsverhältnisses in den Grenzen des tschechischen Arbeitsgesetzbuchs einschließlich der Kündigungsfrist',
             ],
           },
@@ -346,7 +347,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
           heading: 'Direktvermittlung im Vergleich zur Arbeitnehmerüberlassung',
           body: [
             'Beide Wege führen dazu, dass eine Person am Arbeitsplatz steht und arbeitet. Sie unterscheiden sich darin, wer sie anstellt, wer die Verwaltung trägt und wie flexibel sich das Verhältnis beenden lässt. Bei der vorübergehenden Zuweisung gilt zusätzlich die gesetzliche Anforderung vergleichbarer Lohn- und Arbeitsbedingungen gegenüber Ihren Stammbeschäftigten auf vergleichbarer Position – kein Verhandlungsposten, sondern eine Bedingung des Modells.',
-            'Als praktische Leitlinie: Je dauerhafter der Bedarf und je stärker die Rolle an Ihr Wissen gebunden ist, desto mehr spricht für den eigenen Stand. Je schwankender das Arbeitsvolumen und je früher Kapazität verfügbar sein muss, desto eher passt die Zuweisung. Dringlichkeit allein spricht dabei für keinen der beiden Wege, weil beide bei qualifizierten Rollen an die Verfügbarkeit von Menschen und an Kündigungsfristen stoßen.',
+            'Als praktische Leitlinie: Je dauerhafter der Bedarf und je stärker die Rolle an Ihr Wissen gebunden ist, desto mehr spricht für die Stammbelegschaft. Je schwankender das Arbeitsvolumen und je früher Kapazität verfügbar sein muss, desto eher passt die Zuweisung. Dringlichkeit allein spricht dabei für keinen der beiden Wege, weil beide bei qualifizierten Rollen an die Verfügbarkeit von Menschen und an Kündigungsfristen stoßen.',
           ],
           list: {
             intro: 'Die Kriterien nebeneinander:',
@@ -372,7 +373,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
           body: [
             'Bevor die Suche beginnt, sollten schriftlich feststehen: der Umfang des Auftrags, Art und Fälligkeit der Vergütung, die Geltungsdauer der Vereinbarung, der Umgang mit Bewerberdaten und die Bedingungen für das Ende der Zusammenarbeit. Bei der vorübergehenden Zuweisung kommt die Aufteilung der Verantwortung für Arbeitsschutz und Schutzausrüstung am Arbeitsplatz hinzu sowie die Frage, wer die arbeitsmedizinischen Untersuchungen veranlasst.',
             'Wie vorzugehen ist, wenn die ausgewählte Person früh geht, ist Sache der vertraglichen Vereinbarung – regeln Sie sie schriftlich, bevor die Suche beginnt. Weder ein Ersatz noch der Verbleib einer Person lässt sich im Voraus versprechen, weil über beides diese Person selbst entscheidet.',
-            'In dieselbe Vereinbarung gehört der umgekehrte Fall: ob eine überlassene Person später in Ihren eigenen Stand übernommen werden kann. Das ist Sache einer Verständigung zwischen dem Einsatzunternehmen, der Agentur und der Person selbst – kein automatischer Anspruch, aber auch kein verbotener Schritt. Die Bedingungen einschließlich einer etwaigen Vergütung dafür sollten schriftlich und im Voraus feststehen, damit sie nicht erst in dem Moment verhandelt werden müssen, in dem Ihnen an dem Menschen gelegen ist.',
+            'In dieselbe Vereinbarung gehört der umgekehrte Fall: ob eine überlassene Person später in Ihre Stammbelegschaft übernommen werden kann. Das ist Sache einer Verständigung zwischen dem Einsatzunternehmen, der Agentur und der Person selbst – kein automatischer Anspruch, aber auch kein verbotener Schritt. Die Bedingungen einschließlich einer etwaigen Vergütung dafür sollten schriftlich und im Voraus feststehen, damit sie nicht erst in dem Moment verhandelt werden müssen, in dem Ihnen an dem Menschen gelegen ist.',
           ],
         },
       ],
@@ -475,7 +476,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
             items: [
               'Das Entgelt auf dem Niveau vergleichbarer Lohnbedingungen beim Einsatzunternehmen',
               'Die gesetzlichen Arbeitgeberbeiträge zur Sozial- und Krankenversicherung',
-              'Urlaub und Lohnersatz nach dem tschechischen Arbeitsgesetzbuch',
+              'Urlaub und Entgeltfortzahlung nach dem tschechischen Arbeitsgesetzbuch',
               'Zuschläge und Ersatzleistungen aus der Schichtplanung und aus Überstunden',
               'Die eigenen Kosten der Agentur für Personalgewinnung, Lohnabrechnung und Verwaltung',
             ],
@@ -620,7 +621,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
         'Was schriftlich gehört: die zwei Vertragsverhältnisse, vergleichbare Bedingungen nach tschechischem Recht, Arbeitsschutz und Schutzausrüstung, Bewerberdaten, Ersatz, Ende.',
       h1: 'Vertrag mit einer Personalagentur: worauf zu achten ist',
       intro:
-        'Der Vertrag mit einer Personalagentur entscheidet über die Lagen, die ein Angebot nicht behandelt: was geschieht, wenn eine Person nicht antritt, wenn sich der Auftrag unterwegs ändert, wenn es an Ihrem Arbeitsplatz zu einem Arbeitsunfall kommt oder wenn die Zusammenarbeit früher endet als erwartet. Seine Gestalt unterscheidet sich grundlegend danach, ob Sie die Suche nach einer Person für den eigenen Stand kaufen oder die vorübergehende Zuweisung überlassener Beschäftigter. Die folgende Übersicht fasst die Punkte zusammen, die schriftlich vereinbart sein sollten, und die Rollen, die sich zwischen den Beteiligten nicht durch Vereinbarung verschieben lassen. Es handelt sich um allgemeine Informationen zum tschechischen Recht, nicht um Rechtsberatung.',
+        'Der Vertrag mit einer Personalagentur entscheidet über die Lagen, die ein Angebot nicht behandelt: was geschieht, wenn eine Person nicht antritt, wenn sich der Auftrag unterwegs ändert, wenn es an Ihrem Arbeitsplatz zu einem Arbeitsunfall kommt oder wenn die Zusammenarbeit früher endet als erwartet. Seine Gestalt unterscheidet sich grundlegend danach, ob Sie die Suche nach einer Person für die Stammbelegschaft kaufen oder die vorübergehende Zuweisung überlassener Beschäftigter. Die folgende Übersicht fasst die Punkte zusammen, die schriftlich vereinbart sein sollten, und die Rollen, die sich zwischen den Beteiligten nicht durch Vereinbarung verschieben lassen. Es handelt sich um allgemeine Informationen zum tschechischen Recht, nicht um Rechtsberatung.',
       breadcrumb: 'Vertrag mit Personalagentur',
       sections: [
         {
@@ -683,7 +684,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
         {
           heading: 'Ersatz bei vorzeitiger Beendigung und das Ende der Zusammenarbeit',
           body: [
-            'Eine Ersatzregelung gehört zu den heiklen Punkten und zugleich zu denen, die erst dann behandelt werden, wenn sie gebraucht werden. Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben. Es geht um die Vereinbarung, was geschieht, wenn es dazu kommt. Schriftlich gehören deshalb hinein: der maßgebliche Zeitraum, die Gründe, die dabei zählen, und die Fälle, die einen Anspruch ausschließen – Wegfall der Stelle, wesentliche Änderung des Auftrags, Beendigung durch das Einsatzunternehmen oder die Nichterfüllung der Eintrittsbedingungen auf dessen Seite.',
+            'Eine Ersatzregelung gehört zu den heiklen Punkten und zugleich zu denen, die erst dann behandelt werden, wenn sie gebraucht werden. Vorab sagen wir eine solche Regelung nicht zu. Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben. Es geht um die Vereinbarung, was geschieht, wenn es dazu kommt. Schriftlich gehören deshalb hinein: der maßgebliche Zeitraum, die Gründe, die dabei zählen, und die Fälle, die einen Anspruch ausschließen – Wegfall der Stelle, wesentliche Änderung des Auftrags, Beendigung durch das Einsatzunternehmen oder die Nichterfüllung der Eintrittsbedingungen auf dessen Seite.',
             'Ebenso klar sollte sein, wie die Zusammenarbeit endet: Kündigungsbedingungen, Abwicklung laufender Aufträge, das Schicksal bereits vorgestellter Personen und die Frage, welche Regelungen über die Beendigung hinaus fortgelten. Bei der vorübergehenden Zuweisung kommen der Widerruf der Zuweisung und der Nachlauf der Lohnansprüche der überlassenen Beschäftigten hinzu.',
           ],
         },

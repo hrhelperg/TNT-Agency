@@ -351,8 +351,20 @@ describe('Ecosystem — layout safety and performance', () => {
     // the primary action's 54px were covered and a real click at its centre hit
     // the header. Its height also counted toward a border-box floor that stopped
     // the consent-banner reserve from shrinking the box on short screens.
-    expect(CSS).toContain('--mobile-nav-top: calc(88px + var(--eco-total))')
+    //
+    // The header offset is measured, not asserted. It was `calc(88px + ...)`,
+    // and the header renders 72px tall, so the menu opened 15px below the
+    // header's bottom edge and the page underneath stayed live in the gap: a
+    // real coordinate click in that band navigated away with the menu open, and
+    // a wheel over it scrolled the page behind a surface meant to be modal.
+    // Header.tsx publishes --header-h from the element itself, which also tracks
+    // the .scrolled padding change and any rewrap.
+    expect(CSS).toContain('--mobile-nav-top: calc(var(--header-h, 72px) + var(--eco-total))')
     expect(CSS).toContain('top: var(--mobile-nav-top)')
+
+    // Guard the class of defect rather than the one instance: a literal header
+    // height in this variable is what produced the click-through band.
+    expect(CSS).not.toMatch(/--mobile-nav-top:\s*calc\(\s*\d+px\s*\+/)
   })
 
   it('respects reduced-motion and adds no animation', () => {

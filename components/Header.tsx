@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { alternatesFor } from '../lib/locale/registry'
 import LanguageSwitcher from './locale/LanguageSwitcher'
@@ -24,7 +25,46 @@ interface HeaderProps {
   locale?: LocaleLocked
 }
 
+/**
+ * The header's real rendered height, published so the mobile menu can start
+ * exactly where the header ends.
+ *
+ * It was a literal: `--mobile-nav-top: calc(88px + var(--eco-total))`. The
+ * header actually renders 72px tall, so the menu opened 15px below the header's
+ * bottom edge and the page underneath stayed live in the gap — an independent
+ * refuter clicked at the band's centre on an open menu and navigated away,
+ * and a wheel over it scrolled the page behind a surface that is supposed to
+ * be modal.
+ *
+ * The height is not a constant to correct to 72 either: `.header.scrolled`
+ * trades 14px of padding for 10px, and the label text can rewrap. Measuring
+ * the element is the same approach `--consent-banner-h` already uses for a
+ * dimension only the browser knows.
+ */
+const HEADER_HEIGHT_VAR = '--header-h'
+
 export default function Header({ activePage, locale }: HeaderProps) {
+  useEffect(() => {
+    const el = document.getElementById('header')
+    if (!el) return
+    const publish = () => {
+      document.documentElement.style.setProperty(HEADER_HEIGHT_VAR, `${Math.ceil(el.getBoundingClientRect().height)}px`)
+    }
+    publish()
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(publish) : null
+    observer?.observe(el)
+    // .scrolled changes the padding, and that is a class flip rather than a
+    // resize of the observed box in every engine, so the scroll event is
+    // watched too.
+    window.addEventListener('scroll', publish, { passive: true })
+    window.addEventListener('resize', publish)
+    return () => {
+      observer?.disconnect()
+      window.removeEventListener('scroll', publish)
+      window.removeEventListener('resize', publish)
+    }
+  }, [])
+
   const t = CHROME_NAV[locale ?? 'cs']
   const aria = CHROME_ARIA[locale ?? 'cs']
 

@@ -10,6 +10,13 @@
  * and routes disagree, one of them is wrong, and a single derived source would
  * simply agree with itself and report nothing.
  *
+ * The two conditions above are both derived from the registry, so they agree
+ * with each other about a world that has quietly shrunk. The third condition —
+ * auditManifest() — is not derived from anything: it compares the registry
+ * against lib/locale/l1-manifest.ts, a literal list a human maintains. Without
+ * it, deleting a concept's content, route file and map entry together passes
+ * every gate in this repo.
+ *
  * What this catches:
  *   - content written, route never generated → a concept the sitemap advertises
  *     with no page behind it
@@ -23,11 +30,92 @@ import { fileURLToPath, pathToFileURL } from 'url'
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const reg = await import('../lib/locale/registry.ts')
 const { L1_CONCEPTS } = await import('../lib/locale/l1-concepts.ts')
+const { L1_MANIFEST_CONCEPTS, L1_MANIFEST_LOCALES, L1_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
 
 /** Where the generator puts a route file for a URL. */
 const fileFor = (url) => {
   const rel = url.replace(/^\//, '')
   return path.join(ROOT, 'pages', rel.includes('/') ? rel + '.tsx' : path.join(rel, 'index.tsx'))
+}
+
+/**
+ * The registry must match the frozen manifest exactly.
+ *
+ * This is the only check in the L1 suite whose expectation is not computed from
+ * the thing it checks. Set equality runs in both directions on purpose: a
+ * concept vanishing from the registry and a concept appearing without being
+ * declared are different mistakes, and only one of them is caught by counting.
+ */
+export function auditManifest() {
+  const errors = []
+  const notes = []
+
+  const declared = new Set(L1_MANIFEST_CONCEPTS)
+  const actual = new Set(L1_CONCEPTS.map((c) => c.id))
+
+  for (const id of declared) {
+    if (!actual.has(id)) {
+      errors.push(
+        `${id} is declared in lib/locale/l1-manifest.ts but is absent from L1_CONCEPTS — ` +
+          `the concept was removed without removing it from the manifest, so its pages, sitemap entries ` +
+          `and source-map records have all silently left the release`,
+      )
+    }
+  }
+  for (const id of actual) {
+    if (!declared.has(id)) {
+      errors.push(
+        `${id} exists in L1_CONCEPTS but is not declared in lib/locale/l1-manifest.ts — ` +
+          `add it there deliberately if the release scope really is growing`,
+      )
+    }
+  }
+
+  // A concept present in one locale only is a defect, not a supported variant:
+  // the switcher, hreflang set and sitemap all assume the pair.
+  for (const id of declared) {
+    const concept = reg.LOCALE_CONCEPTS.find((c) => c.id === id)
+    if (!concept) continue
+    for (const locale of L1_MANIFEST_LOCALES) {
+      if (!concept.published.includes(locale)) {
+        errors.push(
+          `${id} is declared in the manifest but is not published in ${locale} — ` +
+            `its ${locale} content or route file is missing, which no derived gate can see because ` +
+            `\`published\` is itself derived from that content`,
+        )
+      }
+    }
+  }
+
+  // Totals, asserted rather than printed.
+  const czechRoutes = reg.CZECH_ROUTES.length
+  const localized = reg.PUBLISHED_LOCALIZED_ROUTES.length
+  const l1Pages = L1_CONCEPTS.reduce((n, c) => {
+    const concept = reg.LOCALE_CONCEPTS.find((x) => x.id === c.id)
+    return n + (concept ? concept.published.filter((l) => l !== 'cs').length : 0)
+  }, 0)
+
+  const check = (label, got, want) => {
+    if (got !== want) {
+      errors.push(`${label}: ${got}, but lib/locale/l1-manifest.ts freezes it at ${want}`)
+    }
+  }
+  check('L1 concepts', L1_CONCEPTS.length, L1_EXPECTED.l1Concepts)
+  check('L1 localized pages', l1Pages, L1_EXPECTED.l1Pages)
+  check('localized routes (L0 + L1)', localized, L1_EXPECTED.localizedRoutes)
+  check('Czech routes', czechRoutes, L1_EXPECTED.czechRoutes)
+
+  // The sitemap is a committed artifact, so this needs no build.
+  const sitemapPath = path.join(ROOT, 'public/sitemap.xml')
+  if (!fs.existsSync(sitemapPath)) {
+    errors.push('public/sitemap.xml is missing — the sitemap total cannot be checked, and that check is load-bearing')
+  } else {
+    const locs = (fs.readFileSync(sitemapPath, 'utf8').match(/<loc>/g) || []).length
+    check('sitemap <loc> entries', locs, L1_EXPECTED.sitemapUrls)
+  }
+
+  notes.push(`${L1_CONCEPTS.length} L1 concepts, matching the frozen manifest exactly`)
+  return { errors, notes }
 }
 
 export function auditPublication() {
@@ -90,7 +178,9 @@ export function auditPublication() {
 
   notes.push(`${published} published locale route(s), each with a page file`)
   notes.push(`${declaredOnly} concept locale(s) declared but not published — correctly absent from the build`)
-  notes.push(`${L1_CONCEPTS.length} L1 concepts frozen`)
+  const manifest = auditManifest()
+  errors.push(...manifest.errors)
+  notes.push(...manifest.notes)
   return { errors, notes }
 }
 

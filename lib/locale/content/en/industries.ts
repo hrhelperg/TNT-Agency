@@ -288,7 +288,7 @@ export const EN_INDUSTRIES: LocaleCorpus = {
         {
           heading: 'How to recruit for automotive',
           body: [
-            'Agency employment is the usual way to cover ramp-ups and peaks, and a willingness to work on a line matters here.',
+            'Agency employment helps cover ramp-ups and peaks, and a willingness to work on a line matters here.',
           ],
           list: {
             intro: 'What works for an automotive operation:',

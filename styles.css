@@ -476,7 +476,12 @@ p  { color: var(--text-2); line-height: 1.7; }
 :root {
   --consent-banner-h: 0px;
   /* Where the mobile menu's top edge sits: below the ecosystem bar and header. */
-  --mobile-nav-top: calc(88px + var(--eco-total));
+  /* The fallback is the header's measured CSS height, not the 88px literal that
+     used to sit here: 88 over-reserved a 72px header by 16px and left a live
+     click-through band between the header and the open menu. Header.tsx
+     republishes --header-h from the real element, which also covers the
+     .scrolled state and any rewrap. */
+  --mobile-nav-top: calc(var(--header-h, 72px) + var(--eco-total));
 }
 
 /* Mobile nav */
@@ -3068,7 +3073,35 @@ p  { color: var(--text-2); line-height: 1.7; }
 
    A reading column and a navigation bar do not have to be the same width. The
    header gets the width its own contents need; page content keeps 1152. */
-.header .container { max-width: 1400px; }
+/* The Czech header needs more width than the reading column; the localized ones
+   do not.
+
+   Measured at a 1200px column: the English and German headers have 13-24px to
+   spare at every width from 1251px up, while the Czech header overflows by up
+   to 114px — its header__right is 402.7px against ~230px, because the Czech
+   pages carry an extra legacy language control the localized pages do not. The
+   first fix widened the column for EVERY page, so 96 pages that already fitted
+   were pushed off the shared grid to solve a problem only 185 other pages had:
+   the logo landed 100px left of the text below it, giving header, footer,
+   content and eco-bar four different left edges.
+
+   So the wider column is scoped to the pages that need it, and above 1480px
+   even those take the extra width on the right only and keep the shared left
+   edge. Between 1251px and 1480px the Czech header cannot do both, and fitting
+   wins there — an unreachable CTA is worse than a misaligned logo. */
+html[lang='cs'] .header .container { max-width: 1400px; }
+
+@media (min-width: 1480px) {
+  html[lang='cs'] .header .container {
+    /* width:auto, not the inherited width:100%. With a left margin and a
+       percentage width the box is sized from the viewport and then pushed
+       right, so it hangs off the edge — measured 36px past the viewport at
+       exactly 1480px. Letting the width resolve from both edges keeps it in. */
+    width: auto;
+    margin-left: calc((100vw - 1200px) / 2);
+    margin-right: 0;
+  }
+}
 
 /* Collapse the primary navigation to the mobile menu while the desktop nav
    still fits. Below this the eight nav items, both language controls and the
@@ -3308,7 +3341,8 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
 
 /* Screen-reader-only utility (scoped name to avoid clashing with site CSS). */
 .eco-bar .sr-only,
-.eco-dir .sr-only {
+.eco-dir .sr-only,
+.locale-switcher .sr-only {
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0 0 0 0); white-space: nowrap; border: 0;

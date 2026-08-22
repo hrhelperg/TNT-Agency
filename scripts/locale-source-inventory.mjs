@@ -120,12 +120,13 @@ export function itemsForPage(conceptId, entry) {
  * page: two identical bullets are two decisions, and an identity that cannot
  * tell them apart would let one classification cover both.
  */
-export function buildInventory({ concepts = R.LOCALE_CONCEPTS } = {}) {
+export function buildInventory({ concepts = R.ALL_CONCEPTS } = {}) {
   const bySlug = czechSourcePages()
   const items = []
   const byConcept = new Map()
   const duplicates = []
   const conceptsWithoutSource = []
+  const collapsedPages = []
 
   for (const concept of concepts) {
     const localized = concept.published.filter((l) => l !== 'cs')
@@ -146,9 +147,25 @@ export function buildInventory({ concepts = R.LOCALE_CONCEPTS } = {}) {
 
     items.push(...own)
     byConcept.set(concept.id, own)
+
+    // Collapsed Czech variants are Czech-only pages whose concept ships one EN
+    // and one DE page. Their source items are NOT part of set equality — they
+    // are recorded here so the amount of Czech source outside the assertion is
+    // stated on every run instead of being invisible. It was invisible: the
+    // inventory read only `csPrimary`, so 18 pages and their items sat outside
+    // the universe while the gate announced equality over the rest.
+    for (const route of concept.csCollapsed ?? []) {
+      const collapsedEntry = bySlug.get(route)
+      if (!collapsedEntry) continue
+      collapsedPages.push({
+        conceptId: concept.id,
+        route,
+        itemCount: itemsForPage(concept.id, collapsedEntry).length,
+      })
+    }
   }
 
-  return { items, byConcept, duplicates, conceptsWithoutSource }
+  return { items, byConcept, duplicates, conceptsWithoutSource, collapsedPages }
 }
 
 /** Convenience for humans and for generating a map skeleton. */

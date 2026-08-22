@@ -31,9 +31,21 @@ const CAT_TITLES = {
   trust: 'E. Trust and employer authority',
 }
 
+export let lastTally = null
+
 export function renderPlan() {
+  // LOCALE_CONCEPTS is L0 + L1, so building the set named "L0" from it swallowed
+  // every L1 route before the L1 counters could see it: the tally reported
+  // L1_primary 0 / L1_collapsed 0 / L0 72, contradicting the same document's
+  // own line above it ("56 = 38 primaries + 18 collapsed variants"), and the
+  // two L1 branches below were unreachable.
+  const l1Ids = new Set(m.L1_CONCEPTS.map((c) => c.id))
   const L0 = new Set()
-  for (const c of reg.LOCALE_CONCEPTS) { L0.add(c.csPrimary); (c.csCollapsed || []).forEach((v) => L0.add(v)) }
+  for (const c of reg.LOCALE_CONCEPTS) {
+    if (l1Ids.has(c.id)) continue
+    L0.add(c.csPrimary)
+    ;(c.csCollapsed || []).forEach((v) => L0.add(v))
+  }
   const LEGAL = new Set()
   for (const c of reg.LEGAL_CONCEPTS) for (const l of ['cs', 'en', 'de']) LEGAL.add(reg.urlFor(c, l))
   const named = new Map()
@@ -53,6 +65,8 @@ export function renderPlan() {
     if (rule) { tally[rule.classification]++; rows.push([route, rule.classification, `rule: ${rule.id}`]); continue }
     rows.push([route, 'UNCLASSIFIED', 'no rule matched — this is a gap'])
   }
+
+  lastTally = tally
 
   const enCount = m.L1_CONCEPTS.filter((c) => c.urls.en).length
   const deCount = m.L1_CONCEPTS.filter((c) => c.urls.de).length

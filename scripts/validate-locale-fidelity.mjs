@@ -82,28 +82,190 @@ const L1_IDS = new Set(L1_CONCEPTS.map((c) => c.id))
  * structural check is possible it is stated as `verify` and RUN, so the
  * exemption is re-earned on every execution rather than trusted once.
  */
+/**
+ * Negation, per locale. Used where a check must know that a sentence still
+ * refuses something, rather than merely that a sentence is still present.
+ */
+const NEGATION_BY_LOCALE = {
+  en: /\b(no|not|never|nor|neither|without)\b/i,
+  de: /\b(nicht|keine?[nmrs]?|niemals|weder|ohne)\b/i,
+}
+
+const countListItems = (entry) =>
+  entry ? entry.sections.reduce((n, sec) => n + (sec.list ? sec.list.items.length : 0), 0) : 0
+
+const countLi = (relPath) => (fs.readFileSync(path.join(ROOT, relPath), 'utf8').match(/<li>/g) || []).length
+
 const NO_INVENTORY_SOURCE = new Map([
-  ['home', { reason: 'Locale home page; assembled from chrome and concept links, no Czech article source.' }],
-  ['request-staff', { reason: 'A form page. Its substance is the form, checked field-by-field by validate-locale-pages.' }],
-  ['about-us', { reason: 'Operator identity page; its facts are checked by validate-trust and validate-legal.' }],
-  ['contact', { reason: 'Contact details only; no Czech article source to enumerate.' }],
+  [
+    'home',
+    {
+      reason:
+        'Locale home page; assembled from chrome and concept links, with no Czech article source behind it. Its ' +
+        'Czech counterpart pages/index.tsx does carry list items, but they are navigation links rather than prose, ' +
+        'so there is no editorial content to carry across.',
+      verify: () => {
+        const czech = fs.readFileSync(path.join(ROOT, 'pages/index.tsx'), 'utf8')
+        const items = czech.match(/<li>[\s\S]*?<\/li>/g) || []
+        const prose = items.filter((li) => !/<a\b/.test(li))
+        if (prose.length) {
+          return (
+            `pages/index.tsx now has ${prose.length} list item(s) that are not navigation links — ` +
+            'this exemption assumed the home page carries no prose list to translate'
+          )
+        }
+        return null
+      },
+    },
+  ],
+  [
+    'request-staff',
+    {
+      reason:
+        'A form page. Its substance is the form, checked field-by-field across locales by validate-locale-pages, ' +
+        'and its Czech source carries no prose list.',
+      verify: () => {
+        const li = countLi('pages/poptavka-pracovniku.tsx')
+        if (li) return `pages/poptavka-pracovniku.tsx now has ${li} list item(s); this exemption assumed none`
+        return null
+      },
+    },
+  ],
+  [
+    'about-us',
+    {
+      // L0: the gap below predates this branch, so it is recorded rather than blocking.
+      l0: true,
+      reason:
+        'Operator identity page. Its previous justification here — "its facts are checked by validate-trust and ' +
+        'validate-legal" — was false: neither script reads a localized page, and validate-trust reads only ' +
+        'lib/content/trust-data.ts and the Czech pages/o-nas.tsx. The premise that nothing was enumerable was also ' +
+        'false: the Czech page carries a six-point agency-verification checklist, and the EN and DE pages keep the ' +
+        'surrounding prose while dropping the checklist. That is a real content gap, it predates this branch, and ' +
+        'it is recorded as L0 debt rather than exempted away.',
+      verify: ({ enEntry, deEntry }) => {
+        const czechItems = countLi('pages/o-nas.tsx')
+        if (czechItems === 0) return null
+        const en = countListItems(enEntry)
+        const de = countListItems(deEntry)
+        if (en !== czechItems || de !== czechItems) {
+          return `Czech verification checklist: ${czechItems} items, but en carries ${en} and de carries ${de} list items`
+        }
+        return null
+      },
+    },
+  ],
+  [
+    'contact',
+    {
+      reason: 'Contact details only; no Czech article source and no prose list to enumerate.',
+      verify: () => {
+        const li = countLi('pages/contact.tsx')
+        if (li) return `pages/contact.tsx now has ${li} list item(s); this exemption assumed none`
+        return null
+      },
+    },
+  ],
+  /**
+   * The three legal concepts (privacy-policy, terms, cookies) are published in
+   * en and de, but they live in LEGAL_CONCEPTS, which LOCALE_CONCEPTS excludes —
+   * so until the inventory widened to ALL_CONCEPTS they were invisible to set
+   * equality AND to the "no gate can see it" net above, leaving no trace at all.
+   * Their Czech source is a static document rather than a lib/content/pages
+   * object, so they cannot yield inventory items; what can be checked is that
+   * the three language versions still carry the same number of enumerated
+   * points.
+   *
+   * They are marked l0 because these documents are W4 territory and predate
+   * this branch. Where the counts diverge the divergence is recorded rather
+   * than fixed: the localized cookie and privacy documents carry MORE enumerated
+   * points than the Czech (named browser settings paths), which is content above
+   * the Czech ceiling and needs a W4 decision, not an L1 edit.
+   */
+  ...['privacy-policy', 'terms', 'cookies'].map((id) => {
+    const sources = {
+      'privacy-policy': { cs: 'public/privacy-cs.html', en: 'pages/privacy-policy.tsx', de: 'public/privacy-de.html' },
+      terms: { cs: 'public/terms-cs.html', en: 'public/terms.html', de: 'public/terms-de.html' },
+      cookies: { cs: 'public/cookies-cs.html', en: 'public/cookies.html', de: 'public/cookies-de.html' },
+    }[id]
+    return [
+      id,
+      {
+        l0: true,
+        reason:
+          `Legal document. Its Czech source is ${sources.cs} rather than a lib/content/pages object, so it yields no ` +
+          'inventory items; the enumerated points in the three language versions are compared instead. W4 territory: ' +
+          'a divergence here is recorded for a separate decision, never edited by a locale pass.',
+        verify: () => {
+          const count = (rel) => {
+            const abs = path.join(ROOT, rel)
+            if (!fs.existsSync(abs)) return null
+            return (fs.readFileSync(abs, 'utf8').match(/<li[\s>]/g) || []).length
+          }
+          const cs = count(sources.cs)
+          const en = count(sources.en)
+          const de = count(sources.de)
+          if (cs === null) return `${sources.cs} is missing — this exemption's premise no longer holds`
+          if (en !== cs || de !== cs) {
+            return `enumerated points: cs ${cs}, en ${en}, de ${de} (${sources.cs} / ${sources.en} / ${sources.de})`
+          }
+          return null
+        },
+      },
+    ]
+  }),
   [
     'editorial-policy',
     {
       reason:
         'The Czech source is the page component pages/redakcni-zasady.tsx rather than a lib/content/pages object, ' +
-        'so it yields no enumerable items. Its structure is a list of editorial rules, so the count of those rules ' +
-        'is checked directly instead.',
-      // Mechanical, re-run every time: the Czech page's rules must all survive.
+        'so it yields no enumerable items. Its structure is a list of editorial rules, so those rules are checked ' +
+        'directly instead — both that they are all still there, and that the ones which refuse something still do.',
+      /**
+       * Counting was not enough.
+       *
+       * This callback used to compare `<li>` totals only. An independent refuter
+       * replaced all six items of "What we categorically do not claim" with their
+       * affirmative inversions — "We guarantee workers and an immediate start on
+       * every request", "We describe our work as verified by the Ministry of
+       * Labour and Social Affairs" — kept the total at 11, and this gate
+       * certified the exemption as re-earned. On the one page whose entire
+       * subject is what this site refuses to claim, a count is not a check.
+       */
       verify: ({ enEntry, deEntry }) => {
-        const czech = fs.readFileSync(path.join(ROOT, 'pages/redakcni-zasady.tsx'), 'utf8')
-        const czechItems = (czech.match(/<li>/g) || []).length
-        const count = (entry) => (entry ? entry.sections.reduce((n, sec) => n + (sec.list ? sec.list.items.length : 0), 0) : 0)
-        const en = count(enEntry)
-        const de = count(deEntry)
-        if (czechItems === 0) return `pages/redakcni-zasady.tsx has no list items — the exemption's premise no longer holds`
+        const czechItems = countLi('pages/redakcni-zasady.tsx')
+        if (czechItems === 0) return `pages/redakcni-zasady.tsx has no list items — this exemption's premise no longer holds`
+        const en = countListItems(enEntry)
+        const de = countListItems(deEntry)
         if (en !== czechItems || de !== czechItems) {
           return `Czech editorial rules: ${czechItems}, but en carries ${en} and de carries ${de} list items`
+        }
+        // How many of the Czech rules actually refuse something is read from the
+        // Czech page, not assumed. Five of its six do; the sixth ("we publish the
+        // operator's identification and permit details as fact only after
+        // verification") is affirmative with a restriction, and both translations
+        // mirror it faithfully. Asserting "all six are negations" would have
+        // failed that honest item — the expectation has to come from the source,
+        // or the check just encodes a guess about the source.
+        const czechLis = fs.readFileSync(path.join(ROOT, 'pages/redakcni-zasady.tsx'), 'utf8').match(/<li>([\s\S]*?)<\/li>/g) || []
+        const czechRefusals = czechLis.filter((li) => /\bNe[a-záčďéěíňóřšťúůýž]+e?me\b/i.test(li.replace(/<[^>]*>/g, ''))).length
+        const refusalLists = [
+          ['en', enEntry, /do not claim/i],
+          ['de', deEntry, /nicht behaupten/i],
+        ]
+        for (const [locale, entry, headingRe] of refusalLists) {
+          const section = entry?.sections?.find((sec) => headingRe.test(sec.heading))
+          if (!section) return `${locale}: the section listing what the site does not claim is gone`
+          const items = section.list?.items ?? []
+          if (!items.length) return `${locale}: the section listing what the site does not claim carries no items`
+          const negating = items.filter((text) => NEGATION_BY_LOCALE[locale].test(text)).length
+          if (negating < czechRefusals) {
+            const affirmative = items.filter((text) => !NEGATION_BY_LOCALE[locale].test(text))
+            return (
+              `${locale}: the Czech page refuses ${czechRefusals} things, but only ${negating} of the ${items.length} ` +
+              `items under "${section.heading}" still refuse anything — e.g. "${affirmative[0]?.slice(0, 90)}"`
+            )
+          }
         }
         return null
       },
@@ -157,10 +319,23 @@ const NEEDS_EVIDENCE = new Set([
 ])
 const MIN_REASON = 25
 
+/**
+ * The built page, with <head> removed.
+ *
+ * The head is not evidence. It carries <meta name="description">, whose text is
+ * never shown to a reader, and reading the whole document let a single invisible
+ * string satisfy BOTH halves of this gate at once: the corpus half matched
+ * `entry.description`, and the rendered half matched the same words inside the
+ * meta tag's content attribute. Two halves meant to be independent agreed
+ * because they were looking at the same hidden text. Independent refuters found
+ * four L1 refusal pointers and one L0 pointer certified this way, and the L0 one
+ * was silencing a debt this file's own comments promise to report every run.
+ */
 const readRouteHtml = (route) => {
   const rel = route === '/' ? 'index' : route.replace(/^\//, '')
   const f = path.join(BUILD, `${rel}.html`)
-  return fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null
+  if (!fs.existsSync(f)) return null
+  return fs.readFileSync(f, 'utf8').replace(/<head[\s\S]*?<\/head>/i, '')
 }
 
 /**
@@ -176,7 +351,55 @@ const readRouteHtml = (route) => {
  * That is exactly the failure this whole release is written against, so the
  * absence of a build is now an error rather than a silent downgrade.
  */
-const buildIsPresent = () => fs.existsSync(BUILD) && fs.existsSync(path.join(ROOT, '.next/BUILD_ID'))
+/**
+ * The build must exist AND describe this tree.
+ *
+ * Existence alone was not enough: a build left over from before an edit still
+ * satisfies it, so the rendered half reads yesterday's pages and confirms
+ * yesterday's evidence. An independent refuter made every bulleted list vanish
+ * from every localized page and this gate returned PASS against the stale
+ * build; rebuilding the same defect produced 739 errors.
+ *
+ * The first attempt at this compared mtimes, and mtime answers the wrong
+ * question. `test:mutate-locale-fidelity` writes content files and restores
+ * them byte-for-byte, which moves every mtime without changing anything, so
+ * running the suite in its normal order failed a gate that had passed moments
+ * before. A check that fires on a tree nobody changed teaches people to ignore
+ * it.
+ *
+ * So the question is asked directly of the artifact: does each built page still
+ * carry this corpus's h1, and does it render as many list items as the corpus
+ * declares? The first catches text that changed after the build; the second
+ * catches structure that stopped rendering, which is the case that motivated
+ * the check and the one no text comparison can see.
+ */
+const buildDescribesTree = ({ corpora }) => {
+  const mismatches = []
+  for (const [locale, corpus] of [['en', corpora.en], ['de', corpora.de]]) {
+    for (const concept of R.LOCALE_CONCEPTS) {
+      if (!concept.published.includes(locale)) continue
+      const entry = corpus[concept.id]?.[locale]
+      const url = R.urlFor(concept, locale)
+      if (!entry || !url) continue
+      const html = readRouteHtml(url)
+      if (html === null) {
+        mismatches.push(`${url} has no built page`)
+        continue
+      }
+      const plain = normalise(decode(html.replace(/<[^>]*>/g, ' ')))
+      if (entry.h1 && !plain.includes(normalise(entry.h1))) {
+        mismatches.push(`${url} does not render this corpus's h1 ("${entry.h1.slice(0, 60)}")`)
+      }
+      const declared = entry.sections.reduce((n, sec) => n + (sec.list ? sec.list.items.length : 0), 0)
+      const rendered = (html.match(/<li\b/g) || []).length
+      if (declared > rendered) {
+        mismatches.push(`${url} renders ${rendered} list item(s) but the corpus declares ${declared}`)
+      }
+      if (mismatches.length >= 5) return mismatches
+    }
+  }
+  return mismatches
+}
 
 const decode = (s) =>
   s
@@ -207,7 +430,20 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
   // Refuse to certify on half the checks. `readPage` being overridden means a
   // caller (the mutation suite) is deliberately supplying HTML, which is fine;
   // an absent build with the default reader is not.
-  if (readPage === readRouteHtml && !buildIsPresent()) {
+  const usingRealBuild = readPage === readRouteHtml
+  const haveBuild = fs.existsSync(BUILD) && fs.existsSync(path.join(ROOT, '.next/BUILD_ID'))
+  if (usingRealBuild && haveBuild) {
+    const stale = buildDescribesTree({ corpora: { en, de } })
+    if (stale.length) {
+      errors.push(
+        `the production build at .next does not describe this tree — ${stale.join('; ')}. ` +
+          'The rendered-HTML half of this gate would confirm evidence against pages that no longer exist. ' +
+          'Run `npx next build` and re-run this gate.',
+      )
+      return { errors, notes, l0Debt }
+    }
+  }
+  if (usingRealBuild && !haveBuild) {
     errors.push(
       'no production build found at .next — the rendered-HTML half of this gate cannot run, and it is ' +
         'load-bearing (empty HTML raises 1208 errors against the real corpus). Run `npm run build` first; ' +
@@ -300,7 +536,10 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
       if (!entry) { errors.push(`${item.id} [${l}]: classified but the ${l} page does not exist`); continue }
 
       const listTexts = entry.sections.flatMap((s) => (s.list ? [s.list.intro ?? '', ...s.list.items] : []))
-      const proseTexts = [entry.description, entry.intro, ...entry.sections.flatMap((s) => [s.heading, ...s.body])]
+      // `description` is deliberately absent: it renders only as
+      // <meta name="description">, so text living there alone has reached no
+      // reader. `title` and `h1` are here because both are on the page.
+      const proseTexts = [entry.title, entry.h1, entry.intro, ...entry.sections.flatMap((s) => [s.heading, ...s.body])]
       const needle = normalise(evidence)
       const inList = listTexts.some((x) => normalise(x).includes(needle))
       const inProse = proseTexts.some((x) => normalise(x).includes(needle))
@@ -405,6 +644,25 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
     `states — in list: ${tally.PRESERVED_IN_LIST}, in prose: ${tally.PRESERVED_IN_PROSE}, ` +
       `collapsed with evidence: ${tally.INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS}, MISSING: ${tally.MISSING}`,
   )
+  // State how much Czech source sits outside set equality, every run.
+  //
+  // Collapsed variants are Czech-only pages that share a concept with their
+  // primary, so they produce no EN/DE page of their own and their items are not
+  // item-classified. That is a deliberate consequence of the collapse design —
+  // but it was also completely unstated, and an inventory that silently omits a
+  // category is exactly how 183 FAQ items went missing in an earlier round.
+  const collapsedDeclared = R.LOCALE_CONCEPTS.reduce((n, c) => n + (c.csCollapsed?.length || 0), 0)
+  const collapsedSeen = inv.collapsedPages.length
+  const collapsedItems = inv.collapsedPages.reduce((n, p) => n + p.itemCount, 0)
+  if (collapsedSeen > collapsedDeclared) {
+    errors.push(`inventory found ${collapsedSeen} collapsed source pages but the registry declares ${collapsedDeclared}`)
+  }
+  notes.push(
+    `${collapsedSeen} collapsed Czech pages carrying ${collapsedItems} source items are outside set equality by ` +
+      `design (they share a concept with their primary and get no page of their own); ` +
+      `${collapsedDeclared} are declared in the registry`,
+  )
+
   for (const { conceptId } of inv.conceptsWithoutSource) {
     const exemption = NO_INVENTORY_SOURCE.get(conceptId)
     if (!exemption) {
@@ -415,12 +673,23 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
       )
       continue
     }
-    if (exemption.verify) {
-      const failure = exemption.verify({ enEntry: en[conceptId]?.en, deEntry: de[conceptId]?.de })
-      if (failure) errors.push(`${conceptId}: exemption check failed — ${failure}`)
-      else notes.push(`${conceptId}: no enumerable source, exemption verified structurally — ${exemption.reason}`)
+    // A reason alone is prose, and prose cannot fail. Every exemption must carry
+    // a check that re-earns it on each run, or it is just a way of removing a
+    // concept from the universe while announcing set equality over the rest.
+    if (!exemption.verify) {
+      errors.push(
+        `${conceptId}: has a NO_INVENTORY_SOURCE reason but no verify callback — an unverified exemption removes ` +
+          `the concept from set equality on the strength of a sentence nobody re-checks`,
+      )
+      continue
+    }
+    const failure = exemption.verify({ enEntry: en[conceptId]?.en, deEntry: de[conceptId]?.de })
+    if (!failure) {
+      notes.push(`${conceptId}: no enumerable source, exemption verified structurally — ${exemption.reason}`)
+    } else if (exemption.l0) {
+      l0Debt.push(`${conceptId}: ${failure}`)
     } else {
-      notes.push(`${conceptId}: no enumerable source — ${exemption.reason}`)
+      errors.push(`${conceptId}: exemption check failed — ${failure}`)
     }
   }
   return { errors, notes, l0Debt }

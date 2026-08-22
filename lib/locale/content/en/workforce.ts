@@ -242,6 +242,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
           body: [
             'Absence is not evenly distributed. It usually concentrates in particular workplaces, shifts or groups of people, and that distribution is the most valuable information a company has.',
             'If gaps arise mainly at one workplace, the cause is usually in the work itself — physical load, environment, relationships or supervision. If they attach to the night shift, it is more likely the pattern. If they concern new starters in their first weeks, it is really an adaptation problem showing up as absence.',
+            'What rate of absence counts as normal is not stated here: it differs by sector, by type of work and by region. More useful than a comparison with someone else\u2019s figure is your own trend over time, and where the gaps concentrate.',
           ],
         },
         {
@@ -664,7 +665,7 @@ export const EN_WORKFORCE: LocaleCorpus = {
         {
           heading: 'Compensation for early termination, and ending the cooperation',
           body: [
-            'A compensation arrangement is among the sensitive points, and among those that only get addressed once they are needed. It is not a promise that no departure will occur — nobody can give such a promise. It is an agreement on what happens if one does. In writing, therefore: the relevant period, the reasons that count within it, and the cases that exclude a claim — the role being cancelled, a substantial change to the brief, termination by the user, or conditions for starting not being met on the user’s side.',
+            'A compensation arrangement is among the sensitive points, and among those that only get addressed once they are needed. We do not promise one in advance. It is not a promise that no departure will occur — nobody can give such a promise. It is an agreement on what happens if one does. In writing, therefore: the relevant period, the reasons that count within it, and the cases that exclude a claim — the role being cancelled, a substantial change to the brief, termination by the user, or conditions for starting not being met on the user’s side.',
             'It should be equally clear how the cooperation ends: notice conditions, settlement of briefs in progress, what becomes of candidates already presented, and which arrangements continue to apply after termination. For temporary assignment there is in addition the manner in which an assignment is recalled, and the run-off of the assigned employees’ wage claims.',
           ],
         },
