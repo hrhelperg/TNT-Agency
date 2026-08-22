@@ -51,6 +51,7 @@ export const DE_EMPLOYER: LocaleCorpus = {
           body: [
             'Nach diesen Kriterien sollten Sie sagen können, über welchen Weg – oder welche Kombination – die Stelle zu besetzen ist und wen Sie im Unternehmen einbinden müssen.',
             'Wenn Sie die Gewinnung aus dem Ausland erwägen, rechnen Sie mit der Verwaltung der Erlaubnisse, die auf den tschechischen Seiten zur Beschäftigung ausländischer Mitarbeitender beschrieben ist.',
+            'Konkrete Fristen nennen wir hier nicht; wo eine Erlaubnis im Spiel ist, prüfen Sie die Fristen bei den zuständigen tschechischen Behörden.',
           ],
         },
       ],
@@ -381,6 +382,7 @@ export const DE_EMPLOYER: LocaleCorpus = {
           body: [
             'Arbeitgeber vergleichen ihr Angebot mit anderen Anzeigen. Eine Fachkraft vergleicht es mit der Arbeit, die sie hat und im Detail kennt: mit einer Führungskraft, die sie versteht, mit Technik, die sie eingerichtet hat, mit einem Anfahrtsweg, den sie erprobt hat, und mit der Sicherheit, dort bereits bestanden zu haben. Gegen diesen Vergleich genügt es nicht, nur ein wenig anders zu sein.',
             'Praktisch heißt das: benennen, was in Ihrem Angebot besser ist als das, was die Person heute hat, und nicht verdecken, was schlechter ist. Eine zutreffende, früh gegebene Information erspart beiden Seiten mehr als eine sorgfältig geschriebene Anzeige, auf die die Enttäuschung in der Probezeit folgt.',
+            'Aktuelle Arbeitsmarktdaten veröffentlichen das Tschechische Statistische Amt, das tschechische Ministerium für Arbeit und Soziales (MPSV) und das Arbeitsamt der Tschechischen Republik (Úřad práce ČR). Zahlen nennen wir hier nicht.',
           ],
           list: {
             intro: 'Zusammengefasst, in der Reihenfolge, in der die Diagnose Sinn ergibt:',

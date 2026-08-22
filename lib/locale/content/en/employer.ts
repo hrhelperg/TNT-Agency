@@ -52,6 +52,7 @@ export const EN_EMPLOYER: LocaleCorpus = {
           body: [
             'Having worked through those criteria, you should be able to say which route — or combination of routes — fits the role, and who inside the company needs to be involved.',
             'If you are considering recruiting from abroad, allow for the permit administration described on the Czech pages covering the employment of foreign nationals.',
+            'No specific time limits are stated here; where a permit is involved, verify the timings with the relevant Czech authorities.',
           ],
         },
       ],
@@ -382,6 +383,7 @@ export const EN_EMPLOYER: LocaleCorpus = {
           body: [
             'Employers compare their offer with other advertisements. A specialist candidate compares it with the job they have and know in detail: a manager they understand, equipment they have set up, a commute they have tested, and the certainty that they have already succeeded there. Being slightly different is not enough against that comparison.',
             'In practice this means naming what is better in your offer than what the person has today, and not concealing what is worse. Accurate information given early saves both sides more than a carefully written advertisement followed by disappointment during the probationary period.',
+            'Current labour-market data is published by the Czech Statistical Office, the Ministry of Labour and Social Affairs and the Czech Labour Office. No figures are stated here.',
           ],
           list: {
             intro: 'The whole diagnosis, in order:',

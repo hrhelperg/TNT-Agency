@@ -264,6 +264,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'A reliable check on a brief is whether an electrician who does not know your company could answer from it. If they could, the selection is not decided when documents are checked before a start date but much earlier — and among candidates who genuinely hold competence for that work.',
             'A brief described that way also speeds up pre-selection: knowing the equipment and the activity, the document can be gone through with the candidate before the interview, verified against originals along with identity.',
+            'The wording of those transitional provisions is not interpreted here; for a specific certificate, go by its content and its validity date.',
           ],
           list: {
             intro: 'What the request should carry:',
@@ -796,6 +797,7 @@ export const EN_SPECIALISTS: LocaleCorpus = {
           body: [
             'The most common mistake is a brief listing every system used in the company and every type of production. The result is a profile nobody matches.',
             'It is better to describe what the person will do in the first three months, and to say what has to be known immediately and what can be learned. That split also makes the interview easier — you then ask about things that actually happen.',
+            'A designer and a process engineer are not the same role, even where one person covers both.',
           ],
           list: {
             intro: 'Four questions narrow a brief faster than any list of systems:',

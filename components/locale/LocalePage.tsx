@@ -58,6 +58,15 @@ export default function LocalePage({ conceptId, locale, content, afterContent }:
   if (!selfUrl) throw new Error(`LocalePage: concept "${conceptId}" declares no ${locale} url`)
 
   const ctaConcept = ALL_CONCEPTS.find((c) => c.id === content.cta.targetConceptId)
+  // The two lookups above this one throw on an unknown id; this one used to
+  // return undefined, which made ctaHref undefined, which made the whole
+  // <p class="locale-cta"> render nothing. A one-character typo therefore
+  // deleted a page's conversion CTA in silence: no gate reads localized CTAs,
+  // and the only layer that noticed did so by timing out at 90s rather than by
+  // asserting anything — a routine actionTimeout would have made it pass.
+  if (!ctaConcept) {
+    throw new Error(`locale CTA references unknown concept "${content.cta.targetConceptId}"`)
+  }
   const ctaHref = ctaConcept ? urlFor(ctaConcept, locale) ?? urlFor(ctaConcept, 'cs') : undefined
   const localeHome = locale === 'en' ? '/en' : '/de'
 

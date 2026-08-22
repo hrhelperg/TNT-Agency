@@ -158,7 +158,7 @@ export const EN_INDUSTRIES: LocaleCorpus = {
           heading: 'What is specific to construction',
           body: [
             'Construction work is often tied to specific projects with a defined beginning and end, is subject to season and weather, and combines skilled trades with support positions. That makes planning permanent headcount a challenge.',
-            'The need for people changes with the phase of a project and with how many contracts run in parallel — so the same firm can be short of people and overstaffed within one year.',
+            'The need for people changes with the phase of a project and with how many contracts run in parallel.',
           ],
         },
         {

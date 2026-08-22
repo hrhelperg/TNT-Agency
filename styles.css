@@ -1399,7 +1399,6 @@ p  { color: var(--text-2); line-height: 1.7; }
   .section-head { margin-bottom: var(--s5); }
   .section-head p { font-size: 1.05rem; }
 
-
   .hero { padding: 148px 0 84px; }
   .hero__sub { margin-bottom: var(--s5); }
 
@@ -3089,10 +3088,11 @@ p  { color: var(--text-2); line-height: 1.7; }
    even those take the extra width on the right only and keep the shared left
    edge. Between 1251px and 1480px the Czech header cannot do both, and fitting
    wins there — an unreachable CTA is worse than a misaligned logo. */
-html[lang='cs'] .header .container { max-width: 1400px; }
+.header--legacy-lang .container { max-width: 1400px; }
+
 
 @media (min-width: 1480px) {
-  html[lang='cs'] .header .container {
+  .header--legacy-lang .container {
     /* width:auto, not the inherited width:100%. With a left margin and a
        percentage width the box is sized from the viewport and then pushed
        right, so it hangs off the edge — measured 36px past the viewport at

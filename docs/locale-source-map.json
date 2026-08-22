@@ -1077,12 +1077,14 @@
         "en": {
           "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
           "carriedBy": "The useful criteria are urgency, the nature of the need — standing or temporary — how available the candidates are in your market, and your internal capacity to run a selection process and its paperwork.",
-          "reason": "Every determinant the answer names survives on this page, folded into the route-selection criteria instead of a separate Q/A: candidate availability and urgency in the sentence quoted, the chosen route throughout 'The main routes', and the permit procedure in 'If you are considering recruiting from abroad, allow for the permit administration described on the Czech pages covering the employment of foreign nationals.' The refusal half is honoured behaviourally — the page states no interval anywhere, and its intro commits to pointing at official sources for specific rules rather than restating them."
+          "reason": "Every determinant the answer names survives on this page, folded into the route-selection criteria instead of a separate Q/A: candidate availability and urgency in the sentence quoted, the chosen route throughout 'The main routes', and the permit procedure in 'If you are considering recruiting from abroad, allow for the permit administration described on the Czech pages covering the employment of foreign nationals.' The refusal half is honoured behaviourally — the page states no interval anywhere, and its intro commits to pointing at official sources for specific rules rather than restating them.",
+          "refusalCarriedBy": "No specific time limits are stated here"
         },
         "de": {
           "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
           "carriedBy": "Brauchbare Kriterien sind Dringlichkeit, die Art des Bedarfs – dauerhaft oder vorübergehend –, die Verfügbarkeit geeigneter Menschen in Ihrer Region und Ihre interne Kapazität, ein Auswahlverfahren samt Verwaltung zu führen.",
-          "reason": "Alle genannten Einflussgrößen stehen auf der Seite, nur in die Auswahlkriterien gefaltet statt als eigene Frage: Verfügbarkeit und Dringlichkeit im zitierten Satz, der gewählte Weg im Abschnitt 'Die Hauptwege', das Erlaubnisverfahren in 'rechnen Sie mit der Verwaltung der Erlaubnisse'. Die Verweigerung wird eingehalten, indem die Seite nirgends eine Frist nennt und im Intro für konkrete Regeln auf offizielle Quellen verweist."
+          "reason": "Alle genannten Einflussgrößen stehen auf der Seite, nur in die Auswahlkriterien gefaltet statt als eigene Frage: Verfügbarkeit und Dringlichkeit im zitierten Satz, der gewählte Weg im Abschnitt 'Die Hauptwege', das Erlaubnisverfahren in 'rechnen Sie mit der Verwaltung der Erlaubnisse'. Die Verweigerung wird eingehalten, indem die Seite nirgends eine Frist nennt und im Intro für konkrete Regeln auf offizielle Quellen verweist.",
+          "refusalCarriedBy": "Konkrete Fristen nennen wir hier nicht"
         }
       }
     }
@@ -1647,11 +1649,13 @@
         "cs": "Platí za oslovení kandidát? Ne. Zákon o zaměstnanosti neumožňuje požadovat úhradu za zprostředkování zaměstnání po uchazeči. Náklady nese zaměstnavatel a kandidát za účast ve výběru neplatí nic.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "no fee for mediation may be sought from the candidate. The cost is borne by the employer, never by the person approached."
+          "carriedBy": "no fee for mediation may be sought from the candidate. The cost is borne by the employer, never by the person approached.",
+          "refusalCarriedBy": "never by the person approached"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "ein Entgelt für die Vermittlung darf von der Kandidatin oder dem Kandidaten nicht verlangt werden. Die Kosten trägt der Arbeitgeber, niemals die angesprochene Person."
+          "carriedBy": "ein Entgelt für die Vermittlung darf von der Kandidatin oder dem Kandidaten nicht verlangt werden. Die Kosten trägt der Arbeitgeber, niemals die angesprochene Person.",
+          "refusalCarriedBy": "niemals die angesprochene"
         }
       }
     }
@@ -1939,12 +1943,14 @@
         "en": {
           "state": "PRESERVED_IN_PROSE",
           "carriedBy": "which ask first about the brief, then about your constraints, and only last about the market",
-          "reason": "The answer's guidance — the market may be a cause but is not one an employer can act on, so diagnose what you control first — is the page's stated ordering; the labour-market source list is the only clause not repeated here."
+          "reason": "The answer's guidance — the market may be a cause but is not one an employer can act on, so diagnose what you control first — is the page's stated ordering; the labour-market source list is the only clause not repeated here.",
+          "refusalCarriedBy": "No figures are stated here"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
           "carriedBy": "die zuerst nach dem Profil fragen, dann nach den eigenen Einschränkungen und erst zuletzt nach dem Markt",
-          "reason": "Same ordering argument as EN: profile, own constraints, market last; the MPSV/Úřad práce/ČSÚ source list is not repeated on this page."
+          "reason": "Same ordering argument as EN: profile, own constraints, market last; the MPSV/Úřad práce/ČSÚ source list is not repeated on this page.",
+          "refusalCarriedBy": "Zahlen nennen wir hier nicht"
         }
       }
     }
@@ -2092,11 +2098,13 @@
         "cs": "Můžete zkrátit výpovědní dobu kandidáta? Ne. Délku i běh výpovědní doby stanoví zákoník práce a dřívější odchod je možný pouze dohodou mezi kandidátem a jeho dosavadním zaměstnavatelem. Agentura ani nový zaměstnavatel do tohoto vztahu nevstupuje.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Neither you nor an agency can shorten it. An earlier departure is possible only by agreement between the candidate and their current employer"
+          "carriedBy": "Neither you nor an agency can shorten it. An earlier departure is possible only by agreement between the candidate and their current employer",
+          "refusalCarriedBy": "Neither you nor an agency can shorten it"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Verkürzen kann ihn weder eine Agentur noch Sie. Ein früherer Wechsel ist nur im Einvernehmen möglich"
+          "carriedBy": "Verkürzen kann ihn weder eine Agentur noch Sie. Ein früherer Wechsel ist nur im Einvernehmen möglich",
+          "refusalCarriedBy": "Verkürzen kann ihn weder"
         }
       },
       "time-to-hire|SEO_PAGES|f2|1c924fc5": {
@@ -2116,11 +2124,13 @@
         "cs": "Jak dlouho trvá vyřízení oprávnění u pracovníka ze třetí země? Řízení vede stát a jeho délku neurčujeme. Postup a lhůty vyplývají z předpisů; aktuální informace zveřejňují Ministerstvo vnitra ČR, Úřad práce ČR a Ministerstvo zahraničních věcí ČR. Do plánu je vhodné tento krok zahrnout jako samostatnou fázi.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Current information is published by the Czech Ministry of the Interior, the Czech Labour Office and the Czech Ministry of Foreign Affairs. No time limits are stated on this page."
+          "carriedBy": "Current information is published by the Czech Ministry of the Interior, the Czech Labour Office and the Czech Ministry of Foreign Affairs. No time limits are stated on this page.",
+          "refusalCarriedBy": "No time limits are stated on this page"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Aktuelle Informationen veröffentlichen das tschechische Innenministerium, das Arbeitsamt der Tschechischen Republik (Úřad práce ČR) und das tschechische Außenministerium. Konkrete Fristen nennt diese Seite nicht."
+          "carriedBy": "Aktuelle Informationen veröffentlichen das tschechische Innenministerium, das Arbeitsamt der Tschechischen Republik (Úřad práce ČR) und das tschechische Außenministerium. Konkrete Fristen nennt diese Seite nicht.",
+          "refusalCarriedBy": "bestimmen weder Agentur"
         }
       },
       "time-to-hire|SEO_PAGES|f4|050042e4": {
@@ -3118,12 +3128,14 @@
         "en": {
           "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
           "carriedBy": "they belong in the current wording of the regulation and should be checked there",
-          "reason": "The page names both instruments (250/2021 Sb. and 194/2022 Sb.), states that the old and new structures cannot be mapped onto one another mechanically, expressly declines to interpret the wording itself, and directs the reader to the document and its validity date. The Czech answer's operative instruction survives whole; only the term 'transitional provisions' is folded into that argument."
+          "reason": "The page names both instruments (250/2021 Sb. and 194/2022 Sb.), states that the old and new structures cannot be mapped onto one another mechanically, expressly declines to interpret the wording itself, and directs the reader to the document and its validity date. The Czech answer's operative instruction survives whole; only the term 'transitional provisions' is folded into that argument.",
+          "refusalCarriedBy": "is not interpreted here"
         },
         "de": {
           "state": "INTENTIONALLY_COLLAPSED_WITHOUT_MEANING_LOSS",
           "carriedBy": "sie gehören in die geltende Fassung der Verordnung und sind dort zu prüfen",
-          "reason": "The German page likewise names both Czech instruments, says the alte und neue Gliederung cannot be converted mechanically, declines to quote the wording, and tells the reader to obtain the Nachweis and read who issued it, for what activity and equipment, and until when it is valid — the answer's substance without the label 'Übergangsbestimmungen'."
+          "reason": "The German page likewise names both Czech instruments, says the alte und neue Gliederung cannot be converted mechanically, declines to quote the wording, and tells the reader to obtain the Nachweis and read who issued it, for what activity and equipment, and until when it is valid — the answer's substance without the label 'Übergangsbestimmungen'.",
+          "refusalCarriedBy": "legen wir hier nicht aus"
         }
       },
       "electricians|SEO_PAGES|f2|9c441569": {
@@ -3789,11 +3801,13 @@
         "cs": "Uvádíte mzdová rozpětí pro pozice v kvalitě? Ne, konkrétní částky na této stránce nenajdete. Údaje o výdělcích podle povolání zveřejňuje Informační systém o průměrném výdělku (ISPV), požadavky povolání popisuje Národní soustava povolání a standardy profesních kvalifikací Národní soustava kvalifikací. V kvalitě navíc rozhoduje, na které příčce žebříčku role skutečně stojí – proto začněte vymezením role, ne úvahou o částce.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Which rung the role stands on also settles the order in which to think about the offer. Specific figures are not on this"
+          "carriedBy": "Which rung the role stands on also settles the order in which to think about the offer. Specific figures are not on this",
+          "refusalCarriedBy": "Specific figures are not on this"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Konkrete Beträge für Stellen in der Qualität finden Sie auf dieser Seite nicht. Angaben zu den Verdiensten nach Berufen "
+          "carriedBy": "Konkrete Beträge für Stellen in der Qualität finden Sie auf dieser Seite nicht. Angaben zu den Verdiensten nach Berufen ",
+          "refusalCarriedBy": "finden Sie auf dieser Seite nicht"
         }
       }
     }
@@ -4554,11 +4568,13 @@
         "cs": "Je technolog totéž co konstruktér? Ne. Konstruktér odpovídá za návrh dílu a jeho dokumentaci, technolog za způsob, jakým se díl v daném provozu vyrobí. V menších firmách se role spojují, v zadání je pak vhodné uvést, která část převažuje.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "A process engineer takes that documentation and converts it into a manufacturing procedure."
+          "carriedBy": "A process engineer takes that documentation and converts it into a manufacturing procedure.",
+          "refusalCarriedBy": "are not the same role"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Der Technologe übernimmt diese Dokumentation und überführt sie in einen Fertigungsablauf."
+          "carriedBy": "Der Technologe übernimmt diese Dokumentation und überführt sie in einen Fertigungsablauf.",
+          "refusalCarriedBy": "sind nicht dieselbe Rolle"
         }
       },
       "process-and-design-engineers|SEO_PAGE_TIERS|f1|4347f364": {
@@ -5063,11 +5079,13 @@
         "cs": "Obsazujete i mzdovou účtárnu a personální administrativu? Tyto stránky se věnují zázemí výrobních, skladových a logistických provozů. Vrcholové finanční řízení a úzce specializované role mimo tento kontext zde nepopisujeme, protože mají jiné nároky na posouzení odbornosti.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "senior financial management and narrowly specialised roles outside that context are not covered here"
+          "carriedBy": "senior financial management and narrowly specialised roles outside that context are not covered here",
+          "refusalCarriedBy": "are not covered here"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "die oberste Finanzsteuerung und eng spezialisierte Rollen außerhalb dieses Zusammenhangs behandeln wir hier nicht"
+          "carriedBy": "die oberste Finanzsteuerung und eng spezialisierte Rollen außerhalb dieses Zusammenhangs behandeln wir hier nicht",
+          "refusalCarriedBy": "behandeln wir hier nicht"
         }
       },
       "technical-office-roles|SEO_PAGES|f4|212e757a": {
@@ -6813,7 +6831,7 @@
         },
         "de": {
           "state": "PRESERVED_IN_LIST",
-          "carriedBy": "Eigener Stand – festes Kernteam, technisches Wissen, Führung von Menschen, Entscheidung über Qualität",
+          "carriedBy": "Stammbelegschaft – festes Kernteam, technisches Wissen, Führung von Menschen, Entscheidung über Qualität",
           "reason": "Same list item, en-dash only. Section 'Wann die Stammbelegschaft sinnvoll ist'."
         }
       },
@@ -7336,11 +7354,13 @@
         "cs": "Kolik stojí služby personální agentury? Jedním číslem to říct nelze a tato stránka žádné neuvádí. Odměna se odvíjí od modelu spolupráce, rozsahu služby a náročnosti konkrétní pozice. Nabídku dáváme vždy ke konkrétnímu zadání, ne jako ceník.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "You will therefore find no amount, rate or percentage on this page."
+          "carriedBy": "You will therefore find no amount, rate or percentage on this page.",
+          "refusalCarriedBy": "find no amount, rate or percentage"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Auf dieser Seite finden Sie deshalb weder Betrag noch Satz noch Anteil."
+          "carriedBy": "Auf dieser Seite finden Sie deshalb weder Betrag noch Satz noch Anteil.",
+          "refusalCarriedBy": "weder Betrag noch Satz noch Anteil"
         }
       },
       "agency-fees|SEO_PAGES|f1|0e99754f": {
@@ -7596,11 +7616,13 @@
         "cs": "Platí tato kritéria i na vás? Ano, a to je celý smysl této stránky. Náš vlastní stav zde neprohlašujeme za ověřený; ověřte si ho v evidenci stejně jako u kohokoli jiného a stejné otázky nám položte.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "we do not declare our own status verified here; check it in the public register yourself"
+          "carriedBy": "we do not declare our own status verified here; check it in the public register yourself",
+          "refusalCarriedBy": "we do not declare our own status verified here"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "wir erklären hier den eigenen Status nicht für geprüft; prüfen Sie ihn selbst im öffentlichen Verzeichnis"
+          "carriedBy": "wir erklären hier den eigenen Status nicht für geprüft; prüfen Sie ihn selbst im öffentlichen Verzeichnis",
+          "refusalCarriedBy": "erklären hier den eigenen Status nicht für geprüft"
         }
       },
       "choosing-an-agency|SEO_PAGES|f2|9a7bf4e3": {
@@ -7843,12 +7865,12 @@
         "en": {
           "state": "PRESERVED_IN_PROSE",
           "carriedBy": "It is not a promise that no departure will occur — nobody can give such a promise. It is an agreement on what happens if one does.",
-          "refusalCarriedBy": "We do not promise one in advance"
+          "refusalCarriedBy": "A replacement is not something we promise in advance"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
           "carriedBy": "Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben.",
-          "refusalCarriedBy": "Vorab sagen wir eine solche Regelung nicht zu"
+          "refusalCarriedBy": "Einen Ersatz sagen wir vorab nicht zu"
         }
       },
       "agency-contract|SEO_PAGES|f2|ee9bba7f": {
@@ -7868,11 +7890,13 @@
         "cs": "Lze se smluvně dohodnout na horších podmínkách, než mají kmenoví zaměstnanci? Nelze. Nárok na srovnatelné mzdové a pracovní podmínky vyplývá ze zákoníku práce a smlouva jej může pouze provést. Ujednání, které by jej obcházelo, vystavuje riziku obě strany včetně uživatele.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "it is a statutory requirement, and a contract can only implement it, not change or exclude it"
+          "carriedBy": "it is a statutory requirement, and a contract can only implement it, not change or exclude it",
+          "refusalCarriedBy": "not change or exclude it"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "es ist eine gesetzliche Anforderung, und ein Vertrag kann sie nur ausführen, nicht ändern oder ausschließen"
+          "carriedBy": "es ist eine gesetzliche Anforderung, und ein Vertrag kann sie nur ausführen, nicht ändern oder ausschließen",
+          "refusalCarriedBy": "nicht ändern oder ausschließen"
         }
       },
       "agency-contract|SEO_PAGES|f4|01a372c9": {
@@ -8235,11 +8259,13 @@
         "cs": "Je slovník závazný? Ne. Definice jsou zjednodušené pro orientaci a nenahrazují závazné znění předpisů. Konkrétní podmínky ověřte u příslušného úřadu nebo na podrobné stránce.",
         "en": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "The definitions are simplified for orientation and do not replace the binding wording of regulations."
+          "carriedBy": "The definitions are simplified for orientation and do not replace the binding wording of regulations.",
+          "refusalCarriedBy": "do not replace the binding wording"
         },
         "de": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "Die Definitionen sind zur Orientierung vereinfacht und ersetzen nicht den verbindlichen Wortlaut der Vorschriften."
+          "carriedBy": "Die Definitionen sind zur Orientierung vereinfacht und ersetzen nicht den verbindlichen Wortlaut der Vorschriften.",
+          "refusalCarriedBy": "ersetzen nicht den verbindlichen Wortlaut"
         }
       }
     }

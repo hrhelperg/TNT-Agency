@@ -145,7 +145,9 @@ const NO_INVENTORY_SOURCE = new Map([
         'it is recorded as L0 debt rather than exempted away.',
       verify: ({ enEntry, deEntry }) => {
         const czechItems = countLi('pages/o-nas.tsx')
-        if (czechItems === 0) return null
+        if (czechItems === 0) {
+          return "pages/o-nas.tsx has no list items — this exemption's premise no longer holds"
+        }
         const en = countListItems(enEntry)
         const de = countListItems(deEntry)
         if (en !== czechItems || de !== czechItems) {
@@ -290,7 +292,33 @@ const NO_INVENTORY_SOURCE = new Map([
  * Checked page-locally, because a refusal on some other page does not help the
  * reader in front of this one.
  */
-const CZECH_REFUSAL = /neslibujeme|neuvádíme|nevymýšlíme|nedovozujeme|nezveřejňujeme/i
+/**
+ * Czech refusals, by shape rather than by a whitelist of five verbs.
+ *
+ * The previous pattern was /neslibujeme|neuvádíme|nevymýšlíme|nedovozujeme|
+ * nezveřejňujeme/i — first-person plural only, five lemmas, derived from
+ * nothing. Independent refuters measured the cost: 22 of 56 refusal-bearing L1
+ * source items fell outside it, every one of them carrying
+ * `refusalCarriedBy: null`, and two real dropped refusals were sitting in that
+ * gap. The same act in the page's own voice walked past — "Obecné číslo zde
+ * neuvádíme" was guarded while "Tato stránka cizí benchmarky neuvádí" was not.
+ *
+ * It is scoped to the site's own voice. `nelze` on its own is impersonal
+ * "cannot" and appears far more often as plain fact than as a refusal — "a
+ * commodity knowledge that cannot be caught up quickly", "this cannot replace
+ * the document the regulation requires" — so it counts only where it opens an
+ * answer, which is where it is the site declining. Matching it anywhere added
+ * four false positives out of fourteen, and a gate that cries wolf is a gate
+ * people learn to skip.
+ *
+ * So the rule is the shape of a refusal: a negated verb in the site's own voice
+ * (1pl -me, 3sg -á/-í/-e), plus the bare "Ne." that opens a refusing FAQ answer
+ * and the impersonal "nelze". Widening this is what surfaces the gaps; it is
+ * meant to be over- rather than under-inclusive, because a false positive costs
+ * an argued map entry and a false negative costs a dropped refusal.
+ */
+const CZECH_REFUSAL =
+  /\bne(?:slibuj|uvád|vymýšl|dovozuj|zveřejňuj|garantuj|tvrd|určuj|interpretuj|popisuj|prohlašuj|sděluj|zavazuj|rozebír|doporučuj|nahrazuj)\w*|(?:^|[.?!]\s+)(?:Ne|Nelze|Nenajdete)[.,]/u
 
 /**
  * A negation, checked against the NAMED refusal evidence — never the page.
@@ -302,8 +330,13 @@ const CZECH_REFUSAL = /neslibujeme|neuvádíme|nevymýšlíme|nedovozujeme|nezve
  * map, and the pointer is what gets verified.
  */
 const NEGATION = {
-  en: /\b(do|does|did|is|are|will|can|cannot|neither|nor)\s*n[o']?t\b|\bno\b|\bnever\b|\bwithout\b/i,
-  de: /\bnicht\b|\bkeine?[nmrs]?\b|\bweder\b|\bohne\b/i,
+  // `not` on its own counts. Requiring an auxiliary before it rejected real
+  // refusals — "a contract can only implement it, not change or exclude it" —
+  // and `niemals` was missing from the German list entirely, so "die Kosten
+  // trägt der Arbeitgeber, niemals die angesprochene Person" did not register
+  // as a negation either.
+  en: /\bnot\b|\bno\b|\bnever\b|\bneither\b|\bnor\b|\bwithout\b|\bcannot\b/i,
+  de: /\bnicht\b|\bkeine?[nmrs]?\b|\bweder\b|\bohne\b|\bniemals\b|\bnie\b/i,
 }
 
 const STATES = new Set([
@@ -390,10 +423,32 @@ const buildDescribesTree = ({ corpora }) => {
       if (entry.h1 && !plain.includes(normalise(entry.h1))) {
         mismatches.push(`${url} does not render this corpus's h1 ("${entry.h1.slice(0, 60)}")`)
       }
+      // List items, counted inside .locale-list only. Counting every <li> on the
+      // page swept in nav and footer, which is why this could only ever be a
+      // one-sided `declared > rendered` check; scoped to the content lists it
+      // can be an equality, so items removed from the corpus after a build are
+      // visible too.
       const declared = entry.sections.reduce((n, sec) => n + (sec.list ? sec.list.items.length : 0), 0)
-      const rendered = (html.match(/<li\b/g) || []).length
-      if (declared > rendered) {
-        mismatches.push(`${url} renders ${rendered} list item(s) but the corpus declares ${declared}`)
+      const rendered = [...html.matchAll(/<[ou]l[^>]*class="locale-list"[^>]*>([\s\S]*?)<\/[ou]l>/g)].reduce(
+        (n, m) => n + (m[1].match(/<li\b/g) || []).length,
+        0,
+      )
+      if (declared !== rendered) {
+        mismatches.push(`${url} renders ${rendered} content list item(s) but the corpus declares ${declared}`)
+      }
+
+      // Prose. The h1 check above sees a changed title, and the list check sees
+      // structure that stopped rendering, but neither sees section bodies
+      // vanish or change: deleting the paragraph block from LocalePage removed
+      // every body paragraph from all 96 pages and this check stayed green.
+      for (const section of entry.sections) {
+        const first = section.body?.[0]
+        if (!first) continue
+        const probe = normalise(first).slice(0, 60)
+        if (probe && !plain.includes(probe)) {
+          mismatches.push(`${url} does not render this corpus's prose under "${section.heading}"`)
+          break
+        }
       }
       if (mismatches.length >= 5) return mismatches
     }
@@ -430,7 +485,11 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
   // Refuse to certify on half the checks. `readPage` being overridden means a
   // caller (the mutation suite) is deliberately supplying HTML, which is fine;
   // an absent build with the default reader is not.
-  const usingRealBuild = readPage === readRouteHtml
+  // Only meaningful when BOTH halves are the real ones. A caller that injects a
+  // mutated corpus (the mutation harness) legitimately disagrees with the build,
+  // and treating that as staleness made this check early-return and short-
+  // circuit the very assertion the mutation was written to exercise.
+  const usingRealBuild = readPage === readRouteHtml && corpora === undefined
   const haveBuild = fs.existsSync(BUILD) && fs.existsSync(path.join(ROOT, '.next/BUILD_ID'))
   if (usingRealBuild && haveBuild) {
     const stale = buildDescribesTree({ corpora: { en, de } })
@@ -654,8 +713,12 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
   const collapsedDeclared = R.LOCALE_CONCEPTS.reduce((n, c) => n + (c.csCollapsed?.length || 0), 0)
   const collapsedSeen = inv.collapsedPages.length
   const collapsedItems = inv.collapsedPages.reduce((n, p) => n + p.itemCount, 0)
-  if (collapsedSeen > collapsedDeclared) {
-    errors.push(`inventory found ${collapsedSeen} collapsed source pages but the registry declares ${collapsedDeclared}`)
+  if (collapsedSeen !== collapsedDeclared) {
+    errors.push(
+      `inventory found ${collapsedSeen} collapsed source pages but the registry declares ${collapsedDeclared} — ` +
+        'equality in both directions, because a declared page whose source object vanishes otherwise takes its ' +
+        'items out of this report and prints a smaller number instead of failing',
+    )
   }
   notes.push(
     `${collapsedSeen} collapsed Czech pages carrying ${collapsedItems} source items are outside set equality by ` +

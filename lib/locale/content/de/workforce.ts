@@ -180,7 +180,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
           heading: 'Saisonaler Bedarf ist nicht dasselbe wie Personalmangel',
           body: [
             'Der Unterschied entscheidet über die Lösung. Personalmangel heißt, dass für dauerhaft besetzte Stellen Menschen fehlen. Saisonaler Bedarf heißt, dass Stellen für eine begrenzte Zeit entstehen und danach wieder wegfallen.',
-            'Daraus folgt, dass die Lösung nicht darin besteht, den dauerhaften Stand zu erhöhen. Ein Unternehmen, das für die Spitze dauerhaft einstellt, hat danach ein Überbesetzungsproblem – und das ist schlimmer als das ursprüngliche.',
+            'Daraus folgt, dass die Lösung nicht darin besteht, die Stammbelegschaft dauerhaft zu vergrößern. Ein Unternehmen, das für die Spitze dauerhaft einstellt, hat danach ein Überbesetzungsproblem – und das ist schlimmer als das ursprüngliche.',
           ],
         },
         {
@@ -320,7 +320,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
           ],
           list: {
             items: [
-              'Eigener Stand – festes Kernteam, technisches Wissen, Führung von Menschen, Entscheidung über Qualität',
+              'Stammbelegschaft – festes Kernteam, technisches Wissen, Führung von Menschen, Entscheidung über Qualität',
               'Vorübergehende Zuweisung – Saison, Anlauf, Vertretungen, Projekt mit definiertem Ende',
               'Kombination beider Wege – ein stabiler Kern, ergänzt um flexible Kapazität',
             ],
@@ -684,7 +684,7 @@ export const DE_WORKFORCE: LocaleCorpus = {
         {
           heading: 'Ersatz bei vorzeitiger Beendigung und das Ende der Zusammenarbeit',
           body: [
-            'Eine Ersatzregelung gehört zu den heiklen Punkten und zugleich zu denen, die erst dann behandelt werden, wenn sie gebraucht werden. Vorab sagen wir eine solche Regelung nicht zu. Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben. Es geht um die Vereinbarung, was geschieht, wenn es dazu kommt. Schriftlich gehören deshalb hinein: der maßgebliche Zeitraum, die Gründe, die dabei zählen, und die Fälle, die einen Anspruch ausschließen – Wegfall der Stelle, wesentliche Änderung des Auftrags, Beendigung durch das Einsatzunternehmen oder die Nichterfüllung der Eintrittsbedingungen auf dessen Seite.',
+            'Eine Ersatzregelung gehört zu den heiklen Punkten und zugleich zu denen, die erst dann behandelt werden, wenn sie gebraucht werden. Einen Ersatz sagen wir vorab nicht zu, und die Bedingungen für Ersatz oder die Rückzahlung eines Teils der Vergütung werden vor Beginn der Zusammenarbeit vereinbart, nicht nach einem Weggang. Es geht nicht um das Versprechen, dass es zu keinem Weggang kommt – ein solches Versprechen kann niemand geben. Es geht um die Vereinbarung, was geschieht, wenn es dazu kommt. Schriftlich gehören deshalb hinein: der maßgebliche Zeitraum, die Gründe, die dabei zählen, und die Fälle, die einen Anspruch ausschließen – Wegfall der Stelle, wesentliche Änderung des Auftrags, Beendigung durch das Einsatzunternehmen oder die Nichterfüllung der Eintrittsbedingungen auf dessen Seite.',
             'Ebenso klar sollte sein, wie die Zusammenarbeit endet: Kündigungsbedingungen, Abwicklung laufender Aufträge, das Schicksal bereits vorgestellter Personen und die Frage, welche Regelungen über die Beendigung hinaus fortgelten. Bei der vorübergehenden Zuweisung kommen der Widerruf der Zuweisung und der Nachlauf der Lohnansprüche der überlassenen Beschäftigten hinzu.',
           ],
         },

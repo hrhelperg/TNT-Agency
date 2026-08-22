@@ -27,7 +27,12 @@ describe('ArticleLanguageNotice truthfulness', () => {
     // Every occurrence in this file must carry a route; a bare one would make
     // the component fall back to the Czech-only branch for every article.
     for (const tag of src.match(/<ArticleLanguageNotice\b[^>]*>/g) ?? []) {
-      expect(tag, `SeoArticle renders the notice without a route: ${tag}`).toMatch(/\broute=/)
+      // Matching /route=/ alone guarded the syntax, not the behaviour:
+      // `route={undefined}` is identical to omitting the prop, and passes it.
+      // The value has to be derived from the page being rendered.
+      expect(tag, `SeoArticle renders the notice without a route: ${tag}`).toMatch(/\broute=\{/)
+      expect(tag, `SeoArticle passes a literal undefined route: ${tag}`).not.toMatch(/route=\{\s*undefined\s*\}/)
+      expect(tag, `SeoArticle's route is not derived from the page: ${tag}`).toMatch(/route=\{[^}]*\bslug\b/)
     }
   })
 

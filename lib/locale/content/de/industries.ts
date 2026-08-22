@@ -158,8 +158,8 @@ export const DE_INDUSTRIES: LocaleCorpus = {
         {
           heading: 'Was den Bau ausmacht',
           body: [
-            'Bauarbeiten sind häufig an konkrete Projekte mit definiertem Anfang und Ende gebunden, unterliegen Saison und Witterung und verbinden qualifizierte Handwerksberufe mit Hilfspositionen. Das macht die Planung eines festen Stands zur Herausforderung.',
-            'Der Bedarf ändert sich mit der Projektphase und mit der Zahl paralleler Aufträge – dasselbe Unternehmen kann innerhalb eines Jahres unterbesetzt und überbesetzt sein.',
+            'Bauarbeiten sind häufig an konkrete Projekte mit definiertem Anfang und Ende gebunden, unterliegen Saison und Witterung und verbinden qualifizierte Handwerksberufe mit Hilfspositionen. Das macht die Planung einer festen Stammbelegschaft zur Herausforderung.',
+            'Der Bedarf ändert sich mit der Projektphase und mit der Zahl paralleler Aufträge.',
           ],
         },
         {

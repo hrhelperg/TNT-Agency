@@ -52,7 +52,7 @@ export function renderPlan() {
   for (const x of m.CZECH_ONLY) named.set(x.route, ['CZECH_ONLY', x.reason])
   for (const x of m.DEFERRED_L2) named.set(x.route, ['L2', x.reason])
 
-  const tally = { L0: 0, L1_primary: 0, L1_collapsed: 0, LEGAL: 0, CZECH_ONLY: 0, L2: 0, OUT_OF_SCOPE: 0 }
+  const tally = { L0: 0, L1_primary: 0, L1_collapsed: 0, LEGAL: 0, CZECH_ONLY: 0, L2: 0, OUT_OF_SCOPE: 0, UNCLASSIFIED: 0 }
   const rows = []
   for (const route of reg.CZECH_ROUTES) {
     if (L0.has(route)) { tally.L0++; continue }
@@ -63,6 +63,7 @@ export function renderPlan() {
     if (named.has(route)) { const [k, why] = named.get(route); tally[k]++; rows.push([route, k, why]); continue }
     const rule = m.CLASS_RULES.find((r) => r.test.test(route))
     if (rule) { tally[rule.classification]++; rows.push([route, rule.classification, `rule: ${rule.id}`]); continue }
+    tally.UNCLASSIFIED = (tally.UNCLASSIFIED || 0) + 1
     rows.push([route, 'UNCLASSIFIED', 'no rule matched — this is a gap'])
   }
 

@@ -72,7 +72,7 @@ export const DE_TRUST: LocaleCorpus = {
         {
           heading: 'Wie gehen wir mit Personalmangel in unserer Branche um?',
           body: [
-            'Mit einer Kombination aus festem Kern, flexibler oder überlassener Kapazität und – bei Mangelberufen – der Gewinnung aus dem Ausland. Produktion, Logistik, Lager und Bau werden getrennt behandelt; die ausführlichen Seiten zu diesen vier Branchen liegen auf Tschechisch vor.',
+            'Mit einer Kombination aus festem Kern, flexibler oder überlassener Kapazität und – bei Mangelberufen – der Gewinnung aus dem Ausland. Produktion, Logistik, Lager und Bau werden getrennt behandelt.',
           ],
         },
         {

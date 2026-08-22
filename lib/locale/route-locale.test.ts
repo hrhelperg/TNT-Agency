@@ -1,3 +1,4 @@
+import { L1_EXPECTED } from './l1-manifest'
 import { describe, it, expect } from 'vitest'
 import { localeFromPathname } from './route-locale'
 import { PUBLISHED_LOCALIZED_ROUTES, CZECH_ROUTES } from './registry'
@@ -10,7 +11,7 @@ describe('localeFromPathname', () => {
     }
     // Not a fixed number any more: L1 publishes cluster by cluster. What must
     // hold is that every published route is prefixed and none is Czech.
-    expect(PUBLISHED_LOCALIZED_ROUTES.length).toBeGreaterThanOrEqual(20)
+    expect(PUBLISHED_LOCALIZED_ROUTES.length).toBe(L1_EXPECTED.localizedRoutes)
     expect(PUBLISHED_LOCALIZED_ROUTES.every((r) => /^\/(en|de)(\/|$)/.test(r))).toBe(true)
   })
 

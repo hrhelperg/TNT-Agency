@@ -39,6 +39,7 @@ All 185 Czech routes are accounted for.
 | CZECH_ONLY | 57 |
 | L2 | 41 |
 | OUT_OF_SCOPE | 6 |
+| UNCLASSIFIED | 0 |
 | **total** | **185** |
 
 ## L1 concepts

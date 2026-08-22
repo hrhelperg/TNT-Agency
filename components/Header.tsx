@@ -52,7 +52,7 @@ export default function Header({ activePage, locale }: HeaderProps) {
     }
     publish()
     const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(publish) : null
-    observer?.observe(el)
+    observer?.observe(el, { box: 'border-box' })
     // .scrolled changes the padding, and that is a class flip rather than a
     // resize of the observed box in every engine, so the scroll event is
     // watched too.
@@ -136,7 +136,7 @@ export default function Header({ activePage, locale }: HeaderProps) {
 
   return (
     <>
-      <header className="header" id="header">
+      <header className={locale ? 'header' : 'header header--legacy-lang'} id="header">
         <div className="container">
           <div className="header__inner">
             <a href={resolveNavHref(NAV_TARGETS[0], locale ?? 'cs').href} className="logo" aria-label="TalentPartnerID">

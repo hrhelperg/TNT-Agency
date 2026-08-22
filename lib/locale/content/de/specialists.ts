@@ -220,7 +220,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           ],
         },
         {
-          heading: 'Die Befähigung knüpft an Tätigkeit und Anlage, nicht nur an die Person',
+          heading: 'Die Befähigung knüpft an Tätigkeit und Anlage an, nicht nur an die Person',
           body: [
             'Ein Nachweis über die fachliche Befähigung ist kein Universalausweis. Entscheidend ist die Kombination dreier Dinge: welche Tätigkeit auszuüben ist, an welcher Anlage und in welchem Betriebszustand. Das Bedienen eines Schaltschranks setzt eine andere Befähigung voraus als Montage und Instandsetzung, Arbeiten an spannungsfreien Anlagen eine andere als Arbeiten in der Nähe unter Spannung stehender Teile. Auch die Spannungsebene spielt eine Rolle – niedrige Spannung ist nicht dasselbe wie hohe Spannung.',
             'Eine Beschreibung der Art „wir suchen einen Elektriker mit Papieren“ gibt der Auswahl deshalb keinen Halt. Sobald Spannungsebene, Anlagenart und Tätigkeit in der Anfrage stehen, wird erkennbar, wen Sie suchen, und die bewerbende Person kann beantworten, ob ihr Nachweis das abdeckt. Das schützt auch Sie: Dafür, welche Arbeit einer beschäftigten Person zugewiesen wird und ob dafür die nötige Befähigung vorliegt, haftet der Arbeitgeber und nicht die beschäftigte Person.',
@@ -265,6 +265,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Eine verlässliche Kontrolle der Beschreibung ist die Frage, ob ein Elektriker, der Ihr Unternehmen nicht kennt, danach antworten könnte. Wenn ja, entscheidet sich die Auswahl nicht erst bei der Kontrolle der Nachweise vor dem Eintritt, sondern viel früher – und zwar unter Menschen, die für diese Arbeit tatsächlich befähigt sind.',
             'So beschrieben beschleunigt sich auch die Vorauswahl: Sind Anlage und Tätigkeit bekannt, lässt sich der Nachweis vor dem Gespräch durchgehen und anhand der Originale zusammen mit der Identität prüfen.',
+            'Den Wortlaut dieser Übergangsbestimmungen legen wir hier nicht aus; bei einem konkreten Nachweis gehen Sie von dessen Inhalt und Gültigkeitsdatum aus.',
           ],
           list: {
             intro: 'In die Anfrage gehören:',
@@ -290,14 +291,14 @@ export const DE_SPECIALISTS: LocaleCorpus = {
     de: {
       title: 'Instandhaltung und technischer Service: technische Stellen besetzen',
       description:
-        'Warum sich die Instandhaltung schwerer besetzt als die Produktion: Breite der Kompetenz, vorbeugende gegen reaktive Arbeit, Rufbereitschaft, Übergabe und der Weg von innen.',
+        'Warum sich die Instandhaltung schwerer besetzen lässt als die Produktion: Breite der Kompetenz, vorbeugende gegen reaktive Arbeit, Rufbereitschaft, Übergabe und der Weg von innen.',
       h1: 'Instandhaltung und technischer Service: technische Stellen besetzen',
       intro:
         'Die Instandhaltung ist der Ort, an dem sich ein Personalmangel schnell und teuer zeigt: Die Maschine steht, der Plan verschiebt sich und die Bedienenden warten. Besetzt wird sie anders als die Produktion um sie herum – verlangt ist nicht eine Fertigkeit, sondern eine Kombination aus Mechanik, Elektrik, Pneumatik oder Hydraulik und zunehmend auch grundlegender Arbeit mit der Steuerung der Maschine. Dazu kommen Bedingungen, die Kandidatinnen und Kandidaten vor dem Aufgabeninhalt abwägen: Rufbereitschaft, Anfahrt und Schichtabdeckung. Diese Seite beschreibt, was in der Beschreibung zu klären ist, wie Befähigungsnachweise zu beurteilen sind und warum die Beförderung aus dem Betrieb ein vollwertiger Weg ist und keine Notlösung.',
       breadcrumb: 'Instandhaltung',
       sections: [
         {
-          heading: 'Warum sich die Instandhaltung schwerer besetzt',
+          heading: 'Warum sich die Instandhaltung schwerer besetzen lässt',
           body: [
             'Einen Bediener suchen Sie nach einer Hauptfähigkeit und einer Einarbeitungszeit. Bei der Instandhaltung ist die Aufgabe anders: Eine Person soll in einer Schicht einen unterschiedlichen Maschinenpark abdecken und mit einer mechanischen Störung, mit Pneumatik oder Hydraulik und mit dem zurechtkommen, was im Schaltschrank geschieht. In vielen Betrieben wächst die Arbeit mit der Steuerung – kein Programmieren, sondern die Fähigkeit zu erkennen, ob das Problem im Sensor, in der Mechanik oder im Programm liegt.',
             'Die Breite der Kompetenz hat auch eine rechtliche Seite. Ein Eingriff in den elektrischen Teil einer Anlage ist an die fachliche Befähigung in der Elektrotechnik nach der tschechischen Regierungsverordnung Nr. 194/2022 Sb. gebunden, die die frühere Verordnung Nr. 50/1978 Sb. abgelöst hat und den Umfang der Tätigkeiten nach der Befähigungsstufe unterscheidet. Ein Teil der Anlagen fällt zudem unter das tschechische Gesetz Nr. 250/2021 Sb. über die Arbeitssicherheit im Zusammenhang mit dem Betrieb vorbehaltener technischer Anlagen, also Druck-, Hebe-, Elektro- und Gasanlagen. Vergleichen Sie deshalb den Umfang des Nachweises mit dem, was am Arbeitsplatz tatsächlich zu tun ist.',
@@ -708,7 +709,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
         {
           heading: 'Was in die Beschreibung gehört',
           body: [
-            'Ingenieurpositionen besetzen sich besser, wenn die Beschreibung ein Ergebnis nennt statt einer Werkzeugliste. „Wir suchen jemanden, der die Zahl der abweichenden Teile an Linie X senkt“ ist für eine Suche brauchbarer als eine Aufzählung von Methoden.',
+            'Ingenieurpositionen lassen sich besser besetzen, wenn die Beschreibung ein Ergebnis nennt statt einer Werkzeugliste. „Wir suchen jemanden, der die Zahl der abweichenden Teile an Linie X senkt“ ist für eine Suche brauchbarer als eine Aufzählung von Methoden.',
             'Ebenso wichtig ist anzugeben, mit wem die Person arbeitet und welche Befugnisse sie hat. Wer ein eingefahrenes Verfahren ändern soll, ohne Rückhalt in der Betriebsleitung zu haben, geht meist, bevor die Änderung wirkt. Diese Information beziehen Kandidatinnen und Kandidaten in ihre Entscheidung ein.',
             'Konkrete Lohnniveaus für Ingenieurpositionen nennt diese Seite nicht. Eine Orientierung nach Beruf und Region bietet das tschechische Informationssystem über den durchschnittlichen Verdienst (ISPV); die Gesamtkosten einer Stelle lassen sich in unserem Rechner durchrechnen.',
           ],
@@ -792,6 +793,7 @@ export const DE_SPECIALISTS: LocaleCorpus = {
           body: [
             'Der häufigste Fehler ist eine Beschreibung, die alle im Unternehmen verwendeten Systeme und alle Fertigungsarten aufzählt. Es entsteht ein Profil, dem niemand entspricht.',
             'Besser ist zu beschreiben, was die Person in den ersten drei Monaten tun wird. Das erleichtert auch das Gespräch – Sie fragen dann nach dem, was tatsächlich entscheidet.',
+            'Konstrukteur und Technologe sind nicht dieselbe Rolle, auch wenn eine Person beides abdeckt.',
           ],
           list: {
             intro: 'Vier Angaben verengen die Beschreibung sinnvoll:',
@@ -900,10 +902,10 @@ export const DE_SPECIALISTS: LocaleCorpus = {
 
   'technical-office-roles': {
     de: {
-      title: 'Technische Angestellte: was dazugehört und wie sich diese Stellen besetzen',
+      title: 'Technische Angestellte: was dazugehört und wie sich diese Stellen besetzen lassen',
       description:
         'Was die tschechische Kategorie „THP“ umfasst, warum sie kein Rechtsbegriff ist, welche Rollen dazuzählen und warum die Besetzung an der Beschreibung hängt.',
-      h1: 'Technische Angestellte: was dazugehört und wie sich diese Stellen besetzen',
+      h1: 'Technische Angestellte: was dazugehört und wie sich diese Stellen besetzen lassen',
       intro:
         'Die tschechische Abkürzung THP – technisch-wirtschaftliche Beschäftigte – wird in Fertigungs- und Logistikunternehmen täglich verwendet, doch jeder Betrieb zieht die Grenze dieser Kategorie selbst. Irgendwo umfasst sie nur die technische Produktionsvorbereitung, anderswo auch Meister, Planung, Einkauf und Lohnbuchhaltung. Für die Besetzung hat das eine wesentliche Folge: Dieselbe Stellenbezeichnung bedeutet in jedem Unternehmen andere Arbeit, sodass eine Anzeige ohne Beschreibung des tatsächlichen Inhalts Menschen anzieht, die etwas anderes getan haben. Diese Seite erklärt, was die Kategorie in der Praxis umfasst und worin sie sich von gewerblichen Berufen unterscheidet.',
       breadcrumb: 'Technische Angestellte',
