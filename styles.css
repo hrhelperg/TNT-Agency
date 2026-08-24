@@ -3797,3 +3797,14 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
    to push the page sideways, which is the one place a horizontal scrollbar is
    the right answer. */
 .ecc--de .ecc__table-wrap { overflow-x: auto; max-width: 100%; }
+
+/* The unsupported-browser notice. Scoped to .ecc--de: it belongs to the German
+   calculator's progressive-enhancement boundary and to nothing else. */
+.ecc--de .ecc__unsupported {
+  margin: 18px 0 6px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--accent-dark);
+  background: var(--surface-2, #f6f7f9);
+  color: var(--text-2);
+  font-size: 0.95rem;
+}

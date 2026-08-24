@@ -26,10 +26,13 @@ import path from 'node:path';
 const ROOT = path.join(__dirname, '..', '..', '..');
 const read = (rel: string) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
+const BOUNDARY = 'components/DeEmployerCostCalculatorBoundary.tsx';
 const COMPONENT = 'components/DeEmployerCostCalculator.tsx';
 const ENGINE_DIR = 'lib/calculators/de-employer-cost';
 
 const ENGINE_FILES = [
+  'display-facts.ts',
+  'unsupported-browser.ts',
   'engine.ts',
   'scope.ts',
   'validation.ts',
@@ -92,8 +95,11 @@ function importClosure(entry: string): string[] {
   return [...seen];
 }
 
-const CLOSURE = importClosure(COMPONENT);
-const ALL = Array.from(new Set([COMPONENT, ...ENGINE_FILES, ...DATA_FILES, ...CLOSURE]));
+// From the BOUNDARY, which is the entry point a route actually renders. The
+// calculator is reached through its dynamic import, so the closure covers both
+// and anything either of them grows.
+const CLOSURE = Array.from(new Set([...importClosure(BOUNDARY), ...importClosure(COMPONENT)]));
+const ALL = Array.from(new Set([BOUNDARY, COMPONENT, ...ENGINE_FILES, ...DATA_FILES, ...CLOSURE]));
 
 /**
  * Strip comments so prose ABOUT `fetch` cannot fail a code assertion.
@@ -264,8 +270,20 @@ describe('the engine is pure', () => {
   });
 });
 
-describe('nothing financial or personal can reach a URL', () => {
-  const src = code(read(COMPONENT));
+/**
+ * Both files, because the shell and the interactive part are now separate. The
+ * boundary owns the only link on the page and the dynamic import; the
+ * calculator owns the form and the figures. A rule applied to one of them is a
+ * rule with a hole in it.
+ */
+const UI_FILES: Array<[string, string]> = [
+  ['boundary', BOUNDARY],
+  ['calculator', COMPONENT],
+];
+
+describe.each(UI_FILES)('nothing financial or personal can reach a URL (%s)', (_label, file) => {
+  const src = code(read(file));
+  const isBoundary = file === BOUNDARY;
 
   it('the component writes no query string and no fragment', () => {
     const hrefs = Array.from(src.matchAll(/href=\{?["']?([^"'}\s]+)/g), (m) => m[1]);
@@ -290,6 +308,11 @@ describe('nothing financial or personal can reach a URL', () => {
    * place, and that place is a constant.
    */
   it('every href is a constant, so no path segment can carry a value', () => {
+    if (!isBoundary) {
+      // The calculator renders no link at all since the shell moved out.
+      expect(/href=/i.test(src), 'the calculator has grown a link').toBe(false);
+      return;
+    }
     // A JSX ATTRIBUTE spread defeats a rule that looks for the literal
     // characters `href=`, so it is refused. Scoped to a spread inside an
     // opening tag: ordinary object and array spreads (`{ ...r }` in a state
@@ -312,6 +335,13 @@ describe('nothing financial or personal can reach a URL', () => {
   });
 
   it('submitting the form cannot serialise values into a URL', () => {
+    if (isBoundary) {
+      // The boundary renders no form; the rule is that it must not grow one,
+      // because a form outside the guarded chunk would be a form with no
+      // handler — the exact silent failure the boundary exists to prevent.
+      expect(/<form/i.test(src), 'the boundary has grown a form').toBe(false);
+      return;
+    }
     expect(/onSubmit=\{\(e\)\s*=>\s*e\.preventDefault\(\)\}/.test(src)).toBe(true);
   });
 
@@ -335,8 +365,9 @@ describe('nothing financial or personal can reach a URL', () => {
   });
 });
 
-describe('no external origin can be referenced at all', () => {
-  const src = code(read(COMPONENT));
+describe.each(UI_FILES)('no external origin can be referenced at all (%s)', (_label, file) => {
+  const src = code(read(file));
+  const isBoundary = file === BOUNDARY;
 
   it('contains no absolute URL', () => {
     const urls = Array.from(src.matchAll(/https?:\/\/[^\s'"`)]+/g), (m) => m[0]);
@@ -362,10 +393,21 @@ describe('no external origin can be referenced at all', () => {
       ['CSS url()', /\burl\s*\(/i],
       ['dynamic node insertion', /appendChild|insertBefore|insertAdjacent/],
       ['iframe', /<iframe/i],
-      ['import()', /\bimport\s*\(/],
     ];
     for (const [label, re] of SINKS) {
-      expect(re.test(src), `${label} is present in the calculator`).toBe(false);
+      expect(re.test(src), `${label} is present in ${file}`).toBe(false);
+    }
+
+    // `import()` is a sink everywhere EXCEPT the boundary's single, literal
+    // module specifier — which is how the arithmetic chunk is kept off browsers
+    // that cannot parse it, and is the reason this file exists in two parts.
+    // The specifier must be a plain string: an interpolated one could name any
+    // URL webpack is willing to fetch.
+    const dynamicImports = Array.from(src.matchAll(/\bimport\s*\(([^)]*)\)/g), (m) => m[1].trim());
+    if (isBoundary) {
+      expect(dynamicImports).toEqual(["'./DeEmployerCostCalculator'"]);
+    } else {
+      expect(dynamicImports, `${file} performs a dynamic import`).toEqual([]);
     }
   });
 

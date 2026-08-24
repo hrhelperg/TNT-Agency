@@ -1,5 +1,5 @@
 import SeoArticle from '../components/SeoArticle'
-import DeEmployerCostCalculator from '../components/DeEmployerCostCalculator'
+import DeEmployerCostCalculatorBoundary from '../components/DeEmployerCostCalculatorBoundary'
 import { KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO } from '../lib/content/pages/germany-employer-cost-calculator'
 
 // The Czech-language view of the GERMAN calculator.
@@ -14,7 +14,7 @@ export default function KalkulackaNakladuZamestnavateleNemeckoPage() {
     <SeoArticle
       page={KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO}
       activePage="kalkulacka-nakladu-zamestnavatele-nemecko"
-      topSlot={<DeEmployerCostCalculator locale="cs" />}
+      topSlot={<DeEmployerCostCalculatorBoundary locale="cs" />}
     />
   )
 }

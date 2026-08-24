@@ -1,5 +1,5 @@
 import LocalePage from '../../components/locale/LocalePage'
-import DeEmployerCostCalculator from '../../components/DeEmployerCostCalculator'
+import DeEmployerCostCalculatorBoundary from '../../components/DeEmployerCostCalculatorBoundary'
 import { DE_CONTENT } from '../../lib/locale/content/de'
 
 // German payroll, in German.
@@ -15,7 +15,7 @@ export default function ArbeitgeberkostenRechnerDeutschlandDePage() {
       conceptId="germany-employer-cost-calculator"
       locale="de"
       content={DE_CONTENT['germany-employer-cost-calculator'].de!}
-      beforeContent={<DeEmployerCostCalculator locale="de" />}
+      beforeContent={<DeEmployerCostCalculatorBoundary locale="de" />}
     />
   )
 }

@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import Link from 'next/link'
 import {
   calculateDeEmployerCost,
   type DeEmployerCostInput,
@@ -17,22 +16,15 @@ import {
   parsePercent,
 } from '../lib/calculators/de-employer-cost/formatting'
 import {
-  CROSS_LINK,
-  CROSS_LINK_PATH,
   ERROR_TEXT,
   ISSUE_TEXT,
   FIELD,
-  JURISDICTION_STAMP,
-  METHODOLOGY,
   NOTE_TEXT,
-  PAGE_KICKER,
-  PAGE_TITLE,
   REFUSAL,
   RESULT,
   SECTION,
   t,
 } from '../lib/calculators/de-employer-cost/copy'
-import { DE_RULES_2026 } from '../data/calculators/de-employer-cost/2026/rules'
 import { DECLARED_CASES } from '../lib/calculators/de-employer-cost/unsupported'
 import type { DeLocale } from '../lib/calculators/de-employer-cost/types'
 
@@ -174,16 +166,11 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
     )
 
   return (
-    // `ecc--de` carries the German calculator's own narrow-viewport rules. The
-    // shared `ecc` styles are also used by the Czech calculator, which is
-    // production-verified and which this branch may not change, so anything
-    // specific to this component hangs off the modifier instead.
-    <section className="ecc ecc--de" aria-labelledby="decc-title" lang={LANG[locale]}>
-      <div className="container">
-        <p className="ecc__stamp">{tr(JURISDICTION_STAMP)}</p>
-        <h2 id="decc-title">{tr(PAGE_TITLE)}</h2>
-        <p className="ecc__kicker">{tr(PAGE_KICKER)}</p>
-
+    // ONLY the interactive grid. The heading, methodology, ceilings, statutory
+    // bases and cross-link live in DeEmployerCostCalculatorBoundary, which
+    // renders on the server so they survive on a browser that cannot load this
+    // file at all. This component is reached exclusively through that boundary's
+    // dynamic import, and only after BigInt has been shown to exist.
         <div className="pcalc__grid">
           <form className="ecc__form" onSubmit={(e) => e.preventDefault()}>
             <fieldset className="pcalc-fieldset">
@@ -597,60 +584,5 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
             )}
           </div>
         </div>
-
-        <div className="ecc__verified">
-          <h3>{tr(METHODOLOGY.heading)}</h3>
-          <p>{tr(METHODOLOGY.taxSource)}</p>
-          <p>{tr(METHODOLOGY.socialSource)}</p>
-          <p>{tr(METHODOLOGY.privacy)}</p>
-          <p>{tr(METHODOLOGY.notAdvice)}</p>
-          {/*
-            The statutory bases, rendered ALWAYS rather than only beside a
-            result. All three pages promise "the statute named for every figure";
-            until this list existed that was true only after the reader entered a
-            salary, so a no-JS reader and a crawler saw the promise and not the
-            substance.
-          */}
-          <dl className="ecc__periodicity">
-            <dt>{tr(METHODOLOGY.basisPension)}</dt>
-            <dd>{DE_RULES_2026.pension.totalPercent.legalBasis}</dd>
-            <dt>{tr(METHODOLOGY.basisUnemployment)}</dt>
-            <dd>{DE_RULES_2026.unemployment.totalPercent.legalBasis}</dd>
-            <dt>{tr(METHODOLOGY.basisHealth)}</dt>
-            <dd>{DE_RULES_2026.health.generalPercent.legalBasis}; § 242 SGB V; § 249 Absatz 1 SGB V</dd>
-            <dt>{tr(METHODOLOGY.basisCare)}</dt>
-            <dd>{DE_RULES_2026.care.basePercent.legalBasis}; § 55 Absatz 3 SGB XI; § 58 SGB XI</dd>
-            <dt>{tr(METHODOLOGY.basisLevies)}</dt>
-            <dd>{DE_RULES_2026.insolvencyLevy.percent.legalBasis}; § 1, § 7 AAG; §§ 150, 153 SGB VII</dd>
-            <dt>{tr(METHODOLOGY.basisTax)}</dt>
-            <dd>§ 39b Absatz 2 und 6 EStG; § 32a EStG; § 51a EStG</dd>
-          </dl>
-
-          <dl className="ecc__periodicity">
-            <dt>{tr(METHODOLOGY.ceilingHealth)}</dt>
-            <dd>{formatEuro(DE_RULES_2026.health.monthlyCeilingCent.value, locale)}</dd>
-            <dt>{tr(METHODOLOGY.ceilingPension)}</dt>
-            <dd>{formatEuro(DE_RULES_2026.pension.monthlyCeilingCent.value, locale)}</dd>
-            {/*
-              The Jahresarbeitsentgeltgrenze is rendered BESIDE the ceilings and
-              labelled as not being one. All three pages tell the reader these
-              two numbers are constantly confused and that the calculator keeps
-              them apart — a claim that was untrue of the calculator itself
-              until this figure appeared here.
-            */}
-            <dt>{tr(METHODOLOGY.insuranceThreshold)}</dt>
-            <dd>{formatEuroWhole(DE_RULES_2026.scope.insuranceObligationAnnualCent.value, locale)}</dd>
-            <dt>{tr(METHODOLOGY.minijobThreshold)}</dt>
-            <dd>{formatEuro(DE_RULES_2026.scope.minijobMonthlyCent.value, locale)}</dd>
-            <dt>{tr(METHODOLOGY.transitionThreshold)}</dt>
-            <dd>{formatEuro(DE_RULES_2026.scope.transitionUpperMonthlyCent.value, locale)}</dd>
-          </dl>
-        </div>
-
-        <p className="ecc__crosslink">
-          <Link href={CROSS_LINK_PATH[locale]}>{tr(CROSS_LINK.label)}</Link>
-        </p>
-      </div>
-    </section>
   )
 }

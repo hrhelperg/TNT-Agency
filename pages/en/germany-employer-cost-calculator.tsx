@@ -1,5 +1,5 @@
 import LocalePage from '../../components/locale/LocalePage'
-import DeEmployerCostCalculator from '../../components/DeEmployerCostCalculator'
+import DeEmployerCostCalculatorBoundary from '../../components/DeEmployerCostCalculatorBoundary'
 import { EN_CONTENT } from '../../lib/locale/content/en'
 
 // Thin route wrapper; the locale is passed explicitly rather than detected, so
@@ -10,7 +10,7 @@ export default function GermanyEmployerCostCalculatorEnPage() {
       conceptId="germany-employer-cost-calculator"
       locale="en"
       content={EN_CONTENT['germany-employer-cost-calculator'].en!}
-      beforeContent={<DeEmployerCostCalculator locale="en" />}
+      beforeContent={<DeEmployerCostCalculatorBoundary locale="en" />}
     />
   )
 }

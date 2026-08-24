@@ -35,11 +35,12 @@ const CHURCH = 'lib/calculators/de-employer-cost/tax/church-tax.ts'
 const RULES = 'data/calculators/de-employer-cost/2026/rules.ts'
 const VALIDATION = 'lib/calculators/de-employer-cost/validation.ts'
 const COMPONENT = 'components/DeEmployerCostCalculator.tsx'
+const BOUNDARY = 'components/DeEmployerCostCalculatorBoundary.tsx'
 
 /** The anchor the two pixel mutations attach to. */
 const LEDGER = '                <p className="ecc__exactness">{tr(RESULT.ledgerNote)}</p>'
 
-const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION, COMPONENT]
+const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION, COMPONENT, BOUNDARY]
 const ORIGINAL = new Map(TOUCHED.map((f) => [f, read(f)]))
 
 /**
@@ -266,11 +267,30 @@ const MUTATIONS = [
     why:
       'SURVIVED the original gate. No query string, no fragment, no external origin — and Next.js prefetches it, ' +
       'putting the reader’s net wage in our own access log on a page that promises the calculation never leaves the browser.',
-    file: COMPONENT,
+    file: BOUNDARY,
     from: "          <Link href={CROSS_LINK_PATH[locale]}>{tr(CROSS_LINK.label)}</Link>",
     to:
       "          <Link href={CROSS_LINK_PATH[locale]}>{tr(CROSS_LINK.label)}</Link>\n" +
-      "          <Link href={'/r/' + String(outcome && outcome.supported ? outcome.employee.netCent : 0)}>x</Link>",
+      "          <Link href={'/r/' + String(DISPLAY_CENT.minijobMonthly)}>x</Link>",
+  },
+  {
+    name: '25. a BigInt literal in the bootstrap that guards BigInt',
+    why:
+      'The boundary and everything it imports outside the dynamic edge must PARSE on browsers without BigInt — a ' +
+      'single literal there makes the guard unparseable on exactly the browsers it protects, and the page fails ' +
+      'silently again.',
+    file: BOUNDARY,
+    from: "const LANG: Record<DeLocale, string> = { de: 'de', en: 'en', cs: 'cs' }",
+    to: "const LANG: Record<DeLocale, string> = { de: 'de', en: 'en', cs: 'cs' }\nconst SCALE = BigInt(100) * 10n",
+  },
+  {
+    name: '26. the dynamic import specifier made interpolable',
+    why:
+      'A literal specifier is what keeps the dynamic import a same-origin webpack chunk load. An interpolated one ' +
+      'could name any URL webpack is willing to fetch, and it is the one import() the privacy gate permits.',
+    file: BOUNDARY,
+    from: "const Calculator = dynamic(() => import('./DeEmployerCostCalculator'), {",
+    to: "const Calculator = dynamic(() => import(`./${'DeEmployerCostCalculator'}`), {",
   },
 ]
 
