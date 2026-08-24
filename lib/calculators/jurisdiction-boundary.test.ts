@@ -133,21 +133,168 @@ describe('§47 jurisdiction boundary', () => {
     expect(violations, violations.join('\n')).toEqual([]);
   });
 
-  it('any engine that does arithmetic does it with the shared module', () => {
-    // The positive half of the rule. If an engine grows its own money
-    // arithmetic, the same rounding bug gets written twice and fixed once.
+  it('every engine funnels its money arithmetic through one exact module', () => {
+    // The positive half of the rule, corrected.
     //
-    // Keyed on whether the engine HAS an arithmetic surface yet: a directory
-    // holding only a list of unsupported cases needs no money module, and
-    // demanding one would make this fail for a reason that is not a defect.
+    // An earlier version demanded that every engine import `lib/payroll/money`.
+    // That was simply false: `money.ts` is not a generic money type but a Czech
+    // one — unit haléř, brand `Halere`, helpers `roundToCzk` and
+    // `roundToHundredCzk` for a rounding step German payroll does not have. The
+    // German engine cannot use it, and a gate that demands the impossible gets
+    // deleted rather than obeyed.
+    //
+    // The property actually worth enforcing is not "one module for the repo"
+    // but "one module per jurisdiction": exact arithmetic written once, so a
+    // rounding bug cannot be written twice and fixed once. Plus the thing that
+    // makes it stick — no file in an engine may reach for float rounding
+    // behind the module's back.
+    const ARITHMETIC: Record<string, string> = {
+      'cz-employer-cost': 'lib/payroll/money',
+      'de-employer-cost': 'lib/calculators/de-employer-cost/decimal',
+    };
+
     for (const engine of ENGINES) {
       const files = sourceFiles(engine.dir).filter((f) => !/\.test\.tsx?$/.test(f));
-      const hasEngine = files.some((f) => /\/(engine|social|health|tax|care|pension)\w*\.ts$/.test(f));
-      if (!hasEngine) continue;
-      const usesShared = files.some((f) =>
-        imports(f).some((s) => s === 'lib/payroll/money' || s.endsWith('payroll/money')),
+      if (files.length === 0) continue;
+      const module = ARITHMETIC[engine.name];
+      expect(module, `${engine.name} has no declared arithmetic module`).toBeTruthy();
+
+      const importsModule = files.some((f) =>
+        imports(f).some((spec) => spec === module || spec === module.replace(/^lib\//, '')),
       );
-      expect(usesShared, `${engine.name} has an engine but no shared money module`).toBe(true);
+      expect(importsModule, `${engine.name} never imports ${module}`).toBe(true);
     }
+  });
+
+  it('no engine rounds money with floating point', () => {
+    // `Math.round`, `Math.ceil`, `Math.floor` and `toFixed` are how exact
+    // arithmetic gets bypassed: three characters shorter than the correct call,
+    // and wrong only on inputs nobody tries by hand. `1800 * 0.135 ===
+    // 243.00000000000003` is the one that actually bit this repository.
+    //
+    // ABSOLUTE, WITH A FROZEN BASELINE
+    // ────────────────────────────────
+    // For any NEW code the rule admits no exceptions. The Czech engine predates
+    // the rule, so its existing sites are listed below as a frozen baseline —
+    // every one was checked against exact BigInt arithmetic before being
+    // admitted, and the list only ever shrinks. Adding a line to it is a
+    // deliberate act that shows up in review; adding a `Math.round` without
+    // touching it fails.
+    //
+    // The exemption is keyed on the expression text rather than a line number,
+    // so editing the expression re-opens the question.
+    const EXEMPT: Array<{ file: string; snippet: string; why: string }> = [
+      // ── Not money: display values, never fed back into a calculation ──────
+      {
+        file: 'lib/calculators/cz-employer-cost/metrics.ts',
+        snippet: 'percentOfTotal: total === 0 || amount < 0 ? null : Math.round(',
+        why: 'Share of total cost, two decimals, for display.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/metrics.ts',
+        snippet: 'return Number.isFinite(pct) ? Math.round(pct * 100) / 100 : null;',
+        why: 'Percentage, two decimals, for display.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/formatting.ts',
+        snippet: 'const rounded = Math.round(ratio * 10 ** decimals) / 10 ** decimals;',
+        why: 'Presentation rounding inside the formatter.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/social.ts',
+        snippet: ': Math.ceil((capBase * f.employmentDaysInMonth) / daysInMonth);',
+        why:
+          'Hours, not koruny — the 138-hour cap pro-rated by calendar days. Numerator ' +
+          '≤ 138×31, denominator ≤ 31.',
+      },
+
+      // ── Money, but proven equal to exact arithmetic over the whole domain ─
+      {
+        file: 'lib/calculators/cz-employer-cost/social.ts',
+        snippet: 'Math.ceil(rules.averageWageMonthly.value * d.monthlyBaseCeilingMultiple.value)',
+        why:
+          '§ 7a odst. 3 písm. a): průměrná mzda × 1,5. ×1,5 is ×3÷2, exact in IEEE-754 for ' +
+          'integers. Zero differences vs BigInt for every average wage 10 000–120 000 Kč.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/social.ts',
+        snippet: 'const perHourCeiling = Math.ceil(',
+        why:
+          '§ 7a odst. 3 písm. b): průměrná mzda × 1,15 % — the one site not exact by ' +
+          'construction. Zero differences vs BigInt for every average wage ' +
+          '10 000–120 000 Kč, including 2026 (48 967 → 563,1205 → 564 Kč). Revisit if the ' +
+          'percentage changes.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/social.ts',
+        snippet: 'const perHour = Math.ceil(toCzkNumber(chargeableBase) / f.hoursWorkedThisMonth);',
+        why:
+          'Integer ÷ integer — § 5d has already rounded the base to whole koruny — and ' +
+          'IEEE division is correctly rounded, so an exact whole quotient comes back exact.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/health.ts',
+        snippet: 'const reduced = czk(Math.round(',
+        why:
+          '§ 3 odst. 9 pro-rata of the health minimum by calendar days. Zero differences ' +
+          'vs exact BigInt half-up across every minimum 10 000–40 000 Kč × month length ' +
+          '28–31 × day count — 3,7 M cases, including the 100 722 that land exactly on a ' +
+          'half.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/health.ts',
+        snippet: 'return czk(Math.ceil(korunas / 3));',
+        why: 'Integer ÷ 3. Zero differences vs BigInt over 0–500 000 Kč.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/additional-costs.ts',
+        snippet: 'monthlyAllocatedRunRate: Math.floor(annualTotal / 12) as Halere,',
+        why: 'Integer ÷ 12 in haléře. Zero differences vs BigInt over 0–5 000 000.',
+      },
+      {
+        file: 'lib/calculators/cz-employer-cost/employer-insurance.ts',
+        snippet: 'const scaled = Math.round(ratePerMille * 100);',
+        why:
+          'Deliberate float→integer normalisation: a per-mille rate with at most two ' +
+          'decimals becomes hundredths of a per mille, after which everything is exact. ' +
+          'Zero differences vs BigInt for every two-decimal rate 0,00–200,00. KNOWN LIMIT: ' +
+          'a user-typed rate with THREE decimals loses the third (0,145 ‰ is applied as ' +
+          '0,140 ‰ — 0,50 Kč per 100 000 Kč of base per quarter). No decreed rate has ' +
+          'three decimals; validation admits one, so this is an out-of-domain input, ' +
+          'recorded rather than silently tolerated.',
+      },
+    ];
+
+    const FLOAT_ROUNDING = /\bMath\.(round|ceil|floor)\s*\(|\.toFixed\s*\(/;
+    const violations: string[] = [];
+    const used = new Set<number>();
+
+    for (const engine of ENGINES) {
+      for (const file of sourceFiles(engine.dir)) {
+        if (/\.test\.tsx?$/.test(file)) continue;
+        const src = fs.readFileSync(path.join(ROOT, file), 'utf8');
+        // Replace block comments with their own newlines so reported line
+        // numbers still point at the real line.
+        const code = src
+          .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ''))
+          .replace(/(^|[^:])\/\/.*$/gm, '$1');
+        for (const [i, raw] of code.split('\n').entries()) {
+          const line = raw.trim();
+          if (!FLOAT_ROUNDING.test(line)) continue;
+          const idx = EXEMPT.findIndex((e) => e.file === file && line.startsWith(e.snippet));
+          if (idx === -1) violations.push(`${file}:${i + 1} ${line}`);
+          else used.add(idx);
+        }
+      }
+    }
+
+    expect(violations, violations.join('\n')).toEqual([]);
+
+    // The baseline only shrinks. A stale entry is cover for future code.
+    const stale = EXEMPT.filter((_, i) => !used.has(i)).map((e) => `${e.file}: ${e.snippet}`);
+    expect(stale, `exemptions that no longer match anything:\n${stale.join('\n')}`).toEqual([]);
+
+    // And nothing in the German engine may be exempt at all.
+    expect(EXEMPT.filter((e) => e.file.includes('de-employer-cost'))).toEqual([]);
   });
 });

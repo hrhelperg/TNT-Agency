@@ -39,7 +39,7 @@
  * guessing at it would be worse than stopping.
  */
 
-import { Decimal, type RoundingMode } from './decimal';
+import { Decimal, type RoundingMode } from '../decimal';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Values

@@ -1,13 +1,26 @@
 /**
  * Exact decimal arithmetic with Java `BigDecimal` semantics.
  *
- * WHY THIS EXISTS RATHER THAN THE SHARED MONEY MODULE
- * ──────────────────────────────────────────────────
- * `lib/payroll/money.ts` models money as an integer count of the smallest
- * currency unit. That is the right model for a payroll amount, and it is what
- * the German engine uses for euro and cent.
+ * WHY THE GERMAN ENGINE DOES NOT USE `lib/payroll/money.ts`
+ * ────────────────────────────────────────────────────────
+ * Because it cannot. That module is not a generic money type — it is a Czech
+ * one. Its unit is the haléř, its brand is `Halere`, and its rounding helpers
+ * are `roundToCzk` and `roundToHundredCzk`, which exist because Czech payroll
+ * rounds to whole koruna in places German payroll never rounds at all. Passing
+ * a euro amount through it would be a type error at best and a silent
+ * mis-rounding at worst.
  *
- * It is the wrong model for executing the BMF Programmablaufplan. The PAP is
+ * So the rule "shared arithmetic stays shared" is honoured the way it can
+ * actually be honoured: this engine has exactly ONE arithmetic module — this
+ * one — and every German module that touches money goes through it. The
+ * rounding is written once per jurisdiction, not once per file, which is the
+ * property that mattered.
+ *
+ * WHY BIGDECIMAL AND NOT INTEGER CENTS
+ * ────────────────────────────────────
+ * Integer minor units are the right model for a payroll amount, and they are
+ * what the Czech module uses. They are the wrong model for executing the BMF
+ * Programmablaufplan. The PAP is
  * written as Java `BigDecimal` operations, and BigDecimal is not "a number" — it
  * is a pair of (unscaled value, scale), where the SCALE is carried through every
  * operation and is itself load-bearing. `multiply` adds the scales.
