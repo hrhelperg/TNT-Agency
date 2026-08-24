@@ -23,11 +23,26 @@ import { calculateDeEmployerCost, type DeEmployerCostInput } from './engine';
 const eur = (v: number) => BigInt(Math.round(v * 100));
 const money = (c: bigint) => (Number(c) / 100).toFixed(2);
 
-const text = (e: {
-  title: string; description: string; h1: string; intro: string;
-  sections: Array<{ heading: string; body: string[]; list?: { items: string[] } }>;
-}) =>
-  [e.title, e.description, e.h1, e.intro, ...e.sections.flatMap((s) => [s.heading, ...s.body, ...(s.list?.items ?? [])])].join('\n');
+interface ProseLike {
+  readonly title: string;
+  readonly description: string;
+  readonly h1: string;
+  readonly intro: string;
+  readonly sections: readonly {
+    readonly heading: string;
+    readonly body: readonly string[];
+    readonly list?: { readonly items: readonly string[] };
+  }[];
+}
+
+const text = (e: ProseLike) =>
+  [
+    e.title,
+    e.description,
+    e.h1,
+    e.intro,
+    ...e.sections.flatMap((s) => [s.heading, ...s.body, ...(s.list?.items ?? [])]),
+  ].join('\n');
 
 const EN = text(EN_CONTENT['germany-employer-cost-calculator'].en!);
 const DE = text(DE_CONTENT['germany-employer-cost-calculator'].de!);
