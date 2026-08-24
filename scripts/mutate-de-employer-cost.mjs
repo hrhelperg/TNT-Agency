@@ -33,8 +33,9 @@ const SCOPE = 'lib/calculators/de-employer-cost/scope.ts'
 const ENGINE = 'lib/calculators/de-employer-cost/engine.ts'
 const CHURCH = 'lib/calculators/de-employer-cost/tax/church-tax.ts'
 const RULES = 'data/calculators/de-employer-cost/2026/rules.ts'
+const VALIDATION = 'lib/calculators/de-employer-cost/validation.ts'
 
-const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES]
+const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION]
 const ORIGINAL = new Map(TOUCHED.map((f) => [f, read(f)]))
 
 /**
@@ -168,6 +169,31 @@ const MUTATIONS = [
     from: "  const total = Decimal.of(general.value).add(Decimal.of(input.supplementPercent)).toString();\n  return line(",
     to:
       "  const total = general.value;\n  void input.supplementPercent;\n  return line(",
+  },
+  {
+    name: '15. input validation bypassed',
+    why:
+      'Without it the engine answers questions it was not asked: a seventh Steuerklasse, a negative Kinderfreibetrag ' +
+      'and a 900 % Zusatzbeitrag all returned a formatted net wage, the last of them negative.',
+    file: ENGINE,
+    from: "  const issues = validateDeInput(input);\n  if (issues.length > 0) return { supported: false, reason: 'invalid', issues };",
+    to: "  const issues = validateDeInput(input);\n  void issues;",
+  },
+  {
+    name: '16. the Steuerklasse range widened to accept a seventh class',
+    why: 'There are six. The Programmablaufplan falls through its comparisons for anything else and computes something.',
+    file: VALIDATION,
+    from: "  if (!isInteger(input.steuerklasse) || input.steuerklasse < 1 || input.steuerklasse > 6) {",
+    to: "  if (!isInteger(input.steuerklasse) || input.steuerklasse < 1 || input.steuerklasse > 9) {",
+  },
+  {
+    name: '17. a negative gross reported as a Minijob',
+    why:
+      'Validation running after scope detection gives a true-but-wrong reason: every number below 603 EUR is a Minijob, ' +
+      'and that is not why −100 EUR is not a wage.',
+    file: ENGINE,
+    from: "  const issues = validateDeInput(input);\n  if (issues.length > 0) return { supported: false, reason: 'invalid', issues };\n\n  const scope = checkScope({",
+    to: "  const scope = checkScope({",
   },
 ]
 

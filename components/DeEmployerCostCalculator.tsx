@@ -20,6 +20,7 @@ import {
   CROSS_LINK,
   CROSS_LINK_PATH,
   ERROR_TEXT,
+  ISSUE_TEXT,
   FIELD,
   JURISDICTION_STAMP,
   METHODOLOGY,
@@ -428,6 +429,14 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
 
             {outcome === null ? (
               <p className="ecc__empty">{tr(RESULT.empty)}</p>
+            ) : outcome.supported === false && outcome.reason === 'invalid' ? (
+              // An invalid input is the reader's typo, not a statement about
+              // German payroll. It must not look like a refusal.
+              <ul className="ecc__errors">
+                {outcome.issues.map((i) => (
+                  <li key={i.field}>{tr(ISSUE_TEXT[i.key] ?? ISSUE_TEXT['generic'])}</li>
+                ))}
+              </ul>
             ) : outcome.supported === false ? (
               <div className="ecc__notes">
                 <h3>{tr(REFUSAL.heading)}</h3>

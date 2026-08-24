@@ -32,6 +32,7 @@ const ENGINE_DIR = 'lib/calculators/de-employer-cost';
 const ENGINE_FILES = [
   'engine.ts',
   'scope.ts',
+  'validation.ts',
   'decimal.ts',
   'formatting.ts',
   'copy.ts',

@@ -38,7 +38,9 @@ const BASE: DeEmployerCostInput = {
 
 const run = (over: Partial<DeEmployerCostInput> = {}) => {
   const r = calculateDeEmployerCost({ ...BASE, ...over });
-  if (r.supported === false) throw new Error(`refused: ${r.case.id}`);
+  if (r.supported === false) {
+    throw new Error(r.reason === 'invalid' ? `invalid: ${r.issues.map((i) => i.key).join(', ')}` : `refused: ${r.case.id}`);
+  }
   return r;
 };
 

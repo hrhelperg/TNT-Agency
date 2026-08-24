@@ -337,6 +337,92 @@ export const ERROR_TEXT: Record<string, Copy> = {
   },
 };
 
+/**
+ * Messages for the engine's own validation.
+ *
+ * Separate from ERROR_TEXT, which belongs to the form's parsing. These fire for
+ * a value that PARSED and is still outside what the rules describe — a seventh
+ * Steuerklasse, a 900 % Zusatzbeitrag — and each says what the acceptable range
+ * is rather than only that the value is wrong.
+ */
+export const ISSUE_TEXT: Record<string, Copy> = {
+  generic: {
+    de: 'Diese Eingabe liegt außerhalb des Bereichs, den der Rechner abbilden kann.',
+    en: 'This entry is outside the range the calculator can model.',
+    cs: 'Tento údaj je mimo rozsah, který kalkulačka umí zpracovat.',
+  },
+  'gross.negative': {
+    de: 'Das Bruttoentgelt kann nicht negativ sein.',
+    en: 'Gross pay cannot be negative.',
+    cs: 'Hrubá mzda nemůže být záporná.',
+  },
+  'gross.implausible': {
+    de: 'Bitte ein monatliches Bruttoentgelt unter 100 Millionen Euro eingeben.',
+    en: 'Please enter a monthly gross below 100 million euro.',
+    cs: 'Zadejte prosím měsíční hrubou mzdu nižší než 100 milionů eur.',
+  },
+  'steuerklasse.outOfRange': {
+    de: 'Es gibt sechs Steuerklassen, I bis VI.',
+    en: 'There are six tax classes, I to VI.',
+    cs: 'Existuje šest daňových tříd, I až VI.',
+  },
+  'kinderfreibetraege.unreadable': {
+    de: 'Kinderfreibeträge werden in halben Schritten angegeben, zum Beispiel 0,5 oder 2.',
+    en: 'Child allowances come in halves, for example 0.5 or 2.',
+    cs: 'Úlevy na děti se uvádějí po polovinách, například 0,5 nebo 2.',
+  },
+  'workplace.unknown': {
+    de: 'Bitte eines der sechzehn Bundesländer wählen.',
+    en: 'Please choose one of the sixteen federal states.',
+    cs: 'Vyberte prosím jednu ze šestnácti spolkových zemí.',
+  },
+  'supplement.unreadable': {
+    de: 'Der Zusatzbeitragssatz wird in Prozent mit höchstens zwei Nachkommastellen angegeben.',
+    en: 'The supplementary rate is a percentage with at most two decimals.',
+    cs: 'Doplňková sazba se uvádí v procentech nejvýše na dvě desetinná místa.',
+  },
+  'supplement.implausible': {
+    de: 'Kein Zusatzbeitragssatz liegt über 10 %. Bitte den Wert prüfen.',
+    en: 'No supplementary rate exceeds 10 %. Please check the figure.',
+    cs: 'Žádná doplňková sazba nepřesahuje 10 %. Zkontrolujte prosím údaj.',
+  },
+  'children.outOfRange': {
+    de: 'Bitte eine Kinderzahl zwischen 0 und 20 eingeben.',
+    en: 'Please enter a number of children between 0 and 20.',
+    cs: 'Zadejte prosím počet dětí mezi 0 a 20.',
+  },
+  'u1.unreadable': {
+    de: 'Der U1-Satz wird in Prozent mit höchstens zwei Nachkommastellen angegeben.',
+    en: 'The U1 rate is a percentage with at most two decimals.',
+    cs: 'Sazba U1 se uvádí v procentech nejvýše na dvě desetinná místa.',
+  },
+  'u1.implausible': {
+    de: 'Kein U1-Satz liegt über 20 %. Bitte den Wert prüfen.',
+    en: 'No U1 rate exceeds 20 %. Please check the figure.',
+    cs: 'Žádná sazba U1 nepřesahuje 20 %. Zkontrolujte prosím údaj.',
+  },
+  'u2.unreadable': {
+    de: 'Der U2-Satz wird in Prozent mit höchstens zwei Nachkommastellen angegeben.',
+    en: 'The U2 rate is a percentage with at most two decimals.',
+    cs: 'Sazba U2 se uvádí v procentech nejvýše na dvě desetinná místa.',
+  },
+  'u2.implausible': {
+    de: 'Kein U2-Satz liegt über 20 %. Bitte den Wert prüfen.',
+    en: 'No U2 rate exceeds 20 %. Please check the figure.',
+    cs: 'Žádná sazba U2 nepřesahuje 20 %. Zkontrolujte prosím údaj.',
+  },
+  'accident.negative': {
+    de: 'Der Beitrag zur Unfallversicherung kann nicht negativ sein.',
+    en: 'The accident-insurance amount cannot be negative.',
+    cs: 'Částka úrazového pojištění nemůže být záporná.',
+  },
+  'accident.implausible': {
+    de: 'Bitte einen monatlichen Betrag unter 100 Millionen Euro eingeben.',
+    en: 'Please enter a monthly amount below 100 million euro.',
+    cs: 'Zadejte prosím měsíční částku nižší než 100 milionů eur.',
+  },
+};
+
 export const REFUSAL: Record<string, Copy> = {
   heading: {
     de: 'Dieser Fall wird nicht berechnet',

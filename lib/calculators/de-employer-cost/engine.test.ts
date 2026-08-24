@@ -24,7 +24,9 @@ const base: DeEmployerCostInput = {
 
 const ok = (i: Partial<DeEmployerCostInput> = {}) => {
   const r = calculateDeEmployerCost({ ...base, ...i });
-  if (r.supported === false) throw new Error(`refused: ${r.case.id}`);
+  if (r.supported === false) {
+    throw new Error(r.reason === 'invalid' ? `invalid: ${r.issues.map((i) => i.key).join(', ')}` : `refused: ${r.case.id}`);
+  }
   return r;
 };
 
@@ -81,7 +83,7 @@ describe('scope, failing closed', () => {
   it('refuses a Minijob', () => {
     const r = calculateDeEmployerCost({ ...base, monthlyGrossCent: eur(600) });
     expect(r.supported).toBe(false);
-    if (r.supported === false) expect(r.case.id).toBe('minijob');
+    if (r.supported === false && r.reason === 'unsupported') expect(r.case.id).toBe('minijob');
   });
 
   it('refuses exactly at the Geringfügigkeitsgrenze', () => {
@@ -94,7 +96,7 @@ describe('scope, failing closed', () => {
     // either side of this is the whole test.
     const at = calculateDeEmployerCost({ ...base, monthlyGrossCent: eur(2000) });
     expect(at.supported).toBe(false);
-    if (at.supported === false) expect(at.case.id).toBe('uebergangsbereich');
+    if (at.supported === false && at.reason === 'unsupported') expect(at.case.id).toBe('uebergangsbereich');
 
     const above = calculateDeEmployerCost({ ...base, monthlyGrossCent: eur(2000) + 1n });
     expect(above.supported).toBe(true);
@@ -103,7 +105,7 @@ describe('scope, failing closed', () => {
   it('refuses a declared case regardless of the gross', () => {
     const r = calculateDeEmployerCost({ ...base, declared: ['pkv'] });
     expect(r.supported).toBe(false);
-    if (r.supported === false) expect(r.case.id).toBe('pkv');
+    if (r.supported === false && r.reason === 'unsupported') expect(r.case.id).toBe('pkv');
   });
 
   it('rejects declaring a case that is supposed to be detected', () => {

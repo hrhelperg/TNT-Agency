@@ -38,6 +38,7 @@ import {
   unemployment,
 } from './social/branches';
 import { checkScope } from './scope';
+import { validateDeInput, type ValidationIssue } from './validation';
 import type { ContributionLine, EngineNote, Localised } from './types';
 import type { UnsupportedCase } from './unsupported';
 
@@ -103,9 +104,20 @@ export interface DeEmployerCostResult {
   readonly notes: readonly EngineNote[];
 }
 
+/**
+ * Three outcomes, discriminated twice.
+ *
+ * `supported` separates an answer from a non-answer; `reason` separates the two
+ * kinds of non-answer, because they mean opposite things to a reader. A refusal
+ * says the calculator understood the question and will not answer it — a real
+ * statement about German payroll. An invalid input says the question was not
+ * asked properly. Collapsing them would tell someone who typed a stray digit
+ * that their employment is out of scope.
+ */
 export type DeEmployerCostOutcome =
   | DeEmployerCostResult
-  | { readonly supported: false; readonly case: UnsupportedCase };
+  | { readonly supported: false; readonly reason: 'unsupported'; readonly case: UnsupportedCase }
+  | { readonly supported: false; readonly reason: 'invalid'; readonly issues: readonly ValidationIssue[] };
 
 const LABEL_GROSS: Localised = {
   de: 'Bruttoentgelt',
@@ -114,6 +126,12 @@ const LABEL_GROSS: Localised = {
 };
 
 export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerCostOutcome {
+  // Validation first, and before scope: a negative gross must be reported as
+  // not-a-wage rather than as a Minijob, which is true of every number below
+  // 603 EUR and is not why −100 EUR is wrong.
+  const issues = validateDeInput(input);
+  if (issues.length > 0) return { supported: false, reason: 'invalid', issues };
+
   const scope = checkScope({
     monthlyGrossCent: input.monthlyGrossCent,
     declared: input.declared,
@@ -121,7 +139,9 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
   // `scope.supported === false` rather than `!scope.supported`: this repository
   // compiles with `strict: false`, and without strictNullChecks the negated
   // form does not narrow the discriminated union.
-  if (scope.supported === false) return { supported: false, case: scope.case };
+  if (scope.supported === false) {
+    return { supported: false, reason: 'unsupported', case: scope.case };
+  }
 
   const gross = input.monthlyGrossCent;
   const notes: EngineNote[] = [];
