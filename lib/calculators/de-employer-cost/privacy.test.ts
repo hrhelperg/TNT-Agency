@@ -174,6 +174,33 @@ describe('nothing financial or personal can reach a URL', () => {
     }
   });
 
+  /**
+   * Every href is a CONSTANT. Found by defeating the rule above.
+   *
+   * A review pass wrote `<Link href={'/r/' + netCent}>`. It has no query string
+   * and no fragment, so it passed; it is an internal path, so no external-origin
+   * rule touched it. And Next.js prefetches it — putting the reader's net wage
+   * in our own server's access log, which is precisely what this page promises
+   * never happens. "It only goes to our own server" is not a defence when the
+   * page says the calculation never leaves the browser.
+   *
+   * Checking the SHAPE of the href rather than its content is what closes this:
+   * a path that cannot vary cannot carry anything. This component links to one
+   * place, and that place is a constant.
+   */
+  it('every href is a constant, so no path segment can carry a value', () => {
+    const exprs = Array.from(src.matchAll(/href=(\{[^}]*\}|"[^"]*")/g), (m) => m[1].trim());
+    expect(exprs.length, 'no href found — has the cross-link gone?').toBeGreaterThan(0);
+    const ALLOWED = new Set(['{CROSS_LINK_PATH[locale]}']);
+    for (const e of exprs) {
+      const literal = /^"\/[a-z0-9/-]*"$/.test(e);
+      expect(
+        literal || ALLOWED.has(e),
+        `href expression is computed rather than constant: ${e}`,
+      ).toBe(true);
+    }
+  });
+
   it('submitting the form cannot serialise values into a URL', () => {
     expect(/onSubmit=\{\(e\)\s*=>\s*e\.preventDefault\(\)\}/.test(src)).toBe(true);
   });
@@ -217,13 +244,44 @@ describe('no external origin can be referenced at all', () => {
       ['poster', /\bposter\s*=/],
       ['<link> preload', /rel\s*=\s*["'{]?\s*(preload|prefetch|preconnect)/i],
       ['new Image()', /new\s+Image\s*\(/],
-      ['background-image', /background-image/i],
+      ['background-image', /background-?image/i],
+      ['CSS url()', /\burl\s*\(/i],
       ['dynamic node insertion', /appendChild|insertBefore|insertAdjacent/],
       ['iframe', /<iframe/i],
       ['import()', /\bimport\s*\(/],
     ];
     for (const [label, re] of SINKS) {
       expect(re.test(src), `${label} is present in the calculator`).toBe(false);
+    }
+  });
+
+  /**
+   * The rule that actually closes the sink list, found by trying to defeat it.
+   *
+   * A review pass got a working leak past all 372 assertions above with a div
+   * whose `style` carried `backgroundImage: 'url(' + [...].join('') + net + ')'`
+   * — no absolute URL literal anywhere, because the host was assembled from
+   * fragments, and `backgroundImage` in camelCase does not match a
+   * `background-image` pattern. The runtime wire test in
+   * tests/e2e caught it; the source gate did not, and the source gate is the one
+   * that runs without a browser.
+   *
+   * Enumerating one more sink would leave the next one open. So the rule is
+   * structural instead: this component styles itself with CSS classes and has
+   * no inline style at all, which is true today and is the property that makes
+   * that whole family of leaks unwritable. Any inline style fails, and so does
+   * any string literal carrying a scheme or a protocol-relative prefix — which
+   * is what assembling a host out of fragments has to produce eventually.
+   */
+  it('uses no inline style and builds no URL out of fragments', () => {
+    expect(/\bstyle\s*=/.test(src), 'inline style in the calculator').toBe(false);
+
+    const literals = Array.from(src.matchAll(/'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"/g), (m) =>
+      (m[1] ?? m[2] ?? '').toLowerCase(),
+    );
+    for (const l of literals) {
+      expect(l.includes('http'), `string literal contains a scheme: "${l}"`).toBe(false);
+      expect(l.includes('//'), `string literal contains "//": "${l}"`).toBe(false);
     }
   });
 

