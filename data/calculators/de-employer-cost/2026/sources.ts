@@ -78,6 +78,7 @@ export const DE_SOURCE_IDS = {
   minijob: 'sgb-iv-8-20',
   unfall: 'sgb-vii-150-153',
   gkvStabG: 'gkv-beitragssatzstabilisierungsgesetz',
+  kirchensteuer: 'kirchensteuer-hebesatz',
 } as const;
 
 export const DE_SOURCES: readonly CalculatorSource[] = [
@@ -252,6 +253,16 @@ export const DE_SOURCES: readonly CalculatorSource[] = [
     accessed: ACCESSED,
     note:
       'Cited for what it does NOT do. It amended § 223 SGB V during 2026, and the consolidated text a reader sees today says "Die Beitragsbemessungsgrenze im Jahr 2027 …". Every operative provision — the extra 300 EUR a month on the ceiling and 3 600 EUR on the Versicherungspflichtgrenze, the higher pauschaler Beitragssatz for Minijobs — bites from 2027. Nothing in it changes a 2026 payslip, and the 2026 ceilings remain the SVRechGrV 2026 figures.',
+  },
+  {
+    id: DE_SOURCE_IDS.kirchensteuer,
+    authority: 'gesetze-im-internet.de',
+    title: 'Kirchensteuergesetze der Länder und § 51a EStG',
+    url: 'https://www.gesetze-im-internet.de/estg/__51a.html',
+    legalBasis: '§ 51a EStG; Kirchensteuergesetze der Länder',
+    accessed: ACCESSED,
+    note:
+      'Hebesatz 8 % in Baden-Württemberg and Bayern, 9 % in the other fourteen Länder. Withheld by BETRIEBSSTÄTTE, not by the employee’s residence, so an employee living in Bavaria and working in Hesse has 9 % withheld. The Kappung der Progression is a feature of the assessment rather than the deduction, its base is the zu versteuerndes Einkommen the employer never sees, and its percentage comes from each community’s own Kirchensteuerbeschluss — so it is declared unmodelled rather than approximated.',
   },
 ];
 

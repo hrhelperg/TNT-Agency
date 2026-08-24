@@ -1,0 +1,249 @@
+/**
+ * What one employee costs an employer for one month, and what they take home.
+ *
+ * The composition point. Everything hard has already happened by the time this
+ * file runs: the Programmablaufplan is in `tax/`, the Beitragsverfahrens-
+ * verordnung's arithmetic is in `social/`, and the refusals are in `scope.ts`.
+ * What is left is deciding what belongs on which side of the ledger, and that
+ * is where an employer-cost calculator is usually wrong.
+ *
+ * THE LEDGER
+ * ──────────
+ * Employer cost is the gross plus the employer's contribution shares plus the
+ * levies the employer bears alone. It does NOT include the Lohnsteuer, the
+ * Solidaritätszuschlag, the Kirchensteuer, or the employee's contribution
+ * shares — every one of those is withheld FROM the gross, which the employer is
+ * already paying. Adding them would double-count the gross, and doing so is the
+ * classic way these calculators overstate cost by roughly a third.
+ *
+ * MONTHLY, AND MEANT IT
+ * ─────────────────────
+ * § 1 Absatz 1 BVV takes the month as it stands against the monthly ceiling. So
+ * this engine answers for ONE month at a stated gross and does not annualise;
+ * the annual figures it reports are twelve identical months, which is what an
+ * employer planning a hire wants and is not the same as a year's actual payroll
+ * for someone whose pay varies.
+ */
+
+import { DE_RULES_2026 } from '../../../data/calculators/de-employer-cost/2026/rules';
+import { churchTax, SAXONY, type Bundesland, type ChurchTaxResult } from './tax/church-tax';
+import { runPap2026 } from './tax/pap-2026';
+import {
+  accidentInsurance,
+  aagLevy,
+  care,
+  health,
+  insolvencyLevy,
+  pension,
+  unemployment,
+} from './social/branches';
+import { checkScope } from './scope';
+import type { ContributionLine, EngineNote, Localised } from './types';
+import type { UnsupportedCase } from './unsupported';
+
+export interface DeEmployerCostInput {
+  /** Regular monthly gross, in cent. */
+  readonly monthlyGrossCent: bigint;
+  /** Lohnsteuerklasse, 1–6. */
+  readonly steuerklasse: number;
+  /** Zahl der Kinderfreibeträge from ELStAM — "0", "0.5", "1", "1.5", … */
+  readonly kinderfreibetraege: string;
+  /** Where the Betriebsstätte is. Drives church tax AND the Saxon care split. */
+  readonly workplace: Bundesland;
+  readonly churchTaxLiable: boolean;
+  /** The employee's own Krankenkasse's Zusatzbeitragssatz, in percentage points. */
+  readonly healthSupplementPercent: string;
+  /** § 243 SGB V — members with no Krankengeld entitlement. */
+  readonly reducedHealthRate: boolean;
+  readonly care: {
+    readonly childrenUnder25: number;
+    readonly isParent: boolean;
+    readonly atLeast23: boolean;
+  };
+  readonly employer: {
+    /** U1 rate, or null when the employer has more than 30 employees. */
+    readonly u1Percent: string | null;
+    readonly u2Percent: string;
+    /** § 358 Absatz 1 SGB III exempts public bodies and private households. */
+    readonly owesInsolvencyLevy: boolean;
+    /** Monthly accrual for the Berufsgenossenschaft, in cent. */
+    readonly accidentMonthlyCent: bigint;
+  };
+  /** Unsupported cases the user has declared. */
+  readonly declared?: readonly string[];
+}
+
+export interface DeEmployerCostResult {
+  readonly supported: true;
+  readonly monthlyGrossCent: bigint;
+
+  /** Every contribution, with both shares — never a total that hides the split. */
+  readonly contributions: readonly ContributionLine[];
+
+  readonly employer: {
+    readonly contributionsCent: bigint;
+    readonly levyCent: bigint;
+    /** Gross + employer contributions + levies. */
+    readonly totalMonthlyCent: bigint;
+    readonly totalAnnualCent: bigint;
+    /** Employer cost as a multiple of gross, e.g. 1.2078. */
+    readonly loadFactor: string;
+  };
+
+  readonly employee: {
+    readonly socialCent: bigint;
+    readonly lohnsteuerCent: bigint;
+    readonly soliCent: bigint;
+    readonly churchTaxCent: bigint;
+    readonly totalDeductionsCent: bigint;
+    readonly netCent: bigint;
+  };
+
+  readonly churchTax: ChurchTaxResult;
+  readonly notes: readonly EngineNote[];
+}
+
+export type DeEmployerCostOutcome =
+  | DeEmployerCostResult
+  | { readonly supported: false; readonly case: UnsupportedCase };
+
+const LABEL_GROSS: Localised = {
+  de: 'Bruttoentgelt',
+  en: 'Gross pay',
+  cs: 'Hrubá mzda',
+};
+
+export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerCostOutcome {
+  const scope = checkScope({
+    monthlyGrossCent: input.monthlyGrossCent,
+    declared: input.declared,
+  });
+  // `scope.supported === false` rather than `!scope.supported`: this repository
+  // compiles with `strict: false`, and without strictNullChecks the negated
+  // form does not narrow the discriminated union.
+  if (scope.supported === false) return { supported: false, case: scope.case };
+
+  const gross = input.monthlyGrossCent;
+  const notes: EngineNote[] = [];
+
+  // ── Sozialversicherung ────────────────────────────────────────────────────
+  const saxony = input.workplace === SAXONY;
+  const contributions: ContributionLine[] = [
+    pension(gross),
+    unemployment(gross),
+    health(gross, {
+      supplementPercent: input.healthSupplementPercent,
+      reducedRate: input.reducedHealthRate,
+    }),
+    care(gross, { ...input.care, saxony }),
+  ];
+
+  const levies: ContributionLine[] = [];
+  if (input.employer.owesInsolvencyLevy) levies.push(insolvencyLevy(gross));
+  if (input.employer.u1Percent !== null) {
+    levies.push(aagLevy('u1', gross, input.employer.u1Percent));
+  } else {
+    notes.push({ key: 'u1.notApplicable', severity: 'info', text: 'de.note.u1OverThirty' });
+  }
+  levies.push(aagLevy('u2', gross, input.employer.u2Percent));
+  if (input.employer.accidentMonthlyCent > 0n) {
+    levies.push(accidentInsurance(input.employer.accidentMonthlyCent));
+  } else {
+    notes.push({ key: 'accident.absent', severity: 'warning', text: 'de.note.accidentMissing' });
+  }
+
+  // ── Lohnsteuer ────────────────────────────────────────────────────────────
+  //
+  // The care flags reach the Programmablaufplan too, because they change the
+  // Vorsorgepauschale as well as the contribution. PVZ and PVA are exclusive
+  // there, exactly as they are in § 55 Absatz 3 SGB XI.
+  const childless = !input.care.isParent && input.care.atLeast23;
+  const discountedChildren = Math.min(
+    Math.max(input.care.childrenUnder25 - 1, 0),
+    DE_RULES_2026.care.maxDiscountedChildren.value,
+  );
+
+  const pap = runPap2026({
+    LZZ: 2,
+    RE4: Number(gross),
+    STKL: input.steuerklasse,
+    ZKF: input.kinderfreibetraege,
+    KVZ: input.healthSupplementPercent,
+    PVS: saxony ? 1 : 0,
+    PVZ: childless ? 1 : 0,
+    PVA: childless ? 0 : discountedChildren,
+    // The calculator's supported case: statutory cover in every branch. The
+    // alternatives are refusals, not inputs — see unsupported.ts.
+    KRV: 0,
+    ALV: 0,
+    PKV: 0,
+    R: input.churchTaxLiable ? 1 : 0,
+  });
+
+  const lohnsteuerCent = pap.outputs.LSTLZZ.longValue();
+  const soliCent = pap.outputs.SOLZLZZ.longValue();
+  const kirchensteuer = churchTax(pap.outputs.BK.longValue(), {
+    workplace: input.workplace,
+    liable: input.churchTaxLiable,
+  });
+
+  if (kirchensteuer.kappungUnmodelled && input.churchTaxLiable) {
+    notes.push({
+      key: 'kirchensteuer.kappung',
+      severity: 'assumption',
+      text: 'de.note.kappungNotModelled',
+    });
+  }
+
+  // ── Zusammenführung ───────────────────────────────────────────────────────
+  const sum = (xs: readonly ContributionLine[], side: 'employerCent' | 'employeeCent') =>
+    xs.reduce((a, l) => a + l[side], 0n);
+
+  const employerContributions = sum(contributions, 'employerCent');
+  const employerLevies = sum(levies, 'employerCent');
+  const employeeSocial = sum(contributions, 'employeeCent');
+
+  const employerTotal = gross + employerContributions + employerLevies;
+  const employeeDeductions =
+    employeeSocial + lohnsteuerCent + soliCent + kirchensteuer.amountCent;
+
+  return {
+    supported: true,
+    monthlyGrossCent: gross,
+    contributions: [...contributions, ...levies],
+    employer: {
+      contributionsCent: employerContributions,
+      levyCent: employerLevies,
+      totalMonthlyCent: employerTotal,
+      totalAnnualCent: employerTotal * 12n,
+      loadFactor: loadFactor(employerTotal, gross),
+    },
+    employee: {
+      socialCent: employeeSocial,
+      lohnsteuerCent,
+      soliCent,
+      churchTaxCent: kirchensteuer.amountCent,
+      totalDeductionsCent: employeeDeductions,
+      netCent: gross - employeeDeductions,
+    },
+    churchTax: kirchensteuer,
+    notes,
+  };
+}
+
+/**
+ * Employer cost ÷ gross, to four decimal places.
+ *
+ * Exact integer arithmetic rather than a float division, because this number
+ * gets displayed as a headline ("1,21 ×") and a last-place wobble in a headline
+ * is the kind of thing that makes a reader distrust everything under it.
+ */
+function loadFactor(totalCent: bigint, grossCent: bigint): string {
+  if (grossCent === 0n) return '0.0000';
+  const scaled = (totalCent * 10_000n) / grossCent;
+  const whole = scaled / 10_000n;
+  const frac = (scaled % 10_000n).toString().padStart(4, '0');
+  return `${whole}.${frac}`;
+}
+
+export { LABEL_GROSS };
