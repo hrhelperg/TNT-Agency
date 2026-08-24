@@ -262,19 +262,25 @@ export function parsePap(xml: string): PapDocument {
   const papAttrs = attrs(papTag[0]);
 
   const decls = (section: string, tag: string): PapDeclaration[] => {
-    // The OUTPUTS sections carry a `type` attribute (STANDARD / DBA), so the
-    // opening tag is not simply `<OUTPUTS>`.
-    const sec = new RegExp(`<${section}[^>]*>([\\s\\S]*?)</${section}>`).exec(src);
-    if (!sec) return [];
-    return Array.from(sec[1].matchAll(new RegExp(`<${tag}\\b[^>]*/>`, 'g')), (m) => {
-      const a = attrs(m[0]);
-      return {
-        name: a.name,
-        type: a.type as PapDeclaration['type'],
-        defaultExpr: a.default,
-        valueExpr: a.value,
-      };
-    });
+    // Two things the obvious regex gets wrong here. The OUTPUTS sections carry a
+    // `type` attribute, so the opening tag is not simply `<OUTPUTS>`; and there
+    // are TWO of them — `type="STANDARD"` holds the six withholding figures and
+    // `type="DBA"` holds the six Doppelbesteuerungsabkommen bases. Matching only
+    // the first silently drops VFRB, VFRBS1, VFRBS2, WVFRB, WVFRBO and WVFRBM,
+    // which is exactly the half a differential test would then never compare.
+    const out: PapDeclaration[] = [];
+    for (const sec of src.matchAll(new RegExp(`<${section}[^>]*>([\\s\\S]*?)</${section}>`, 'g'))) {
+      for (const m of sec[1].matchAll(new RegExp(`<${tag}\\b[^>]*/>`, 'g'))) {
+        const a = attrs(m[0]);
+        out.push({
+          name: a.name,
+          type: a.type as PapDeclaration['type'],
+          defaultExpr: a.default,
+          valueExpr: a.value,
+        });
+      }
+    }
+    return out;
   };
 
   const methods = new Map<string, Stmt[]>();
@@ -369,9 +375,44 @@ class Evaluator {
   evaluate(expr: string): PapValue {
     this.toks = tokenize(expr);
     this.pos = 0;
-    const v = this.parsePostfix();
+    const v = this.parseAdditive();
     this.expectEnd(expr);
     return v;
+  }
+
+  /**
+   * Infix `+` and `-` on INTEGERS only.
+   *
+   * The 2026 document contains exactly two such expressions — `VJAHR - 2004`
+   * and `AJAHR - 2004`, the cohort index for the Versorgungsbezug and
+   * Altersentlastung tables. Everything monetary goes through `.add()` and
+   * `.subtract()`, where the scale rules are explicit.
+   *
+   * So this is deliberately narrow: applying it to a BigDecimal would silently
+   * pick a scale the document never specified, which is exactly the class of
+   * quiet wrongness this interpreter exists to rule out. It throws instead.
+   *
+   * Worth noting how this gap stayed hidden: the two Prüftabellen have no
+   * Versorgungsbezüge and no Altersentlastungsbetrag, so all 516 official cells
+   * pass without ever reaching either line. It surfaced the moment the
+   * differential test swept the cohort years — which is the argument for
+   * sweeping rather than spot-checking.
+   */
+  private parseAdditive(): PapValue {
+    let left = this.parsePostfix();
+    for (;;) {
+      const op = this.peek();
+      if (!op || op.t !== 'op' || (op.v !== '+' && op.v !== '-')) return left;
+      this.pos++;
+      const right = this.parsePostfix();
+      if (typeof left !== 'number' || typeof right !== 'number') {
+        throw new Error(
+          `pap-interpreter: infix "${op.v}" is supported on ints only — a BigDecimal here ` +
+            'would need a scale the document does not state',
+        );
+      }
+      left = op.v === '+' ? left + right : left - right;
+    }
   }
 
   private expectEnd(expr: string): void {
