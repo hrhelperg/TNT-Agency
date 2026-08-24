@@ -59,7 +59,7 @@ export const KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO: SeoPage = {
       body: [
         'Zákonný mzdový náklad německého zaměstnavatele má tři vrstvy: hrubou mzdu, podíl zaměstnavatele na čtyřech složkách sociálního pojištění a odvody, které nese zaměstnavatel sám. U běžného zaměstnance pod stropy činí podíl zaměstnavatele na pojištění zhruba 21 % hrubé mzdy.',
         'K tomu se přidávají odvody U1, U2 a U3 a zákonné úrazové pojištění. U1 a U2 stanoví každá zdravotní pojišťovna vlastními stanovami, takže se mezi pojišťovnami liší o celé procentní body; úrazové pojištění vyměřuje profesní sdružení podle rizikového tarifu až zpětně za celý rok. Ani jedno nemá obecnou sazbu, kterou by šlo předpokládat — kalkulačka se na ně proto ptá a neodhaduje je.',
-        'Při hrubé mzdě 4 000 € měsíčně a průměrné doplňkové sazbě zdravotní pojišťovny vychází zákonný náklad zaměstnavatele přibližně na 4 862 €, tedy faktor asi 1,22 na hrubou mzdu. Nad stropy tento faktor klesá, protože odvody se zastaví a hrubá mzda roste dál.',
+        'Při hrubé mzdě 4 000 € měsíčně a průměrné doplňkové sazbě zdravotní pojišťovny dávají čtyři složky pojištění spolu s odvodem na insolvenční dávku náklad zaměstnavatele 4 852,00 €, tedy faktor 1,21 na hrubou mzdu. Odvody U1 a U2 ani úrazové pojištění v tom záměrně nejsou: obecnou sazbu nemají, jakékoli uvedené číslo by bylo vymyšlené. Nad stropy tento faktor klesá, protože odvody se zastaví a hrubá mzda roste dál.',
       ],
       bullets: [
         'Hrubá mzda',

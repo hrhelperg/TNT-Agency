@@ -30,7 +30,7 @@ export const EN_CALCULATORS: LocaleCorpus = {
           body: [
             'Statutory payroll cost in Germany has three layers: the gross wage, the employer’s share of four social-insurance branches, and the levies the employer carries alone. For an ordinary employee below the ceilings, the employer’s share of the four branches comes to roughly 21 % of gross.',
             'On top of that sit the U1, U2 and U3 levies and statutory accident insurance. Each health fund sets U1 and U2 in its own rules, so they differ between funds by whole percentage points; accident insurance is assessed by the trade association from its risk tariff and billed in arrears for the whole year. Neither has a general rate that could safely be assumed, so the calculator asks rather than estimating.',
-            'At 4,000 EUR a month with the average supplementary health rate, statutory employer cost works out at about 4,862 EUR — a factor of roughly 1.22 on gross. Above the ceilings that factor falls, because the contributions stop while the gross keeps rising.',
+            'At 4,000 EUR a month with the average supplementary health rate, the four branches plus the insolvency levy come to 4,852.00 EUR of employer cost — a factor of 1.21 on gross. That figure deliberately excludes U1, U2 and accident insurance: they have no general rate, so any number quoted for them would be invented. Above the ceilings the factor falls, because the contributions stop while the gross keeps rising.',
           ],
           list: {
             items: [
