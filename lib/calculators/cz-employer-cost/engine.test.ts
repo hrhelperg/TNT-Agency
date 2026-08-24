@@ -957,3 +957,32 @@ describe('16. calendar helper', () => {
     expect(daysInMonth(2026, 4)).toBe(30);
   });
 });
+
+// The liability options are rendered as "<rate> — <label>". The label must not
+// repeat the rate, or every option reads "2,8 ‰ — 2,8 ‰ — …" as it did in
+// production after the review round.
+describe('17. liability activity labels', () => {
+  it('carry no rate of their own — the UI prefixes it', () => {
+    for (const a of CZ_2026.liabilityInsurance.activities) {
+      for (const [locale, label] of [
+        ['cs', a.labelCs],
+        ['en', a.labelEn],
+        ['de', a.labelDe],
+      ] as const) {
+        expect(
+          /^\s*\d+([.,]\d+)?\s*‰/.test(label),
+          `${a.key}/${locale} label starts with a rate: "${label}"`,
+        ).toBe(false);
+      }
+    }
+  });
+
+  it('still describes every band in all three locales', () => {
+    expect(CZ_2026.liabilityInsurance.activities).toHaveLength(8);
+    for (const a of CZ_2026.liabilityInsurance.activities) {
+      expect(a.labelCs.trim().length, a.key).toBeGreaterThan(3);
+      expect(a.labelEn.trim().length, a.key).toBeGreaterThan(3);
+      expect(a.labelDe.trim().length, a.key).toBeGreaterThan(3);
+    }
+  });
+});
