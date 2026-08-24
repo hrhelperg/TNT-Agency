@@ -65,6 +65,20 @@ describe('parsing accepts what people actually paste', () => {
     }
   });
 
+  it('refuses a leading zero group, which is never grouping', () => {
+    // "0,500" looks well formed and is not: no grouped number starts with a
+    // zero group. Reading it as grouping made 0,50 EUR into 500,00 EUR — a
+    // thousandfold misread, silently added to employer cost through the
+    // accident-insurance field.
+    for (const bad of ['0,500', '0.500', '00,500', '00.500', '0,000']) {
+      expect(parseEuroToCent(bad), bad).toBeNull();
+    }
+    // The genuinely decimal readings are untouched.
+    expect(parseEuroToCent('0,50')).toBe(50n);
+    expect(parseEuroToCent('0.5')).toBe(50n);
+    expect(parseEuroToCent('0,05')).toBe(5n);
+  });
+
   it('still reads a lone separator followed by one or two digits as a decimal', () => {
     expect(parseEuroToCent('3.5')).toBe(350n);
     expect(parseEuroToCent('3,5')).toBe(350n);

@@ -157,7 +157,12 @@ export function parseEuroToCent(raw: string): bigint | null {
   if (grouping !== '') {
     const groups = integerPart.split(grouping);
     if (groups.length > 1) {
-      if (!/^\d{1,3}$/.test(groups[0])) return null;
+      // The leading group may not start with a zero. No grouped number is
+      // written "0.500" or "00.500", so reading them as grouping turns a
+      // malformed string into a confident answer a thousand times too large:
+      // "0,500" typed into the accident-insurance field meant 0,50 EUR and was
+      // read as 500,00 EUR, added to employer cost with no error shown.
+      if (!/^[1-9]\d{0,2}$/.test(groups[0])) return null;
       if (!groups.slice(1).every((g) => /^\d{3}$/.test(g))) return null;
     }
     integerPart = groups.join('');

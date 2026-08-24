@@ -108,17 +108,17 @@ export default function DeEmployerCostCalculatorBoundary({
 
           <dl className="ecc__periodicity">
             <dt>{tr(METHODOLOGY.basisPension)}</dt>
-            <dd>{DISPLAY_BASIS.pension}</dd>
+            <dd>{DISPLAY_BASIS.pension[locale]}</dd>
             <dt>{tr(METHODOLOGY.basisUnemployment)}</dt>
-            <dd>{DISPLAY_BASIS.unemployment}</dd>
+            <dd>{DISPLAY_BASIS.unemployment[locale]}</dd>
             <dt>{tr(METHODOLOGY.basisHealth)}</dt>
-            <dd>{DISPLAY_BASIS.health}</dd>
+            <dd>{DISPLAY_BASIS.health[locale]}</dd>
             <dt>{tr(METHODOLOGY.basisCare)}</dt>
-            <dd>{DISPLAY_BASIS.care}</dd>
+            <dd>{DISPLAY_BASIS.care[locale]}</dd>
             <dt>{tr(METHODOLOGY.basisLevies)}</dt>
-            <dd>{DISPLAY_BASIS.levies}</dd>
+            <dd>{DISPLAY_BASIS.levies[locale]}</dd>
             <dt>{tr(METHODOLOGY.basisTax)}</dt>
-            <dd>{DISPLAY_BASIS.tax}</dd>
+            <dd>{DISPLAY_BASIS.tax[locale]}</dd>
           </dl>
 
           <dl className="ecc__periodicity">

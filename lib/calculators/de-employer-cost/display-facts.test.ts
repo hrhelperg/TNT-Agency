@@ -33,16 +33,41 @@ describe('the display facts equal the registry', () => {
     });
   }
 
-  it('the statutory bases quote the registry, including the ordinance for the care rate', () => {
-    expect(DISPLAY_BASIS.pension).toBe(R.pension.totalPercent.legalBasis);
-    expect(DISPLAY_BASIS.unemployment).toBe(R.unemployment.totalPercent.legalBasis);
-    expect(DISPLAY_BASIS.health).toContain(R.health.generalPercent.legalBasis);
+  it('every basis is localized, and the provisions themselves are identical across locales', () => {
+    // The PROVISIONS are German and stay German — "§ 55 Absatz 1a SGB XI" is a
+    // name, not a phrase. What must be localized is the connective tissue: a
+    // single locale-neutral string had put the English "for the split" inside
+    // the lang="de" panel and the German "i. V. m." inside the lang="en" one.
+    const SECTION = /§+\s*\d+[a-z]?(\s+(Absatz|Abs\.|odst\.)\s*\d+[a-z]?)?/gi;
+    for (const [branch, byLocale] of Object.entries(DISPLAY_BASIS)) {
+      for (const locale of ['de', 'en', 'cs'] as const) {
+        expect(byLocale[locale]?.length, `${branch}.${locale} is missing`).toBeGreaterThan(10);
+      }
+      // The same statutes, in the same order, whatever the language.
+      const numbers = (text: string) => (text.match(/\d+[a-z]?/g) ?? []).join(',');
+      expect(numbers(byLocale.en), `${branch}: en cites different provisions from de`).toBe(
+        numbers(byLocale.de),
+      );
+      expect(numbers(byLocale.cs), `${branch}: cs cites different provisions from de`).toBe(
+        numbers(byLocale.de),
+      );
+      // And no locale carries another's connectives.
+      expect(byLocale.en, `${branch}.en carries the German "i. V. m."`).not.toContain('i. V. m.');
+      expect(byLocale.de, `${branch}.de carries an English connective`).not.toMatch(/\b(split|together with|under)\b/);
+      expect(byLocale.cs, `${branch}.cs carries an English connective`).not.toMatch(/\b(split|together with|under)\b/);
+    }
+  });
+
+  it('the German basis quotes the registry, including the ordinance for the care rate', () => {
+    expect(DISPLAY_BASIS.pension.de).toContain('§ 158 SGB VI');
+    expect(DISPLAY_BASIS.unemployment.de).toContain('§ 341 Absatz 2 SGB III');
+    expect(DISPLAY_BASIS.health.de).toContain(R.health.generalPercent.legalBasis);
     // The care rate comes from PBAV 2025, not from § 55 Absatz 1, which still
     // says 3,4 % — citing Absatz 1 alone would name the provision that gives
     // the wrong number.
-    expect(DISPLAY_BASIS.care).toContain(R.care.basePercent.legalBasis);
-    expect(DISPLAY_BASIS.care).toContain('PBAV 2025');
-    expect(DISPLAY_BASIS.levies).toContain(R.insolvencyLevy.percent.legalBasis);
+    expect(DISPLAY_BASIS.care.de).toContain(R.care.basePercent.legalBasis);
+    expect(DISPLAY_BASIS.care.de).toContain('PBAV 2025');
+    expect(DISPLAY_BASIS.levies.de).toContain(R.insolvencyLevy.percent.legalBasis);
   });
 });
 

@@ -162,9 +162,13 @@ export const FIELD: Record<string, Copy> = {
     cs: 'Platí trvale, i když jsou děti dávno dospělé. Bez doložení se od 23 let uplatní příplatek pro bezdětné.',
   },
   atLeast23: {
-    de: 'Beschäftigte Person ist mindestens 23 Jahre alt',
-    en: 'Employee is at least 23',
-    cs: 'Zaměstnanec je starší 23 let',
+    // § 55 Absatz 3 Satz 1 SGB XI: the surcharge starts AFTER the month in which
+    // the 23rd birthday falls, not on the birthday. "At least 23" charges it a
+    // month early for everyone born in the current month, and the label is the
+    // only place this flag is defined for the user.
+    de: 'Der Monat, in dem die beschäftigte Person 23 wird, ist bereits abgelaufen',
+    en: 'The month in which the employee turned 23 has already ended',
+    cs: 'Měsíc, v němž zaměstnanec dovršil 23 let, již uplynul',
   },
   u1: {
     de: 'Umlage U1 (Entgeltfortzahlung)',

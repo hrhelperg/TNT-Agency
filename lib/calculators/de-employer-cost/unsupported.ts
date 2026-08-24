@@ -72,11 +72,11 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     labelEn: 'Minijob / marginal employment',
     labelCs: 'Minijob (geringfügige Beschäftigung)',
     reasonDe:
-      'Unterhalb der Geringfügigkeitsgrenze gelten pauschale Arbeitgeberabgaben statt der regulären Beitragssätze. Das ist ein anderes Beitragssystem, kein Sonderfall des hier abgebildeten.',
+      'Unterhalb der Geringfügigkeitsgrenze gelten pauschale Arbeitgeberabgaben statt der regulären Beitragssätze. Das ist ein anderes Beitragssystem, kein Sonderfall des hier abgebildeten. Für Auszubildende gilt die Geringfügigkeit nicht (§ 8 Absatz 3 Satz 1 SGB IV); in dem Fall bitte „Auszubildende" wählen.',
     reasonEn:
-      'Below the Minijob threshold the employer pays flat-rate levies instead of the ordinary contribution rates. That is a different contribution system, not a special case of the one modelled here.',
+      'Below the Minijob threshold the employer pays flat-rate levies instead of the ordinary contribution rates. That is a different contribution system, not a special case of the one modelled here. Geringfügigkeit does not apply to apprentices (§ 8 Absatz 3 Satz 1 SGB IV) — for those, choose “Apprentices in vocational training”.',
     reasonCs:
-      'Do 603 € měsíčně platí jiný režim: zaměstnavatel odvádí paušální příspěvky Minijob-Zentrale místo běžného pojistného. Není to menší verze běžného výpočtu, ale jiná úprava.',
+      'Do 603 € měsíčně platí jiný režim: zaměstnavatel odvádí paušální příspěvky Minijob-Zentrale místo běžného pojistného. Není to menší verze běžného výpočtu, ale jiná úprava. Na učně se režim minijobu nevztahuje (§ 8 odst. 3 věta 1 SGB IV); v takovém případě zvolte „Učni v odborné přípravě".',
   },
   {
     id: 'uebergangsbereich',
@@ -85,11 +85,37 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     labelEn: 'Transition zone / Midijob',
     labelCs: 'Übergangsbereich (přechodové pásmo)',
     reasonDe:
-      'Im Übergangsbereich wird die beitragspflichtige Einnahme über eine eigene Formel reduziert, und der Arbeitgeberanteil ist nicht die Hälfte des Beitrags. Ein Standardergebnis wäre hier für beide Seiten falsch.',
+      'Im Übergangsbereich wird die beitragspflichtige Einnahme über eine eigene Formel reduziert, und der Arbeitgeberanteil ist nicht die Hälfte des Beitrags. Ein Standardergebnis wäre hier für beide Seiten falsch. Für Auszubildende gilt der Übergangsbereich nicht (§ 20 Absatz 2 Satz 2 SGB IV); in dem Fall bitte „Auszubildende" wählen.',
     reasonEn:
-      'In the transition zone the contributory pay is reduced by its own formula and the employer share is not half the contribution. A standard result would be wrong for both parties here.',
+      'In the transition zone the contributory pay is reduced by its own formula and the employer share is not half the contribution. A standard result would be wrong for both parties here. The transition band does not apply to apprentices (§ 20 Absatz 2 Satz 2 SGB IV) — for those, choose “Apprentices in vocational training”.',
     reasonCs:
-      'V přechodovém pásmu se vyměřovací základ snižuje vlastním vzorcem a podíl zaměstnavatele není polovinou pojistného. Běžný výpočet by vrátil chybné podíly na obou stranách.',
+      'V přechodovém pásmu se vyměřovací základ snižuje vlastním vzorcem a podíl zaměstnavatele není polovinou pojistného. Běžný výpočet by vrátil chybné podíly na obou stranách. Na učně se přechodové pásmo nevztahuje (§ 20 odst. 2 věta 2 SGB IV); v takovém případě zvolte „Učni v odborné přípravě".',
+  },
+  {
+    id: 'kurzfristige-beschaeftigung',
+    kind: 'declared',
+    labelDe: 'Kurzfristige Beschäftigung',
+    labelEn: 'Short-term employment (kurzfristige Beschäftigung)',
+    labelCs: 'Krátkodobé zaměstnání',
+    reasonDe:
+      'Eine von vornherein auf höchstens drei Monate oder 70 Arbeitstage im Kalenderjahr befristete Beschäftigung ist nach § 8 Absatz 1 Nummer 2 SGB IV in allen vier Zweigen versicherungsfrei — unabhängig von der Höhe des Entgelts. Aus dem Monatsentgelt allein ist das nicht erkennbar, und der Rechner würde Beiträge ausweisen, die gar nicht anfallen.',
+    reasonEn:
+      'Employment limited from the outset to at most three months or 70 working days in the calendar year is exempt in all four branches under § 8 Absatz 1 Nummer 2 SGB IV, whatever the pay. Nothing in a monthly figure reveals it, and the calculator would show contributions that are not owed at all.',
+    reasonCs:
+      'Zaměstnání předem omezené na nejvýše tři měsíce nebo 70 pracovních dnů v kalendářním roce je podle § 8 odst. 1 č. 2 SGB IV osvobozeno ve všech čtyřech složkách bez ohledu na výši mzdy. Z měsíční mzdy to poznat nelze a kalkulačka by vykázala pojistné, které se vůbec neodvádí.',
+  },
+  {
+    id: 'ausbildung',
+    kind: 'declared',
+    labelDe: 'Auszubildende',
+    labelEn: 'Apprentices in vocational training',
+    labelCs: 'Učni v odborné přípravě',
+    reasonDe:
+      'Für eine Berufsausbildung gelten weder die Geringfügigkeit noch der Übergangsbereich (§ 8 Absatz 3 Satz 1 und § 20 Absatz 2 Satz 2 SGB IV), und bis zur Geringverdienergrenze von 325 € trägt der Arbeitgeber nach § 20 Absatz 3 SGB IV den gesamten Gesamtsozialversicherungsbeitrag allein. Der Rechner bildet keine dieser Regeln ab.',
+    reasonEn:
+      'Vocational training falls outside both the Minijob and the transition regimes (§ 8 Absatz 3 Satz 1 and § 20 Absatz 2 Satz 2 SGB IV), and up to the 325 EUR low-earner limit the employer bears the ENTIRE combined contribution alone under § 20 Absatz 3 SGB IV. The calculator models none of that.',
+    reasonCs:
+      'Na odbornou přípravu se nevztahuje ani režim minijobu, ani přechodové pásmo (§ 8 odst. 3 věta 1 a § 20 odst. 2 věta 2 SGB IV) a do hranice nízkého výdělku 325 € nese podle § 20 odst. 3 SGB IV celé souhrnné pojistné sám zaměstnavatel. Kalkulačka žádné z těchto pravidel nemodeluje.',
   },
   {
     id: 'pkv',

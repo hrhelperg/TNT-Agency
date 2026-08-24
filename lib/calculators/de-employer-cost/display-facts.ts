@@ -33,15 +33,48 @@ export const DISPLAY_CENT = {
   transitionUpperMonthly: 200_000,
 } as const;
 
-/** The statutory bases, per branch, exactly as the registry states them. */
-export const DISPLAY_BASIS = {
-  pension: '§ 158 SGB VI; § 168 Absatz 1 Nummer 1 SGB VI for the split',
-  unemployment: '§ 341 Absatz 2 SGB III; § 346 Absatz 1 SGB III for the split',
-  health: '§ 241 SGB V; § 242 SGB V; § 249 Absatz 1 SGB V',
-  care: '§ 55 Absatz 1a SGB XI i. V. m. § 1 PBAV 2025; § 55 Absatz 3 SGB XI; § 58 SGB XI',
-  levies: '§ 360 SGB III; § 1, § 7 AAG; §§ 150, 153 SGB VII',
-  tax: '§ 39b Absatz 2 und 6 EStG; § 32a EStG; § 51a EStG',
-} as const;
+/**
+ * The statutory bases, per branch, LOCALIZED.
+ *
+ * The provisions are German and stay in German — "§ 55 Absatz 1a SGB XI" is the
+ * citation's name, not a phrase to translate. What must not stay in one
+ * language is the connective tissue around them. A single locale-neutral string
+ * put the English "for the split" inside a `lang="de"` section and the German
+ * "i. V. m." inside a `lang="en"` one, which is a locale falling back to
+ * another's words in the one panel that exists to be checked against the law.
+ */
+export const DISPLAY_BASIS: Readonly<Record<string, Readonly<Record<DeLocale, string>>>> = {
+  pension: {
+    de: '§ 158 SGB VI; Aufteilung nach § 168 Absatz 1 Nummer 1 SGB VI',
+    en: '§ 158 SGB VI; split under § 168 Absatz 1 Nummer 1 SGB VI',
+    cs: '§ 158 SGB VI; rozdělení podle § 168 odst. 1 č. 1 SGB VI',
+  },
+  unemployment: {
+    de: '§ 341 Absatz 2 SGB III; Aufteilung nach § 346 Absatz 1 SGB III',
+    en: '§ 341 Absatz 2 SGB III; split under § 346 Absatz 1 SGB III',
+    cs: '§ 341 odst. 2 SGB III; rozdělení podle § 346 odst. 1 SGB III',
+  },
+  health: {
+    de: '§ 241 SGB V; § 242 SGB V; § 249 Absatz 1 SGB V',
+    en: '§ 241 SGB V; § 242 SGB V; § 249 Absatz 1 SGB V',
+    cs: '§ 241 SGB V; § 242 SGB V; § 249 odst. 1 SGB V',
+  },
+  care: {
+    de: '§ 55 Absatz 1a SGB XI i. V. m. § 1 PBAV 2025; § 55 Absatz 3 SGB XI; § 58 SGB XI',
+    en: '§ 55 Absatz 1a SGB XI together with § 1 PBAV 2025; § 55 Absatz 3 SGB XI; § 58 SGB XI',
+    cs: '§ 55 odst. 1a SGB XI ve spojení s § 1 PBAV 2025; § 55 odst. 3 SGB XI; § 58 SGB XI',
+  },
+  levies: {
+    de: '§ 360 SGB III; § 1, § 7 AAG; §§ 150, 153 SGB VII',
+    en: '§ 360 SGB III; § 1, § 7 AAG; §§ 150, 153 SGB VII',
+    cs: '§ 360 SGB III; § 1, § 7 AAG; §§ 150, 153 SGB VII',
+  },
+  tax: {
+    de: '§ 39b Absatz 2 und 6 EStG; § 32a EStG; § 51a EStG',
+    en: '§ 39b Absatz 2 and 6 EStG; § 32a EStG; § 51a EStG',
+    cs: '§ 39b odst. 2 a 6 EStG; § 32a EStG; § 51a EStG',
+  },
+};
 
 const LOCALE_TAG: Readonly<Record<DeLocale, string>> = {
   de: 'de-DE',

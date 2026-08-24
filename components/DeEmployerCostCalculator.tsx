@@ -482,7 +482,13 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   narrow cell: the table's min-content rose to 663 px and dragged
                   the whole container past the viewport at 320 px and 360 px.
                 */}
-                <div className="ecc__table-wrap">
+                {/*
+                  tabIndex and role, because a scrollable region that only a
+                  mouse can scroll hides content from keyboard users — axe
+                  reports it as `scrollable-region-focusable`, and at 320 px the
+                  employee-share column is entirely inside the hidden overflow.
+                */}
+                <div className="ecc__table-wrap" tabIndex={0} role="region" aria-label={tr(SECTION.insurance)}>
                 <table className="ecc__table">
                   <thead>
                     <tr>
@@ -527,7 +533,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                 </table>
                 </div>
 
-                <div className="ecc__table-wrap">
+                <div className="ecc__table-wrap" tabIndex={0} role="region" aria-label={tr(RESULT.deductions)}>
                 <table className="ecc__table ecc__table--metrics">
                   <tbody>
                     <tr>
