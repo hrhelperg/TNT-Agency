@@ -63,7 +63,8 @@
     "test:mutate-locale-fidelity": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-fidelity.mjs",
     "validate:locale-jurisdiction": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-jurisdiction.mjs",
     "test:mutate-locale-jurisdiction": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-jurisdiction.mjs",
-    "locale:source-inventory": "node --import ./scripts/ts-resolve.mjs scripts/locale-source-inventory.mjs"
+    "locale:source-inventory": "node --import ./scripts/ts-resolve.mjs scripts/locale-source-inventory.mjs",
+    "test:mutate-de-employer-cost": "node scripts/mutate-de-employer-cost.mjs"
   },
   "dependencies": {
     "next": "14.2.3",

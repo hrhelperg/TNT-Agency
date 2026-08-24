@@ -17,6 +17,22 @@ describe('§ 2 Absatz 1 BVV — half the rate, round, then double', () => {
     expect(money(share(base, '18.6'))).toBe('558.01');
   });
 
+  it('cannot be reproduced by computing the whole contribution and splitting it', () => {
+    // The previous case does not discriminate: at 3 000,05 EUR the whole-rate
+    // figure happens to halve back onto the same cent, so an engine doing it
+    // the wrong way round would still pass. This one separates them.
+    //
+    // At 2 000,06 EUR and 18,6 %:
+    //   statutory  — 9,3 % × 2 000,06 = 186,00558 → 186,01, doubled = 372,02
+    //   the wrong way — 18,6 % × 2 000,06 = 372,01116 → 372,01, split = 372,00
+    // Two cents a month, on the largest base in the payslip.
+    const base = eur(2000.06);
+    const r = splitEqually(base, '18.6');
+    expect(money(r.employerCent)).toBe('186.01');
+    expect(money(r.employerCent + r.employeeCent)).toBe('372.02');
+    expect(money(share(base, '18.6'))).toBe('372.01');
+  });
+
   it('rounds on the third decimal, upward from five', () => {
     // § 1 Absatz 2 BVV. 0,005 exactly must go up.
     expect(money(share(eur(100), '2.5'))).toBe('2.50');
