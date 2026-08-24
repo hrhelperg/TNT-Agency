@@ -44,8 +44,9 @@ describe('sitemap hygiene', () => {
     // PUBLISHED. That fails if a page exists without being published, or is
     // published without existing, which is the defect worth catching.
     const inv = buildRouteInventory(ROOT);
-    // Czech Next routes (175) + every published localized route.
-    expect(inv.nextRoutes.length).toBe(175 + PUBLISHED_LOCALIZED_ROUTES.length);
+    // Czech Next routes (176, incl. the employer-cost calculator) + every
+    // published localized route.
+    expect(inv.nextRoutes.length).toBe(176 + PUBLISHED_LOCALIZED_ROUTES.length);
     expect(inv.staticRoutes.length).toBe(10);
     expect(inv.urls.size).toBe(EXPECTED_SITEMAP_URLS);
     // Sets must match exactly, both directions.

@@ -195,6 +195,7 @@ export const MINIMALNI_MZDA_2026: SeoPage = {
   ],
   sources: [SRC.zakonikPrace, SRC.mpsv, SRC.cssz],
   internalLinks: [
+    { href: '/kalkulacka-nakladu-zamestnavatele', label: 'Kalkulačka nákladů zaměstnavatele 2026' },
     { href: '/naklady-na-zamestnance-cr', label: 'Z čeho se skládají náklady na zaměstnance' },
     { href: '/socialni-zdravotni-dane-2026', label: 'Přehled odvodů v roce 2026' },
     { href: '/povinnosti-zamestnavatele', label: 'Povinnosti zaměstnavatele' },

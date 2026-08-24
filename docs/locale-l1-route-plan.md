@@ -28,11 +28,11 @@ their concept primary and receive no EN/DE page of their own.
 
 ## Coverage of the Czech spine
 
-All 185 Czech routes are accounted for.
+All 186 Czech routes are accounted for.
 
 | Classification | Routes |
 |---|---|
-| L0 | 16 |
+| L0 | 17 |
 | L1_primary | 38 |
 | L1_collapsed | 18 |
 | LEGAL | 9 |
@@ -40,7 +40,7 @@ All 185 Czech routes are accounted for.
 | L2 | 41 |
 | OUT_OF_SCOPE | 6 |
 | UNCLASSIFIED | 0 |
-| **total** | **185** |
+| **total** | **186** |
 
 ## L1 concepts
 

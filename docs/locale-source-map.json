@@ -8269,5 +8269,492 @@
         }
       }
     }
+  },
+  "employer-cost-calculator": {
+    "csPrimary": "/kalkulacka-nakladu-zamestnavatele",
+    "items": {
+      "employer-cost-calculator|SEO_PAGES|s0.b0|a1795b03": {
+        "ref": "s0.b0",
+        "cs": "Hrubá mzda",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Gross salary"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Bruttogehalt"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s0.b1|42f3e82b": {
+        "ref": "s0.b1",
+        "cs": "Sociální pojištění zaměstnavatele 24,8 %",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Employer social insurance at 24.8 %"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Arbeitgeberanteil zur tschechischen Sozialversicherung 24,8 %"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s0.b2|25bcaf5d": {
+        "ref": "s0.b2",
+        "cs": "Zdravotní pojištění zaměstnavatele — dvě třetiny z 13,5 %",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Employer health insurance — two thirds of 13.5 %"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Arbeitgeberanteil zur tschechischen Krankenversicherung — zwei Drittel von 13,5 %"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s0.b3|36f6dcf6": {
+        "ref": "s0.b3",
+        "cs": "Zákonné pojištění odpovědnosti za pracovní úraz podle převažující činnosti",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Statutory accident-liability insurance, by the employer’s prevailing activity"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Gesetzliche tschechische Unfallhaftpflichtversicherung nach der überwiegenden Tätigkeit des Arbeitgebers"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s2.b0|0964dfdc": {
+        "ref": "s2.b0",
+        "cs": "Běžný zaměstnanec 24,8 %",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Standard employee 24.8 %"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Gewöhnlicher Beschäftigter 24,8 %"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s2.b1|a30670e4": {
+        "ref": "s2.b1",
+        "cs": "Zdravotnický záchranář a člen jednotky HZS podniku 29,8 %",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Paramedics and works fire-brigade members 29.8 %"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Rettungssanitäter und Mitglieder der Werkfeuerwehr 29,8 %"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s2.b2|eb01141f": {
+        "ref": "s2.b2",
+        "cs": "Rizikové zaměstnání 27,8 % v roce 2026 (28,8 % v 2027, 29,8 % od 2028)",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "High-risk work 27.8 % in 2026 (28.8 % in 2027, 29.8 % from 2028)"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Risikotätigkeit 27,8 % im Jahr 2026 (28,8 % 2027, 29,8 % ab 2028)"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s2.b3|6c29df7c": {
+        "ref": "s2.b3",
+        "cs": "Pod rozhodným příjmem 4 500 Kč se sociální pojistné neodvádí ani z jedné strany",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Below the 4 500 CZK participation threshold neither side pays social insurance"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Unterhalb der Teilnahmeschwelle von 4 500 CZK zahlt keine Seite Sozialbeiträge"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s4.b0|25031a67": {
+        "ref": "s4.b0",
+        "cs": "Držitel průkazu ZTP nebo ZTP/P",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Holder of a Czech ZTP or ZTP/P card"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Inhaber eines tschechischen ZTP- oder ZTP/P-Ausweises"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s4.b1|054d157e": {
+        "ref": "s4.b1",
+        "cs": "Osoba, která dosáhla důchodového věku, ale nevznikl jí nárok na starobní důchod",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "A person of retirement age who has not become entitled to an old-age pension"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Person im Rentenalter, die keinen Anspruch auf eine tschechische Altersrente erworben hat"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s4.b2|d45f5d8e": {
+        "ref": "s4.b2",
+        "cs": "Osoba současně samostatně výdělečně činná, odvádějící zálohy alespoň z minima OSVČ",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "A person concurrently self-employed who pays advances from at least the self-employed minimum"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Person, die zugleich selbständig tätig ist und Vorauszahlungen mindestens aus der Mindestgrundlage für Selbständige leistet"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s4.b3|70d4b778": {
+        "ref": "s4.b3",
+        "cs": "Osoba, za kterou je plátcem pojistného stát",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "A person for whom the Czech state is the payer of premium"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Person, für die der tschechische Staat Beitragszahler ist"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s4.b4|b8dcf3e0": {
+        "ref": "s4.b4",
+        "cs": "Osoba, které jsou poskytovány pouze odměny pěstouna",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "A person receiving only foster-carer remuneration"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Person, die ausschließlich Pflegeelternvergütung erhält"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s6.b0|9dde9197": {
+        "ref": "s6.b0",
+        "cs": "Základní sleva na poplatníka 2 570 Kč měsíčně",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Basic taxpayer credit 2 570 CZK a month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Grundfreibetrag für Steuerpflichtige 2 570 CZK monatlich"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s6.b1|4144268a": {
+        "ref": "s6.b1",
+        "cs": "Invalidita 1. a 2. stupně 210 Kč, 3. stupně 420 Kč měsíčně",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Disability of degree I or II 210 CZK, degree III 420 CZK a month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Invalidität 1. und 2. Grades 210 CZK, 3. Grades 420 CZK monatlich"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s6.b2|78cc0d7b": {
+        "ref": "s6.b2",
+        "cs": "Držitel průkazu ZTP/P 1 345 Kč měsíčně",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Holder of a Czech ZTP/P card 1 345 CZK a month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Inhaber eines tschechischen ZTP/P-Ausweises 1 345 CZK monatlich"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s6.b3|b305b74a": {
+        "ref": "s6.b3",
+        "cs": "Daňové zvýhodnění na děti 1 267 / 1 860 / 2 320 Kč podle pořadí, u dítěte se ZTP/P dvojnásobek",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Child tax benefit 1 267 / 1 860 / 2 320 CZK by birth order, doubled for a child with a ZTP/P card"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Kinderfreibetrag 1 267 / 1 860 / 2 320 CZK nach Reihenfolge, bei einem Kind mit ZTP/P-Ausweis das Doppelte"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s9.b0|cb1677b5": {
+        "ref": "s9.b0",
+        "cs": "Sociální pojištění zaměstnance i zaměstnavatele včetně ročního maxima",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Employee and employer social insurance including the annual maximum"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Sozialversicherung von Arbeitnehmer und Arbeitgeber einschließlich der Jahreshöchstgrenze"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s9.b1|a71da246": {
+        "ref": "s9.b1",
+        "cs": "Zdravotní pojištění včetně minimálního vyměřovacího základu a určení plátce doplatku",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Health insurance including the minimum assessment base and who bears the top-up"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Krankenversicherung einschließlich Mindestbemessungsgrundlage und Zuordnung des Aufschlags"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s9.b2|ff400a4c": {
+        "ref": "s9.b2",
+        "cs": "Zálohu na daň podle § 38h, slevy na dani a daňové zvýhodnění na děti",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "The § 38h tax advance, tax credits and the child tax benefit"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Steuervorauszahlung nach § 38h, Steuerermäßigungen und Kinderfreibetrag"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s9.b3|b58ce218": {
+        "ref": "s9.b3",
+        "cs": "Srážkovou daň tam, kde se podle zákona uplatní",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Withholding tax where Czech law applies it"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Quellensteuer dort, wo das tschechische Recht sie vorsieht"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s9.b4|14be22c0": {
+        "ref": "s9.b4",
+        "cs": "Slevu na pojistném zaměstnavatele u zkrácených úvazků v rozsahu měřitelných podmínek",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "The employer discount for reduced working time, to the extent its conditions are measurable"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Arbeitgeberermäßigung bei verkürzter Arbeitszeit, soweit ihre Voraussetzungen messbar sind"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s9.b5|0bd209ce": {
+        "ref": "s9.b5",
+        "cs": "Slevu pro pracujícího starobního důchodce",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "The relief for a working old-age pensioner"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Ermäßigung für erwerbstätige Altersrentner"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s9.b6|117eceda": {
+        "ref": "s9.b6",
+        "cs": "Zákonné pojištění odpovědnosti jako rozpočtený podíl",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Statutory accident-liability insurance as an allocated share"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Gesetzliche Unfallhaftpflichtversicherung als zugerechneter Anteil"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s9.b7|e642472d": {
+        "ref": "s9.b7",
+        "cs": "Firemní náklady nad rámec mzdy jako oddělenou vrstvu",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Company costs beyond the wage, as a separate layer"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Unternehmenskosten über den Lohn hinaus als eigene Ebene"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s10.b0|9d7ca672": {
+        "ref": "s10.b0",
+        "cs": "Zaokrouhlení třetin zdravotního pojištění, není-li pojistné dělitelné třemi — zákon ani metodika je nestanoví",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Rounding of the health thirds when the premium is not divisible by three — neither statute nor methodology prescribes it"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Rundung der Krankenversicherungsdrittel, wenn der Beitrag nicht durch drei teilbar ist — weder Gesetz noch Methodik regeln sie"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s10.b1|960856dc": {
+        "ref": "s10.b1",
+        "cs": "Přesný vzorec poměrného krácení minimálního základu za neúplný měsíc",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "The exact pro-rata formula for the minimum base in an incomplete month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Die genaue Formel der anteiligen Kürzung der Mindestgrundlage in einem unvollständigen Monat"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s10.b2|7383e981": {
+        "ref": "s10.b2",
+        "cs": "Rozdělení doplatku, vznikl-li nízký základ zčásti překážkou na straně zaměstnavatele a zčásti jinak",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Splitting the top-up where a low base arises partly from an employer-side obstacle and partly otherwise"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Aufteilung des Aufschlags, wenn die niedrige Grundlage teils auf einem Arbeitgeberhindernis und teils auf anderem beruht"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s10.b3|c688f7f4": {
+        "ref": "s10.b3",
+        "cs": "Náhrada mzdy za prvních 14 dnů nemoci",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Employer wage compensation for the first 14 days of sickness"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Lohnfortzahlung des Arbeitgebers für die ersten 14 Krankheitstage"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s10.b4|1495ed8b": {
+        "ref": "s10.b4",
+        "cs": "Souběh zaměstnání u více zaměstnavatelů",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Concurrent employment with several employers"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Gleichzeitige Beschäftigung bei mehreren Arbeitgebern"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|s10.b5|eb78c56c": {
+        "ref": "s10.b5",
+        "cs": "Dohody DPP a DPČ",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "The DPP and DPČ agreements"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Die Vereinbarungen DPP und DPČ"
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f0|e3f5ad98": {
+        "ref": "f0",
+        "cs": "Kolik procent odvádí zaměstnavatel za zaměstnance v roce 2026? U běžného zaměstnance 24,8 % na sociální pojištění a dvě třetiny z 13,5 % na zdravotní pojištění, dohromady 33,8 % hrubé mzdy. K tomu se přidává zákonné pojištění odpovědnosti za pracovní úraz, jehož sazba se řídí převažující činností zaměstnavatele a pohybuje se od 2,8 ‰ do 50,4 ‰.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "What percentage does a Czech employer pay on top of gross in 2026? For a standard employee, 24.8 % social insurance and two thirds of the 13.5 % health premium — 33.8 % of gross together. Statutory accident-liability insurance is added on top at a rate between 2.8 ‰ and 50.4 ‰ depending on the employer’s prevailing activity."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Wie viel Prozent zahlt ein tschechischer Arbeitgeber 2026 über das Brutto hinaus? Bei einem gewöhnlichen Beschäftigten 24,8 % zur tschechischen Sozialversicherung und zwei Drittel des Krankenversicherungsbeitrags von 13,5 % — zusammen 33,8 % des Bruttolohns. Hinzu kommt die gesetzliche Unfallhaftpflichtversicherung mit einem Satz zwischen 2,8 ‰ und 50,4 ‰ je nach überwiegender Tätigkeit."
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f1|bee818e4": {
+        "ref": "f1",
+        "cs": "Platí se ještě superhrubá mzda? Ne. Superhrubá mzda byla zrušena a základem daně jsou podle § 6 odst. 12 zákona o daních z příjmů prostě příjmy ze závislé činnosti. Hrubá mzda se o odvody zaměstnavatele nenavyšuje. Zároveň platí, že vlastní pojistné zaměstnance není od základu daně odečitatelné.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Does the Czech super-gross wage still exist? No. It was abolished, and under § 6 odst. 12 the tax base is simply employment income, so gross pay is not uplifted by employer contributions. Equally, the employee’s own insurance is not deductible from the tax base.",
+          "refusalCarriedBy": "No."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Gibt es die tschechische Supergrundlage noch? Nein. Sie ist abgeschafft, und nach § 6 Abs. 12 sind Bemessungsgrundlage schlicht die Einkünfte aus unselbständiger Tätigkeit; das Brutto wird nicht um Arbeitgeberbeiträge erhöht. Ebenso sind die eigenen Beiträge des Beschäftigten nicht abziehbar.",
+          "refusalCarriedBy": "12 sind Bemessungsgrundlage schlicht die Einkünfte aus unselbständiger Tätigkeit; das Brutto wird nicht um Arbeitgeberbeiträge erhöht."
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f2|eea4fa6b": {
+        "ref": "f2",
+        "cs": "Proč je zdravotní pojištění 13,5 % a ne 9 % plus 4,5 %? Protože sazby 9 % a 4,5 % v zákoně nejsou. Zákon č. 592/1992 Sb. zná jedinou sazbu 13,5 %, pojistné se z ní zaokrouhlí na celé koruny nahoru a teprve výsledek se dělí — třetinu hradí zaměstnanec, dvě třetiny zaměstnavatel. Počítat obě sazby zvlášť a každou zaokrouhlit vede k odvodu o korunu vyššímu.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Why is health insurance 13.5 % rather than 9 % plus 4.5 %? Because 9 % and 4.5 % are not in the statute. Zákon č. 592/1992 Sb. knows one rate of 13.5 %; the premium is rounded up to whole koruny and only the result is divided, one third to the employee and two thirds to the employer. Computing the two rates separately and rounding each produces a premium one koruna too high."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Warum 13,5 % statt 9 % plus 4,5 %? Weil 9 % und 4,5 % nicht im Gesetz stehen. Das tschechische Gesetz Nr. 592/1992 Sb. kennt einen Satz von 13,5 %; der Beitrag wird auf volle Kronen aufgerundet, und erst das Ergebnis wird geteilt — ein Drittel Beschäftigter, zwei Drittel Arbeitgeber. Beide Sätze getrennt zu rechnen und je zu runden ergibt einen um eine Krone zu hohen Beitrag."
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f3|2e5dc560": {
+        "ref": "f3",
+        "cs": "Kdo platí doplatek do minimálního vyměřovacího základu zdravotního pojištění? Ve výchozím případě zaměstnanec sám, prostřednictvím zaměstnavatele — 13,5 % z rozdílu mezi skutečným a minimálním základem se nedělí na třetiny. Zaměstnavatel jej hradí jen tehdy, vznikl-li nízký základ z důvodu překážky na jeho straně.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Who pays the top-up to the minimum health assessment base? By default the employee alone, through the employer — the 13.5 % on the difference is not split into thirds. The employer bears it only where the low base arose from an obstacle on the employer’s side."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Wer zahlt den Aufschlag auf die Mindestbemessungsgrundlage? Im Regelfall der Beschäftigte allein, abgeführt über den Arbeitgeber — die 13,5 % auf die Differenz werden nicht gedrittelt. Der Arbeitgeber trägt sie nur, wenn die niedrige Grundlage auf einem Hindernis aufseiten des Arbeitgebers beruht."
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f4|ff7a5440": {
+        "ref": "f4",
+        "cs": "Krátí se minimální vyměřovací základ u zkráceného úvazku? Nekrátí. VZP to uvádí výslovně: minimum platí bez ohledu na délku pracovního úvazku. Zaměstnanec na dvacetiprocentní úvazek čelí celé hranici 22 400 Kč. Poměrné krácení podle kalendářních dnů je něco jiného a týká se neúplného měsíce nebo zákonem vyjmenovaných překážek.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Is the minimum assessment base reduced for part-time work? It is not. VZP states expressly that the minimum applies regardless of the length of working time, so an employee on a 20 % contract faces the full 22 400 CZK. Pro-rata reduction by calendar days is a different rule and covers an incomplete month or listed statutory obstacles."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Wird die Mindestbemessungsgrundlage bei Teilzeit gekürzt? Nein. Die tschechische Krankenkasse VZP stellt ausdrücklich fest, dass die Mindestgrundlage ohne Rücksicht auf die Dauer der Arbeitszeit gilt; ein Beschäftigter mit 20-Prozent-Vertrag steht der vollen Grenze von 22 400 CZK gegenüber. Die anteilige Kürzung nach Kalendertagen ist eine andere Regel und betrifft unvollständige Monate oder gesetzlich genannte Hindernisse."
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f5|1095fa5b": {
+        "ref": "f5",
+        "cs": "Co se stane po dosažení maximálního vyměřovacího základu? U zaměstnance zaměstnaného v daném roce u jediného zaměstnavatele přestává z částky nad 2 350 416 Kč odvádět nejen zaměstnanec, ale i zaměstnavatel. Při více zaměstnavatelích neodvádí méně nikdo; zaměstnanec si přeplatek vyžádá sám a část zaměstnavatele se nevrací.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "What happens once the maximum assessment base is reached? For an employee with a single employer in the year, neither the employee nor the employer pays on the amount above 2 350 416 CZK. With several employers none of them pays less; the employee reclaims the overpayment and the employer share is never refunded."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Was geschieht nach Erreichen der Höchstbemessungsgrundlage? Bei einem Beschäftigten mit nur einem tschechischen Arbeitgeber im Jahr zahlen weder Beschäftigter noch Arbeitgeber auf den Betrag über 2 350 416 CZK. Bei mehreren Arbeitgebern zahlt keiner weniger; der Beschäftigte fordert die Überzahlung zurück, der Arbeitgeberanteil wird nicht erstattet."
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f6|1d9e0c2d": {
+        "ref": "f6",
+        "cs": "Kdy může být čistá mzda vyšší než hrubá? Tehdy, když daňové zvýhodnění na děti přesáhne vypočtenou daň a vznikne měsíční daňový bonus. Vyplácí se, činí-li alespoň 50 Kč a dosahuje-li měsíční příjem alespoň poloviny minimální mzdy, tedy 11 200 Kč pro rok 2026. Bonus není mzda, ale vyplacená část daňového zvýhodnění.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "When can net pay exceed gross pay? When the child tax benefit exceeds the computed tax and a monthly tax bonus arises. It is paid where it reaches at least 50 CZK and monthly income reaches at least half the minimum wage, 11 200 CZK for 2026. The bonus is not salary but the paid-out part of a tax benefit."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Wann kann das Netto höher sein als das Brutto? Wenn der Kinderfreibetrag die berechnete Steuer übersteigt und ein monatlicher tschechischer Steuerbonus entsteht. Er wird gezahlt, wenn er mindestens 50 CZK erreicht und das Monatseinkommen mindestens die Hälfte des tschechischen Mindestlohns beträgt, also 11 200 CZK für 2026. Der Bonus ist kein Lohn, sondern der ausgezahlte Teil eines Freibetrags."
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f7|db3f0aa9": {
+        "ref": "f7",
+        "cs": "Počítá kalkulačka dohody DPP a DPČ? Nepočítá. Dohody mají vlastní hranice účasti na pojištění i vlastní zdanění a tato verze je záměrně nezahrnuje — poloviční implementace by u nich vracela čísla, která vypadají správně a nejsou.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Does the calculator handle DPP and DPČ agreements? It does not. Those agreements have their own participation thresholds and their own taxation, and this version deliberately excludes them — a partial implementation would return figures that look right and are not."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Rechnet der Rechner DPP und DPČ? Nein. Diese tschechischen Vereinbarungen haben eigene Teilnahmeschwellen und eine eigene Besteuerung; diese Version schließt sie bewusst aus — eine teilweise Umsetzung lieferte Zahlen, die richtig aussehen und es nicht sind."
+        }
+      },
+      "employer-cost-calculator|SEO_PAGES|f8|719d07cc": {
+        "ref": "f8",
+        "cs": "Připočítává kalkulačka čtyři týdny dovolené k nákladu? Nepřipočítává, a je to záměr. U zaměstnance s měsíční mzdou je placené volno součástí mzdové struktury; přičíst dovolenou jako další procento by znamenalo započítat tutéž mzdu dvakrát. Náklad zastoupení po dobu dovolené lze zadat samostatně jako provozní náklad.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Does the calculator add four weeks of holiday to the cost? It does not, by design. For a monthly-paid employee paid leave is part of the compensation structure, and adding holiday as a further percentage would count the same salary twice. The cost of covering the absence can be entered separately as an operating cost."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Rechnet der Rechner vier Wochen Urlaub auf die Kosten auf? Nein, und das ist Absicht. Bei monatlicher Vergütung ist bezahlter Urlaub Teil der Vergütungsstruktur; ihn als weiteren Prozentsatz aufzuschlagen hieße, denselben Lohn doppelt zu zählen. Die Kosten der Vertretung lassen sich gesondert als Betriebskosten eintragen."
+        }
+      }
+    }
   }
 }

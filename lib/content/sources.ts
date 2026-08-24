@@ -85,6 +85,14 @@ export const SRC = {
     name: 'Zákon č. 373/2011 Sb., o specifických zdravotních službách (pracovnělékařské služby)',
     publisher: 'Sbírka zákonů ČR',
   },
+  // Zákonné pojištění odpovědnosti zaměstnavatele. § 365 zákoníku práce routes
+  // the whole regime to this decree, whose rate annex has stood in its 487/2001
+  // Sb. wording since 2002 — the intended replacement, zákon č. 266/2006 Sb.,
+  // was repealed before it ever took effect.
+  vyhlaskaZakonnePojisteni: {
+    name: 'Vyhláška č. 125/1993 Sb., kterou se stanoví podmínky a sazby zákonného pojištění odpovědnosti zaměstnavatele za škodu při pracovním úrazu nebo nemoci z povolání',
+    publisher: 'Sbírka zákonů ČR',
+  },
   vyhlaskaPracovnelekarske: {
     name: 'Vyhláška č. 79/2013 Sb., o pracovnělékařských službách a některých druzích posudkové péče',
     publisher: 'Sbírka zákonů ČR',

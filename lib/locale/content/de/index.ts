@@ -20,6 +20,7 @@ import { DE_TRUST } from './trust'
 import { DE_WORKFORCE } from './workforce'
 import { DE_INDUSTRIES } from './industries'
 import { DE_SPECIALISTS } from './specialists'
+import { DE_CALCULATORS } from './calculators'
 
 export const DE_CONTENT: LocaleCorpus = mergeCorpora('de', [
   ['l0', DE_L0],
@@ -28,4 +29,5 @@ export const DE_CONTENT: LocaleCorpus = mergeCorpora('de', [
   ['workforce', DE_WORKFORCE],
   ['industries', DE_INDUSTRIES],
   ['specialists', DE_SPECIALISTS],
+  ['calculators', DE_CALCULATORS],
 ])

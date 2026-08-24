@@ -38,6 +38,20 @@ export interface LocalePageProps {
    * and submission behaviour cannot drift between locales.
    */
   readonly afterContent?: React.ReactNode
+  /**
+   * Rendered BEFORE the prose, between the H1 and the first section.
+   *
+   * Used by the employer-cost calculator, whose substance is the tool: a reader
+   * who came to compute something should not have to scroll a methodology
+   * article to reach it. The prose still follows in full, because it is what
+   * makes the numbers auditable and what a crawler — or a visitor without
+   * JavaScript — actually receives.
+   *
+   * Distinct from `afterContent`, which the request-staff concept uses to place
+   * a form after the explanation that introduces it. Same mechanism, opposite
+   * reading order, and both mount the SAME component the Czech page mounts.
+   */
+  readonly beforeContent?: React.ReactNode
   readonly content: LocalePageContent
 }
 
@@ -50,7 +64,13 @@ export interface LocalePageProps {
  * document locale-locked: the URL decides the language, so the chrome resolves
  * to this page's locale instead of the visitor's last switcher choice.
  */
-export default function LocalePage({ conceptId, locale, content, afterContent }: LocalePageProps) {
+export default function LocalePage({
+  conceptId,
+  locale,
+  content,
+  afterContent,
+  beforeContent,
+}: LocalePageProps) {
   const concept = ALL_CONCEPTS.find((c) => c.id === conceptId)
   if (!concept) throw new Error(`LocalePage: no registry concept "${conceptId}"`)
 
@@ -93,6 +113,8 @@ export default function LocalePage({ conceptId, locale, content, afterContent }:
 
           <h1>{content.h1}</h1>
           <p className="page-hero__sub">{content.intro}</p>
+
+          {beforeContent}
 
           {content.sections.map((s) => (
             <section key={s.heading}>

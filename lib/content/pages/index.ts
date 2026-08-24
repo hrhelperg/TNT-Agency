@@ -15,6 +15,7 @@ import { PROFESSIONAL_RECRUITMENT_PAGES } from './professional-recruitment'
 import { TECHNICAL_TALENT_PAGES } from './technical-talent'
 import { EMPLOYER_PROBLEM_PAGES } from './employer-problems'
 import { EMPLOYER_KNOWLEDGE_PAGES } from './employer-knowledge'
+import { KALKULACKA_NAKLADU_ZAMESTNAVATELE } from './employer-cost-calculator'
 
 export * from './cornerstone'
 export * from './support'
@@ -390,6 +391,8 @@ const withClusterLinks = (page: SeoPage): SeoPage => {
   return { ...page, internalLinks: [...(page.internalLinks ?? []), ...additions] }
 }
 
+export const CALCULATOR_PAGES: ReadonlyArray<SeoPage> = [KALKULACKA_NAKLADU_ZAMESTNAVATELE]
+
 export const SEO_PAGES: ReadonlyArray<SeoPage> = [
   ...CORNERSTONE_PAGES,
   ...SUPPORT_PAGES,
@@ -404,6 +407,7 @@ export const SEO_PAGES: ReadonlyArray<SeoPage> = [
   ...TECHNICAL_TALENT_PAGES,
   ...EMPLOYER_PROBLEM_PAGES,
   ...EMPLOYER_KNOWLEDGE_PAGES,
+  ...CALCULATOR_PAGES,
 ]
   .map(withClusterLinks)
   .map(withConversionPath)
