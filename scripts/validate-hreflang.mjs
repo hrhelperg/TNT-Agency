@@ -61,7 +61,7 @@ const primary = (tag) => String(tag).toLowerCase().split('-')[0]
  * member of a real cluster.
  */
 const LOCALE_REGISTRY = await import('../lib/locale/registry.ts')
-const { L1_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
+const { SITE_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
 
 export const XDEFAULT_ALLOWED = Object.fromEntries(
   LOCALE_REGISTRY.LOCALE_CONCEPTS.flatMap((c) => {
@@ -89,7 +89,9 @@ export const XDEFAULT_ALLOWED = Object.fromEntries(
  * manifest cannot decay, and an intended change has to be stated in one place
  * a reviewer reads.
  */
-export const EXPECTED_STATIC_PAGES = L1_EXPECTED.prerenderedPages
+// The site-wide total: L1's frozen baseline plus every route declared in
+// POST_L1_ADDITIONS. L1's own number is never edited again — see l1-manifest.ts.
+export const EXPECTED_STATIC_PAGES = SITE_EXPECTED.prerenderedPages
 
 /** Parses one HTML document into the shape the audit works on. */
 export function parseDoc(html, file = '') {

@@ -8,6 +8,7 @@ import {
   urlFor, conceptForRoute, localeForRoute, alternatesFor,
 } from './registry'
 import { L1_CONCEPTS } from './l1-concepts'
+import { CALCULATOR_CONCEPTS } from './l2-calculators'
 
 /** The ten concepts L0 shipped. Frozen: L1 adds to the registry, never edits these. */
 const L0_IDS = [
@@ -33,9 +34,13 @@ describe('rule 1 — the Czech spine is immutable', () => {
     expect(CZECH_ROUTES).toEqual(sitemapLocs().slice(0, CZECH_ROUTES.length))
   })
 
-  it('has 185 routes and no duplicates', () => {
-    expect(CZECH_ROUTES).toHaveLength(185)
-    expect(new Set(CZECH_ROUTES).size).toBe(185)
+  // 186 since the employer-cost calculator joined the spine. The literal is
+  // kept rather than derived on purpose: adding a Czech route is a decision, and
+  // this line is where it has to be made explicitly instead of a count quietly
+  // sliding upward.
+  it('has 186 routes and no duplicates', () => {
+    expect(CZECH_ROUTES).toHaveLength(186)
+    expect(new Set(CZECH_ROUTES).size).toBe(186)
   })
 
   it('never prefixes Czech — there is no /cs/ form', () => {
@@ -206,7 +211,14 @@ describe('resolution helpers', () => {
     // What still needs protecting is that the registry contains exactly what
     // the two frozen sources declare — nothing invented, nothing dropped — so
     // that is what is checked instead.
-    const declared = [...L0_IDS, ...L1_CONCEPTS.map((c) => c.id)].sort()
+    // Three declared sources now: L0, the frozen L1 manifest, and the
+    // calculator tier. L1's freeze is untouched — the calculator deliberately
+    // did NOT join it, so "the frozen L1 set" still means exactly what it did.
+    const declared = [
+      ...L0_IDS,
+      ...L1_CONCEPTS.map((c) => c.id),
+      ...CALCULATOR_CONCEPTS.map((c) => c.id),
+    ].sort()
     expect(LOCALE_CONCEPTS.map((c) => c.id).sort()).toEqual(declared)
     expect(new Set(declared).size, 'a concept id is declared twice').toBe(declared.length)
     expect(L0_IDS).toHaveLength(10)

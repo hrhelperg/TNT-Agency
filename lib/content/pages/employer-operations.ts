@@ -1220,6 +1220,7 @@ export const KOLIK_STOJI_ZAMESTNANEC: SeoPage = {
   sources: [SRC.zakonSocialni, SRC.zakonZdravotni, SRC.cssz, SRC.financniSprava, SRC.vzp],
   internalLinks: [
     employerHubLink,
+    { href: '/kalkulacka-nakladu-zamestnavatele', label: 'Kalkulačka nákladů zaměstnavatele 2026' },
     { href: '/kalkulacka-mzdy-agenturniho-zamestnance', label: 'Kalkulačka mzdy a nákladů 2026' },
     { href: '/skutecne-naklady-na-zamestnance', label: 'Skutečné náklady na zaměstnance' },
     { href: '/neprime-naklady-na-zamestnance', label: 'Nepřímé náklady na zaměstnance' },
@@ -1281,6 +1282,7 @@ export const NEPRIME_NAKLADY_NA_ZAMESTNANCE: SeoPage = {
   sources: [SRC.zakonikPrace, SRC.mpsv, SRC.czso],
   internalLinks: [
     employerHubLink,
+    { href: '/kalkulacka-nakladu-zamestnavatele', label: 'Kalkulačka nákladů zaměstnavatele 2026' },
     { href: '/skutecne-naklady-na-zamestnance', label: 'Skutečné náklady na zaměstnance' },
     { href: '/kolik-stoji-zamestnanec', label: 'Kolik stojí zaměstnanec' },
     { href: '/fluktuace-zamestnancu', label: 'Fluktuace zaměstnanců' },

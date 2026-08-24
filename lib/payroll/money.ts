@@ -171,6 +171,49 @@ export function percentOf(base: Halere, percent: number, mode: RoundMode = 'near
   return halere(divRound(numerator, 100 * PERCENT_SCALE, mode));
 }
 
+/**
+ * Apply a percentage and round to whole KORUNY in ONE step.
+ *
+ * WHY THIS EXISTS, AND WHY `percentOf` FOLLOWED BY `roundToCzk` IS NOT THE SAME
+ * ────────────────────────────────────────────────────────────────────────────
+ * Czech insurance premiums are "pojistné se zaokrouhluje na celé koruny směrem
+ * nahoru" — § 7 odst. 3 zákona č. 589/1992 Sb. for social, and the equivalent
+ * for health. ČSSZ is explicit about how that must be implemented:
+ *
+ *     "Mzdový software musí při výpočtu počítat se všemi desetinnými místy,
+ *      která jsou následně zaokrouhlena na celé koruny nahoru."
+ *
+ * Compute at full precision, then ceil ONCE. Rounding to haléře first and then
+ * ceiling to koruny is two roundings, and the first one can erase the fraction
+ * the second one needs to see.
+ *
+ * It is not theoretical. At the 7,1 % employee social rate there are 782
+ * whole-koruna assessment bases between 4 500 and 200 000 Kč where the two-step
+ * form is one koruna low. The smallest is a base of 4 662 Kč:
+ *
+ *     exact          4 662 × 7,1 %       = 331,002 Kč
+ *     two-step       → 331,00 → ceil     = 331 Kč     ← one koruna short
+ *     one-step       ceil(331,002)        = 332 Kč     ← what the statute says
+ *
+ * The 24,8 %, 9 % and 4,5 % rates happen never to collide this way for a
+ * whole-koruna base, which is exactly why the defect survives casual testing:
+ * three of the four rates are immune and the fourth fails on 0,4 % of inputs.
+ *
+ * Use this for any statutory premium. `percentOf` remains correct where the
+ * result genuinely is a haléř-precision intermediate rather than a premium.
+ */
+export function percentOfRoundedToCzk(base: Halere, percent: number, mode: RoundMode): Halere {
+  if (!Number.isFinite(percent)) {
+    throw new RangeError(`money: percentOfRoundedToCzk() percent must be finite, got ${percent}`);
+  }
+  const scaledPercent = Math.round(percent * PERCENT_SCALE);
+  const numerator = assertSafeProduct(base, scaledPercent, 'percentOfRoundedToCzk()');
+  // Denominator carries the percent scale, the /100 of "per cent", and the
+  // haléře-per-koruna factor, so the quotient is a whole number of KORUNY.
+  const korunas = divRound(numerator, 100 * PERCENT_SCALE * HALERE_PER_CZK, mode);
+  return halere(assertSafeProduct(korunas, HALERE_PER_CZK, 'percentOfRoundedToCzk() result'));
+}
+
 /** Apply an exact rational fraction (num/den) to a base amount, rounded to haléře. */
 export function fractionOf(base: Halere, num: number, den: number, mode: RoundMode = 'nearest'): Halere {
   assertSafeInteger(num, 'fractionOf() num');

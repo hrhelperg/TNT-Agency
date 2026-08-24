@@ -12,7 +12,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath, pathToFileURL } from 'url'
 import { renderPlan, lastTally } from './generate-l1-route-plan.mjs'
-const { L1_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
+const { L1_EXPECTED, SITE_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
 const reg = await import('../lib/locale/registry.ts')
 const { L1_CONCEPTS } = await import('../lib/locale/l1-concepts.ts')
 
@@ -42,8 +42,12 @@ if (invokedDirectly) {
   if (lastTally.L1_collapsed !== expectedCollapsed) {
     problems.push(`plan counts ${lastTally.L1_collapsed} collapsed L1 routes; the registry declares ${expectedCollapsed}`)
   }
-  if (total !== L1_EXPECTED.czechRoutes) {
-    problems.push(`plan classifies ${total} Czech routes; the manifest freezes the spine at ${L1_EXPECTED.czechRoutes}`)
+  // The plan classifies the WHOLE Czech spine, so it grows when a route is
+  // added after L1. L1's own frozen count above is untouched — what this
+  // compares against is the baseline plus the additions declared in
+  // POST_L1_ADDITIONS, so a new route still has to be written down somewhere.
+  if (total !== SITE_EXPECTED.czechRoutes) {
+    problems.push(`plan classifies ${total} Czech routes; the manifest freezes the spine at ${SITE_EXPECTED.czechRoutes}`)
   }
   if (lastTally.UNCLASSIFIED) problems.push(`${lastTally.UNCLASSIFIED} Czech route(s) matched no rule`)
   if (problems.length) {

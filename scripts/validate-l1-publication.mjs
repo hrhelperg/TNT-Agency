@@ -30,7 +30,7 @@ import { fileURLToPath, pathToFileURL } from 'url'
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const reg = await import('../lib/locale/registry.ts')
 const { L1_CONCEPTS } = await import('../lib/locale/l1-concepts.ts')
-const { L1_MANIFEST_CONCEPTS, L1_MANIFEST_LOCALES, L1_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
+const { L1_MANIFEST_CONCEPTS, L1_MANIFEST_LOCALES, L1_EXPECTED, SITE_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
 
 /** Where the generator puts a route file for a URL. */
 const fileFor = (url) => {
@@ -102,8 +102,10 @@ export function auditManifest() {
   }
   check('L1 concepts', L1_CONCEPTS.length, L1_EXPECTED.l1Concepts)
   check('L1 localized pages', l1Pages, L1_EXPECTED.l1Pages)
-  check('localized routes (L0 + L1)', localized, L1_EXPECTED.localizedRoutes)
-  check('Czech routes', czechRoutes, L1_EXPECTED.czechRoutes)
+  // Site-wide totals are the frozen L1 baseline PLUS the additions declared in
+  // POST_L1_ADDITIONS. L1's own two numbers above stay frozen forever.
+  check('localized routes (site-wide)', localized, SITE_EXPECTED.localizedRoutes)
+  check('Czech routes (site-wide)', czechRoutes, SITE_EXPECTED.czechRoutes)
 
   // The sitemap is a committed artifact, so this needs no build.
   const sitemapPath = path.join(ROOT, 'public/sitemap.xml')
@@ -111,7 +113,7 @@ export function auditManifest() {
     errors.push('public/sitemap.xml is missing — the sitemap total cannot be checked, and that check is load-bearing')
   } else {
     const locs = (fs.readFileSync(sitemapPath, 'utf8').match(/<loc>/g) || []).length
-    check('sitemap <loc> entries', locs, L1_EXPECTED.sitemapUrls)
+    check('sitemap <loc> entries', locs, SITE_EXPECTED.sitemapUrls)
   }
 
   notes.push(`${L1_CONCEPTS.length} L1 concepts, matching the frozen manifest exactly`)

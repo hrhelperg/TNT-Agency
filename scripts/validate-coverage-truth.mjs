@@ -75,9 +75,35 @@ function includeGlob() {
   return m[1].split(',').map((s) => s.trim().replace(/['"]/g, '')).filter(Boolean)
 }
 
+/**
+ * Translate a vitest include glob into a regex.
+ *
+ * The order of these replacements is load-bearing. Expanding the `**` segment
+ * first and only then replacing `*` with `[^/]*` rewrites the `.*` INSIDE that
+ * expansion into `.[^/]*`, which matches exactly one directory segment. So
+ * `lib/(star)(star)/(star).test.ts` accepted `lib/payroll/money.test.ts` and
+ * silently rejected `lib/calculators/cz-employer-cost/engine.test.ts` —
+ * reporting a test that runs on every `npm test` as one that "never runs".
+ *
+ * A gate that mis-reports coverage is worse than no gate, because its false
+ * alarm is indistinguishable from a real one. The `**` segment is therefore
+ * parked behind a sentinel while single `*` is expanded, then restored as
+ * `(?:[^/]+/)*` — zero or more whole path segments, which is what it means.
+ */
+const GLOB_ANY_DEPTH = '\u0000'
+
 const globMatches = (globs, rel) =>
   globs.some((g) => {
-    const re = new RegExp('^' + g.replace(/\./g, '\\.').replace(/\*\*\//g, '(?:.*/)?').replace(/\*/g, '[^/]*') + '$')
+    const re = new RegExp(
+      '^' +
+        g
+          .replace(/\./g, '\\.')
+          .replace(/\*\*\//g, GLOB_ANY_DEPTH)
+          .replace(/\*/g, '[^/]*')
+          .split(GLOB_ANY_DEPTH)
+          .join('(?:[^/]+/)*') +
+        '$',
+    )
     return re.test(rel)
   })
 

@@ -93,3 +93,41 @@ export const L1_EXPECTED = {
   prerenderedPages: 273,
   sitemapUrls: 281,
 } as const
+
+/**
+ * Routes added AFTER the L1 release, declared tier by tier.
+ *
+ * Why this exists rather than editing the numbers above.
+ *
+ * L1_EXPECTED is evidence: it records that the L1 release shipped exactly the
+ * set that was reviewed, 38 concepts and 76 localized pages. If a later feature
+ * simply incremented `czechRoutes` from 185 to 186, that evidence would quietly
+ * become a description of "the site as it is now" — which proves nothing,
+ * because it would agree with whatever the site happened to contain.
+ *
+ * So L1's numbers are never touched again. Anything added later declares itself
+ * here, and the gate checks the SUM. The effect is that adding a route stays a
+ * decision someone has to write down, while L1's frozen totals keep meaning what
+ * they meant on the day they were frozen.
+ */
+export const POST_L1_ADDITIONS = {
+  /** The Czech employer-cost calculator: /kalkulacka-nakladu-zamestnavatele. */
+  czechRoutes: 1,
+  /** Its /en and /de pages. */
+  localizedRoutes: 2,
+  /** All three appear in the sitemap. */
+  sitemapUrls: 3,
+  /** All three are real page routes. */
+  staticRoutes: 3,
+  /** …and all three are prerendered as static documents. */
+  prerenderedPages: 3,
+} as const
+
+/** Site-wide totals: the frozen L1 baseline plus everything declared since. */
+export const SITE_EXPECTED = {
+  czechRoutes: L1_EXPECTED.czechRoutes + POST_L1_ADDITIONS.czechRoutes,
+  localizedRoutes: L1_EXPECTED.localizedRoutes + POST_L1_ADDITIONS.localizedRoutes,
+  sitemapUrls: L1_EXPECTED.sitemapUrls + POST_L1_ADDITIONS.sitemapUrls,
+  staticRoutes: L1_EXPECTED.staticRoutes + POST_L1_ADDITIONS.staticRoutes,
+  prerenderedPages: L1_EXPECTED.prerenderedPages + POST_L1_ADDITIONS.prerenderedPages,
+} as const

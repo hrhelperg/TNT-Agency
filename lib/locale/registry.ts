@@ -29,6 +29,7 @@
  * and so on). Keeping both would have been two sources of truth.
  */
 import { L1_REGISTRY_CONCEPTS } from './l1-published'
+import { CALCULATOR_CONCEPTS } from './l2-calculators'
 
 export const LOCALES = ['cs', 'en', 'de'] as const
 export type Locale = (typeof LOCALES)[number]
@@ -287,6 +288,7 @@ export const CZECH_ROUTES: readonly string[] = [
   '/absence-v-provozu',
   '/cena-neobsazene-pozice',
   '/zadani-pozice-a-profil-kandidata',
+  '/kalkulacka-nakladu-zamestnavatele',
 ]
 
 /**
@@ -433,7 +435,11 @@ export const LEGAL_CONCEPTS: readonly LocaleConcept[] = [
  * Only PUBLISHED locales are ever emitted, so a concept can be frozen and
  * slugged here long before its pages exist without advertising a phantom URL.
  */
-export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [...L0_CONCEPTS, ...L1_REGISTRY_CONCEPTS]
+export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
+  ...L0_CONCEPTS,
+  ...L1_REGISTRY_CONCEPTS,
+  ...CALCULATOR_CONCEPTS,
+]
 
 export const ALL_CONCEPTS: readonly LocaleConcept[] = [...LOCALE_CONCEPTS, ...LEGAL_CONCEPTS]
 

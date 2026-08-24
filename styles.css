@@ -3613,3 +3613,152 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
 }
 .locale-cta { margin-top: 28px; }
 .locale-cta__note { display: block; margin-top: 8px; font-size: 0.9rem; color: var(--muted); }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Czech employer-cost calculator (.ecc-*)
+   
+   Shares the .pcalc-* form primitives — fieldsets, fields, toggles, the two
+   column grid — so the two calculators read as one product rather than two
+   that happened to land on the same site. Only what is genuinely new to this
+   tool gets its own class here: the pair of headline totals, the money-flow
+   list, the notes list and the provenance footer.
+   ────────────────────────────────────────────────────────────────────────── */
+.ecc { padding: 40px 0 8px; }
+.ecc__stamp {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 3px 10px;
+  border: 1px solid var(--border-2);
+  border-radius: 999px;
+  background: var(--bg-alt);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--navy);
+}
+.ecc h2 { margin: 0 0 6px; font-size: 1.6rem; color: var(--navy); }
+.ecc__kicker { margin: 0 0 22px; color: var(--text-2); max-width: 62ch; }
+.ecc__form { min-width: 0; }
+.ecc__advanced { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px; }
+.ecc__advanced > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--navy);
+  padding: 6px 0;
+  list-style: revert;
+}
+.ecc__advanced > summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* The two figures the whole page exists to produce. Side by side because the
+   question is always both at once: what it costs and what is received. */
+.ecc__totals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.ecc__total {
+  padding: 12px 14px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+.ecc__total--net { border-color: var(--accent-ring); background: var(--accent-tint); }
+.ecc__total-label { display: block; font-size: 0.76rem; color: var(--text-3); line-height: 1.3; }
+.ecc__total-value { display: block; margin-top: 4px; font-size: 1.28rem; color: var(--navy); }
+
+.ecc__table { width: 100%; border-collapse: collapse; margin: 0 0 18px; font-size: 0.9rem; }
+.ecc__table th,
+.ecc__table td { padding: 7px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+.ecc__table th { text-align: left; font-weight: 400; color: var(--text-2); padding-right: 12px; }
+.ecc__table td { text-align: right; white-space: nowrap; color: var(--navy); font-variant-numeric: tabular-nums; }
+.ecc__row--strong th { font-weight: 600; color: var(--navy); }
+.ecc__row--strong th,
+.ecc__row--strong td { border-bottom: 2px solid var(--border-2); }
+.ecc__table--metrics { font-size: 0.84rem; }
+
+.ecc__flow { list-style: none; margin: 0 0 18px; padding: 0; font-size: 0.9rem; }
+.ecc__flow li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ecc__flow-label { color: var(--text-2); }
+.ecc__flow-value { white-space: nowrap; color: var(--navy); font-variant-numeric: tabular-nums; }
+.ecc__flow-pct { color: var(--text-3); }
+
+/* Assumptions and warnings. Visually quiet but never hidden: a calculator that
+   assumes without saying so is indistinguishable from one that knows. */
+.ecc__notes ul { margin: 0 0 16px; padding-left: 18px; font-size: 0.82rem; color: var(--text-2); }
+.ecc__notes li { margin-bottom: 7px; line-height: 1.45; }
+.ecc__notes li[data-severity='warning'] { color: var(--accent-dark); }
+.ecc__errors {
+  margin: 0 0 14px;
+  padding: 10px 12px 10px 28px;
+  border: 1px solid var(--accent-ring);
+  border-radius: var(--radius-sm);
+  background: var(--accent-tint);
+  font-size: 0.85rem;
+  color: var(--accent-dark);
+}
+.ecc__empty { margin: 0 0 16px; color: var(--text-3); font-size: 0.9rem; }
+.ecc__exactness,
+.ecc__verified {
+  margin: 0 0 8px;
+  font-size: 0.76rem;
+  color: var(--text-3);
+  line-height: 1.45;
+}
+.ecc__crosslink { margin: 12px 0 0; font-size: 0.84rem; }
+.ecc__crosslink a { color: var(--navy); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .ecc { padding-top: 26px; }
+  .ecc__totals { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .ecc h2 { font-size: 1.32rem; }
+  .ecc__table { font-size: 0.85rem; }
+  /* A results table must never force the page to scroll sideways. */
+  .ecc__table th { padding-right: 8px; }
+}
+
+/* Narrow-viewport containment for the calculator.
+ *
+ * Added after a review measured the GERMAN page overflowing at 320px in its
+ * default state: `.ecc__flow li` is a flex row whose value is `nowrap` and whose
+ * label had no `min-width: 0`, so the row's min-content was the whole label plus
+ * the whole amount. "Arbeitgeberanteil zur tschechischen Sozialversicherung" is
+ * simply longer than 320px allows, and because `body` carries `overflow-x:
+ * hidden` the clipped figures were unreachable rather than merely ugly — and the
+ * overflow test could not see it, because it ran only the Czech route.
+ *
+ * Flex and grid children default to `min-width: auto`, which refuses to shrink
+ * below their content. These are the overrides that let them.
+ */
+.ecc__flow li { flex-wrap: wrap; }
+.ecc__flow-label,
+.ecc__flow-value,
+.ecc__total-label,
+.ecc__total-value,
+.ecc__table th,
+.ecc__table td,
+.ecc__notes li,
+.ecc .pcalc-fieldset > legend,
+.ecc .pcalc-toggle span,
+.ecc .pcalc-field > label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+/* The amount stays on one line where it fits; it wraps to its own line rather
+   than forcing the row wider. */
+.ecc__flow-value { white-space: nowrap; margin-left: auto; }
+.ecc__periodicity { color: var(--text-3); font-weight: 400; }
+
+@media (max-width: 400px) {
+  .ecc__table th,
+  .ecc__table td { font-size: 0.82rem; }
+  .ecc__total-value { font-size: 1.14rem; }
+}
