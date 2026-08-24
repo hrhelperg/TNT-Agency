@@ -97,14 +97,26 @@ employers' bases, so it models only the first case and says so.
 | Employer, paramedics / works fire brigade | 29.8 % | § 7 odst. 1 písm. b) |
 | Employer, high-risk work — **2026 only** | 27.8 % | § 7 odst. 1 písm. c) |
 | Annual maximum base | 2 350 416 CZK | § 15a (48 × 48 967) |
-| Participation threshold | 4 500 CZK/month | § 6 odst. 2, z. 187/2006 Sb. |
+| Rozhodný příjem (participation) | 4 500 CZK/month | § 6, z. 187/2006 Sb. |
 | Employer discount | 5 % of the aggregate | § 7a–§ 7b |
 | Working-pensioner relief | 6.5 % **sleva** | § 7e odst. 1 |
 
 The high-risk rate is year-keyed: 28.8 % in 2027, 29.8 % from 2028. It can never
 be carried between years.
 
-Below the participation threshold **no social premium is due from either side**.
+**Participation follows the AGREED income, not the month's actual pay.** § 6 odst.
+1 písm. b) founds it on the *sjednaná částka započitatelného příjmu*; only in a
+*zaměstnání malého rozsahu* (§ 7) does a given month's income decide. So an
+employee on an agreed 22 400 CZK who is paid 4 000 CZK this month — a mid-month
+start, or unpaid leave — is still participating, and the premium is due from
+both sides.
+
+An earlier version of this engine tested the month's gross and zeroed both
+premiums below 4 500 CZK. That understated the employer's cost by 992 CZK on
+exactly the cases the form invites. A single monthly figure cannot tell "agreed
+22 400, paid 4 000" from "agreed 4 000", so the engine no longer guesses: it
+charges the premium — correct for the common case, and never understating — and
+records small-scale employment as unmodelled.
 
 ### 3.2 Health insurance — z. 592/1992 Sb. and z. 48/1997 Sb.
 
@@ -115,7 +127,7 @@ Below the participation threshold **no social premium is due from either side**.
 | Minimum assessment base | 22 400 CZK/month | § 3 odst. 6 |
 | Minimum premium | 3 024 CZK | 13.5 % × 22 400, exact |
 | Maximum | none | — |
-| Top-up on a shortfall | 13.5 %, employee alone by default | § 3 odst. 10 |
+| Top-up on a shortfall | the remainder up to the minimum premium, employee alone by default | § 3 odst. 10 |
 
 The minimum is **not** reduced for part-time work — VZP: *"bez ohledu na délku
 pracovního úvazku"*. Pro-rata reduction by calendar days (§ 3 odst. 9) is a
@@ -152,7 +164,27 @@ intended replacement (z. 266/2006 Sb.) was repealed before it ever took effect.
 The rate annex has stood in its 487/2001 Sb. wording since 2002.
 
 Eight bands: **2.8 / 4.2 / 5.6 / 7 / 8.4 / 9.8 / 10.5 / 50.4 ‰**. One rate for
-the whole employer, by prevailing activity. Base = the aggregate assessment base
+the whole employer, by prevailing activity.
+
+**The calculator offers the rates, not an activity→rate mapping.** An earlier
+version mapped named activities to bands. Independent review found the grouping
+wrong — forestry was placed at 9.8 ‰ where MPSV's rendering of příloha č. 2 puts
+OKEČ 02 at 8.4 ‰ — and the attempt to correct it found the available renderings
+disagreeing with each other about OKEČ 45, 27.5 and 75.25 as well. The annex
+itself could not be retrieved verbatim: zakonyprolidi answers a fetcher with 403
+and MPSV's PDF carries the table as embedded-font glyphs.
+
+A wrong band multiplies the whole payroll — 9.8 ‰ instead of 8.4 ‰ is 16.7 % too
+much, every month, per head. So the selector now lists the eight statutory
+**rates**, naming an activity only where the band's own wording is
+verbatim-verifiable (5.6 ‰ *Ostatní ekonomické činnosti*, the qualified 10.5 ‰
+hazardous residual, 7 ‰ agriculture, 50.4 ‰ mining), and an employer who knows
+their rate — it is on their insurer's invoice — enters it directly. The 10.5 ‰
+row in particular is NOT an unqualified catch-all: it excludes *Ostatní
+ekonomické činnosti* and covers work with explosives, radioactive materials,
+radon, infectious material, poisons, or at great heights or depths. Labelling it
+as the residual invited an employer belonging at 5.6 ‰ to pick a rate 1.875×
+higher. Base = the aggregate assessment base
 of all employees for the **preceding** quarter. Minimum 100 CZK per quarter, per
 **employer**. The decree contains no rounding rule at any step — machine-verified:
 the stem `zaokrouhl` returns zero hits across the full text.
@@ -202,11 +234,24 @@ as an assumption:
 - **Rounding of the health thirds** when the premium is not divisible by three.
   Only two things are law: the premium is a whole koruna, and the two shares sum
   to it. The engine rounds the employee's third up and gives the employer the
-  remainder, which keeps the sum exact. Maximum divergence: one koruna. The
-  22 400 → 3 024 example everyone quotes divides evenly and settles nothing.
+  remainder, which keeps the sum exact. The 22 400 → 3 024 example everyone
+  quotes divides evenly and settles nothing.
+
+  How much the choice actually costs: **nothing measurable**. VZP glosses the
+  employee's third as *"(tj. 4,5 % z vyměřovacího základu)"* — a second reading
+  of the same split. Comparing the two over every whole-koruna base from 0 to
+  500 000 gives **zero** disagreements. The statutory silence is real, so the
+  disclosure stays; but this is an ambiguity with no observable consequence, and
+  it should not be read with the same alarm as one that changes a payslip.
 - **Pro-rata of the minimum base** for a partial month. § 3 odst. 9 states the
   principle; no authority publishes the formula, the divisor or any rounding.
-- **Rounding of the minimum-base top-up.** § 3 odst. 10 prescribes none.
+- **Rounding of the minimum-base top-up.** § 3 odst. 10 prescribes none, so the
+  month's premium is computed ONCE from the minimum base and the top-up is the
+  remainder after the premium on the actual base. Ceiling both parts
+  independently — the first implementation here — returns 3 025 CZK for every
+  gross that is not a multiple of 200, i.e. 22 288 of the 22 400 whole-koruna
+  values below the minimum, contradicting the 3 024 CZK minimum premium VZP
+  prints. Independent review caught it.
 - **Disapplication of the annual maximum to liability insurance.** Both
   administrators publish it; no statute says it, and a literal reading of § 12
   odst. 2 would arguably cap the base. The weakest-founded operative rule here.

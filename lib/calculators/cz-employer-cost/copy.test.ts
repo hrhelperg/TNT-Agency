@@ -224,14 +224,30 @@ describe('result labels exist in all three locales', () => {
 });
 
 describe('German note text never implies German payroll law', () => {
+  // Extended after an independent review found three German strings that read
+  // as German law and passed every gate: a section asserting "Lohnfortzahlung
+  // für die ersten 14 Tage der Arbeitsunfähigkeit" with no Czech anchor at all
+  // (German EFZG gives six weeks, so the sentence was wrong for the reader's own
+  // country), and "Grundfreibetrag"/"Kinderfreibetrag" for reliefs that reduce
+  // the TAX rather than the base — the vocabulary of §§ 32/32a EStG describing a
+  // different mechanism from the Czech and English pages.
+  //
+  // `Freibetrag` is on the list not because it is jurisdiction-loaded but
+  // because it is MECHANISM-loaded: no Czech relief in this calculator is one,
+  // so its presence in German text is a defect regardless of anchoring. It is
+  // checked separately below.
   const LOADED = [
     'Mindestlohn',
     'Sozialversicherung',
     'Krankenversicherung',
     'Haftpflichtversicherung',
     'Steuererklärung',
+    'Arbeitnehmererklärung',
     'Jahresausgleich',
     'Lohnabrechnung',
+    'Lohnfortzahlung',
+    'Arbeitsunfähigkeit',
+    'Arbeitsgesetzbuch',
     'Quellensteuer',
     'Steuerbonus',
     'Behörde',
@@ -249,5 +265,34 @@ describe('German note text never implies German payroll law', () => {
       if (!ANCHOR.test(entry.de)) offenders.push(`${key}: "${hit}" — ${entry.de}`);
     }
     expect(offenders, offenders.join('\n')).toEqual([]);
+  });
+
+  // A Freibetrag reduces the tax BASE. Every relief this calculator models —
+  // sleva na poplatníka, sleva na invaliditu, ZTP/P, daňové zvýhodnění na dítě —
+  // reduces the TAX itself, after it is computed. Calling any of them a
+  // Freibetrag states a different mechanism, and makes the German page
+  // contradict its own sentence that reliefs are subtracted after the tax is
+  // rounded. No anchor rescues it, so it is banned outright.
+  it('never calls a Czech tax credit a Freibetrag', () => {
+    const offenders: string[] = [];
+    for (const [key, entry] of [
+      ...Object.entries(ENGINE_NOTES),
+      ...Object.entries(RESULT_LABELS),
+      ...Object.entries(INPUT_LABELS),
+      ...Object.entries(VALIDATION_MESSAGES),
+    ]) {
+      if (/Freibetr[aä]g/.test(entry.de)) offenders.push(`${key}: ${entry.de}`);
+    }
+    expect(offenders, offenders.join('\n')).toEqual([]);
+  });
+
+  // prohlášení poplatníka is signed with the EMPLOYER to switch monthly reliefs
+  // on. A Steuererklärung is filed annually with the tax office. A reader who
+  // answers the checkbox on the second fact moves the result by at least the
+  // 2 570 CZK basic credit.
+  it('calls the prohlášení poplatníka an Arbeitnehmererklärung, never a Steuererklärung', () => {
+    const declaration = INPUT_LABELS['taxProfile.signedDeclaration'].de;
+    expect(declaration).toContain('Arbeitnehmererklärung');
+    expect(declaration).not.toMatch(/Steuererklärung/);
   });
 });

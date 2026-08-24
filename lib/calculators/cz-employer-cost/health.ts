@@ -47,6 +47,17 @@
  * is an implementation convention, NOT law, and it is surfaced to the user as
  * one. The most it can move is a single koruna.
  *
+ * How much it actually moves: nothing, as far as can be checked. VZP's
+ * methodology glosses the employee's third as "(tj. 4,5 % z vyměřovacího
+ * základu)", which is a second reading of the same split. Comparing the two
+ * across every whole-koruna base from 0 to 500 000 — `ceil(P/3)` against
+ * `ceil(13,5 % → then 4,5 % of the base)` — gives ZERO disagreements. So the
+ * statutory silence is real and the note stays, but the choice made here is not
+ * one a payroll department would ever see. That is worth knowing: an
+ * unresolvable ambiguity with no observable consequence is a different thing
+ * from one that changes someone's payslip, and the two should not be flagged
+ * with equal alarm.
+ *
  * THE MINIMUM BASE IS NOT PRO-RATED FOR PART TIME
  * ───────────────────────────────────────────────
  * VZP, verbatim: "bez ohledu na délku pracovního úvazku, zařazení zaměstnance,
@@ -132,15 +143,21 @@ function applicableMinimum(
       // — "poměrná část odpovídající počtu kalendářních dnů" — and no authority
       // publishes the formula, the divisor or any rounding. So the arithmetic
       // below is a documented assumption, flagged as one.
-      notes.push({
-        key: 'health.minimumProRated',
-        severity: 'assumption',
-        text: 'health.note.proRataFormulaNotPublished',
-      });
       const days = Math.max(0, Math.min(input.applicableDays, input.daysInMonth));
       if (input.daysInMonth <= 0) return full;
-      const reduced = Math.round((toCzkNumber(full) * days) / input.daysInMonth);
-      return czk(reduced);
+      const reduced = czk(Math.round((toCzkNumber(full) * days) / input.daysInMonth));
+      // The note is pushed only when the minimum actually moved. Announcing a
+      // pro-rata that did not happen is the same defect as performing one that
+      // should not have — it tells the reader the figure means something it
+      // does not.
+      if (reduced !== full) {
+        notes.push({
+          key: 'health.minimumProRated',
+          severity: 'assumption',
+          text: 'health.note.proRataFormulaNotPublished',
+        });
+      }
+      return reduced;
     }
 
     case 'employer_obstacle':
@@ -195,11 +212,27 @@ export function calculateHealth(
   let topUpPaidByEmployer: Halere = ZERO;
 
   if (shortfall > ZERO) {
-    // § 3 odst. 10 prescribes no separate rounding for the top-up. § 2 odst. 2
-    // covers "pojistné" generally, so it is rounded up to a whole koruna like
-    // any other premium — but no authority states this for the top-up
-    // specifically, and the note says so rather than implying it is settled.
-    const topUp = percentOfRoundedToCzk(shortfall, rate, 'up');
+    // THE TOP-UP IS A REMAINDER, NOT A SECOND PREMIUM.
+    //
+    // § 3 odst. 10 prescribes no rounding of its own, and § 2 odst. 2 rounds
+    // "pojistné" up to a whole koruna. Applying that ceiling independently to
+    // the premium on the actual base AND to 13,5 % of the shortfall is two
+    // ceilings on two halves of one exact sum — the very defect this module's
+    // header condemns three paragraphs above.
+    //
+    // It is not hypothetical. 0,135·g + 0,135·(22 400 − g) = 3 024 exactly, so
+    // two independent ceilings return 3 025 for every gross that is not a
+    // multiple of 200 Kč — 22 288 of the 22 400 whole-koruna values below the
+    // minimum. VZP publishes the minimum premium as 3 024 Kč, so that reading
+    // contradicts a printed figure on almost every sub-minimum salary.
+    //
+    // So the month's total is computed once on the minimum base and the top-up
+    // is what remains after the premium on actual earnings. The employer stays
+    // tied to the actual base (§ 3 odst. 10 keeps them out of the difference),
+    // the employee bears the remainder, and the two sum to exactly what is
+    // remitted.
+    const premiumOnMinimum = percentOfRoundedToCzk(minimum as Halere, rate, 'up');
+    const topUp = maxHalere(subtract(premiumOnMinimum, premiumOnActual), ZERO);
     notes.push({
       key: 'health.topUpRounding',
       severity: 'assumption',

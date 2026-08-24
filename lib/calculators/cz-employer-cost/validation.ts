@@ -77,13 +77,35 @@ export function validateInput(input: EmployerCostInput, rules: CzRuleset): Valid
   else if (grossMonthlyCzk > MAX_MONTHLY_GROSS) err('salary.grossMonthlyCzk', 'salary.gross.tooLarge');
 
   if (!isMoney(bonusesCzk)) err('salary.bonusesCzk', 'salary.bonuses.invalid');
+  else if (bonusesCzk > MAX_MONTHLY_GROSS) err('salary.bonusesCzk', 'salary.bonuses.tooLarge');
+
   if (!isMoney(otherTaxableCzk)) err('salary.otherTaxableCzk', 'salary.otherTaxable.invalid');
+  else if (otherTaxableCzk > MAX_MONTHLY_GROSS) {
+    err('salary.otherTaxableCzk', 'salary.otherTaxable.tooLarge');
+  }
 
   if (!Number.isFinite(workingTimePercent) || workingTimePercent <= 0 || workingTimePercent > 100) {
     err('salary.workingTimePercent', 'salary.workingTime.outOfRange');
   }
 
   const totalGross = (grossMonthlyCzk || 0) + (bonusesCzk || 0) + (otherTaxableCzk || 0);
+
+  // The SUM needs its own ceiling, not just each component.
+  //
+  // money.ts guards every multiplication against the safe-integer range and
+  // throws a RangeError when it is exceeded — which is the right behaviour for
+  // arithmetic, and the wrong thing for a visitor to meet. Three components each
+  // just inside their own limit sum to three times it, and the first percentage
+  // taken of that would throw instead of the form saying what is wrong. So the
+  // total is bounded here, where the answer is a message rather than a crash.
+  if (
+    isMoney(grossMonthlyCzk) &&
+    isMoney(bonusesCzk) &&
+    isMoney(otherTaxableCzk) &&
+    totalGross > MAX_MONTHLY_GROSS
+  ) {
+    err('salary.grossMonthlyCzk', 'salary.total.tooLarge');
+  }
 
   // Below the minimum wage at full working time — lawful in several situations,
   // suspicious at 100 %, and the trigger for the health minimum-base rules.

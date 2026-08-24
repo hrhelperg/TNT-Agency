@@ -362,77 +362,103 @@ export const CZ_2026: CzRuleset = {
     status: 'confirmed-official',
     sourceId: S.liabilityDecree,
     legalBasis: '§ 12 a příloha č. 2 vyhlášky č. 125/1993 Sb.',
-    // The annex classifies by OKEČ — a classification long replaced by CZ-NACE,
-    // and never amended. Kooperativa publishes a converter, but it is an
-    // administrative aid rather than a legal instrument, and seven CZ-NACE codes
-    // in it resolve to two different rates. So this table offers the eight
-    // STATUTORY bands with the activities that were actually evidenced, and lets
-    // an employer who knows their own rate enter it. It does not pretend to be a
-    // complete CZ-NACE lookup, because no complete and unambiguous one exists.
+    // WHY THIS IS A LIST OF RATES AND NOT A LIST OF ACTIVITIES.
+    //
+    // An earlier version of this table mapped named activities to bands —
+    // "Stavebnictví, lesnictví, slévárenství, protipožární ochrana → 9,8 ‰" and
+    // so on. Independent review found that grouping wrong, and the attempt to
+    // correct it found the sources disagreeing with each other: MPSV's own
+    // rendering of příloha č. 2 places OKEČ 02 (lesnictví) at 8,4 ‰ and
+    // OKEČ 45 (stavebnictví), 27.5 and 75.25 at 10,5 ‰, while other renderings
+    // group them differently again. The annex itself could not be retrieved
+    // verbatim: zakonyprolidi returns 403 to a fetcher and MPSV's PDF carries
+    // the table as embedded-font glyphs.
+    //
+    // A wrong band is not a cosmetic error. It multiplies the whole payroll:
+    // 9,8 ‰ instead of 8,4 ‰ is 16,7 % too much, every month, per head. So
+    // rather than ship a mapping that cannot be evidenced row by row, this
+    // offers the eight STATUTORY RATES and names an activity only where the
+    // band's own wording is verbatim-verifiable. Everything else is the
+    // employer's own determination — which is where the decree puts it anyway:
+    // § 12 odst. 2 keys the rate to the employer's "převažující základní
+    // činnost", and their insurer's invoice already states the result.
+    //
+    // The classification is OKEČ, retired by ČSÚ in 2008 and never replaced in
+    // the decree. Kooperativa publishes a CZ-NACE converter as an
+    // administrative aid, but seven CZ-NACE codes in it resolve to two
+    // different rates — up to a 1,9× spread — so it cannot be a lookup either.
     activities: [
       {
-        key: 'mining',
-        labelCs: 'Těžba uhlí, uranových a kovových rud',
-        labelEn: 'Mining of coal, uranium and metal ores',
-        labelDe: 'Kohle-, Uran- und Metallerzbergbau',
-        ratePerMille: 50.4,
-        classificationCode: 'OKEČ 10.1, 12, 13',
+        key: 'rate_2_8',
+        labelCs: '2,8 ‰ — nejnižší sazbová skupina',
+        labelEn: '2.8 ‰ — the lowest rate band',
+        labelDe: '2,8 ‰ — niedrigste Satzgruppe',
+        ratePerMille: 2.8,
+        classificationCode: 'příloha č. 2, sazbová skupina 2,8 ‰',
       },
       {
-        key: 'unclassified_residual',
-        labelCs: 'Činnosti nezařazené do jiných sazbových skupin',
-        labelEn: 'Activities not classified in another rate group',
-        labelDe: 'Nicht in eine andere Satzgruppe eingeordnete Tätigkeiten',
-        ratePerMille: 10.5,
-        classificationCode: 'bez kódu OKEČ',
-      },
-      {
-        key: 'construction_forestry',
-        labelCs: 'Stavebnictví, lesnictví, slévárenství, protipožární ochrana',
-        labelEn: 'Construction, forestry, foundries, fire protection',
-        labelDe: 'Bauwesen, Forstwirtschaft, Gießereien, Brandschutz',
-        ratePerMille: 9.8,
-        classificationCode: 'OKEČ 45, 02, 27.5, 75.25',
-      },
-      {
-        key: 'heavy_manufacturing_transport',
-        labelCs: 'Zpracovatelský průmysl, pozemní doprava, odstraňování odpadu, veterinární činnost',
-        labelEn: 'Manufacturing, land transport, waste disposal, veterinary activities',
-        labelDe: 'Verarbeitendes Gewerbe, Landverkehr, Abfallbeseitigung, Veterinärwesen',
-        ratePerMille: 8.4,
-        classificationCode: 'OKEČ 60.2, 90, 85.2 a další',
-      },
-      {
-        key: 'agriculture',
-        labelCs: 'Zemědělství',
-        labelEn: 'Agriculture',
-        labelDe: 'Landwirtschaft',
-        ratePerMille: 7,
-        classificationCode: 'OKEČ 01',
+        key: 'rate_4_2',
+        labelCs: '4,2 ‰',
+        labelEn: '4.2 ‰',
+        labelDe: '4,2 ‰',
+        ratePerMille: 4.2,
+        classificationCode: 'příloha č. 2, sazbová skupina 4,2 ‰',
       },
       {
         key: 'other_economic',
-        labelCs: 'Ostatní ekonomické činnosti',
-        labelEn: 'Other economic activities',
-        labelDe: 'Sonstige wirtschaftliche Tätigkeiten',
+        labelCs: '5,6 ‰ — Ostatní ekonomické činnosti (zbytková skupina)',
+        labelEn: '5.6 ‰ — Other economic activities (the catch-all band)',
+        labelDe: '5,6 ‰ — Sonstige wirtschaftliche Tätigkeiten (Auffanggruppe)',
         ratePerMille: 5.6,
-        classificationCode: 'zbytková skupina',
+        classificationCode: 'příloha č. 2, „Ostatní ekonomické činnosti“',
       },
       {
-        key: 'services_hospitality_education',
-        labelCs: 'Právní a poradenské služby, ubytování a stravování, školství, zdravotnictví, veřejná správa',
-        labelEn: 'Legal and consulting services, hospitality, education, healthcare, public administration',
-        labelDe: 'Rechts- und Beratungsdienste, Gastgewerbe, Bildung, Gesundheitswesen, öffentliche Verwaltung',
-        ratePerMille: 4.2,
-        classificationCode: 'OKEČ 74.1, 74.2, 55, 80, 85.1, 85.3, 75 mimo 75.25',
+        key: 'agriculture',
+        labelCs: '7 ‰ — Zemědělství',
+        labelEn: '7 ‰ — Agriculture',
+        labelDe: '7 ‰ — Landwirtschaft',
+        ratePerMille: 7,
+        classificationCode: 'příloha č. 2, OKEČ 01',
       },
       {
-        key: 'finance_it',
-        labelCs: 'Peněžnictví a pojišťovnictví, zpracování dat a IT, vydavatelství',
-        labelEn: 'Banking and insurance, data processing and IT, publishing',
-        labelDe: 'Banken und Versicherungen, Datenverarbeitung und IT, Verlagswesen',
-        ratePerMille: 2.8,
-        classificationCode: 'OKEČ 65, 66, 72, 74.4, 22.1',
+        key: 'rate_8_4',
+        labelCs: '8,4 ‰ — mj. lesnictví a těžba dřeva',
+        labelEn: '8.4 ‰ — includes forestry and logging',
+        labelDe: '8,4 ‰ — u. a. Forstwirtschaft und Holzeinschlag',
+        ratePerMille: 8.4,
+        classificationCode: 'příloha č. 2, sazbová skupina 8,4 ‰ (mj. OKEČ 02)',
+      },
+      {
+        key: 'rate_9_8',
+        labelCs: '9,8 ‰',
+        labelEn: '9.8 ‰',
+        labelDe: '9,8 ‰',
+        ratePerMille: 9.8,
+        classificationCode: 'příloha č. 2, sazbová skupina 9,8 ‰',
+      },
+      {
+        // The decree's own qualification, quoted rather than paraphrased. It is
+        // NOT an unqualified residual — it excludes "Ostatní ekonomické
+        // činnosti" (the real catch-all at 5,6 ‰) and is characterised by
+        // hazardous work. Presenting it as "activities not classified elsewhere"
+        // invited an employer who belongs at 5,6 ‰ to pick a rate 1,875× higher.
+        key: 'hazardous_unclassified',
+        labelCs:
+          '10,5 ‰ — činnosti nezařazené do jiných skupin (mimo „Ostatní ekonomické činnosti“), zejména práce s výbušninami, radioaktivními látkami, radonem, infekčním materiálem, jedy, ve velkých výškách nebo hloubkách',
+        labelEn:
+          '10.5 ‰ — activities not classified in another band (excluding “Other economic activities”), chiefly work with explosives, radioactive materials, radon, infectious material, poisons, or at great heights or depths',
+        labelDe:
+          '10,5 ‰ — nicht in eine andere Gruppe eingeordnete Tätigkeiten (außer „Sonstige wirtschaftliche Tätigkeiten“), vor allem Arbeiten mit Sprengstoffen, radioaktiven Stoffen, Radon, infektiösem Material, Giften oder in großen Höhen oder Tiefen',
+        ratePerMille: 10.5,
+        classificationCode: 'příloha č. 2, sazbová skupina 10,5 ‰',
+      },
+      {
+        key: 'mining',
+        labelCs: '50,4 ‰ — těžba uhlí, uranových a kovových rud (nejvyšší sazba)',
+        labelEn: '50.4 ‰ — mining of coal, uranium and metal ores (the highest rate)',
+        labelDe: '50,4 ‰ — Kohle-, Uran- und Metallerzbergbau (höchster Satz)',
+        ratePerMille: 50.4,
+        classificationCode: 'příloha č. 2, sazbová skupina 50,4 ‰',
       },
     ],
     minimumQuarterlyPremium: {

@@ -154,27 +154,34 @@ export function calculateSocial(input: SocialInput, rules: CzRuleset): SocialRes
   const uncappedBase = roundSocialAssessmentBase(grossTaxable);
 
   // ── 1. Participation ─────────────────────────────────────────────────────
-  // Below the rozhodný příjem the employment does not found participation in
-  // sickness insurance, and no social premium is due from either side.
+  //
+  // PARTICIPATION IS KEYED ON THE AGREED INCOME, NOT ON THIS MONTH'S PAY.
+  //
+  // § 6 odst. 1 písm. b) zákona č. 187/2006 Sb. founds participation on the
+  // SJEDNANÁ částka započitatelného příjmu. Only in a zaměstnání malého rozsahu
+  // (§ 7) — where the agreed amount itself is below the rozhodný příjem — does
+  // the month's actual income decide.
+  //
+  // An earlier version tested the month's gross and zeroed both premiums below
+  // 4 500 Kč. That is wrong for the calculator's only declared scope. An
+  // employee on an agreed 22 400 Kč who is paid 4 000 Kč this month — a
+  // mid-month start, or the unpaid-leave month validation.ts explicitly treats
+  // as a legitimate input — is still účastný pojištění, and 284 Kč employee /
+  // 992 Kč employer are genuinely due. Zeroing them understated the employer's
+  // cost and deleted the whole social block from the money-flow breakdown.
+  //
+  // A single monthly figure cannot distinguish "agreed 22 400, paid 4 000" from
+  // "agreed 4 000". So the engine no longer guesses: it charges the premium,
+  // which is correct for the common case and never understates the employer's
+  // cost, and says that the small-scale-employment case is outside what it
+  // models. That is the honest direction of the two.
   const threshold = czk(rules.participationThresholdMonthly.value);
   if (grossTaxable > ZERO && grossTaxable < threshold) {
     notes.push({
-      key: 'social.noParticipation',
-      severity: 'warning',
-      text: 'social.note.belowParticipationThreshold',
+      key: 'social.smallScaleEmploymentNotModelled',
+      severity: 'assumption',
+      text: 'social.note.participationAssumedFromAgreedIncome',
     });
-    return {
-      assessmentBase: ZERO,
-      uncappedBase,
-      employee: ZERO,
-      employer: ZERO,
-      employerDiscount: ZERO,
-      employerNet: ZERO,
-      maximumReached: false,
-      mode: socialMaximum.mode,
-      lines: [],
-      notes,
-    };
   }
 
   // ── 2–3. The annual maximum ──────────────────────────────────────────────
@@ -352,18 +359,4 @@ export function calculateSocial(input: SocialInput, rules: CzRuleset): SocialRes
 /** Total of the employee and employer sides, for the money-flow breakdown. */
 export function socialTotal(result: SocialResult): Halere {
   return add(result.employee, result.employerNet);
-}
-
-/** Highest chargeable base this month given a year-to-date figure. Exported for tests. */
-export function remainingAnnualCapacity(ytdCzk: number, rules: CzRuleset): Halere {
-  return clampNonNegative(subtract(czk(rules.maxAnnualSocialBase.value), czk(ytdCzk)));
-}
-
-/** Whether a base would be capped. Exported so the UI can warn before computing. */
-export function wouldExceedAnnualMaximum(
-  base: Halere,
-  ytdCzk: number,
-  rules: CzRuleset,
-): boolean {
-  return maxHalere(base, ZERO) > remainingAnnualCapacity(ytdCzk, rules);
 }

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { calculate, createDefaultInput, CZ_2026, daysInMonth } from './engine';
 import { moneyFlowTotal } from './metrics';
+import { validateInput } from './validation';
 import { toCzkNumber } from '../../payroll/money';
 import type { EmployerCostInput } from './types';
 
@@ -145,6 +146,43 @@ describe('2c. a statutory exemption removes the minimum entirely', () => {
   });
 });
 
+// § 3 odst. 9 — a SHORT MONTH does reduce the minimum, by calendar days. This
+// is the branch a review found unreachable: the UI hardcoded applicableDays to
+// the whole month, so choosing "employment did not last the whole month"
+// changed nothing while the engine still told the user it had pro-rated.
+describe('2ca. a partial month reduces the minimum by calendar days', () => {
+  // 10 of 31 days: 22 400 × 10/31 = 7 225,8 → 7 226.
+  // gross 5 000 → premium on actual ceil(675) = 675; on the minimum
+  // ceil(975,51) = 976; top-up = 976 − 675 = 301.
+  const i = input();
+  i.salary.grossMonthlyCzk = 5_000;
+  i.healthMinimum.situation = 'partial_month';
+  i.healthMinimum.daysInMonth = 31;
+  i.healthMinimum.applicableDays = 10;
+  const r = run(i);
+
+  it('pro-rates the minimum base', () => {
+    expect(toCzkNumber(r.raw.health.minimumBase as never)).toBe(7_226);
+  });
+
+  it('charges the reduced top-up, not the full-month one', () => {
+    expect(r.topUpEmployee).toBe(301);
+  });
+
+  it('is materially different from the same salary over a whole month', () => {
+    const whole = input();
+    whole.salary.grossMonthlyCzk = 5_000;
+    const w = run(whole);
+    // The whole-month case charges 2 349 Kč — 2 048 Kč more.
+    expect(w.topUpEmployee).toBe(2_349);
+    expect(w.topUpEmployee - r.topUpEmployee).toBe(2_048);
+  });
+
+  it('says the pro-rata formula is an assumption, not a published rule', () => {
+    expect(r.raw.health.notes.some((n) => n.key === 'health.minimumProRated')).toBe(true);
+  });
+});
+
 // The minimum is NOT pro-rated for part time — VZP: "bez ohledu na délku
 // pracovního úvazku". A 0,2 FTE employee faces the whole 22 400 Kč floor.
 describe('2d. part-time does not reduce the health minimum', () => {
@@ -181,12 +219,26 @@ describe('3. statutory rounding at a sub-haléř boundary', () => {
 // 4. Participation threshold and the withholding regime
 // ─────────────────────────────────────────────────────────────────────────────
 describe('4. below the rozhodný příjem of 4 500 Kč', () => {
-  it('charges no social insurance to either side', () => {
+  // Participation follows the AGREED income (§ 6 odst. 1 písm. b) z. 187/2006),
+  // not what happened to be paid this month. An employee on an agreed 22 400 Kč
+  // paid 4 000 Kč — a mid-month start, or unpaid leave — is still participating,
+  // so the premium is due from both sides. An earlier version zeroed both and
+  // understated the employer's cost by 992 Kč.
+  it('still charges social insurance — participation follows the agreed income', () => {
     const i = input();
     i.salary.grossMonthlyCzk = 4_000;
     const r = run(i);
-    expect(r.socialEmployee).toBe(0);
-    expect(r.socialEmployer).toBe(0);
+    expect(r.socialEmployee).toBe(284); // ceil(7,1 % × 4 000)
+    expect(r.socialEmployer).toBe(992); // ceil(24,8 % × 4 000)
+  });
+
+  it('says small-scale employment is outside what it models', () => {
+    const i = input();
+    i.salary.grossMonthlyCzk = 4_000;
+    const r = run(i);
+    expect(
+      r.raw.social.notes.some((n) => n.key === 'social.smallScaleEmploymentNotModelled'),
+    ).toBe(true);
   });
 
   it('still charges health insurance — it has no participation threshold', () => {
@@ -538,7 +590,7 @@ describe('11. employer liability insurance', () => {
   it('applies the selected activity rate per mille', () => {
     const i = input();
     i.salary.grossMonthlyCzk = 40_000;
-    i.liabilityInsurance = { enabled: true, activityKey: 'construction_forestry', customRatePerMille: null };
+    i.liabilityInsurance = { enabled: true, activityKey: 'rate_9_8', customRatePerMille: null };
     const r = run(i);
     expect(r.liability).toBe(392); // 40 000 × 9,8 ‰
     expect(r.employerStatutory).toBe(53_520 + 392);
@@ -575,7 +627,7 @@ describe('11. employer liability insurance', () => {
   it('never adds the 100 Kč quarterly floor to one employee', () => {
     const i = input();
     i.salary.grossMonthlyCzk = 5_000;
-    i.liabilityInsurance = { enabled: true, activityKey: 'finance_it', customRatePerMille: null };
+    i.liabilityInsurance = { enabled: true, activityKey: 'rate_2_8', customRatePerMille: null };
     const r = run(i);
     expect(r.liability).toBe(14); // 5 000 × 2,8 ‰ — not raised to 100/3
     expect(r.raw.liability.notes.some((n) => n.key === 'liability.belowEmployerFloor')).toBe(true);
@@ -622,7 +674,7 @@ describe('13. money flow sums to the total real employer cost', () => {
     ['social maximum exhausted', (i) => { i.salary.grossMonthlyCzk = 200_000; i.socialMaximum.mode = 'explicit_ytd'; i.socialMaximum.ytdAssessmentBaseCzk = 2_350_416; }],
     ['with liability insurance and company costs', (i) => {
       i.salary.grossMonthlyCzk = 40_000;
-      i.liabilityInsurance = { enabled: true, activityKey: 'heavy_manufacturing_transport', customRatePerMille: null };
+      i.liabilityInsurance = { enabled: true, activityKey: 'rate_8_4', customRatePerMille: null };
       i.additionalCosts = { ...i.additionalCosts, mealContribution: 1_500 };
     }],
     ['no participation', (i) => { i.salary.grossMonthlyCzk = 4_000; }],
@@ -683,12 +735,29 @@ describe('14. edges', () => {
     expect(r.healthTotalOnActual).toBe(3_024); // 13,5 % × 22 400 exactly
   });
 
-  it('handles one koruna below the minimum wage', () => {
+  // The month's premium is computed ONCE from the minimum base, so the parts
+  // always sum to the published 3 024 Kč minimum premium. Two independent
+  // ceilings would return 3 025 here — and on 22 288 of the 22 400 whole-koruna
+  // grosses below the minimum, contradicting a figure VZP prints.
+  it('handles one koruna below the minimum wage without over-remitting', () => {
     const i = input();
     i.salary.grossMonthlyCzk = 22_399;
     const r = run(i);
     expect(r.shortfall).toBe(1);
-    expect(r.topUpEmployee).toBe(1); // ceil(13,5 % × 1) = ceil(0,135)
+    // ceil(13,5 % × 22 399) = 3 024 already, so nothing remains to top up.
+    expect(r.topUpEmployee).toBe(0);
+    expect(r.healthTotalOnActual + r.topUpEmployee).toBe(3_024);
+  });
+
+  it('always remits exactly the minimum premium below the minimum base', () => {
+    for (const gross of [0, 1, 5_000, 10_000, 18_500, 22_398, 22_399]) {
+      const i = input();
+      i.salary.grossMonthlyCzk = gross;
+      const r = run(i);
+      const remitted =
+        r.healthEmployeeOnActual + r.healthEmployerOnActual + r.topUpEmployee + r.topUpEmployer;
+      expect(remitted, `gross ${gross}`).toBe(3_024);
+    }
   });
 
   // The declaration stays SIGNED in both, so the advance regime applies. With it
@@ -709,6 +778,43 @@ describe('14. edges', () => {
     i.taxProfile.applyBasicCredit = false;
     const r = run(i);
     expect(r.taxBase).toBe(200);
+  });
+
+  // The engine's arithmetic throws a RangeError outside the safe-integer range,
+  // which is right for arithmetic and wrong for a visitor to meet. Validation
+  // has to reject these first, so the form explains rather than crashes.
+  it('rejects an oversized bonus rather than overflowing', () => {
+    const i = input();
+    i.salary.grossMonthlyCzk = 0;
+    i.salary.bonusesCzk = 5e8;
+    const v = validateInput(i, CZ_2026);
+    expect(v.ok).toBe(false);
+    expect(v.issues.some((x) => x.key === 'salary.bonuses.tooLarge')).toBe(true);
+  });
+
+  it('rejects an oversized other-taxable amount', () => {
+    const i = input();
+    i.salary.otherTaxableCzk = 1e12;
+    const v = validateInput(i, CZ_2026);
+    expect(v.ok).toBe(false);
+  });
+
+  // Three components each just inside their own ceiling still sum past it.
+  it('rejects a sum that is too large even when each component passes', () => {
+    const i = input();
+    i.salary.grossMonthlyCzk = 100_000_000;
+    i.salary.bonusesCzk = 100_000_000;
+    i.salary.otherTaxableCzk = 100_000_000;
+    const v = validateInput(i, CZ_2026);
+    expect(v.ok).toBe(false);
+    expect(v.issues.some((x) => x.key === 'salary.total.tooLarge')).toBe(true);
+  });
+
+  it('still computes at the largest accepted total', () => {
+    const i = input();
+    i.salary.grossMonthlyCzk = 100_000_000;
+    expect(validateInput(i, CZ_2026).ok).toBe(true);
+    expect(() => calculate(i, CZ_2026)).not.toThrow();
   });
 
   it('never returns NaN or Infinity anywhere in the result', () => {
@@ -774,7 +880,7 @@ describe('15. properties', () => {
   it('changing the liability rate moves only that line and the totals', () => {
     const a = input();
     a.salary.grossMonthlyCzk = 40_000;
-    a.liabilityInsurance = { enabled: true, activityKey: 'finance_it', customRatePerMille: null };
+    a.liabilityInsurance = { enabled: true, activityKey: 'rate_2_8', customRatePerMille: null };
     const b = input();
     b.salary.grossMonthlyCzk = 40_000;
     b.liabilityInsurance = { enabled: true, activityKey: 'mining', customRatePerMille: null };

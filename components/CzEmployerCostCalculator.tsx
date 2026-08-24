@@ -91,8 +91,26 @@ const SECTION_COPY = {
     en: 'Enter a gross salary and the calculation appears.',
     de: 'Geben Sie ein Bruttogehalt ein, und die Berechnung erscheint.',
   },
-  addCost: { cs: 'Kč / měsíc nebo dle periodicity', en: 'CZK, per its own period', de: 'CZK, je nach Periodizität' },
+  fixErrors: {
+    cs: 'Opravte označená pole — dokud jsou chybná, výpočet se nezobrazuje, aby neukazoval číslo, kterému nelze věřit.',
+    en: 'Fix the highlighted fields — until they are valid no result is shown, rather than a number that cannot be trusted.',
+    de: 'Korrigieren Sie die markierten Felder — bis dahin wird kein Ergebnis angezeigt, statt einer Zahl, der nicht zu trauen ist.',
+  },
 } as const
+
+/**
+ * How often each additional cost occurs, shown next to its field.
+ *
+ * Without it, money typed into an annual or one-off field appears in no monthly
+ * figure and the visitor has no way to tell whether it was counted. It IS
+ * counted — in the annual view — and this label is what connects the two.
+ */
+const PERIODICITY_LABEL: Record<string, Record<CalculatorLocale, string>> = {
+  monthly: { cs: '(měsíčně)', en: '(monthly)', de: '(monatlich)' },
+  quarterly: { cs: '(čtvrtletně)', en: '(quarterly)', de: '(vierteljährlich)' },
+  annual: { cs: '(ročně)', en: '(annually)', de: '(jährlich)' },
+  one_off: { cs: '(jednorázově)', en: '(one-off)', de: '(einmalig)' },
+}
 
 type Raw = {
   gross: string
@@ -103,6 +121,7 @@ type Raw = {
   weeklyHours: string
   fullTimeHours: string
   hoursWorked: string
+  applicableDays: string
   customRate: string
   costs: Record<string, string>
 }
@@ -116,6 +135,7 @@ const EMPTY_RAW: Raw = {
   weeklyHours: '40',
   fullTimeHours: '40',
   hoursWorked: '',
+  applicableDays: '',
   customRate: '',
   costs: ADDITIONAL_COSTS.reduce((acc, d) => ({ ...acc, [d.key]: '' }), {}),
 }
@@ -164,6 +184,13 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
   const input: EmployerCostInput = useMemo(() => {
     const base = createDefaultInput(2026, 1)
     const dim = daysInMonth(2026, 1)
+    // Calendar days the employment lasted this month. Read only where a partial
+    // month is declared; everywhere else it is the whole month, which is what
+    // both the health minimum and the discount's hour cap expect.
+    const employmentDays =
+      healthSituation === 'partial_month'
+        ? Math.max(0, Math.min(num(raw.applicableDays), dim))
+        : dim
     return {
       ...base,
       salary: {
@@ -181,7 +208,15 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
         children,
       },
       socialMaximum: { mode: ytdMode, ytdAssessmentBaseCzk: num(raw.ytd) },
-      healthMinimum: { situation: healthSituation, applicableDays: dim, daysInMonth: dim },
+      healthMinimum: {
+        situation: healthSituation,
+        // Read ONLY for a partial month. In every other situation the minimum
+        // is not pro-rated, so passing the full month is the correct input —
+        // and passing anything else would silently reduce a floor that VZP says
+        // is not reduced.
+        applicableDays: employmentDays,
+        daysInMonth: dim,
+      },
       employerOptions: {
         employeeCategory: category,
         employerRateClass: rateClass,
@@ -191,7 +226,11 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
           agreedWeeklyHours: num(raw.weeklyHours) || 40,
           fullTimeWeeklyHours: num(raw.fullTimeHours) || 40,
           hoursWorkedThisMonth: num(raw.hoursWorked),
-          employmentDaysInMonth: dim,
+          // The SAME calendar-day figure the health minimum uses. § 7a odst. 3
+          // písm. c) pro-rates the 138-hour cap by it, so hardcoding the whole
+          // month meant the proration could never fire and the discount was
+          // granted on months ČSSZ would refuse.
+          employmentDaysInMonth: employmentDays,
         },
       },
       liabilityInsurance: {
@@ -210,7 +249,20 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
   ])
 
   const validation = useMemo(() => validateInput(input, CZ_2026), [input])
-  const result = useMemo(() => calculate(input, CZ_2026), [input])
+
+  // Computed ONLY when validation passes.
+  //
+  // Two reasons, and the second is the one that bites. money.ts guards every
+  // multiplication against the safe-integer range and throws — so an
+  // over-large salary crashed the render instead of showing the "too large"
+  // message the validator had already produced. And validation.ts's own
+  // contract says an error means the engine "cannot compute a trustworthy
+  // result and must not try": a visitor typing 500 into the per-mille field saw
+  // "the rate is in per mille, check the value" above a confident, wrong total.
+  const result = useMemo(
+    () => (validation.ok ? calculate(input, CZ_2026) : null),
+    [input, validation],
+  )
 
   const hasGross = input.salary.grossMonthlyCzk > 0 || input.salary.bonusesCzk > 0
   const money = (h: number) => formatCzk(h as never, lang)
@@ -225,6 +277,7 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
 
   // De-duplicate: several modules can raise the same assumption in one pass.
   const notes = useMemo(() => {
+    if (!result) return []
     const seen = new Set<string>()
     return result.notes.filter((n) => (seen.has(n.text) ? false : (seen.add(n.text), true)))
   }, [result])
@@ -408,6 +461,23 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
                     <option value="partial_month">{t(INPUT_LABELS['healthMinimum.partialMonth'])}</option>
                   </select>
                 </div>
+                {healthSituation === 'partial_month' && (
+                  <div className="pcalc-field">
+                    <label htmlFor="ecc-days">{t(INPUT_LABELS['healthMinimum.applicableDays'])}</label>
+                    <input
+                      id="ecc-days"
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      aria-describedby="ecc-days-hint"
+                      value={raw.applicableDays}
+                      onChange={(e) => setField('applicableDays', e.target.value)}
+                    />
+                    <p className="pcalc-field__hint" id="ecc-days-hint">
+                      {t(INPUT_LABELS['healthMinimum.applicableDays.hint'])}
+                    </p>
+                  </div>
+                )}
               </fieldset>
 
               <fieldset className="pcalc-fieldset">
@@ -554,6 +624,10 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
                     <div className="pcalc-field" key={d.key}>
                       <label htmlFor={`ecc-cost-${d.key}`}>
                         {lang === 'cs' ? d.labelCs : lang === 'en' ? d.labelEn : d.labelDe}
+                        <span className="ecc__periodicity">
+                          {' '}
+                          {t(PERIODICITY_LABEL[d.periodicity])}
+                        </span>
                       </label>
                       <input
                         id={`ecc-cost-${d.key}`}
@@ -579,8 +653,10 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
               </ul>
             )}
 
-            {!hasGross ? (
-              <p className="ecc__empty">{t(SECTION_COPY.emptyState)}</p>
+            {!result || !hasGross ? (
+              <p className="ecc__empty">
+                {result ? t(SECTION_COPY.emptyState) : t(SECTION_COPY.fixErrors)}
+              </p>
             ) : (
               <>
                 <div className="ecc__totals">
@@ -657,6 +733,42 @@ export default function CzEmployerCostCalculator({ locale }: CzEmployerCostCalcu
                       </li>
                     ))}
                 </ul>
+
+                {/* §22 — the annual view is built from each item's real
+                    periodicity, not from multiplying the monthly total. A
+                    one-off recruitment fee is not twelve recruitment fees. */}
+                <h3 className="pcalc-results__title">{t(RESULT_LABELS['annual.heading'])}</h3>
+                <table className="ecc__table">
+                  <tbody>
+                    <Row
+                      label={t(RESULT_LABELS['result.statutoryTotal'])}
+                      value={money(result.annual.totalStatutoryEmployerCost)}
+                    />
+                    {result.annual.recurringMonthlyTimesTwelve > 0 && (
+                      <Row
+                        label={t(RESULT_LABELS['annual.recurring'])}
+                        value={money(result.annual.recurringMonthlyTimesTwelve)}
+                      />
+                    )}
+                    {result.annual.annualOnlyItems > 0 && (
+                      <Row
+                        label={t(RESULT_LABELS['annual.annualOnly'])}
+                        value={money(result.annual.annualOnlyItems)}
+                      />
+                    )}
+                    {result.annual.oneOffItems > 0 && (
+                      <Row
+                        label={t(RESULT_LABELS['annual.oneOff'])}
+                        value={money(result.annual.oneOffItems)}
+                      />
+                    )}
+                    <Row
+                      strong
+                      label={t(RESULT_LABELS['result.realTotal'])}
+                      value={money(result.annual.totalRealEmployerCost)}
+                    />
+                  </tbody>
+                </table>
 
                 <table className="ecc__table ecc__table--metrics">
                   <tbody>

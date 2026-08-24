@@ -150,6 +150,79 @@ describe('nothing financial or personal can reach a URL', () => {
   });
 });
 
+/**
+ * The rule this suite was missing, and how it was found.
+ *
+ * A reviewer added a real tracking pixel to the results panel —
+ * `<img src={beaconSrc} />` with `beaconSrc` assembled across several lines as
+ * a third-party URL carrying net pay, gross pay, disability and ZTP/P — and
+ * every one of the 315 assertions above passed, as did the repo's own
+ * share-privacy gate. The sink list chased `fetch`, `XMLHttpRequest`,
+ * `sendBeacon`; none of them covers an attribute that makes the browser issue
+ * the request for you.
+ *
+ * Enumerating sinks is the wrong shape of rule: `src`, `srcSet`, `poster`,
+ * `<link rel=preload>`, `background-image`, `new Image()`, a dynamically
+ * inserted node — the list is open-ended and the next one is always the one
+ * nobody listed. So the rule is inverted. A request can only leave for an
+ * ORIGIN, and this component legitimately needs none: it renders one internal
+ * link and nothing else. Any absolute URL in the file therefore fails,
+ * regardless of which attribute or API would have carried it.
+ */
+describe('no external origin can be referenced at all', () => {
+  const src = code(read(COMPONENT));
+
+  it('contains no absolute URL', () => {
+    const urls = Array.from(src.matchAll(/https?:\/\/[^\s'"`)]+/g), (m) => m[0]);
+    expect(urls, `absolute URLs in the calculator: ${urls.join(', ')}`).toEqual([]);
+  });
+
+  it('contains no protocol-relative or bare-host reference', () => {
+    expect(/["'`]\/\/[a-z0-9.-]+\./i.test(src), 'protocol-relative URL').toBe(false);
+  });
+
+  it('references no request-issuing attribute or API', () => {
+    const SINKS: Array<[string, RegExp]> = [
+      ['src attribute', /\bsrc\s*=/],
+      ['srcSet', /\bsrcSet\b/i],
+      ['poster', /\bposter\s*=/],
+      ['<link> preload', /rel\s*=\s*["'{]?\s*(preload|prefetch|preconnect)/i],
+      ['new Image()', /new\s+Image\s*\(/],
+      ['background-image', /background-image/i],
+      ['dynamic node insertion', /appendChild|insertBefore|insertAdjacent/],
+      ['iframe', /<iframe/i],
+      ['import()', /\bimport\s*\(/],
+    ];
+    for (const [label, re] of SINKS) {
+      expect(re.test(src), `${label} is present in the calculator`).toBe(false);
+    }
+  });
+
+  // The same rule for the engine: it is pure, so it needs no origin either.
+  it('the engine references no origin', () => {
+    for (const file of ENGINE_FILES) {
+      const s = code(read(file));
+      const urls = Array.from(s.matchAll(/https?:\/\/[^\s'"`)]+/g), (m) => m[0]);
+      expect(urls, `${file} references ${urls.join(', ')}`).toEqual([]);
+    }
+  });
+
+  // The source registry is the ONE place URLs belong — they are citations, and
+  // they are never fetched. Asserted rather than assumed, so the exemption
+  // cannot quietly widen.
+  it('only the source registry carries URLs, and only as citations', () => {
+    const registry = read('data/calculators/cz-employer-cost/2026/sources.ts');
+    expect(/https?:\/\//.test(registry)).toBe(true);
+    for (const [label, re] of [
+      ['fetch', /\bfetch\s*\(/],
+      ['src attribute', /\bsrc\s*=/],
+      ['new Image', /new\s+Image\s*\(/],
+    ] as Array<[string, RegExp]>) {
+      expect(re.test(code(registry)), `the registry contains ${label}`).toBe(false);
+    }
+  });
+});
+
 describe('the component imports nothing that could transmit', () => {
   it('imports only React, the language bridge, its own engine and its own sources', () => {
     const imports = Array.from(code(read(COMPONENT)).matchAll(/from\s+'([^']+)'/g), (m) => m[1]);

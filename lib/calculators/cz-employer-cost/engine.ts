@@ -37,16 +37,7 @@
  * koruna rather than trusting this comment.
  */
 
-import {
-  add,
-  clampNonNegative,
-  czk,
-  multiplyByInteger,
-  subtract,
-  sum,
-  ZERO,
-  type Halere,
-} from '../../payroll/money';
+import { add, czk, multiplyByInteger, subtract, sum, ZERO, type Halere } from '../../payroll/money';
 import {
   calculateAdditionalCosts,
   EMPTY_ADDITIONAL_COSTS,
@@ -362,9 +353,4 @@ export function calculate(
     unsupported,
     notes,
   };
-}
-
-/** Net wage only — for the compact view, without assembling employer totals. */
-export function calculateNet(input: EmployerCostInput, rules: CzRuleset = CZ_2026): Halere {
-  return clampNonNegative(calculate(input, rules).employeeNet.net);
 }

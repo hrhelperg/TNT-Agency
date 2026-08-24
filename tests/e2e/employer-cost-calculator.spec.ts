@@ -181,6 +181,23 @@ test.describe('the statutory rules a visitor can see', () => {
     await expect(page.locator('.ecc__notes')).toContainText(/maximálního vyměřovacího základu/)
   })
 
+  // §22 — the annual view is built from each item's real periodicity. A one-off
+  // recruitment fee must appear once in the year, not twelve times.
+  test('the annual view does not multiply a one-off cost by twelve', async ({ page }) => {
+    await page.goto(ROUTES.cs, { waitUntil: 'networkidle' })
+    await enterGross(page, '40000')
+    await page.locator('.ecc__advanced > summary').click()
+    await page.locator('#ecc-cost-recruitment').fill('30000')
+    await page.locator('#ecc-cost-mealContribution').fill('1500')
+    await page.waitForTimeout(200)
+
+    const annual = page.locator('.ecc__table').filter({ hasText: 'Jednorázové náklady' })
+    await expect(annual).toContainText('30 000')
+    // statutory 53 520 × 12 = 642 240; + 1 500 × 12 = 18 000; + 30 000 one-off
+    const rows = await annual.innerText()
+    expect(digits(rows)).toContain(digits('690 240'))
+  })
+
   test('the exactness notice never promises a guaranteed result', async ({ page }) => {
     for (const route of Object.values(ROUTES)) {
       await page.goto(route, { waitUntil: 'domcontentloaded' })
@@ -216,17 +233,70 @@ test.describe('responsive and accessible', () => {
     ['1440', 1440, 900],
   ]
 
+  // Every locale, not just Czech. A review measured the GERMAN page overflowing
+  // at 320px while this test passed, because German label text — "Arbeitgeber-
+  // anteil zur tschechischen Sozialversicherung" — is far longer than the Czech
+  // equivalent, and the test only ever loaded the Czech route. Testing one
+  // locale for a layout problem caused by string length proves nothing about
+  // the locale with the long strings.
   for (const [name, width, height] of BREAKPOINTS) {
-    test(`no horizontal overflow at ${name}px`, async ({ page }) => {
-      await page.setViewportSize({ width, height })
-      await page.goto(ROUTES.cs, { waitUntil: 'networkidle' })
-      await enterGross(page, '48967')
-      const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      )
-      expect(overflow, `${name}px overflows by ${overflow}px`).toBeLessThanOrEqual(1)
-    })
+    for (const [locale, route] of Object.entries(ROUTES)) {
+      test(`${locale}: no horizontal overflow at ${name}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height })
+        await page.goto(route, { waitUntil: 'networkidle' })
+        await enterGross(page, '48967')
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        )
+        expect(overflow, `${locale} at ${name}px overflows by ${overflow}px`).toBeLessThanOrEqual(1)
+      })
+
+      test(`${locale}: no horizontal overflow at ${name}px with the advanced panel open`, async ({
+        page,
+      }) => {
+        await page.setViewportSize({ width, height })
+        await page.goto(route, { waitUntil: 'networkidle' })
+        await enterGross(page, '48967')
+        await page.locator('.ecc__advanced > summary').click()
+        await page.waitForTimeout(150)
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        )
+        expect(
+          overflow,
+          `${locale} at ${name}px (advanced open) overflows by ${overflow}px`,
+        ).toBeLessThanOrEqual(1)
+      })
+    }
   }
+
+  // The rejected-input path must not render a result at all.
+  test('shows no figures when a field is invalid', async ({ page }) => {
+    await page.goto(ROUTES.cs, { waitUntil: 'networkidle' })
+    await enterGross(page, '40000')
+    await page.locator('.ecc__advanced > summary').click()
+    await page.locator('#ecc-liability-toggle, input[type=checkbox]').first()
+    // Enable liability insurance and type a percent into the per-mille field.
+    const liabilityToggle = page
+      .locator('.pcalc-toggle')
+      .filter({ hasText: /odpovědnosti/i })
+      .locator('input[type=checkbox]')
+      .first()
+    await liabilityToggle.check()
+    const customToggle = page
+      .locator('.pcalc-toggle')
+      .filter({ hasText: /Vlastní sazba/i })
+      .locator('input[type=checkbox]')
+      .first()
+    await customToggle.check()
+    await page.locator('#ecc-rate').fill('500')
+    await page.waitForTimeout(200)
+
+    await expect(page.locator('.ecc__errors')).toBeVisible()
+    // No totals, no tables — the validator said the result cannot be trusted.
+    await expect(page.locator('.ecc__totals')).toHaveCount(0)
+    await expect(page.locator('.ecc__table')).toHaveCount(0)
+  })
 
   test('every input has an accessible label', async ({ page }) => {
     await page.goto(ROUTES.cs, { waitUntil: 'networkidle' })

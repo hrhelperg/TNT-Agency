@@ -88,6 +88,16 @@ export const INPUT_LABELS: Readonly<Record<string, Copy>> = {
     en: 'Working time (% of full time)',
     de: 'Arbeitszeit (% der Vollzeit)',
   },
+  // Without this the field looks like it should scale the salary, and a user who
+  // enters 50 % and sees no number move reasonably concludes the calculator is
+  // broken. It does neither of the two things one might expect, and both
+  // omissions are deliberate: the employer enters the gross they actually pay,
+  // and the health minimum is not reduced for part time.
+  'salary.workingTime.hint': {
+    cs: 'Nekrátí zadanou hrubou mzdu — zadejte mzdu, kterou skutečně vyplácíte. Neovlivňuje ani minimální vyměřovací základ zdravotního pojištění, který se podle úvazku nekrátí. Slouží ke kontrole zadání a k podmínkám slevy na pojistném.',
+    en: 'Does not scale the gross salary — enter the salary you actually pay. It also does not reduce the minimum health assessment base, which is not pro-rated for part time. It is used to sanity-check the entry and for the discount conditions.',
+    de: 'Kürzt das eingegebene Bruttogehalt nicht — geben Sie das tatsächlich gezahlte Gehalt ein. Sie senkt auch nicht die Mindestbemessungsgrundlage der tschechischen Krankenversicherung, die bei Teilzeit nicht gekürzt wird. Sie dient der Plausibilitätsprüfung und den Voraussetzungen der Beitragsermäßigung.',
+  },
   'taxProfile.residency': {
     cs: 'Daňové rezidentství',
     en: 'Tax residency',
@@ -106,12 +116,12 @@ export const INPUT_LABELS: Readonly<Record<string, Copy>> = {
   'taxProfile.signedDeclaration': {
     cs: 'Podepsané prohlášení poplatníka',
     en: 'Signed taxpayer declaration (prohlášení poplatníka)',
-    de: 'Unterzeichnete tschechische Steuererklärung des Arbeitnehmers (prohlášení poplatníka)',
+    de: 'Unterzeichnete tschechische Arbeitnehmererklärung (prohlášení poplatníka)',
   },
   'taxProfile.basicCredit': {
     cs: 'Uplatnit základní slevu na poplatníka',
     en: 'Apply the basic taxpayer credit',
-    de: 'Grundfreibetrag für Steuerpflichtige anwenden',
+    de: 'Grundermäßigung für Steuerpflichtige (sleva na poplatníka) anwenden',
   },
   'taxProfile.disability': {
     cs: 'Invalidita',
@@ -188,6 +198,16 @@ export const INPUT_LABELS: Readonly<Record<string, Copy>> = {
     cs: 'Zaměstnání netrvalo celý měsíc',
     en: 'Employment did not last the whole month',
     de: 'Beschäftigung bestand nicht den ganzen Monat',
+  },
+  'healthMinimum.applicableDays': {
+    cs: 'Počet kalendářních dnů, za které se minimum uplatní',
+    en: 'Calendar days for which the minimum applies',
+    de: 'Kalendertage, für die die Mindestgrundlage gilt',
+  },
+  'healthMinimum.applicableDays.hint': {
+    cs: 'Kalendářní dny trvání zaměstnání v tomto měsíci. Minimum se krátí poměrně podle nich — pozor, kratší úvazek sám o sobě minimum nekrátí.',
+    en: 'Calendar days the employment lasted this month. The minimum is reduced in that proportion — note that part-time work alone does not reduce it.',
+    de: 'Kalendertage, die die Beschäftigung in diesem Monat bestand. Die Mindestgrundlage wird anteilig gekürzt — Teilzeit allein kürzt sie nicht.',
   },
   'employerOptions.category': {
     cs: 'Kategorie zaměstnance pro sociální pojištění',
@@ -271,10 +291,25 @@ export const VALIDATION_MESSAGES: Readonly<Record<string, Copy>> = {
     en: 'Enter bonuses as a non-negative number.',
     de: 'Geben Sie Prämien als nicht negative Zahl ein.',
   },
+  'salary.bonuses.tooLarge': {
+    cs: 'Zadané prémie jsou mimo použitelný rozsah.',
+    en: 'The bonuses entered are outside the usable range.',
+    de: 'Die eingegebenen Prämien liegen außerhalb des nutzbaren Bereichs.',
+  },
   'salary.otherTaxable.invalid': {
     cs: 'Zadejte jiné zdanitelné plnění jako nezáporné číslo.',
     en: 'Enter other taxable remuneration as a non-negative number.',
     de: 'Geben Sie sonstige steuerpflichtige Vergütung als nicht negative Zahl ein.',
+  },
+  'salary.otherTaxable.tooLarge': {
+    cs: 'Zadané jiné zdanitelné plnění je mimo použitelný rozsah.',
+    en: 'The other taxable remuneration entered is outside the usable range.',
+    de: 'Die eingegebene sonstige steuerpflichtige Vergütung liegt außerhalb des nutzbaren Bereichs.',
+  },
+  'salary.total.tooLarge': {
+    cs: 'Součet mzdy, prémií a dalších plnění je mimo použitelný rozsah.',
+    en: 'The sum of salary, bonuses and other remuneration is outside the usable range.',
+    de: 'Die Summe aus Gehalt, Prämien und sonstiger Vergütung liegt außerhalb des nutzbaren Bereichs.',
   },
   'salary.workingTime.outOfRange': {
     cs: 'Úvazek zadejte v rozmezí 1 až 100 %.',
@@ -289,7 +324,7 @@ export const VALIDATION_MESSAGES: Readonly<Record<string, Copy>> = {
   'taxProfile.basicCredit.requiresDeclaration': {
     cs: 'Základní slevu na poplatníka lze měsíčně uplatnit jen při podepsaném prohlášení poplatníka.',
     en: 'The basic taxpayer credit can be claimed monthly only with a signed taxpayer declaration.',
-    de: 'Der Grundfreibetrag kann monatlich nur bei unterzeichneter tschechischer Arbeitnehmererklärung geltend gemacht werden.',
+    de: 'Der Grundermäßigung für Steuerpflichtige (sleva na poplatníka) kann monatlich nur bei unterzeichneter tschechischer Arbeitnehmererklärung geltend gemacht werden.',
   },
   'taxProfile.children.tooMany': {
     cs: 'Zkontrolujte počet dětí.',
@@ -299,17 +334,17 @@ export const VALIDATION_MESSAGES: Readonly<Record<string, Copy>> = {
   'taxProfile.nonResident.personalCreditsRestricted': {
     cs: 'Daňový nerezident může měsíčně uplatnit pouze základní slevu na poplatníka. Slevy na invaliditu a ZTP/P lze uplatnit až v ročním zúčtování.',
     en: 'A non-resident may claim only the basic taxpayer credit monthly. Disability and ZTP/P credits are available only in the annual settlement.',
-    de: 'Ein nicht in Tschechien Ansässiger kann monatlich nur den Grundfreibetrag geltend machen. Ermäßigungen für Invalidität und ZTP/P sind erst im tschechischen Jahresausgleich möglich.',
+    de: 'Ein nicht in Tschechien Ansässiger kann monatlich nur die Grundermäßigung (sleva na poplatníka) geltend machen. Ermäßigungen für Invalidität und ZTP/P sind erst im tschechischen Jahresausgleich möglich.',
   },
   'taxProfile.nonResident.childBenefitRestricted': {
     cs: 'Daňové zvýhodnění na dítě může nerezident uplatnit pouze za zákonných podmínek v daňovém přiznání, nikoli měsíčně.',
     en: 'A non-resident may claim the child tax benefit only in the annual tax return under statutory conditions, not monthly.',
-    de: 'Der Kinderfreibetrag kann von nicht Ansässigen nur unter gesetzlichen Voraussetzungen in der tschechischen Jahressteuererklärung geltend gemacht werden, nicht monatlich.',
+    de: 'Der Kindersteuerermäßigung (daňové zvýhodnění na dítě) kann von nicht Ansässigen nur unter gesetzlichen Voraussetzungen in der tschechischen Jahressteuererklärung geltend gemacht werden, nicht monatlich.',
   },
   'taxProfile.noDeclaration.reliefsNotApplied': {
     cs: 'Bez podepsaného prohlášení poplatníka se měsíční slevy ani daňové zvýhodnění na děti neuplatní.',
     en: 'Without a signed taxpayer declaration, monthly credits and the child tax benefit are not applied.',
-    de: 'Ohne unterzeichnete tschechische Arbeitnehmererklärung werden monatliche Ermäßigungen und der Kinderfreibetrag nicht angewendet.',
+    de: 'Ohne unterzeichnete tschechische Arbeitnehmererklärung werden monatliche Ermäßigungen und der Kindersteuerermäßigung (daňové zvýhodnění na dítě) nicht angewendet.',
   },
   'socialMaximum.ytd.invalid': {
     cs: 'Zadejte dosud využitý vyměřovací základ jako nezáporné číslo.',

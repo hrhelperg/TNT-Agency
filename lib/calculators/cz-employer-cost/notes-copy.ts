@@ -22,10 +22,10 @@ import type { Copy } from './copy';
 
 export const ENGINE_NOTES: Readonly<Record<string, Copy>> = {
   // ── Social insurance ─────────────────────────────────────────────────────
-  'social.note.belowParticipationThreshold': {
-    cs: 'Měsíční příjem nedosahuje rozhodné částky 4 500 Kč, a zaměstnání proto nezakládá účast na nemocenském pojištění. Sociální pojistné se neodvádí — ani za zaměstnance, ani za zaměstnavatele.',
-    en: 'Monthly income does not reach the 4 500 CZK threshold, so the employment does not found participation in Czech sickness insurance. No social insurance is due — from either side.',
-    de: 'Das Monatseinkommen erreicht die tschechische Schwelle von 4 500 CZK nicht, sodass die Beschäftigung keine Teilnahme an der tschechischen Krankengeldversicherung begründet. Es fallen keine Sozialbeiträge an — weder für den Arbeitnehmer noch für den Arbeitgeber.',
+  'social.note.participationAssumedFromAgreedIncome': {
+    cs: 'Příjem za tento měsíc nedosahuje rozhodné částky 4 500 Kč. Účast na nemocenském pojištění se však u pracovního poměru odvíjí od SJEDNANÉ částky započitatelného příjmu, nikoli od toho, kolik bylo vyplaceno v konkrétním měsíci — při nástupu v polovině měsíce nebo při neplaceném volnu se pojistné odvádí dál. Výpočet proto pojistné počítá. Zaměstnání malého rozsahu, kde je pod hranicí už sjednaná částka, tato verze nemodeluje.',
+    en: 'This month’s income does not reach the 4 500 CZK threshold. But for an employment relationship, participation in Czech sickness insurance follows the AGREED income, not what happened to be paid in a given month — on a mid-month start or during unpaid leave the premium is still due. The calculation therefore charges it. Small-scale employment, where the agreed amount itself is below the threshold, is not modelled in this version.',
+    de: 'Das Einkommen dieses Monats erreicht die tschechische Schwelle von 4 500 CZK nicht. Die Teilnahme an der tschechischen Krankengeldversicherung richtet sich bei einem Arbeitsverhältnis jedoch nach dem VEREINBARTEN Entgelt und nicht danach, was in einem einzelnen Monat gezahlt wurde — bei Eintritt in der Monatsmitte oder bei unbezahltem Urlaub bleibt der Beitrag fällig. Die Berechnung erhebt ihn daher. Eine Beschäftigung geringen Umfangs, bei der bereits der vereinbarte Betrag unter der Schwelle liegt, bildet diese Version nicht ab.',
   },
   'social.note.assumesMaximumNotReached': {
     cs: 'Výpočet předpokládá, že maximálního vyměřovacího základu 2 350 416 Kč nebylo letos dosaženo. Jediná měsíční mzda tuto informaci neobsahuje — pro přesný výpočet u vysokých příjmů zadejte v rozšířeném režimu základ využitý od začátku roku.',
@@ -122,16 +122,16 @@ export const ENGINE_NOTES: Readonly<Record<string, Copy>> = {
     de: 'Der Beitrag von 13,5 % wird einmal aufgerundet und erst dann geteilt. Wie die Drittel gerundet werden, wenn der Betrag nicht durch drei teilbar ist, regeln weder Gesetz noch Methodik; hier wird das Arbeitnehmerdrittel aufgerundet, den Rest trägt der Arbeitgeber. Die Summe entspricht stets dem abgeführten Betrag; die Abweichung beträgt höchstens eine Krone.',
   },
   'health.note.topUpRoundingNotPrescribed': {
-    cs: 'Doplatek do minimálního základu se zde zaokrouhluje nahoru na celé koruny jako každé jiné pojistné. § 3 odst. 10 zvláštní pravidlo nestanoví a žádný orgán je nepublikuje.',
-    en: 'The minimum-base top-up is rounded up to whole koruny here, like any other premium. § 3 odst. 10 prescribes no separate rule and no authority publishes one.',
-    de: 'Der Aufschlag auf die Mindestgrundlage wird hier wie jeder andere Beitrag auf volle Kronen aufgerundet. § 3 Abs. 10 sieht keine gesonderte Regel vor, und keine Behörde veröffentlicht eine.',
+    cs: 'Pojistné za měsíc se zde počítá jednou z minimálního vyměřovacího základu a doplatek je zbytek po pojistném ze skutečného základu — součet tak přesně odpovídá minimálnímu pojistnému 3 024 Kč. § 3 odst. 10 vlastní pravidlo zaokrouhlení nestanoví; zaokrouhlit obě části zvlášť by dalo o korunu víc.',
+    en: 'The month’s premium is computed once from the minimum assessment base, and the top-up is what remains after the premium on the actual base — so the two sum to exactly the 3 024 CZK minimum premium. § 3 odst. 10 prescribes no rounding of its own; rounding both parts separately would give one koruna more.',
+    de: 'Der Monatsbeitrag wird hier einmal aus der Mindestbemessungsgrundlage berechnet, und der Aufschlag ist der Rest nach dem Beitrag auf die tatsächliche Grundlage — die Summe entspricht damit genau dem tschechischen Mindestbeitrag von 3 024 CZK. § 3 Abs. 10 sieht keine eigene Rundungsregel vor; beide Teile getrennt zu runden ergäbe eine Krone mehr.',
   },
 
   // ── Income tax ───────────────────────────────────────────────────────────
   'tax.note.noDeclarationNoMonthlyRelief': {
     cs: 'Bez podepsaného prohlášení poplatníka se měsíčně neuplatní žádná sleva — ani základní sleva na poplatníka — ani daňové zvýhodnění na děti (§ 38h odst. 5). Zaměstnanec je získá až v ročním zúčtování nebo v daňovém přiznání.',
     en: 'Without a signed taxpayer declaration nothing is applied monthly — not even the basic taxpayer credit — nor the child tax benefit (§ 38h odst. 5). The employee recovers them in the annual settlement or a tax return.',
-    de: 'Ohne unterzeichnete tschechische Arbeitnehmererklärung wird monatlich nichts angerechnet — auch nicht der Grundfreibetrag — und ebenso wenig der Kinderfreibetrag (§ 38h Abs. 5). Der Arbeitnehmer erhält sie erst im Jahresausgleich oder in der tschechischen Steuererklärung.',
+    de: 'Ohne unterzeichnete tschechische Arbeitnehmererklärung wird monatlich nichts angerechnet — auch nicht der Grundermäßigung für Steuerpflichtige (sleva na poplatníka) — und ebenso wenig der Kindersteuerermäßigung (daňové zvýhodnění na dítě) (§ 38h Abs. 5). Der Arbeitnehmer erhält sie erst im Jahresausgleich oder in der tschechischen Steuererklärung.',
   },
   'tax.note.startOfMonthCondition': {
     cs: 'Slevy na invaliditu a ZTP/P lze uplatnit, jen byly-li podmínky splněny na počátku kalendářního měsíce (§ 35ba odst. 3). Kalkulačka tuto podmínku neověřuje.',
@@ -146,12 +146,12 @@ export const ENGINE_NOTES: Readonly<Record<string, Copy>> = {
   'tax.note.nonResidentPersonalCreditsAnnualOnly': {
     cs: 'Daňový nerezident může měsíčně uplatnit pouze základní slevu na poplatníka. Slevy na invaliditu a ZTP/P jen v ročním zúčtování nebo přiznání (§ 38h odst. 13).',
     en: 'A non-resident may claim only the basic taxpayer credit monthly. Disability and ZTP/P credits are available only in the annual settlement or return (§ 38h odst. 13).',
-    de: 'Eine nicht in Tschechien ansässige Person kann monatlich nur den Grundfreibetrag geltend machen. Ermäßigungen für Invalidität und ZTP/P nur im tschechischen Jahresausgleich oder in der Steuererklärung (§ 38h Abs. 13).',
+    de: 'Eine nicht in Tschechien ansässige Person kann monatlich nur die Grundermäßigung (sleva na poplatníka) geltend machen. Ermäßigungen für Invalidität und ZTP/P nur im tschechischen Jahresausgleich oder in der Steuererklärung (§ 38h Abs. 13).',
   },
   'tax.note.nonResidentChildBenefitAnnualOnly': {
     cs: 'Daňové zvýhodnění na dítě nelze u nerezidenta uplatnit měsíčně — pouze za zákonných podmínek v daňovém přiznání.',
     en: 'A non-resident cannot claim the child tax benefit monthly — only in a tax return, under statutory conditions.',
-    de: 'Der Kinderfreibetrag kann von nicht in Tschechien Ansässigen nicht monatlich geltend gemacht werden — nur unter gesetzlichen Voraussetzungen in der Steuererklärung.',
+    de: 'Der Kindersteuerermäßigung (daňové zvýhodnění na dítě) kann von nicht in Tschechien Ansässigen nicht monatlich geltend gemacht werden — nur unter gesetzlichen Voraussetzungen in der Steuererklärung.',
   },
   'tax.note.bonusBelowMinimumPayout': {
     cs: 'Měsíční daňový bonus se nevyplácí, nedosahuje-li alespoň 50 Kč (§ 35d odst. 4).',
@@ -166,7 +166,7 @@ export const ENGINE_NOTES: Readonly<Record<string, Copy>> = {
   'tax.note.withholdingRegime': {
     cs: 'Bez podepsaného prohlášení a při měsíčním příjmu nižším než 4 500 Kč se uplatní srážková daň 15 % (§ 6 odst. 4). Jde o samostatný základ daně: neuplatní se žádné slevy ani zvýhodnění a základ i daň se zaokrouhlují DOLŮ.',
     en: 'With no signed declaration and monthly income below 4 500 CZK, a flat 15 % withholding tax applies (§ 6 odst. 4). It is a separate tax base: no credits, no child benefit, and both the base and the tax round DOWN.',
-    de: 'Ohne unterzeichnete Erklärung und bei einem Monatseinkommen unter 4 500 CZK gilt eine pauschale tschechische Quellensteuer von 15 % (§ 6 Abs. 4). Es handelt sich um eine gesonderte Bemessungsgrundlage: keine Ermäßigungen, kein Kinderfreibetrag, und Grundlage wie Steuer werden ABGERUNDET.',
+    de: 'Ohne unterzeichnete Erklärung und bei einem Monatseinkommen unter 4 500 CZK gilt eine pauschale tschechische Quellensteuer von 15 % (§ 6 Abs. 4). Es handelt sich um eine gesonderte Bemessungsgrundlage: keine Ermäßigungen, kein Kindersteuerermäßigung (daňové zvýhodnění na dítě), und Grundlage wie Steuer werden ABGERUNDET.',
   },
 
   // ── Employer liability insurance ─────────────────────────────────────────
@@ -282,7 +282,7 @@ export const RESULT_LABELS: Readonly<Record<string, Copy>> = {
   'result.childBenefit': {
     cs: 'Daňové zvýhodnění na děti',
     en: 'Child tax benefit',
-    de: 'Kinderfreibetrag',
+    de: 'Kindersteuerermäßigung (daňové zvýhodnění na dítě)',
   },
   'result.taxFinal': {
     cs: 'Záloha na daň',
@@ -352,5 +352,19 @@ export const RESULT_LABELS: Readonly<Record<string, Copy>> = {
     de: 'Sonstige Unternehmenskosten',
   },
   'annual.heading': { cs: 'Roční pohled', en: 'Annual view', de: 'Jahresansicht' },
-  'monthly.heading': { cs: 'Měsíční pohled', en: 'Monthly view', de: 'Monatsansicht' },
+  'annual.recurring': {
+    cs: 'Opakované měsíční náklady × 12',
+    en: 'Recurring monthly costs × 12',
+    de: 'Laufende monatliche Kosten × 12',
+  },
+  'annual.annualOnly': {
+    cs: 'Roční položky (jednou za rok)',
+    en: 'Annual items (once a year)',
+    de: 'Jährliche Positionen (einmal pro Jahr)',
+  },
+  'annual.oneOff': {
+    cs: 'Jednorázové náklady (jednou za obsazení místa)',
+    en: 'One-off costs (once per hire)',
+    de: 'Einmalige Kosten (einmal je Einstellung)',
+  },
 };

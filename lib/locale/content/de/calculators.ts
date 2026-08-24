@@ -51,7 +51,7 @@ export const DE_CALCULATORS: LocaleCorpus = {
           body: [
             'Dem Beschäftigten werden 7,1 % zur tschechischen Sozialversicherung abgezogen, ein Drittel des Krankenversicherungsbeitrags von 13,5 % sowie die monatliche Lohnsteuervorauszahlung. Die frühere tschechische „Supergrundlage" ist abgeschafft — Bemessungsgrundlage sind nach § 6 Abs. 12 des tschechischen Einkommensteuergesetzes schlicht die Einkünfte aus unselbständiger Tätigkeit, das Brutto wird also nicht um Arbeitgeberbeiträge erhöht.',
             'Die andere Hälfte desselben Irrtums ist ebenso verbreitet: Die eigenen Beiträge des Beschäftigten sind NICHT von der Bemessungsgrundlage abziehbar. Grundlage ist das Brutto, nicht das Brutto abzüglich 7,1 % und 4,5 %.',
-            'Bei 40 000 CZK brutto und unterzeichneter tschechischer Arbeitnehmererklärung beträgt der Nettolohn 31 930 CZK: 2 840 CZK Sozialversicherung, 1 800 CZK Krankenversicherung und 3 430 CZK Steuervorauszahlung nach dem Grundfreibetrag von 2 570 CZK.',
+            'Bei 40 000 CZK brutto und unterzeichneter tschechischer Arbeitnehmererklärung beträgt der Nettolohn 31 930 CZK: 2 840 CZK Sozialversicherung, 1 800 CZK Krankenversicherung und 3 430 CZK Steuervorauszahlung nach der Grundermäßigung von 2 570 CZK.',
           ],
         },
         {
@@ -110,24 +110,24 @@ export const DE_CALCULATORS: LocaleCorpus = {
           body: [
             'Das Verfahren regelt § 38h des tschechischen Einkommensteuergesetzes, und seine Reihenfolge ist verbindlich. Zuerst wird die Grundlage aufgerundet — bis 100 CZK auf volle Kronen, darüber auf volle Hundert. Dann gelten 15 % bis zur Monatsgrenze von 146 901 CZK und 23 % darüber. Die Summe wird auf volle Kronen aufgerundet, und erst danach werden Ermäßigungen abgezogen.',
             'Die Grenze von 146 901 CZK ist das Dreifache des Durchschnittslohns von 48 967 CZK und wird mit der GERUNDETEN Grundlage verglichen. Das hat eine unerwartete Folge: Ein Bruttogehalt von genau 146 901 CZK wird auf 147 000 CZK gerundet, sodass 99 CZK in das 23-Prozent-Band fallen.',
-            'Ohne unterzeichnete tschechische Arbeitnehmererklärung wird monatlich nichts angerechnet — weder der Grundfreibetrag von 2 570 CZK noch der Kinderfreibetrag (§ 38h Abs. 5). Der Beschäftigte erhält sie erst im tschechischen Jahresausgleich oder in der Steuererklärung. Wer nicht in Tschechien ansässig ist, kann monatlich nur den Grundfreibetrag geltend machen; Ermäßigungen für Invalidität und ZTP/P erst im Jahresausgleich.',
+            'Ohne unterzeichnete tschechische Arbeitnehmererklärung wird monatlich nichts angerechnet — weder die Grundermäßigung von 2 570 CZK (sleva na poplatníka) noch der Kindersteuerermäßigung (daňové zvýhodnění na dítě) (§ 38h Abs. 5). Der Beschäftigte erhält sie erst im tschechischen Jahresausgleich oder in der Steuererklärung. Wer nicht in Tschechien ansässig ist, kann monatlich nur die Grundermäßigung (sleva na poplatníka) geltend machen; Ermäßigungen für Invalidität und ZTP/P erst im Jahresausgleich.',
             'Auch innerhalb eines gewöhnlichen tschechischen Arbeitsverhältnisses kann eine Quellensteuer greifen: Ist keine Erklärung unterzeichnet und erreicht das Monatseinkommen 4 500 CZK nicht, bildet das Einkommen eine gesonderte Bemessungsgrundlage mit pauschal 15 % ohne jede Ermäßigung, wobei Grundlage und Steuer ABGERUNDET werden. Bei Vollzeit tritt das nie ein, bei Eintritt in der Monatsmitte oder unbezahltem Urlaub schon.',
           ],
           list: {
             items: [
-              'Grundfreibetrag für Steuerpflichtige 2 570 CZK monatlich',
+              'Grundermäßigung für Steuerpflichtige (sleva na poplatníka) 2 570 CZK monatlich',
               'Invalidität 1. und 2. Grades 210 CZK, 3. Grades 420 CZK monatlich',
               'Inhaber eines tschechischen ZTP/P-Ausweises 1 345 CZK monatlich',
-              'Kinderfreibetrag 1 267 / 1 860 / 2 320 CZK nach Reihenfolge, bei einem Kind mit ZTP/P-Ausweis das Doppelte',
+              'Kindersteuerermäßigung (daňové zvýhodnění na dítě) 1 267 / 1 860 / 2 320 CZK nach Reihenfolge, bei einem Kind mit ZTP/P-Ausweis das Doppelte',
             ],
           },
         },
         {
           heading: 'Der tschechische Steuerbonus für Kinder',
           body: [
-            'Übersteigt der Kinderfreibetrag die berechnete Steuer, wird die Differenz zum monatlichen tschechischen Steuerbonus, den der Arbeitgeber an den Beschäftigten auszahlt. Ein Bonus ist kein Lohn, und der Rechner bezeichnet ihn nie so — er ist der ausgezahlte Teil eines Freibetrags.',
+            'Übersteigt die Kindersteuerermäßigung (daňové zvýhodnění na dítě) die berechnete Steuer, wird die Differenz zum monatlichen tschechischen Steuerbonus, den der Arbeitgeber an den Beschäftigten auszahlt. Ein Bonus ist kein Lohn, und der Rechner bezeichnet ihn nie so — er ist der ausgezahlte Teil einer tschechischen Steuerermäßigung.',
             'Ausgezahlt wird er nur, wenn zwei Bedingungen zusammentreffen: Der Bonus muss mindestens 50 CZK betragen, und das Monatseinkommen bei diesem Zahler muss mindestens die Hälfte des tschechischen Mindestlohns erreichen, also 11 200 CZK für 2026 (§ 35d Abs. 4). Eine Obergrenze für den Bonus gibt es nicht.',
-            'Bei niedrigeren Löhnen mit mehreren Kindern kann der Nettobetrag daher über dem Bruttobetrag liegen. Das ist kein Rechenfehler, sondern genau der Zweck des Kinderfreibetrags.',
+            'Bei niedrigeren Löhnen mit mehreren Kindern kann der Nettobetrag daher über dem Bruttobetrag liegen. Das ist kein Rechenfehler, sondern genau der Zweck des Kindersteuerermäßigung (daňové zvýhodnění na dítě).',
           ],
         },
         {
@@ -148,7 +148,7 @@ export const DE_CALCULATORS: LocaleCorpus = {
             items: [
               'Sozialversicherung von Arbeitnehmer und Arbeitgeber einschließlich der Jahreshöchstgrenze',
               'Krankenversicherung einschließlich Mindestbemessungsgrundlage und Zuordnung des Aufschlags',
-              'Steuervorauszahlung nach § 38h, Steuerermäßigungen und Kinderfreibetrag',
+              'Steuervorauszahlung nach § 38h, Steuerermäßigungen und Kindersteuerermäßigung (daňové zvýhodnění na dítě)',
               'Quellensteuer dort, wo das tschechische Recht sie vorsieht',
               'Arbeitgeberermäßigung bei verkürzter Arbeitszeit, soweit ihre Voraussetzungen messbar sind',
               'Ermäßigung für erwerbstätige Altersrentner',
@@ -168,18 +168,18 @@ export const DE_CALCULATORS: LocaleCorpus = {
               'Rundung der Krankenversicherungsdrittel, wenn der Beitrag nicht durch drei teilbar ist — weder Gesetz noch Methodik regeln sie',
               'Die genaue Formel der anteiligen Kürzung der Mindestgrundlage in einem unvollständigen Monat',
               'Aufteilung des Aufschlags, wenn die niedrige Grundlage teils auf einem Arbeitgeberhindernis und teils auf anderem beruht',
-              'Lohnfortzahlung des Arbeitgebers für die ersten 14 Krankheitstage',
+              'Tschechische Lohnfortzahlung des Arbeitgebers für die ersten 14 Krankheitstage',
               'Gleichzeitige Beschäftigung bei mehreren Arbeitgebern',
               'Die Vereinbarungen DPP und DPČ',
             ],
           },
         },
         {
-          heading: 'Urlaub und Krankheit: warum sie nicht aufgeschlagen werden',
+          heading: 'Urlaub und Krankheit in Tschechien: warum sie nicht aufgeschlagen werden',
           body: [
-            'Vier Wochen Urlaub werden dem Monatsgehalt NICHT als weiterer Prozentsatz hinzugerechnet. Bei monatlicher Vergütung ist bezahlter Urlaub bereits Teil der Vergütungsstruktur — ein Monat mit Urlaub kostet dasselbe wie einer ohne. Urlaub gesondert aufzuschlagen hieße, denselben Lohn doppelt zu zählen.',
+            'Die vier Wochen Urlaub nach tschechischem Arbeitsrecht werden dem Monatsgehalt NICHT als weiterer Prozentsatz hinzugerechnet. Bei monatlicher Vergütung ist bezahlter Urlaub bereits Teil der Vergütungsstruktur — ein Monat mit Urlaub kostet dasselbe wie einer ohne. Urlaub gesondert aufzuschlagen hieße, denselben Lohn doppelt zu zählen.',
             'Wer die Kosten der Vertretung während der Abwesenheit abbilden will, bildet Betriebskosten ab und nicht einen höheren Lohn. Sie lassen sich in den Feldern für zusätzliche Kosten eintragen, der Rechner erfindet sie aber nie.',
-            'Ebenso ist keine „durchschnittliche Krankheitsquote" eingebaut. Diese Version berechnet die Lohnfortzahlung für die ersten 14 Tage der Arbeitsunfähigkeit nicht, weil die Reduktionsmechanik und ihre Rundung nicht vollständig aus Primärquellen belegbar sind — ein erfundener Durchschnitt wäre schlechter als eine offen benannte Lücke.',
+            'Ebenso ist keine „durchschnittliche Krankheitsquote" eingebaut. Diese Version berechnet die tschechische Lohnfortzahlung für die ersten 14 Tage der Arbeitsunfähigkeit nicht — in Tschechien trägt der Arbeitgeber diese 14 Tage (§ 192 des tschechischen Arbeitsgesetzbuchs), nicht die sechs Wochen des deutschen Rechts —, weil die Reduktionsmechanik und ihre Rundung nicht vollständig aus Primärquellen belegbar sind — ein erfundener Durchschnitt wäre schlechter als eine offen benannte Lücke.',
           ],
         },
         {
@@ -199,7 +199,7 @@ export const DE_CALCULATORS: LocaleCorpus = {
             'Wer zahlt den Aufschlag auf die Mindestbemessungsgrundlage? Im Regelfall der Beschäftigte allein, abgeführt über den Arbeitgeber — die 13,5 % auf die Differenz werden nicht gedrittelt. Der Arbeitgeber trägt sie nur, wenn die niedrige Grundlage auf einem Hindernis aufseiten des Arbeitgebers beruht.',
             'Wird die Mindestbemessungsgrundlage bei Teilzeit gekürzt? Nein. Die tschechische Krankenkasse VZP stellt ausdrücklich fest, dass die Mindestgrundlage ohne Rücksicht auf die Dauer der Arbeitszeit gilt; ein Beschäftigter mit 20-Prozent-Vertrag steht der vollen Grenze von 22 400 CZK gegenüber. Die anteilige Kürzung nach Kalendertagen ist eine andere Regel und betrifft unvollständige Monate oder gesetzlich genannte Hindernisse.',
             'Was geschieht nach Erreichen der Höchstbemessungsgrundlage? Bei einem Beschäftigten mit nur einem tschechischen Arbeitgeber im Jahr zahlen weder Beschäftigter noch Arbeitgeber auf den Betrag über 2 350 416 CZK. Bei mehreren Arbeitgebern zahlt keiner weniger; der Beschäftigte fordert die Überzahlung zurück, der Arbeitgeberanteil wird nicht erstattet.',
-            'Wann kann das Netto höher sein als das Brutto? Wenn der Kinderfreibetrag die berechnete Steuer übersteigt und ein monatlicher tschechischer Steuerbonus entsteht. Er wird gezahlt, wenn er mindestens 50 CZK erreicht und das Monatseinkommen mindestens die Hälfte des tschechischen Mindestlohns beträgt, also 11 200 CZK für 2026. Der Bonus ist kein Lohn, sondern der ausgezahlte Teil eines Freibetrags.',
+            'Wann kann das Netto höher sein als das Brutto? Wenn die Kindersteuerermäßigung (daňové zvýhodnění na dítě) die berechnete Steuer übersteigt und ein monatlicher tschechischer Steuerbonus entsteht. Er wird gezahlt, wenn er mindestens 50 CZK erreicht und das Monatseinkommen mindestens die Hälfte des tschechischen Mindestlohns beträgt, also 11 200 CZK für 2026. Der Bonus ist kein Lohn, sondern der ausgezahlte Teil einer tschechischen Steuerermäßigung.',
             'Rechnet der Rechner DPP und DPČ? Nein. Diese tschechischen Vereinbarungen haben eigene Teilnahmeschwellen und eine eigene Besteuerung; diese Version schließt sie bewusst aus — eine teilweise Umsetzung lieferte Zahlen, die richtig aussehen und es nicht sind.',
             'Rechnet der Rechner vier Wochen Urlaub auf die Kosten auf? Nein, und das ist Absicht. Bei monatlicher Vergütung ist bezahlter Urlaub Teil der Vergütungsstruktur; ihn als weiteren Prozentsatz aufzuschlagen hieße, denselben Lohn doppelt zu zählen. Die Kosten der Vertretung lassen sich gesondert als Betriebskosten eintragen.',
           ],
