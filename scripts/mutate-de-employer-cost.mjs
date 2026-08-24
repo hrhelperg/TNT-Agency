@@ -209,6 +209,34 @@ const MUTATIONS = [
     from: "  if (input.isParent) {\n    // Only children from the SECOND count",
     to: "  if (input.isParent || !input.atLeast23) {\n    // Only children from the SECOND count",
   },
+  {
+    name: '22. the declared-case guard checks only the first element',
+    why:
+      'Returning inside the first iteration meant element 0 was the only one validated, so the same set of ' +
+      'declarations either threw or silently accepted a detected id depending on the order it was passed in.',
+    file: SCOPE,
+    from: "  const declared = input.declared ?? [];\n  for (const id of declared) {",
+    to: "  const declared = (input.declared ?? []).slice(0, 1);\n  for (const id of declared) {",
+  },
+  {
+    name: '23. the Steuerklasse VI second-employment warning removed',
+    why:
+      'Class VI ordinarily means a second job, and the ceilings work across employments — the case the registry ' +
+      'refuses as mehrfachbeschaeftigung. Without the warning the engine answers confidently for an employee whose ' +
+      'contributions it is likely overstating.',
+    file: ENGINE,
+    from: "  if (input.steuerklasse === 6) {",
+    to: "  if (false && input.steuerklasse === 6) {",
+  },
+  {
+    name: '24. the unproved-parenthood warning removed',
+    why:
+      'Steuerklasse II and a Kinderfreibetrag both presuppose a child. The engine correctly honours the proof flag, ' +
+      'but without the warning a contradictory ELStAM entry produces a confident number and no hint.',
+    file: ENGINE,
+    from: "  if (!input.care.isParent && (input.steuerklasse === 2 || Number(input.kinderfreibetraege) > 0)) {",
+    to: "  if (false && !input.care.isParent) {",
+  },
   // ── Privacy. Each of these three was written during review as an ATTEMPT to
   // defeat the gate, and the first two succeeded before it was strengthened.
   {

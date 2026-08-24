@@ -74,10 +74,18 @@ function stripComments(src: string): string {
  */
 function imports(rel: string): string[] {
   const src = stripComments(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
+  // Backticks included: a template-literal dynamic import — `await
+  // import(\`../../cz-employer-cost/${'engine'}\`)` — walked straight through an
+  // extractor that recognised only ' and ", and it works at runtime.
   const specs = Array.from(
-    src.matchAll(/(?:from|import)\s*\(?\s*['"]([^'"]+)['"]/g),
+    src.matchAll(/(?:from|import)\s*\(?\s*['"`]([^'"`]+)['"`]/g),
     (m) => m[1],
   );
+  // A dynamic import whose specifier is not a plain literal cannot be resolved
+  // statically, so it is refused outright rather than silently ignored.
+  if (/import\s*\(\s*[^'"`)]/.test(src)) {
+    specs.push('@@NON-LITERAL-DYNAMIC-IMPORT@@');
+  }
   return specs.map((s) => {
     if (!s.startsWith('.')) return s;
     return path.relative(ROOT, path.resolve(path.dirname(path.join(ROOT, rel)), s));
@@ -103,6 +111,21 @@ describe('§47 jurisdiction boundary', () => {
       expect(violations, violations.join('\n')).toEqual([]);
     });
 
+    it(`${engine.name}: its data registry imports no OTHER jurisdiction's data`, () => {
+      // Nothing looked at data/ -> data/. A German rule could carry a Czech
+      // statute as its legalBasis by importing the Czech registry, and that
+      // string is rendered to users on the methodology panel.
+      const violations: string[] = [];
+      for (const file of sourceFiles(engine.data)) {
+        for (const spec of imports(file)) {
+          for (const other of others) {
+            if (spec.startsWith(other.data)) violations.push(`${file} imports ${spec}`);
+          }
+        }
+      }
+      expect(violations, violations.join('\n')).toEqual([]);
+    });
+
     it(`${engine.name}: its data registry imports no engine at all`, () => {
       // A source registry states facts about law. It has no reason to reach into
       // any engine, and a registry that imports one can be made to depend on the
@@ -116,6 +139,28 @@ describe('§47 jurisdiction boundary', () => {
       expect(violations, violations.join('\n')).toEqual([]);
     });
   }
+
+  it('each calculator COMPONENT reaches only its own jurisdiction', () => {
+    // The component is what assembles what a user actually sees, and it sat
+    // outside every scanned directory — free to import the other engine, or the
+    // haléř money module, and render the result as German payroll.
+    const COMPONENTS: Array<[string, string, string]> = [
+      ['components/DeEmployerCostCalculator.tsx', 'de-employer-cost', 'cz-employer-cost'],
+      ['components/CzEmployerCostCalculator.tsx', 'cz-employer-cost', 'de-employer-cost'],
+    ];
+    const violations: string[] = [];
+    for (const [file, own, foreign] of COMPONENTS) {
+      if (!fs.existsSync(path.join(ROOT, file))) continue;
+      for (const spec of imports(file)) {
+        if (spec.includes(foreign)) violations.push(`${file} imports ${foreign}: ${spec}`);
+        // The German component must not reach the Czech money module either.
+        if (own === 'de-employer-cost' && /payroll\/money$/.test(spec)) {
+          violations.push(`${file} imports the Czech money module: ${spec}`);
+        }
+      }
+    }
+    expect(violations, violations.join('\n')).toEqual([]);
+  });
 
   it('the German engine never reaches the Czech payroll module', () => {
     // lib/payroll is not one of the two ENGINES directories, so nothing above
@@ -168,11 +213,20 @@ describe('§47 jurisdiction boundary', () => {
     // branches.ts, church-tax.ts, social.ts, health.ts. A gate that reads a
     // tenth of the code and reports a clean sweep is worse than none.
     //
-    // Translation files are the one exclusion, and for the original reason: the
-    // German calculator's Czech strings legitimately say "vyměřovací základ"
-    // because that IS the Czech for "assessment base". Speaking a language is
-    // not importing its law.
+    // TRANSLATED VALUES are stripped rather than whole files being excluded.
+    //
+    // The German calculator's Czech strings legitimately say "vyměřovací
+    // základ", because that IS the Czech for "assessment base" — speaking a
+    // language is not importing its law. But excluding a file wholesale because
+    // it contains translations would also stop scanning its legal-basis strings
+    // and its code, and unsupported.ts carries both.
+    //
+    // So only the VALUE of a locale field is removed: `cs:`, `labelCs:` and
+    // `reasonCs:`. Everything else in the file — every legalBasis, every
+    // identifier, every German or English string — is still read.
     const TRANSLATION_FILE = /\/(copy|notes-copy)\.tsx?$/i;
+    const stripTranslatedValues = (src: string) =>
+      src.replace(/\b(cs|labelCs|reasonCs)\s*:\s*(\n\s*)?'(?:[^'\\]|\\.)*'/g, '$1: <translated>');
     const FOREIGN: Array<[string, RegExp, string]> = [
       ['de-employer-cost', /zákon[ao]?\s+č\.|\bSb\.|vyměřovací|\bKč\b|ČSSZ|VZP/i, 'Czech legal vocabulary'],
       ['cz-employer-cost', /\bSGB\s+[IVX]+|Beitragsbemessungsgrenze|Programmablaufplan|Pflegeversicherung/i, 'German legal vocabulary'],
@@ -185,7 +239,9 @@ describe('§47 jurisdiction boundary', () => {
         if (TRANSLATION_FILE.test(file)) continue;
         const src = fs.readFileSync(path.join(ROOT, file), 'utf8');
         // Strip comments: prose explaining the boundary is not a breach of it.
-        const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+        const code = stripTranslatedValues(src)
+          .replace(/\/\*[\s\S]*?\*\//g, '')
+          .replace(/(^|[^:])\/\/.*$/gm, '$1');
         if (re.test(code)) violations.push(`${file} contains ${what}`);
       }
     }

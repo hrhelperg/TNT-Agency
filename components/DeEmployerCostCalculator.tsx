@@ -415,7 +415,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                       checked={declared.includes(c.id)}
                       onChange={() => toggleDeclared(c.id)}
                     />
-                    <span>{locale === 'de' ? c.labelDe : c.labelEn}</span>
+                    <span>{locale === 'de' ? c.labelDe : locale === 'cs' ? c.labelCs : c.labelEn}</span>
                   </label>
                 ))}
               </fieldset>
@@ -445,11 +445,21 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
               <div className="ecc__notes">
                 <h3>{tr(REFUSAL.heading)}</h3>
                 <p>
-                  <strong>{locale === 'de' ? outcome.case.labelDe : outcome.case.labelEn}</strong>
+                  <strong>
+                    {locale === 'de'
+                      ? outcome.case.labelDe
+                      : locale === 'cs'
+                        ? outcome.case.labelCs
+                        : outcome.case.labelEn}
+                  </strong>
                 </p>
                 <p>
                   {tr(REFUSAL.why)}{' '}
-                  {locale === 'de' ? outcome.case.reasonDe : outcome.case.reasonEn}
+                  {locale === 'de'
+                    ? outcome.case.reasonDe
+                    : locale === 'cs'
+                      ? outcome.case.reasonCs
+                      : outcome.case.reasonEn}
                 </p>
               </div>
             ) : (
@@ -609,7 +619,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
             <dt>{tr(METHODOLOGY.basisHealth)}</dt>
             <dd>{DE_RULES_2026.health.generalPercent.legalBasis}; § 242 SGB V; § 249 Absatz 1 SGB V</dd>
             <dt>{tr(METHODOLOGY.basisCare)}</dt>
-            <dd>§ 55 Absatz 1 und 3 SGB XI; § 58 SGB XI</dd>
+            <dd>{DE_RULES_2026.care.basePercent.legalBasis}; § 55 Absatz 3 SGB XI; § 58 SGB XI</dd>
             <dt>{tr(METHODOLOGY.basisLevies)}</dt>
             <dd>{DE_RULES_2026.insolvencyLevy.percent.legalBasis}; § 1, § 7 AAG; §§ 150, 153 SGB VII</dd>
             <dt>{tr(METHODOLOGY.basisTax)}</dt>

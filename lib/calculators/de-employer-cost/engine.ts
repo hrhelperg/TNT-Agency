@@ -166,6 +166,13 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
     notes.push({ key: 'u1.notApplicable', severity: 'info', text: 'de.note.u1OverThirty' });
   }
   levies.push(aagLevy('u2', gross, input.employer.u2Percent));
+  if (Number(input.employer.u2Percent) === 0) {
+    // § 1 Absatz 2 AAG makes U2 compulsory for EVERY employer without
+    // exception, so a zero rate is a missing input rather than a real one — the
+    // same situation as a missing accident-insurance figure, and it now warns
+    // in the same way.
+    notes.push({ key: 'u2.missing', severity: 'warning', text: 'de.note.u2Missing' });
+  }
   if (input.employer.accidentMonthlyCent > 0n) {
     levies.push(accidentInsurance(input.employer.accidentMonthlyCent));
   } else {
@@ -212,6 +219,22 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
     workplace: input.workplace,
     liable: input.churchTaxLiable,
   });
+
+  // Steuerklasse VI ordinarily means a SECOND employment, and the ceilings work
+  // across all of them — which is precisely the case the registry refuses as
+  // `mehrfachbeschaeftigung`. It is not certain (class VI also arises on a first
+  // job when no tax ID is supplied), so this warns rather than refuses.
+  if (input.steuerklasse === 6) {
+    notes.push({ key: 'stkl6.secondJob', severity: 'warning', text: 'de.note.stkl6SecondJob' });
+  }
+
+  // Class II presupposes a child, and a Kinderfreibetrag is only granted for
+  // one — yet parenthood is recorded as unproved. The engine honours what it is
+  // told, because § 55 Absatz 3a SGB XI makes the PROOF the entitlement, but the
+  // combination is worth pointing at.
+  if (!input.care.isParent && (input.steuerklasse === 2 || Number(input.kinderfreibetraege) > 0)) {
+    notes.push({ key: 'care.proofMissing', severity: 'warning', text: 'de.note.parenthoodUnproved' });
+  }
 
   if (kirchensteuer.kappungUnmodelled && input.churchTaxLiable) {
     notes.push({

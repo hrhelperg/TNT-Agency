@@ -40,15 +40,22 @@ export type ScopeResult =
  * a one-cent boundary that a `<` in the wrong place gets backwards.
  */
 export function checkScope(input: ScopeInput): ScopeResult {
-  for (const id of input.declared ?? []) {
+  // EVERY declared id is validated before any is acted on. The loop used to
+  // return inside its first iteration, so only element 0 was ever checked: the
+  // same set of declarations either threw or silently accepted a bad entry
+  // depending on the order the caller happened to pass them in.
+  const declared = input.declared ?? [];
+  for (const id of declared) {
     const c = unsupportedCase(id);
     if (c.kind !== 'declared') {
-      // A declared id that is registered as detected means the caller and the
-      // registry disagree about how this case is discovered, which is a
-      // programming error worth surfacing rather than silently accepting.
+      // A declared id registered as detected means the caller and the registry
+      // disagree about how this case is discovered — a programming error worth
+      // surfacing rather than silently accepting.
       throw new Error(`de-employer-cost: "${id}" is a detected case, not a declarable one`);
     }
-    return { supported: false, case: c };
+  }
+  if (declared.length > 0) {
+    return { supported: false, case: unsupportedCase(declared[0]) };
   }
 
   const gross = input.monthlyGrossCent;

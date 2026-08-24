@@ -302,6 +302,21 @@ export const NOTE_TEXT: Record<string, Copy> = {
     en: 'Without accident insurance the employer cost is incomplete. The trade association charges it from its own risk tariff, and it is specific to the business — it cannot be estimated here.',
     cs: 'Bez úrazového pojištění jsou náklady zaměstnavatele neúplné. Pojistné vyměřuje profesní sdružení podle rizikového tarifu a je individuální — nelze je zde odhadnout.',
   },
+  'de.note.stkl6SecondJob': {
+    de: 'Steuerklasse VI steht in der Regel für ein zweites Dienstverhältnis. Die Beitragsbemessungsgrenzen wirken über alle Beschäftigungen zusammen, und dieser Rechner sieht nur diese eine — die Beiträge können daher zu hoch ausgewiesen sein.',
+    en: 'Tax class VI normally means a second job. The contribution ceilings work across all employments and this calculator sees only one, so the contributions may be overstated.',
+    cs: 'Daňová třída VI zpravidla znamená druhý pracovní poměr. Stropy pro odvody působí přes všechna zaměstnání dohromady a kalkulačka vidí jen toto jedno — pojistné proto může být nadhodnoceno.',
+  },
+  'de.note.parenthoodUnproved': {
+    de: 'Steuerklasse II oder ein Kinderfreibetrag setzt ein Kind voraus, die Elterneigenschaft ist hier aber nicht als nachgewiesen angegeben. Ohne Nachweis fällt der Zuschlag für Kinderlose an (§ 55 Absatz 3a SGB XI). Bitte prüfen, ob der Nachweis vorliegt.',
+    en: 'Tax class II, or a child allowance, presupposes a child — but parenthood is not marked as proved here. Without proof the childless surcharge applies (§ 55 Absatz 3a SGB XI). Please check whether the proof is on file.',
+    cs: 'Daňová třída II nebo úleva na dítě předpokládá dítě, rodičovství zde ale není označeno jako doložené. Bez doložení se uplatní příplatek pro bezdětné (§ 55 odst. 3a SGB XI). Zkontrolujte prosím, zda je doklad k dispozici.',
+  },
+  'de.note.u2Missing': {
+    de: 'Ohne U2-Satz sind die Arbeitgeberkosten unvollständig. Die Umlage U2 ist nach § 1 Absatz 2 AAG für jeden Arbeitgeber verpflichtend; den Satz legt die Krankenkasse in ihrer Satzung fest.',
+    en: 'Without a U2 rate the employer cost is incomplete. Levy U2 is compulsory for every employer under § 1 Absatz 2 AAG; the rate is set by the health fund in its own rules.',
+    cs: 'Bez sazby U2 jsou náklady zaměstnavatele neúplné. Odvod U2 je podle § 1 odst. 2 AAG povinný pro každého zaměstnavatele; sazbu stanoví zdravotní pojišťovna ve svých stanovách.',
+  },
   'de.note.kappungNotModelled': {
     de: 'Die Kappung der Kirchensteuer-Progression ist nicht berücksichtigt. Sie wird in der Regel erst bei der Veranlagung und meist auf Antrag gewährt; der Arbeitgeber behält den ungekappten Betrag ein.',
     en: 'The cap on church-tax progression is not applied. It is generally granted in the annual assessment and usually on application; the employer withholds the uncapped amount.',
@@ -498,9 +513,9 @@ export const METHODOLOGY: Record<string, Copy> = {
     cs: 'Hranice povinné účasti ve zdravotním pojištění (není strop pro odvody), ročně',
   },
   minijobThreshold: {
-    de: 'Geringfügigkeitsgrenze — darunter wird nicht gerechnet',
-    en: 'Minijob threshold — below this nothing is calculated',
-    cs: 'Hranice minijobu — pod ní se nepočítá',
+    de: 'Geringfügigkeitsgrenze — bis einschließlich hierhin wird nicht gerechnet',
+    en: 'Minijob threshold — up to and including this nothing is calculated',
+    cs: 'Hranice minijobu — až sem včetně se nepočítá',
   },
   transitionThreshold: {
     de: 'Obergrenze des Übergangsbereichs — bis einschließlich hierhin wird nicht gerechnet',

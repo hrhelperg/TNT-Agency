@@ -200,6 +200,62 @@ describe('employer-side options', () => {
   });
 });
 
+describe('situations the engine answers but must flag', () => {
+  const notes = (over: Partial<DeEmployerCostInput>) => ok(over).notes.map((n) => n.key);
+
+  it('warns that Steuerklasse VI usually means a second employment', () => {
+    // The ceilings work across employments, which is exactly the case the
+    // registry refuses as `mehrfachbeschaeftigung`. Class VI can also arise on a
+    // first job with no tax ID, so this warns rather than refuses.
+    expect(notes({ steuerklasse: 6 })).toContain('stkl6.secondJob');
+    expect(notes({ steuerklasse: 1 })).not.toContain('stkl6.secondJob');
+    const warn = ok({ steuerklasse: 6 }).notes.find((n) => n.key === 'stkl6.secondJob');
+    expect(warn?.severity).toBe('warning');
+  });
+
+  it('warns when a child is presupposed but parenthood is unproved', () => {
+    const unproved = { childrenUnder25: 0, isParent: false, atLeast23: true };
+    const proved = { childrenUnder25: 1, isParent: true, atLeast23: true };
+    // Class II presupposes a child; a Kinderfreibetrag is granted only for one.
+    expect(notes({ steuerklasse: 2, care: unproved })).toContain('care.proofMissing');
+    expect(notes({ kinderfreibetraege: '2', care: unproved })).toContain('care.proofMissing');
+    // Proved, or neither signal present: no warning.
+    expect(notes({ steuerklasse: 2, care: proved })).not.toContain('care.proofMissing');
+    expect(notes({ steuerklasse: 1, care: unproved })).not.toContain('care.proofMissing');
+  });
+
+  it('warns that a zero U2 rate leaves employer cost incomplete', () => {
+    // § 1 Absatz 2 AAG makes U2 compulsory for every employer without
+    // exception, so a zero rate is a missing input rather than a real one.
+    expect(notes({ employer: { ...base.employer, u2Percent: '0' } })).toContain('u2.missing');
+    expect(notes({ employer: { ...base.employer, u2Percent: '0.24' } })).not.toContain('u2.missing');
+  });
+});
+
+describe('every declared case is validated, not just the first', () => {
+  it('rejects a detected id wherever it sits in the array', () => {
+    // The loop used to return inside its first iteration, so element 0 was the
+    // only one ever checked and the same set either threw or was silently
+    // accepted depending on the order it was passed in.
+    for (const declared of [
+      ['minijob', 'pkv'],
+      ['pkv', 'minijob'],
+      ['pkv', 'beamte', 'uebergangsbereich'],
+    ]) {
+      expect(
+        () => calculateDeEmployerCost({ ...base, declared }),
+        `declared ${declared.join(',')}`,
+      ).toThrow(/detected/);
+    }
+  });
+
+  it('still refuses on the first declared case when all are valid', () => {
+    const r = calculateDeEmployerCost({ ...base, declared: ['pkv', 'beamte'] });
+    expect(r.supported).toBe(false);
+    if (r.supported === false && r.reason === 'unsupported') expect(r.case.id).toBe('pkv');
+  });
+});
+
 describe('above the ceilings', () => {
   it('employer cost keeps rising with gross even where contributions stop', () => {
     // The contributions plateau; the gross does not. A calculator that caps the

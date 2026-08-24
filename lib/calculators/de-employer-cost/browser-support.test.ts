@@ -54,15 +54,13 @@ const BIGINT_SINCE: Record<string, number> = {
  * Adding one is a claim that the audience does not matter for this page.
  */
 const ACCEPTED_WITHOUT_BIGINT: Record<string, string> = {
-  kaios:
-    'KaiOS 2.5 is Firefox 48 and has no BigInt. It is a feature-phone platform with no plausible ' +
-    'overlap with a German employer-cost calculator, and the page still serves its prose there.',
-  and_uc:
-    'UC Browser reports a product version, not an engine version; current builds are Chromium-based ' +
-    'and do have BigInt. Listed because the version string cannot be checked mechanically.',
-  and_qq:
-    'QQ Browser, same reasoning as UC: the reported version is the product’s, and current builds are ' +
-    'Chromium-based.',
+  'chrome 64': 'Released January 2018; BigInt arrived in Chrome 67, four months later. Residual share is negligible and the page still serves its prose.',
+  'firefox 67': 'Released May 2019; BigInt arrived in Firefox 68 the following month. Negligible residual share.',
+  'opera 51': 'Chromium 64 under a different name, and superseded by Opera 54 in 2018. Negligible residual share.',
+  'safari 12':
+    'The one with real residual usage — iOS 12, released 2018, on hardware that can no longer update. ' +
+    'It is also the one where the cost is clearest: the form renders and does not respond. Accepted ' +
+    'because the alternative fixes three pages by breaking the other 276 on the same browsers.',
 };
 
 describe.skipIf(!fs.existsSync(BUILD))('BigInt reaches only the pages that need it', () => {
@@ -110,52 +108,94 @@ describe.skipIf(!fs.existsSync(BUILD))('BigInt reaches only the pages that need 
   });
 });
 
-describe('the build targets no browser that would fail to parse it', () => {
-  it('every browserslist target supports BigInt, or is an accepted exception', async () => {
-    // Resolved through browserslist itself rather than read from package.json,
-    // because none is declared and the resolution is what actually governs the
-    // emitted output.
-    // Resolved by running browserslist itself, because none is declared in
-    // package.json and the resolution is what actually governs the emitted
-    // output. It is a nested dependency of Next rather than a direct one, so a
-    // bare import does not find it — asking the CLI is both simpler and closer
-    // to what the build does.
-    let resolved: string[];
-    try {
-      const { execFileSync } = await import('node:child_process');
-      resolved = execFileSync('npx', ['--no-install', 'browserslist'], {
-        cwd: ROOT,
-        encoding: 'utf8',
-        stdio: ['ignore', 'pipe', 'ignore'],
-      })
-        .split('\n')
-        .map((l) => l.trim())
-        .filter(Boolean);
-    } catch (err) {
-      // Silently passing would be the failure mode this file exists to avoid.
-      throw new Error(`browserslist did not resolve, so the browser-target claim cannot be checked: ${String(err)}`);
-    }
-    expect(resolved.length, 'browserslist resolved to nothing').toBeGreaterThan(5);
+describe('the browser floor is stated, not assumed', () => {
+  /**
+   * THE TARGET IS NEXT'S, NOT BROWSERSLIST'S.
+   *
+   * The first version of this gate ran `npx browserslist` and passed. That was
+   * measuring the wrong thing: browserslist with no configuration resolves
+   * `defaults` (chrome 109+, safari 26+), but Next IGNORES that when the project
+   * declares nothing and compiles against its own MODERN_BROWSERSLIST_TARGET.
+   * The gate therefore asserted a property of a list the build never consulted,
+   * and passed vacuously.
+   *
+   * Next's actual target is chrome 64, edge 79, firefox 67, opera 51, safari 12.
+   * BigInt arrived in chrome 67, edge 79, firefox 68, opera 54, safari 14. So
+   * FOUR of the five targeted browsers cannot parse the calculator's chunk.
+   *
+   * That is recorded here rather than hidden, because it is a real and knowing
+   * limitation:
+   *
+   *   • the chunk is loaded by the three calculator routes and nothing else, so
+   *     no other page on the site is affected — asserted above;
+   *   • on those browsers the page still serves its full server-rendered prose,
+   *     which is the substance and what a crawler reads;
+   *   • the form renders and does not respond, which is worse than absent and is
+   *     the actual cost.
+   *
+   * The alternatives were weighed and rejected. Removing BigInt is not possible:
+   * the Programmablaufplan's intermediates exceed 2^53 (the tariff carries Y to
+   * six places and squares it). Declaring a modern browserslist would fix these
+   * three pages by dropping the other 276 off the same browsers. Loading the
+   * calculator behind a BigInt guard would work but makes the form client-only
+   * for everyone, a real regression for ~99.9 % to serve ~0.1 %.
+   *
+   * So the gate's job is to keep the exposure from GROWING: the set of targeted
+   * browsers without BigInt must stay exactly this, and the chunk must stay
+   * confined to these three routes.
+   */
+  const EXPECTED_WITHOUT_BIGINT = ['chrome 64', 'firefox 67', 'opera 51', 'safari 12'];
 
+  const nextTarget = (): string[] => {
+    const { createRequire } = require('node:module') as typeof import('node:module');
+    const req = createRequire(__filename);
+    const { MODERN_BROWSERSLIST_TARGET } = req('next/dist/shared/lib/constants') as {
+      MODERN_BROWSERSLIST_TARGET: string[];
+    };
+    return MODERN_BROWSERSLIST_TARGET;
+  };
+
+  it('reads the target the BUILD uses, and it is not empty', () => {
+    const target = nextTarget();
+    expect(target.length, 'Next exposed no browser target').toBeGreaterThan(0);
+    // If Next ever starts honouring a declared browserslist, this is where that
+    // shows up — the two must agree or the gate is measuring the wrong list again.
+    const declared = JSON.parse(
+      fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'),
+    ) as { browserslist?: unknown };
+    expect(
+      declared.browserslist,
+      'a browserslist is now declared — this gate must be re-pointed at it, because Next would then use it',
+    ).toBeUndefined();
+  });
+
+  it('the set of targeted browsers without BigInt is exactly the recorded one', () => {
     const failures: string[] = [];
-    for (const entry of resolved) {
+    for (const entry of nextTarget()) {
       const [name, versionRange] = entry.split(' ');
-      if (ACCEPTED_WITHOUT_BIGINT[name]) continue;
       const version = Number(String(versionRange).split('-')[0]);
-      if (!Number.isFinite(version)) continue;
+      // NO_BIGINT_EVER is checked FIRST: an unparseable version ("all", as
+      // op_mini reports) must not skip a browser this file already declares has
+      // no BigInt in any version.
       if (NO_BIGINT_EVER.has(name)) {
-        failures.push(`${entry} has no BigInt in any version`);
+        failures.push(entry);
+        continue;
+      }
+      if (!Number.isFinite(version)) {
+        failures.push(`${entry} (unparseable version — cannot be shown to support BigInt)`);
         continue;
       }
       const since = BIGINT_SINCE[name];
-      if (since !== undefined && version < since) {
-        failures.push(`${entry} lacks BigInt (needs >= ${since})`);
+      if (since === undefined) {
+        failures.push(`${entry} (unknown engine — no BigInt data)`);
+        continue;
       }
+      if (version < since) failures.push(entry);
     }
-    expect(failures, failures.join('\n')).toEqual([]);
+    expect(failures.sort()).toEqual([...EXPECTED_WITHOUT_BIGINT].sort());
   });
 
-  it('records why each exception is accepted', () => {
+  it('records what that costs and why it is accepted', () => {
     for (const [name, why] of Object.entries(ACCEPTED_WITHOUT_BIGINT)) {
       expect(why.length, `${name} has no stated reason`).toBeGreaterThan(60);
     }

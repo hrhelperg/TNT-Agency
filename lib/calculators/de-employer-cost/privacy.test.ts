@@ -52,7 +52,48 @@ const DATA_FILES = [
   'data/calculators/de-employer-cost/types.ts',
 ];
 
-const ALL = [COMPONENT, ...ENGINE_FILES, ...DATA_FILES];
+/**
+ * Everything the component can actually reach, followed transitively.
+ *
+ * The list used to be two hard-coded directories, which meant a leak in any NEW
+ * module the component imports was never scanned at all — a literal `fetch()`
+ * to an external host in `components/helper.ts` would have passed all 377
+ * assertions. The set of files that matter is not a directory, it is the import
+ * closure of the component, so that is what is computed.
+ */
+function importClosure(entry: string): string[] {
+  const seen = new Set<string>();
+  const queue = [entry];
+  while (queue.length) {
+    const rel = queue.shift()!;
+    if (seen.has(rel)) continue;
+    const abs = path.join(ROOT, rel);
+    if (!fs.existsSync(abs)) continue;
+    seen.add(rel);
+    const src = fs.readFileSync(abs, 'utf8');
+    for (const m of src.matchAll(/(?:from|import)\s*\(?\s*['"`]([^'"`]+)['"`]/g)) {
+      const spec = m[1];
+      if (!spec.startsWith('.')) continue; // node_modules and framework are not ours
+      const resolvedBase = path.relative(ROOT, path.resolve(path.dirname(abs), spec));
+      for (const cand of [
+        resolvedBase,
+        `${resolvedBase}.ts`,
+        `${resolvedBase}.tsx`,
+        `${resolvedBase}/index.ts`,
+        `${resolvedBase}/index.tsx`,
+      ]) {
+        if (fs.existsSync(path.join(ROOT, cand)) && fs.statSync(path.join(ROOT, cand)).isFile()) {
+          queue.push(cand);
+          break;
+        }
+      }
+    }
+  }
+  return [...seen];
+}
+
+const CLOSURE = importClosure(COMPONENT);
+const ALL = Array.from(new Set([COMPONENT, ...ENGINE_FILES, ...DATA_FILES, ...CLOSURE]));
 
 /**
  * Strip comments so prose ABOUT `fetch` cannot fail a code assertion.
@@ -132,6 +173,19 @@ describe('every file exists — the list cannot silently stop covering things', 
       expect(fs.existsSync(path.join(ROOT, f)), f).toBe(true);
     });
   }
+
+  it('scans every module the component can reach, however new', () => {
+    // The hand-written lists are kept as a floor; the closure is the ceiling.
+    // If the component grows a dependency in a directory nobody thought of,
+    // this is what puts it under the rules rather than outside them.
+    expect(CLOSURE.length, 'the import closure is implausibly small').toBeGreaterThan(5);
+    expect(CLOSURE).toContain(COMPONENT);
+    for (const f of ENGINE_FILES) {
+      if (/copy|types|unsupported|decimal|formatting|scope|validation|engine|bvv|branches|pap-2026|church-tax/.test(f)) {
+        expect(CLOSURE, `${f} is not reachable from the component`).toContain(f);
+      }
+    }
+  });
 
   it('covers every non-test source file in the engine', () => {
     const found: string[] = [];
@@ -236,7 +290,16 @@ describe('nothing financial or personal can reach a URL', () => {
    * place, and that place is a constant.
    */
   it('every href is a constant, so no path segment can carry a value', () => {
-    const exprs = Array.from(src.matchAll(/href=(\{[^}]*\}|"[^"]*")/g), (m) => m[1].trim());
+    // A JSX ATTRIBUTE spread defeats a rule that looks for the literal
+    // characters `href=`, so it is refused. Scoped to a spread inside an
+    // opening tag: ordinary object and array spreads (`{ ...r }` in a state
+    // updater, `[...current, id]`) are not attribute carriers and are used
+    // legitimately in this file.
+    expect(
+      /<[A-Za-z][^>]*\{\s*\.\.\./s.test(src),
+      'a JSX attribute spread can carry any attribute past the href rules',
+    ).toBe(false);
+    const exprs = Array.from(src.matchAll(/href=(\{[^}]*\}|"[^"]*")/gi), (m) => m[1].trim());
     expect(exprs.length, 'no href found — has the cross-link gone?').toBeGreaterThan(0);
     const ALLOWED = new Set(['{CROSS_LINK_PATH[locale]}']);
     for (const e of exprs) {
@@ -286,7 +349,11 @@ describe('no external origin can be referenced at all', () => {
 
   it('references no request-issuing attribute or API', () => {
     const SINKS: Array<[string, RegExp]> = [
-      ['src attribute', /\bsrc\s*=/],
+      // Case-INSENSITIVE, and xlink included: `xlinkHref` on an SVG <use>
+      // issues a real request on render and matched neither the href rules nor
+      // the `src=` sink while both were anchored on lowercase.
+      ['src attribute', /\bsrc\s*=/i],
+      ['xlink', /xlink/i],
       ['srcSet', /\bsrcSet\b/i],
       ['poster', /\bposter\s*=/],
       ['<link> preload', /rel\s*=\s*["'{]?\s*(preload|prefetch|preconnect)/i],
@@ -394,6 +461,11 @@ describe('no external origin can be referenced at all', () => {
       ['document.cookie', /document\s*\.\s*cookie/],
       ['any window access', /\bwindow\s*\./],
       ['any document access', /\bdocument\s*\./],
+      // The aliases. `globalThis.name = net` parks the wage in window.name for
+      // the analytics bundle without the string "window" appearing anywhere.
+      ['globalThis', /\bglobalThis\b/],
+      ['self / top / parent / frames', /\b(self|top|parent|frames)\s*\./],
+      ['bracket access to a global', /\b(globalThis|window|self|top)\s*\[/],
     ];
     for (const [label, re] of AMBIENT) {
       expect(re.test(src), `${label} is written by the calculator`).toBe(false);
@@ -412,14 +484,46 @@ describe('no external origin can be referenced at all', () => {
    * varies, and it carries a fixed vocabulary of three words, none of them
    * derived from an input.
    */
-  it('puts no computed value into a data attribute', () => {
-    const attrs = Array.from(src.matchAll(/\b(data-[a-z-]+)\s*=\s*(\{[^}]*\}|"[^"]*")/g), (m) => [m[1], m[2]] as const);
+  it('the stylesheet cannot read a value out of this component', () => {
+    // The conspirator half. The data-attribute rule exists because an attribute
+    // plus one CSS attribute-selector rule exfiltrates digit by digit through
+    // background-image — and styles.css was read by no test at all, so only
+    // half the conspiracy was ever inspected.
+    const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
+    const eccRules = css.split('}').filter((r) => /\.ecc/.test(r));
+    for (const rule of eccRules) {
+      // One attribute selector is allowed by name: data-severity, whose values
+      // are a fixed vocabulary of three words set by the engine and never
+      // derived from an input. Any other attribute selector could pair with an
+      // attribute carrying a figure.
+      const selector = rule.split('{')[0];
+      const attrSelectors = Array.from(selector.matchAll(/\[([a-zA-Z-]+)/g), (m) => m[1]);
+      for (const a of attrSelectors) {
+        expect(a, `an attribute selector on .ecc other than data-severity: ${selector.trim()}`).toBe('data-severity');
+      }
+      expect(/url\s*\(/i.test(rule), `.ecc rule issues a request: ${rule.trim().slice(0, 80)}`).toBe(false);
+    }
+  });
+
+  it('puts no computed value into any attribute that CSS or a URL can read', () => {
+    // Not just data-*: className, id, title and aria-* are all selectable and
+    // all can carry a number.
+    const ATTR = /\b(data-[a-z-]+|className|id|title|aria-[a-z-]+)\s*=\s*(\{[^}]*\}|"[^"]*")/g;
+    const attrs = Array.from(src.matchAll(ATTR), (m) => [m[1], m[2]] as const);
     for (const [name, value] of attrs) {
       if (name === 'data-severity') {
         expect(value, 'data-severity must carry the note severity and nothing else').toBe('{n.severity}');
         continue;
       }
-      expect(/^"[a-z-]*"$/.test(value), `${name} carries a computed value: ${value}`).toBe(true);
+      // Allowed dynamic values: a locale-keyed lookup and a loop key. Neither
+      // can carry a figure, and both are named rather than pattern-matched.
+      const ALLOWED_DYNAMIC = new Set(['{LANG[locale]}', '{c.key}', '{n.key}', '{i.field}', '{k}', '{b}', '{c.id}']);
+      if (ALLOWED_DYNAMIC.has(value)) continue;
+      // A translation lookup. `tr(FIELD.u1)` resolves to a fixed sentence from
+      // copy.ts and cannot carry a figure — the copy module holds no input and
+      // is itself inside this gate's file list.
+      if (/^\{tr\([A-Z_]+(\.[A-Za-z0-9_]+)?\)\}$/.test(value)) continue;
+      expect(/^"[a-zA-Z0-9 _-]*"$/.test(value), `${name} carries a computed value: ${value}`).toBe(true);
     }
   });
 

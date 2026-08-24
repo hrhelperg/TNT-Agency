@@ -18,9 +18,15 @@
  * description, so the search snippet carries it unanchored and the anchor is
  * somewhere the reader may never reach.
  *
- * THE RULE. Czech jurisdiction must be explicit AT OR BEFORE the first legally
- * loaded use, reading the page in the order a reader meets it: description,
- * then intro, then each section heading and body in turn.
+ * THE RULE. The jurisdiction the page is ABOUT must be explicit AT OR BEFORE the
+ * first legally loaded use, reading the page in the order a reader meets it:
+ * description, then intro, then each section heading and body in turn.
+ *
+ * For almost every page here that jurisdiction is Czech, because this is a
+ * Czech agency writing in German. It is not universal: the Germany
+ * employer-cost calculator's German page is German payroll in German, and
+ * demanding a Czech anchor there would require a false statement. See
+ * GERMAN_JURISDICTION below.
  *
  * This gate does not ask for new legal claims. Anchoring means naming the
  * country whose law is meant — never adding a licence, a permit number, or a
@@ -66,6 +72,29 @@ const LOADED = [
 
 /** Anything that names Czechia or Czech law. */
 const ANCHOR = /tschechisch\w*|Tschechien|Tschechische[nrs]?\s|TschechischeR?epublik/i
+
+/**
+ * Concepts whose subject is GERMAN law, not Czech law explained in German.
+ *
+ * The gate was built when every German-language page on this site described
+ * Czech law, so "anchored" could only mean "names Czechia". That assumption
+ * stopped being true when the Germany employer-cost calculator shipped: its
+ * German page IS German payroll, and demanding a Czech anchor on it would
+ * require a false statement — the gate would produce the contamination it
+ * exists to prevent.
+ *
+ * So the rule generalises to what it always meant: a legally loaded term must
+ * be anchored to the jurisdiction the page is actually about, before the reader
+ * meets it. For these concepts that anchor is Germany.
+ */
+const GERMAN_JURISDICTION = new Set(['germany-employer-cost-calculator'])
+const GERMAN_ANCHOR = /deutsch\w*|Deutschland|Bundesrepublik|SGB\s|EStG|BMF/i
+
+/** The anchor a given concept must carry, and what to call it in a message. */
+const anchorFor = (conceptId) =>
+  GERMAN_JURISDICTION.has(conceptId)
+    ? { re: GERMAN_ANCHOR, country: 'German' }
+    : { re: ANCHOR, country: 'Czech' }
 
 /**
  * Named institutions, which the page-level ordering rule cannot protect.
@@ -149,21 +178,22 @@ export function auditJurisdiction({ corpus } = {}) {
     if (firstLoaded === -1) continue
     carryingLoaded++
 
-    const anchorIdx = units.findIndex(([, text]) => text && ANCHOR.test(text))
+    const { re: anchorRe, country } = anchorFor(concept.id)
+    const anchorIdx = units.findIndex(([, text]) => text && anchorRe.test(text))
     const why = EXEMPT.get(concept.id)
 
     if (anchorIdx === -1) {
       if (why) notes.push(`de/${concept.id}: unanchored, exempt — ${why}`)
       else
         errors.push(
-          `de/${concept.id} (${R.urlFor(concept, 'de')}): uses "${loadedTerm}" at ${loadedWhere} and names no Czech ` +
+          `de/${concept.id} (${R.urlFor(concept, 'de')}): uses "${loadedTerm}" at ${loadedWhere} and names no ${country} ` +
             `jurisdiction anywhere on the page — a German reader has no way to know which country's rules are meant`,
         )
     } else if (anchorIdx > firstLoaded) {
       if (why) notes.push(`de/${concept.id}: late anchor, exempt — ${why}`)
       else
         errors.push(
-          `de/${concept.id} (${R.urlFor(concept, 'de')}): uses "${loadedTerm}" at ${loadedWhere} but the Czech anchor ` +
+          `de/${concept.id} (${R.urlFor(concept, 'de')}): uses "${loadedTerm}" at ${loadedWhere} but the ${country} anchor ` +
             `first appears at ${units[anchorIdx][0]} — the loaded term is read before the jurisdiction is given` +
             (loadedWhere === 'description' ? ' (and the description is the search snippet)' : ''),
         )
