@@ -56,9 +56,24 @@ function sourceFiles(rel: string): string[] {
   return out;
 }
 
-/** Import specifiers in a file, resolved to a repo-relative path where relative. */
+/** Strip comments, preserving line count so reported positions stay true. */
+function stripComments(src: string): string {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ''))
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
+
+/**
+ * Import specifiers in a file, resolved to a repo-relative path where relative.
+ *
+ * Comments are stripped first. Without that, prose EXPLAINING the boundary trips
+ * it: the German types file says in so many words that importing
+ * `'../cz-employer-cost'` would be a breach, and the extractor read the quoted
+ * example as an actual import. A gate that fails on its own documentation is a
+ * gate people learn to ignore.
+ */
 function imports(rel: string): string[] {
-  const src = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+  const src = stripComments(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
   const specs = Array.from(
     src.matchAll(/(?:from|import)\s*\(?\s*['"]([^'"]+)['"]/g),
     (m) => m[1],
