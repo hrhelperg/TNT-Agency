@@ -118,16 +118,16 @@ export const DE_CALCULATORS: LocaleCorpus = {
               'Grundermäßigung für Steuerpflichtige (sleva na poplatníka) 2 570 CZK monatlich',
               'Invalidität 1. und 2. Grades 210 CZK, 3. Grades 420 CZK monatlich',
               'Inhaber eines tschechischen ZTP/P-Ausweises 1 345 CZK monatlich',
-              'Kindersteuerermäßigung (daňové zvýhodnění na dítě) 1 267 / 1 860 / 2 320 CZK nach Reihenfolge, bei einem Kind mit ZTP/P-Ausweis das Doppelte',
+              'Kindersteuerermäßigung 1 267 / 1 860 / 2 320 CZK nach Reihenfolge, bei einem Kind mit ZTP/P-Ausweis das Doppelte',
             ],
           },
         },
         {
           heading: 'Der tschechische Steuerbonus für Kinder',
           body: [
-            'Übersteigt die Kindersteuerermäßigung (daňové zvýhodnění na dítě) die berechnete Steuer, wird die Differenz zum monatlichen tschechischen Steuerbonus, den der Arbeitgeber an den Beschäftigten auszahlt. Ein Bonus ist kein Lohn, und der Rechner bezeichnet ihn nie so — er ist der ausgezahlte Teil einer tschechischen Steuerermäßigung.',
+            'Übersteigt die Kindersteuerermäßigung die berechnete Steuer, wird die Differenz zum monatlichen tschechischen Steuerbonus, den der Arbeitgeber an den Beschäftigten auszahlt. Ein Bonus ist kein Lohn, und der Rechner bezeichnet ihn nie so — er ist der ausgezahlte Teil einer tschechischen Steuerermäßigung.',
             'Ausgezahlt wird er nur, wenn zwei Bedingungen zusammentreffen: Der Bonus muss mindestens 50 CZK betragen, und das Monatseinkommen bei diesem Zahler muss mindestens die Hälfte des tschechischen Mindestlohns erreichen, also 11 200 CZK für 2026 (§ 35d Abs. 4). Eine Obergrenze für den Bonus gibt es nicht.',
-            'Bei niedrigeren Löhnen mit mehreren Kindern kann der Nettobetrag daher über dem Bruttobetrag liegen. Das ist kein Rechenfehler, sondern genau der Zweck des Kindersteuerermäßigung (daňové zvýhodnění na dítě).',
+            'Bei niedrigeren Löhnen mit mehreren Kindern kann der Nettobetrag daher über dem Bruttobetrag liegen. Das ist kein Rechenfehler, sondern genau der Zweck des Kindersteuerermäßigung.',
           ],
         },
         {
@@ -148,7 +148,7 @@ export const DE_CALCULATORS: LocaleCorpus = {
             items: [
               'Sozialversicherung von Arbeitnehmer und Arbeitgeber einschließlich der Jahreshöchstgrenze',
               'Krankenversicherung einschließlich Mindestbemessungsgrundlage und Zuordnung des Aufschlags',
-              'Steuervorauszahlung nach § 38h, Steuerermäßigungen und Kindersteuerermäßigung (daňové zvýhodnění na dítě)',
+              'Steuervorauszahlung nach § 38h, Steuerermäßigungen und Kindersteuerermäßigung',
               'Quellensteuer dort, wo das tschechische Recht sie vorsieht',
               'Arbeitgeberermäßigung bei verkürzter Arbeitszeit, soweit ihre Voraussetzungen messbar sind',
               'Ermäßigung für erwerbstätige Altersrentner',
@@ -199,7 +199,7 @@ export const DE_CALCULATORS: LocaleCorpus = {
             'Wer zahlt den Aufschlag auf die Mindestbemessungsgrundlage? Im Regelfall der Beschäftigte allein, abgeführt über den Arbeitgeber — die 13,5 % auf die Differenz werden nicht gedrittelt. Der Arbeitgeber trägt sie nur, wenn die niedrige Grundlage auf einem Hindernis aufseiten des Arbeitgebers beruht.',
             'Wird die Mindestbemessungsgrundlage bei Teilzeit gekürzt? Nein. Die tschechische Krankenkasse VZP stellt ausdrücklich fest, dass die Mindestgrundlage ohne Rücksicht auf die Dauer der Arbeitszeit gilt; ein Beschäftigter mit 20-Prozent-Vertrag steht der vollen Grenze von 22 400 CZK gegenüber. Die anteilige Kürzung nach Kalendertagen ist eine andere Regel und betrifft unvollständige Monate oder gesetzlich genannte Hindernisse.',
             'Was geschieht nach Erreichen der Höchstbemessungsgrundlage? Bei einem Beschäftigten mit nur einem tschechischen Arbeitgeber im Jahr zahlen weder Beschäftigter noch Arbeitgeber auf den Betrag über 2 350 416 CZK. Bei mehreren Arbeitgebern zahlt keiner weniger; der Beschäftigte fordert die Überzahlung zurück, der Arbeitgeberanteil wird nicht erstattet.',
-            'Wann kann das Netto höher sein als das Brutto? Wenn die Kindersteuerermäßigung (daňové zvýhodnění na dítě) die berechnete Steuer übersteigt und ein monatlicher tschechischer Steuerbonus entsteht. Er wird gezahlt, wenn er mindestens 50 CZK erreicht und das Monatseinkommen mindestens die Hälfte des tschechischen Mindestlohns beträgt, also 11 200 CZK für 2026. Der Bonus ist kein Lohn, sondern der ausgezahlte Teil einer tschechischen Steuerermäßigung.',
+            'Wann kann das Netto höher sein als das Brutto? Wenn die Kindersteuerermäßigung die berechnete Steuer übersteigt und ein monatlicher tschechischer Steuerbonus entsteht. Er wird gezahlt, wenn er mindestens 50 CZK erreicht und das Monatseinkommen mindestens die Hälfte des tschechischen Mindestlohns beträgt, also 11 200 CZK für 2026. Der Bonus ist kein Lohn, sondern der ausgezahlte Teil einer tschechischen Steuerermäßigung.',
             'Rechnet der Rechner DPP und DPČ? Nein. Diese tschechischen Vereinbarungen haben eigene Teilnahmeschwellen und eine eigene Besteuerung; diese Version schließt sie bewusst aus — eine teilweise Umsetzung lieferte Zahlen, die richtig aussehen und es nicht sind.',
             'Rechnet der Rechner vier Wochen Urlaub auf die Kosten auf? Nein, und das ist Absicht. Bei monatlicher Vergütung ist bezahlter Urlaub Teil der Vergütungsstruktur; ihn als weiteren Prozentsatz aufzuschlagen hieße, denselben Lohn doppelt zu zählen. Die Kosten der Vertretung lassen sich gesondert als Betriebskosten eintragen.',
           ],
