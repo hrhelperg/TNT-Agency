@@ -178,10 +178,16 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
   // Vorsorgepauschale as well as the contribution. PVZ and PVA are exclusive
   // there, exactly as they are in § 55 Absatz 3 SGB XI.
   const childless = !input.care.isParent && input.care.atLeast23;
-  const discountedChildren = Math.min(
-    Math.max(input.care.childrenUnder25 - 1, 0),
-    DE_RULES_2026.care.maxDiscountedChildren.value,
-  );
+  // Keyed on the PROOF, exactly as the contribution is — § 55 Absatz 3a SGB XI.
+  // An employee whose parenthood is not proved gets no Abschlag in the
+  // Vorsorgepauschale either, or the tax base and the contribution would
+  // disagree about the same person.
+  const discountedChildren = input.care.isParent
+    ? Math.min(
+        Math.max(input.care.childrenUnder25 - 1, 0),
+        DE_RULES_2026.care.maxDiscountedChildren.value,
+      )
+    : 0;
 
   const pap = runPap2026({
     LZZ: 2,

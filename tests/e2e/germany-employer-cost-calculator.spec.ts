@@ -46,36 +46,71 @@ function watchWire(page: Page) {
   return requests
 }
 
-const SECRETS = ['4000', '4.000', '4,000']
+/**
+ * What a leak would actually carry, read off the page rather than hard-coded.
+ *
+ * An earlier version listed the typed gross and nothing else. That is the one
+ * value a leak has least reason to send: the interesting figures are DERIVED —
+ * the net wage, and the church-tax amount, which is a proxy for religious
+ * affiliation and therefore GDPR Article 9 data. A watcher grepping for "4000"
+ * cannot see any of them.
+ *
+ * Hard-coding the derived figures instead would only move the problem: they
+ * change whenever a rate does, and a stale constant makes the watcher look
+ * thorough while matching nothing. So the secrets are harvested from the
+ * rendered results panel at run time — whatever the calculator shows the
+ * reader is exactly what must not appear on the wire.
+ */
+async function renderedSecrets(page: Page): Promise<string[]> {
+  const text = await page.locator('.ecc__results').innerText()
+  const out = new Set<string>()
+  for (const m of text.matchAll(/[\d.,]{4,}/g)) {
+    const raw = m[0]
+    const digits = raw.replace(/[^0-9]/g, '')
+    // Four digits or more, so "1,8 %" and "0,15 %" do not generate matches that
+    // would fire on unrelated bytes in a bundle URL.
+    if (digits.length >= 4) {
+      out.add(raw)
+      out.add(digits)
+    }
+  }
+  return [...out]
+}
 
 test.describe('privacy — nothing typed here leaves the browser', () => {
   for (const [locale, route] of Object.entries(ROUTES)) {
-    test(`${locale}: no request carries a typed value, and the URL never changes`, async ({ page }) => {
+    test(`${locale}: no request carries any rendered figure, and the URL never changes`, async ({ page }) => {
       const requests = watchWire(page)
       await page.goto(route)
       const before = page.url()
 
       await enterGross(page, '4000')
-      // Exercise the parts that hold the most sensitive inputs.
+      // Exercise the parts holding the most sensitive inputs, and make the
+      // Article-9 datum actually produce a figure: with church tax off there is
+      // no church-tax amount for a leak to carry, so the watcher would be
+      // looking for a value that does not exist.
       await page.locator('#decc-kvz').fill('2,9')
       await page.locator('.ecc__advanced summary').click()
-      await page.locator('#decc-kfb').selectOption('2')
-      const church = page.locator('input[type=checkbox]').nth(2)
-      await church.check().catch(() => {})
+      const church = page.locator('label.pcalc-toggle', { hasText: 'Kirchensteuer' }).locator('input')
+      if (await church.count()) await church.first().check()
       await page.waitForTimeout(500)
 
       expect(page.url(), 'the URL changed').toBe(before)
 
-      const leaks = requests.filter((r) => {
+      const secrets = await renderedSecrets(page)
+      // The panel must actually be showing figures, or this proves nothing.
+      expect(secrets.length, 'no figures rendered — the watcher would be vacuous').toBeGreaterThan(4)
+
+      const leaks: string[] = []
+      for (const r of requests) {
         const u = r.url()
-        if (u.startsWith('data:') || u.startsWith('blob:')) return false
+        if (u.startsWith('data:') || u.startsWith('blob:')) continue
         const haystack = `${u} ${r.postData() ?? ''}`
-        return SECRETS.some((s) => haystack.includes(s))
-      })
-      expect(
-        leaks.map((r) => `${r.method()} ${r.url()}`),
-        'a request carried a typed value',
-      ).toEqual([])
+        for (const s of secrets) {
+          if (haystack.includes(s)) leaks.push(`${r.method()} ${u}  carried "${s}"`)
+        }
+      }
+      expect(leaks, 'a request carried a figure shown to the reader').toEqual([])
     })
   }
 

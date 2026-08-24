@@ -181,9 +181,19 @@ export function care(monthlyGrossCent: Cent, input: CareInput): ContributionLine
     employee = employer;
   }
 
+  // TWO INDEPENDENT TESTS, not an either/or.
+  //
+  // The surcharge is owed by someone who has NOT proved parenthood and is past
+  // 23. The discounts are owed to someone who HAS proved it and has a second
+  // child under 25. Writing them as if/else makes a third state — parenthood
+  // unproved AND under 23 — fall into the discount branch, which granted
+  // discounts on the strength of children the employer has no proof of.
+  // § 55 Absatz 3a SGB XI makes the proof the entitlement, so it is what the
+  // discount must key on.
   if (!input.isParent && input.atLeast23) {
     employee = employee.add(Decimal.of(R.care.childlessSurchargePercent.value));
-  } else {
+  }
+  if (input.isParent) {
     // Only children from the SECOND count, and only the first four of those.
     const discounted = Math.min(
       Math.max(input.childrenUnder25 - 1, 0),

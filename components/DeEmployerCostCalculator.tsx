@@ -174,7 +174,11 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
     )
 
   return (
-    <section className="ecc" aria-labelledby="decc-title" lang={LANG[locale]}>
+    // `ecc--de` carries the German calculator's own narrow-viewport rules. The
+    // shared `ecc` styles are also used by the Czech calculator, which is
+    // production-verified and which this branch may not change, so anything
+    // specific to this component hangs off the modifier instead.
+    <section className="ecc ecc--de" aria-labelledby="decc-title" lang={LANG[locale]}>
       <div className="container">
         <p className="ecc__stamp">{tr(JURISDICTION_STAMP)}</p>
         <h2 id="decc-title">{tr(PAGE_TITLE)}</h2>
@@ -471,6 +475,17 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   {formatEuroWhole(outcome.employer.totalAnnualCent, locale)}
                 </p>
 
+                {/*
+                  The statutory basis for each branch is NOT repeated in this
+                  table. It lives in the methodology block below, which is
+                  rendered unconditionally — so a crawler and a no-JS reader see
+                  it too, which a results table cannot deliver.
+
+                  It was briefly here as well, and put a long citation inside a
+                  narrow cell: the table's min-content rose to 663 px and dragged
+                  the whole container past the viewport at 320 px and 360 px.
+                */}
+                <div className="ecc__table-wrap">
                 <table className="ecc__table">
                   <thead>
                     <tr>
@@ -513,7 +528,9 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                     ))}
                   </tbody>
                 </table>
+                </div>
 
+                <div className="ecc__table-wrap">
                 <table className="ecc__table ecc__table--metrics">
                   <tbody>
                     <tr>
@@ -553,6 +570,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                     </tr>
                   </tbody>
                 </table>
+                </div>
 
                 <p className="ecc__exactness">{tr(RESULT.ledgerNote)}</p>
 
@@ -576,12 +594,47 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
           <p>{tr(METHODOLOGY.socialSource)}</p>
           <p>{tr(METHODOLOGY.privacy)}</p>
           <p>{tr(METHODOLOGY.notAdvice)}</p>
-          <p className="pcalc-field__hint">
-            {`BBG ${formatEuro(DE_RULES_2026.health.monthlyCeilingCent.value, locale)} / ${formatEuro(
-              DE_RULES_2026.pension.monthlyCeilingCent.value,
-              locale,
-            )}`}
-          </p>
+          {/*
+            The statutory bases, rendered ALWAYS rather than only beside a
+            result. All three pages promise "the statute named for every figure";
+            until this list existed that was true only after the reader entered a
+            salary, so a no-JS reader and a crawler saw the promise and not the
+            substance.
+          */}
+          <dl className="ecc__periodicity">
+            <dt>{tr(METHODOLOGY.basisPension)}</dt>
+            <dd>{DE_RULES_2026.pension.totalPercent.legalBasis}</dd>
+            <dt>{tr(METHODOLOGY.basisUnemployment)}</dt>
+            <dd>{DE_RULES_2026.unemployment.totalPercent.legalBasis}</dd>
+            <dt>{tr(METHODOLOGY.basisHealth)}</dt>
+            <dd>{DE_RULES_2026.health.generalPercent.legalBasis}; § 242 SGB V; § 249 Absatz 1 SGB V</dd>
+            <dt>{tr(METHODOLOGY.basisCare)}</dt>
+            <dd>§ 55 Absatz 1 und 3 SGB XI; § 58 SGB XI</dd>
+            <dt>{tr(METHODOLOGY.basisLevies)}</dt>
+            <dd>{DE_RULES_2026.insolvencyLevy.percent.legalBasis}; § 1, § 7 AAG; §§ 150, 153 SGB VII</dd>
+            <dt>{tr(METHODOLOGY.basisTax)}</dt>
+            <dd>§ 39b Absatz 2 und 6 EStG; § 32a EStG; § 51a EStG</dd>
+          </dl>
+
+          <dl className="ecc__periodicity">
+            <dt>{tr(METHODOLOGY.ceilingHealth)}</dt>
+            <dd>{formatEuro(DE_RULES_2026.health.monthlyCeilingCent.value, locale)}</dd>
+            <dt>{tr(METHODOLOGY.ceilingPension)}</dt>
+            <dd>{formatEuro(DE_RULES_2026.pension.monthlyCeilingCent.value, locale)}</dd>
+            {/*
+              The Jahresarbeitsentgeltgrenze is rendered BESIDE the ceilings and
+              labelled as not being one. All three pages tell the reader these
+              two numbers are constantly confused and that the calculator keeps
+              them apart — a claim that was untrue of the calculator itself
+              until this figure appeared here.
+            */}
+            <dt>{tr(METHODOLOGY.insuranceThreshold)}</dt>
+            <dd>{formatEuroWhole(DE_RULES_2026.scope.insuranceObligationAnnualCent.value, locale)}</dd>
+            <dt>{tr(METHODOLOGY.minijobThreshold)}</dt>
+            <dd>{formatEuro(DE_RULES_2026.scope.minijobMonthlyCent.value, locale)}</dd>
+            <dt>{tr(METHODOLOGY.transitionThreshold)}</dt>
+            <dd>{formatEuro(DE_RULES_2026.scope.transitionUpperMonthlyCent.value, locale)}</dd>
+          </dl>
         </div>
 
         <p className="ecc__crosslink">

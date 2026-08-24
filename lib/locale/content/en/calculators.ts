@@ -66,7 +66,7 @@ export const EN_CALCULATORS: LocaleCorpus = {
           body: [
             'German wage tax is not gross multiplied by a rate. The Ministry of Finance publishes a Programmablaufplan each year — a binding algorithm of 23 subroutines that annualises the pay, subtracts the allowances belonging to the tax class, computes a notional insurance deduction from fictitious contribution rates, applies the tariff under § 32a EStG and converts the result back to the pay period. The order of the steps is part of the rule, and every intermediate value has a prescribed number of decimal places.',
             'The calculator follows that procedure step by step in its 2026 form (the Ministry’s circular of 12 November 2025). The implementation reproduces both official verification tables published with the algorithm in full — 516 figures across all six tax classes, for an employee insured in every branch and for one insured in none.',
-            'The tax class does not decide the year’s tax, only how it is spread across the year. Classes V and VI use their own construction with a 14 % floor and a 42 % ceiling, so they cannot be derived from the ordinary tariff.',
+            'The tax class does not decide the year’s tax, only how it is spread across the year. Classes V and VI use their own construction: at least 14 % of the base, then a band charged at 42 %, and 45 % above 222,260 EUR a year. They cannot be derived from the ordinary tariff.',
           ],
         },
         {

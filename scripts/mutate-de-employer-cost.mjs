@@ -90,8 +90,8 @@ const MUTATIONS = [
       'The classic error in this jurisdiction. 69 750 is the contribution ceiling and 77 400 is the threshold above ' +
       'which an employee may leave the statutory scheme; both are "the health insurance limit" in ordinary speech.',
     file: RULES,
-    from: "    monthlyCeilingCent: {\n      value: eur(5_812, 50),\n      sourceId: S.svRechgr,\n      legalBasis: '§ 223 Absatz 3 SGB V",
-    to: "    monthlyCeilingCent: {\n      value: eur(6_450),\n      sourceId: S.svRechgr,\n      legalBasis: '§ 223 Absatz 3 SGB V",
+    from: "    monthlyCeilingCent: {\n      value: eur(5_812, 50),\n      sourceId: S.svRechgr,\n      legalBasis: '§ 2 Absatz 2 SVRechGrV 2026; § 55 Absatz 2 SGB XI',",
+    to: "    monthlyCeilingCent: {\n      value: eur(6_450),\n      sourceId: S.svRechgr,\n      legalBasis: '§ 2 Absatz 2 SVRechGrV 2026; § 55 Absatz 2 SGB XI',",
   },
   {
     name: '6. contributions computed whole and halved, instead of halved and doubled',
@@ -198,6 +198,16 @@ const MUTATIONS = [
     file: ENGINE,
     from: "  const issues = validateDeInput(input);\n  if (issues.length > 0) return { supported: false, reason: 'invalid', issues };\n\n  const scope = checkScope({",
     to: "  const scope = checkScope({",
+  },
+  {
+    name: '21. care discounts granted without proof of parenthood',
+    why:
+      '§ 55 Absatz 3a SGB XI makes the PROOF the entitlement. Writing the surcharge and the discounts as if/else lets a ' +
+      'third state — unproved parenthood, under 23 — fall into the discount branch and receive four discounts on ' +
+      'children the employer has no proof of.',
+    file: BRANCHES,
+    from: "  if (input.isParent) {\n    // Only children from the SECOND count",
+    to: "  if (input.isParent || !input.atLeast23) {\n    // Only children from the SECOND count",
   },
   // ── Privacy. Each of these three was written during review as an ATTEMPT to
   // defeat the gate, and the first two succeeded before it was strengthened.

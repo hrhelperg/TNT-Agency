@@ -51,6 +51,9 @@ const MAX_MONTHLY_CENT = 10_000_000_000n;
 /** § 55 Absatz 3 SGB XI discounts stop at the fifth child; twenty is generous. */
 const MAX_CHILDREN = 20;
 
+/** Same shape of guard for the tax-side allowance. */
+const MAX_KINDERFREIBETRAEGE = 20;
+
 /**
  * Rates are decimal strings with at most two decimals, which is the precision
  * every published German contribution rate uses and the precision beyond which
@@ -69,7 +72,11 @@ export interface ValidatableInput {
   readonly kinderfreibetraege: string;
   readonly workplace: Bundesland;
   readonly healthSupplementPercent: string;
-  readonly care: { readonly childrenUnder25: number };
+  readonly care: {
+    readonly childrenUnder25: number;
+    readonly isParent: boolean;
+    readonly atLeast23: boolean;
+  };
   readonly employer: {
     readonly u1Percent: string | null;
     readonly u2Percent: string;
@@ -109,9 +116,16 @@ export function validateDeInput(input: ValidatableInput): ValidationIssue[] {
   }
 
   // Halves are real — a Kinderfreibetrag is split between parents — so the
-  // pattern allows one decimal and nothing finer.
-  if (!/^\d{1,2}(\.\d)?$/.test(input.kinderfreibetraege)) {
+  // pattern allows a half and nothing finer. `.1` through `.4` and `.6`
+  // through `.9` are not values a Kinderfreibetrag can take, and an earlier
+  // pattern of `(\.\d)?` admitted all of them.
+  if (!/^\d{1,2}(\.[05])?$/.test(input.kinderfreibetraege)) {
     issues.push({ field: 'kinderfreibetraege', key: 'kinderfreibetraege.unreadable' });
+  } else if (Number(input.kinderfreibetraege) > MAX_KINDERFREIBETRAEGE) {
+    // Plausibility, not law: § 32 EStG sets no ceiling, but a Freibetrag above
+    // twenty is a mistyped field, and it moves the Solidaritätszuschlag and the
+    // Kirchensteuer base by thousands of euro.
+    issues.push({ field: 'kinderfreibetraege', key: 'kinderfreibetraege.implausible' });
   }
 
   if (!Object.prototype.hasOwnProperty.call(BUNDESLAND_NAMES, input.workplace)) {
@@ -130,6 +144,16 @@ export function validateDeInput(input: ValidatableInput): ValidationIssue[] {
   if (!isInteger(children) || children < 0 || children > MAX_CHILDREN) {
     issues.push({ field: 'care.childrenUnder25', key: 'children.outOfRange' });
   }
+
+  // DELIBERATELY NOT VALIDATED: children under 25 with `isParent` false.
+  //
+  // It looks like a contradiction and is not. § 55 Absatz 3a SGB XI requires
+  // parenthood and the number of children to be PROVED to the body collecting
+  // the contribution; until it is, the employee is treated as childless however
+  // many children they have. So "five children, not yet proved" is a real
+  // payroll state, and rejecting it would refuse a case the law contemplates.
+  // What that state must NOT do is attract the discounts — see care() in
+  // social/branches.ts, where the entitlement is keyed on the proof.
 
   if (input.employer.u1Percent !== null) {
     checkRate(issues, 'employer.u1Percent', 'u1', input.employer.u1Percent, MAX_LEVY);

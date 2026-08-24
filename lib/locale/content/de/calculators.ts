@@ -71,7 +71,7 @@ export const DE_CALCULATORS: LocaleCorpus = {
           body: [
             'Die deutsche Lohnsteuer ist nicht Brutto mal Satz. Das Bundesministerium der Finanzen veröffentlicht jedes Jahr einen Programmablaufplan — einen verbindlichen Algorithmus aus 23 Unterprogrammen, der das Entgelt auf einen Jahreswert hochrechnet, die Pauschbeträge der jeweiligen Steuerklasse abzieht, eine Vorsorgepauschale aus fiktiven Beitragssätzen bildet, den Tarif nach § 32a EStG anwendet und das Ergebnis wieder auf den Lohnzahlungszeitraum umrechnet. Die Reihenfolge der Schritte ist Teil der Vorschrift, und jeder Zwischenwert hat eine vorgeschriebene Zahl von Dezimalstellen.',
             'Der Rechner führt diesen Ablauf Schritt für Schritt in der Fassung für 2026 aus (BMF-Schreiben vom 12. November 2025). Die Umsetzung reproduziert beide amtlichen Prüftabellen vollständig, die zum Algorithmus veröffentlicht werden — 516 Werte über alle sechs Steuerklassen, sowohl für einen in allen Zweigen versicherten als auch für einen in keinem Zweig versicherten Beschäftigten.',
-            'Die Steuerklasse entscheidet nicht über die Jahressteuer, sondern nur über ihre Verteilung im Jahr. Die Klassen V und VI folgen einer eigenen Konstruktion mit einer Untergrenze von 14 % und einer Obergrenze von 42 % und lassen sich daher nicht aus dem gewöhnlichen Tarif ableiten.',
+            'Die Steuerklasse entscheidet nicht über die Jahressteuer, sondern nur über ihre Verteilung im Jahr. Die Klassen V und VI folgen einer eigenen Konstruktion: mindestens 14 % der Bemessungsgrundlage, darüber ein mit 42 % belastetes Band und oberhalb von 222 260 € im Jahr 45 %. Aus dem gewöhnlichen Tarif lassen sie sich daher nicht ableiten.',
           ],
         },
         {

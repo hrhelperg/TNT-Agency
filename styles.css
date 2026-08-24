@@ -3762,3 +3762,38 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
   .ecc__table td { font-size: 0.82rem; }
   .ecc__total-value { font-size: 1.14rem; }
 }
+
+/* ── German employer-cost calculator: narrow-viewport containment ─────────────
+   Scoped to .ecc--de and purely additive, because .ecc is shared with the Czech
+   calculator, which is production-verified and must not change.
+
+   The Bundesland <select> lists sixteen options and its widest,
+   "Mecklenburg-Vorpommern", gives it a min-content width of 249px. <fieldset>
+   defaults to min-width:min-content, so that measurement propagated up through
+   the form and pushed the whole container past a 280px viewport. The Czech
+   calculator has no sixteen-item select and never showed it.
+
+   320px — the narrowest viewport the release targets — was unaffected either
+   way. This is fixed because it is a difference this calculator introduced
+   against the Czech baseline, not because 280px is a device anyone uses. */
+.ecc--de .pcalc-fieldset,
+.ecc--de .pcalc-field,
+.ecc--de .pcalc-grid-2,
+.ecc--de .pcalc-grid-2 > *,
+.ecc--de .pcalc__grid,
+.ecc--de .pcalc__grid > * { min-width: 0; }
+/* A <select>'s intrinsic min-content is its widest OPTION, which `max-width`
+   alone does not reduce — the box shrinks and the measurement does not. The
+   combination below is what actually lets it participate in a narrower column. */
+.ecc--de select {
+  width: 100%;
+  min-width: 0;
+  text-overflow: ellipsis;
+}
+.ecc--de .pcalc-field__input { max-width: 100%; }
+/* Three columns of German branch names — "Arbeitslosenversicherung" alone is 24
+   characters — cannot fit a 280px viewport minus the container's padding. A
+   table that wide is given its own horizontal scroll rather than being allowed
+   to push the page sideways, which is the one place a horizontal scrollbar is
+   the right answer. */
+.ecc--de .ecc__table-wrap { overflow-x: auto; max-width: 100%; }

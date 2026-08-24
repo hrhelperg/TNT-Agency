@@ -117,7 +117,41 @@ describe('§47 jurisdiction boundary', () => {
     });
   }
 
-  it('no ruleset or registry names another country’s law', () => {
+  it('the German engine never reaches the Czech payroll module', () => {
+    // lib/payroll is not one of the two ENGINES directories, so nothing above
+    // looks at it — and it is Czech: money.ts is branded in haléře and the
+    // package re-exports the whole CZ ruleset. A German file importing it would
+    // have passed every assertion in this file.
+    //
+    // The German engine has its own exact-arithmetic module and needs nothing
+    // from there, so the rule is simply zero.
+    const de = ENGINES.find((e) => e.name === 'de-employer-cost')!;
+    const violations: string[] = [];
+    for (const file of [...sourceFiles(de.dir), ...sourceFiles(de.data)]) {
+      for (const spec of imports(file)) {
+        if (/(^|\/)lib\/payroll(\/|$)/.test(spec) || /(^|\/)payroll\/[a-z-]+$/.test(spec)) {
+          violations.push(`${file} imports ${spec}`);
+        }
+      }
+    }
+    expect(violations, violations.join('\n')).toEqual([]);
+  });
+
+  it('the Czech payroll module never reaches either calculator engine', () => {
+    // The other direction. lib/payroll is shared infrastructure for the Czech
+    // side; if it started importing a calculator, the dependency would invert
+    // and the "shared" module would carry one calculator's law into the other.
+    const violations: string[] = [];
+    for (const file of sourceFiles('lib/payroll')) {
+      if (/\.test\.tsx?$/.test(file)) continue;
+      for (const spec of imports(file)) {
+        if (spec.includes('calculators/')) violations.push(`${file} imports ${spec}`);
+      }
+    }
+    expect(violations, violations.join('\n')).toEqual([]);
+  });
+
+  it('no engine file names another country’s law', () => {
     // A cheap smell test on the files that carry legal CONSTANTS — the rulesets
     // and the source registries. A German ruleset citing a Czech statute is
     // either a copied comment or a copied rule, and both want a human to look.
@@ -128,7 +162,17 @@ describe('§47 jurisdiction boundary', () => {
     // translation of "záloha na daň", not an import of German tax law. An
     // earlier version of this test flagged it, which would have taught everyone
     // to ignore the gate. Speaking a language is not importing its law.
-    const LEGAL_FILE = /(jurisdictions|rules|sources|ruleset)/i;
+    // EVERY non-test source file in the engine, not just the ones whose NAME
+    // says "rules". The previous pattern scanned 2 of 18 German files and 3 of
+    // 15 Czech ones, excluding every module that actually carries a rate —
+    // branches.ts, church-tax.ts, social.ts, health.ts. A gate that reads a
+    // tenth of the code and reports a clean sweep is worse than none.
+    //
+    // Translation files are the one exclusion, and for the original reason: the
+    // German calculator's Czech strings legitimately say "vyměřovací základ"
+    // because that IS the Czech for "assessment base". Speaking a language is
+    // not importing its law.
+    const TRANSLATION_FILE = /\/(copy|notes-copy)\.tsx?$/i;
     const FOREIGN: Array<[string, RegExp, string]> = [
       ['de-employer-cost', /zákon[ao]?\s+č\.|\bSb\.|vyměřovací|\bKč\b|ČSSZ|VZP/i, 'Czech legal vocabulary'],
       ['cz-employer-cost', /\bSGB\s+[IVX]+|Beitragsbemessungsgrenze|Programmablaufplan|Pflegeversicherung/i, 'German legal vocabulary'],
@@ -138,7 +182,7 @@ describe('§47 jurisdiction boundary', () => {
       const engine = ENGINES.find((e) => e.name === engineName)!;
       for (const file of [...sourceFiles(engine.dir), ...sourceFiles(engine.data)]) {
         if (/\.test\.tsx?$/.test(file)) continue;
-        if (!LEGAL_FILE.test(file)) continue;
+        if (TRANSLATION_FILE.test(file)) continue;
         const src = fs.readFileSync(path.join(ROOT, file), 'utf8');
         // Strip comments: prose explaining the boundary is not a breach of it.
         const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
@@ -208,7 +252,7 @@ describe('§47 jurisdiction boundary', () => {
       // ── Not money: display values, never fed back into a calculation ──────
       {
         file: 'lib/calculators/cz-employer-cost/metrics.ts',
-        snippet: 'percentOfTotal: total === 0 || amount < 0 ? null : Math.round(',
+        snippet: 'percentOfTotal: total === 0 || amount < 0 ? null : Math.round((amount / total) * 10_000) / 100,',
         why: 'Share of total cost, two decimals, for display.',
       },
       {
@@ -232,13 +276,15 @@ describe('§47 jurisdiction boundary', () => {
       // ── Money, but proven equal to exact arithmetic over the whole domain ─
       {
         file: 'lib/calculators/cz-employer-cost/social.ts',
-        snippet: 'Math.ceil(rules.averageWageMonthly.value * d.monthlyBaseCeilingMultiple.value)',
+        snippet: 'Math.ceil(rules.averageWageMonthly.value * d.monthlyBaseCeilingMultiple.value),',
         why:
           '§ 7a odst. 3 písm. a): průměrná mzda × 1,5. ×1,5 is ×3÷2, exact in IEEE-754 for ' +
           'integers. Zero differences vs BigInt for every average wage 10 000–120 000 Kč.',
       },
       {
         file: 'lib/calculators/cz-employer-cost/social.ts',
+        // A genuine whole line: the call is broken across three lines and this
+        // is the first of them.
         snippet: 'const perHourCeiling = Math.ceil(',
         why:
           '§ 7a odst. 3 písm. b): průměrná mzda × 1,15 % — the one site not exact by ' +
@@ -255,7 +301,7 @@ describe('§47 jurisdiction boundary', () => {
       },
       {
         file: 'lib/calculators/cz-employer-cost/health.ts',
-        snippet: 'const reduced = czk(Math.round(',
+        snippet: 'const reduced = czk(Math.round((toCzkNumber(full) * days) / input.daysInMonth));',
         why:
           '§ 3 odst. 9 pro-rata of the health minimum by calendar days. Zero differences ' +
           'vs exact BigInt half-up across every minimum 10 000–40 000 Kč × month length ' +
@@ -302,7 +348,11 @@ describe('§47 jurisdiction boundary', () => {
         for (const [i, raw] of code.split('\n').entries()) {
           const line = raw.trim();
           if (!FLOAT_ROUNDING.test(line)) continue;
-          const idx = EXEMPT.findIndex((e) => e.file === file && line.startsWith(e.snippet));
+          // WHOLE-LINE match, not a prefix. `startsWith` let an exempt line be
+          // extended with new, unreviewed rounding — `const perHour = Math.ceil(x)`
+          // would also exempt `const perHour = Math.ceil(x) + Math.round(y)`,
+          // which is exactly the guarantee the comment above claims to give.
+          const idx = EXEMPT.findIndex((e) => e.file === file && line === e.snippet);
           if (idx === -1) violations.push(`${file}:${i + 1} ${line}`);
           else used.add(idx);
         }

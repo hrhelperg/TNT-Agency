@@ -100,25 +100,54 @@ export function parseEuroToCent(raw: string): bigint | null {
   const s = raw.trim().replace(/\s| |€/g, '');
   if (s === '') return null;
 
-  // "1.234,56" (German) and "1,234.56" (English) both mean the same amount. The
-  // decisive character is the LAST separator; anything before it is grouping.
+  // "1.234,56" (German) and "1,234.56" (English) both mean the same amount, and
+  // people paste both into a page in either language.
+  //
+  // THE HARD CASE IS A SINGLE SEPARATOR
+  // ───────────────────────────────────
+  // With both separators present the last one is the decimal point and the
+  // other is grouping — unambiguous. With only ONE separator, "3.500" is
+  // genuinely ambiguous in isolation, and an earlier version of this function
+  // resolved it by treating the last separator as decimal ALWAYS. That rejected
+  // "3.500" outright, which is how a German writes three thousand five hundred,
+  // and it meant the module could not read its own output: formatEuroWhole
+  // renders "3.500 €" and parseEuroToCent returned null for it.
+  //
+  // Money settles the ambiguity. A monetary decimal has one or two digits, never
+  // three — so a lone separator followed by exactly three digits is grouping,
+  // and followed by one or two is the decimal point. Four or more is neither,
+  // and is refused rather than guessed at.
   const lastComma = s.lastIndexOf(',');
   const lastDot = s.lastIndexOf('.');
 
   let integerPart: string;
   let fraction = '';
   let grouping: string;
+
   if (lastComma === -1 && lastDot === -1) {
     integerPart = s;
     grouping = '';
-  } else if (lastComma > lastDot) {
-    integerPart = s.slice(0, lastComma);
-    fraction = s.slice(lastComma + 1);
-    grouping = '.';
+  } else if (lastComma !== -1 && lastDot !== -1) {
+    // Both present: the later one is the decimal point.
+    const decimalAt = Math.max(lastComma, lastDot);
+    integerPart = s.slice(0, decimalAt);
+    fraction = s.slice(decimalAt + 1);
+    grouping = lastComma > lastDot ? '.' : ',';
   } else {
-    integerPart = s.slice(0, lastDot);
-    fraction = s.slice(lastDot + 1);
-    grouping = ',';
+    const sep = lastComma !== -1 ? ',' : '.';
+    const at = Math.max(lastComma, lastDot);
+    const tail = s.slice(at + 1);
+    const repeated = s.split(sep).length > 2;
+    if (repeated || /^\d{3}$/.test(tail)) {
+      // Grouping: "1.000.000", or a lone separator with a full group after it.
+      integerPart = s;
+      fraction = '';
+      grouping = sep;
+    } else {
+      integerPart = s.slice(0, at);
+      fraction = tail;
+      grouping = sep === ',' ? '.' : ',';
+    }
   }
 
   // The grouping separators must actually be grouping. Stripping every dot from

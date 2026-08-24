@@ -4,6 +4,9 @@ import { DE_CONTENT } from '../../locale/content/de';
 import { KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO as CS } from '../../content/pages/germany-employer-cost-calculator';
 import { DE_RULES_2026 as R } from '../../../data/calculators/de-employer-cost/2026/rules';
 import { calculateDeEmployerCost, type DeEmployerCostInput } from './engine';
+import { runPap2026 } from './tax/pap-2026';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /**
  * The prose must agree with the engine.
@@ -20,6 +23,7 @@ import { calculateDeEmployerCost, type DeEmployerCostInput } from './engine';
  * assumed one.
  */
 
+const ROOT = path.join(__dirname, '..', '..', '..');
 const eur = (v: number) => BigInt(Math.round(v * 100));
 const money = (c: bigint) => (Number(c) / 100).toFixed(2);
 
@@ -138,6 +142,69 @@ describe('every rate and threshold the prose states is the one the registry hold
     expect(R.care.perChildDiscountPercent.value).toBe('0.25');
     expect(R.insolvencyLevy.percent.value).toBe('0.15');
     expect(R.health.averageSupplementPercent.value).toBe('2.9');
+  });
+});
+
+/**
+ * Claims the pages make ABOUT THE CALCULATOR, checked against the calculator.
+ *
+ * These are the ones that rot silently: a page says the tool does something,
+ * the tool changes, and the sentence stays. All three were false when a review
+ * pass checked them.
+ */
+describe('what the pages say the calculator does, it does', () => {
+  const BUILD = path.join(ROOT, '.next/server/pages');
+  const ROUTES = [
+    'kalkulacka-nakladu-zamestnavatele-nemecko',
+    'en/germany-employer-cost-calculator',
+    'de/arbeitgeberkosten-rechner-deutschland',
+  ];
+
+  it('the Steuerklasse V/VI band really does reach 45 %, as the pages now say', () => {
+    // Every page used to claim "a 42 % ceiling". MST5_6 charges 45 % above
+    // W3STKL5 (222 260 EUR a year), so the claim was false for high earners.
+    const tax = (annualEuro: number) =>
+      Number(
+        runPap2026({
+          LZZ: 1, RE4: annualEuro * 100, STKL: 5,
+          KVZ: '2.90', PVZ: 1, ALV: 1, KRV: 1, PKV: 1, PKPV: 30_000,
+        }).outputs.LSTLZZ.longValue(),
+      ) / 100;
+
+    const marginal = (at: number) => (tax(at + 1000) - tax(at)) / 1000;
+    expect(marginal(200_000)).toBeCloseTo(0.42, 4);
+    expect(marginal(240_000)).toBeCloseTo(0.45, 4);
+
+    for (const [locale, page] of PAGES) {
+      expect(/45 ?%/.test(page), `${locale} does not mention the 45 % band`).toBe(true);
+      expect(/222[.,\s]?260/.test(page), `${locale} does not give the 222 260 threshold`).toBe(true);
+    }
+  });
+
+  describe.skipIf(!fs.existsSync(BUILD))('rendered page', () => {
+    const html = (r: string) => fs.readFileSync(path.join(BUILD, `${r}.html`), 'utf8');
+
+    it('names BOTH the ceiling and the Jahresarbeitsentgeltgrenze, as the pages claim', () => {
+      // The pages say the calculator "keeps the two apart and names both in its
+      // methodology". It named only the ceilings; 77 400 appeared nowhere.
+      for (const r of ROUTES) {
+        const page = html(r);
+        expect(/5[.,\s]812[.,]50/.test(page), `${r} omits the KV/PV ceiling`).toBe(true);
+        expect(/8[.,\s]450/.test(page), `${r} omits the RV/AV ceiling`).toBe(true);
+        expect(/77[.,\s]400/.test(page), `${r} omits the Jahresarbeitsentgeltgrenze`).toBe(true);
+      }
+    });
+
+    it('names a statutory provision for every contribution, as the pages promise', () => {
+      // "with the statute named for every figure" / "mit Angabe der Vorschrift
+      // zu jeder Position". Nothing rendered a provision at all.
+      for (const r of ROUTES) {
+        const page = html(r);
+        for (const cite of ['SGB VI', 'SGB III', 'SGB V', 'SGB XI', 'AAG', 'SGB VII']) {
+          expect(page.includes(cite), `${r} names no ${cite} provision`).toBe(true);
+        }
+      }
+    });
   });
 });
 

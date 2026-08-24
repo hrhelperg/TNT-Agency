@@ -170,6 +170,36 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
       'Which social-security law applies is decided by European coordination rules, not by the place of work alone.',
   },
   {
+    id: 'werkstudent',
+    kind: 'declared',
+    labelDe: 'Werkstudentinnen und Werkstudenten',
+    labelEn: 'Working students (Werkstudenten)',
+    reasonDe:
+      'Das Werkstudentenprivileg befreit eingeschriebene Studierende, die neben dem Studium höchstens 20 Wochenstunden arbeiten, von der Kranken-, Pflege- und Arbeitslosenversicherung; nur die Rentenversicherung bleibt. Der Rechner würde drei Zweige berechnen, die gar nicht geschuldet sind.',
+    reasonEn:
+      'The Werkstudent exemption relieves enrolled students working at most 20 hours a week of health, long-term care and unemployment contributions; only pension remains. The calculator would charge three branches that are not owed at all.',
+  },
+  {
+    id: 'praktikum',
+    kind: 'declared',
+    labelDe: 'Praktika',
+    labelEn: 'Internships',
+    reasonDe:
+      'Die Beitragspflicht hängt davon ab, ob das Praktikum vorgeschrieben oder freiwillig ist, ob es vor, während oder nach dem Studium liegt und ob ein Entgelt gezahlt wird. Aus dem Entgelt allein lässt sich das nicht ableiten.',
+    reasonEn:
+      'Whether contributions are owed depends on whether the internship is compulsory or voluntary, whether it falls before, during or after study, and whether it is paid. None of that can be derived from the pay alone.',
+  },
+  {
+    id: 'baugewerbe',
+    kind: 'declared',
+    labelDe: 'Baugewerbe und andere Branchen mit eigenen Umlagen',
+    labelEn: 'Construction and other sectors with their own levies',
+    reasonDe:
+      'Im Baugewerbe kommen die Winterbeschäftigungs-Umlage nach § 354 SGB III und die Beiträge zu den Sozialkassen hinzu. Beide sind tarifvertraglich geregelt und branchenabhängig, nicht gesetzlich einheitlich — die Arbeitgeberkosten lägen also höher als hier berechnet.',
+    reasonEn:
+      'Construction adds the Winterbeschäftigungs-Umlage under § 354 SGB III and contributions to the sector’s social funds. Both are set by collective agreement and vary by trade rather than being uniform statute, so employer cost would be higher than calculated here.',
+  },
+  {
     id: 'sachbezug',
     kind: 'declared',
     labelDe: 'Sachbezüge und Dienstwagenversteuerung',

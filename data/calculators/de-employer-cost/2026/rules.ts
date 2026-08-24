@@ -113,10 +113,10 @@ export const DE_RULES_2026: DeRuleset2026 = {
     monthlyCeilingCent: {
       value: eur(5_812, 50),
       sourceId: S.svRechgr,
-      legalBasis: '§ 223 Absatz 3 SGB V i. V. m. § 2 Absatz 2 SVRechGrV 2026',
+      legalBasis: '§ 2 Absatz 2 SVRechGrV 2026; § 55 Absatz 2 SGB XI',
       status: 'confirmed-official',
       note:
-        '69 750 EUR a year. NOT the Jahresarbeitsentgeltgrenze of 77 400 EUR — that is the threshold above which an employee may leave the statutory system, a different question with a different number. Conflating them overstates the ceiling by 7 650 EUR a year.',
+        '69 750 EUR a year. The citation deliberately does NOT lead with § 223 Absatz 3 SGB V: the GKV-Beitragssatzstabilisierungsgesetz of 24 July 2026 REPLACED Absatz 3 as well as inserting Absatz 4, and the replaced text now anchors on Absatz 4 — which speaks only of 2027. The 2026 figure comes from the ordinance, and § 55 Absatz 2 SGB XI still carries the unchanged cross-reference for the care branch. NOT the Jahresarbeitsentgeltgrenze of 77 400 EUR — that is the threshold above which an employee may leave the statutory system, a different question with a different number. Conflating them overstates the ceiling by 7 650 EUR a year.',
     },
     employerSharesHalfOfSupplement: {
       value: true,

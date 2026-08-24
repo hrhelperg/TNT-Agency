@@ -386,6 +386,11 @@ export const ISSUE_TEXT: Record<string, Copy> = {
     en: 'No supplementary rate exceeds 10 %. Please check the figure.',
     cs: 'Žádná doplňková sazba nepřesahuje 10 %. Zkontrolujte prosím údaj.',
   },
+  'kinderfreibetraege.implausible': {
+    de: 'Bitte höchstens 20 Kinderfreibeträge eingeben.',
+    en: 'Please enter at most 20 child allowances.',
+    cs: 'Zadejte prosím nejvýše 20 úlev na děti.',
+  },
   'children.outOfRange': {
     de: 'Bitte eine Kinderzahl zwischen 0 und 20 eingeben.',
     en: 'Please enter a number of children between 0 and 20.',
@@ -456,6 +461,51 @@ export const METHODOLOGY: Record<string, Copy> = {
     de: 'Die Berechnung läuft vollständig in Ihrem Browser. Es werden keine Eingaben übertragen, gespeichert oder in die Adresszeile geschrieben.',
     en: 'The calculation runs entirely in your browser. Nothing you type is transmitted, stored, or written into the address bar.',
     cs: 'Výpočet probíhá zcela ve vašem prohlížeči. Nic ze zadaného se nepřenáší, neukládá ani nezapisuje do adresního řádku.',
+  },
+  basisPension: {
+    de: 'Rentenversicherung', en: 'Pension insurance', cs: 'Důchodové pojištění',
+  },
+  basisUnemployment: {
+    de: 'Arbeitslosenversicherung', en: 'Unemployment insurance', cs: 'Pojištění v nezaměstnanosti',
+  },
+  basisHealth: {
+    de: 'Krankenversicherung', en: 'Health insurance', cs: 'Zdravotní pojištění',
+  },
+  basisCare: {
+    de: 'Pflegeversicherung', en: 'Long-term care insurance', cs: 'Pojištění dlouhodobé péče',
+  },
+  basisLevies: {
+    de: 'Umlagen und Unfallversicherung', en: 'Levies and accident insurance', cs: 'Odvody a úrazové pojištění',
+  },
+  basisTax: {
+    de: 'Lohnsteuer, Solidaritätszuschlag, Kirchensteuer',
+    en: 'Wage tax, solidarity surcharge, church tax',
+    cs: 'Daň ze mzdy, solidární příplatek, církevní daň',
+  },
+  ceilingHealth: {
+    de: 'Beitragsbemessungsgrenze Kranken- und Pflegeversicherung, monatlich',
+    en: 'Contribution ceiling, health and long-term care, monthly',
+    cs: 'Strop pro odvody, zdravotní a pečovatelské pojištění, měsíčně',
+  },
+  ceilingPension: {
+    de: 'Beitragsbemessungsgrenze Renten- und Arbeitslosenversicherung, monatlich',
+    en: 'Contribution ceiling, pension and unemployment, monthly',
+    cs: 'Strop pro odvody, důchodové pojištění a pojištění v nezaměstnanosti, měsíčně',
+  },
+  insuranceThreshold: {
+    de: 'Jahresarbeitsentgeltgrenze (keine Beitragsbemessungsgrenze), jährlich',
+    en: 'Compulsory health-insurance threshold (not a contribution ceiling), annual',
+    cs: 'Hranice povinné účasti ve zdravotním pojištění (není strop pro odvody), ročně',
+  },
+  minijobThreshold: {
+    de: 'Geringfügigkeitsgrenze — darunter wird nicht gerechnet',
+    en: 'Minijob threshold — below this nothing is calculated',
+    cs: 'Hranice minijobu — pod ní se nepočítá',
+  },
+  transitionThreshold: {
+    de: 'Obergrenze des Übergangsbereichs — bis einschließlich hierhin wird nicht gerechnet',
+    en: 'Top of the transition band — up to and including this nothing is calculated',
+    cs: 'Horní hranice přechodového pásma — až sem včetně se nepočítá',
   },
   notAdvice: {
     de: 'Das Ergebnis ist eine Modellrechnung für einen vollen Monat und ersetzt keine Lohnabrechnung.',

@@ -119,6 +119,40 @@ describe('Pflegeversicherung reproduces the published rate table', () => {
     expect(Number(eR) + Number(nR)).toBeCloseTo(3.6, 10);
   });
 
+  /**
+   * The entitlement is the PROOF, not the fact.
+   *
+   * § 55 Absatz 3a SGB XI: parenthood and the number of children under 25 must
+   * be proved to the body collecting the contribution. Until they are, the
+   * employee is treated as childless however many children they have — so
+   * "five children, not yet proved" is a real payroll state, not a contradiction.
+   *
+   * An earlier version wrote the surcharge and the discounts as if/else, which
+   * made a third state fall into the discount branch: parenthood unproved AND
+   * under 23 received four discounts on the strength of children the employer
+   * has no proof of, giving 0,80 % where 1,8 % is owed.
+   */
+  it('grants discounts only where parenthood is proved', () => {
+    const rate = (childrenUnder25: number, isParent: boolean, atLeast23: boolean) =>
+      care(eur(5000), { childrenUnder25, isParent, atLeast23, saxony: false }).employeeRatePercent;
+
+    // Proved: four discounts, and the age is irrelevant to them.
+    expect(rate(5, true, true)).toBe('0.80');
+    expect(rate(5, true, false)).toBe('0.80');
+
+    // Unproved and past 23: the childless surcharge, no discounts.
+    expect(rate(5, false, true)).toBe('2.4');
+
+    // Unproved and under 23: no surcharge (too young) and NO discounts either.
+    // This is the cell that was wrong.
+    expect(rate(5, false, false)).toBe('1.8');
+
+    // Controls.
+    expect(rate(0, false, true)).toBe('2.4');
+    expect(rate(0, false, false)).toBe('1.8');
+    expect(rate(1, true, true)).toBe('1.8');
+  });
+
   it('a parent whose children are all over 25 pays the plain half, not the surcharge', () => {
     // isParent survives the children; childrenUnder25 does not. Treating a
     // 60-year-old parent of grown children as childless would add 0,6 points.

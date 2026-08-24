@@ -91,7 +91,7 @@ export const KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO: SeoPage = {
       body: [
         'Německá daň ze mzdy není součin hrubé mzdy a sazby. Ministerstvo financí každoročně vydává Programmablaufplan — závazný algoritmus o 23 podprogramech, který příjem převede na roční hodnotu, odečte paušály příslušné dané daňové třídě, spočítá takzvanou Vorsorgepauschale z fiktivních pojistných sazeb, aplikuje tarif podle § 32a EStG a výsledek zase rozpočítá na období. Pořadí kroků je součástí předpisu a každý mezivýsledek má předepsaný počet desetinných míst.',
         'Kalkulačka tento postup provádí krok za krokem podle znění pro rok 2026 (sdělení BMF z 12. listopadu 2025). Implementace beze zbytku reprodukuje obě úřední kontrolní tabulky, které ministerstvo k algoritmu zveřejňuje — 516 hodnot napříč všemi šesti daňovými třídami, pro zaměstnance pojištěného ve všech složkách i pro zaměstnance nepojištěného v žádné.',
-        'Daňová třída sama o sobě neurčuje roční daň, jen její zálohové rozdělení během roku. Třída V a VI mají vlastní konstrukci s minimální sazbou 14 % a stropem 42 %, takže se z nich nedá počítat běžným tarifem.',
+        'Daňová třída sama o sobě neurčuje roční daň, jen její zálohové rozdělení během roku. Třídy V a VI mají vlastní konstrukci: nejméně 14 % základu, pak pásmo se sazbou 42 % a nad 222 260 € ročně 45 %. Běžným tarifem se z nich proto počítat nedá.',
       ],
     },
     {
