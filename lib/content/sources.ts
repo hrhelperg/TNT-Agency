@@ -1,6 +1,10 @@
 // Shared, named source references reused across SEO pages.
 //
-// Only real, verifiable Czech laws and official institutions are listed here.
+// Only real, verifiable laws and official institutions are listed here. Czech
+// ones were the whole list until the site added a German-jurisdiction
+// calculator; the German entries are grouped at the bottom and named so that a
+// page citing one while describing Czech law reads as a mistake rather than
+// blending in.
 // No source is invented. Pages reference subsets of these constants so the
 // citation wording stays consistent and a source URL is updated in one place.
 // `retrieved` marks when the online reference was last checked.
@@ -11,6 +15,8 @@ const RETRIEVED = '2026-05-23'
 // Sources added with the professional/specialist cluster; each URL below was
 // requested and returned HTTP 200 on this date.
 const RETRIEVED_2026_08 = '2026-08-15'
+// German sources for the Germany employer-cost calculator; each opened on this date.
+const DE_RETRIEVED = '2026-08-24'
 
 export const SRC = {
   // ── Laws (Sbírka zákonů ČR) ────────────────────────────────────────────
@@ -187,5 +193,56 @@ export const SRC = {
     publisher: 'ČSÚ',
     url: 'https://www.czso.cz/',
     retrieved: RETRIEVED,
+  },
+  // ── German law and institutions ────────────────────────────────────────
+  //
+  // Used ONLY by the German-jurisdiction pages.
+  bmfPap2026: {
+    name: 'Programmablaufplan für die maschinelle Berechnung der Lohnsteuer für 2026 (BMF-Schreiben vom 12. 11. 2025)',
+    publisher: 'Bundesministerium der Finanzen',
+    url: 'https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2025-11-12-PAP-2026.html',
+    retrieved: DE_RETRIEVED,
+  },
+  svRechgroessen2026: {
+    name: 'Sozialversicherungsrechengrößen-Verordnung 2026 (BGBl. 2025 I Nr. 278)',
+    publisher: 'Bundesregierung / Bundesgesetzblatt',
+    url: 'https://www.gesetze-im-internet.de/svbezgrv_2026/',
+    retrieved: DE_RETRIEVED,
+  },
+  gkvRechengroessen2026: {
+    name: 'Rechengrößen und Grenzwerte im Versicherungs- und Beitragsrecht für 2026',
+    publisher: 'GKV-Spitzenverband',
+    url: 'https://www.gkv-spitzenverband.de/',
+    retrieved: DE_RETRIEVED,
+  },
+  sgbV: {
+    name: 'Sozialgesetzbuch V — Gesetzliche Krankenversicherung (§§ 241, 242, 242a, 243, 249)',
+    publisher: 'Bundesrecht',
+    url: 'https://www.gesetze-im-internet.de/sgb_5/',
+    retrieved: DE_RETRIEVED,
+  },
+  sgbVI: {
+    name: 'Sozialgesetzbuch VI — Gesetzliche Rentenversicherung (§§ 158, 159, 168)',
+    publisher: 'Bundesrecht',
+    url: 'https://www.gesetze-im-internet.de/sgb_6/',
+    retrieved: DE_RETRIEVED,
+  },
+  sgbXI: {
+    name: 'Sozialgesetzbuch XI — Soziale Pflegeversicherung (§§ 55, 58)',
+    publisher: 'Bundesrecht',
+    url: 'https://www.gesetze-im-internet.de/sgb_11/',
+    retrieved: DE_RETRIEVED,
+  },
+  sgbIII: {
+    name: 'Sozialgesetzbuch III — Arbeitsförderung (§§ 341, 346, 358, 360)',
+    publisher: 'Bundesrecht',
+    url: 'https://www.gesetze-im-internet.de/sgb_3/',
+    retrieved: DE_RETRIEVED,
+  },
+  bvv: {
+    name: 'Beitragsverfahrensverordnung (BVV), §§ 1 und 2',
+    publisher: 'Bundesrecht',
+    url: 'https://www.gesetze-im-internet.de/beitrvv/',
+    retrieved: DE_RETRIEVED,
   },
 } satisfies Record<string, ContentSource>

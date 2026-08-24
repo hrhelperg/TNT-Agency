@@ -171,13 +171,19 @@ describe('§47 jurisdiction boundary', () => {
     for (const engine of ENGINES) {
       const files = sourceFiles(engine.dir).filter((f) => !/\.test\.tsx?$/.test(f));
       if (files.length === 0) continue;
-      const module = ARITHMETIC[engine.name];
-      expect(module, `${engine.name} has no declared arithmetic module`).toBeTruthy();
+      // Not named `module`: assigning to that identifier is a build error under
+      // the repository's lint rules, and a test that cannot be built is a test
+      // that does not run.
+      const arithmeticModule = ARITHMETIC[engine.name];
+      expect(arithmeticModule, `${engine.name} has no declared arithmetic module`).toBeTruthy();
 
       const importsModule = files.some((f) =>
-        imports(f).some((spec) => spec === module || spec === module.replace(/^lib\//, '')),
+        imports(f).some(
+          (spec) =>
+            spec === arithmeticModule || spec === arithmeticModule.replace(/^lib\//, ''),
+        ),
       );
-      expect(importsModule, `${engine.name} never imports ${module}`).toBe(true);
+      expect(importsModule, `${engine.name} never imports ${arithmeticModule}`).toBe(true);
     }
   });
 

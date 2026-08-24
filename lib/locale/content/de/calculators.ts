@@ -21,6 +21,127 @@ import type { LocaleCorpus } from '../types'
  * des Quelltexts, dass diese Seite dasselbe trägt.
  */
 export const DE_CALCULATORS: LocaleCorpus = {
+  'germany-employer-cost-calculator': {
+    de: {
+      title: 'Arbeitgeberkosten-Rechner Deutschland 2026 — Beiträge, Nettoentgelt, Gesamtkosten',
+      description:
+        'Berechnen Sie, was ein Beschäftigter einen deutschen Arbeitgeber 2026 kostet und was netto ankommt: Renten-, Arbeitslosen-, Kranken- und Pflegeversicherung, Lohnsteuer nach dem amtlichen Programmablaufplan, Nettoentgelt und Gesamtkosten — mit Angabe der Vorschrift zu jeder Position.',
+      h1: 'Arbeitgeberkosten-Rechner Deutschland 2026',
+      intro:
+        'Das Bruttoentgelt ist weder das, was der Arbeitgeber zahlt, noch das, was der Beschäftigte erhält. Dazwischen stehen vier Zweige der deutschen Sozialversicherung, die Lohnsteuer nach dem amtlichen Programmablaufplan des Bundesministeriums der Finanzen, der Solidaritätszuschlag und je nach Person die Kirchensteuer — jeweils mit eigener Bemessungsgrundlage, eigener Beitragsbemessungsgrenze und eigener Rundungsregel. Diese Seite trägt einen Rechner, der sie nach dem in Deutschland für 2026 geltenden Recht ermittelt, und erklärt darunter, woher jede Zahl stammt. Zu jedem Satz ist die Vorschrift genannt; die Werte wurden am 24. August 2026 im Gesetzestext selbst, in der Sozialversicherungsrechengrößen-Verordnung 2026 und in den veröffentlichten Rechengrößen des GKV-Spitzenverbandes geprüft.',
+      sections: [
+        {
+          heading: 'Was ein Beschäftigter einen deutschen Arbeitgeber kostet',
+          body: [
+            'Die gesetzlichen Lohnkosten in Deutschland haben drei Schichten: das Bruttoentgelt, den Arbeitgeberanteil an vier Zweigen der Sozialversicherung und die Umlagen, die der Arbeitgeber allein trägt. Bei einem gewöhnlichen Beschäftigten unterhalb der Beitragsbemessungsgrenzen macht der Arbeitgeberanteil an den vier Zweigen rund 21 % des Bruttoentgelts aus.',
+            'Hinzu kommen die Umlagen U1, U2 und U3 sowie die gesetzliche Unfallversicherung. U1 und U2 legt jede Krankenkasse in ihrer Satzung selbst fest, sie unterscheiden sich zwischen den Kassen um ganze Prozentpunkte; die Unfallversicherung erhebt die Berufsgenossenschaft nach ihrem Gefahrtarif und rechnet erst nach Ablauf des Jahres ab. Für beide gibt es keinen allgemeinen Satz, den man unterstellen dürfte — der Rechner fragt danach, statt zu schätzen.',
+            'Bei 4 000 € Bruttoentgelt im Monat und dem durchschnittlichen Zusatzbeitragssatz ergeben sich gesetzliche Arbeitgeberkosten von etwa 4 862 €, also ein Faktor von rund 1,22 auf das Brutto. Oberhalb der Beitragsbemessungsgrenzen sinkt dieser Faktor, weil die Beiträge stehen bleiben und das Brutto weiter steigt.',
+          ],
+          list: {
+            items: [
+              'Bruttoentgelt',
+              'Rentenversicherung — die Hälfte von 18,6 %',
+              'Arbeitslosenversicherung — die Hälfte von 2,6 %',
+              'Krankenversicherung — die Hälfte von 14,6 % zuzüglich der halben Zusatzbeitragssatzes der Kasse',
+              'Pflegeversicherung — 1,8 % (in Sachsen 1,3 %)',
+              'Insolvenzgeldumlage U3 in Höhe von 0,15 %',
+              'Umlagen U1 und U2 nach der Satzung der Krankenkasse',
+              'Gesetzliche Unfallversicherung nach dem Gefahrtarif der Berufsgenossenschaft',
+            ],
+          },
+        },
+        {
+          heading: 'Zwei Grenzen, die ständig verwechselt werden',
+          body: [
+            'Deutschland kennt für 2026 zwei verschiedene Beitragsbemessungsgrenzen und eine dritte Zahl, die gar keine Grenze in diesem Sinne ist. Kranken- und Pflegeversicherung werden aus Entgelt bis 5 812,50 € monatlich bemessen, also 69 750 € im Jahr. Renten- und Arbeitslosenversicherung liegen höher: 8 450 € monatlich, 101 400 € im Jahr.',
+            'Die dritte Zahl ist die Jahresarbeitsentgeltgrenze — 77 400 € im Jahr. Oberhalb davon darf sich ein Beschäftigter privat versichern. Sie ist keine Beitragsbemessungsgrenze und war es nie; wer beides verwechselt, setzt die Bemessungsgrundlage um 7 650 € im Jahr zu hoch an. Der Rechner hält beide Zahlen auseinander und benennt sie in der Methodik.',
+            'Für 2026 gilt ein einziger Satz von Werten im ganzen Bundesgebiet. Die getrennte Grenze für die neuen Länder, die ältere Tabellen noch führen, steht in der Verordnung für 2026 nicht mehr — die Unterscheidung West und Ost spielt bei diesen Werten keine Rolle mehr.',
+          ],
+          list: {
+            items: [
+              'Kranken- und Pflegeversicherung: 5 812,50 € monatlich',
+              'Renten- und Arbeitslosenversicherung: 8 450 € monatlich',
+              'Jahresarbeitsentgeltgrenze: 77 400 € im Jahr — keine Beitragsbemessungsgrenze',
+              'Bezugsgröße: 3 955 € monatlich',
+            ],
+          },
+        },
+        {
+          heading: 'Die Lohnsteuer ist kein Prozentsatz',
+          body: [
+            'Die deutsche Lohnsteuer ist nicht Brutto mal Satz. Das Bundesministerium der Finanzen veröffentlicht jedes Jahr einen Programmablaufplan — einen verbindlichen Algorithmus aus 23 Unterprogrammen, der das Entgelt auf einen Jahreswert hochrechnet, die Pauschbeträge der jeweiligen Steuerklasse abzieht, eine Vorsorgepauschale aus fiktiven Beitragssätzen bildet, den Tarif nach § 32a EStG anwendet und das Ergebnis wieder auf den Lohnzahlungszeitraum umrechnet. Die Reihenfolge der Schritte ist Teil der Vorschrift, und jeder Zwischenwert hat eine vorgeschriebene Zahl von Dezimalstellen.',
+            'Der Rechner führt diesen Ablauf Schritt für Schritt in der Fassung für 2026 aus (BMF-Schreiben vom 12. November 2025). Die Umsetzung reproduziert beide amtlichen Prüftabellen vollständig, die zum Algorithmus veröffentlicht werden — 516 Werte über alle sechs Steuerklassen, sowohl für einen in allen Zweigen versicherten als auch für einen in keinem Zweig versicherten Beschäftigten.',
+            'Die Steuerklasse entscheidet nicht über die Jahressteuer, sondern nur über ihre Verteilung im Jahr. Die Klassen V und VI folgen einer eigenen Konstruktion mit einer Untergrenze von 14 % und einer Obergrenze von 42 % und lassen sich daher nicht aus dem gewöhnlichen Tarif ableiten.',
+          ],
+        },
+        {
+          heading: 'Pflegeversicherung: Kinder, Kinderlosigkeit und Sachsen',
+          body: [
+            'Die Pflegeversicherung ist der einzige Zweig, in dem sich die beiden Anteile unterscheiden. Der Beitragssatz beträgt 3,6 %; § 55 Absatz 1 SGB XI nennt weiterhin 3,4 %, und der tatsächlich geltende Satz stammt aus einer Verordnung nach Absatz 1a — wer nur das Gesetz liest, rechnet mit 0,2 Punkten zu wenig.',
+            'Ein Beschäftigter ohne Kinder zahlt ab dem Ablauf des Monats, in dem er 23 wird, einen Zuschlag von 0,6 Punkten. Umgekehrt senkt jedes zweite bis fünfte Kind unter 25 Jahren seinen Anteil um 0,25 Punkte. Beides trägt der Beschäftigte allein: der Arbeitgeberanteil beträgt in jeder Familiensituation 1,8 %. Der Gesetzeswortlaut liest sich, als senke der Abschlag den ganzen Beitragssatz und damit auch den Arbeitgeberanteil — die veröffentlichten Beitragstabellen der Kassen und der amtliche Steueralgorithmus zeigen das Gegenteil.',
+            'In Sachsen gilt § 58 Absatz 3 SGB XI: der Beschäftigte trägt einen Prozentpunkt allein, der Rest wird geteilt, also 2,3 % Beschäftigter gegen 1,3 % Arbeitgeber. Der Gesamtsatz ändert sich nicht — der Punkt wird verschoben, nicht hinzugefügt.',
+          ],
+          list: {
+            items: [
+              'Beitragssatz 3,6 %, hälftig geteilt',
+              'Kinderloser Beschäftigter ab 23: +0,6 Punkte, allein getragen',
+              'Zweites bis fünftes Kind unter 25: je −0,25 Punkte, nur beim Beschäftigten',
+              'Sachsen: 2,3 % Beschäftigter / 1,3 % Arbeitgeber',
+            ],
+          },
+        },
+        {
+          heading: 'Der Zusatzbeitragssatz ist keine einzelne Zahl',
+          body: [
+            'Neben dem allgemeinen Beitragssatz von 14,6 % erhebt jede deutsche Krankenkasse nach § 242 SGB V einen eigenen Zusatzbeitragssatz. Das Bundesministerium für Gesundheit gibt lediglich einen Durchschnitt bekannt — 2,9 % für 2026 —, und dieser Durchschnitt gilt nur für die im Gesetz genannten Fälle. Der Satz einer bestimmten Kasse kann deutlich darüber oder darunter liegen.',
+            'Seit dem 1. Januar 2019 wird der Zusatzbeitrag ebenso hälftig geteilt wie der allgemeine Satz. Ältere Darstellungen, nach denen ihn der Beschäftigte allein trägt, sind überholt, und der Unterschied ist erheblich: bei 2,9 % sind es rund 1,45 % des Bruttoentgelts auf der Arbeitgeberseite.',
+            'Der Rechner nimmt den Zusatzbeitragssatz deshalb als Eingabe entgegen, vorbelegt mit dem Durchschnitt von 2,9 % und ausdrücklich als Voreinstellung gekennzeichnet — nicht als Tatsache über einen bestimmten Beschäftigten.',
+          ],
+        },
+        {
+          heading: 'Was der Rechner nicht berechnet, und warum',
+          body: [
+            'Eine geringfügige Beschäftigung und eine Beschäftigung im Übergangsbereich rechnet er nicht. Bis 603 € im Monat zahlt der Arbeitgeber pauschale Beiträge statt der gewöhnlichen; von dort bis 2 000 € wird die beitragspflichtige Einnahme durch den Faktor F vermindert und der Arbeitgeber trägt die Differenz. Keines von beiden ist eine kleinere Fassung der gewöhnlichen Rechnung — es ist ein anderes Regime, und die gewöhnliche Rechnung lieferte eine plausibel aussehende Antwort auf eine andere Frage.',
+            'Ebenso abgelehnt werden Fälle, die sich aus den Zahlen nicht erkennen lassen und nach denen der Rechner deshalb fragt: private Krankenversicherung, Beamte, Mehrfachbeschäftigung, beschäftigte Rentner, die knappschaftliche Versicherung, berufsständische Versorgungswerke, Kurzarbeit, Einmalzahlungen, grenzüberschreitende Sachverhalte und Sachbezüge. Zu jedem Fall wird der Grund genannt.',
+            'Auch die Kappung der Kirchensteuer-Progression bleibt außen vor. Sie wird in der Regel erst bei der Veranlagung und meist auf Antrag gewährt, ihre Bemessungsgrundlage ist das zu versteuernde Einkommen, das der Arbeitgeber nicht kennt, und der Satz folgt dem Beschluss der jeweiligen Religionsgemeinschaft. Der Arbeitgeber behält den ungekappten Betrag ein, und der Rechner zeigt dasselbe — mit dem Hinweis, dass es die Kappung gibt.',
+          ],
+          list: {
+            items: [
+              'Geringfügige Beschäftigung bis 603 € monatlich',
+              'Übergangsbereich bis 2 000 € monatlich',
+              'Private Krankenversicherung',
+              'Beamte und Mitglieder berufsständischer Versorgungswerke',
+              'Mehrfachbeschäftigung',
+              'Einmalzahlungen und Sachbezüge',
+            ],
+          },
+        },
+        {
+          heading: 'Kirchensteuer, Solidaritätszuschlag und Kinderfreibetrag',
+          body: [
+            'Die Kirchensteuer wird nach dem Satz einbehalten, der am Ort der BETRIEBSSTÄTTE gilt, nicht am Wohnort: 8 % in Bayern und Baden-Württemberg, 9 % in den übrigen vierzehn Ländern. Bei einem Beschäftigten, der in Bayern wohnt und in Hessen arbeitet, werden also 9 % einbehalten, und die Differenz gleicht die Veranlagung aus. Sie wird dem Beschäftigten abgezogen, verändert also das Nettoentgelt und nie die Arbeitgeberkosten.',
+            'Der Kinderfreibetrag senkt die Lohnsteuer nicht. Er senkt allein die Bemessungsgrundlage für den Solidaritätszuschlag und die Kirchensteuer, weil Familien während des Jahres Kindergeld erhalten; erst die Veranlagung vergleicht, was günstiger ist. Ein Rechner, der die Lohnsteuer mit jedem Freibetrag fallen ließe, beschriebe die Veranlagung und nicht die Abrechnung.',
+            'Das Ergebnis bildet einen vollen Monat bei gleichbleibendem Entgelt ab und ist keine Lohnabrechnung. Die tatsächliche Abrechnung arbeitet mit unvollständigen Monaten, Einmalzahlungen, Sachbezügen und individuellen ELStAM-Daten, die der Rechner nicht kennt.',
+          ],
+        },
+        {
+          heading: 'Quellen und Methodik',
+          body: [
+            'Die Lohnsteuer folgt dem Programmablaufplan des Bundesministeriums der Finanzen für 2026, die Sozialversicherung dem SGB III, V, VI und XI, die Beitragsarithmetik der Beitragsverfahrensverordnung und die Grenzen der Sozialversicherungsrechengrößen-Verordnung 2026 (BGBl. 2025 I Nr. 278). Die Werte wurden am 24. August 2026 im Gesetzestext selbst geprüft und mit den Rechengrößen des GKV-Spitzenverbandes vom 26. November 2025 abgeglichen.',
+            'Die Beiträge werden so berechnet, wie § 2 Absatz 1 BVV es vorschreibt: bei hälftig geteilten Zweigen wird der halbe Beitragssatz angewendet, das Ergebnis gerundet und erst dann verdoppelt. Das ist nicht dasselbe, wie den ganzen Beitrag zu berechnen und zu halbieren — beide Wege unterscheiden sich bei gewöhnlichen Gehältern um einen Cent. Zwischenergebnisse werden nach § 1 Absatz 2 BVV überhaupt nicht gerundet.',
+            'Die Regeln werden nach Jahrgängen geführt. Ein Ergebnis für 2026 bleibt reproduzierbar, auch nachdem die Werte für 2027 vorliegen. Erwähnenswert: das Gesetz zur Stabilisierung der Beitragssätze in der gesetzlichen Krankenversicherung vom 24. Juli 2026 hat § 223 SGB V mitten im Jahr geändert — sämtliche Regelungen greifen jedoch erst ab 2027 und berühren keine Abrechnung des Jahres 2026.',
+          ],
+        },
+      ],
+      breadcrumb: 'Arbeitgeberkosten-Rechner Deutschland',
+      cta: {
+        label: 'Personal anfragen',
+        targetConceptId: 'request-staff',
+        note: 'Geht es um eine konkrete Stelle? Beschreiben Sie die Position, wir gehen die Möglichkeiten durch.',
+      },
+    },
+  },
+
   'employer-cost-calculator': {
     de: {
       title: 'Arbeitgeberkosten-Rechner Tschechien 2026 — Abgaben, Nettolohn, Gesamtkosten',

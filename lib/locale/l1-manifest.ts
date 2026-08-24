@@ -111,16 +111,31 @@ export const L1_EXPECTED = {
  * they meant on the day they were frozen.
  */
 export const POST_L1_ADDITIONS = {
-  /** The Czech employer-cost calculator: /kalkulacka-nakladu-zamestnavatele. */
-  czechRoutes: 1,
-  /** Its /en and /de pages. */
-  localizedRoutes: 2,
-  /** All three appear in the sitemap. */
-  sitemapUrls: 3,
-  /** All three are real page routes. */
-  staticRoutes: 3,
-  /** …and all three are prerendered as static documents. */
-  prerenderedPages: 3,
+  /**
+   * Two calculators, three routes each.
+   *
+   *   1. Czech employer cost — /kalkulacka-nakladu-zamestnavatele plus its
+   *      /en and /de views. Those three are CZECH payroll in three languages.
+   *   2. German employer cost — /kalkulacka-nakladu-zamestnavatele-nemecko plus
+   *      /en/germany-employer-cost-calculator and
+   *      /de/arbeitgeberkosten-rechner-deutschland. A different JURISDICTION,
+   *      not a translation: separate engine, separate sources, separate
+   *      unsupported cases.
+   *
+   * The two German-language pages are the pair worth naming, because they are
+   * the ones a reader can confuse: /de/arbeitgeberkosten-rechner-tschechien is
+   * Czech payroll in German, /de/arbeitgeberkosten-rechner-deutschland is German
+   * payroll in German, and only the country in the slug separates them.
+   */
+  czechRoutes: 2,
+  /** Their /en and /de pages — two each. */
+  localizedRoutes: 4,
+  /** All six appear in the sitemap. */
+  sitemapUrls: 6,
+  /** All six are real page routes. */
+  staticRoutes: 6,
+  /** …and all six are prerendered as static documents. */
+  prerenderedPages: 6,
 } as const
 
 /** Site-wide totals: the frozen L1 baseline plus everything declared since. */

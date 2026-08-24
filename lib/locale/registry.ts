@@ -289,6 +289,7 @@ export const CZECH_ROUTES: readonly string[] = [
   '/cena-neobsazene-pozice',
   '/zadani-pozice-a-profil-kandidata',
   '/kalkulacka-nakladu-zamestnavatele',
+  '/kalkulacka-nakladu-zamestnavatele-nemecko',
 ]
 
 /**

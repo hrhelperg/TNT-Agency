@@ -8756,5 +8756,370 @@
         }
       }
     }
+  },
+  "germany-employer-cost-calculator": {
+    "csPrimary": "/kalkulacka-nakladu-zamestnavatele-nemecko",
+    "items": {
+      "germany-employer-cost-calculator|SEO_PAGES|s0.b0|a1795b03": {
+        "ref": "s0.b0",
+        "cs": "Hrubá mzda",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Gross pay"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Bruttoentgelt"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s0.b1|2812de7f": {
+        "ref": "s0.b1",
+        "cs": "Důchodové pojištění — polovina z 18,6 %",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Pension insurance — half of 18.6 %"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Rentenversicherung — die Hälfte von 18,6 %"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s0.b2|917458e7": {
+        "ref": "s0.b2",
+        "cs": "Pojištění v nezaměstnanosti — polovina z 2,6 %",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Unemployment insurance — half of 2.6 %"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Arbeitslosenversicherung — die Hälfte von 2,6 %"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s0.b3|c9afc7b5": {
+        "ref": "s0.b3",
+        "cs": "Zdravotní pojištění — polovina z 14,6 % a polovina doplňkové sazby pojišťovny",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Health insurance — half of 14.6 % plus half the fund’s supplementary rate"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Krankenversicherung — die Hälfte von 14,6 % zuzüglich der halben Zusatzbeitragssatzes der Kasse"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s0.b4|e61549bb": {
+        "ref": "s0.b4",
+        "cs": "Pečovatelské pojištění — 1,8 % (v Sasku 1,3 %)",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Long-term care insurance — 1.8 % (1.3 % in Saxony)"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Pflegeversicherung — 1,8 % (in Sachsen 1,3 %)"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s0.b5|6e4771f5": {
+        "ref": "s0.b5",
+        "cs": "Odvod na insolvenční dávku U3 ve výši 0,15 %",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Insolvency benefit levy U3 at 0.15 %"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Insolvenzgeldumlage U3 in Höhe von 0,15 %"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s0.b6|1bf57439": {
+        "ref": "s0.b6",
+        "cs": "Odvody U1 a U2 podle stanov zdravotní pojišťovny",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Levies U1 and U2 under the health fund’s own rules"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Umlagen U1 und U2 nach der Satzung der Krankenkasse"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s0.b7|df51596b": {
+        "ref": "s0.b7",
+        "cs": "Zákonné úrazové pojištění podle rizikového tarifu profesního sdružení",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Statutory accident insurance under the trade association’s risk tariff"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Gesetzliche Unfallversicherung nach dem Gefahrtarif der Berufsgenossenschaft"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s1.b0|ad569599": {
+        "ref": "s1.b0",
+        "cs": "Zdravotní a pečovatelské pojištění: 5 812,50 € měsíčně",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Health and long-term care: 5,812.50 EUR a month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Kranken- und Pflegeversicherung: 5 812,50 € monatlich"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s1.b1|b2cde6fd": {
+        "ref": "s1.b1",
+        "cs": "Důchodové pojištění a pojištění v nezaměstnanosti: 8 450 € měsíčně",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Pension and unemployment: 8,450 EUR a month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Renten- und Arbeitslosenversicherung: 8 450 € monatlich"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s1.b2|8f5dc805": {
+        "ref": "s1.b2",
+        "cs": "Hranice povinné účasti ve zdravotním pojištění: 77 400 € ročně — nikoli strop",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Compulsory health-insurance threshold: 77,400 EUR a year — not a ceiling"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Jahresarbeitsentgeltgrenze: 77 400 € im Jahr — keine Beitragsbemessungsgrenze"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s1.b3|0555e4e4": {
+        "ref": "s1.b3",
+        "cs": "Referenční veličina (Bezugsgröße): 3 955 € měsíčně",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Reference value (Bezugsgröße): 3,955 EUR a month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Bezugsgröße: 3 955 € monatlich"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s3.b0|cd40cd91": {
+        "ref": "s3.b0",
+        "cs": "Základní sazba 3,6 %, dělená napůl",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Base rate 3.6 %, split in half"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Beitragssatz 3,6 %, hälftig geteilt"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s3.b1|0dbd99f7": {
+        "ref": "s3.b1",
+        "cs": "Bezdětný zaměstnanec od 23 let: +0,6 bodu, nese sám",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Childless employee from 23: +0.6 points, borne alone"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Kinderloser Beschäftigter ab 23: +0,6 Punkte, allein getragen"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s3.b2|0cbd44d0": {
+        "ref": "s3.b2",
+        "cs": "Druhé až páté dítě do 25 let: −0,25 bodu za dítě, jen zaměstnanci",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Second to fifth child under 25: −0.25 points each, employee only"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Zweites bis fünftes Kind unter 25: je −0,25 Punkte, nur beim Beschäftigten"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s3.b3|0cec5754": {
+        "ref": "s3.b3",
+        "cs": "Sasko: 2,3 % zaměstnanec / 1,3 % zaměstnavatel",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Saxony: 2.3 % employee / 1.3 % employer"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Sachsen: 2,3 % Beschäftigter / 1,3 % Arbeitgeber"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s5.b0|697e4b30": {
+        "ref": "s5.b0",
+        "cs": "Minijob do 603 € měsíčně",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Minijob up to 603 EUR a month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Geringfügige Beschäftigung bis 603 € monatlich"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s5.b1|77f63b5b": {
+        "ref": "s5.b1",
+        "cs": "Přechodové pásmo do 2 000 € měsíčně",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Transition band up to 2,000 EUR a month"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Übergangsbereich bis 2 000 € monatlich"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s5.b2|579291ea": {
+        "ref": "s5.b2",
+        "cs": "Soukromé zdravotní pojištění",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Private health insurance"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Private Krankenversicherung"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s5.b3|c1affcf2": {
+        "ref": "s5.b3",
+        "cs": "Úředníci a osoby s profesním zaopatřením",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Civil servants and members of professional pension schemes"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Beamte und Mitglieder berufsständischer Versorgungswerke"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s5.b4|d353c328": {
+        "ref": "s5.b4",
+        "cs": "Souběh více zaměstnání",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Concurrent employments"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Mehrfachbeschäftigung"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|s5.b5|630066be": {
+        "ref": "s5.b5",
+        "cs": "Jednorázové výplaty a nepeněžní plnění",
+        "en": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "One-off payments and benefits in kind"
+        },
+        "de": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Einmalzahlungen und Sachbezüge"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|f0|85f208ee": {
+        "ref": "f0",
+        "cs": "Kolik procent odvádí zaměstnavatel za zaměstnance v Německu v roce 2026? U běžného zaměstnance pod stropy zhruba 21 % hrubé mzdy: 9,3 % důchodové pojištění, 1,3 % pojištění v nezaměstnanosti, 7,3 % zdravotní pojištění plus polovina doplňkové sazby pojišťovny a 1,8 % pečovatelské pojištění. K tomu se přidávají odvody U1, U2, U3 a zákonné úrazové pojištění, které obecnou sazbu nemají.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "the employer’s share of the four branches comes to roughly 21 % of gross"
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "macht der Arbeitgeberanteil an den vier Zweigen rund 21 % des Bruttoentgelts aus"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|f1|1675bead": {
+        "ref": "f1",
+        "cs": "Jaký je rozdíl mezi 69 750 € a 77 400 €? První číslo je strop pro odvody na zdravotní a pečovatelské pojištění: nad ním se z vyšší mzdy neodvádí. Druhé je hranice povinné účasti ve veřejném zdravotním pojištění — nad ní se zaměstnanec může pojistit soukromě. Záměna obou nadhodnotí vyměřovací základ o 7 650 € ročně a je nejčastější chybou v německé mzdové agendě.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "treating it as one overstates the assessment base by 7,650 EUR a year"
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "wer beides verwechselt, setzt die Bemessungsgrundlage um 7 650 € im Jahr zu hoch an"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|f2|26859a0e": {
+        "ref": "f2",
+        "cs": "Sníží se zaměstnavateli odvod, když má zaměstnanec děti? Nesníží. Podíl zaměstnavatele na pečovatelském pojištění činí 1,8 % bez ohledu na počet dětí. Sleva 0,25 bodu za každé druhé až páté dítě mladší 25 let se promítá pouze do podílu zaměstnance, stejně jako příplatek 0,6 bodu pro bezdětné.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "the employer pays 1.8 % in every family situation"
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "der Arbeitgeberanteil beträgt in jeder Familiensituation 1,8 %"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|f3|4bb40f9c": {
+        "ref": "f3",
+        "cs": "Platí se v Sasku vyšší pečovatelské pojištění? Celkově ne. Sazba zůstává 3,6 %, ale rozděluje se jinak: zaměstnanec nese 2,3 % a zaměstnavatel 1,3 %. Podle § 58 odst. 3 SGB XI nese zaměstnanec jeden procentní bod sám, protože Sasko na rozdíl od ostatních zemí nezrušilo státní svátek připadající na pracovní den.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "The total does not change — the point moves, it is not added."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Der Gesamtsatz ändert sich nicht — der Punkt wird verschoben, nicht hinzugefügt."
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|f4|3319c9b8": {
+        "ref": "f4",
+        "cs": "Proč kalkulačka nespočítá mzdu 1 800 €? Protože spadá do přechodového pásma, které sahá do 2 000 € měsíčně. V něm se vyměřovací základ snižuje faktorem F a rozdíl nese zaměstnavatel, takže běžný výpočet by vrátil chybné podíly na obou stranách. Kalkulačka proto výpočet odmítne a řekne proč.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "from there to 2,000 EUR the assessment base is reduced by a factor and the employer carries the difference"
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "von dort bis 2 000 € wird die beitragspflichtige Einnahme durch den Faktor F vermindert und der Arbeitgeber trägt die Differenz"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|f5|559c3853": {
+        "ref": "f5",
+        "cs": "Podle čeho se určuje sazba církevní daně? Podle spolkové země, kde sídlí provozovna, nikoli podle bydliště zaměstnance. V Bavorsku a Bádensku-Württembersku činí 8 %, v ostatních čtrnácti zemích 9 %. Zaměstnanec bydlící v Bavorsku a pracující v Hesensku má tedy sraženo 9 % a rozdíl mu vrátí až roční zúčtování.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "8 % in Bavaria and Baden-Württemberg, 9 % in the other fourteen states"
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "8 % in Bayern und Baden-Württemberg, 9 % in den übrigen vierzehn Ländern"
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|f6|14411879": {
+        "ref": "f6",
+        "cs": "Snižuje Kinderfreibetrag daň ze mzdy? Nesnižuje. Snižuje pouze základ pro solidární příplatek a církevní daň. Samotná daň ze mzdy zůstává stejná, protože rodina dostává během roku přídavky na děti; teprve roční zúčtování porovná, co je výhodnější.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "The child allowance (Kinderfreibetrag) does not reduce the wage tax."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Der Kinderfreibetrag senkt die Lohnsteuer nicht."
+        }
+      },
+      "germany-employer-cost-calculator|SEO_PAGES|f7|e6f157db": {
+        "ref": "f7",
+        "cs": "Je výsledek použitelný jako mzdový výměr? Není. Jde o modelový výpočet za jeden celý měsíc při stálé mzdě. Skutečné zúčtování pracuje s neúplnými měsíci, jednorázovými výplatami, nepeněžními plněními a individuálními údaji z ELStAM, které kalkulačka nezná.",
+        "en": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "The result models one full month at a steady wage and is not a payroll run."
+        },
+        "de": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "Das Ergebnis bildet einen vollen Monat bei gleichbleibendem Entgelt ab und ist keine Lohnabrechnung."
+        }
+      }
+    }
   }
 }
