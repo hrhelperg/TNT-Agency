@@ -111,7 +111,7 @@ export const DE_SOURCES: readonly CalculatorSource[] = [
     legalBasis: 'Faktenblatt vom 26.11.2025',
     accessed: ACCESSED,
     note:
-      'The one document that states every 2026 rate and ceiling together, from the body that administers them: KV 14,6 % / 14,0 %, durchschnittlicher Zusatzbeitrag 2,9 %, PV 3,6 % with 0,6 Zuschlag and 0,25 Abschlag, RV 18,6 %, AV 2,6 %, Insolvenzgeldumlage 0,15 %, Geringfügigkeitsgrenze 603 EUR, Übergangsbereich bis 2 000 EUR, Faktor F 0,6619. Used as cross-confirmation for figures whose primary instrument is cited separately, never as the sole authority for any of them.',
+      'The one document that states every 2026 rate and ceiling together, from the body that administers them: KV 14,6 % / 14,0 %, durchschnittlicher Zusatzbeitrag 2,9 %, PV 3,6 % with 0,6 Zuschlag and 0,25 Abschlag, RV 18,6 %, AV 2,6 %, Insolvenzgeldumlage 0,15 %, Geringfügigkeitsgrenze 603 EUR, Übergangsbereich bis 2 000 EUR, Faktor F 0,6619. Used as cross-confirmation for figures whose primary instrument is cited separately — with ONE exception, stated rather than glossed: the Geringfügigkeitsgrenze of 603 EUR is cited to this document alone, because § 8 Absatz 1a SGB IV gives the formula and not the figure, and the rounded result is published rather than enacted.',
   },
   {
     id: DE_SOURCE_IDS.kvBeitragssatz,
@@ -252,7 +252,7 @@ export const DE_SOURCES: readonly CalculatorSource[] = [
     legalBasis: 'Gesetz vom 24.07.2026, BGBl. 2026 I Nr. 228, in Kraft seit 30.07.2026',
     accessed: ACCESSED,
     note:
-      'Cited for what it does NOT do. It amended § 223 SGB V during 2026, and the consolidated text a reader sees today says "Die Beitragsbemessungsgrenze im Jahr 2027 …". Every operative provision bites from 2027: the ceiling rises by 300 EUR a month — which is the SAME 3 600 EUR a year, stated once monthly and once annually, not two separate changes to two figures — and the pauschaler Beitragssatz for Minijobs goes up. Nothing in it changes a 2026 payslip, and the 2026 ceilings remain the SVRechGrV 2026 figures.',
+      'Cited for what it does NOT do. It amended § 223 SGB V during 2026, and the consolidated text a reader sees today says "Die Beitragsbemessungsgrenze im Jahr 2027 …". The Act itself is in force from 30 July 2026 under its Artikel 8 — several of its provisions were operative during 2026 — and separate blocks start on 1 January 2027 and 1 January 2028. What matters HERE is narrower and is the only claim this note makes: nothing in it changes a 2026 CONTRIBUTION. The ceiling change is dated 2027 (a rise of 300 EUR a month, which is the same 3 600 EUR a year stated twice, not two changes to two figures), and so is the higher pauschaler Beitragssatz for Minijobs. An earlier version of this note claimed the whole Act took effect in 2027, which is false in both directions. Nothing in it changes a 2026 payslip, and the 2026 ceilings remain the SVRechGrV 2026 figures.',
   },
   {
     id: DE_SOURCE_IDS.kirchensteuer,

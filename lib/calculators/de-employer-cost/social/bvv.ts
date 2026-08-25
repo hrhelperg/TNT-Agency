@@ -53,12 +53,21 @@ export type Cent = bigint;
 
 const HUNDRED = Decimal.of(100);
 
-/** Cent → euro as an exact scale-2 decimal. */
+/**
+ * Cent → euro, EXACTLY, at whatever scale the quotient terminates at.
+ *
+ * Not "as a scale-2 decimal", which is what this said: `divideExact` returns
+ * Java's preferred scale, so 350000n comes back as 3500 at scale 0 and 350005n
+ * at scale 2. The VALUE is exact in every case, and every consumer either
+ * multiplies — where scales add — or finishes with setScale(2, HALF_UP), which
+ * pads rather than rounds. No contribution changes. But a reader who took the
+ * old sentence literally would expect a property the type does not have.
+ */
 export function centToEuro(cent: Cent): Decimal {
   return Decimal.of(cent.toString()).divideExact(HUNDRED);
 }
 
-/** A rounded euro amount → cent. Exact: the value already has scale 2. */
+/** A rounded euro amount → cent. Exact where the caller has already rounded. */
 export function euroToCent(euro: Decimal): Cent {
   return euro.setScale(2, 'HALF_UP').unscaled;
 }

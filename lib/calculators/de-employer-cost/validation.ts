@@ -105,7 +105,12 @@ export function validateDeInput(input: ValidatableInput): ValidationIssue[] {
 
   // A negative gross is not a Minijob — it is not a wage. Reported for what it
   // is, before scope detection gets a chance to give a true-but-wrong reason.
-  if (input.monthlyGrossCent < 0n) {
+  // ZERO IS REFUSED HERE, not by scope detection. A gross of 0,00 used to fall
+  // through to the Minijob branch and be told that "up to and including the
+  // Minijob threshold the employer pays flat-rate levies instead of the
+  // ordinary contribution rates" — which is not what happens at zero pay, where
+  // no employment relationship is being described at all and no levy is due.
+  if (input.monthlyGrossCent <= 0n) {
     issues.push({ field: 'monthlyGrossCent', key: 'gross.negative' });
   } else if (input.monthlyGrossCent > MAX_MONTHLY_CENT) {
     issues.push({ field: 'monthlyGrossCent', key: 'gross.implausible' });

@@ -250,7 +250,18 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
   // one — yet parenthood is recorded as unproved. The engine honours what it is
   // told, because § 55 Absatz 3a SGB XI makes the PROOF the entitlement, but the
   // combination is worth pointing at.
-  if (!input.care.isParent && (input.steuerklasse === 2 || Number(input.kinderfreibetraege) > 0)) {
+  //
+  // AND ONLY WHERE THE SURCHARGE ACTUALLY APPLIES. The note says the childless
+  // surcharge is being charged, so firing it for someone who has not yet passed
+  // the month of their 23rd birthday made it contradict the care line printed
+  // beside it: § 55 Absatz 3 Satz 1 SGB XI charges the Zuschlag only "nach
+  // Ablauf des Monats, in dem sie das 23. Lebensjahr vollendet haben", and the
+  // engine correctly did not charge it — only the warning said otherwise.
+  if (
+    !input.care.isParent &&
+    input.care.atLeast23 &&
+    (input.steuerklasse === 2 || Number(input.kinderfreibetraege) > 0)
+  ) {
     notes.push({ key: 'care.proofMissing', severity: 'warning', text: 'de.note.parenthoodUnproved' });
   }
 

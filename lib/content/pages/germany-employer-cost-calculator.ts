@@ -137,7 +137,7 @@ export const KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO: SeoPage = {
       body: [
         'Daň ze mzdy vychází z Programmablaufplanu Spolkového ministerstva financí pro rok 2026, sociální pojištění z SGB III, V, VI a XI, aritmetika odvodů z Beitragsverfahrensverordnung a stropy z nařízení SVRechGrV 2026 (BGBl. 2025 I Nr. 278). Hodnoty byly ověřeny 24. srpna 2026 přímo v textu předpisů a porovnány s přehledem GKV-Spitzenverbandu z 26. listopadu 2025.',
         'Odvody se počítají podle § 2 odst. 1 BVV: u rovnoměrně dělených složek se použije poloviční sazba, výsledek se zaokrouhlí a teprve pak zdvojnásobí. Není to totéž jako spočítat celý odvod a rozdělit jej — obě cesty se u běžných mezd liší o cent. Mezivýsledky se podle § 1 odst. 2 BVV nezaokrouhlují vůbec.',
-        'Pravidla jsou vedena po ročnících. Výpočet za rok 2026 zůstane reprodukovatelný i po vydání parametrů pro rok 2027. Stojí za zmínku, že německý zákon o stabilizaci sazeb zdravotního pojištění z 24. července 2026 změnil § 223 SGB V uprostřed roku — všechna jeho ustanovení však míří až na rok 2027 a na mzdu za rok 2026 nedopadají.',
+        'Pravidla jsou vedena po ročnících. Výpočet za rok 2026 zůstane reprodukovatelný i po vydání parametrů pro rok 2027. Stojí za zmínku, že německý zákon o stabilizaci sazeb zdravotního pojištění z 24. července 2026 změnil § 223 SGB V uprostřed roku — ustanovení, která by ovlivnila odvody, však míří až na rok 2027 a na mzdu za rok 2026 nedopadají.',
       ],
     },
   ],

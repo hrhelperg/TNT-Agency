@@ -3712,6 +3712,11 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
 
 /* Assumptions and warnings. Visually quiet but never hidden: a calculator that
    assumes without saying so is indistinguishable from one that knows. */
+/* `.ecc__notes` IS the list — `<ul className="ecc__notes">` — so the descendant
+   form matched nothing and the warnings rendered at the inherited size. Both
+   selectors are kept: the class is also used on the refusal panel, which is a
+   <div> containing a <ul>. */
+.ecc__notes,
 .ecc__notes ul { margin: 0 0 16px; padding-left: 18px; font-size: 0.82rem; color: var(--text-2); }
 .ecc__notes li { margin-bottom: 7px; line-height: 1.45; }
 .ecc__notes li[data-severity='warning'] { color: var(--accent-dark); }
@@ -3833,6 +3838,17 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
    on the same tint and 7.34:1 on white. Scoped so the Czech calculator, which
    shares these class names, keeps its own palette. */
 .ecc--de .ecc__total-label { color: var(--text-2); }
+
+/* The cookie banner's own controls, for the same reason and with the same
+   measurement: the shared ring paints 1.70:1 against the banner's #0d1e3d and
+   2.15:1 against the accept button's fill, both under the 3:1 of SC 1.4.11.
+   White is the only colour with headroom on both. Clause 9 names the banner
+   explicitly, and the scoped fix below reached only the calculator. */
+.cookie-banner a:focus-visible,
+.cookie-banner button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
 
 /* FOCUS RING. The shared ring is rgba(240, 90, 40, .40), which paints
    #f9bda9 on white — 1.63:1, against the 3:1 WCAG SC 1.4.11 requires of a

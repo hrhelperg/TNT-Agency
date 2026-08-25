@@ -298,10 +298,13 @@ export function aagLevy(
   // attributed it to what the Kassen happen to do, which made a statutory rule
   // sound like a convention a Kasse could vary.
   //
-  // NOT MODELLED, and stated because the same sentence excludes them: Satz 2
+  // NOT MODELLED, and FOR U1 ONLY: Satz 2 is expressly limited to "die
+  // Berechnung der Umlage für Aufwendungen nach § 1 Abs. 1", which is U1. It
   // leaves out pay of employees whose contract has run under four weeks with no
   // Entgeltfortzahlung claim, and einmalig gezahltes Arbeitsentgelt under § 23a
   // SGB IV — and this calculator refuses Einmalzahlungen as a declared case.
+  // This helper serves both levies, so the exclusions apply to one of the two
+  // lines it produces; an earlier version of this comment implied both.
   const base = assessmentBase(monthlyGrossCent, R.pension.monthlyCeilingCent.value);
   return line(
     key,

@@ -201,6 +201,12 @@ export function parseEuroToCent(raw: string, locale: DeLocale): bigint | null {
 export function parsePercent(raw: string): string | null {
   const s = raw.trim().replace(/\s| |%/g, '').replace(',', '.');
   if (s === '') return null;
-  if (!/^\d{1,2}(\.\d{1,2})?$/.test(s)) return null;
+  // THREE integer digits are accepted here so the RANGE check can speak. With
+  // the integer part capped at two, "999" failed at the parse layer and the
+  // reader was told to enter a percentage with at most two decimals — which is
+  // exactly what they had done. Every rate this calculator takes is bounded
+  // well below 100 by validation.ts, so a three-digit value is refused either
+  // way; the difference is whether the message describes what is wrong.
+  if (!/^\d{1,3}(\.\d{1,2})?$/.test(s)) return null;
   return s;
 }

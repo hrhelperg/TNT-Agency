@@ -239,6 +239,19 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *
  *   CONSTRUCTORS       every `new X`, so a new channel object cannot appear.
  *
+ *   IMPORTS            every binding taken from a module OUTSIDE the closure.
+ *                      Both closure walkers skip specifiers that do not start
+ *                      with a dot, and an imported name is bound in scope so it
+ *                      is never free — so an imported capability had ZERO
+ *                      structural footprint until this pin existed.
+ *                      `import { useRouter } from 'next/router'` plus
+ *                      `router.replace('#g' + gross + …)` passed all 761
+ *                      assertions and put the salary, the Steuerklasse and the
+ *                      Article-9 church flag into the URL. So did
+ *                      `import beam from 'some-vendor-sdk'` handing the payroll
+ *                      straight to a third party. Five bindings are allowed:
+ *                      three React hooks, next/dynamic and next/link.
+ *
  * DESTRUCTURING IS A READ, NOT A DECLARATION, IN BOTH ITS FORMS. That took two
  * rounds to get right. `const { fetch: send } = self` used to add `fetch` to a
  * DECLARED side and nothing to the used side; that was fixed. Then a reviewer
@@ -282,6 +295,13 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *   • It does not resist an author who edits this file, and nothing can. The
  *     threat it is built against is a leak introduced into the calculator, not
  *     an adversary with commit rights over its own gate.
+ *   • ERASURE IS MODELLED, and it took three rounds. A name bound only in a
+ *     TYPE POSITION, in an AMBIENT `declare`, or in a TYPE-ONLY import does not
+ *     exist at run time, so binding any of them into the scope model let one
+ *     line disarm a global for a whole file. All three are excluded now, and
+ *     identifiers that appear only in type positions are not counted as
+ *     references either — otherwise the free set fills with names that cannot
+ *     be a capability, and a full list is a list nobody reads.
  *   • Scope resolution is real: declarations bind to the scope that owns them
  *     and references resolve up the chain. The flat per-file model before it
  *     was defeated by an unused `.map((k, document) => …)` parameter that made
@@ -298,8 +318,17 @@ const codeOnly = (src: string, file = 'source.ts') =>
  * is a leak that a previous round of reviewers actually got past this file, run
  * against the analyser to prove it now fails, and each asserts WHICH pin fires
  * so it cannot pass for an accidental reason. A gate with no failing input is
- * not known to be a gate. Seven rounds in, the honest summary is that this file
- * has been defeated eleven times and has a control for each of the eleven.
+ * not known to be a gate. Eight rounds in, the honest summary is that this file
+ * has been defeated FOURTEEN times and has a control for each of the fourteen.
+ * The rate is not falling as fast as the rebuilds suggest: four of the last six
+ * were ways of NAMING a property the model did not cover, and two were ways of
+ * acquiring a capability without naming it in this file at all. There is no
+ * argument here that the fifteenth does not exist.
+ *
+ * A PIN THAT IS NEVER REACHED IS ALSO A DEFECT, and there is a test for that
+ * too: an allowlist entry the closure no longer produces is a claim with
+ * nothing behind it, and it accumulates quietly — `tabIndex` sat in PROPERTIES
+ * for two rounds after the tab stop it existed for was deleted.
  */
 type Structure = {
   free: string[];
@@ -307,6 +336,7 @@ type Structure = {
   computed: string[];
   spreads: string[];
   ctors: string[];
+  imports: string[];
 };
 
 /**
@@ -390,12 +420,37 @@ function isAssignmentTarget(node: ts.Node): boolean {
   return false;
 }
 
+/**
+ * Is this identifier in a TYPE position, i.e. erased before anything runs?
+ *
+ * Needed once ambient and type-only declarations stopped binding: without it,
+ * every `Bundesland`, `Cent` and `Record` in an annotation became a "free
+ * identifier" and the pin filled with names that can never be a capability.
+ * With it, the pin holds only names that survive to run time — which is the
+ * only place a capability can be used.
+ */
+function inTypePosition(node: ts.Node): boolean {
+  for (let p = node.parent; p; p = p.parent) {
+    if (
+      ts.isTypeNode(p) || ts.isTypeAliasDeclaration(p) || ts.isInterfaceDeclaration(p) ||
+      ts.isTypeParameterDeclaration(p) || ts.isHeritageClause(p)
+    ) {
+      return true;
+    }
+    if (ts.isSourceFile(p) || ts.isBlock(p) || ts.isJsxElement(p) || ts.isJsxSelfClosingElement(p)) {
+      return false;
+    }
+  }
+  return false;
+}
+
 function structure(sources: ReadonlyMap<string, string>): Structure {
   const free = new Set<string>();
   const properties = new Set<string>();
   const computed = new Set<string>();
   const spreads: string[] = [];
   const ctors = new Set<string>();
+  const imports = new Set<string>();
   const text = (n: ts.Node | undefined): string | null =>
     !n ? null : ts.isIdentifier(n) || ts.isPrivateIdentifier(n) ? n.text
       : ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n) ? n.text : null;
@@ -451,13 +506,34 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
         for (const el of pattern.elements) if (!ts.isOmittedExpression(el)) bind(el.name, scope);
       }
     };
+    // ERASED DECLARATIONS DO NOT BIND ANYTHING AT RUN TIME.
+    //
+    // `declare const location: { replace: (u: string) => void }` disappears at
+    // emit, so `location` still means the global — but it was being bound into
+    // the runtime scope model, which disarmed the free-identifier pin for that
+    // global across the whole file. A same-document navigation carrying the
+    // gross, the Steuerklasse and the church flag then passed all 761
+    // assertions and `tsc --noEmit` as well. Same for `import type`: the
+    // binding is erased, so treating it as one is the same mistake one door
+    // further out. This is the third form of the same class, after type
+    // annotations; the first two were closed by making type positions scopes.
+    const erased = (n: ts.Node): boolean =>
+      (ts.getCombinedModifierFlags(n as ts.Declaration) & ts.ModifierFlags.Ambient) !== 0;
+
     const declare = (n: ts.Node) => {
+      if (erased(n)) return;
       if (ts.isVariableDeclaration(n) || ts.isParameter(n)) bind(n.name, enclosing(n));
       else if (ts.isTypeParameterDeclaration(n)) add(enclosing(n), n.name.text);
       else if ((ts.isFunctionDeclaration(n) || ts.isClassDeclaration(n)) && n.name) add(enclosing(n.parent), n.name.text);
       else if (ts.isFunctionExpression(n) && n.name) add(n, n.name.text);
       else if (ts.isTypeAliasDeclaration(n) || ts.isInterfaceDeclaration(n) || ts.isEnumDeclaration(n)) add(enclosing(n.parent), n.name.text);
-      else if ((ts.isImportSpecifier(n) || ts.isImportClause(n) || ts.isNamespaceImport(n)) && n.name) add(sf, n.name.text);
+      else if ((ts.isImportSpecifier(n) || ts.isImportClause(n) || ts.isNamespaceImport(n)) && n.name) {
+        const clause = ts.isImportClause(n) ? n : (n.parent && ts.isNamedImports(n.parent) ? n.parent.parent : n.parent);
+        const typeOnly =
+          (ts.isImportSpecifier(n) && n.isTypeOnly) ||
+          (clause && ts.isImportClause(clause) && clause.isTypeOnly);
+        if (!typeOnly) add(sf, n.name.text);
+      }
       else if (ts.isCatchClause(n) && n.variableDeclaration) bind(n.variableDeclaration.name, n);
       ts.forEachChild(n, declare);
     };
@@ -498,6 +574,41 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
       // `style={{ backgroundImage: … }}` and `data-net={net}` inside the
       // structural gate instead of leaving them to the textual rules.
       if (ts.isJsxAttribute(n)) properties.add(n.name.getText(sf));
+      // EVERY BINDING TAKEN FROM A MODULE OUTSIDE THE CLOSURE.
+      //
+      // Both closure walkers skip specifiers that do not start with '.', so a
+      // bare import was never scanned; and an imported name is bound in scope,
+      // so it was never a free identifier either. An imported capability
+      // therefore had ZERO structural footprint. `import { useRouter } from
+      // 'next/router'` plus `router.replace('#g' + gross + …)` passed all 761
+      // assertions — `replace` is pinned because String.prototype.replace needs
+      // it — and put the salary, the Steuerklasse and the Article-9 church flag
+      // into the URL, which the site's analytics bundle reports as page_view.
+      // `import beam from 'some-vendor-sdk'` was the same hole with no
+      // pretence: an arbitrary third party receiving the payroll directly.
+      if (ts.isImportDeclaration(n) || ts.isExportDeclaration(n)) {
+        const spec = n.moduleSpecifier;
+        if (spec && ts.isStringLiteral(spec) && !spec.text.startsWith('.')) {
+          const from = spec.text;
+          const clause = ts.isImportDeclaration(n) ? n.importClause : undefined;
+          if (!clause) imports.add(`${from} :: (no binding)`);
+          else {
+            if (clause.name) imports.add(`${from} :: default as ${clause.name.text}`);
+            const bound = clause.namedBindings;
+            if (bound && ts.isNamespaceImport(bound)) imports.add(`${from} :: * as ${bound.name.text}`);
+            if (bound && ts.isNamedImports(bound)) {
+              for (const el of bound.elements) imports.add(`${from} :: ${(el.propertyName ?? el.name).text}`);
+            }
+          }
+        }
+      }
+      if (
+        ts.isCallExpression(n) && n.expression.kind === ts.SyntaxKind.ImportKeyword &&
+        n.arguments[0] && ts.isStringLiteral(n.arguments[0]) &&
+        !(n.arguments[0] as ts.StringLiteral).text.startsWith('.')
+      ) {
+        imports.add(`${(n.arguments[0] as ts.StringLiteral).text} :: dynamic import`);
+      }
       if (ts.isNewExpression(n)) ctors.add(n.expression.getText(sf));
       if (ts.isJsxSpreadAttribute(n)) spreads.push(rel);
       if (ts.isIdentifier(n)) {
@@ -515,7 +626,7 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
           (ts.isQualifiedName(p) && p.right === n) ||
           ts.isImportSpecifier(p) ||
           ts.isExportSpecifier(p);
-        if (!isName && !resolves(n, n.text)) free.add(n.text);
+        if (!isName && !inTypePosition(n) && !resolves(n, n.text)) free.add(n.text);
       }
       ts.forEachChild(n, walk);
     };
@@ -528,6 +639,7 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
     computed: [...computed].sort(),
     spreads,
     ctors: [...ctors].sort(),
+    imports: [...imports].sort(),
   };
 }
 
@@ -668,15 +780,10 @@ const FREE = new Set([
   'Math',
   'Number',
   'Object',
-  'Parameters',
   'RangeError',
-  'Readonly',
-  'ReadonlyMap',
-  'Record',
   'Set',
   'String',
   'TypeError',
-  'const',
   'dd',
   'details',
   'div',
@@ -1034,7 +1141,6 @@ const PROPERTIES = new Set([
   'supplementPercent',
   'supported',
   'svRechgr',
-  'tabIndex',
   'target',
   'tax',
   'taxSource',
@@ -1103,10 +1209,36 @@ const COMPUTED = new Set([
   'lib/calculators/de-employer-cost/tax/pap-2026.ts :: s',
 ]);
 
+/**
+ * EVERY BINDING THE CLOSURE TAKES FROM A MODULE OUTSIDE ITSELF.
+ *
+ * These five are the whole of it: React's three hooks, Next's dynamic() for the
+ * progressive-enhancement boundary, and Next's Link for the one cross-link. A
+ * sixth entry means the calculator has acquired a capability from somewhere the
+ * closure scanner never reads, and that is a decision to be made deliberately
+ * rather than a line to be added in passing.
+ *
+ * `next/router` is deliberately NOT here. A reviewer added `useRouter` and put
+ * the gross, the Steuerklasse and the Article-9 church flag into the URL with
+ * `router.replace(...)` — `replace` is pinned because String.prototype.replace
+ * needs it — and every one of the 761 assertions passed. So did
+ * `import beam from 'some-vendor-sdk'` handing the payroll straight to a third
+ * party. Neither left any structural trace at all: no file, no free identifier,
+ * no property, no computed site, no constructor.
+ */
+const IMPORTS = new Set([
+  'next/dynamic :: default as dynamic',
+  'next/link :: default as Link',
+  'react :: useEffect',
+  'react :: useMemo',
+  'react :: useState',
+]);
+
 const CTORS = new Set(['Decimal', 'Error', 'Intl.NumberFormat', 'Map', 'RangeError', 'Set', 'TypeError']);
 
 const violations = (s: Structure): string[] => [
   ...s.free.filter((x) => !FREE.has(x)).map((x) => `free identifier: ${x}`),
+  ...s.imports.filter((x) => !IMPORTS.has(x)).map((x) => `import: ${x}`),
   ...s.properties.filter((x) => !PROPERTIES.has(x)).map((x) => `property: ${x}`),
   ...s.computed.filter((x) => !COMPUTED.has(x)).map((x) => `computed access: ${x}`),
   ...s.spreads.map((x) => `JSX spread attribute: ${x}`),
@@ -1167,6 +1299,20 @@ describe('STRUCTURAL — the closure is confined to a reviewed vocabulary', () =
     expect(STRUCTURE.computed.filter((x) => !COMPUTED.has(x))).toEqual([]);
   });
 
+  it('takes nothing from a module the closure scanner cannot read', () => {
+    expect(STRUCTURE.imports.filter((x) => !IMPORTS.has(x))).toEqual([]);
+    // Named, because the point is the CAPABILITY rather than the package: these
+    // are the ones that would hand the calculator navigation, history, storage
+    // or a network client without any other rule in this file noticing.
+    for (const forbidden of ['next/router', 'next/navigation', 'next/headers']) {
+      expect(
+        [...IMPORTS].some((x) => x.startsWith(`${forbidden} ::`)),
+        `${forbidden} is on the allowed list`,
+      ).toBe(false);
+    }
+    expect(STRUCTURE.imports.length, 'the import scan found nothing at all').toBeGreaterThan(3);
+  });
+
   it('spreads nothing into a JSX tag and constructs nothing unexpected', () => {
     expect(STRUCTURE.spreads).toEqual([]);
     expect(STRUCTURE.ctors.filter((x) => !CTORS.has(x))).toEqual([]);
@@ -1174,6 +1320,22 @@ describe('STRUCTURAL — the closure is confined to a reviewed vocabulary', () =
 
   it('the shipped tree is clean under all of the above at once', () => {
     expect(violations(STRUCTURE)).toEqual([]);
+  });
+
+  it('no pinned name is dead, so the lists mean what they say', () => {
+    // An allowlist entry the closure never produces is a claim with nothing
+    // behind it — and it accumulates: type-only imports stopped binding this
+    // round, which retired five type helpers from the free set in one go. If a
+    // name is no longer reached, it should leave the list rather than sit there
+    // implying it was reviewed for a reason that no longer exists.
+    const live = new Set(STRUCTURE.free);
+    expect([...FREE].filter((x) => !live.has(x)), 'dead entries in FREE').toEqual([]);
+    const props = new Set(STRUCTURE.properties);
+    expect([...PROPERTIES].filter((x) => !props.has(x)), 'dead entries in PROPERTIES').toEqual([]);
+    const sites = new Set(STRUCTURE.computed);
+    expect([...COMPUTED].filter((x) => !sites.has(x)), 'dead entries in COMPUTED').toEqual([]);
+    const mods = new Set(STRUCTURE.imports);
+    expect([...IMPORTS].filter((x) => !mods.has(x)), 'dead entries in IMPORTS').toEqual([]);
   });
 
   /**
@@ -1361,6 +1523,55 @@ describe('STRUCTURAL — the closure is confined to a reviewed vocabulary', () =
    * bound into the SourceFile's runtime scope, so `self` counted as local for
    * the whole file and the free-identifier pin never fired for it again.
    */
+  /**
+   * A CAPABILITY TAKEN FROM A MODULE OUTSIDE THE CLOSURE.
+   *
+   * Both closure walkers skip specifiers that do not start with '.', and an
+   * imported name is bound in scope so it is never free. `useRouter` therefore
+   * had no structural footprint at all, and `router.replace('#g' + gross + …)`
+   * put the salary, the Steuerklasse and the Article-9 church flag into the URL
+   * — which the site's analytics bundle reports as page_view.url.
+   */
+  it('rejects a navigation capability imported from a bare module', () => {
+    const sources = new Map(sourceMap());
+    const src = sources.get(COMPONENT);
+    expect(src.includes(HANDLER), 'the mutation anchor has moved').toBe(true);
+    sources.set(
+      COMPONENT,
+      "import { useRouter } from 'next/router'\n" +
+        src.replace(
+          HANDLER,
+          "onChange={(e) => { useRouter().replace('#g' + e.target.value + 's' + steuerklasse); set('gross')(e.target.value) }}",
+        ),
+    );
+    const found = violations(structure(sources));
+    expect(found.join(' | '), 'a bare import left no trace').toContain('import: next/router');
+  });
+
+  /**
+   * AN ERASED DECLARATION THAT DISARMS A GLOBAL.
+   *
+   * `declare const location` disappears at emit, so `location` still means the
+   * global — but binding it into the runtime scope model removed it from the
+   * free set for the whole file, and a same-document navigation carrying the
+   * payroll passed every assertion and `tsc --noEmit` as well.
+   */
+  it('an ambient declaration does not shadow a global', () => {
+    const sources = new Map(sourceMap());
+    const src = sources.get(COMPONENT);
+    expect(src.includes(HANDLER), 'the mutation anchor has moved').toBe(true);
+    sources.set(
+      COMPONENT,
+      src
+        .replace(HANDLER, "onChange={(e) => { location.replace('#g' + e.target.value); set('gross')(e.target.value) }}")
+        .replace('const STEUERKLASSEN', 'declare const location: { replace: (u: string) => void }\nconst STEUERKLASSEN'),
+    );
+    const found = violations(structure(sources));
+    expect(found.join(' | '), 'the ambient declaration disarmed the free-identifier pin').toContain(
+      'free identifier: location',
+    );
+  });
+
   it('a parameter in a type position does not shadow a global', () => {
     const sources = new Map(sourceMap());
     const src = sources.get(COMPONENT);
@@ -1637,6 +1848,15 @@ describe.each(JSX_FILES)('nothing financial or personal can reach a URL (%s)', (
       return;
     }
     expect(/onSubmit=\{\(e\)\s*=>\s*e\.preventDefault\(\)\}/.test(src)).toBe(true);
+  });
+
+  it('throws nothing, because an uncaught error is an observable channel', () => {
+    // `throw new Error(gross + ':' + churchFlag)` passes every structural rule
+    // — Error is an allowed global and a pinned constructor — and an uncaught
+    // error reaches window.onerror, which is where an analytics bundle listens.
+    // These two files are declarative and have no reason to throw at all; the
+    // engine, which does throw, never sees an input value in a message.
+    expect(/\bthrow\b/.test(src), `${file} throws`).toBe(false);
   });
 
   it('offers no share or copy-link mechanism', () => {

@@ -137,7 +137,7 @@ export const EN_CALCULATORS: LocaleCorpus = {
           body: [
             'Wage tax follows the Federal Ministry of Finance’s 2026 Programmablaufplan; social insurance follows SGB III, V, VI and XI; the contribution arithmetic follows the Beitragsverfahrensverordnung; and the ceilings come from the 2026 Sozialversicherungsrechengrößen-Verordnung (BGBl. 2025 I Nr. 278). The values were verified on 24 August 2026 in the texts themselves and cross-checked against the GKV-Spitzenverband’s figures of 26 November 2025.',
             'Contributions are computed as § 2 Absatz 1 BVV prescribes: for an equally split branch, half the rate is applied, the result rounded, and only then doubled. That is not the same as computing the whole contribution and halving it — the two differ by a cent on ordinary salaries. Intermediate results are not rounded at all, per § 1 Absatz 2 BVV.',
-            'The rules are held per year. A 2026 result stays reproducible after the 2027 parameters appear. Worth recording: the German statute stabilising health-insurance rates, enacted on 24 July 2026, amended § 223 SGB V mid-year — but every operative provision bites from 2027 and none of it touches a 2026 payslip.',
+            'The rules are held per year. A 2026 result stays reproducible after the 2027 parameters appear. Worth recording: the German statute stabilising health-insurance rates, enacted on 24 July 2026, amended § 223 SGB V mid-year — but the provisions that would move a contribution are dated 2027, not 2026 and none of it touches a 2026 payslip.',
           ],
         },
       ],

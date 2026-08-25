@@ -644,7 +644,14 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                 <table className="ecc__table">
                   <thead>
                     <tr>
-                      <th scope="col">{tr(SECTION.insurance)}</th>
+                      {/*
+                        NOT "Sozialversicherung": the rows below include the
+                        Insolvenzgeldumlage U3, the AAG levies U1 and U2 and the
+                        statutory accident insurance, none of which is a
+                        Sozialversicherungszweig. The column holds line items,
+                        and that is what it now says.
+                      */}
+                      <th scope="col">{tr(RESULT.contributionsTable)}</th>
                       <th scope="col">{tr(RESULT.employerShare)}</th>
                       <th scope="col">{tr(RESULT.employeeShare)}</th>
                     </tr>

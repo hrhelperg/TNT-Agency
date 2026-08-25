@@ -1,4 +1,11 @@
-# Inherited site-wide debt: `--accent` fails WCAG AA as text
+# Inherited site-wide accessibility debt (site chrome)
+
+Two findings, both in chrome shared with every route, both recorded rather than
+fixed inside the Germany calculator branch: the `--accent` token failing WCAG AA
+as text, and the closed mobile navigation leaving 12–15 focusable links in the
+tab order with nothing painted.
+
+## `--accent` fails WCAG AA as text
 
 Recorded during the sixth refutation of the Germany 2026 employer-cost
 calculator. **Not fixed in that branch, deliberately** — the cause is a brand
@@ -26,12 +33,14 @@ The logo is 18.08px bold. WCAG "large scale" starts at 18.66px bold, so the
 axe-core, tags `wcag2a wcag2aa wcag21a wcag21aa`, run against the whole document
 (not scoped to the calculator) on all three Germany routes at 320 / 390 / 1440
 with a calculated result present: **18 unique violating nodes, all
-`color-contrast`, all the same cause.** The split is 16 on the Czech route — the
-15 internal-link, source-link and editorial-note anchors plus its own logo — and
-one logo each on the German and English routes. (An earlier version of this
-paragraph said "15 … the German and English routes carry the logo only", which
-adds up to 17 and undercounts the Czech route by one: the Czech logo was being
-counted in neither group.)
+`color-contrast`, all the same cause.** The 18 is a UNION ACROSS WIDTHS, which two earlier versions of this
+paragraph did not say and both got the split wrong. Measured per width: the
+Czech route yields **15** nodes at 280/320/360/390/430/768 — its logo, 8 source
+links, 5 internal links and the editorial-note anchor, i.e. **14 anchors**, not
+15 — and **16** at 1024/1440, where `.locale-switcher--header` stops being
+`display:none` and adds the active language chip. The German and English routes
+yield **one** node each at every width: the logo. So 16 + 1 + 1 = 18 unique
+nodes across the matrix, and no single width shows all 18.
 
 Reproduce:
 
@@ -52,13 +61,46 @@ or was a plain bug rather than a brand decision:
   is not large scale. Now `--accent-dark`: 4.86:1.
 * The focus ring `rgba(240, 90, 40, .40)` painted 1.63:1 against white, below
   the 3:1 of SC 1.4.11. Fixed **scoped to `.ecc--de`** rather than repainting
-  every focus ring on the site.
+  every focus ring on the site — and, one round later, scoped to the cookie
+  banner as well, where the same ring measured **1.70:1** against `#0d1e3d` and
+  2.15:1 against the accept button's fill. The first pass claimed this ring
+  defect fixed while leaving the one piece of chrome the acceptance contract
+  names explicitly still carrying it. Everywhere ELSE on the site the ring is
+  unchanged and remains part of the debt below.
 * `.ecc__total-label` on the tinted net panel was 4.43:1. Fixed scoped, 6.84:1.
 
 What is left is the token itself. Changing `--accent` changes the visual
 identity of every page, every button, every link on the site; scoping a
 correction to the Germany routes would leave the same components looking
 different on the 276 routes beside them, which is worse than the defect.
+
+## Also outstanding: 12–15 invisible tab stops before the calculator
+
+Found in the same review round and left here for the same reason — it is site
+chrome, unchanged since the base commit, and shared with every route.
+
+The closed `.mobile-nav` is `display:flex; visibility:visible; opacity:0;
+pointer-events:none`, with no `inert`, no `aria-hidden` and no
+`visibility:hidden`. Its links therefore stay focusable and stay in the
+accessibility tree. Measured with Chromium over the full three-locale ×
+eight-width matrix: **12 focusable links on `/en/…` and `/de/…`, 15 on the Czech
+route**, all at cumulative opacity 0, in the tab order at 280/320/360/390/430/
+768/1024 and `display:none` only at 1440. CDP `Accessibility.getPartialAXTree`
+reports the first as `{role:'link', name:'Startseite', ignored:false}`. There is
+no skip link anywhere on the site (`a[href^="#"]` returns nothing), so a
+keyboard user crosses 12 or 15 invisible stops before reaching the gross field.
+
+That is a WCAG 2.1 SC 2.4.7 (Focus Visible, AA) failure on these routes. It does
+not touch the calculator's own controls — those were verified at cumulative
+opacity 1 with a visible ring — which is why it is recorded rather than fixed
+inside this branch.
+
+Fix, when the chrome is next opened: add `visibility: hidden` to the closed
+state and `visibility: visible` to `.mobile-nav.open`, transitioning
+`visibility 0s linear .3s` so the opacity animation still runs on the way out.
+Then re-run a Tab traversal at 390px on one route per language and confirm the
+first stop after the header is the page's own content. A skip link would be
+worth adding in the same pass.
 
 ## Corrective plan
 

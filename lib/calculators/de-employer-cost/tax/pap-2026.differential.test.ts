@@ -122,11 +122,26 @@ describe('§42 production engine ≡ XML interpreter', () => {
 
   it('Versorgungsbezüge across every cohort year and both period shapes', () => {
     const cases: Case[] = [];
+    // ODD-CENT AMOUNTS ARE IN THE GRID DELIBERATELY. Every Versorgungsbezug in
+    // this suite used to be a multiple of 10 000 cent, so VBEZB × TAB1[J] / 100
+    // always terminated at two decimals and MRE4's `setScale(2, UP)` on FVB
+    // never actually rounded anything: flipping it to DOWN left all 104 tests
+    // green. The amounts below make the third decimal non-zero — 12,00 × 0,384
+    // / 100 = 0,04608, which is 0,05 up and 0,04 down — so the rounding MODE is
+    // exercised rather than merely present.
     for (const VJAHR of [1995, 2005, 2006, 2010, 2020, 2026, 2040, 2057, 2058, 2080]) {
       for (const ZMVB of [0, 1, 6, 12]) {
         for (const LZZ of [1, 2]) {
           cases.push({
             RE4: 400_000, VBEZ: 150_000, VBEZM: 150_000, VBEZS: 20_000,
+            VJAHR, ZMVB, LZZ, STKL: 1, KVZ: '2.90', PVZ: 1, R: 1,
+          });
+          cases.push({
+            RE4: 400_001, VBEZ: 100, VBEZM: 1, VBEZS: 3,
+            VJAHR, ZMVB, LZZ, STKL: 1, KVZ: '2.90', PVZ: 1, R: 1,
+          });
+          cases.push({
+            RE4: 733_337, VBEZ: 150_007, VBEZM: 12_503, VBEZS: 20_003,
             VJAHR, ZMVB, LZZ, STKL: 1, KVZ: '2.90', PVZ: 1, R: 1,
           });
         }

@@ -36,8 +36,10 @@
  * ───────────────────
  * Only what the 2026 PAP actually uses, which is a small and regular subset:
  * add, subtract, multiply, divide (exact and scaled), setScale, compareTo,
- * longValue, and the two rounding modes that appear — ROUND_DOWN (71 uses) and
- * ROUND_UP (12 uses). Both are MAGNITUDE-based in Java: DOWN truncates toward
+ * longValue, and the two rounding modes that appear — ROUND_DOWN (70
+ * operations) and ROUND_UP (12). The XML contains 71 textual occurrences of
+ * ROUND_DOWN, one of which is inside a comment in MSONST rather than an
+ * operation; 82 rounding operations in total. Both are MAGNITUDE-based in Java: DOWN truncates toward
  * zero and UP goes away from zero. That distinction is not academic here — the
  * PAP produces negative intermediates, and the flowchart says so explicitly
  * ("negative Zahlen werden nach ihrem Betrag gerundet").

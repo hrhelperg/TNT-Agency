@@ -151,7 +151,11 @@ export const FIELD: Record<string, Copy> = {
   },
   reducedRate: {
     de: 'Ermäßigter Beitragssatz (kein Krankengeldanspruch)',
-    en: 'Reduced health rate (no sick-pay entitlement)',
+    // NOT "no sick-pay entitlement": § 243 SGB V turns on Krankengeld, the
+    // health fund's benefit from week seven, and the same rendered form uses
+    // "sick-pay" one fieldset below for U1, which reimburses Entgeltfortzahlung.
+    // Two different entitlements were sharing two words on one page.
+    en: 'Reduced health rate (no Krankengeld entitlement, § 243 SGB V)',
     cs: 'Snížená sazba zdravotního pojištění (bez nároku na německé nemocenské dávky Krankengeld)',
   },
   children: {
@@ -500,9 +504,9 @@ export const ISSUE_TEXT: Record<string, Copy> = {
     cs: 'Tento údaj je mimo rozsah, který kalkulačka umí zpracovat.',
   },
   'gross.negative': {
-    de: 'Das Bruttoentgelt kann nicht negativ sein.',
-    en: 'Gross pay cannot be negative.',
-    cs: 'Hrubá mzda nemůže být záporná.',
+    de: 'Das Bruttoentgelt muss größer als null sein.',
+    en: 'Gross pay must be greater than zero.',
+    cs: 'Hrubá mzda musí být větší než nula.',
   },
   'gross.implausible': {
     de: 'Bitte ein monatliches Bruttoentgelt unter 100 Millionen Euro eingeben.',

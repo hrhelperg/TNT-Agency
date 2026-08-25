@@ -313,3 +313,63 @@ describe('a message names the control the reader must actually fix', () => {
     ).toBe(false);
   });
 });
+
+describe('three statements corrected in the eighth round', () => {
+  it('the GKV Act is not described as taking effect entirely from 2027', () => {
+    // Artikel 8 puts the Act in force generally on 30 July 2026, and a separate
+    // block starts on 1 January 2028. The claim that matters for this
+    // calculator is narrower and true — nothing in it changes a 2026
+    // CONTRIBUTION — but "every operative provision bites from 2027" /
+    // "sämtliche Regelungen greifen jedoch erst ab 2027" was false in both
+    // directions, on all three public routes.
+    const files = [
+      'lib/locale/content/en/calculators.ts',
+      'lib/locale/content/de/calculators.ts',
+      'lib/content/pages/germany-employer-cost-calculator.ts',
+      'data/calculators/de-employer-cost/2026/sources.ts',
+    ];
+    for (const f of files) {
+      const text = fs.readFileSync(path.join(ROOT, f), 'utf8');
+      for (const bad of [
+        /every operative provision bites from 2027/,
+        /sämtliche Regelungen greifen jedoch erst ab 2027/,
+        /všechna jeho ustanovení však míří až na rok 2027/,
+      ]) {
+        expect(bad.test(text), `${f} still claims the whole Act starts in 2027`).toBe(false);
+      }
+    }
+  });
+
+  it('the parenthood warning fires only where the surcharge actually applies', () => {
+    // The note says the childless surcharge is being charged. § 55 Absatz 3
+    // Satz 1 SGB XI charges it only "nach Ablauf des Monats, in dem sie das 23.
+    // Lebensjahr vollendet haben", so firing it below that age made the warning
+    // contradict the care line printed beside it.
+    const ENGINE = fs.readFileSync(
+      path.join(ROOT, 'lib/calculators/de-employer-cost/engine.ts'),
+      'utf8',
+    );
+    const at = ENGINE.indexOf("key: 'care.proofMissing'");
+    expect(at, 'the parenthood warning is gone').toBeGreaterThan(0);
+    expect(ENGINE.slice(Math.max(0, at - 400), at)).toMatch(/input\.care\.atLeast23 &&/);
+  });
+
+  it('the reduced-rate label names Krankengeld in every locale', () => {
+    // § 243 SGB V turns on Krankengeld, the fund's benefit from week seven.
+    // "Sick-pay entitlement" names Entgeltfortzahlung, and the same rendered
+    // form already uses those two words one fieldset below, for U1.
+    const COPY = fs.readFileSync(
+      path.join(ROOT, 'lib/calculators/de-employer-cost/copy.ts'),
+      'utf8',
+    );
+    const at = COPY.indexOf('reducedRate: {');
+    const block = COPY.slice(at, at + 700);
+    expect(block).toMatch(/de: '[^']*Krankengeld/);
+    expect(block).toMatch(/en: '[^']*Krankengeld/);
+    expect(block).toMatch(/cs: '[^']*Krankengeld/);
+    expect(
+      /en: 'Reduced health rate \(no sick-pay entitlement\)'/.test(block),
+      'the English label names sick pay again',
+    ).toBe(false);
+  });
+});

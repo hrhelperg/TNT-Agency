@@ -244,8 +244,8 @@ const MUTATIONS = [
       'Steuerklasse II and a Kinderfreibetrag both presuppose a child. The engine correctly honours the proof flag, ' +
       'but without the warning a contradictory ELStAM entry produces a confident number and no hint.',
     file: ENGINE,
-    from: "  if (!input.care.isParent && (input.steuerklasse === 2 || Number(input.kinderfreibetraege) > 0)) {",
-    to: "  if (false && !input.care.isParent) {",
+    from: "    notes.push({ key: 'care.proofMissing', severity: 'warning', text: 'de.note.parenthoodUnproved' });",
+    to: '',
   },
   {
     name: '27. a DOM-mutation leak: style.setProperty with every fragment split',
@@ -573,7 +573,7 @@ const MUTATIONS = [
       "calculator's only year. A reader who followed the old citation to § 3 would have doubled the cost the " +
       'refusal says it is omitting.',
     file: UNSUPPORTED,
-    from: "Für 2026 senkt § 3a WinterbeschV den Umlagesatz im Baugewerbe befristet auf 1 % — davon 0,6 % Arbeitgeber, 0,4 % Arbeitnehmer — statt der 2 % (1,2/0,8) aus § 3 Absatz 1 Nummer 1;",
+    from: "Für 2026 senkt § 3a WinterbeschV den Umlagesatz im Baugewerbe befristet auf 1 % — davon 0,6 % Arbeitgeber, 0,4 % Arbeitnehmer — statt der 2 % aus § 3 Absatz 1 Nummer 1 mit der Aufteilung 1,2/0,8 nach § 3 Absatz 2 Nummer 1;",
     to: "Die Umlagesätze stehen in § 3 WinterbeschV und gelten bundesweit;",
   },
   {
@@ -598,6 +598,59 @@ const MUTATIONS = [
       "onChange={(e) => { const { ['owner' + 'Document']: d } = e.target; " +
       "const { ['default' + 'View']: w } = d; const { ['fe' + 'tch']: f } = w; " +
       "f.call(w, '/x?g=' + e.target.value); set('gross')(e.target.value) }}",
+  },
+  // ── Round eight. Two ways of acquiring a capability without naming it in the
+  // gate's file at all, and three statements about German law.
+  {
+    name: '54. a navigation capability imported from a bare module',
+    why:
+      'Both closure walkers skip specifiers that do not start with a dot, and an imported name is bound in ' +
+      'scope so it is never free — so an imported capability had ZERO structural footprint. useRouter plus ' +
+      "router.replace('#g' + gross) put the salary, the Steuerklasse and the Article-9 church flag into the " +
+      'URL, which the analytics bundle reports as page_view.url.',
+    file: COMPONENT,
+    from: "import { DE_RULES_2026 }",
+    to: "import { useRouter } from 'next/router'\nimport { DE_RULES_2026 }",
+  },
+  {
+    name: '55. a global disarmed by an ambient declaration',
+    why:
+      '`declare const location` disappears at emit, so `location` still means the global — but binding it ' +
+      'into the runtime scope model removed it from the free set for the whole file. Type positions were ' +
+      'closed two rounds ago; ambient declarations are the same class one door further out.',
+    file: COMPONENT,
+    from: "const STEUERKLASSEN",
+    to: "declare const location: { replace: (u: string) => void }\nconst leak2 = (v) => location.replace('#g' + v)\nconst STEUERKLASSEN",
+  },
+  {
+    name: '56. the GKV Act described as taking effect entirely from 2027',
+    why:
+      'Artikel 8 puts the Act in force generally on 30 July 2026, and a separate block starts on 1 January ' +
+      '2028. The narrow claim that matters here — nothing in it changes a 2026 CONTRIBUTION — is true; the ' +
+      'sentence around it was false in both directions, on all three public routes.',
+    file: CS_PAGE,
+    from: "ustanovení, která by ovlivnila odvody, však míří až na rok 2027",
+    to: "všechna jeho ustanovení však míří až na rok 2027",
+  },
+  {
+    name: '57. the parenthood warning fired where the surcharge does not apply',
+    why:
+      'The note says the childless surcharge is being charged. Firing it for someone who has not passed the ' +
+      'month of their 23rd birthday made it contradict the care line printed beside it — § 55 Absatz 3 ' +
+      'Satz 1 SGB XI charges the Zuschlag only after that month, and the engine correctly did not.',
+    file: ENGINE,
+    from: "    !input.care.isParent &&\n    input.care.atLeast23 &&",
+    to: "    !input.care.isParent &&",
+  },
+  {
+    name: '58. the English label naming the wrong entitlement',
+    why:
+      '§ 243 SGB V turns on Krankengeld, the health fund\'s benefit from week seven. "Sick-pay entitlement" ' +
+      'names Entgeltfortzahlung — and the same rendered form already uses those two words one fieldset ' +
+      'below, for U1. Two different entitlements sharing two words on one page, in one locale only.',
+    file: COPY,
+    from: "en: 'Reduced health rate (no Krankengeld entitlement, § 243 SGB V)',",
+    to: "en: 'Reduced health rate (no sick-pay entitlement)',",
   },
 ]
 
