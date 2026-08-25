@@ -18,6 +18,8 @@ import {
 import {
   ERROR_FIELD,
   ISSUE_FIELD,
+  PARSE_ERROR_CONTROL,
+  ISSUE_CONTROL,
   ERROR_TEXT,
   ISSUE_TEXT,
   FIELD,
@@ -27,6 +29,8 @@ import {
   SECTION,
   t,
 } from '../lib/calculators/de-employer-cost/copy'
+import { validateDeInput } from '../lib/calculators/de-employer-cost/validation'
+import { DE_RULES_2026 } from '../data/calculators/de-employer-cost/2026/rules'
 import { DECLARED_CASES } from '../lib/calculators/de-employer-cost/unsupported'
 import type { DeLocale } from '../lib/calculators/de-employer-cost/types'
 
@@ -77,21 +81,30 @@ interface Raw {
   children: string
 }
 
-const EMPTY: Raw = {
+/**
+ * The announced 2026 average, written the way the reader's own page writes
+ * numbers.
+ *
+ * It was a hard-coded '2,9' on all three routes, so the English page showed a
+ * German decimal comma in a control whose own hint one line below said "2.9 %"
+ * — on the one route whose parser contract is that a lone dot is the decimal
+ * separator. No wrong number resulted (parsePercent normalises either
+ * separator), but a form that contradicts itself about its own notation is
+ * teaching the reader the wrong thing about what it will accept.
+ */
+const empty = (locale: DeLocale): Raw => ({
   gross: '',
-  // The announced average for 2026. A default, labelled as one — the rate that
-  // applies to any given employee comes from their own Krankenkasse.
-  supplement: '2,9',
+  supplement: formatPercent(DE_RULES_2026.health.averageSupplementPercent.value, locale).replace(' %', ''),
   u1: '',
   u2: '',
   accident: '',
   children: '0',
-}
+})
 
 export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalculatorProps) {
   const tr = (copy: Parameters<typeof t>[0]) => t(copy, locale)
 
-  const [raw, setRaw] = useState<Raw>(EMPTY)
+  const [raw, setRaw] = useState<Raw>(() => empty(locale))
   const [steuerklasse, setSteuerklasse] = useState<number>(1)
   const [kinderfreibetraege, setKinderfreibetraege] = useState<string>('0')
   const [workplace, setWorkplace] = useState<Bundesland>('NW')
@@ -126,18 +139,30 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
     return { grossCent, supplement, u1, u2, accidentCent, errors }
   }, [raw, smallEmployer])
 
-  const outcome = useMemo(() => {
-    const { grossCent, supplement, u2, accidentCent, errors } = parsed
-    if (errors.length > 0 || grossCent === null || supplement === null || u2 === null) return null
-    if (accidentCent === null) return null
-
-    const input: DeEmployerCostInput = {
-      monthlyGrossCent: grossCent,
+  /**
+   * The input as far as it could be read, with a neutral stand-in for anything
+   * that could not.
+   *
+   * IT EXISTS SO THE FIELDS THAT DID PARSE CAN STILL BE VALIDATED. Before this,
+   * a single unreadable field returned null from the outcome memo, so
+   * validateDeInput never ran at all: with a bad accident amount, a 99 %
+   * Zusatzbeitrag and 25 children entered at once, the reader was shown ONE
+   * message and the other two did not appear anywhere on the page. They
+   * reappeared only after fixing the first — which is the opposite of what a
+   * form should do, and the opposite of what clause 5 requires.
+   *
+   * The stand-ins never reach a result: `outcome` is still null whenever
+   * anything failed to parse, so nothing is computed from a placeholder.
+   */
+  const candidate = useMemo<DeEmployerCostInput>(() => {
+    const { grossCent, supplement, u1, u2, accidentCent } = parsed
+    return {
+      monthlyGrossCent: grossCent ?? 0n,
       steuerklasse,
       kinderfreibetraege,
       workplace,
       churchTaxLiable,
-      healthSupplementPercent: supplement,
+      healthSupplementPercent: supplement ?? '0',
       reducedHealthRate,
       care: {
         childrenUnder25: Number(raw.children) || 0,
@@ -145,14 +170,13 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
         atLeast23,
       },
       employer: {
-        u1Percent: smallEmployer ? parsed.u1 : null,
-        u2Percent: u2,
+        u1Percent: smallEmployer ? (u1 ?? '0') : null,
+        u2Percent: u2 ?? '0',
         owesInsolvencyLevy,
-        accidentMonthlyCent: accidentCent,
+        accidentMonthlyCent: accidentCent ?? 0n,
       },
       declared,
     }
-    return calculateDeEmployerCost(input)
   }, [
     parsed,
     steuerklasse,
@@ -167,6 +191,71 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
     owesInsolvencyLevy,
     declared,
   ])
+
+  const outcome = useMemo(
+    () =>
+      parsed.errors.length > 0 || parsed.grossCent === null
+        ? null
+        : calculateDeEmployerCost(candidate),
+    [parsed, candidate],
+  )
+
+  /**
+   * Every field currently at fault, from BOTH layers, in one list.
+   *
+   * Parse failures (formatting.ts) and engine validation issues
+   * (validation.ts) are different mechanisms and were rendered by mutually
+   * exclusive branches. They are one list to a reader, so they are one list
+   * here. A field that failed to parse is not reported twice: its placeholder
+   * would otherwise produce a second, misleading complaint about a value the
+   * reader never typed.
+   */
+  const problems = useMemo(() => {
+    const rows = parsed.errors.map((key) => ({
+      control: PARSE_ERROR_CONTROL[key],
+      field: ERROR_FIELD[key],
+      text: ERROR_TEXT[key],
+    }))
+    const already = new Set(rows.map((r) => r.control))
+    const issues =
+      parsed.errors.length > 0
+        ? validateDeInput(candidate)
+        : outcome !== null && outcome.supported === false && outcome.reason === 'invalid'
+          ? outcome.issues
+          : []
+    for (const i of issues) {
+      const control = ISSUE_CONTROL[i.field] ?? 'gross'
+      if (already.has(control)) continue
+      already.add(control)
+      rows.push({
+        control,
+        field: ISSUE_FIELD[i.field] ?? FIELD.gross,
+        text: ISSUE_TEXT[i.key] ?? ISSUE_TEXT['generic'],
+      })
+    }
+    return rows
+  }, [parsed, outcome, candidate])
+
+  /**
+   * Which control each message belongs to, so the input can point at it.
+   *
+   * Not one input carried aria-invalid or aria-describedby: the messages lived
+   * in a separate live region with no programmatic relationship to the field at
+   * fault, so a screen-reader user sitting on the offending control was told
+   * nothing at all. The ids below are what make that relationship exist.
+   */
+  // An INVALID outcome never reaches the render below: `problems` is non-empty
+  // whenever the engine reports one, so that branch is taken first. Narrowing
+  // here says so in the types instead of relying on the reader to notice.
+  const refusal =
+    outcome !== null && outcome.supported === false && outcome.reason === 'unsupported'
+      ? outcome.case
+      : null
+  const result = outcome !== null && outcome.supported ? outcome : null
+
+  const faulty = new Set(problems.map((p) => p.control))
+  const errorId = (control: string) => (faulty.has(control) ? `decc-err-${control}` : undefined)
+  const invalid = (control: string) => (faulty.has(control) ? true : undefined)
 
   const toggleDeclared = (id: string) =>
     setDeclared((current) =>
@@ -189,6 +278,8 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                 <div className="pcalc-field__input">
                   <input
                     id="decc-gross"
+                    aria-invalid={invalid('gross')}
+                    aria-describedby={errorId('gross')}
                     type="text"
                     inputMode="decimal"
                     autoComplete="off"
@@ -205,6 +296,8 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   <label htmlFor="decc-stkl">{tr(FIELD.steuerklasse)}</label>
                   <select
                     id="decc-stkl"
+                    aria-invalid={invalid('steuerklasse')}
+                    aria-describedby={errorId('steuerklasse')}
                     value={steuerklasse}
                     onChange={(e) => setSteuerklasse(Number(e.target.value))}
                   >
@@ -221,6 +314,8 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   <label htmlFor="decc-land">{tr(FIELD.workplace)}</label>
                   <select
                     id="decc-land"
+                    aria-invalid={invalid('workplace')}
+                    aria-describedby={errorId('workplace')}
                     value={workplace}
                     onChange={(e) => setWorkplace(e.target.value as Bundesland)}
                   >
@@ -243,6 +338,8 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                 <div className="pcalc-field__input">
                   <input
                     id="decc-kvz"
+                    aria-invalid={invalid('supplement')}
+                    aria-describedby={errorId('supplement')}
                     type="text"
                     inputMode="decimal"
                     autoComplete="off"
@@ -258,9 +355,11 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                 <label htmlFor="decc-children">{tr(FIELD.children)}</label>
                 <input
                   id="decc-children"
+                  aria-invalid={invalid('children')}
+                  aria-describedby={errorId('children')}
                   type="number"
                   min={0}
-                  max={12}
+                  max={20}
                   step={1}
                   value={raw.children}
                   onChange={(e) => set('children')(e.target.value)}
@@ -299,6 +398,8 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   <label htmlFor="decc-kfb">{tr(FIELD.kinderfreibetraege)}</label>
                   <select
                     id="decc-kfb"
+                    aria-invalid={invalid('kinderfreibetraege')}
+                    aria-describedby={errorId('kinderfreibetraege')}
                     value={kinderfreibetraege}
                     onChange={(e) => setKinderfreibetraege(e.target.value)}
                   >
@@ -323,7 +424,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
               </fieldset>
 
               <fieldset className="pcalc-fieldset">
-                <legend>{tr(SECTION.insurance)}</legend>
+                <legend>{tr(SECTION.insuranceAdvanced)}</legend>
 
                 {/*
                   The ermäßigter Beitragssatz of § 243 SGB V is a HEALTH rate,
@@ -358,7 +459,9 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   <div className="pcalc-field">
                     <div className="pcalc-field__input">
                       <input
-                        aria-label={tr(FIELD.u1)}
+                        aria-label={tr(FIELD.u1Rate)}
+                      aria-invalid={invalid('u1')}
+                      aria-describedby={errorId('u1')}
                         type="text"
                         inputMode="decimal"
                         autoComplete="off"
@@ -375,6 +478,8 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   <div className="pcalc-field__input">
                     <input
                       id="decc-u2"
+                      aria-invalid={invalid('u2')}
+                      aria-describedby={errorId('u2')}
                       type="text"
                       inputMode="decimal"
                       autoComplete="off"
@@ -401,6 +506,8 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   <div className="pcalc-field__input">
                     <input
                       id="decc-accident"
+                      aria-invalid={invalid('accident')}
+                      aria-describedby={errorId('accident')}
                       type="text"
                       inputMode="decimal"
                       autoComplete="off"
@@ -429,23 +536,34 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
             </details>
           </form>
 
-          <div className="ecc__results" aria-live="polite" role="status" aria-label={tr(RESULT.results)}>
-            {parsed.errors.length > 0 ? (
+          {/*
+            role="region", not role="status".
+            
+            role="status" implies aria-atomic="true", so every keystroke queued
+            the WHOLE block — two tables, both totals and all notes — for
+            re-announcement as one flat string. A live region that announces
+            everything on every change is a live region a reader turns off. With
+            the implicit atomicity gone, assistive technology announces the
+            nodes that actually changed, and the name below still identifies the
+            region when a reader navigates to it deliberately.
+          */}
+          <div className="ecc__results" aria-live="polite" role="region" aria-label={tr(RESULT.results)}>
+            {problems.length > 0 ? (
               <ul className="ecc__errors">
                 {/*
-                  Each error names its own field. Without the label the reader
-                  is told "please enter an amount in euro" with four amount
-                  fields on screen and no indication which one is meant.
+                  Each message names its own field AND carries the id the field
+                  points at. Without the label the reader is told "please enter
+                  an amount in euro" with four amount fields on screen; without
+                  the id a screen-reader user on the offending control hears
+                  nothing, because the list is in a different subtree.
                 */}
-                {parsed.errors.map((key) => (
-                  <li key={key}>
-                    <strong>{tr(ERROR_FIELD[key])}:</strong> {tr(ERROR_TEXT[key])}
+                {problems.map((p) => (
+                  <li key={p.control} id={`decc-err-${p.control}`}>
+                    <strong>{tr(p.field)}:</strong> {tr(p.text)}
                   </li>
                 ))}
               </ul>
-            ) : null}
-
-            {outcome === null ? (
+            ) : outcome === null ? (
               /*
                 Only when the gross is genuinely missing. `outcome` is null for
                 ANY unreadable field, and this line speaks solely about the
@@ -454,62 +572,49 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                 and already valid. The one field named on screen was the one
                 field that was correct.
               */
-              parsed.errors.length === 0 ? (
-                <p className="ecc__empty">{tr(RESULT.empty)}</p>
-              ) : null
-            ) : outcome.supported === false && outcome.reason === 'invalid' ? (
-              // An invalid input is the reader's typo, not a statement about
-              // German payroll. It must not look like a refusal.
-              <ul className="ecc__errors">
-                {outcome.issues.map((i) => (
-                  <li key={i.field}>
-                    <strong>{tr(ISSUE_FIELD[i.field] ?? FIELD.gross)}:</strong>{' '}
-                    {tr(ISSUE_TEXT[i.key] ?? ISSUE_TEXT['generic'])}
-                  </li>
-                ))}
-              </ul>
-            ) : outcome.supported === false ? (
+              <p className="ecc__empty">{tr(RESULT.empty)}</p>
+            ) : refusal !== null ? (
               <div className="ecc__notes">
                 <h3>{tr(REFUSAL.heading)}</h3>
                 <p>
                   <strong>
                     {locale === 'de'
-                      ? outcome.case.labelDe
+                      ? refusal.labelDe
                       : locale === 'cs'
-                        ? outcome.case.labelCs
-                        : outcome.case.labelEn}
+                        ? refusal.labelCs
+                        : refusal.labelEn}
                   </strong>
                 </p>
                 <p>
                   {tr(REFUSAL.why)}{' '}
                   {locale === 'de'
-                    ? outcome.case.reasonDe
+                    ? refusal.reasonDe
                     : locale === 'cs'
-                      ? outcome.case.reasonCs
-                      : outcome.case.reasonEn}
+                      ? refusal.reasonCs
+                      : refusal.reasonEn}
                 </p>
               </div>
-            ) : (
+            ) : result !== null ? (
               <>
                 <div className="ecc__totals">
                   <div className="ecc__total">
                     <span className="ecc__total-label">{tr(RESULT.employerTotal)}</span>
                     <span className="ecc__total-value">
-                      {formatEuro(outcome.employer.totalMonthlyCent, locale)}
+                      {formatEuro(result.employer.totalMonthlyCent, locale)}
                     </span>
                   </div>
                   <div className="ecc__total ecc__total--net">
                     <span className="ecc__total-label">{tr(RESULT.net)}</span>
                     <span className="ecc__total-value">
-                      {formatEuro(outcome.employee.netCent, locale)}
+                      {formatEuro(result.employee.netCent, locale)}
                     </span>
                   </div>
                 </div>
 
                 <p className="ecc__periodicity">
-                  {tr(RESULT.loadFactor)}: {formatFactor(outcome.employer.loadFactor, locale)} ·{' '}
+                  {tr(RESULT.loadFactor)}: {formatFactor(result.employer.loadFactor, locale)} ·{' '}
                   {tr(RESULT.employerTotalAnnual)}:{' '}
-                  {formatEuroWhole(outcome.employer.totalAnnualCent, locale)}
+                  {formatEuroWhole(result.employer.totalAnnualCent, locale)}
                 </p>
 
                 {/*
@@ -523,22 +628,19 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   the whole container past the viewport at 320 px and 360 px.
                 */}
                 {/*
-                  tabIndex and role because `overflow-x: auto` is still declared
-                  on this wrapper, and a scrollable region only a mouse can
-                  scroll hides content from keyboard users — axe reports it as
-                  `scrollable-region-focusable`.
+                  A NAMED LANDMARK, NOT A SCROLL CONTAINER.
 
-                  STATED ACCURATELY, because the earlier version of this comment
-                  described the overflow as a present fact: since the reflow
-                  below 480 px, this container does NOT scroll at any width from
-                  280 to 1440, so the tab stop is currently inert. The wrapper is
-                  kept as a safety net — a future translation longer than the
-                  ones measured would overflow rather than push the page
-                  sideways — and the focusability has to be declared statically,
-                  because making it conditional would mean measuring the node,
-                  which this component is structurally forbidden from doing.
+                  It carried `tabIndex={0}` because the stylesheet declared
+                  `overflow-x: auto` and axe reports a mouse-only scroll region
+                  as `scrollable-region-focusable`. The overflow never occurred —
+                  measured 0 at thirteen widths in three languages — so the tab
+                  stop was inert, and at 280 px it scrolled a container taller
+                  than the viewport underneath the cookie banner. The overflow
+                  declaration and the tab stop are both gone; the role and the
+                  name stay, because a reader navigating by landmark should
+                  still be able to find each table.
                 */}
-                <div className="ecc__table-wrap" tabIndex={0} role="region" aria-label={tr(SECTION.insurance)}>
+                <div className="ecc__table-wrap" role="region" aria-label={tr(SECTION.insurance)}>
                 <table className="ecc__table">
                   <thead>
                     <tr>
@@ -548,11 +650,11 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                     </tr>
                   </thead>
                   <tbody>
-                    {outcome.contributions.map((c) => (
+                    {result.contributions.map((c) => (
                       <tr key={c.key}>
                         <th scope="row">
                           {c.label[locale]}
-                          {c.baseCent < outcome.monthlyGrossCent && c.baseCent > 0n ? (
+                          {c.baseCent < result.monthlyGrossCent && c.baseCent > 0n ? (
                             <span className="ecc__flow-pct">
                               {' '}
                               — {tr(RESULT.cappedAt)} {formatEuro(c.baseCent, locale)}
@@ -583,43 +685,43 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                 </table>
                 </div>
 
-                <div className="ecc__table-wrap" tabIndex={0} role="region" aria-label={tr(RESULT.breakdown)}>
+                <div className="ecc__table-wrap" role="region" aria-label={tr(RESULT.breakdown)}>
                 <table className="ecc__table ecc__table--metrics">
                   <tbody>
                     <tr>
                       <th scope="row">{tr(RESULT.gross)}</th>
-                      <td>{formatEuro(outcome.monthlyGrossCent, locale)}</td>
+                      <td>{formatEuro(result.monthlyGrossCent, locale)}</td>
                     </tr>
                     <tr>
                       <th scope="row">{tr(RESULT.employeeSocial)}</th>
-                      <td>−{formatEuro(outcome.employee.socialCent, locale)}</td>
+                      <td>−{formatEuro(result.employee.socialCent, locale)}</td>
                     </tr>
                     <tr>
                       <th scope="row">{tr(RESULT.lohnsteuer)}</th>
-                      <td>−{formatEuro(outcome.employee.lohnsteuerCent, locale)}</td>
+                      <td>−{formatEuro(result.employee.lohnsteuerCent, locale)}</td>
                     </tr>
                     <tr>
                       <th scope="row">{tr(RESULT.soli)}</th>
-                      <td>−{formatEuro(outcome.employee.soliCent, locale)}</td>
+                      <td>−{formatEuro(result.employee.soliCent, locale)}</td>
                     </tr>
-                    {outcome.employee.churchTaxCent > 0n ? (
+                    {result.employee.churchTaxCent > 0n ? (
                       <tr>
                         <th scope="row">
                           {tr(RESULT.kirchensteuer)}{' '}
                           <span className="ecc__flow-pct">
-                            ({formatPercent(outcome.churchTax.ratePercent, locale)})
+                            ({formatPercent(result.churchTax.ratePercent, locale)})
                           </span>
                         </th>
-                        <td>−{formatEuro(outcome.employee.churchTaxCent, locale)}</td>
+                        <td>−{formatEuro(result.employee.churchTaxCent, locale)}</td>
                       </tr>
                     ) : null}
                     <tr>
                       <th scope="row">{tr(RESULT.deductions)}</th>
-                      <td>−{formatEuro(outcome.employee.totalDeductionsCent, locale)}</td>
+                      <td>−{formatEuro(result.employee.totalDeductionsCent, locale)}</td>
                     </tr>
                     <tr>
                       <th scope="row">{tr(RESULT.net)}</th>
-                      <td>{formatEuro(outcome.employee.netCent, locale)}</td>
+                      <td>{formatEuro(result.employee.netCent, locale)}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -627,9 +729,9 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
 
                 <p className="ecc__exactness">{tr(RESULT.ledgerNote)}</p>
 
-                {outcome.notes.length > 0 ? (
+                {result.notes.length > 0 ? (
                   <ul className="ecc__notes">
-                    {outcome.notes.map((n) => (
+                    {result.notes.map((n) => (
                       <li key={n.key} data-severity={n.severity}>
                         {tr(NOTE_TEXT[n.text])}
                       </li>
@@ -637,7 +739,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   </ul>
                 ) : null}
               </>
-            )}
+            ) : null}
           </div>
         </div>
   )

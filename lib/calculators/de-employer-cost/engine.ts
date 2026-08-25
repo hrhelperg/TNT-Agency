@@ -162,6 +162,13 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
   if (input.employer.owesInsolvencyLevy) levies.push(insolvencyLevy(gross));
   if (input.employer.u1Percent !== null) {
     levies.push(aagLevy('u1', gross, input.employer.u1Percent));
+    if (Number(input.employer.u1Percent) === 0) {
+      // Ticking "takes part in U1" and leaving the rate blank is a missing
+      // input, not a rate of zero — the same situation as U2 and as the
+      // accident figure, both of which warn. This one did not, so the total was
+      // reported as complete with a U1 line of 0,00 EUR.
+      notes.push({ key: 'u1.missing', severity: 'warning', text: 'de.note.u1Missing' });
+    }
   } else {
     notes.push({ key: 'u1.notApplicable', severity: 'info', text: 'de.note.u1OverThirty' });
   }
@@ -171,12 +178,12 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
     // employees, so for an ordinary employer a zero rate is a missing input
     // rather than a real one — the same situation as a missing
     // accident-insurance figure, and it warns in the same way. NOT "without
-    // exception", which is what this comment used to say: § 11 AAG disapplies
-    // § 1 entirely to a short list of employers (mitarbeitende
-    // Familienangehörige of a farming business, NATO-stationed forces and their
-    // headquarters), and § 1 Absatz 2 itself excludes the landwirtschaftliche
-    // Krankenkasse. None of them is modelled here, and the warning is worded so
-    // it does not assert something false of them.
+    // exception", which is what this comment used to say: § 11 Absatz 2 AAG
+    // disapplies § 1 entirely to FOUR listed groups of employers, and § 1
+    // Absatz 2 itself excludes the landwirtschaftliche Krankenkasse. A previous
+    // correction named two of the four and read as though that were the whole
+    // list. None of them is modelled here, and the warning is worded so it does
+    // not assert something false of them.
     notes.push({ key: 'u2.missing', severity: 'warning', text: 'de.note.u2Missing' });
   }
   if (input.employer.accidentMonthlyCent > 0n) {

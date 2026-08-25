@@ -263,11 +263,11 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     labelEn: 'Construction and other sectors with their own levies',
     labelCs: 'Stavebnictví a další obory s vlastními odvody',
     reasonDe:
-      'Im Baugewerbe kommen die Winterbeschäftigungs-Umlage nach § 354 SGB III und die Beiträge zu den Sozialkassen hinzu. Beide sind tarifvertraglich geregelt und branchenabhängig, nicht gesetzlich einheitlich — die Arbeitgeberkosten lägen also höher als hier berechnet.',
+      'Im Baugewerbe kommen die Winterbeschäftigungs-Umlage nach § 354 SGB III und die Beiträge zu den Sozialkassen hinzu. Die Umlagesätze stehen in § 3 WinterbeschV und gelten bundesweit; die Sozialkassenbeiträge folgen dagegen den Tarifverträgen und unterscheiden sich je nach Branche. Beides ist hier nicht abgebildet, die Arbeitgeberkosten lägen also höher als berechnet.',
     reasonEn:
-      'Construction adds the Winterbeschäftigungs-Umlage under § 354 SGB III and contributions to the sector’s social funds. Both are set by collective agreement and vary by trade rather than being uniform statute, so employer cost would be higher than calculated here.',
+      'Construction adds the Winterbeschäftigungs-Umlage under § 354 SGB III and contributions to the sector’s social funds. The levy rates are fixed nationally by ordinance in § 3 WinterbeschV; the social-fund contributions follow collective agreements and differ by trade. Neither is modelled here, so employer cost would be higher than calculated.',
     reasonCs:
-      'Ve stavebnictví přistupuje zimní odvod podle § 354 SGB III a příspěvky do oborových sociálních kas. Náklady zaměstnavatele by proto byly vyšší, než kolik zde vychází.',
+      'Ve stavebnictví přistupuje zimní odvod podle § 354 SGB III, jehož sazby stanoví celostátně § 3 WinterbeschV, a příspěvky do oborových sociálních kas, které se řídí kolektivními smlouvami a liší se podle oboru. Ani jedno zde není zahrnuto, náklady zaměstnavatele by proto byly vyšší, než kolik zde vychází.',
   },
   {
     id: 'freiwilligendienst',

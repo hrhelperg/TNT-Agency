@@ -5,6 +5,7 @@ import { UNSUPPORTED_CASES, DECLARED_CASES } from './unsupported';
 import { BUNDESLAND_NAMES } from './tax/church-tax';
 
 const ROOT = path.join(__dirname, '..', '..', '..');
+const byId = (id: string) => UNSUPPORTED_CASES.find((c) => c.id === id)!;
 
 /**
  * Citations that were wrong, and must not come back.
@@ -115,7 +116,7 @@ describe('the methodology lists every case the calculator declares', () => {
     mehrfachbeschaeftigung: { de: /Mehrfachbeschäftigung/i, en: /concurrent employ/i, cs: /souběh/i },
     'rentner-beschaeftigt': { de: /Rentner/i, en: /working pensioner/i, cs: /důchodce/i },
     knappschaft: { de: /knappschaftliche/i, en: /miners/i, cs: /hornick/i },
-    versorgungswerk: { de: /Versorgungswerke/i, en: /professional pension/i, cs: /profesní komor/i },
+    versorgungswerk: { de: /Versorgungswerke/i, en: /professional pension/i, cs: /profesní zaopatřovací/i },
     kurzarbeit: { de: /Kurzarbeit/i, en: /short-time/i, cs: /kurzarbeit/i },
     einmalzahlung: { de: /Einmalzahlungen/i, en: /one-off/i, cs: /jednorázové/i },
     grenzueberschreitend: { de: /grenzüberschreitende/i, en: /cross-border/i, cs: /přeshraniční/i },
@@ -161,14 +162,15 @@ describe('the methodology lists every case the calculator declares', () => {
  * reader of the others was, and no test compared them.
  */
 describe('no refusal reason asserts something its siblings do not', () => {
-  const byId = (id: string) => UNSUPPORTED_CASES.find((c) => c.id === id)!;
 
   it('Kurzarbeit names no bearer of the contributions in any language', () => {
     // The Czech text said "část hradí Spolková agentura práce" — that part of
     // the contributions is borne by the Federal Employment Agency. Under the
     // ordinary 2026 rule the employer bears them ALONE on the fictitious pay
-    // (§ 249 Absatz 2 SGB V, § 168 Absatz 1 Nummer 1a SGB VI, § 58 Absatz 5
-    // SGB XI); BA reimbursement was a temporary crisis measure and has lapsed.
+    // (§ 249 Absatz 2 SGB V, § 168 Absatz 1 Nummer 1a SGB VI, § 58 Absatz 1
+    // Satz 2 SGB XI — NOT Absatz 5, which is the Übergangsbereich cross-
+    // reference); BA reimbursement was a temporary crisis measure and has
+    // lapsed.
     // The German and English texts named no bearer at all.
     const c = byId('kurzarbeit');
     for (const text of [c.reasonDe, c.reasonEn, c.reasonCs]) {
@@ -210,5 +212,49 @@ describe('no refusal reason asserts something its siblings do not', () => {
     expect(/compulsory for every employer/.test(note), note.slice(0, 200)).toBe(false);
     expect(/povinný pro každého zaměstnavatele/.test(note), note.slice(0, 200)).toBe(false);
     expect(note).toMatch(/§ 11 AAG/);
+  });
+});
+
+describe('two statements about German law that were wrong in the code, not the copy', () => {
+  it('the Vorsorgepauschale constant is attributed to § 243 SGB V, not § 241', () => {
+    // 0,07 is half of the ERMÄSSIGTER Beitragssatz of 14,0 % (§ 243 SGB V). The
+    // allgemeiner Beitragssatz is 14,6 % (§ 241 SGB V) and its half is 0,073.
+    // § 39b Absatz 2 Satz 5 Nummer 3 Buchstabe b EStG names § 243 expressly, and
+    // so does page 2 of the Anlage 1 this file transcribes. rules.ts warns
+    // separately that reusing the fictitious rate as the real contribution
+    // understates every employee's health deduction by 0,3 points — a warning
+    // the comment here used to invert by naming the wrong statute.
+    const PAP = fs.readFileSync(
+      path.join(ROOT, 'lib/calculators/de-employer-cost/tax/pap-2026.ts'),
+      'utf8',
+    );
+    const mpara = PAP.slice(PAP.indexOf('function MPARA'), PAP.indexOf('function MRE4JL'));
+    expect(mpara).toMatch(/ERMÄSSIGTER Beitragssatz/);
+    expect(mpara).toMatch(/§ 243 SGB V/);
+    expect(
+      /half of the 14 % allgemeiner|employee's half of the 14 % allgemeiner/.test(mpara),
+      'the 14 % is attributed to the allgemeiner Beitragssatz again',
+    ).toBe(false);
+  });
+
+  it('the Baugewerbe refusal does not call a federal ordinance a collective agreement', () => {
+    // § 3 WinterbeschV fixes the Winterbeschäftigungs-Umlage rates nationally by
+    // Rechtsverordnung — 2,0 % in the Baugewerbe, split between employer and
+    // employee by the same provision. The Sozialkassen contributions ARE
+    // collective-agreement based, and the German and English texts said "both"
+    // were, which was false of the levy they name first. The Czech text made no
+    // such claim, so only two of the three readers were told it.
+    const c = byId('baugewerbe');
+    expect(c.reasonDe).toMatch(/§ 3 WinterbeschV/);
+    expect(c.reasonEn).toMatch(/§ 3 WinterbeschV/);
+    expect(c.reasonCs).toMatch(/§ 3 WinterbeschV/);
+    expect(
+      /Beide sind tarifvertraglich geregelt/.test(c.reasonDe),
+      'the German text calls both levies collectively agreed again',
+    ).toBe(false);
+    expect(
+      /Both are set by collective agreement/.test(c.reasonEn),
+      'the English text calls both levies collectively agreed again',
+    ).toBe(false);
   });
 });

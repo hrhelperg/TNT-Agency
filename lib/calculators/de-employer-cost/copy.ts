@@ -63,6 +63,19 @@ export const SECTION: Record<string, Copy> = {
     en: 'Social insurance',
     cs: 'Sociální pojištění',
   },
+  /**
+   * The advanced health-insurance group.
+   *
+   * A DISTINCT legend, because moving the reduced rate out of "Wage tax" put a
+   * second fieldset called "Sozialversicherung" in the same form, and two
+   * groups with one name is not a grouping — a screen-reader user hears the
+   * same heading twice and cannot tell which one they are in.
+   */
+  insuranceAdvanced: {
+    de: 'Krankenversicherung — Beitragssatz',
+    en: 'Health insurance — contribution rate',
+    cs: 'Zdravotní pojištění — sazba',
+  },
   employerCosts: {
     de: 'Umlagen und Unfallversicherung',
     en: 'Employer levies and accident insurance',
@@ -157,9 +170,9 @@ export const FIELD: Record<string, Copy> = {
     cs: 'Doloženo rodičovství',
   },
   isParentHint: {
-    de: 'Gilt lebenslang, auch wenn die Kinder längst erwachsen sind. Ohne Nachweis fällt ab 23 der Zuschlag für Kinderlose an.',
-    en: 'Once a parent, always a parent — it holds even when the children are long grown. Without proof, the childless surcharge applies from age 23.',
-    cs: 'Platí trvale, i když jsou děti dávno dospělé. Bez doložení se od 23 let uplatní příplatek pro bezdětné.',
+    de: 'Gilt lebenslang, auch wenn die Kinder längst erwachsen sind. Ohne Nachweis fällt der Zuschlag für Kinderlose an — ab dem Monat NACH dem 23. Geburtstag.',
+    en: 'Once a parent, always a parent — it holds even when the children are long grown. Without proof the childless surcharge applies, from the month AFTER the 23rd birthday.',
+    cs: 'Platí trvale, i když jsou děti dávno dospělé. Bez doložení se uplatní příplatek pro bezdětné — od měsíce PO 23. narozeninách.',
   },
   atLeast23: {
     // § 55 Absatz 3 Satz 1 SGB XI: the surcharge starts AFTER the month in which
@@ -174,6 +187,19 @@ export const FIELD: Record<string, Copy> = {
     de: 'Umlage U1 (Entgeltfortzahlung)',
     en: 'Levy U1 (sick-pay reimbursement)',
     cs: 'Odvod U1 (náhrada mzdy v nemoci)',
+  },
+  /**
+   * The RATE input, which had no visible label and reused the checkbox's name.
+   *
+   * Two different controls — a boolean and a percentage — exposed the identical
+   * accessible name "Umlage U1 (Entgeltfortzahlung)", and the U1 error message
+   * named that shared string, so a reader was told to fix one of two things
+   * without being told which.
+   */
+  u1Rate: {
+    de: 'Umlagesatz U1 in Prozent',
+    en: 'Levy U1 rate, per cent',
+    cs: 'Sazba odvodu U1 v procentech',
   },
   u1Hint: {
     de: 'Nur für Betriebe mit höchstens 30 Beschäftigten. Der Satz steht in der Satzung Ihrer Krankenkasse.',
@@ -313,6 +339,11 @@ export const RESULT: Record<string, Copy> = {
 };
 
 export const NOTE_TEXT: Record<string, Copy> = {
+  'de.note.u1Missing': {
+    de: 'Ohne U1-Satz sind die Arbeitgeberkosten unvollständig. Wer am Ausgleichsverfahren teilnimmt, zahlt einen Satz aus der Satzung seiner Krankenkasse — bei null wird die Umlage hier schlicht nicht mitgerechnet.',
+    en: 'Without a U1 rate the employer cost is incomplete. An employer taking part in the scheme pays a rate from the health fund’s own rules — at zero the levy is simply left out of this total.',
+    cs: 'Bez sazby U1 jsou náklady zaměstnavatele neúplné. Kdo se schématu účastní, platí sazbu podle stanov své pojišťovny — při nule se odvod do součtu prostě nezapočítá.',
+  },
   'de.note.u1OverThirty': {
     de: 'Ohne U1: Betriebe mit mehr als 30 Beschäftigten nehmen am Ausgleichsverfahren U1 nicht teil (§ 1 Absatz 1 AAG).',
     en: 'No U1: employers with more than 30 staff do not take part in the U1 reimbursement scheme (§ 1 Absatz 1 AAG).',
@@ -372,6 +403,34 @@ export const ERROR_FIELD: Record<string, Copy> = {
  * branch away. Keyed on ValidationIssue.field, so an issue whose field is not
  * listed here fails the UI contract test rather than rendering anonymously.
  */
+/**
+ * Which FORM CONTROL a message belongs to.
+ *
+ * Separate from the label maps because the label is what the reader is told and
+ * this is what the input element points at with aria-describedby. Two different
+ * jobs, and conflating them is how the engine-validation path ended up with
+ * labels but no association.
+ */
+export const PARSE_ERROR_CONTROL: Record<string, string> = {
+  'gross.unreadable': 'gross',
+  'supplement.unreadable': 'supplement',
+  'u1.unreadable': 'u1',
+  'u2.unreadable': 'u2',
+  'accident.unreadable': 'accident',
+};
+
+export const ISSUE_CONTROL: Record<string, string> = {
+  monthlyGrossCent: 'gross',
+  steuerklasse: 'steuerklasse',
+  kinderfreibetraege: 'kinderfreibetraege',
+  workplace: 'workplace',
+  healthSupplementPercent: 'supplement',
+  'care.childrenUnder25': 'children',
+  'employer.u1Percent': 'u1',
+  'employer.u2Percent': 'u2',
+  'employer.accidentMonthlyCent': 'accident',
+};
+
 export const ISSUE_FIELD: Record<string, Copy> = {
   monthlyGrossCent: FIELD.gross,
   steuerklasse: FIELD.steuerklasse,
@@ -406,9 +465,9 @@ export const ERROR_TEXT: Record<string, Copy> = {
     cs: 'Zadejte prosím sazbu U2 nejvýše na dvě desetinná místa.',
   },
   'accident.unreadable': {
-    de: 'Bitte einen monatlichen Betrag in Euro eingeben oder das Feld leer lassen.',
-    en: 'Please enter a monthly amount in euro, or leave the field empty.',
-    cs: 'Zadejte prosím měsíční částku v eurech, nebo pole ponechte prázdné.',
+    de: 'Bitte einen monatlichen Betrag in Euro eingeben, zum Beispiel 12,50 oder 1.250, oder das Feld leer lassen. Drei Nachkommastellen sind kein Eurobetrag.',
+    en: 'Please enter a monthly amount in euro, for example 12.50 or 1,250, or leave the field empty. Three decimal places are not a euro amount.',
+    cs: 'Zadejte prosím měsíční částku v eurech, například 12,50 nebo 1 250, nebo pole ponechte prázdné. Tři desetinná místa nejsou částka v eurech.',
   },
 };
 

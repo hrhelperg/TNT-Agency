@@ -36,9 +36,15 @@ export const DISPLAY_CENT = {
 /**
  * The statutory bases, per branch, LOCALIZED.
  *
- * The provisions are German and stay in German — "§ 55 Absatz 1a SGB XI" is the
- * citation's name, not a phrase to translate. What must not stay in one
- * language is the connective tissue around them. A single locale-neutral string
+ * The PROVISION IDENTIFIERS stay in German — the code name "SGB XI", the
+ * section number, the letter suffixes. They are what a reader types into
+ * gesetze-im-internet.de, so translating them would break the one thing this
+ * panel exists for. The STRUCTURAL WORDS around them follow the reader's
+ * language: English gets "split under" and "together with", Czech gets "odst."
+ * and "č.", so "§ 55 odst. 1a SGB XI" still resolves to the same provision.
+ * An earlier version of this comment said flatly that the provisions "stay in
+ * German", which the Czech entries below have never done and should not.
+ * What must not stay in one language is the connective tissue. A single locale-neutral string
  * put the English "for the split" inside a `lang="de"` section and the German
  * "i. V. m." inside a `lang="en"` one, which is a locale falling back to
  * another's words in the one panel that exists to be checked against the law.

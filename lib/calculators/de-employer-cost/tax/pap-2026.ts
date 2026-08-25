@@ -342,8 +342,15 @@ function MPARA(s: S): void {
   s.RVSATZAN = d(0.093);
   s.BBGKVPV = d(69_750);
   // KVZ arrives as a percentage (2,90), so it is halved and divided by 100 to
-  // become a rate. The 0,07 is the employee's half of the 14 % allgemeiner
-  // Beitragssatz — fictitious, like the rest of these.
+  // become a rate. The 0,07 is half of the ERMÄSSIGTER Beitragssatz of 14,0 %
+  // (§ 243 SGB V) — NOT the allgemeiner Beitragssatz, which § 241 SGB V puts at
+  // 14,6 % and whose half is 0,073. § 39b Absatz 2 Satz 5 Nummer 3 Buchstabe b
+  // EStG names § 243 expressly, and Anlage 1 of this very PAP says so on page
+  // 2: "in der gesetzlichen Krankenversicherung der ermäßigte Beitragssatz
+  // (§ 243 SGB V) weiterhin 14,0 % beträgt". Fictitious for the
+  // Vorsorgepauschale, like the rest of these, and rules.ts warns separately
+  // that reusing it as the real contribution understates the employee's health
+  // deduction by 0,3 points — a warning this comment used to invert.
   s.KVSATZAN = B(s, 'KVZ').divideExact(ZAHL2).divideExact(ZAHL100).add(d(0.07));
 
   s.PVSATZAN = I(s, 'PVS') === 1 ? d(0.023) : d(0.018);

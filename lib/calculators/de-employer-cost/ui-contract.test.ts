@@ -24,9 +24,37 @@ describe('a refusal never carries a false explanation', () => {
     // typed a perfectly good gross and a bad accident-insurance amount to enter
     // a gross — naming the one field on screen that was correct.
     expect(
-      /parsed\.errors\.length === 0 \? \(\s*<p className="ecc__empty">/.test(COMPONENT),
+      /\{problems\.length > 0 \? \(/.test(COMPONENT),
+      'the message list is not the first branch',
+    ).toBe(true);
+    expect(
+      /\) : outcome === null \? \(\s*\/\*[\s\S]*?\*\/\s*<p className="ecc__empty">/.test(COMPONENT),
       'the empty-state message is not guarded by the absence of field errors',
     ).toBe(true);
+  });
+
+  it('both error layers render into one list, so simultaneous faults are all visible', () => {
+    // Parse failures and engine validation issues used to be rendered by
+    // mutually exclusive branches: one unreadable field nulled `outcome`, so
+    // validateDeInput never ran and its messages appeared NOWHERE. With a bad
+    // accident amount, a 99 % Zusatzbeitrag and 25 children entered at once,
+    // the reader was shown one of the three.
+    expect(/const problems = useMemo/.test(COMPONENT), 'the merged list is gone').toBe(true);
+    expect(
+      /validateDeInput\(candidate\)/.test(COMPONENT),
+      'the fields that parsed are no longer validated when another field fails',
+    ).toBe(true);
+  });
+
+  it('every message is programmatically tied to the control it is about', () => {
+    // Not one input carried aria-invalid or aria-describedby: the messages sat
+    // in a live region with no relationship to the field at fault, so a screen
+    // reader user sitting on the offending control was told nothing at all.
+    expect(/id=\{`decc-err-\$\{p\.control\}`\}/.test(COMPONENT), 'messages carry no anchor').toBe(true);
+    const described = COMPONENT.match(/aria-describedby=\{errorId\('[a-z0-9]+'\)\}/g) ?? [];
+    const invalid = COMPONENT.match(/aria-invalid=\{invalid\('[a-z0-9]+'\)\}/g) ?? [];
+    expect(described.length, 'too few controls point at their message').toBeGreaterThanOrEqual(9);
+    expect(invalid.length, 'too few controls report their invalid state').toBe(described.length);
   });
 
   it('every field error is rendered with the name of its field — on BOTH refusal paths', () => {
@@ -39,10 +67,18 @@ describe('a refusal never carries a false explanation', () => {
     // reader, but only the parse half named its field: an accident-insurance
     // amount of 200000000 produced the bare sentence "Please enter a monthly
     // amount below 100 million euro." with four monthly amounts on screen.
-    expect(/ERROR_FIELD\[key\]/.test(COMPONENT), 'parse errors do not name their field').toBe(true);
+    // BOTH the lookup AND the render, because the two can drift apart: the
+    // maps kept being referenced in the memo while the <strong> that shows
+    // their result was deleted from the list, and a grep for the map name
+    // passed on a page that named no field at all.
+    expect(/ERROR_FIELD\[key\]/.test(COMPONENT), 'parse errors do not look up their field').toBe(true);
     expect(
       /ISSUE_FIELD\[i\.field\]/.test(COMPONENT),
-      'engine validation issues do not name their field',
+      'engine validation issues do not look up their field',
+    ).toBe(true);
+    expect(
+      /<strong>\{tr\(p\.field\)\}:<\/strong>/.test(COMPONENT),
+      'the message list renders no field name',
     ).toBe(true);
   });
 
@@ -112,7 +148,18 @@ describe('the result table reflows rather than scrolling on a phone', () => {
     expect(/data-label=\{tr\(RESULT\.employeeShare\)\}/.test(COMPONENT)).toBe(true);
   });
 
-  it('keeps the scroll region keyboard-reachable where it still scrolls', () => {
-    expect(/className="ecc__table-wrap" tabIndex=\{0\} role="region"/.test(COMPONENT)).toBe(true);
+  it('the result wrappers are named landmarks and not scroll containers', () => {
+    // The pair went together: `overflow-x: auto` made axe demand
+    // `tabIndex={0}`, and the overflow it guarded against never happened — the
+    // table is width:100% over wrappable cells, so its box tracks the
+    // container. What the pair did produce was two tab stops that go nowhere,
+    // one of which scrolled a full-height container under the cookie banner at
+    // 280px. Both halves must stay gone, together.
+    expect(/ecc__table-wrap" role="region"/.test(COMPONENT), 'the wrappers lost their landmark role').toBe(true);
+    expect(/ecc__table-wrap" tabIndex/.test(COMPONENT), 'a dead tab stop is back on the wrapper').toBe(false);
+    expect(
+      /\.ecc--de \.ecc__table-wrap \{[^}]*overflow-x/.test(CSS),
+      'the wrapper declares an overflow it does not need',
+    ).toBe(false);
   });
 });

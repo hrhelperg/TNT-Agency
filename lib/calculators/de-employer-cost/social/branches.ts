@@ -260,9 +260,9 @@ export function insolvencyLevy(monthlyGrossCent: Cent): ContributionLine {
  *
  * U1 also applies only to employers with at most 30 employees (§ 1 Absatz 1
  * AAG); U2 applies whatever the headcount (§ 1 Absatz 2), subject to the
- * exemptions in § 11 AAG, which disapplies § 1 altogether to farming family
- * members and to NATO-stationed forces. The caller decides, because the
- * headcount rule has counting conventions this calculator does not model.
+ * exemptions in § 11 AAG, whose Absatz 2 disapplies § 1 altogether to the four
+ * groups of employers it lists. The caller decides, because the headcount rule
+ * has counting conventions this calculator does not model.
  */
 export function aagLevy(
   key: 'u1' | 'u2',

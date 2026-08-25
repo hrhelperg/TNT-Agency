@@ -98,6 +98,19 @@ export default function DeEmployerCostCalculatorBoundary({
             {UNSUPPORTED_BROWSER[locale]}
           </p>
         ) : null}
+        {/*
+          The same notice for a reader with JavaScript off entirely.
+
+          `support` starts at 'checking' and only leaves it inside an effect, so
+          without JS the state never advances: no calculator, no notice, and no
+          explanation of why an interactive tool is missing from a page that
+          announces one. The BigInt story and the no-JS story have the same
+          honest answer, and <noscript> is the one element that tells it without
+          a script running.
+        */}
+        <noscript>
+          <p className="ecc__unsupported">{UNSUPPORTED_BROWSER[locale]}</p>
+        </noscript>
 
         <div className="ecc__verified">
           <h3>{tr(METHODOLOGY.heading)}</h3>

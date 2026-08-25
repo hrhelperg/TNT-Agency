@@ -182,7 +182,7 @@ export const DE_RULES_2026: DeRuleset2026 = {
       legalBasis: '§ 58 Absatz 3 SGB XI',
       status: 'confirmed-official',
       note:
-        'Saxony alone. THIS IS THE GAP BETWEEN THE TWO SHARES, not an amount added to one of them: the engine takes the base rate, subtracts this value, halves the remainder to get the employer share, and gives the employee that share plus this value. So 3,6 % splits 2,3 % against 1,3 % and the TOTAL is unchanged. Read as "the employee bears one further point and the employer one less" — which is what this note used to say — the same value would produce 2,8 % against 0,8 %, and an engine that adds a point to the total instead of moving it across is wrong for every Saxon employer.',
+        'Saxony alone, and the mechanism is the statute\'s own: § 58 Absatz 3 SGB XI computes the EMPLOYER share from a rate reduced by one percentage point, and the employee bears the remainder. So the engine subtracts this value from the base rate, halves what is left for the employer, and gives the employee that share plus this value: 3,6 % splits 2,3 % against 1,3 %, one point apart, TOTAL unchanged. Relative to the ordinary 1,8/1,8 that is half a point moved across, which is why prose describing it as "half a point" and prose describing it as "one point" are both current — they measure from different baselines. What is simply wrong is adding a point to the total instead of moving it.',
     },
     monthlyCeilingCent: {
       value: eur(5_812, 50),
