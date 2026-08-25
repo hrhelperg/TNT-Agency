@@ -328,6 +328,22 @@ export const NOTE_TEXT: Record<string, Copy> = {
   },
 };
 
+/**
+ * Which field an error belongs to.
+ *
+ * Rendered in front of the message, because the messages describe a SHAPE
+ * ("an amount in euro") and the form has four amount fields. A reader told to
+ * fix an amount, with no field named, has been given a puzzle rather than an
+ * error.
+ */
+export const ERROR_FIELD: Record<string, Copy> = {
+  'gross.unreadable': FIELD.gross,
+  'supplement.unreadable': FIELD.supplement,
+  'u1.unreadable': FIELD.u1,
+  'u2.unreadable': FIELD.u2,
+  'accident.unreadable': FIELD.accident,
+};
+
 export const ERROR_TEXT: Record<string, Copy> = {
   'gross.unreadable': {
     de: 'Bitte einen Betrag in Euro eingeben, zum Beispiel 3.500 oder 3500,00.',

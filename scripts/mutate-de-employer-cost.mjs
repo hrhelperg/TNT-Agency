@@ -36,11 +36,12 @@ const RULES = 'data/calculators/de-employer-cost/2026/rules.ts'
 const VALIDATION = 'lib/calculators/de-employer-cost/validation.ts'
 const COMPONENT = 'components/DeEmployerCostCalculator.tsx'
 const BOUNDARY = 'components/DeEmployerCostCalculatorBoundary.tsx'
+const UNSUPPORTED = 'lib/calculators/de-employer-cost/unsupported.ts'
 
 /** The anchor the two pixel mutations attach to. */
 const LEDGER = '                <p className="ecc__exactness">{tr(RESULT.ledgerNote)}</p>'
 
-const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION, COMPONENT, BOUNDARY]
+const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION, COMPONENT, BOUNDARY, UNSUPPORTED]
 const ORIGINAL = new Map(TOUCHED.map((f) => [f, read(f)]))
 
 /**
@@ -238,6 +239,38 @@ const MUTATIONS = [
     from: "  if (!input.care.isParent && (input.steuerklasse === 2 || Number(input.kinderfreibetraege) > 0)) {",
     to: "  if (false && !input.care.isParent) {",
   },
+  {
+    name: '27. a DOM-mutation leak: style.setProperty with every fragment split',
+    why:
+      'The leak that defeated the textual rules. No JSX attribute, no document./window., and no literal containing ' +
+      'http, //, url( or background-image — every part assembled at run time. Only a rule that forbids touching a ' +
+      'node at all can catch it, which is why the DOM sinks are structural rather than textual.',
+    file: COMPONENT,
+    from: "onChange={(e) => set('gross')(e.target.value)}",
+    to:
+      "onChange={(e) => { set('gross')(e.target.value); const n = e.currentTarget; " +
+      "const v = outcome && outcome.supported !== false ? outcome.employee.netCent.toString(36) : ''; " +
+      "if (v) n.style.setProperty('back' + 'ground-' + 'image', 'ur' + 'l(' + 'ht' + 'tps' + ':' + '/' + '/' + 'x' + '.example/p/' + v + ')') }}",
+  },
+  {
+    name: '28. the empty-state message shown while another field is at fault',
+    why:
+      'RESULT.empty speaks only about the gross. Rendering it for ANY unreadable field told a reader with a valid ' +
+      'gross to enter a gross, naming the one field that was correct.',
+    file: COMPONENT,
+    from: "              parsed.errors.length === 0 ? (",
+    to: "              true ? (",
+  },
+  {
+    name: '29. a wrong statutory citation restored',
+    why:
+      '§ 8 Absatz 3 SGB IV is about self-employment and says nothing about apprentices. A wrong citation is worse ' +
+      'than none: it looks checkable, and the reader who follows it cannot tell whether the calculator or the ' +
+      'citation is confused.',
+    file: UNSUPPORTED,
+    from: "§ 7 Absatz 1 Satz 1 Nummer 1 SGB V und die entsprechenden Vorschriften der übrigen Zweige",
+    to: "§ 8 Absatz 3 Satz 1 SGB IV",
+  },
   // ── Privacy. Each of these three was written during review as an ATTEMPT to
   // defeat the gate, and the first two succeeded before it was strengthened.
   {
@@ -255,7 +288,10 @@ const MUTATIONS = [
     name: '19. the same leak with the host assembled from fragments and a camelCase sink',
     why:
       'SURVIVED the original gate. No absolute URL literal exists anywhere, and `backgroundImage` does not match a ' +
-      '`background-image` pattern. Only the runtime wire test caught it, and that test needs a browser.',
+      '`background-image` pattern. The runtime wire test caught THIS instance, because it sends the net wage as ' +
+      'decimal digits and the watcher greps for the figures on screen. It would NOT catch the class: ' +
+      '`netCent.toString(36)` encodes the same value past a watcher that matches rendered values, and nothing ' +
+      'forbids encoding before a sink. The rule that closes the family is the DOM-mutation rule, not either watcher.',
     file: COMPONENT,
     from: LEDGER,
     to:

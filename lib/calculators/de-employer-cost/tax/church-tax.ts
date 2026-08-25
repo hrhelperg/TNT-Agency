@@ -25,29 +25,47 @@
  */
 
 import type { Ruled } from '../../../../data/calculators/de-employer-cost/types';
+import type { DeLocale } from '../types';
 
 /** The sixteen Länder, by their official abbreviations. */
 export type Bundesland =
   | 'BW' | 'BY' | 'BE' | 'BB' | 'HB' | 'HH' | 'HE' | 'MV'
   | 'NI' | 'NW' | 'RP' | 'SL' | 'SN' | 'ST' | 'SH' | 'TH';
 
-export const BUNDESLAND_NAMES: Readonly<Record<Bundesland, string>> = {
-  BW: 'Baden-Württemberg',
-  BY: 'Bayern',
-  BE: 'Berlin',
-  BB: 'Brandenburg',
-  HB: 'Bremen',
-  HH: 'Hamburg',
-  HE: 'Hessen',
-  MV: 'Mecklenburg-Vorpommern',
-  NI: 'Niedersachsen',
-  NW: 'Nordrhein-Westfalen',
-  RP: 'Rheinland-Pfalz',
-  SL: 'Saarland',
-  SN: 'Sachsen',
-  ST: 'Sachsen-Anhalt',
-  SH: 'Schleswig-Holstein',
-  TH: 'Thüringen',
+/**
+ * The sixteen Länder, named in each language the calculator publishes in.
+ *
+ * A single German-only list rendered "Mecklenburg-Vorpommern" inside the Czech
+ * and English pages, while the prose beside the control said "v Sasku" and
+ * "Saxony" — so the one Land whose rules actually differ could not be matched
+ * by name to the sentence explaining why it matters. The proper nouns are not
+ * translated for style; they are translated because the reader has to find one.
+ */
+export const BUNDESLAND_NAMES: Readonly<Record<Bundesland, Readonly<Record<DeLocale, string>>>> = {
+  BW: { de: 'Baden-Württemberg', en: 'Baden-Württemberg', cs: 'Bádensko-Württembersko' },
+  BY: { de: 'Bayern', en: 'Bavaria', cs: 'Bavorsko' },
+  BE: { de: 'Berlin', en: 'Berlin', cs: 'Berlín' },
+  BB: { de: 'Brandenburg', en: 'Brandenburg', cs: 'Braniborsko' },
+  HB: { de: 'Bremen', en: 'Bremen', cs: 'Brémy' },
+  HH: { de: 'Hamburg', en: 'Hamburg', cs: 'Hamburk' },
+  HE: { de: 'Hessen', en: 'Hesse', cs: 'Hesensko' },
+  MV: {
+    de: 'Mecklenburg-Vorpommern',
+    en: 'Mecklenburg-Western Pomerania',
+    cs: 'Meklenbursko-Přední Pomořansko',
+  },
+  NI: { de: 'Niedersachsen', en: 'Lower Saxony', cs: 'Dolní Sasko' },
+  NW: {
+    de: 'Nordrhein-Westfalen',
+    en: 'North Rhine-Westphalia',
+    cs: 'Severní Porýní-Vestfálsko',
+  },
+  RP: { de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', cs: 'Porýní-Falc' },
+  SL: { de: 'Saarland', en: 'Saarland', cs: 'Sársko' },
+  SN: { de: 'Sachsen', en: 'Saxony', cs: 'Sasko' },
+  ST: { de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', cs: 'Sasko-Anhaltsko' },
+  SH: { de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', cs: 'Šlesvicko-Holštýnsko' },
+  TH: { de: 'Thüringen', en: 'Thuringia', cs: 'Durynsko' },
 };
 
 /** Saxony is the one Land with its own Pflegeversicherung split — § 58 Absatz 3 SGB XI. */

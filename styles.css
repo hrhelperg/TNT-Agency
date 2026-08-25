@@ -3798,6 +3798,67 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
    the right answer. */
 .ecc--de .ecc__table-wrap { overflow-x: auto; max-width: 100%; }
 
+/* ── Narrow viewports: the result table REFLOWS, it does not scroll ──────────
+   The horizontal-scroll container was the wrong answer and made things worse.
+   At 320px it granted 15px of scroll — not enough to reach the employee column
+   — and because the first column was not sticky, scrolling to the end removed
+   the row's own name. Meanwhile the shared `.ecc__table th { min-width: 0;
+   overflow-wrap: anywhere }` let the label column collapse to 20px, so
+   "Rentenversicherung" rendered as a 351px vertical stack of single letters and
+   the table grew to about 3,190px tall.
+
+   Below 480px each row therefore becomes a small stacked block: the branch name
+   on its own line, then the employer and employee figures each labelled by the
+   column header they came from. Nothing is hidden, nothing needs scrolling, and
+   no column can become unreachable.
+
+   Scoped to .ecc--de. The shared rules belong to the Czech calculator too, and
+   that one is production-verified. */
+@media (max-width: 480px) {
+  .ecc--de .ecc__table,
+  .ecc--de .ecc__table tbody,
+  .ecc--de .ecc__table tr,
+  .ecc--de .ecc__table tbody th,
+  .ecc--de .ecc__table td { display: block; width: auto; }
+
+  /* The header row still exists for assistive technology; it is simply not
+     painted, because each cell now carries its own label. */
+  .ecc--de .ecc__table thead {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .ecc--de .ecc__table tr { padding: 10px 0; border-bottom: 1px solid var(--line, #e6e8ec); }
+  .ecc--de .ecc__table tr:last-child { border-bottom: 0; }
+  .ecc--de .ecc__table tbody th {
+    text-align: left;
+    font-weight: 600;
+    padding: 0 0 4px;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .ecc--de .ecc__table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 2px 0;
+    text-align: right;
+  }
+  .ecc--de .ecc__table td::before {
+    content: attr(data-label);
+    color: var(--text-3);
+    font-weight: 400;
+    text-align: left;
+    flex: 0 0 auto;
+  }
+  /* Nothing left to scroll, so the region stops being one. */
+  .ecc--de .ecc__table-wrap { overflow-x: visible; }
+}
+
 /* The unsupported-browser notice. Scoped to .ecc--de: it belongs to the German
    calculator's progressive-enhancement boundary and to nothing else. */
 .ecc--de .ecc__unsupported {

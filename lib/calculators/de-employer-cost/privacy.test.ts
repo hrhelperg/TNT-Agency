@@ -408,16 +408,23 @@ describe.each(JSX_FILES)('nothing financial or personal can reach a URL (%s)', (
   });
 });
 
-describe.each(URL_RULE_FILES)('no external origin can be referenced at all (%s)', (_label, file) => {
+describe.each(CLOSURE_FILES)('no external origin can be referenced at all (%s)', (_label, file) => {
   const src = code(read(file));
   const isBoundary = file === BOUNDARY;
+  // The two evidence registries are exempt from the URL-SHAPED rules only — the
+  // exemption used to remove them from this whole block, so `globalThis.name`
+  // in sources.ts would have fired nothing. They stay subject to every channel,
+  // ambient-state and DOM rule below.
+  const urlExempt = URL_BEARING_EVIDENCE.has(file);
 
   it('contains no absolute URL', () => {
+    if (urlExempt) return;
     const urls = Array.from(src.matchAll(/https?:\/\/[^\s'"`)]+/g), (m) => m[0]);
     expect(urls, `absolute URLs in the calculator: ${urls.join(', ')}`).toEqual([]);
   });
 
   it('contains no protocol-relative or bare-host reference', () => {
+    if (urlExempt) return;
     expect(/["'`]\/\/[a-z0-9.-]+\./i.test(src), 'protocol-relative URL').toBe(false);
   });
 
@@ -467,12 +474,15 @@ describe.each(URL_RULE_FILES)('no external origin can be referenced at all (%s)'
    *
    * Enumerating one more sink would leave the next one open. So the rule is
    * structural instead: this component styles itself with CSS classes and has
-   * no inline style at all, which is true today and is the property that makes
-   * that whole family of leaks unwritable. Any inline style fails, and so does
-   * any string literal carrying a scheme or a protocol-relative prefix — which
-   * is what assembling a host out of fragments has to produce eventually.
+   * no inline style at all. NOTE what that does and does not buy — the earlier
+   * version of this comment called it "the property that makes that whole
+   * family of leaks unwritable", and it is not: this regex sees the JSX
+   * attribute only, and a reviewer got the same leak through
+   * `node.style.setProperty(...)` in a handler. The DOM-mutation rule below is
+   * what closes the family; this one closes the JSX half of it.
    */
   it('uses no inline style and builds no URL out of fragments', () => {
+    if (urlExempt) return;
     expect(/\bstyle\s*=/.test(src), 'inline style in the calculator').toBe(false);
 
     const literals = Array.from(src.matchAll(/'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"/g), (m) =>
@@ -495,17 +505,32 @@ describe.each(URL_RULE_FILES)('no external origin can be referenced at all (%s)'
    * that inspects one literal at a time, and chasing that with a smarter parser
    * is the ever-growing blacklist this file's design is supposed to reject.
    *
-   * The STRUCTURAL denial is elsewhere and does not depend on recognising a
-   * string. A URL is inert unless something issues a request with it, and the
-   * set of things that can is CLOSED and belongs to the platform, not to this
-   * codebase: the transmission APIs and storage in `the calculator transmits
-   * nothing`, the request channels and ambient state below, and — for the files
-   * that render — the attribute rules that forbid any URL-bearing attribute,
-   * inline style, or computed href. None of those can be defeated by splitting a
-   * literal, because none of them inspects a literal.
+   * WHAT THE STRUCTURAL RULES DO AND DO NOT COVER — stated exactly, because an
+   * earlier version of this comment claimed the set of request-issuing things
+   * was "CLOSED" and that "none of them inspects a literal", and a reviewer
+   * falsified it. `element.style.setProperty('back'+'ground-'+'image', 'ur'+'l('+…)`
+   * inside an onChange handler passed all 690 assertions and issued a real
+   * cross-origin request carrying the net wage: no JSX attribute, no
+   * `document.`/`window.`, and no literal containing a forbidden substring. Two
+   * of the rules that should have caught it — `background-image` and `url(` —
+   * are textual, so they DO inspect literals, and the inline-style rule matches
+   * only the JSX attribute, not a DOM write.
    *
-   * So this rule catches the careless case and is not asked to catch the
-   * determined one.
+   * The honest statement is narrower. The rules deny sensitive state a path to
+   * the ENUMERATED effects: the transmission and storage APIs in `the
+   * calculator transmits nothing`, the request channels and ambient state
+   * below, the DOM-mutation APIs added after that reviewer's finding, and — for
+   * files that render — the attribute rules. That enumeration is a MODEL of the
+   * platform's sinks, kept current by mutation tests; it is not a proof that no
+   * other sink exists.
+   *
+   * The DOM-mutation rules are what make this particular family unwritable,
+   * and they are structural rather than textual: a declarative React component
+   * has no legitimate reason to touch a node, so touching one fails regardless
+   * of how any string in it was built.
+   *
+   * This scheme rule remains defence in depth. It catches the careless case and
+   * is not asked to catch the determined one.
    *
    * A review pass designed a leak that carried the net wage and the Article-9
    * church flag out through `new RTCPeerConnection({ iceServers: [{ urls:
@@ -519,6 +544,7 @@ describe.each(URL_RULE_FILES)('no external origin can be referenced at all (%s)'
    * like one fails.
    */
   it('names no URI scheme of any kind', () => {
+    if (urlExempt) return;
     const literals = Array.from(src.matchAll(/'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"|`((?:[^`\\]|\\.)*)`/g), (m) =>
       m[1] ?? m[2] ?? m[3] ?? '',
     );
@@ -561,11 +587,48 @@ describe.each(URL_RULE_FILES)('no external origin can be referenced at all (%s)'
       ['meta refresh', /http-equiv/i],
       ['navigator.*', /\bnavigator\s*\./],
       ['importScripts / worker', /importScripts|new\s+Worker|serviceWorker/],
+      ['SharedWorker', /SharedWorker/],
     ];
     for (const [label, re] of CHANNELS) {
-      expect(re.test(src), `${label} is present in the calculator`).toBe(false);
+      expect(re.test(src), `${label} is present in ${file}`).toBe(false);
     }
 
+    /**
+     * THE DOM IS A SINK, and this is the rule that closes the family a reviewer
+     * used to defeat the textual ones.
+     *
+     * `node.style.setProperty('back'+'ground-'+'image', 'ur'+'l('+host+net+')')`
+     * issues a real cross-origin request and contains no forbidden substring
+     * anywhere. Nothing textual can be relied on to catch it, because every
+     * part of it can be assembled at run time.
+     *
+     * What CAN be relied on is that these components are declarative: React
+     * owns the DOM here, and neither the boundary nor the calculator has any
+     * reason to hold a node, style one, set an attribute on one, or write
+     * markup into one. So the rule is that they never do — which holds however
+     * the strings inside are built.
+     */
+    const DOM_MUTATION: Array<[string, RegExp]> = [
+      ['inline style write', /\.\s*style\b/],
+      ['setProperty', /setProperty/],
+      ['setAttribute / removeAttribute', /(set|remove)Attribute/],
+      ['innerHTML / outerHTML', /(inner|outer)HTML/],
+      ['insertAdjacentHTML', /insertAdjacent/],
+      ['classList', /classList/],
+      ['dataset', /\.\s*dataset\b/],
+      ['createElement', /createElement/],
+      ['querySelector / getElementById', /querySelector|getElementById/],
+      // `[A-Za-z_$]\w*\s*\.` rather than a bare `\.`, because the spread
+      // operator in `[...current, id]` puts a dot immediately before the word.
+      ['a held node (ref)', /\buseRef\b|\bref\s*=|[A-Za-z_$]\w*\s*\.\s*current\b/],
+      ['currentTarget', /currentTarget/],
+    ];
+    for (const [label, re] of DOM_MUTATION) {
+      expect(re.test(src), `${label} — a DOM sink — is present in ${file}`).toBe(false);
+    }
+  });
+
+  it('parks nothing in ambient browser state', () => {
     const AMBIENT: Array<[string, RegExp]> = [
       ['document.title', /document\s*\.\s*title/],
       ['window.name', /window\s*\.\s*name/],

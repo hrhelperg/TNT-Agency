@@ -16,6 +16,7 @@ import {
   parsePercent,
 } from '../lib/calculators/de-employer-cost/formatting'
 import {
+  ERROR_FIELD,
   ERROR_TEXT,
   ISSUE_TEXT,
   FIELD,
@@ -58,6 +59,12 @@ const LANG: Record<DeLocale, string> = { de: 'de', en: 'en', cs: 'cs' }
 
 const STEUERKLASSEN = [1, 2, 3, 4, 5, 6] as const
 const BUNDESLAENDER = Object.keys(BUNDESLAND_NAMES) as Bundesland[]
+
+/** Alphabetical in the reader's own language, not in German. */
+const sortedBundeslaender = (locale: DeLocale): Bundesland[] =>
+  [...BUNDESLAENDER].sort((a, b) =>
+    BUNDESLAND_NAMES[a][locale].localeCompare(BUNDESLAND_NAMES[b][locale], locale),
+  )
 const KINDERFREIBETRAEGE = ['0', '0.5', '1', '1.5', '2', '2.5', '3', '4'] as const
 
 interface Raw {
@@ -216,9 +223,9 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                     value={workplace}
                     onChange={(e) => setWorkplace(e.target.value as Bundesland)}
                   >
-                    {BUNDESLAENDER.map((b) => (
+                    {sortedBundeslaender(locale).map((b) => (
                       <option key={b} value={b}>
-                        {BUNDESLAND_NAMES[b]}
+                        {BUNDESLAND_NAMES[b][locale]}
                       </option>
                     ))}
                   </select>
@@ -412,14 +419,31 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
           <div className="ecc__results" aria-live="polite">
             {parsed.errors.length > 0 ? (
               <ul className="ecc__errors">
+                {/*
+                  Each error names its own field. Without the label the reader
+                  is told "please enter an amount in euro" with four amount
+                  fields on screen and no indication which one is meant.
+                */}
                 {parsed.errors.map((key) => (
-                  <li key={key}>{tr(ERROR_TEXT[key])}</li>
+                  <li key={key}>
+                    <strong>{tr(ERROR_FIELD[key])}:</strong> {tr(ERROR_TEXT[key])}
+                  </li>
                 ))}
               </ul>
             ) : null}
 
             {outcome === null ? (
-              <p className="ecc__empty">{tr(RESULT.empty)}</p>
+              /*
+                Only when the gross is genuinely missing. `outcome` is null for
+                ANY unreadable field, and this line speaks solely about the
+                gross — so a bad accident-insurance amount used to display
+                "enter a monthly gross" beside a gross that was already there
+                and already valid. The one field named on screen was the one
+                field that was correct.
+              */
+              parsed.errors.length === 0 ? (
+                <p className="ecc__empty">{tr(RESULT.empty)}</p>
+              ) : null
             ) : outcome.supported === false && outcome.reason === 'invalid' ? (
               // An invalid input is the reader's typo, not a statement about
               // German payroll. It must not look like a refusal.
@@ -509,7 +533,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                             </span>
                           ) : null}
                         </th>
-                        <td>
+                        <td data-label={tr(RESULT.employerShare)}>
                           {formatEuro(c.employerCent, locale)}
                           {c.employerRatePercent !== '0' ? (
                             <span className="ecc__flow-pct">
@@ -518,7 +542,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                             </span>
                           ) : null}
                         </td>
-                        <td>
+                        <td data-label={tr(RESULT.employeeShare)}>
                           {c.employeeCent > 0n ? formatEuro(c.employeeCent, locale) : '—'}
                           {c.employeeRatePercent !== '0' ? (
                             <span className="ecc__flow-pct">
