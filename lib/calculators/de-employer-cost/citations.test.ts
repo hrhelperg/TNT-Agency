@@ -237,17 +237,29 @@ describe('two statements about German law that were wrong in the code, not the c
     ).toBe(false);
   });
 
-  it('the Baugewerbe refusal does not call a federal ordinance a collective agreement', () => {
-    // § 3 WinterbeschV fixes the Winterbeschäftigungs-Umlage rates nationally by
-    // Rechtsverordnung — 2,0 % in the Baugewerbe, split between employer and
-    // employee by the same provision. The Sozialkassen contributions ARE
-    // collective-agreement based, and the German and English texts said "both"
-    // were, which was false of the levy they name first. The Czech text made no
-    // such claim, so only two of the three readers were told it.
+  it('the Baugewerbe refusal cites the provision that governs 2026, not the one it displaced', () => {
+    // TWO corrections, one round apart, and the second was needed because the
+    // first stopped at the wrong provision.
+    //
+    // The German and English texts once said both the Winterbeschäftigungs-Umlage
+    // and the Sozialkassen contributions were "tarifvertraglich geregelt …
+    // nicht gesetzlich einheitlich". False of the levy: § 3 WinterbeschV fixes
+    // its rates nationally by Rechtsverordnung. The Czech text made no such
+    // claim, so only two of three readers were told it.
+    //
+    // The fix then cited § 3 — which for THIS CALCULATOR'S ONLY YEAR is not the
+    // operative rate. § 3a WinterbeschV, in force 1 January to 31 December 2026,
+    // cuts the Baugewerbe levy to 1 % (0,6 % employer / 0,4 % employee) in place
+    // of the 2 % (1,2/0,8) in § 3 Absatz 1 Nummer 1. A construction employer who
+    // followed the citation to work out the cost the calculator says it omits
+    // would have doubled it.
     const c = byId('baugewerbe');
-    expect(c.reasonDe).toMatch(/§ 3 WinterbeschV/);
-    expect(c.reasonEn).toMatch(/§ 3 WinterbeschV/);
-    expect(c.reasonCs).toMatch(/§ 3 WinterbeschV/);
+    for (const reason of [c.reasonDe, c.reasonEn, c.reasonCs]) {
+      expect(reason).toMatch(/§ 3a WinterbeschV/);
+      expect(reason).toMatch(/2026/);
+      expect(reason).toMatch(/0[,.]6/);
+      expect(reason).toMatch(/0[,.]4/);
+    }
     expect(
       /Beide sind tarifvertraglich geregelt/.test(c.reasonDe),
       'the German text calls both levies collectively agreed again',
@@ -255,6 +267,49 @@ describe('two statements about German law that were wrong in the code, not the c
     expect(
       /Both are set by collective agreement/.test(c.reasonEn),
       'the English text calls both levies collectively agreed again',
+    ).toBe(false);
+  });
+});
+
+describe('a message names the control the reader must actually fix', () => {
+  it('the U1 rate error names the rate input, not the participation checkbox', () => {
+    // The form carries two U1 controls with two distinct accessible names — a
+    // checkbox "Umlage U1 (Entgeltfortzahlung)" (does this employer take part)
+    // and a rate input "Umlagesatz U1 in Prozent". The parse error and the
+    // engine issue are both about the RATE, and both were prefixed with the
+    // checkbox's name while aria-describedby pointed the browser at the rate
+    // input — so the reader was told to fix one control and taken to another.
+    const COPY = fs.readFileSync(
+      path.join(ROOT, 'lib/calculators/de-employer-cost/copy.ts'),
+      'utf8',
+    );
+    expect(COPY).toMatch(/'u1\.unreadable': FIELD\.u1Rate,/);
+    expect(COPY).toMatch(/'employer\.u1Percent': FIELD\.u1Rate,/);
+    expect(
+      /'u1\.unreadable': FIELD\.u1,/.test(COPY),
+      'the U1 parse error names the checkbox again',
+    ).toBe(false);
+  });
+
+  it('the Saxon note quotes the provision it cites', () => {
+    // Three rewrites, two of them wrong about the mechanism. § 58 Absatz 3
+    // Satz 1 SGB XI gives ONE POINT TO THE EMPLOYEE ALONE and Satz 3 halves the
+    // rest; the "employer share from a rate reduced by one percentage point"
+    // wording belongs to Absatz 5, which reaches only cases this calculator
+    // refuses. The note carries the quotation now so a reader can check it
+    // without leaving the file.
+    const RULES = fs.readFileSync(
+      path.join(ROOT, 'data/calculators/de-employer-cost/2026/rules.ts'),
+      'utf8',
+    );
+    // lastIndexOf: the first occurrence is the type declaration, not the value.
+    const at = RULES.lastIndexOf('saxonyEmployeeExtraPoints');
+    const note = RULES.slice(at, at + 2200);
+    expect(note).toMatch(/tragen die Beiträge in Höhe von 1 vom Hundert allein/);
+    expect(note).toMatch(/§ 58 Absatz 3 Satz 1 SGB XI/);
+    expect(
+      /computes the EMPLOYER share from a rate reduced by one percentage point, and the employee bears the remainder/.test(note),
+      'the note attributes the Absatz 5 mechanism to Absatz 3 again',
     ).toBe(false);
   });
 });

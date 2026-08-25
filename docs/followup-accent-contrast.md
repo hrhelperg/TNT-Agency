@@ -25,10 +25,13 @@ The logo is 18.08px bold. WCAG "large scale" starts at 18.66px bold, so the
 
 axe-core, tags `wcag2a wcag2aa wcag21a wcag21aa`, run against the whole document
 (not scoped to the calculator) on all three Germany routes at 320 / 390 / 1440
-with a calculated result present: **18 violating nodes, all `color-contrast`,
-all the same cause.** The Czech route carries 15 of them because it renders the
-Czech internal-link and source-link blocks; the German and English routes carry
-the logo only.
+with a calculated result present: **18 unique violating nodes, all
+`color-contrast`, all the same cause.** The split is 16 on the Czech route — the
+15 internal-link, source-link and editorial-note anchors plus its own logo — and
+one logo each on the German and English routes. (An earlier version of this
+paragraph said "15 … the German and English routes carry the logo only", which
+adds up to 17 and undercounts the Czech route by one: the Czech logo was being
+counted in neither group.)
 
 Reproduce:
 

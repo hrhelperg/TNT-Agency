@@ -222,7 +222,7 @@ export const DE_SOURCES: readonly CalculatorSource[] = [
     legalBasis: '§§ 1, 7 AAG',
     accessed: ACCESSED,
     note:
-      'U1 (Entgeltfortzahlung im Krankheitsfall) applies only to employers with at most 30 employees; U2 (Mutterschaft) applies whatever the headcount, subject to § 11 AAG, whose Absatz 2 disapplies § 1 entirely to four listed groups of employers. Both are borne by the employer alone. THE RATES ARE NOT STATUTORY — each Krankenkasse sets its own in its Satzung, and they differ by several percentage points between Kassen and between the reimbursement levels a Kasse offers. There is therefore no correct default, and the calculator takes them as inputs.',
+      'U1 (Entgeltfortzahlung im Krankheitsfall) applies only to employers with at most 30 employees; U2 (Mutterschaft) applies whatever the headcount, subject to § 11 AAG, whose Absatz 2 disapplies § 1 entirely in four listed cases (only one of which is defined by the employer; the others turn on the person or the measure). Both are borne by the employer alone. THE RATES ARE NOT STATUTORY — each Krankenkasse sets its own in its Satzung, and they differ by several percentage points between Kassen and between the reimbursement levels a Kasse offers. There is therefore no correct default, and the calculator takes them as inputs.',
   },
   {
     id: DE_SOURCE_IDS.unfall,
@@ -252,7 +252,7 @@ export const DE_SOURCES: readonly CalculatorSource[] = [
     legalBasis: 'Gesetz vom 24.07.2026, BGBl. 2026 I Nr. 228, in Kraft seit 30.07.2026',
     accessed: ACCESSED,
     note:
-      'Cited for what it does NOT do. It amended § 223 SGB V during 2026, and the consolidated text a reader sees today says "Die Beitragsbemessungsgrenze im Jahr 2027 …". Every operative provision — the extra 300 EUR a month on the ceiling and 3 600 EUR on the Versicherungspflichtgrenze, the higher pauschaler Beitragssatz for Minijobs — bites from 2027. Nothing in it changes a 2026 payslip, and the 2026 ceilings remain the SVRechGrV 2026 figures.',
+      'Cited for what it does NOT do. It amended § 223 SGB V during 2026, and the consolidated text a reader sees today says "Die Beitragsbemessungsgrenze im Jahr 2027 …". Every operative provision bites from 2027: the ceiling rises by 300 EUR a month — which is the SAME 3 600 EUR a year, stated once monthly and once annually, not two separate changes to two figures — and the pauschaler Beitragssatz for Minijobs goes up. Nothing in it changes a 2026 payslip, and the 2026 ceilings remain the SVRechGrV 2026 figures.',
   },
   {
     id: DE_SOURCE_IDS.kirchensteuer,

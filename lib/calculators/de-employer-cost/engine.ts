@@ -179,11 +179,16 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
     // rather than a real one — the same situation as a missing
     // accident-insurance figure, and it warns in the same way. NOT "without
     // exception", which is what this comment used to say: § 11 Absatz 2 AAG
-    // disapplies § 1 entirely to FOUR listed groups of employers, and § 1
-    // Absatz 2 itself excludes the landwirtschaftliche Krankenkasse. A previous
-    // correction named two of the four and read as though that were the whole
-    // list. None of them is modelled here, and the warning is worded so it does
-    // not assert something false of them.
+    // disapplies § 1 entirely in FOUR listed cases — and only one of the four is
+    // an employer. The other three are defined by the PERSON or the MEASURE:
+    // mitarbeitende Familienangehörige of a farming business, subsidised
+    // Einstiegsqualifizierungen and geförderte Berufsausbildungen under § 54a
+    // and § 76 Absatz 7 SGB III, and people with disabilities in a recognised
+    // Werkstatt. (§ 11 Absatz 1 separately disapplies § 1 Absatz 1 — U1 only —
+    // to the public sector and others.) An earlier correction called all four
+    // "groups of employers", which is what happens when a count is checked and
+    // the content is not. None is modelled here, and the warning is worded so it
+    // does not assert something false of them.
     notes.push({ key: 'u2.missing', severity: 'warning', text: 'de.note.u2Missing' });
   }
   if (input.employer.accidentMonthlyCent > 0n) {

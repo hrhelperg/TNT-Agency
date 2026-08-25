@@ -199,8 +199,9 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *                      growing an <img>, <iframe> or <script> fails here.
  *
  *   PROPERTIES        every property name the closure reads or writes — through
- *                      `.x`, through `x['x']`, through a destructuring pattern,
- *                      and through a JSX attribute. `ownerDocument`,
+ *                      `.x`, through `x['x']`, through a destructuring PATTERN,
+ *                      through a destructuring ASSIGNMENT, and through a JSX
+ *                      attribute. `ownerDocument`,
  *                      `defaultView`, `style`, `setProperty`, `setAttribute`,
  *                      `innerHTML`, `dataset`, `classList`, `fetch` and
  *                      `constructor` are none of them on the list.
@@ -229,10 +230,21 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *
  *   CONSTRUCTORS       every `new X`, so a new channel object cannot appear.
  *
- * DESTRUCTURING IS A READ, NOT A DECLARATION. `const { fetch: send } = self`
- * used to add `fetch` to the DECLARED side and nothing to the used side, so a
- * capability could be lifted out of an object without any name this file checks
- * ever appearing. It now lands in PROPERTIES like any other property read.
+ * DESTRUCTURING IS A READ, NOT A DECLARATION, IN BOTH ITS FORMS. That took two
+ * rounds to get right. `const { fetch: send } = self` used to add `fetch` to a
+ * DECLARED side and nothing to the used side; that was fixed. Then a reviewer
+ * dropped the declaration —
+ *
+ *     ({ ownerDocument: a } = e.target); ({ defaultView: b } = a); ({ fetch: c } = b)
+ *
+ * — which parses as an ObjectLiteralExpression on the left of an assignment,
+ * with PropertyAssignment children and no BindingElement anywhere, so the fix
+ * did not apply to it. Three plain lines walked a live `fetch` off an event
+ * object while the analyser recorded `target` and nothing else. Both forms land
+ * in PROPERTIES now, and `isAssignmentTarget` is what tells a destructuring
+ * target apart from an ordinary object literal — the distinction matters,
+ * because counting ordinary literal keys is what widened this pin the round
+ * before.
  *
  * A JSX ATTRIBUTE IS A PROPERTY WRITE. `style={{ backgroundImage: … }}` and
  * `data-net={net}` used to be visible only to the textual rules further down.
@@ -244,7 +256,12 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *   • It is not a proof that no sink exists. It is a proof that the closure's
  *     entire vocabulary — globals, property names, computed sites, constructors
  *     — is a fixed, reviewed list. A capability has to be NAMED to be reached,
- *     and every way of naming one lands in a pinned set.
+ *     and every SYNTACTIC FORM OF NAMING THAT THIS FILE MODELS lands in a
+ *     pinned set. That last clause is not padding: the two bypasses found in
+ *     the sixth round and the two found in the seventh were all forms of naming
+ *     the model did not yet cover, and there is no argument here that the list
+ *     of forms is complete. What can be said is that each one found has been
+ *     added, with a negative control that fails without it.
  *   • The one thing that does not have to be named is a value handed to the
  *     closure from outside: a callback argument, a prop, an event object. Those
  *     are reachable without a free identifier, which is why property names are
@@ -256,19 +273,24 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *   • It does not resist an author who edits this file, and nothing can. The
  *     threat it is built against is a leak introduced into the calculator, not
  *     an adversary with commit rights over its own gate.
- *   • Scope resolution is now real: declarations are bound to the scope that
- *     owns them and references resolve up the chain. The previous flat per-file
- *     model was defeated by adding an unused `.map((k, document) => …)`
- *     parameter in one place to make `document` "local" three hundred lines
- *     away. Real scoping fixes the trick as well as detecting it — a name that
- *     genuinely shadows the global no longer holds the global.
+ *   • Scope resolution is real: declarations bind to the scope that owns them
+ *     and references resolve up the chain. The flat per-file model before it
+ *     was defeated by an unused `.map((k, document) => …)` parameter that made
+ *     `document` "local" three hundred lines away; real scoping fixes that
+ *     trick as well as detecting it, because a name that genuinely shadows the
+ *     global no longer holds the global. The first version of the real model
+ *     was defeated in turn by a name bound only in a TYPE — `const noop:
+ *     (self: unknown) => void` — which has no runtime existence and was being
+ *     bound into the runtime scope anyway. Type positions are scopes now.
  *   • The pinned sets are meant to be inconvenient. A legitimate change that
  *     touches a new property or a new global SHOULD stop here and be read.
  *
  * The negative controls at the end of this block are not decoration: each one
  * is a leak that a previous round of reviewers actually got past this file, run
- * against the analyser to prove it now fails. A gate with no failing input is
- * not known to be a gate.
+ * against the analyser to prove it now fails, and each asserts WHICH pin fires
+ * so it cannot pass for an accidental reason. A gate with no failing input is
+ * not known to be a gate. Seven rounds in, the honest summary is that this file
+ * has been defeated eleven times and has a control for each of the eleven.
  */
 type Structure = {
   free: string[];
@@ -296,6 +318,11 @@ type Structure = {
  * Real scoping also fixes the trick rather than merely detecting it: a name that
  * genuinely shadows the global no longer HOLDS the global, so the leak stops
  * working at the same moment it stops being invisible.
+ *
+ * The list below then had to grow again, for the opposite reason: a name bound
+ * only in a TYPE POSITION has no runtime existence, and binding it into a
+ * runtime scope let one annotation disarm a global for a whole file. See the
+ * type-node entries at the end.
  */
 const opensScope = (n: ts.Node): boolean =>
   ts.isSourceFile(n) || ts.isBlock(n) || ts.isModuleBlock(n) || ts.isFunctionDeclaration(n) ||
@@ -304,7 +331,55 @@ const opensScope = (n: ts.Node): boolean =>
   ts.isForStatement(n) || ts.isForOfStatement(n) || ts.isForInStatement(n) ||
   ts.isCatchClause(n) || ts.isCaseBlock(n) || ts.isClassDeclaration(n) ||
   ts.isClassExpression(n) || ts.isInterfaceDeclaration(n) || ts.isTypeAliasDeclaration(n) ||
-  ts.isEnumDeclaration(n) || ts.isConditionalTypeNode(n) || ts.isMappedTypeNode(n);
+  ts.isEnumDeclaration(n) || ts.isConditionalTypeNode(n) || ts.isMappedTypeNode(n) ||
+  // TYPE POSITIONS ARE SCOPES TOO, and leaving them out was a bypass. A
+  // parameter that exists only in an ANNOTATION —
+  //
+  //     const noop: (self: unknown) => void = () => {}
+  //
+  // — has no runtime existence at all: the annotation is erased, and `self`
+  // still means the global everywhere in the file. But `enclosing()` walked up
+  // from that parameter through the FunctionTypeNode, which was not a scope,
+  // through the VariableDeclaration, which is not a scope either, and bound
+  // `self` into the SOURCE FILE. One innocuous-looking line then disarmed the
+  // free-identifier pin for `self`, `fetch`, `document`, `window` or any other
+  // global, for the whole file. Binding it to the type node instead means a
+  // runtime reference can never resolve to it, because a runtime reference is
+  // never inside one.
+  ts.isFunctionTypeNode(n) || ts.isConstructorTypeNode(n) || ts.isTypeLiteralNode(n) ||
+  ts.isCallSignatureDeclaration(n) || ts.isConstructSignatureDeclaration(n) ||
+  ts.isIndexSignatureDeclaration(n) || ts.isMethodSignature(n);
+
+/**
+ * Is this object or array literal the TARGET of a destructuring assignment?
+ *
+ * `({ a: x } = o)` and `[y] = arr` are assignments, not literals, and their
+ * property names are reads. Walks out through nesting so
+ * `({ a: { b: x } } = o)` counts `b` as well.
+ */
+function isAssignmentTarget(node: ts.Node): boolean {
+  let current: ts.Node = node;
+  while (current) {
+    const parent = current.parent;
+    if (!parent) return false;
+    if (ts.isBinaryExpression(parent) && parent.operatorToken.kind === ts.SyntaxKind.EqualsToken) {
+      return parent.left === current;
+    }
+    if ((ts.isForOfStatement(parent) || ts.isForInStatement(parent)) && parent.initializer === current) {
+      return true;
+    }
+    if (
+      ts.isObjectLiteralExpression(parent) || ts.isArrayLiteralExpression(parent) ||
+      ts.isPropertyAssignment(parent) || ts.isSpreadAssignment(parent) ||
+      ts.isSpreadElement(parent) || ts.isParenthesizedExpression(parent)
+    ) {
+      current = parent;
+      continue;
+    }
+    return false;
+  }
+  return false;
+}
 
 function structure(sources: ReadonlyMap<string, string>): Structure {
   const free = new Set<string>();
@@ -360,11 +435,25 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
         if (ts.isStringLiteral(arg) || ts.isNoSubstitutionTemplateLiteral(arg)) properties.add(arg.text);
         else if (!ts.isNumericLiteral(arg)) computed.add(`${rel} :: ${n.expression.getText(sf)}`);
       }
-      // DESTRUCTURING IS A PROPERTY READ. The previous version counted it as a
+      // DESTRUCTURING IS A PROPERTY READ. An earlier version counted it as a
       // DECLARATION, which is how `const { fetch: send } = self` extracted a
       // capability without any name ever entering the checked sets.
       if (ts.isBindingElement(n) && ts.isObjectBindingPattern(n.parent)) {
         const name = text(n.propertyName ?? n.name);
+        if (name) properties.add(name);
+      }
+      // AND SO IS DESTRUCTURING WITHOUT A DECLARATION, which is a different
+      // node entirely. `({ ownerDocument: d } = e.target)` parses as an
+      // ObjectLiteralExpression on the left of an assignment — no
+      // ObjectBindingPattern, no BindingElement — so the branch above never
+      // saw it, and the names were then excluded from the free set by the
+      // PropertyAssignment guard below. Three of those lines lifted a live
+      // `fetch` off an event object while the analyser recorded only `target`.
+      if (
+        (ts.isPropertyAssignment(n) || ts.isShorthandPropertyAssignment(n)) &&
+        isAssignmentTarget(n.parent)
+      ) {
+        const name = text(ts.isPropertyAssignment(n) ? n.name : n.name);
         if (name) properties.add(name);
       }
       // A JSX ATTRIBUTE IS A PROPERTY WRITE ON A NODE. Counting it keeps
@@ -745,6 +834,7 @@ const PROPERTIES = new Set([
   'className',
   'compareTo',
   'contributions',
+  'contributionsTable',
   'control',
   'data-label',
   'data-severity',
@@ -1179,6 +1269,18 @@ describe('STRUCTURAL — the closure is confined to a reviewed vocabulary', () =
       "onChange={(e) => set('gross')(e.target.value)} data-net={String(outcome && outcome.supported ? outcome.employee.netCent : '')}",
       'property: data-net',
     ],
+    // ── Round seven. Both walked past the STRUCTURE of the analyser rather
+    // than past a name, and both are plain unobfuscated code.
+    [
+      'a capability walked off an event object by destructuring ASSIGNMENT',
+      "onChange={(e) => { let a, b, c; ({ ownerDocument: a } = e.target); ({ defaultView: b } = a); ({ fetch: c } = b); c.call(b, '/x?g=' + e.target.value); set('gross')(e.target.value) }}",
+      'property: ownerDocument',
+    ],
+    [
+      'the same three lines in shorthand form',
+      "onChange={(e) => { let ownerDocument, defaultView, fetch; ({ ownerDocument } = e.target); ({ defaultView } = ownerDocument); ({ fetch } = defaultView); fetch.call(defaultView, '/x?g=' + e.target.value); set('gross')(e.target.value) }}",
+      'property: ownerDocument',
+    ],
   ];
 
   /**
@@ -1202,6 +1304,30 @@ describe('STRUCTURAL — the closure is confined to a reviewed vocabulary', () =
       'property: title',
     ],
   ];
+
+  /**
+   * A TYPE ANNOTATION IS NOT A BINDING, and treating it as one was a bypass.
+   *
+   * `const noop: (self: unknown) => void = () => {}` declares nothing at run
+   * time — the annotation is erased — but the parameter inside it used to be
+   * bound into the SourceFile's runtime scope, so `self` counted as local for
+   * the whole file and the free-identifier pin never fired for it again.
+   */
+  it('a parameter in a type position does not shadow a global', () => {
+    const sources = new Map(sourceMap());
+    const src = sources.get(COMPONENT);
+    expect(src.includes(HANDLER), 'the mutation anchor has moved').toBe(true);
+    sources.set(
+      COMPONENT,
+      src
+        .replace(HANDLER, "onChange={(e) => { self.fetch('/x?g=' + e.target.value); set('gross')(e.target.value) }}")
+        .replace("const STEUERKLASSEN", "const noop: (self: unknown) => void = () => {}\nconst STEUERKLASSEN"),
+    );
+    const found = violations(structure(sources));
+    expect(found.join(' | '), 'the type annotation disarmed the free-identifier pin').toContain(
+      'free identifier: self',
+    );
+  });
 
   for (const [label, shadow, leak, pin] of SHADOWED_LEAKS) {
     it(`rejects ${label}`, () => {

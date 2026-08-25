@@ -130,9 +130,9 @@ export const FIELD: Record<string, Copy> = {
     cs: 'Spolková země pracoviště',
   },
   workplaceHint: {
-    de: 'Maßgeblich ist der Ort der Betriebsstätte, nicht der Wohnort. Er bestimmt den Kirchensteuersatz und in Sachsen die Aufteilung der Pflegeversicherung.',
-    en: 'The workplace decides, not where the employee lives. It sets the church-tax rate and, in Saxony, how the care-insurance contribution is split.',
-    cs: 'Rozhoduje místo pracoviště, nikoli bydliště. Určuje sazbu církevní daně a v Sasku rozdělení pojištění dlouhodobé péče.',
+    de: 'Nicht der Wohnort. Für die Kirchensteuer zählt die lohnsteuerliche Betriebsstätte (§ 41 Absatz 2 EStG), für die sächsische Aufteilung der Pflegeversicherung der Beschäftigungsort (§ 58 Absatz 3 SGB XI). Dieses eine Feld steht für beide; fallen sie auseinander, ist das Ergebnis für eine der beiden Fragen falsch.',
+    en: 'Not where the employee lives. Church tax follows the wage-tax Betriebsstätte (§ 41 Absatz 2 EStG); the Saxon care-insurance split follows the Beschäftigungsort (§ 58 Absatz 3 SGB XI). This one field stands for both, so if they differ the result is wrong for one of the two questions.',
+    cs: 'Nikoli bydliště. Pro církevní daň je rozhodná mzdově-daňová provozovna (§ 41 odst. 2 EStG), pro saské rozdělení pojištění dlouhodobé péče místo výkonu práce (§ 58 odst. 3 SGB XI). Toto jediné pole zastupuje obojí; pokud se liší, je výsledek pro jednu z otázek nesprávný.',
   },
   churchTax: {
     de: 'Kirchensteuerpflichtig',
@@ -310,6 +310,18 @@ export const RESULT: Record<string, Copy> = {
    * the gross, each deduction and the net — a landmark named for a third of
    * what it holds.
    */
+  /**
+   * The first result table's landmark name.
+   *
+   * It used to reuse SECTION.insurance, which is also a fieldset legend in the
+   * same form — two landmarks with one name, and a reader navigating by name
+   * could not tell the input group from the result table.
+   */
+  contributionsTable: {
+    de: 'Beiträge im Einzelnen',
+    en: 'Contributions in detail',
+    cs: 'Odvody jednotlivě',
+  },
   breakdown: {
     de: 'Vom Bruttoentgelt zum Nettoentgelt',
     en: 'From gross pay to net pay',
@@ -387,7 +399,9 @@ export const NOTE_TEXT: Record<string, Copy> = {
 export const ERROR_FIELD: Record<string, Copy> = {
   'gross.unreadable': FIELD.gross,
   'supplement.unreadable': FIELD.supplement,
-  'u1.unreadable': FIELD.u1,
+  // The RATE input, not the participation checkbox: the parse error is about a
+  // percentage, and this round gave the two controls distinct accessible names.
+  'u1.unreadable': FIELD.u1Rate,
   'u2.unreadable': FIELD.u2,
   'accident.unreadable': FIELD.accident,
 };
@@ -438,7 +452,7 @@ export const ISSUE_FIELD: Record<string, Copy> = {
   workplace: FIELD.workplace,
   healthSupplementPercent: FIELD.supplement,
   'care.childrenUnder25': FIELD.children,
-  'employer.u1Percent': FIELD.u1,
+  'employer.u1Percent': FIELD.u1Rate,
   'employer.u2Percent': FIELD.u2,
   'employer.accidentMonthlyCent': FIELD.accident,
 };

@@ -54,7 +54,7 @@ const NO_BIGINT_EVER = new Set(['ie', 'ie_mob', 'op_mini', 'bb', 'kaios', 'and_u
 /** The four targets that cannot run the calculator, accepted with reasons. */
 const ACCEPTED_WITHOUT_BIGINT: Record<string, string> = {
   'chrome 64': 'Released January 2018; BigInt arrived in Chrome 67 four months later. Negligible residual share, and the page still serves its prose and now says plainly that the calculator needs a newer browser.',
-  'firefox 67': 'Released May 2019; BigInt arrived in Firefox 68 the following month. Negligible residual share, and the fallback notice covers it.',
+  'firefox 67': 'Released 21 May 2019; BigInt arrived in Firefox 68 on 9 July 2019. Negligible residual share, and the fallback notice covers it.',
   'opera 51': 'Chromium 64 under another name, superseded by Opera 54 in 2018. Negligible residual share, and the fallback notice covers it.',
   'safari 12':
     'The one with real residual usage — iOS 12, on hardware that can no longer update. It is also where the cost was worst before the boundary existed: the form rendered and ignored every keystroke. It now shows the localized notice instead, and the methodology and sources remain.',

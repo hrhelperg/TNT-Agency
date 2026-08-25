@@ -161,11 +161,11 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     labelEn: 'Employed old-age pensioners',
     labelCs: 'Pracující důchodci',
     reasonDe:
-      'Ab der Regelaltersgrenze entfällt der Arbeitnehmeranteil zur Arbeitslosenversicherung (§ 28 Absatz 1 Nummer 1 SGB III), während der Arbeitgeber seinen Anteil weiter trägt (§ 346 Absatz 3 SGB III); bei Bezug einer Altersvollrente entfällt zusätzlich der Arbeitnehmeranteil zur Rentenversicherung. Das gilt unabhängig davon, ob tatsächlich eine Rente bezogen wird, und ist aus der Entgelthöhe nicht erkennbar.',
+      'Ab der Regelaltersgrenze entfällt der Arbeitnehmeranteil zur Arbeitslosenversicherung (§ 28 Absatz 1 Nummer 1 SGB III), während der Arbeitgeber seinen Anteil weiter trägt (§ 346 Absatz 3 SGB III); bei Bezug einer Altersvollrente entfällt zusätzlich der Arbeitnehmeranteil zur Rentenversicherung. Der Wegfall des Arbeitnehmeranteils zur Arbeitslosenversicherung hängt allein vom Erreichen der Regelaltersgrenze ab, nicht davon, ob eine Rente bezogen wird; der Wegfall des Rentenversicherungsanteils dagegen setzt den Bezug voraus. Beides ist aus der Entgelthöhe nicht erkennbar.',
     reasonEn:
-      'From state pension age the employee’s unemployment-insurance share falls away (§ 28 Absatz 1 Nummer 1 SGB III) while the employer keeps paying its own (§ 346 Absatz 3 SGB III); drawing a full old-age pension additionally removes the employee’s pension share. This holds whether or not a pension is actually drawn, and nothing in the pay reveals it.',
+      'From state pension age the employee’s unemployment-insurance share falls away (§ 28 Absatz 1 Nummer 1 SGB III) while the employer keeps paying its own (§ 346 Absatz 3 SGB III); drawing a full old-age pension additionally removes the employee’s pension share. Losing the employee’s unemployment share turns on reaching state pension age alone, not on drawing a pension; losing the pension share does require drawing one. Neither is visible in the pay.',
     reasonCs:
-      'Od dosažení důchodového věku odpadá zaměstnancův podíl na pojištění v nezaměstnanosti (§ 28 odst. 1 č. 1 SGB III), zatímco zaměstnavatel svůj podíl platí dál (§ 346 odst. 3 SGB III); při pobírání plného starobního důchodu odpadá navíc zaměstnancův podíl na důchodovém pojištění. Platí to bez ohledu na to, zda je důchod skutečně pobírán, a z výše mzdy to poznat nelze.',
+      'Od dosažení důchodového věku odpadá zaměstnancův podíl na pojištění v nezaměstnanosti (§ 28 odst. 1 č. 1 SGB III), zatímco zaměstnavatel svůj podíl platí dál (§ 346 odst. 3 SGB III); při pobírání plného starobního důchodu odpadá navíc zaměstnancův podíl na důchodovém pojištění. Zánik zaměstnancova podílu na pojištění v nezaměstnanosti závisí jen na dosažení důchodového věku, nikoli na tom, zda je důchod pobírán; zánik podílu na důchodovém pojištění naopak pobírání předpokládá. Ani jedno z výše mzdy poznat nelze.',
   },
   {
     id: 'knappschaft',
@@ -263,11 +263,11 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     labelEn: 'Construction and other sectors with their own levies',
     labelCs: 'Stavebnictví a další obory s vlastními odvody',
     reasonDe:
-      'Im Baugewerbe kommen die Winterbeschäftigungs-Umlage nach § 354 SGB III und die Beiträge zu den Sozialkassen hinzu. Die Umlagesätze stehen in § 3 WinterbeschV und gelten bundesweit; die Sozialkassenbeiträge folgen dagegen den Tarifverträgen und unterscheiden sich je nach Branche. Beides ist hier nicht abgebildet, die Arbeitgeberkosten lägen also höher als berechnet.',
+      'Im Baugewerbe kommen die Winterbeschäftigungs-Umlage nach § 354 SGB III und die Beiträge zu den Sozialkassen hinzu. Für 2026 senkt § 3a WinterbeschV den Umlagesatz im Baugewerbe befristet auf 1 % — davon 0,6 % Arbeitgeber, 0,4 % Arbeitnehmer — statt der 2 % (1,2/0,8) aus § 3 Absatz 1 Nummer 1; für Gerüstbau, Dachdecker und Garten- und Landschaftsbau gelten weiter die Sätze des § 3. Die Sozialkassenbeiträge folgen dagegen den Tarifverträgen und unterscheiden sich je nach Branche. Beides ist hier nicht abgebildet, die Arbeitgeberkosten lägen also höher als berechnet.',
     reasonEn:
-      'Construction adds the Winterbeschäftigungs-Umlage under § 354 SGB III and contributions to the sector’s social funds. The levy rates are fixed nationally by ordinance in § 3 WinterbeschV; the social-fund contributions follow collective agreements and differ by trade. Neither is modelled here, so employer cost would be higher than calculated.',
+      'Construction adds the Winterbeschäftigungs-Umlage under § 354 SGB III and contributions to the sector’s social funds. FOR 2026 § 3a WinterbeschV temporarily cuts the building-trade levy to 1 % — 0.6 % employer, 0.4 % employee — instead of the 2 % (1.2/0.8) in § 3 Absatz 1 Nummer 1; scaffolding, roofing and landscaping keep the § 3 rates. The social-fund contributions follow collective agreements and differ by trade. Neither is modelled here, so employer cost would be higher than calculated.',
     reasonCs:
-      'Ve stavebnictví přistupuje zimní odvod podle § 354 SGB III, jehož sazby stanoví celostátně § 3 WinterbeschV, a příspěvky do oborových sociálních kas, které se řídí kolektivními smlouvami a liší se podle oboru. Ani jedno zde není zahrnuto, náklady zaměstnavatele by proto byly vyšší, než kolik zde vychází.',
+      'Ve stavebnictví přistupuje zimní odvod podle § 354 SGB III a příspěvky do oborových sociálních kas. Pro rok 2026 snižuje § 3a WinterbeschV sazbu odvodu ve stavebnictví dočasně na 1 % — z toho 0,6 % zaměstnavatel a 0,4 % zaměstnanec — místo 2 % (1,2/0,8) podle § 3 odst. 1 č. 1; pro lešenářství, pokrývačství a zahradní a krajinářskou tvorbu platí dál sazby § 3. Příspěvky do sociálních kas se naproti tomu řídí kolektivními smlouvami a liší se podle oboru. Ani jedno zde není zahrnuto, náklady zaměstnavatele by proto byly vyšší, než kolik zde vychází.',
   },
   {
     id: 'freiwilligendienst',

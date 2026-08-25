@@ -640,7 +640,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   name stay, because a reader navigating by landmark should
                   still be able to find each table.
                 */}
-                <div className="ecc__table-wrap" role="region" aria-label={tr(SECTION.insurance)}>
+                <div className="ecc__table-wrap" role="region" aria-label={tr(RESULT.contributionsTable)}>
                 <table className="ecc__table">
                   <thead>
                     <tr>

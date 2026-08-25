@@ -1,12 +1,25 @@
 import type { LocaleCorpus } from '../types'
 
 /**
- * English content for the Czech employer-cost calculator.
+ * English content for TWO calculators, and the difference decides everything.
  *
- * THIS IS CZECH PAYROLL EXPLAINED IN ENGLISH. Not a UK, US or Irish
- * calculator, and not a generic European one. Every rate, threshold and statute
- * on this page belongs to the Czech Republic, and the page says so in its title,
- * its H1 and its first sentence.
+ * The FIRST key, 'germany-employer-cost-calculator', is GERMAN payroll in
+ * English, served at /en/germany-employer-cost-calculator. The SECOND,
+ * 'employer-cost-calculator', is CZECH payroll explained in English.
+ *
+ * This file used to open by declaring, in capitals, that all of it was Czech
+ * payroll and that every rate, threshold and statute on "this page" belonged to
+ * the Czech Republic. That was flatly false of the first half — the same defect
+ * the German corpus carried until the fifth round, and in the same shape: a
+ * header written when the file held one concept and never revisited when it
+ * grew a second.
+ *
+ * FOR THE CZECH HALF the rule stands: not a UK, US or Irish calculator and not a
+ * generic European one; every rate, threshold and statute belongs to the Czech
+ * Republic, and the page says so in its title, its H1 and its first sentence.
+ * FOR THE GERMAN HALF the opposite holds — scripts/validate-locale-jurisdiction.mjs
+ * puts 'germany-employer-cost-calculator' in GERMAN_JURISDICTION and requires a
+ * /deutsch|Deutschland|SGB|EStG|BMF/ anchor instead.
  *
  * The lists below are not decoration. The Czech source page carries its
  * structure as bullets, and scripts/validate-locale-fidelity.mjs checks — item

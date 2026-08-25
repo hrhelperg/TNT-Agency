@@ -526,8 +526,65 @@ const MUTATIONS = [
       'both levies are "tarifvertraglich geregelt … nicht gesetzlich einheitlich" was false of one of them, ' +
       'in German and English only — the Czech text made no such claim.',
     file: UNSUPPORTED,
-    from: "Die Umlagesätze stehen in § 3 WinterbeschV und gelten bundesweit;",
-    to: "Beide sind tarifvertraglich geregelt und branchenabhängig, nicht gesetzlich einheitlich;",
+    from: "Die Sozialkassenbeiträge folgen dagegen den Tarifverträgen und unterscheiden sich je nach Branche.",
+    to: "Beide sind tarifvertraglich geregelt und branchenabhängig, nicht gesetzlich einheitlich.",
+  },
+  // ── Round seven. Two more structural bypasses of the privacy gate, and two
+  // more statements about German law that were wrong in the code.
+  {
+    name: '48. a capability walked off an event object by destructuring ASSIGNMENT',
+    why:
+      'Fixing `const { fetch: send } = self` last round covered the PATTERN form only. Dropping the ' +
+      'declaration — `({ ownerDocument: a } = e.target)` — parses as an object literal on the left of an ' +
+      'assignment, with no BindingElement anywhere, so the fix did not apply and three plain lines lifted a ' +
+      'live fetch off an event object.',
+    file: COMPONENT,
+    from: "onChange={(e) => set('gross')(e.target.value)}",
+    to:
+      "onChange={(e) => { let a, b, c; ({ ownerDocument: a } = e.target); ({ defaultView: b } = a); " +
+      "({ fetch: c } = b); c.call(b, '/x?g=' + e.target.value); set('gross')(e.target.value) }}",
+  },
+  {
+    name: '49. a global disarmed by a parameter that exists only in a type annotation',
+    why:
+      'A name bound only in a TYPE has no runtime existence — the annotation is erased — but it was being ' +
+      'bound into the nearest RUNTIME scope, which for a module-level annotation is the whole file. One ' +
+      'innocuous line then disarmed the free-identifier pin for any global.',
+    file: COMPONENT,
+    from: "const STEUERKLASSEN",
+    to:
+      "const noop: (self: unknown) => void = () => {}\nconst leak = (v: string) => self.fetch('/x?g=' + v)\n" +
+      "const STEUERKLASSEN",
+  },
+  {
+    name: '50. the Saxon note describing the statute backwards',
+    why:
+      '§ 58 Absatz 3 Satz 1 SGB XI says the EMPLOYEE bears one percentage point ALONE and Satz 3 halves the ' +
+      'rest. The wording about an employer share computed from a rate reduced by one point is in Absatz 5, ' +
+      'which reaches only the Übergangsbereich and § 7 Absatz 2 SGB V cases — both refused here.',
+    file: RULES,
+    from: "THE STATUTE, § 58 Absatz 3 Satz 1 SGB XI, verbatim:",
+    to: "the mechanism is the statute\'s own: § 58 Absatz 3 SGB XI computes the EMPLOYER share from a rate reduced by one percentage point, and the employee bears the remainder. Ignore:",
+  },
+  {
+    name: '51. the Baugewerbe refusal citing the rate that 2026 displaced',
+    why:
+      '§ 3a WinterbeschV cuts the building-trade levy to 1 % (0,6/0,4) for the whole of 2026, which is this ' +
+      "calculator's only year. A reader who followed the old citation to § 3 would have doubled the cost the " +
+      'refusal says it is omitting.',
+    file: UNSUPPORTED,
+    from: "Für 2026 senkt § 3a WinterbeschV den Umlagesatz im Baugewerbe befristet auf 1 % — davon 0,6 % Arbeitgeber, 0,4 % Arbeitnehmer — statt der 2 % (1,2/0,8) aus § 3 Absatz 1 Nummer 1;",
+    to: "Die Umlagesätze stehen in § 3 WinterbeschV und gelten bundesweit;",
+  },
+  {
+    name: '52. the U1 message naming the checkbox instead of the rate input',
+    why:
+      'The form has two U1 controls with two accessible names. The rate parse error was prefixed with the ' +
+      "participation checkbox's name and wired by aria-describedby to the rate input, so the reader was told " +
+      'to fix one control while the browser pointed at another.',
+    file: COPY,
+    from: "  'u1.unreadable': FIELD.u1Rate,",
+    to: "  'u1.unreadable': FIELD.u1,",
   },
 ]
 

@@ -164,6 +164,13 @@ describe('the shape of the algorithm, pinned', () => {
     expect(solz).toBeLessThan(lst * 0.055);
   });
 
+  // NOTE ON WHAT THIS CASE CAN AND CANNOT SEE. Its JBMG is 6 952 EUR, which is
+  // below the UNDOUBLED Freigrenze of 20 350 EUR as well as the doubled 40 700,
+  // so SOLZLZZ is 0 either way and deleting the KZTAB multiplication in MSOLZ
+  // leaves this file green. The differential suite DOES catch that mutation, so
+  // the engine is guarded — this assertion documents the rule rather than
+  // proving it. A case that would discriminate is Steuerklasse III with an
+  // annual gross around 200 000 EUR, where JBMG lands between the two limits.
   it('splitting doubles the Soli-Freigrenze too', () => {
     // SOLZFREI is multiplied by KZTAB, so Steuerklasse III gets twice the
     // threshold. Missing that charges Soli to couples who owe none.

@@ -181,6 +181,15 @@ export function care(monthlyGrossCent: Cent, input: CareInput): ContributionLine
     employee = employer;
   }
 
+  // NOT MODELLED — § 55 Absatz 3 Satz 2 SGB XI exempts three groups from the
+  // childless surcharge outright: members born before 1 January 1940, people
+  // doing Wehr- or Zivildienst, and recipients of Grundsicherungsgeld under
+  // § 19 Absatz 1 Satz 1 SGB II. None of the three is asked about, so a member
+  // of one of them who leaves "Elterneigenschaft nachgewiesen" unticked is
+  // charged 0,6 points they do not owe. The first group is vanishing (86 or
+  // older in 2026) and the other two are narrow, but the calculator does not
+  // detect them and does not claim to.
+  //
   // TWO INDEPENDENT TESTS, not an either/or.
   //
   // The surcharge is owed by someone who has NOT proved parenthood and is past
@@ -259,10 +268,11 @@ export function insolvencyLevy(monthlyGrossCent: Cent): ContributionLine {
  * would be a number with no source, presented beside numbers that all have one.
  *
  * U1 also applies only to employers with at most 30 employees (§ 1 Absatz 1
- * AAG); U2 applies whatever the headcount (§ 1 Absatz 2), subject to the
- * exemptions in § 11 AAG, whose Absatz 2 disapplies § 1 altogether to the four
- * groups of employers it lists. The caller decides, because the headcount rule
- * has counting conventions this calculator does not model.
+ * AAG); U2 applies whatever the headcount (§ 1 Absatz 2), subject to § 11 AAG,
+ * whose Absatz 2 disapplies § 1 altogether in four listed cases — only one of
+ * which is an employer; the rest turn on the person or the measure. The caller
+ * decides, because the headcount rule has counting conventions this calculator
+ * does not model.
  */
 export function aagLevy(
   key: 'u1' | 'u2',
@@ -281,8 +291,17 @@ export function aagLevy(
           en: 'Levy U2 (maternity)',
           cs: 'Odvod U2 (mateřství)',
         };
-  // The AAG sets no ceiling of its own; the Kassen apply the pay that bears
-  // pension contributions, so the pension ceiling governs.
+  // § 7 Absatz 2 Satz 1 AAG fixes this by STATUTE, not by Kassen practice: the
+  // levy is "ein Prozentsatz des Entgelts …, nach dem die Beiträge zur
+  // gesetzlichen Rentenversicherung … bemessen werden", so the pension ceiling
+  // governs because the provision says so. An earlier version of this comment
+  // attributed it to what the Kassen happen to do, which made a statutory rule
+  // sound like a convention a Kasse could vary.
+  //
+  // NOT MODELLED, and stated because the same sentence excludes them: Satz 2
+  // leaves out pay of employees whose contract has run under four weeks with no
+  // Entgeltfortzahlung claim, and einmalig gezahltes Arbeitsentgelt under § 23a
+  // SGB IV — and this calculator refuses Einmalzahlungen as a declared case.
   const base = assessmentBase(monthlyGrossCent, R.pension.monthlyCeilingCent.value);
   return line(
     key,

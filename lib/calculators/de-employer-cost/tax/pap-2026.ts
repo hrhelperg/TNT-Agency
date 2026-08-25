@@ -602,10 +602,16 @@ function UPEVP(s: S): void {
   MVSPKVPV(s);
 
   // The Höchstbetrag comparison is skipped entirely when the employee is not
-  // compulsorily insured against unemployment, and in Steuerklasse VI. ALV is
-  // new for 2026 — until 2025 this condition read on KRV alone, so a
-  // straight port keeps one flag and is wrong for anyone in one scheme but not
-  // the other.
+  // compulsorily insured against unemployment, and in Steuerklasse VI.
+  //
+  // ALV IS NEW FOR 2026, and so is the comparison it gates: the 2025 PAP has no
+  // MVSPHB, no AVSATZAN and no Höchstbetrag step at all — its Vorsorgepauschale
+  // took a flat 12 % of ZRE4VP capped at 1 900 / 3 000 EUR with a
+  // Günstigerprüfung. An earlier version of this comment said the condition
+  // "read on KRV alone until 2025", which invented a predecessor. The practical
+  // warning it was reaching for still holds: KRV and ALV are two different
+  // flags, and a port that carries one across is wrong for anyone compulsorily
+  // insured in one scheme but not the other.
   if (I(s, 'ALV') !== 1 && I(s, 'STKL') !== 6) MVSPHB(s);
 }
 
