@@ -219,11 +219,20 @@ const codeOnly = (src: string, file = 'source.ts') =>
  *                      same for `document['title']`. A pin that a data file can
  *                      widen is not a pin.
  *
- *   COMPUTED ACCESS    every `x[expr]` whose subscript is not a literal, pinned
- *                      by file and object expression. Every split-string bypass
- *                      above needs one, and each would be a site not on the
- *                      list. The legitimate ones are all locale and lookup
- *                      tables, which is why the list reads the way it does.
+ *   COMPUTED ACCESS    every `x[expr]` whose subscript is not a literal, AND
+ *                      every destructuring key that is computed, pinned by file
+ *                      and object expression. Every split-string bypass above
+ *                      needs one, and each would be a site not on the list. The
+ *                      legitimate ones are all locale and lookup tables, which
+ *                      is why the list reads the way it does.
+ *
+ *                      The destructuring half was missing until the eighth
+ *                      round was being prepared: `const { ['fe' + 'tch']: f } =
+ *                      w` recorded NOTHING — not a property, because a
+ *                      ComputedPropertyName has no text, and not a computed
+ *                      access, because the node is a BindingElement rather than
+ *                      an ElementAccessExpression. Three chained lines walked a
+ *                      capability off an event object with every set empty.
  *
  *   JSX SPREAD         zero, anywhere. A spread can carry a computed attribute
  *                      name past every attribute rule in this file.
@@ -389,7 +398,38 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
   const ctors = new Set<string>();
   const text = (n: ts.Node | undefined): string | null =>
     !n ? null : ts.isIdentifier(n) || ts.isPrivateIdentifier(n) ? n.text
-      : ts.isStringLiteral(n) ? n.text : null;
+      : ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n) ? n.text : null;
+
+  /**
+   * A destructuring key that is COMPUTED is a property read by a name the
+   * source does not spell out, which is the same thing `x[expr]` is — so it is
+   * recorded the same way, as a computed access site.
+   *
+   * Without this, `const { ['fe' + 'tch']: f } = w` recorded NOTHING: not a
+   * property, because `text()` returns null for a ComputedPropertyName; and not
+   * a computed access, because the node is a BindingElement rather than an
+   * ElementAccessExpression. Chaining three of them —
+   *
+   *     const { ['owner' + 'Document']: d } = e.target
+   *     const { ['default' + 'View']: w } = d
+   *     const { ['fe' + 'tch']: f } = w
+   *
+   * — walks a live capability off an event object with every pinned set empty.
+   * Found while preparing the eighth review round, in the code the seventh had
+   * just added.
+   */
+  const recordKey = (rel: string, sf: ts.SourceFile, name: ts.Node | undefined) => {
+    if (!name) return;
+    if (ts.isComputedPropertyName(name)) {
+      const inner = name.expression;
+      const literal = text(inner);
+      if (literal !== null) properties.add(literal);
+      else computed.add(`${rel} :: destructuring key ${name.getText(sf)}`);
+      return;
+    }
+    const plain = text(name);
+    if (plain) properties.add(plain);
+  };
 
   for (const [rel, source] of sources) {
     const sf = parse(rel, source);
@@ -439,8 +479,7 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
       // DECLARATION, which is how `const { fetch: send } = self` extracted a
       // capability without any name ever entering the checked sets.
       if (ts.isBindingElement(n) && ts.isObjectBindingPattern(n.parent)) {
-        const name = text(n.propertyName ?? n.name);
-        if (name) properties.add(name);
+        recordKey(rel, sf, n.propertyName ?? n.name);
       }
       // AND SO IS DESTRUCTURING WITHOUT A DECLARATION, which is a different
       // node entirely. `({ ownerDocument: d } = e.target)` parses as an
@@ -453,8 +492,7 @@ function structure(sources: ReadonlyMap<string, string>): Structure {
         (ts.isPropertyAssignment(n) || ts.isShorthandPropertyAssignment(n)) &&
         isAssignmentTarget(n.parent)
       ) {
-        const name = text(ts.isPropertyAssignment(n) ? n.name : n.name);
-        if (name) properties.add(name);
+        recordKey(rel, sf, n.name);
       }
       // A JSX ATTRIBUTE IS A PROPERTY WRITE ON A NODE. Counting it keeps
       // `style={{ backgroundImage: … }}` and `data-net={net}` inside the
@@ -1275,6 +1313,16 @@ describe('STRUCTURAL — the closure is confined to a reviewed vocabulary', () =
       'a capability walked off an event object by destructuring ASSIGNMENT',
       "onChange={(e) => { let a, b, c; ({ ownerDocument: a } = e.target); ({ defaultView: b } = a); ({ fetch: c } = b); c.call(b, '/x?g=' + e.target.value); set('gross')(e.target.value) }}",
       'property: ownerDocument',
+    ],
+    [
+      'the same walk with every key computed, which recorded nothing at all',
+      "onChange={(e) => { const { ['owner' + 'Document']: d } = e.target; const { ['default' + 'View']: w } = d; const { ['fe' + 'tch']: f } = w; f.call(w, '/x?g=' + e.target.value); set('gross')(e.target.value) }}",
+      'computed access',
+    ],
+    [
+      'the computed-key walk without declarations',
+      "onChange={(e) => { let d, w, f; ({ ['owner' + 'Document']: d } = e.target); ({ ['default' + 'View']: w } = d); ({ ['fe' + 'tch']: f } = w); f.call(w, '/x?g=' + e.target.value); set('gross')(e.target.value) }}",
+      'computed access',
     ],
     [
       'the same three lines in shorthand form',

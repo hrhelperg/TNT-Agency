@@ -586,6 +586,19 @@ const MUTATIONS = [
     from: "  'u1.unreadable': FIELD.u1Rate,",
     to: "  'u1.unreadable': FIELD.u1,",
   },
+  {
+    name: '53. a capability extracted through a COMPUTED destructuring key',
+    why:
+      'A ComputedPropertyName in a binding pattern recorded nothing: no property, because it has no text, ' +
+      'and no computed access, because the node is a BindingElement rather than an ElementAccessExpression. ' +
+      'Three chained lines walked a live capability off an event object with every pinned set empty.',
+    file: COMPONENT,
+    from: "onChange={(e) => set('gross')(e.target.value)}",
+    to:
+      "onChange={(e) => { const { ['owner' + 'Document']: d } = e.target; " +
+      "const { ['default' + 'View']: w } = d; const { ['fe' + 'tch']: f } = w; " +
+      "f.call(w, '/x?g=' + e.target.value); set('gross')(e.target.value) }}",
+  },
 ]
 
 const TESTS = ['lib/calculators/de-employer-cost', 'lib/calculators/jurisdiction-boundary.test.ts']
