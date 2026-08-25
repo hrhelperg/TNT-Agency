@@ -12,7 +12,7 @@ export default function KalkulackaNakladuZamestnavatelePage() {
   return (
     <SeoArticle
       page={KALKULACKA_NAKLADU_ZAMESTNAVATELE}
-      activePage="kalkulacka-nakladu-zamestnavatele"
+      activePage="employer-cost"
       topSlot={<CzEmployerCostCalculator />}
     />
   )

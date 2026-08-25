@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import vm from 'vm'
 import {
+  CALCULATOR_TARGETS,
   CHROME_NAV,
   CHROME_FOOTER,
   NAV_TARGETS,
@@ -214,6 +215,48 @@ describe('header links from a locale page', () => {
       for (const locale of c.published) {
         if (locale === 'cs') continue
         expect(resolveNavHref(t, locale).href).toBe(urlFor(c, locale))
+      }
+    }
+  })
+})
+
+describe('the calculators are reachable from the chrome', () => {
+  it('the header offers all three calculators, in every language', () => {
+    // The Germany calculator shipped with exactly ONE inbound link on the whole
+    // site: a related-content entry at the bottom of the Czech calculator. A
+    // German employer landing anywhere under /de/ had no path to it at all.
+    const keys = CALCULATOR_TARGETS.map((t) => t.key)
+    expect(keys).toEqual(['calcCostDe', 'calcCostCz', 'calc'])
+    for (const locale of ['cs', 'en', 'de'] as const) {
+      for (const target of CALCULATOR_TARGETS) {
+        const label = CHROME_NAV[locale][target.key]
+        expect(label, `${locale}.${target.key} has no label`).toBeTruthy()
+      }
+      // The group's own label must be shorter than the one it replaced, or the
+      // header runs out of room: there are 53-64px of slack at 1280-1440.
+      expect(CHROME_NAV[locale].calcGroup.length).toBeLessThan(CHROME_NAV[locale].calc.length)
+    }
+  })
+
+  it('each employer-cost calculator resolves to its own locale, not to Czech', () => {
+    // The point of putting them in the chrome is that a German reader reaches
+    // the GERMAN page. Falling back to the Czech URL would be worse than no
+    // link, because it looks like navigation and lands somewhere else.
+    for (const locale of ['en', 'de'] as const) {
+      for (const key of ['calcCostDe', 'calcCostCz'] as const) {
+        const target = CALCULATOR_TARGETS.find((t) => t.key === key)!
+        const { href, hreflang } = resolveNavHref(target, locale)
+        expect(href.startsWith(`/${locale}/`), `${locale} ${key} → ${href}`).toBe(true)
+        expect(hreflang, `${locale} ${key} should not be flagged as Czech`).toBeUndefined()
+      }
+    }
+  })
+
+  it('the footer carries both employer-cost calculators', () => {
+    for (const key of ['navCostDe', 'navCostCz'] as const) {
+      expect(FOOTER_TARGETS.some((t) => t.key === key), `${key} has no destination`).toBe(true)
+      for (const locale of ['cs', 'en', 'de'] as const) {
+        expect(CHROME_FOOTER[locale][key], `${locale}.footer.${key}`).toBeTruthy()
       }
     }
   })

@@ -79,6 +79,8 @@ export default function Footer({ locale }: FooterProps = {}) {
               {link('navAgencies')}
               {link('navOffers')}
               {link('navCalc')}
+              {link('navCostDe')}
+              {link('navCostCz')}
               {link('navSubmitAgency')}
               {link('navPostOffer')}
               {link('navTaxes')}

@@ -163,3 +163,30 @@ describe('the result table reflows rather than scrolling on a phone', () => {
     ).toBe(false);
   });
 });
+
+describe('the calculator is reachable, and only one language control claims to be one', () => {
+  const HEADER = fs.readFileSync(path.join(ROOT, 'components/Header.tsx'), 'utf8');
+  const PAGE = fs.readFileSync(
+    path.join(ROOT, 'pages/kalkulacka-nakladu-zamestnavatele-nemecko.tsx'),
+    'utf8',
+  );
+
+  it('the Czech route does not render the legacy switcher beside the real one', () => {
+    // Two controls sat side by side there and the one that LOOKS like the
+    // language switcher was the one that could not change the language: it
+    // swaps `data-i18n` text in place, so on a page whose body is a
+    // locale-fixed React island it translated the navigation and the footer
+    // around a calculator that stayed Czech — 269 characters, none of them in
+    // the tool — and set html lang="de" on a Czech document.
+    expect(PAGE).toMatch(/legacyLanguage=\{false\}/);
+    expect(HEADER).toMatch(/locale \|\| !legacyLanguage \? null :/);
+  });
+
+  it('the header renders the calculators as a group rather than one slot', () => {
+    // The Germany calculator shipped with one inbound link on the whole site.
+    // Two more flat nav items do not fit — 53-64px of slack at 1280-1440 — so
+    // the wage calculator's slot became a group holding all three.
+    expect(HEADER).toMatch(/target\.key === 'calc' \? calculatorGroup\(\)/);
+    expect(HEADER).toMatch(/CALCULATOR_TARGETS\.map/);
+  });
+});

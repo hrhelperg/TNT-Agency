@@ -33,6 +33,9 @@ export type NavKey =
   | 'agencies'
   | 'offers'
   | 'calc'
+  | 'calcGroup'
+  | 'calcCostDe'
+  | 'calcCostCz'
   | 'article'
   | 'submitAgency'
   | 'postOffer'
@@ -47,6 +50,9 @@ export const CHROME_NAV: Readonly<Record<Locale, Readonly<Record<NavKey, string>
     agencies: 'Agentury',
     offers: 'Nabídky',
     calc: 'Kalkulačka mezd',
+    calcGroup: 'Kalkulačky',
+    calcCostDe: 'Náklady zaměstnavatele — Německo',
+    calcCostCz: 'Náklady zaměstnavatele — Česko',
     article: 'Průvodce',
     submitAgency: 'Registrovat agenturu',
     postOffer: 'Zadat poptávku',
@@ -59,6 +65,9 @@ export const CHROME_NAV: Readonly<Record<Locale, Readonly<Record<NavKey, string>
     agencies: 'Agencies',
     offers: 'Offers',
     calc: 'Payroll calculator',
+    calcGroup: 'Calculators',
+    calcCostDe: 'Employer costs — Germany',
+    calcCostCz: 'Employer costs — Czechia',
     article: 'Guide',
     submitAgency: 'List your agency',
     postOffer: 'Post a request',
@@ -71,6 +80,9 @@ export const CHROME_NAV: Readonly<Record<Locale, Readonly<Record<NavKey, string>
     agencies: 'Agenturen',
     offers: 'Angebote',
     calc: 'Lohnrechner',
+    calcGroup: 'Rechner',
+    calcCostDe: 'Arbeitgeberkosten — Deutschland',
+    calcCostCz: 'Arbeitgeberkosten — Tschechien',
     article: 'Ratgeber',
     submitAgency: 'Agentur eintragen',
     postOffer: 'Anfrage stellen',
@@ -104,11 +116,37 @@ export const NAV_TARGETS: readonly NavTarget[] = [
   { key: 'home', czechHref: '/', conceptId: 'home', activePage: 'home' },
   { key: 'agencies', czechHref: '/agencies', activePage: 'agencies' },
   { key: 'offers', czechHref: '/offers', activePage: 'offers' },
+  // The single `calc` slot is rendered by the header as the group below. It
+  // stays in this list because everything else — the mobile menu, the active
+  // state, the label mirror — is keyed off it.
   { key: 'calc', czechHref: '/kalkulacka-mzdy-agenturniho-zamestnance', activePage: 'calculator' },
   { key: 'article', czechHref: '/socialni-zdravotni-dane-2026', activePage: 'article' },
   { key: 'submitAgency', czechHref: '/submit-agency', activePage: 'submit-agency' },
   { key: 'postOffer', czechHref: '/submit-offer', activePage: 'submit-offer' },
   { key: 'contact', czechHref: '/contact', conceptId: 'contact', activePage: 'contact' },
+]
+
+/**
+ * The calculators, as one group in the header.
+ *
+ * WHY A GROUP AND NOT THREE MORE NAV ITEMS. The Germany employer-cost
+ * calculator shipped with exactly one inbound link on the whole site — a
+ * related-content entry at the bottom of the Czech calculator — so a German
+ * employer landing anywhere under /de/ had no path to it at all. Two more flat
+ * nav items would have been the obvious fix and does not fit: the header has
+ * 53-64px of slack at 1280-1440, and "Arbeitgeberkosten — Deutschland" alone is
+ * wider than that. The group occupies the slot the wage calculator already had,
+ * with a SHORTER label, so the nav gets narrower while three calculators become
+ * reachable instead of one.
+ *
+ * The country is spelled out rather than abbreviated on purpose. "DE" here
+ * would sit two elements away from the language switcher's "DE" and mean
+ * something else entirely — jurisdiction, not page language.
+ */
+export const CALCULATOR_TARGETS: readonly NavTarget[] = [
+  { key: 'calcCostDe', czechHref: '/kalkulacka-nakladu-zamestnavatele-nemecko', activePage: 'de-employer-cost' },
+  { key: 'calcCostCz', czechHref: '/kalkulacka-nakladu-zamestnavatele', activePage: 'employer-cost' },
+  { key: 'calc', czechHref: '/kalkulacka-mzdy-agenturniho-zamestnance', activePage: 'calculator' },
 ]
 
 export const REQUEST_WORKERS: NavTarget = {
@@ -173,6 +211,8 @@ export type FooterKey =
   | 'navAgencies'
   | 'navOffers'
   | 'navCalc'
+  | 'navCostDe'
+  | 'navCostCz'
   | 'navSubmitAgency'
   | 'navPostOffer'
   | 'navTaxes'
@@ -205,6 +245,8 @@ export const CHROME_FOOTER: Readonly<Record<Locale, Readonly<Record<FooterKey, s
     'navAgencies': 'Agentury',
     'navOffers': 'Nabídky',
     'navCalc': 'Kalkulačka mezd',
+    'navCostDe': 'Náklady zaměstnavatele — Německo',
+    'navCostCz': 'Náklady zaměstnavatele — Česko',
     'navSubmitAgency': 'Registrovat agenturu',
     'navPostOffer': 'Zadat poptávku',
     'navTaxes': 'Sociální a zdravotní odvody 2026',
@@ -236,6 +278,8 @@ export const CHROME_FOOTER: Readonly<Record<Locale, Readonly<Record<FooterKey, s
     'navAgencies': 'Agencies',
     'navOffers': 'Offers',
     'navCalc': 'Payroll calculator',
+    'navCostDe': 'Employer costs — Germany',
+    'navCostCz': 'Employer costs — Czechia',
     'navSubmitAgency': 'List your agency',
     'navPostOffer': 'Post a request',
     'navTaxes': 'Social & health contributions 2026',
@@ -267,6 +311,8 @@ export const CHROME_FOOTER: Readonly<Record<Locale, Readonly<Record<FooterKey, s
     'navAgencies': 'Agenturen',
     'navOffers': 'Angebote',
     'navCalc': 'Lohnrechner',
+    'navCostDe': 'Arbeitgeberkosten — Deutschland',
+    'navCostCz': 'Arbeitgeberkosten — Tschechien',
     'navSubmitAgency': 'Agentur eintragen',
     'navPostOffer': 'Anfrage stellen',
     'navTaxes': 'Sozial- und Krankenversicherung 2026',
@@ -307,6 +353,8 @@ export const FOOTER_TARGETS: readonly FooterTarget[] = [
   { key: 'navAgencies', czechHref: '/agencies' },
   { key: 'navOffers', czechHref: '/offers' },
   { key: 'navCalc', czechHref: '/kalkulacka-mzdy-agenturniho-zamestnance' },
+  { key: 'navCostDe', czechHref: '/kalkulacka-nakladu-zamestnavatele-nemecko' },
+  { key: 'navCostCz', czechHref: '/kalkulacka-nakladu-zamestnavatele' },
   { key: 'navSubmitAgency', czechHref: '/submit-agency' },
   { key: 'navPostOffer', czechHref: '/submit-offer' },
   { key: 'navTaxes', czechHref: '/socialni-zdravotni-dane-2026' },
