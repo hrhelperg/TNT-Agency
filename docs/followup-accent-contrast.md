@@ -33,14 +33,18 @@ The logo is 18.08px bold. WCAG "large scale" starts at 18.66px bold, so the
 axe-core, tags `wcag2a wcag2aa wcag21a wcag21aa`, run against the whole document
 (not scoped to the calculator) on all three Germany routes at 320 / 390 / 1440
 with a calculated result present: **18 unique violating nodes, all
-`color-contrast`, all the same cause.** The 18 is a UNION ACROSS WIDTHS, which two earlier versions of this
-paragraph did not say and both got the split wrong. Measured per width: the
-Czech route yields **15** nodes at 280/320/360/390/430/768 — its logo, 8 source
-links, 5 internal links and the editorial-note anchor, i.e. **14 anchors**, not
-15 — and **16** at 1024/1440, where `.locale-switcher--header` stops being
-`display:none` and adds the active language chip. The German and English routes
-yield **one** node each at every width: the logo. So 16 + 1 + 1 = 18 unique
-nodes across the matrix, and no single width shows all 18.
+`color-contrast`, all the same cause.** Measured per route and width, after the header change that removed the legacy
+language switcher from the Czech calculator route: **17 unique nodes**, and now
+width-independent — cs 15 at 320/390/1024/1440, en 1, de 1. The Czech 15 are its
+logo, 8 source links, 5 internal links and the editorial-note anchor, i.e. **14
+anchors** plus the logo. The German and English routes carry the logo only.
+
+(The count was 18 before, because at 1024 and above the Czech route also showed
+the legacy switcher's active language chip. That switcher no longer renders on
+this route — it could not change the page language there and is documented in
+the header component — so the chip is gone with it. Two earlier versions of this
+paragraph stated the split wrongly; it is stated per width now so it cannot be
+read as a single-page total.)
 
 Reproduce:
 

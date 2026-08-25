@@ -439,6 +439,70 @@ p  { color: var(--text-2); line-height: 1.7; }
 }
 .nav a:hover,
 .nav a.active { color: var(--navy); }
+
+/* ── The calculators group ───────────────────────────────────────────────────
+   One nav slot holding three calculators, because two more flat items do not
+   fit: the header has 53-64px of slack at 1280-1440 and a single label like
+   "Arbeitgeberkosten — Deutschland" is wider than that. The group replaces the
+   wage calculator's slot with a shorter word, so the nav is narrower than
+   before while three calculators become reachable instead of one.
+
+   <details> rather than a scripted menu: it opens from the keyboard, survives
+   JavaScript being off, and holds its own state. */
+.nav__group { position: relative; }
+.nav__group > summary {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--text-2);
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color var(--tr);
+}
+.nav__group > summary::-webkit-details-marker { display: none; }
+.nav__group > summary::after {
+  content: '';
+  width: 6px; height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--tr);
+}
+.nav__group[open] > summary::after { transform: translateY(1px) rotate(-135deg); }
+.nav__group > summary:hover,
+.nav__group > summary.active { color: var(--navy); }
+/* The shared ring is rgba(240, 90, 40, .40) — 1.63:1 against white, under the
+   3:1 WCAG SC 1.4.11 asks of a focus indicator. That is recorded site-wide debt
+   in docs/followup-accent-contrast.md, but this control is new, so it does not
+   inherit it: --accent-dark measures 4.86:1. */
+.nav__group > summary:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.nav__panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 260px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  box-shadow: 0 12px 32px rgba(13, 30, 61, .12);
+}
+/* The underline animation belongs to the horizontal bar, not to a stacked
+   panel where it would sit under the wrong word. */
+.nav__panel a { white-space: nowrap; }
+.nav__panel a::after { display: none; }
 .nav a:hover::after,
 .nav a.active::after { transform: scaleX(1); }
 

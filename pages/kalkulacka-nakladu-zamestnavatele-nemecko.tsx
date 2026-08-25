@@ -13,7 +13,12 @@ export default function KalkulackaNakladuZamestnavateleNemeckoPage() {
   return (
     <SeoArticle
       page={KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO}
-      activePage="kalkulacka-nakladu-zamestnavatele-nemecko"
+      activePage="de-employer-cost"
+      // The calculator is a locale-fixed island, so the legacy in-page
+      // translator would swap the navigation around it and leave the tool
+      // Czech. Measured: 269 characters changed, none of them in the
+      // calculator, and `html lang` became "de" on a Czech document.
+      legacyLanguage={false}
       topSlot={<DeEmployerCostCalculatorBoundary locale="cs" />}
     />
   )

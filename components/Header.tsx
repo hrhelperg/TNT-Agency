@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { alternatesFor } from '../lib/locale/registry'
 import LanguageSwitcher from './locale/LanguageSwitcher'
 import {
+  CALCULATOR_TARGETS,
   CHROME_ARIA,
   CHROME_NAV,
   NAV_TARGETS,
@@ -23,6 +24,19 @@ interface HeaderProps {
    * page whose language is fixed by its URL.
    */
   locale?: LocaleLocked
+  /**
+   * Set to false by a Czech-spine page whose CONTENT is locale-fixed.
+   *
+   * The legacy button switcher swaps `data-i18n` text in place. On most Czech
+   * pages that is the whole page and it works. On a page whose body is rendered
+   * by a locale-fixed React island it reaches the chrome and nothing else:
+   * measured on /kalkulacka-nakladu-zamestnavatele-nemecko, pressing DE changed
+   * 269 characters — the navigation and footer — while the calculator, its
+   * labels and its results stayed Czech, and it set `html lang="de"` on a
+   * Czech document. Two switchers sit side by side there and the one that looks
+   * like the language control is the one that cannot change the language.
+   */
+  legacyLanguage?: boolean
 }
 
 /**
@@ -43,7 +57,7 @@ interface HeaderProps {
  */
 const HEADER_HEIGHT_VAR = '--header-h'
 
-export default function Header({ activePage, locale }: HeaderProps) {
+export default function Header({ activePage, locale, legacyLanguage = true }: HeaderProps) {
   useEffect(() => {
     const el = document.getElementById('header')
     if (!el) return
@@ -120,7 +134,7 @@ export default function Header({ activePage, locale }: HeaderProps) {
    * which navigates to the equivalent page.
    */
   const legacySwitcher = (mobile = false) =>
-    locale ? null : (
+    locale || !legacyLanguage ? null : (
       // The mobile copy carries no aria-label of its own: it sits inside
       // <div class="lang-select" role="group" aria-label="Website language">,
       // and a second label nested in that group would relabel it.
@@ -133,6 +147,31 @@ export default function Header({ activePage, locale }: HeaderProps) {
         <button className="lang-btn" data-lang="de" aria-label="Deutsch">DE</button>
       </div>
     )
+
+  /**
+   * The calculators, in the slot the wage calculator used to hold alone.
+   *
+   * A <details> rather than a scripted menu: it opens from the keyboard, works
+   * with JavaScript off, and needs no state of its own. The summary carries the
+   * active class when the reader is on any of the three, so the nav still says
+   * where they are.
+   */
+  const calculatorGroup = () => {
+    const active = CALCULATOR_TARGETS.some((target) => target.activePage === activePage)
+    return (
+      <details className="nav__group" key="nav.calcGroup">
+        <summary
+          className={active ? 'active' : undefined}
+          data-i18n={locale ? undefined : 'nav.calcGroup'}
+        >
+          {t.calcGroup}
+        </summary>
+        <div className="nav__panel">
+          {CALCULATOR_TARGETS.map((target) => navLink(target))}
+        </div>
+      </details>
+    )
+  }
 
   return (
     <>
@@ -149,7 +188,7 @@ export default function Header({ activePage, locale }: HeaderProps) {
             </a>
 
             <nav className="nav" aria-label={aria.mainNav}>
-              {NAV_TARGETS.map((target) => navLink(target))}
+              {NAV_TARGETS.map((target) => (target.key === 'calc' ? calculatorGroup() : navLink(target)))}
             </nav>
 
             <div className="header__right">
@@ -175,7 +214,17 @@ export default function Header({ activePage, locale }: HeaderProps) {
       </header>
 
       <nav className="mobile-nav" id="mobileNav" aria-label={aria.mobileNav}>
-        {NAV_TARGETS.slice(0, 7).map((target) => navLink(target, true))}
+        {/* Index-free: the desktop nav renders one slot as a group, and the
+            mobile menu renders the calculators flat because it has the vertical
+            room. Slicing by position broke the moment a target was inserted. */}
+        {NAV_TARGETS.filter((target) => target.key !== 'contact').flatMap((target) =>
+          // The calculators take the slot `calc` held, so the menu keeps the
+          // reading order the desktop bar has instead of appending them after
+          // the submission links.
+          target.key === 'calc'
+            ? CALCULATOR_TARGETS.map((calculator) => navLink(calculator, true))
+            : [navLink(target, true)],
+        )}
         <a
           href={requestWorkers.href}
           data-request-source="employer-hub"
@@ -184,7 +233,7 @@ export default function Header({ activePage, locale }: HeaderProps) {
         >
           {t.requestWorkers}
         </a>
-        {navLink(NAV_TARGETS[7], true)}
+        {navLink(NAV_TARGETS.find((target) => target.key === 'contact')!, true)}
         {/* The group is a labelled ARIA container. It renders only when it will
             actually hold controls — previously the legacy switcher returned null
             on locale pages while this wrapper stayed, leaving a group announced

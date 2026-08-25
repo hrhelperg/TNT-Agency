@@ -33,6 +33,13 @@ interface SeoArticleProps {
   page: SeoPage
   /** Header highlight key; defaults to a neutral value. */
   activePage?: string
+  /**
+   * Forwarded to Header. A page whose body is a locale-fixed React island sets
+   * this to false: the legacy in-page translator can reach the chrome but not
+   * the island, so it leaves a Czech tool under German navigation and stamps
+   * the document `lang="de"` while its content is Czech.
+   */
+  legacyLanguage?: boolean
   /** Optional server-rendered block inserted between the hero and the article
       (used by the employer hub for its situation-first entry cards). */
   topSlot?: React.ReactNode
@@ -42,7 +49,7 @@ interface SeoArticleProps {
 // inner JSON only, so strip the wrapper before injecting.
 const stripScriptTags = (s: string): string => s.replace(/<\/?script[^>]*>/g, '')
 
-export default function SeoArticle({ page: given, activePage = 'guides', topSlot }: SeoArticleProps) {
+export default function SeoArticle({ page: given, activePage = 'guides', topSlot, legacyLanguage }: SeoArticleProps) {
   // Always render the registry-resolved page, never the raw imported constant.
   //
   // lib/content/pages/index.ts guarantees the conversion path (calculator +
@@ -131,7 +138,7 @@ export default function SeoArticle({ page: given, activePage = 'guides', topSlot
         ) : null}
       </Head>
 
-      <Header activePage={activePage} />
+      <Header activePage={activePage} legacyLanguage={legacyLanguage} />
 
       <section className="seo-hero">
         <div className="container">
