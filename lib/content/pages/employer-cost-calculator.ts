@@ -257,6 +257,7 @@ export const KALKULACKA_NAKLADU_ZAMESTNAVATELE: SeoPage = {
     SRC.vzp,
   ],
   internalLinks: [
+    { href: '/kalkulacka-nakladu-zamestnavatele-nemecko', label: 'Kalkulačka nákladů zaměstnavatele — Německo' },
     { href: '/kolik-stoji-zamestnanec', label: 'Kolik stojí zaměstnanec' },
     { href: '/skutecne-naklady-na-zamestnance', label: 'Skutečné náklady na zaměstnance' },
     { href: '/neprime-naklady-na-zamestnance', label: 'Nepřímé náklady na zaměstnance' },

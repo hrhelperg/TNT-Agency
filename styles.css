@@ -469,12 +469,22 @@ p  { color: var(--text-2); line-height: 1.7; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+html { scroll-padding-bottom: calc(var(--consent-banner-h, 0px) + 16px); }
+
 /* --consent-banner-h — real rendered height of .cookie-banner, published by
    CookieBanner.tsx while it is on screen and 0px once answered. Defaulted here
    so a frame before JS measures it, or a no-JS visit, still gets the menu's
    original safe-area reserve rather than an unset var. */
 :root {
   --consent-banner-h: 0px;
+  /* SCROLL PADDING, so the fixed banner cannot sit on top of whatever the
+     browser has just scrolled into view. Without it, tabbing through a form
+     scrolls the focused control to the bottom edge — which is exactly where an
+     opaque z-index:9999 bar lives, and WCAG 2.2 SC 2.4.11 Focus Not Obscured
+     (Minimum) is the criterion that names the result. Measured at 390px, 18 of
+     the calculator's tab stops were entirely behind the banner when focused.
+     The variable is published by CookieBanner.tsx and is 0px once answered, so
+     this reserves nothing when there is nothing to reserve for. */
   /* Where the mobile menu's top edge sits: below the ecosystem bar and header. */
   /* The fallback is the header's measured CSS height, not the 88px literal that
      used to sit here: 88 over-reserved a 72px header by 16px and left a live
@@ -1843,9 +1853,17 @@ p  { color: var(--text-2); line-height: 1.7; }
   line-height: 1.6;
   margin: 0;
   opacity: .92;
+  /* EXPLICIT, because .cookie-banner's `color: #fff` is INHERITED and the
+     global `p { color: var(--text-2) }` is a direct match — so it won and the
+     banner's own body text painted #435269 on #0d1e3d, a measured 2.09:1.
+     White at .92 over this background measures 14.11:1. */
+  color: #fff;
 }
 .cookie-banner__text a {
-  color: var(--accent);
+  /* A lighter tint of the brand colour: --accent measures 4.28:1 here once the
+     .92 opacity is applied, below the 4.5:1 this size needs. This measures
+     6.18:1 and stays recognisably the same hue. */
+  color: #ff8a5c;
   text-decoration: underline;
 }
 .cookie-banner__actions {
@@ -1869,7 +1887,10 @@ p  { color: var(--text-2); line-height: 1.7; }
 .cookie-btn:hover  { opacity: .82; }
 .cookie-btn:active { transform: scale(.97); }
 .cookie-btn--accept {
-  background: var(--accent, #f05a28);
+  /* --accent-dark, not --accent: white on #f05a28 measures 3.39:1, and 13.6px
+     at weight 600 is not WCAG "large scale" (that starts at 18.66px bold), so
+     4.5:1 applies. #c94415 measures 4.86:1. */
+  background: var(--accent-dark, #c94415);
   color: #fff;
 }
 .cookie-btn--reject {
@@ -3691,6 +3712,11 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
 
 /* Assumptions and warnings. Visually quiet but never hidden: a calculator that
    assumes without saying so is indistinguishable from one that knows. */
+/* `.ecc__notes` IS the list — `<ul className="ecc__notes">` — so the descendant
+   form matched nothing and the warnings rendered at the inherited size. Both
+   selectors are kept: the class is also used on the refusal panel, which is a
+   <div> containing a <ul>. */
+.ecc__notes,
 .ecc__notes ul { margin: 0 0 16px; padding-left: 18px; font-size: 0.82rem; color: var(--text-2); }
 .ecc__notes li { margin-bottom: 7px; line-height: 1.45; }
 .ecc__notes li[data-severity='warning'] { color: var(--accent-dark); }
@@ -3761,4 +3787,173 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
   .ecc__table th,
   .ecc__table td { font-size: 0.82rem; }
   .ecc__total-value { font-size: 1.14rem; }
+}
+
+/* ── German employer-cost calculator: narrow-viewport containment ─────────────
+   Scoped to .ecc--de and purely additive, because .ecc is shared with the Czech
+   calculator, which is production-verified and must not change.
+
+   The Bundesland <select> lists sixteen options and its widest,
+   "Mecklenburg-Vorpommern", gives it a min-content width of 249px. <fieldset>
+   defaults to min-width:min-content, so that measurement propagated up through
+   the form and pushed the whole container past a 280px viewport. The Czech
+   calculator has no sixteen-item select and never showed it.
+
+   320px — the narrowest viewport the release targets — was unaffected either
+   way. This is fixed because it is a difference this calculator introduced
+   against the Czech baseline, not because 280px is a device anyone uses. */
+.ecc--de .pcalc-fieldset,
+.ecc--de .pcalc-field,
+.ecc--de .pcalc-grid-2,
+.ecc--de .pcalc-grid-2 > *,
+.ecc--de .pcalc__grid,
+.ecc--de .pcalc__grid > * { min-width: 0; }
+/* A <select>'s intrinsic min-content is its widest OPTION, which `max-width`
+   alone does not reduce — the box shrinks and the measurement does not. The
+   combination below is what actually lets it participate in a narrower column. */
+.ecc--de select {
+  width: 100%;
+  min-width: 0;
+  text-overflow: ellipsis;
+}
+.ecc--de .pcalc-field__input { max-width: 100%; }
+/* Three columns of German branch names — "Arbeitslosenversicherung" alone is 24
+   characters — cannot fit a 280px viewport minus the container's padding.
+   THE ANSWER IS THE REFLOW BELOW, NOT A SCROLLBAR. This wrapper used to declare
+   `overflow-x: auto` as a safety net, and the net never caught anything: the
+   table is `width: 100%` over cells that are allowed to wrap, so its box tracks
+   the container at every width. Measured scrollWidth − clientWidth is 0 at
+   280/320/360/390/430/481/500/540/600/680/768/1024/1440 in all three languages.
+   A scroll container that never scrolls is not free — it took `tabIndex={0}` to
+   satisfy axe's scrollable-region-focusable, and that put two tab stops in the
+   keyboard path that go nowhere and, at 280px, scrolled a full-height container
+   under the cookie banner. Both are gone. If a future translation ever did
+   overflow it would push the page sideways instead, and the eight-width sweep
+   and the e2e overflow assertions are what would say so. */
+.ecc--de .ecc__table-wrap { max-width: 100%; }
+
+/* The result labels sit on a tinted panel where --text-3 measures 4.43:1 — an
+   axe color-contrast failure at serious severity, and it applied at every
+   width because the tint is not viewport-dependent. --text-2 measures 6.84:1
+   on the same tint and 7.34:1 on white. Scoped so the Czech calculator, which
+   shares these class names, keeps its own palette. */
+.ecc--de .ecc__total-label { color: var(--text-2); }
+
+/* The cookie banner's own controls, for the same reason and with the same
+   measurement: the shared ring paints 1.70:1 against the banner's #0d1e3d and
+   2.15:1 against the accept button's fill, both under the 3:1 of SC 1.4.11.
+   White is the only colour with headroom on both. Clause 9 names the banner
+   explicitly, and the scoped fix below reached only the calculator. */
+.cookie-banner a:focus-visible,
+.cookie-banner button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* FOCUS RING. The shared ring is rgba(240, 90, 40, .40), which paints
+   #f9bda9 on white — 1.63:1, against the 3:1 WCAG SC 1.4.11 requires of a
+   focus indicator. The text inputs already opt out of it further down; the
+   checkboxes, links and table regions did not. Scoped to this calculator
+   rather than repainting every focus ring on 276 other routes. */
+.ecc--de a:focus-visible,
+.ecc--de button:focus-visible,
+.ecc--de input:focus-visible,
+.ecc--de select:focus-visible,
+.ecc--de summary:focus-visible,
+.ecc--de .ecc__table-wrap:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 2px;
+}
+
+/* ── Narrow viewports: the result table REFLOWS, it does not scroll ──────────
+   The horizontal-scroll container was the wrong answer and made things worse.
+   At 320px it granted 15px of scroll — not enough to reach the employee column
+   — and because the first column was not sticky, scrolling to the end removed
+   the row's own name. Meanwhile the shared `.ecc__table th { min-width: 0;
+   overflow-wrap: anywhere }` let the label column collapse to 20px, so
+   "Rentenversicherung" rendered as a 351px vertical stack of single letters and
+   the table grew to about 3,190px tall.
+
+   Below 480px each row therefore becomes a small stacked block: the branch name
+   on its own line, then the employer and employee figures each labelled by the
+   column header they came from. Nothing is hidden, nothing needs scrolling, and
+   no column can become unreachable.
+
+   Scoped to .ecc--de. The shared rules belong to the Czech calculator too, and
+   that one is production-verified. */
+@media (max-width: 480px) {
+  .ecc--de .ecc__table,
+  .ecc--de .ecc__table tbody,
+  .ecc--de .ecc__table tr,
+  .ecc--de .ecc__table tbody th,
+  .ecc--de .ecc__table td { display: block; width: auto; }
+
+  /* The header row still exists for assistive technology; it is simply not
+     painted, because each cell now carries its own label.
+
+     The cells inside keep their natural LAYOUT box — a measuring script that
+     reads getBoundingClientRect on them will report "Arbeitnehmer" sitting past
+     the right edge at 280px, and it is not there: `overflow: hidden` plus the
+     clip below means nothing paints and nothing scrolls. `clip-path` is the
+     modern spelling of the same thing, declared alongside the legacy `clip`
+     because Safari honoured only one of them for years. */
+  .ecc--de .ecc__table thead {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ecc--de .ecc__table tr { padding: 10px 0; border-bottom: 1px solid var(--line, #e6e8ec); }
+  .ecc--de .ecc__table tr:last-child { border-bottom: 0; }
+  .ecc--de .ecc__table tbody th {
+    text-align: left;
+    font-weight: 600;
+    padding: 0 0 4px;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .ecc--de .ecc__table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 2px 0;
+    text-align: right;
+  }
+  .ecc--de .ecc__table td::before {
+    content: attr(data-label);
+    /* Where the syntax is understood, the generated label is marked as having
+       no alternative text, so a screen reader announces the column header once
+       instead of hearing the header AND this copy of it. Declared second so a
+       browser that does not parse the `/ ""` form keeps the line above and the
+       label stays visible. */
+    content: attr(data-label) / "";
+    color: var(--text-2);
+    font-weight: 400;
+    text-align: left;
+    /* Shrinkable, and allowed to wrap. `white-space: nowrap` is inherited from
+       the base cell rule and belongs to the FIGURE, which must never break
+       across lines; the label is prose and must. Left non-shrinking, the German
+       labels pushed 3-23px past their own cell at 280px. */
+    flex: 0 1 auto;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  /* Nothing to scroll at any width; kept for the scoping comment above. */
+  .ecc--de .ecc__table-wrap { max-width: 100%; }
+}
+
+/* The unsupported-browser notice. Scoped to .ecc--de: it belongs to the German
+   calculator's progressive-enhancement boundary and to nothing else. */
+.ecc--de .ecc__unsupported {
+  margin: 18px 0 6px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--accent-dark);
+  background: var(--surface-2, #f6f7f9);
+  color: var(--text-2);
+  font-size: 0.95rem;
 }

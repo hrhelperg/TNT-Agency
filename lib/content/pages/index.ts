@@ -16,6 +16,7 @@ import { TECHNICAL_TALENT_PAGES } from './technical-talent'
 import { EMPLOYER_PROBLEM_PAGES } from './employer-problems'
 import { EMPLOYER_KNOWLEDGE_PAGES } from './employer-knowledge'
 import { KALKULACKA_NAKLADU_ZAMESTNAVATELE } from './employer-cost-calculator'
+import { KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO } from './germany-employer-cost-calculator'
 
 export * from './cornerstone'
 export * from './support'
@@ -391,7 +392,13 @@ const withClusterLinks = (page: SeoPage): SeoPage => {
   return { ...page, internalLinks: [...(page.internalLinks ?? []), ...additions] }
 }
 
-export const CALCULATOR_PAGES: ReadonlyArray<SeoPage> = [KALKULACKA_NAKLADU_ZAMESTNAVATELE]
+// Two calculators, two jurisdictions. The German one is not a translation of
+// the Czech one and shares no rule with it — see
+// lib/calculators/jurisdiction-boundary.test.ts.
+export const CALCULATOR_PAGES: ReadonlyArray<SeoPage> = [
+  KALKULACKA_NAKLADU_ZAMESTNAVATELE,
+  KALKULACKA_NAKLADU_ZAMESTNAVATELE_NEMECKO,
+]
 
 export const SEO_PAGES: ReadonlyArray<SeoPage> = [
   ...CORNERSTONE_PAGES,

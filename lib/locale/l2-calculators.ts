@@ -48,6 +48,17 @@ const hasContent = (id: string, locale: Exclude<Locale, 'cs'>): boolean => {
 /** Declared identity. `published` is computed below and never written by hand. */
 const CALCULATOR_CONCEPTS_DECLARED: readonly Omit<LocaleConcept, 'published'>[] = [
   {
+    id: 'germany-employer-cost-calculator',
+    csPrimary: '/kalkulacka-nakladu-zamestnavatele-nemecko',
+    urls: {
+      en: '/en/germany-employer-cost-calculator',
+      de: '/de/arbeitgeberkosten-rechner-deutschland',
+    },
+    pageType: 'tool',
+    notes:
+      'Statutory GERMAN employer-cost and net-pay calculator for 2026 — a different jurisdiction from every other concept in this registry, not a translation of one. Its German page is German payroll in German, which is why the slug says "deutschland" while the Czech calculator\'s German page says "tschechien": the two live one path segment apart under /de/ and the URLs are the first thing that tells them apart. Nothing is shared between the two engines but exact arithmetic and presentation — see lib/calculators/jurisdiction-boundary.test.ts.',
+  },
+  {
     id: 'employer-cost-calculator',
     csPrimary: '/kalkulacka-nakladu-zamestnavatele',
     urls: {

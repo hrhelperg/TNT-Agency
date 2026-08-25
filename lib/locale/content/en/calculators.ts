@@ -1,12 +1,25 @@
 import type { LocaleCorpus } from '../types'
 
 /**
- * English content for the Czech employer-cost calculator.
+ * English content for TWO calculators, and the difference decides everything.
  *
- * THIS IS CZECH PAYROLL EXPLAINED IN ENGLISH. Not a UK, US or Irish
- * calculator, and not a generic European one. Every rate, threshold and statute
- * on this page belongs to the Czech Republic, and the page says so in its title,
- * its H1 and its first sentence.
+ * The FIRST key, 'germany-employer-cost-calculator', is GERMAN payroll in
+ * English, served at /en/germany-employer-cost-calculator. The SECOND,
+ * 'employer-cost-calculator', is CZECH payroll explained in English.
+ *
+ * This file used to open by declaring, in capitals, that all of it was Czech
+ * payroll and that every rate, threshold and statute on "this page" belonged to
+ * the Czech Republic. That was flatly false of the first half — the same defect
+ * the German corpus carried until the fifth round, and in the same shape: a
+ * header written when the file held one concept and never revisited when it
+ * grew a second.
+ *
+ * FOR THE CZECH HALF the rule stands: not a UK, US or Irish calculator and not a
+ * generic European one; every rate, threshold and statute belongs to the Czech
+ * Republic, and the page says so in its title, its H1 and its first sentence.
+ * FOR THE GERMAN HALF the opposite holds — scripts/validate-locale-jurisdiction.mjs
+ * puts 'germany-employer-cost-calculator' in GERMAN_JURISDICTION and requires a
+ * /deutsch|Deutschland|SGB|EStG|BMF/ anchor instead.
  *
  * The lists below are not decoration. The Czech source page carries its
  * structure as bullets, and scripts/validate-locale-fidelity.mjs checks — item
@@ -16,6 +29,127 @@ import type { LocaleCorpus } from '../types'
  * stayed green.
  */
 export const EN_CALCULATORS: LocaleCorpus = {
+  'germany-employer-cost-calculator': {
+    en: {
+      title: 'Germany employer cost calculator 2026 — contributions, net pay, total cost',
+      description:
+        'Work out what an employee costs a German employer in 2026 and what reaches their account: pension, unemployment, health and long-term care contributions, wage tax under the Finance Ministry’s official algorithm, net pay and total employer cost — with the statute named for every figure.',
+      h1: 'Germany employer cost calculator 2026',
+      intro:
+        'Gross pay in Germany is neither what the employer pays nor what the employee receives. Between those two figures sit four branches of social insurance, wage tax computed by the Federal Ministry of Finance’s official algorithm, the solidarity surcharge and, for some employees, church tax — each with its own assessment base, its own ceiling and its own rounding rule. This page carries a calculator that works them out under the German rules in force for 2026, and explains underneath where every number comes from. Every rate names the provision it rests on; the values were verified on 24 August 2026 against the statutes themselves, the 2026 contribution-thresholds ordinance and the GKV-Spitzenverband’s published figures.',
+      sections: [
+        {
+          heading: 'What an employee costs a German employer',
+          body: [
+            'Statutory payroll cost in Germany has three layers: the gross wage, the employer’s share of four social-insurance branches, and the levies the employer carries alone. For an ordinary employee below the ceilings, the employer’s share of the four branches comes to roughly 21 % of gross.',
+            'On top of that sit the U1, U2 and U3 levies and statutory accident insurance. Each health fund sets U1 and U2 in its own rules, so they differ between funds by whole percentage points; accident insurance is assessed by the trade association from its risk tariff and billed in arrears for the whole year. Neither has a general rate that could safely be assumed, so the calculator asks rather than estimating.',
+            'At 4,000 EUR a month with the average supplementary health rate, the four branches plus the insolvency levy come to 4,852.00 EUR of employer cost — a factor of 1.21 on gross. That figure deliberately excludes U1, U2 and accident insurance: they have no general rate, so any number quoted for them would be invented. Above the ceilings the factor falls, because the contributions stop while the gross keeps rising.',
+          ],
+          list: {
+            items: [
+              'Gross pay',
+              'Pension insurance — half of 18.6 %',
+              'Unemployment insurance — half of 2.6 %',
+              'Health insurance — half of 14.6 % plus half the fund’s supplementary rate',
+              'Long-term care insurance — 1.8 % (1.3 % in Saxony)',
+              'Insolvency benefit levy U3 at 0.15 %',
+              'Levies U1 and U2 under the health fund’s own rules',
+              'Statutory accident insurance under the trade association’s risk tariff',
+            ],
+          },
+        },
+        {
+          heading: 'Two ceilings that are constantly confused',
+          body: [
+            'Germany has two different contribution ceilings for 2026, plus a third figure that is not a ceiling at all. Health and long-term care contributions are assessed on pay up to 5,812.50 EUR a month, or 69,750 EUR a year. Pension and unemployment insurance have a higher one: 8,450 EUR a month, 101,400 EUR a year.',
+            'The third figure is the threshold for compulsory membership of the statutory health system — 77,400 EUR a year. Above it an employee may insure privately instead. It is not a contribution ceiling and never has been; treating it as one overstates the assessment base by 7,650 EUR a year. The calculator keeps the two apart and names both in its methodology.',
+            'One set of figures applies across the whole country for 2026. The separate eastern ceiling that older tables still carry is absent from the 2026 ordinance — the east/west distinction no longer applies to these values.',
+          ],
+          list: {
+            items: [
+              'Health and long-term care: 5,812.50 EUR a month',
+              'Pension and unemployment: 8,450 EUR a month',
+              'Compulsory health-insurance threshold: 77,400 EUR a year — not a ceiling',
+              'Reference value (Bezugsgröße): 3,955 EUR a month',
+            ],
+          },
+        },
+        {
+          heading: 'Wage tax is not a percentage',
+          body: [
+            'German wage tax is not gross multiplied by a rate. The Ministry of Finance publishes a Programmablaufplan each year — a binding algorithm of 23 subroutines that annualises the pay, subtracts the allowances belonging to the tax class, computes a notional insurance deduction from fictitious contribution rates, applies the tariff under § 32a EStG and converts the result back to the pay period. The order of the steps is part of the rule, and every intermediate value has a prescribed number of decimal places.',
+            'The calculator follows that procedure step by step in its 2026 form (the Ministry’s circular of 12 November 2025). The implementation reproduces both official verification tables published with the algorithm in full — 516 figures across all six tax classes, for an employee insured in every branch and for one insured in none.',
+            'The tax class does not decide the year’s tax, only how it is spread across the year. Classes V and VI use their own construction: at least 14 % of the base, then a band charged at 42 %, and 45 % above 222,260 EUR a year. They cannot be derived from the ordinary tariff.',
+          ],
+        },
+        {
+          heading: 'Long-term care: children, childlessness and Saxony',
+          body: [
+            'Long-term care is the one branch where the two sides differ. The base rate is 3.6 %; § 55 Absatz 1 SGB XI still reads 3.4 %, and the rate actually in force comes from an ordinance made under Absatz 1a — reading the statute alone leaves you 0.2 points short.',
+            'An employee with no children pays a further 0.6 points from the end of the month in which they turn 23. Conversely, each of the second to fifth child under 25 lowers their share by 0.25 points. Both land on the employee alone: the employer pays 1.8 % in every family situation. The statutory text reads as though the discount reduces the whole rate, and therefore the employer’s share too — the published fund tables and the official tax algorithm both show otherwise.',
+            'Saxony has its own rule under § 58 Absatz 3 SGB XI: the employee bears one percentage point alone and the remainder is halved, giving 2.3 % employee against 1.3 % employer. The total does not change — the point moves, it is not added.',
+          ],
+          list: {
+            items: [
+              'Base rate 3.6 %, split in half',
+              'Childless employee from 23: +0.6 points, borne alone',
+              'Second to fifth child under 25: −0.25 points each, employee only',
+              'Saxony: 2.3 % employee / 1.3 % employer',
+            ],
+          },
+        },
+        {
+          heading: 'The supplementary health rate is not one number',
+          body: [
+            'Alongside the general rate of 14.6 %, every German health fund levies its own supplementary rate under § 242 SGB V. The Health Ministry announces only an average — 2.9 % for 2026 — and that average governs only the cases the statute names. A particular fund may charge appreciably more or less.',
+            'Since 1 January 2019 the supplementary rate has been split between employee and employer exactly like the general one. Older descriptions in which the employee bears it alone are out of date, and the difference is material: at 2.9 % it is about 1.45 % of gross on the employer’s side.',
+            'The calculator therefore takes the supplementary rate as an input, pre-filled with the 2.9 % average and labelled as a default rather than as a fact about any particular employee.',
+          ],
+        },
+        {
+          heading: 'What the calculator refuses, and why',
+          body: [
+            'It will not compute a Minijob or a job inside the transition band. Up to 603 EUR a month the employer pays flat-rate contributions instead of the ordinary ones; from there to 2,000 EUR the assessment base is reduced by a factor and the employer carries the difference. Neither is a smaller version of the ordinary calculation — it is a different regime, and the ordinary calculation would return a plausible-looking answer to a different question.',
+            'It also refuses cases it cannot detect from the numbers and therefore asks about: short-term employment, apprentices, voluntary service years, private health insurance, civil servants, concurrent employments, working pensioners, the miners’ scheme, professional pension institutions, short-time work, one-off payments, cross-border situations, working students, internships, the construction trades and benefits in kind. Each refusal states its reason.',
+            'The cap on church-tax progression is likewise not applied. It is generally granted in the annual assessment and usually on application, its base is taxable income the employer never sees, and the percentage comes from each religious community’s own resolution. The employer withholds the uncapped amount, and so does the calculator — with a note saying the cap exists.',
+          ],
+          list: {
+            items: [
+              'Minijob up to 603 EUR a month',
+              'Transition band up to 2,000 EUR a month',
+              'Private health insurance',
+              'Civil servants and members of professional pension schemes',
+              'Concurrent employments',
+              'One-off payments and benefits in kind',
+            ],
+          },
+        },
+        {
+          heading: 'Church tax, the solidarity surcharge and the child allowance',
+          body: [
+            'Church tax is withheld at the rate in force where the WORKPLACE is, not where the employee lives: 8 % in Bavaria and Baden-Württemberg, 9 % in the other fourteen states. An employee living in Bavaria and working in Hesse therefore has 9 % withheld, and the difference comes back in their annual assessment. It is deducted from the employee, so it changes net pay and never employer cost.',
+            'The child allowance (Kinderfreibetrag) does not reduce the wage tax. It lowers only the base for the solidarity surcharge and church tax, because families receive child benefit through the year instead; the annual assessment then compares which of the two is worth more. A calculator that showed the wage tax falling with each allowance would be describing the assessment, not the payslip.',
+            'The result models one full month at a steady wage and is not a payroll run. Real payroll works with part months, one-off payments, benefits in kind and individual ELStAM data the calculator has no sight of.',
+          ],
+        },
+        {
+          heading: 'Sources and method',
+          body: [
+            'Wage tax follows the Federal Ministry of Finance’s 2026 Programmablaufplan; social insurance follows SGB III, V, VI and XI; the contribution arithmetic follows the Beitragsverfahrensverordnung; and the ceilings come from the 2026 Sozialversicherungsrechengrößen-Verordnung (BGBl. 2025 I Nr. 278). The values were verified on 24 August 2026 in the texts themselves and cross-checked against the GKV-Spitzenverband’s figures of 26 November 2025.',
+            'Contributions are computed as § 2 Absatz 1 BVV prescribes: for an equally split branch, half the rate is applied, the result rounded, and only then doubled. That is not the same as computing the whole contribution and halving it — the two differ by a cent on ordinary salaries. Intermediate results are not rounded at all, per § 1 Absatz 2 BVV.',
+            'The rules are held per year. A 2026 result stays reproducible after the 2027 parameters appear. Worth recording: the German statute stabilising health-insurance rates, enacted on 24 July 2026, amended § 223 SGB V mid-year — but the provisions that would move a contribution are dated 2027, not 2026 and none of it touches a 2026 payslip.',
+          ],
+        },
+      ],
+      breadcrumb: 'Germany employer cost calculator',
+      cta: {
+        label: 'Request staff',
+        targetConceptId: 'request-staff',
+        note: 'Modelling a specific role? Describe the position and we will go through the options.',
+      },
+    },
+  },
+
   'employer-cost-calculator': {
     en: {
       title: 'Czech Employer Cost Calculator 2026 — contributions, net salary, total cost',

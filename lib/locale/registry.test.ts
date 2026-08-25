@@ -34,13 +34,13 @@ describe('rule 1 — the Czech spine is immutable', () => {
     expect(CZECH_ROUTES).toEqual(sitemapLocs().slice(0, CZECH_ROUTES.length))
   })
 
-  // 186 since the employer-cost calculator joined the spine. The literal is
-  // kept rather than derived on purpose: adding a Czech route is a decision, and
-  // this line is where it has to be made explicitly instead of a count quietly
-  // sliding upward.
-  it('has 186 routes and no duplicates', () => {
-    expect(CZECH_ROUTES).toHaveLength(186)
-    expect(new Set(CZECH_ROUTES).size).toBe(186)
+  // 187 since the GERMAN employer-cost calculator joined the spine, one route
+  // after the Czech one. The literal is kept rather than derived on purpose:
+  // adding a Czech route is a decision, and this line is where it has to be
+  // made explicitly instead of a count quietly sliding upward.
+  it('has 187 routes and no duplicates', () => {
+    expect(CZECH_ROUTES).toHaveLength(187)
+    expect(new Set(CZECH_ROUTES).size).toBe(187)
   })
 
   it('never prefixes Czech — there is no /cs/ form', () => {
