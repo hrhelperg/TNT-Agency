@@ -45,7 +45,7 @@ export interface ValidationIssue {
   readonly key: string;
 }
 
-/** One euro short of a hundred million a month. Beyond this, someone mistyped. */
+/** A hundred million euro a month, in cent. Above this, someone mistyped. */
 const MAX_MONTHLY_CENT = 10_000_000_000n;
 
 /** § 55 Absatz 3 SGB XI discounts stop at the fifth child; twenty is generous. */

@@ -222,7 +222,7 @@ export const DE_SOURCES: readonly CalculatorSource[] = [
     legalBasis: '§§ 1, 7 AAG',
     accessed: ACCESSED,
     note:
-      'U1 (Entgeltfortzahlung im Krankheitsfall) applies only to employers with at most 30 employees; U2 (Mutterschaft) applies to every employer. Both are borne by the employer alone. THE RATES ARE NOT STATUTORY — each Krankenkasse sets its own in its Satzung, and they differ by several percentage points between Kassen and between the reimbursement levels a Kasse offers. There is therefore no correct default, and the calculator takes them as inputs.',
+      'U1 (Entgeltfortzahlung im Krankheitsfall) applies only to employers with at most 30 employees; U2 (Mutterschaft) applies whatever the headcount, subject to § 11 AAG, which disapplies § 1 entirely to farming family members and to NATO-stationed forces. Both are borne by the employer alone. THE RATES ARE NOT STATUTORY — each Krankenkasse sets its own in its Satzung, and they differ by several percentage points between Kassen and between the reimbursement levels a Kasse offers. There is therefore no correct default, and the calculator takes them as inputs.',
   },
   {
     id: DE_SOURCE_IDS.unfall,

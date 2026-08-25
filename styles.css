@@ -3798,6 +3798,13 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
    the right answer. */
 .ecc--de .ecc__table-wrap { overflow-x: auto; max-width: 100%; }
 
+/* The result labels sit on a tinted panel where --text-3 measures 4.43:1 — an
+   axe color-contrast failure at serious severity, and it applied at every
+   width because the tint is not viewport-dependent. --text-2 measures 6.84:1
+   on the same tint and 7.34:1 on white. Scoped so the Czech calculator, which
+   shares these class names, keeps its own palette. */
+.ecc--de .ecc__total-label { color: var(--text-2); }
+
 /* ── Narrow viewports: the result table REFLOWS, it does not scroll ──────────
    The horizontal-scroll container was the wrong answer and made things worse.
    At 320px it granted 15px of scroll — not enough to reach the employee column
@@ -3822,12 +3829,20 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
   .ecc--de .ecc__table td { display: block; width: auto; }
 
   /* The header row still exists for assistive technology; it is simply not
-     painted, because each cell now carries its own label. */
+     painted, because each cell now carries its own label.
+
+     The cells inside keep their natural LAYOUT box — a measuring script that
+     reads getBoundingClientRect on them will report "Arbeitnehmer" sitting past
+     the right edge at 280px, and it is not there: `overflow: hidden` plus the
+     clip below means nothing paints and nothing scrolls. `clip-path` is the
+     modern spelling of the same thing, declared alongside the legacy `clip`
+     because Safari honoured only one of them for years. */
   .ecc--de .ecc__table thead {
     position: absolute;
     width: 1px; height: 1px;
     overflow: hidden;
     clip: rect(0 0 0 0);
+    clip-path: inset(50%);
     white-space: nowrap;
   }
 
@@ -3850,10 +3865,23 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
   }
   .ecc--de .ecc__table td::before {
     content: attr(data-label);
-    color: var(--text-3);
+    /* Where the syntax is understood, the generated label is marked as having
+       no alternative text, so a screen reader announces the column header once
+       instead of hearing the header AND this copy of it. Declared second so a
+       browser that does not parse the `/ ""` form keeps the line above and the
+       label stays visible. */
+    content: attr(data-label) / "";
+    color: var(--text-2);
     font-weight: 400;
     text-align: left;
-    flex: 0 0 auto;
+    /* Shrinkable, and allowed to wrap. `white-space: nowrap` is inherited from
+       the base cell rule and belongs to the FIGURE, which must never break
+       across lines; the label is prose and must. Left non-shrinking, the German
+       labels pushed 3-23px past their own cell at 280px. */
+    flex: 0 1 auto;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   /* Nothing left to scroll, so the region stops being one. */
   .ecc--de .ecc__table-wrap { overflow-x: visible; }

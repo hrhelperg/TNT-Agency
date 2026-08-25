@@ -1,19 +1,31 @@
 import type { LocaleCorpus } from '../types'
 
 /**
- * Deutsche Inhalte für den tschechischen Arbeitgeberkosten-Rechner.
+ * Deutschsprachige Inhalte für ZWEI Rechner, und der Unterschied entscheidet.
  *
- * DIES IST TSCHECHISCHE LOHNABRECHNUNG, AUF DEUTSCH ERKLÄRT — kein deutscher,
- * österreichischer oder Schweizer Rechner. Das ist hier kein Detail, sondern
- * eine Build-Bedingung: scripts/validate-locale-jurisdiction.mjs lässt den Build
- * scheitern, wenn eine deutschsprachige Seite einen rechtlich aufgeladenen
- * Begriff — Mindestlohn, Sozialversicherung, zuständige Behörde — verwendet,
- * ohne davor oder an derselben Stelle Tschechien zu nennen, und zwar in der
- * Lesereihenfolge: Description, dann Intro, dann jede Überschrift und jeder
- * Absatz. Deshalb steht in jedem solchen Satz „tschechisch" — nicht aus Stil,
- * sondern weil ein deutscher Leser sonst zu Recht deutsches Recht liest.
+ * Der ERSTE Schlüssel, 'germany-employer-cost-calculator', ist DEUTSCHE
+ * Lohnabrechnung auf Deutsch und wird unter /de/arbeitgeberkosten-rechner-
+ * deutschland ausgeliefert. Der ZWEITE, 'employer-cost-calculator', ist
+ * TSCHECHISCHE Lohnabrechnung auf Deutsch erklärt und liegt unter
+ * /de/arbeitgeberkosten-rechner-tschechien.
  *
- * Auch die URL trägt es: /de/arbeitgeberkosten-rechner-tschechien.
+ * Diese Datei trug einmal einen Kopf, der in Großbuchstaben behauptete, ihr
+ * gesamter Inhalt sei tschechische Lohnabrechnung und ihre URL laute
+ * /de/arbeitgeberkosten-rechner-tschechien. Für die erste Hälfte war das
+ * schlicht falsch — in genau der Datei, in der deutschsprachiges deutsches
+ * Recht und deutschsprachiges tschechisches Recht fünfzig Zeilen auseinander
+ * stehen, also dort, wo eine Verwechslung am teuersten ist.
+ *
+ * FÜR DEN TSCHECHISCHEN TEIL gilt weiterhin: in jedem rechtlich aufgeladenen
+ * Satz — Mindestlohn, Sozialversicherung, zuständige Behörde — muss „tschechisch“
+ * stehen, sonst liest ein deutscher Leser zu Recht deutsches Recht.
+ * scripts/validate-locale-jurisdiction.mjs erzwingt das in der Lesereihenfolge:
+ * Description, dann Intro, dann jede Überschrift und jeder Absatz.
+ *
+ * FÜR DEN DEUTSCHEN TEIL gilt das Gegenteil, und der Validator weiß es:
+ * 'germany-employer-cost-calculator' steht dort in GERMAN_JURISDICTION, wo der
+ * verlangte Anker /deutsch|Deutschland|SGB|EStG|BMF/ lautet. Ein „tschechisch“
+ * in diesen Absätzen wäre hier der Fehler.
  *
  * Die Listen unten sind Substanz, keine Dekoration. Die tschechische
  * Quellseite trägt ihre Struktur als Aufzählungen, und
@@ -42,7 +54,7 @@ export const DE_CALCULATORS: LocaleCorpus = {
               'Bruttoentgelt',
               'Rentenversicherung — die Hälfte von 18,6 %',
               'Arbeitslosenversicherung — die Hälfte von 2,6 %',
-              'Krankenversicherung — die Hälfte von 14,6 % zuzüglich der halben Zusatzbeitragssatzes der Kasse',
+              'Krankenversicherung — die Hälfte von 14,6 % zuzüglich des halben Zusatzbeitragssatzes der Kasse',
               'Pflegeversicherung — 1,8 % (in Sachsen 1,3 %)',
               'Insolvenzgeldumlage U3 in Höhe von 0,15 %',
               'Umlagen U1 und U2 nach der Satzung der Krankenkasse',
@@ -102,7 +114,7 @@ export const DE_CALCULATORS: LocaleCorpus = {
           heading: 'Was der Rechner nicht berechnet, und warum',
           body: [
             'Eine geringfügige Beschäftigung und eine Beschäftigung im Übergangsbereich rechnet er nicht. Bis 603 € im Monat zahlt der Arbeitgeber pauschale Beiträge statt der gewöhnlichen; von dort bis 2 000 € wird die beitragspflichtige Einnahme durch den Faktor F vermindert und der Arbeitgeber trägt die Differenz. Keines von beiden ist eine kleinere Fassung der gewöhnlichen Rechnung — es ist ein anderes Regime, und die gewöhnliche Rechnung lieferte eine plausibel aussehende Antwort auf eine andere Frage.',
-            'Ebenso abgelehnt werden Fälle, die sich aus den Zahlen nicht erkennen lassen und nach denen der Rechner deshalb fragt: private Krankenversicherung, Beamte, Mehrfachbeschäftigung, beschäftigte Rentner, die knappschaftliche Versicherung, berufsständische Versorgungswerke, Kurzarbeit, Einmalzahlungen, grenzüberschreitende Sachverhalte und Sachbezüge. Zu jedem Fall wird der Grund genannt.',
+            'Ebenso abgelehnt werden Fälle, die sich aus den Zahlen nicht erkennen lassen und nach denen der Rechner deshalb fragt: kurzfristige Beschäftigung, Auszubildende, Freiwilligendienste, private Krankenversicherung, Beamte, Mehrfachbeschäftigung, beschäftigte Rentner, die knappschaftliche Versicherung, berufsständische Versorgungswerke, Kurzarbeit, Einmalzahlungen, grenzüberschreitende Sachverhalte, Werkstudenten, Praktika, das Baugewerbe und Sachbezüge. Zu jedem Fall wird der Grund genannt.',
             'Auch die Kappung der Kirchensteuer-Progression bleibt außen vor. Sie wird in der Regel erst bei der Veranlagung und meist auf Antrag gewährt, ihre Bemessungsgrundlage ist das zu versteuernde Einkommen, das der Arbeitgeber nicht kennt, und der Satz folgt dem Beschluss der jeweiligen Religionsgemeinschaft. Der Arbeitgeber behält den ungekappten Betrag ein, und der Rechner zeigt dasselbe — mit dem Hinweis, dass es die Kappung gibt.',
           ],
           list: {

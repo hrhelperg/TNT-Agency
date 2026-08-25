@@ -71,7 +71,7 @@ export const DISPLAY_BASIS: Readonly<Record<string, Readonly<Record<DeLocale, st
   },
   tax: {
     de: '§ 39b Absatz 2 und 6 EStG; § 32a EStG; § 51a EStG',
-    en: '§ 39b Absatz 2 and 6 EStG; § 32a EStG; § 51a EStG',
+    en: '§ 39b Absatz 2 and Absatz 6 EStG; § 32a EStG; § 51a EStG',
     cs: '§ 39b odst. 2 a 6 EStG; § 32a EStG; § 51a EStG',
   },
 };

@@ -90,33 +90,42 @@ function centToNumber(cent: bigint): number {
 /**
  * Parse what the user typed into cent.
  *
- * Accepts both separators in every locale, because people paste figures from
- * payroll software that does not care what language the page is in. Returns null
- * for anything it cannot read, so the caller can say so rather than silently
+ * Accepts both separator conventions, because people paste figures from payroll
+ * software that does not care what language the page is in. Returns null for
+ * anything it cannot read, so the caller can say so rather than silently
  * treating a typo as zero — which would produce a confident answer to a question
  * nobody asked.
+ *
+ * TAKES THE LOCALE, and the reason is a thousandfold misread.
+ *
+ * With a lone separator followed by exactly three digits, "12,500" is genuinely
+ * ambiguous IN ISOLATION: twelve thousand five hundred to an English reader,
+ * twelve euro fifty written with a stray zero to a German one. This function
+ * used to resolve it by digit count alone and always chose grouping, so a
+ * German three-decimal payroll export typed into the accident-insurance field
+ * became 12 500,00 EUR — added to employer cost with no error and no warning.
+ * A leading-zero guard was added, which closed "0,500" and left every other
+ * leading group open.
+ *
+ * The ambiguity is not resolvable from the digits, and it does not have to be:
+ * the route knows its own language, and every formatter here is already told
+ * it. So when the lone separator IS the reader's decimal separator, three
+ * digits after it are refused rather than guessed at — an explicit error the
+ * reader can see and correct, instead of a plausible number a thousand times
+ * too large. When it is NOT the reader's decimal separator, three digits are
+ * grouping, which is exactly what this module's own output looks like.
+ *
+ * Everything unambiguous is untouched. Both separators present: the later one
+ * is the decimal point, whatever the locale. A REPEATED separator is grouping,
+ * because a decimal separator cannot occur twice — so "1,000,000" still reads
+ * as a million on the German page.
  */
-export function parseEuroToCent(raw: string): bigint | null {
-  const s = raw.trim().replace(/\s| |€/g, '');
+const DECIMAL_SEPARATOR: Readonly<Record<DeLocale, string>> = { de: ',', en: '.', cs: ',' };
+
+export function parseEuroToCent(raw: string, locale: DeLocale): bigint | null {
+  const s = raw.trim().replace(/\s| |€/g, '');
   if (s === '') return null;
 
-  // "1.234,56" (German) and "1,234.56" (English) both mean the same amount, and
-  // people paste both into a page in either language.
-  //
-  // THE HARD CASE IS A SINGLE SEPARATOR
-  // ───────────────────────────────────
-  // With both separators present the last one is the decimal point and the
-  // other is grouping — unambiguous. With only ONE separator, "3.500" is
-  // genuinely ambiguous in isolation, and an earlier version of this function
-  // resolved it by treating the last separator as decimal ALWAYS. That rejected
-  // "3.500" outright, which is how a German writes three thousand five hundred,
-  // and it meant the module could not read its own output: formatEuroWhole
-  // renders "3.500 €" and parseEuroToCent returned null for it.
-  //
-  // Money settles the ambiguity. A monetary decimal has one or two digits, never
-  // three — so a lone separator followed by exactly three digits is grouping,
-  // and followed by one or two is the decimal point. Four or more is neither,
-  // and is refused rather than guessed at.
   const lastComma = s.lastIndexOf(',');
   const lastDot = s.lastIndexOf('.');
 
@@ -128,7 +137,8 @@ export function parseEuroToCent(raw: string): bigint | null {
     integerPart = s;
     grouping = '';
   } else if (lastComma !== -1 && lastDot !== -1) {
-    // Both present: the later one is the decimal point.
+    // Both present: the later one is the decimal point. No locale needed — no
+    // convention writes the same character as both.
     const decimalAt = Math.max(lastComma, lastDot);
     integerPart = s.slice(0, decimalAt);
     fraction = s.slice(decimalAt + 1);
@@ -138,12 +148,21 @@ export function parseEuroToCent(raw: string): bigint | null {
     const at = Math.max(lastComma, lastDot);
     const tail = s.slice(at + 1);
     const repeated = s.split(sep).length > 2;
-    if (repeated || /^\d{3}$/.test(tail)) {
-      // Grouping: "1.000.000", or a lone separator with a full group after it.
+    const isDecimalSeparatorHere = sep === DECIMAL_SEPARATOR[locale];
+
+    if (repeated) {
+      // A decimal separator cannot occur twice, so this is grouping in any
+      // locale. "1.000.000" and "1,000,000" both read as a million.
       integerPart = s;
-      fraction = '';
+      grouping = sep;
+    } else if (/^\d{3}$/.test(tail)) {
+      // The ambiguous case, and the only one the locale decides.
+      if (isDecimalSeparatorHere) return null;
+      integerPart = s;
       grouping = sep;
     } else {
+      // One or two digits is a decimal amount; four or more is neither and
+      // falls to the fraction check below.
       integerPart = s.slice(0, at);
       fraction = tail;
       grouping = sep === ',' ? '.' : ',';
@@ -157,11 +176,7 @@ export function parseEuroToCent(raw: string): bigint | null {
   if (grouping !== '') {
     const groups = integerPart.split(grouping);
     if (groups.length > 1) {
-      // The leading group may not start with a zero. No grouped number is
-      // written "0.500" or "00.500", so reading them as grouping turns a
-      // malformed string into a confident answer a thousand times too large:
-      // "0,500" typed into the accident-insurance field meant 0,50 EUR and was
-      // read as 500,00 EUR, added to employer cost with no error shown.
+      // No grouped number is written "0.500" or "00.500".
       if (!/^[1-9]\d{0,2}$/.test(groups[0])) return null;
       if (!groups.slice(1).every((g) => /^\d{3}$/.test(g))) return null;
     }

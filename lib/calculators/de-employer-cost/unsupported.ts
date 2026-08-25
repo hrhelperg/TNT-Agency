@@ -72,11 +72,11 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     labelEn: 'Minijob / marginal employment',
     labelCs: 'Minijob (geringfügige Beschäftigung)',
     reasonDe:
-      'Unterhalb der Geringfügigkeitsgrenze gelten pauschale Arbeitgeberabgaben statt der regulären Beitragssätze. Das ist ein anderes Beitragssystem, kein Sonderfall des hier abgebildeten. Auszubildende sind auch bei geringem Entgelt nicht versicherungsfrei (§ 7 Absatz 1 Satz 1 Nummer 1 SGB V und die entsprechenden Vorschriften der übrigen Zweige); in dem Fall bitte „Auszubildende" wählen.',
+      'Bis einschließlich zur Geringfügigkeitsgrenze gelten pauschale Arbeitgeberabgaben statt der regulären Beitragssätze. Das ist ein anderes Beitragssystem, kein Sonderfall des hier abgebildeten. Auszubildende sind auch bei geringem Entgelt nicht versicherungsfrei (§ 7 Absatz 1 Satz 1 Nummer 1 SGB V und die entsprechenden Vorschriften der übrigen Zweige); in dem Fall bitte „Auszubildende“ wählen.',
     reasonEn:
-      'Below the Minijob threshold the employer pays flat-rate levies instead of the ordinary contribution rates. That is a different contribution system, not a special case of the one modelled here. An apprentice is NOT exempt even on low pay (§ 7 Absatz 1 Satz 1 Nummer 1 SGB V, and the parallel provisions in the other branches) — for those, choose “Apprentices in vocational training”.',
+      'Up to and including the Minijob threshold the employer pays flat-rate levies instead of the ordinary contribution rates. That is a different contribution system, not a special case of the one modelled here. An apprentice is NOT exempt even on low pay (§ 7 Absatz 1 Satz 1 Nummer 1 SGB V, and the parallel provisions in the other branches) — for those, choose “Apprentices in vocational training”.',
     reasonCs:
-      'Do 603 € měsíčně platí jiný režim: zaměstnavatel odvádí paušální příspěvky Minijob-Zentrale místo běžného pojistného. Není to menší verze běžného výpočtu, ale jiná úprava. Učeň není osvobozen ani při nízké mzdě (§ 7 odst. 1 věta 1 č. 1 SGB V a obdobná ustanovení v ostatních složkách); v takovém případě zvolte „Učni v odborné přípravě".',
+      'Do 603 € měsíčně platí jiný režim: zaměstnavatel odvádí paušální příspěvky Minijob-Zentrale místo běžného pojistného. Není to menší verze běžného výpočtu, ale jiná úprava. Učeň není osvobozen ani při nízké mzdě (§ 7 odst. 1 věta 1 č. 1 SGB V a obdobná ustanovení v ostatních složkách); v takovém případě zvolte „Učni v odborné přípravě“.',
   },
   {
     id: 'uebergangsbereich',
@@ -85,11 +85,11 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     labelEn: 'Transition zone / Midijob',
     labelCs: 'Übergangsbereich (přechodové pásmo)',
     reasonDe:
-      'Im Übergangsbereich wird die beitragspflichtige Einnahme über eine eigene Formel reduziert, und der Arbeitgeberanteil ist nicht die Hälfte des Beitrags. Ein Standardergebnis wäre hier für beide Seiten falsch. Für Auszubildende gilt der Übergangsbereich nicht (§ 20 Absatz 2a Satz 9 SGB IV); in dem Fall bitte „Auszubildende" wählen.',
+      'Im Übergangsbereich wird die beitragspflichtige Einnahme über eine eigene Formel reduziert, und der Arbeitgeberanteil ist nicht die Hälfte des Beitrags. Ein Standardergebnis wäre hier für beide Seiten falsch. Für Auszubildende gilt der Übergangsbereich nicht (§ 20 Absatz 2a Satz 9 SGB IV); in dem Fall bitte „Auszubildende“ wählen.',
     reasonEn:
       'In the transition zone the contributory pay is reduced by its own formula and the employer share is not half the contribution. A standard result would be wrong for both parties here. The transition band does not apply to apprentices (§ 20 Absatz 2a Satz 9 SGB IV) — for those, choose “Apprentices in vocational training”.',
     reasonCs:
-      'V přechodovém pásmu se vyměřovací základ snižuje vlastním vzorcem a podíl zaměstnavatele není polovinou pojistného. Běžný výpočet by vrátil chybné podíly na obou stranách. Na učně se přechodové pásmo nevztahuje (§ 20 odst. 2a věta 9 SGB IV); v takovém případě zvolte „Učni v odborné přípravě".',
+      'V přechodovém pásmu se vyměřovací základ snižuje vlastním vzorcem a podíl zaměstnavatele není polovinou pojistného. Běžný výpočet by vrátil chybné podíly na obou stranách. Na učně se přechodové pásmo nevztahuje (§ 20 odst. 2a věta 9 SGB IV); v takovém případě zvolte „Učni v odborné přípravě“.',
   },
   {
     id: 'kurzfristige-beschaeftigung',
@@ -189,7 +189,7 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     reasonEn:
       'Exemption from statutory pension insurance with an employer subsidy to the scheme — a different contribution structure.',
     reasonCs:
-      'Členové profesních komor jsou osvobozeni od zákonného důchodového pojištění a odvádějí do vlastní instituce. Sazby stanoví každá komora sama.',
+      'Členové profesních komor mohou být na žádost osvobozeni od zákonného důchodového pojištění (§ 6 odst. 1 věta 1 č. 1 SGB VI) a odvádějí do vlastní zaopatřovací instituce; zaměstnavatel k tomu platí příspěvek (§ 172a SGB VI). Jde o jinou strukturu odvodů, ne o variantu té zdejší.',
   },
   {
     id: 'kurzarbeit',
@@ -202,7 +202,7 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
     reasonEn:
       'Short-time allowance and who bears contributions during the lost hours follow their own rules.',
     reasonCs:
-      'Při kurzarbeitu se odvody počítají z fiktivního vyměřovacího základu a část hradí Spolková agentura práce. Běžný výpočet zde neplatí.',
+      'Kurzarbeitergeld a rozdělení odvodů během výpadku práce se řídí vlastními pravidly. Běžný výpočet zde neplatí.',
   },
   {
     id: 'einmalzahlung',
@@ -270,17 +270,30 @@ export const UNSUPPORTED_CASES: readonly UnsupportedCase[] = [
       'Ve stavebnictví přistupuje zimní odvod podle § 354 SGB III a příspěvky do oborových sociálních kas. Náklady zaměstnavatele by proto byly vyšší, než kolik zde vychází.',
   },
   {
+    id: 'freiwilligendienst',
+    kind: 'declared',
+    labelDe: 'Freiwilligendienste (FSJ, FÖJ, BFD)',
+    labelEn: 'Voluntary service years (FSJ, FÖJ, BFD)',
+    labelCs: 'Dobrovolnická služba (FSJ, FÖJ, BFD)',
+    reasonDe:
+      'Nach § 20 Absatz 3 Satz 1 Nummer 2 SGB IV trägt der Träger den gesamten Gesamtsozialversicherungsbeitrag allein — ohne Entgeltgrenze und unabhängig vom Taschengeld. Die hier abgebildete hälftige Tragung gilt dafür nicht, und eine reguläre Rechnung würde die Arbeitgeberkosten deutlich zu niedrig ausweisen.',
+    reasonEn:
+      'Under § 20 Absatz 3 Satz 1 Nummer 2 SGB IV the organisation bears the ENTIRE social-insurance contribution alone — no earnings limit, whatever the allowance. The half-and-half split modelled here does not apply, and an ordinary calculation would understate the employer cost substantially.',
+    reasonCs:
+      'Podle § 20 odst. 3 věty 1 č. 2 SGB IV nese celé sociální pojištění výhradně organizace — bez hranice příjmu a bez ohledu na výši kapesného. Zdejší rozdělení na poloviny se zde neuplatní a běžný výpočet by náklady organizace výrazně podhodnotil.',
+  },
+  {
     id: 'sachbezug',
     kind: 'declared',
     labelDe: 'Sachbezüge und Dienstwagenversteuerung',
     labelEn: 'Benefits in kind and company-car taxation',
     labelCs: 'Nepeněžní plnění a služební vozidla',
     reasonDe:
-      'Geldwerte Vorteile erhöhen das steuer- und beitragspflichtige Entgelt nach eigenen Bewertungsregeln. Dieser Rechner behandelt Arbeitgeberkosten für Sachleistungen als reine Kosten und verändert damit das Bruttoentgelt nicht.',
+      'Geldwerte Vorteile erhöhen das steuer- und beitragspflichtige Entgelt nach eigenen Bewertungsregeln — Sachbezugswerte, die 1-%-Regelung, die 50-€-Freigrenze. Dieser Rechner hat dafür kein Eingabefeld und rechnet ausschließlich aus dem eingegebenen Bruttoentgelt; ein geldwerter Vorteil müsste vorher bewertet und dem Brutto zugeschlagen werden.',
     reasonEn:
-      'Benefits in kind raise taxable and contributory pay under their own valuation rules. This calculator treats employer spending on benefits as cost only, and therefore does not change gross pay.',
+      'Benefits in kind raise taxable and contributory pay under their own valuation rules — official benefit values, the 1 % company-car rule, the 50 EUR threshold. This calculator has no field for them and works solely from the gross you enter; a benefit would have to be valued and added to that gross first.',
     reasonCs:
-      'Nepeněžní výhody zvyšují zdanitelnou i pojistnou mzdu podle vlastních oceňovacích pravidel. Tato kalkulačka je pokládá pouze za náklad a hrubou mzdu jimi nemění.',
+      'Nepeněžní výhody zvyšují zdanitelnou i pojistnou mzdu podle vlastních oceňovacích pravidel — úředně stanovené hodnoty, pravidlo 1 % u služebního vozu, hranice 50 €. Tato kalkulačka pro ně nemá vstupní pole a počítá výhradně ze zadané hrubé mzdy; nepeněžní plnění by bylo nutné nejdřív ocenit a k hrubé mzdě přičíst.',
   },
 ];
 

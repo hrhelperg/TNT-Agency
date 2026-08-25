@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { UNSUPPORTED_CASES } from './unsupported';
+import fs from 'node:fs';
+import path from 'node:path';
+import { UNSUPPORTED_CASES, DECLARED_CASES } from './unsupported';
 import { BUNDESLAND_NAMES } from './tax/church-tax';
+
+const ROOT = path.join(__dirname, '..', '..', '..');
 
 /**
  * Citations that were wrong, and must not come back.
@@ -85,5 +89,126 @@ describe('the Bundesland names are localized', () => {
     // missing translation.
     const same = Object.entries(BUNDESLAND_NAMES).filter(([, n]) => n.de === n.en).map(([c]) => c);
     expect(same.sort()).toEqual(['BB', 'BE', 'BW', 'HB', 'HH', 'SH', 'SL']);
+  });
+});
+
+/**
+ * The page's own account of what it refuses must match what it refuses.
+ *
+ * The methodology paragraph enumerated ten declared cases while the registry
+ * declared fifteen and the form rendered fifteen checkboxes. Short-term
+ * employment, apprentices, working students, internships and construction were
+ * refused by the calculator and absent from the page's list of what it refuses
+ * — so a reader consulting the methodology to learn whether an apprentice can
+ * be calculated was told, by omission, that one can.
+ *
+ * Keyed on a distinguishing word per case per language rather than on a count,
+ * because a count passes when a case is swapped for another.
+ */
+describe('the methodology lists every case the calculator declares', () => {
+  const KEYWORDS: Record<string, { de: RegExp; en: RegExp; cs: RegExp }> = {
+    'kurzfristige-beschaeftigung': { de: /kurzfristige/i, en: /short-term/i, cs: /krátkodobé/i },
+    ausbildung: { de: /Auszubildende/i, en: /apprentice/i, cs: /učn/i },
+    freiwilligendienst: { de: /Freiwilligendienste/i, en: /voluntary service/i, cs: /dobrovolnick/i },
+    pkv: { de: /private Krankenversicherung/i, en: /private health/i, cs: /soukromé zdravotní/i },
+    beamte: { de: /Beamte/i, en: /civil servant/i, cs: /úřed/i },
+    mehrfachbeschaeftigung: { de: /Mehrfachbeschäftigung/i, en: /concurrent employ/i, cs: /souběh/i },
+    'rentner-beschaeftigt': { de: /Rentner/i, en: /working pensioner/i, cs: /důchodce/i },
+    knappschaft: { de: /knappschaftliche/i, en: /miners/i, cs: /hornick/i },
+    versorgungswerk: { de: /Versorgungswerke/i, en: /professional pension/i, cs: /profesní komor/i },
+    kurzarbeit: { de: /Kurzarbeit/i, en: /short-time/i, cs: /kurzarbeit/i },
+    einmalzahlung: { de: /Einmalzahlungen/i, en: /one-off/i, cs: /jednorázové/i },
+    grenzueberschreitend: { de: /grenzüberschreitende/i, en: /cross-border/i, cs: /přeshraniční/i },
+    werkstudent: { de: /Werkstudenten/i, en: /working student/i, cs: /studenty/i },
+    praktikum: { de: /Praktika/i, en: /internship/i, cs: /praxe|stáž/i },
+    baugewerbe: { de: /Baugewerbe/i, en: /construction/i, cs: /stavebnictví/i },
+    sachbezug: { de: /Sachbezüge/i, en: /benefits in kind/i, cs: /nepeněžní/i },
+  };
+
+  const PROSE: Record<string, string> = {
+    de: fs.readFileSync(path.join(ROOT, 'lib/locale/content/de/calculators.ts'), 'utf8'),
+    en: fs.readFileSync(path.join(ROOT, 'lib/locale/content/en/calculators.ts'), 'utf8'),
+    cs: fs.readFileSync(
+      path.join(ROOT, 'lib/content/pages/germany-employer-cost-calculator.ts'),
+      'utf8',
+    ),
+  };
+
+  it('every declared case has a keyword, so a new case cannot be added silently', () => {
+    const declared = DECLARED_CASES.map((c) => c.id).sort();
+    expect(Object.keys(KEYWORDS).sort()).toEqual(declared);
+  });
+
+  for (const c of DECLARED_CASES) {
+    for (const locale of ['de', 'en', 'cs'] as const) {
+      it(`${c.id} appears in the ${locale} methodology`, () => {
+        expect(
+          KEYWORDS[c.id][locale].test(PROSE[locale]),
+          `${c.id} is refused by the calculator but not named on the ${locale} page`,
+        ).toBe(true);
+      });
+    }
+  }
+});
+
+/**
+ * Sentences that were FALSE, in one language only, and must not come back.
+ *
+ * Each of these was written into the Czech or German text of a refusal while
+ * the other two languages said something weaker and correct — which is the
+ * failure mode worth naming: the registry entries were written per language
+ * rather than translated, so a reader of one language was told something no
+ * reader of the others was, and no test compared them.
+ */
+describe('no refusal reason asserts something its siblings do not', () => {
+  const byId = (id: string) => UNSUPPORTED_CASES.find((c) => c.id === id)!;
+
+  it('Kurzarbeit names no bearer of the contributions in any language', () => {
+    // The Czech text said "část hradí Spolková agentura práce" — that part of
+    // the contributions is borne by the Federal Employment Agency. Under the
+    // ordinary 2026 rule the employer bears them ALONE on the fictitious pay
+    // (§ 249 Absatz 2 SGB V, § 168 Absatz 1 Nummer 1a SGB VI, § 58 Absatz 5
+    // SGB XI); BA reimbursement was a temporary crisis measure and has lapsed.
+    // The German and English texts named no bearer at all.
+    const c = byId('kurzarbeit');
+    for (const text of [c.reasonDe, c.reasonEn, c.reasonCs]) {
+      expect(/Bundesagentur|Spolková agentura|Federal Employment Agency/i.test(text), text).toBe(false);
+    }
+  });
+
+  it('Versorgungswerk states the exemption as conditional, not automatic', () => {
+    // § 6 Absatz 1 Satz 1 Nummer 1 SGB VI grants it ON APPLICATION and only for
+    // the employment applied for. The Czech text said members "jsou osvobozeni"
+    // — are exempt — as a status following from chamber membership, and dropped
+    // the employer subsidy that is the reason the calculation cannot be run.
+    const c = byId('versorgungswerk');
+    expect(c.reasonCs).toMatch(/na žádost/);
+    expect(c.reasonCs).toMatch(/§ 172a SGB VI/);
+    expect(/Befreiung/.test(c.reasonDe), c.reasonDe).toBe(true);
+  });
+
+  it('the Minijob refusal describes a boundary it actually fires at', () => {
+    // The refusal is INCLUSIVE at 603,00 EUR — § 8 Absatz 1 Nummer 1 SGB IV
+    // covers pay that "die Geringfügigkeitsgrenze nicht übersteigt" — so
+    // "Unterhalb" / "Below" was false of the very case that triggers it, and
+    // contradicted the ceilings list on the same screen.
+    const c = byId('minijob');
+    expect(/^Unterhalb/.test(c.reasonDe), c.reasonDe).toBe(false);
+    expect(/^Below/.test(c.reasonEn), c.reasonEn).toBe(false);
+    expect(c.reasonDe).toMatch(/Bis einschließlich/);
+    expect(c.reasonEn).toMatch(/Up to and including/);
+  });
+
+  it('the U2 warning does not claim the levy binds every employer without exception', () => {
+    // § 11 AAG ("Ausnahmevorschriften") Absatz 2 disapplies § 1 entirely to
+    // farming family members and to NATO-stationed forces, and § 1 Absatz 2
+    // itself excludes the landwirtschaftliche Krankenkasse. The distinguishing
+    // fact about U2 is that it does not stop at 30 employees the way U1 does.
+    const COPY = fs.readFileSync(path.join(ROOT, 'lib/calculators/de-employer-cost/copy.ts'), 'utf8');
+    const note = COPY.slice(COPY.indexOf("'de.note.u2Missing'"), COPY.indexOf("'de.note.u2Missing'") + 800);
+    expect(/für jeden Arbeitgeber verpflichtend/.test(note), note.slice(0, 200)).toBe(false);
+    expect(/compulsory for every employer/.test(note), note.slice(0, 200)).toBe(false);
+    expect(/povinný pro každého zaměstnavatele/.test(note), note.slice(0, 200)).toBe(false);
+    expect(note).toMatch(/§ 11 AAG/);
   });
 });

@@ -113,6 +113,9 @@ export const DE_RULES_2026: DeRuleset2026 = {
     monthlyCeilingCent: {
       value: eur(5_812, 50),
       sourceId: S.svRechgr,
+      // § 55 Absatz 2 SGB XI appears on the HEALTH ceiling because it is the
+      // surviving cross-reference that fixes this figure — see the note. It is
+      // not a claim that the health ceiling is a care provision.
       legalBasis: '§ 2 Absatz 2 SVRechGrV 2026; § 55 Absatz 2 SGB XI',
       status: 'confirmed-official',
       note:
@@ -179,7 +182,7 @@ export const DE_RULES_2026: DeRuleset2026 = {
       legalBasis: '§ 58 Absatz 3 SGB XI',
       status: 'confirmed-official',
       note:
-        'Saxony alone. The employee bears one further point and the employer one less, so the TOTAL is unchanged at 3,6 % — 2,3 % against 1,3 %. An engine that adds a point to the total instead of moving it across is wrong for every Saxon employer.',
+        'Saxony alone. THIS IS THE GAP BETWEEN THE TWO SHARES, not an amount added to one of them: the engine takes the base rate, subtracts this value, halves the remainder to get the employer share, and gives the employee that share plus this value. So 3,6 % splits 2,3 % against 1,3 % and the TOTAL is unchanged. Read as "the employee bears one further point and the employer one less" — which is what this note used to say — the same value would produce 2,8 % against 0,8 %, and an engine that adds a point to the total instead of moving it across is wrong for every Saxon employer.',
     },
     monthlyCeilingCent: {
       value: eur(5_812, 50),
@@ -279,7 +282,7 @@ export const DE_RULES_2026: DeRuleset2026 = {
       legalBasis: '§ 18 SGB IV i. V. m. § 1 SVRechGrV 2026',
       status: 'confirmed-official',
       note:
-        '47 460 EUR a year. Carried for the methodology panel; no contribution below is computed from it. Note there is no separate eastern figure for 2026.',
+        '47 460 EUR a year. Carried so the registry states the figure the prose quotes; NOT rendered by the methodology panel, and no contribution here is computed from it — an earlier note claimed the panel showed it, and the panel does not. Note there is no separate eastern figure for 2026.',
     },
   },
 };

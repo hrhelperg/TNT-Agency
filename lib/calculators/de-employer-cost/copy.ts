@@ -139,7 +139,7 @@ export const FIELD: Record<string, Copy> = {
   reducedRate: {
     de: 'Ermäßigter Beitragssatz (kein Krankengeldanspruch)',
     en: 'Reduced health rate (no sick-pay entitlement)',
-    cs: 'Snížená sazba (bez nároku na nemocenské)',
+    cs: 'Snížená sazba zdravotního pojištění (bez nároku na německé nemocenské dávky Krankengeld)',
   },
   children: {
     de: 'Kinder unter 25 Jahren',
@@ -186,9 +186,9 @@ export const FIELD: Record<string, Copy> = {
     cs: 'Odvod U2 (mateřství)',
   },
   u2Hint: {
-    de: 'Gilt für jeden Arbeitgeber. Der Satz steht ebenfalls in der Satzung der Krankenkasse.',
-    en: 'Applies to every employer. The rate likewise comes from the health fund’s own rules.',
-    cs: 'Platí pro každého zaměstnavatele. Sazbu rovněž stanoví pojišťovna.',
+    de: 'Gilt unabhängig von der Beschäftigtenzahl. Der Satz steht ebenfalls in der Satzung der Krankenkasse.',
+    en: 'Applies whatever the headcount. The rate likewise comes from the health fund’s own rules.',
+    cs: 'Platí bez ohledu na počet zaměstnanců. Sazbu rovněž stanoví pojišťovna.',
   },
   insolvency: {
     de: 'Insolvenzgeldumlage (U3) fällt an',
@@ -278,6 +278,23 @@ export const RESULT: Record<string, Copy> = {
     en: 'Total deductions',
     cs: 'Srážky celkem',
   },
+  /**
+   * The NAME of the second result table, which is not the same thing as the
+   * name of one row in it. It was labelled "Total deductions" while containing
+   * the gross, each deduction and the net — a landmark named for a third of
+   * what it holds.
+   */
+  breakdown: {
+    de: 'Vom Bruttoentgelt zum Nettoentgelt',
+    en: 'From gross pay to net pay',
+    cs: 'Od hrubé mzdy k čisté',
+  },
+  /** The name of the live region the results are announced into. */
+  results: {
+    de: 'Ergebnis der Berechnung',
+    en: 'Calculation result',
+    cs: 'Výsledek výpočtu',
+  },
   employeeSocial: {
     de: 'Sozialversicherung, Arbeitnehmeranteil',
     en: 'Social insurance, employee share',
@@ -317,9 +334,9 @@ export const NOTE_TEXT: Record<string, Copy> = {
     cs: 'Daňová třída II nebo úleva na dítě předpokládá dítě, rodičovství zde ale není označeno jako doložené. Bez doložení se uplatní příplatek pro bezdětné (§ 55 odst. 3a SGB XI). Zkontrolujte prosím, zda je doklad k dispozici.',
   },
   'de.note.u2Missing': {
-    de: 'Ohne U2-Satz sind die Arbeitgeberkosten unvollständig. Die Umlage U2 ist nach § 1 Absatz 2 AAG für jeden Arbeitgeber verpflichtend; den Satz legt die Krankenkasse in ihrer Satzung fest.',
-    en: 'Without a U2 rate the employer cost is incomplete. Levy U2 is compulsory for every employer under § 1 Absatz 2 AAG; the rate is set by the health fund in its own rules.',
-    cs: 'Bez sazby U2 jsou náklady zaměstnavatele neúplné. Odvod U2 je podle § 1 odst. 2 AAG povinný pro každého zaměstnavatele; sazbu stanoví zdravotní pojišťovna ve svých stanovách.',
+    de: 'Ohne U2-Satz sind die Arbeitgeberkosten unvollständig. Die Umlage U2 gilt nach § 1 Absatz 2 AAG unabhängig von der Beschäftigtenzahl — anders als U1 — vorbehaltlich der Ausnahmen des § 11 AAG; den Satz legt die Krankenkasse in ihrer Satzung fest.',
+    en: 'Without a U2 rate the employer cost is incomplete. Levy U2 applies under § 1 Absatz 2 AAG whatever the headcount — unlike U1 — subject to the exemptions in § 11 AAG; the rate is set by the health fund in its own rules.',
+    cs: 'Bez sazby U2 jsou náklady zaměstnavatele neúplné. Odvod U2 platí podle § 1 odst. 2 AAG bez ohledu na počet zaměstnanců — na rozdíl od U1 — s výhradou výjimek podle § 11 AAG; sazbu stanoví zdravotní pojišťovna ve svých stanovách.',
   },
   'de.note.kappungNotModelled': {
     de: 'Die Kappung der Kirchensteuer-Progression ist nicht berücksichtigt. Sie wird in der Regel erst bei der Veranlagung und meist auf Antrag gewährt; der Arbeitgeber behält den ungekappten Betrag ein.',
@@ -342,6 +359,29 @@ export const ERROR_FIELD: Record<string, Copy> = {
   'u1.unreadable': FIELD.u1,
   'u2.unreadable': FIELD.u2,
   'accident.unreadable': FIELD.accident,
+};
+
+/**
+ * The same thing for the OTHER refusal path, which had no labels at all.
+ *
+ * Parse errors and engine-validation issues render in the same list and looked
+ * identical to a reader, but only the parse half named its field. So
+ * `accident = 200000000` produced the bare sentence "Please enter a monthly
+ * amount below 100 million euro." with four monthly amounts on screen — the
+ * exact complaint the parse-side fix was written to answer, still live one
+ * branch away. Keyed on ValidationIssue.field, so an issue whose field is not
+ * listed here fails the UI contract test rather than rendering anonymously.
+ */
+export const ISSUE_FIELD: Record<string, Copy> = {
+  monthlyGrossCent: FIELD.gross,
+  steuerklasse: FIELD.steuerklasse,
+  kinderfreibetraege: FIELD.kinderfreibetraege,
+  workplace: FIELD.workplace,
+  healthSupplementPercent: FIELD.supplement,
+  'care.childrenUnder25': FIELD.children,
+  'employer.u1Percent': FIELD.u1,
+  'employer.u2Percent': FIELD.u2,
+  'employer.accidentMonthlyCent': FIELD.accident,
 };
 
 export const ERROR_TEXT: Record<string, Copy> = {
@@ -427,9 +467,11 @@ export const ISSUE_TEXT: Record<string, Copy> = {
     cs: 'Zadejte prosím nejvýše 20 úlev na děti.',
   },
   'children.outOfRange': {
-    de: 'Bitte eine Kinderzahl zwischen 0 und 20 eingeben.',
-    en: 'Please enter a number of children between 0 and 20.',
-    cs: 'Zadejte prosím počet dětí mezi 0 a 20.',
+    // Fires for a fractional count as well as an out-of-range one, so it says
+    // WHOLE: "between 0 and 20" is true of 2,5 and read as a contradiction.
+    de: 'Bitte eine ganze Kinderzahl zwischen 0 und 20 eingeben.',
+    en: 'Please enter a whole number of children between 0 and 20.',
+    cs: 'Zadejte prosím celý počet dětí mezi 0 a 20.',
   },
   'u1.unreadable': {
     de: 'Der U1-Satz wird in Prozent mit höchstens zwei Nachkommastellen angegeben.',

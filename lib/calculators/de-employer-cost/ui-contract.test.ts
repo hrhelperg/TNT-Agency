@@ -29,10 +29,61 @@ describe('a refusal never carries a false explanation', () => {
     ).toBe(true);
   });
 
-  it('every field error is rendered with the name of its field', () => {
+  it('every field error is rendered with the name of its field — on BOTH refusal paths', () => {
     // The messages describe a SHAPE ("an amount in euro") and the form has four
     // amount fields. Without the label the reader gets a puzzle.
-    expect(/ERROR_FIELD\[key\]/.test(COMPONENT), 'field errors do not name their field').toBe(true);
+    //
+    // BOTH PATHS, because the first version of this test asserted only the
+    // first and its title claimed all of them. Parse errors and engine
+    // validation issues render into the same list and look identical to a
+    // reader, but only the parse half named its field: an accident-insurance
+    // amount of 200000000 produced the bare sentence "Please enter a monthly
+    // amount below 100 million euro." with four monthly amounts on screen.
+    expect(/ERROR_FIELD\[key\]/.test(COMPONENT), 'parse errors do not name their field').toBe(true);
+    expect(
+      /ISSUE_FIELD\[i\.field\]/.test(COMPONENT),
+      'engine validation issues do not name their field',
+    ).toBe(true);
+  });
+
+  it('every issue a validator can emit has a field label to render', () => {
+    // Otherwise the fallback fires and the reader is told the wrong field is at
+    // fault, which is worse than telling them none.
+    const VALIDATION = fs.readFileSync(
+      path.join(ROOT, 'lib/calculators/de-employer-cost/validation.ts'),
+      'utf8',
+    );
+    const COPY = fs.readFileSync(
+      path.join(ROOT, 'lib/calculators/de-employer-cost/copy.ts'),
+      'utf8',
+    );
+    const fields = new Set(
+      Array.from(VALIDATION.matchAll(/issues\.push\(\{\s*field:\s*'([^']+)'/g), (m) => m[1]),
+    );
+    // checkRate is called with the field name as a positional argument.
+    // checkRate takes the field name positionally, on one line or several.
+    for (const m of VALIDATION.matchAll(/checkRate\(\s*issues,\s*'([^']+)'/g)) fields.add(m[1]);
+    for (const m of VALIDATION.matchAll(/checkRate\(\s*\n\s*issues,\s*\n\s*'([^']+)'/g)) fields.add(m[1]);
+    // Named explicitly so this cannot pass by finding nothing: the multi-line
+    // checkRate call is the one a single-line regex misses, and a test that
+    // silently stops seeing a field reads exactly like a test that passes.
+    for (const known of [
+      'monthlyGrossCent', 'steuerklasse', 'kinderfreibetraege', 'workplace',
+      'healthSupplementPercent', 'care.childrenUnder25', 'employer.u1Percent',
+      'employer.u2Percent', 'employer.accidentMonthlyCent',
+    ]) {
+      expect(fields.has(known), `the scan stopped finding '${known}'`).toBe(true);
+    }
+    expect(fields.size, 'no validation fields found — has validation.ts moved?').toBeGreaterThan(4);
+    const labelled = new Set(
+      Array.from(
+        COPY.slice(COPY.indexOf('export const ISSUE_FIELD')).matchAll(/^\s{2}'?([A-Za-z0-9._]+)'?:/gm),
+        (m) => m[1],
+      ),
+    );
+    for (const f of fields) {
+      expect(labelled.has(f), `ValidationIssue field '${f}' has no entry in ISSUE_FIELD`).toBe(true);
+    }
   });
 });
 

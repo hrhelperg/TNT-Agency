@@ -167,10 +167,16 @@ export function calculateDeEmployerCost(input: DeEmployerCostInput): DeEmployerC
   }
   levies.push(aagLevy('u2', gross, input.employer.u2Percent));
   if (Number(input.employer.u2Percent) === 0) {
-    // § 1 Absatz 2 AAG makes U2 compulsory for EVERY employer without
-    // exception, so a zero rate is a missing input rather than a real one — the
-    // same situation as a missing accident-insurance figure, and it now warns
-    // in the same way.
+    // § 1 Absatz 2 AAG imposes U2 whatever the headcount, where U1 stops at 30
+    // employees, so for an ordinary employer a zero rate is a missing input
+    // rather than a real one — the same situation as a missing
+    // accident-insurance figure, and it warns in the same way. NOT "without
+    // exception", which is what this comment used to say: § 11 AAG disapplies
+    // § 1 entirely to a short list of employers (mitarbeitende
+    // Familienangehörige of a farming business, NATO-stationed forces and their
+    // headquarters), and § 1 Absatz 2 itself excludes the landwirtschaftliche
+    // Krankenkasse. None of them is modelled here, and the warning is worded so
+    // it does not assert something false of them.
     notes.push({ key: 'u2.missing', severity: 'warning', text: 'de.note.u2Missing' });
   }
   if (input.employer.accidentMonthlyCent > 0n) {

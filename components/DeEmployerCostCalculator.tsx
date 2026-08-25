@@ -17,6 +17,7 @@ import {
 } from '../lib/calculators/de-employer-cost/formatting'
 import {
   ERROR_FIELD,
+  ISSUE_FIELD,
   ERROR_TEXT,
   ISSUE_TEXT,
   FIELD,
@@ -107,7 +108,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
   const parsed = useMemo(() => {
     const errors: string[] = []
 
-    const grossCent = parseEuroToCent(raw.gross)
+    const grossCent = parseEuroToCent(raw.gross, locale)
     if (raw.gross.trim() !== '' && grossCent === null) errors.push('gross.unreadable')
 
     const supplement = parsePercent(raw.supplement)
@@ -119,7 +120,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
     const u2 = parsePercent(raw.u2 === '' ? '0' : raw.u2)
     if (u2 === null) errors.push('u2.unreadable')
 
-    const accidentCent = raw.accident.trim() === '' ? 0n : parseEuroToCent(raw.accident)
+    const accidentCent = raw.accident.trim() === '' ? 0n : parseEuroToCent(raw.accident, locale)
     if (accidentCent === null) errors.push('accident.unreadable')
 
     return { grossCent, supplement, u1, u2, accidentCent, errors }
@@ -319,6 +320,18 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   <span>{tr(FIELD.churchTax)}</span>
                 </label>
 
+              </fieldset>
+
+              <fieldset className="pcalc-fieldset">
+                <legend>{tr(SECTION.insurance)}</legend>
+
+                {/*
+                  The ermäßigter Beitragssatz of § 243 SGB V is a HEALTH rate,
+                  and it sat under the legend "Wage tax" in all three locales —
+                  offering what read as a reduced tax rate. It changes the
+                  health contribution from 14,6 % to 14,0 %, so it belongs to
+                  the branch it changes.
+                */}
                 <label className="pcalc-toggle">
                   <input
                     type="checkbox"
@@ -416,7 +429,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
             </details>
           </form>
 
-          <div className="ecc__results" aria-live="polite">
+          <div className="ecc__results" aria-live="polite" role="status" aria-label={tr(RESULT.results)}>
             {parsed.errors.length > 0 ? (
               <ul className="ecc__errors">
                 {/*
@@ -449,7 +462,10 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
               // German payroll. It must not look like a refusal.
               <ul className="ecc__errors">
                 {outcome.issues.map((i) => (
-                  <li key={i.field}>{tr(ISSUE_TEXT[i.key] ?? ISSUE_TEXT['generic'])}</li>
+                  <li key={i.field}>
+                    <strong>{tr(ISSUE_FIELD[i.field] ?? FIELD.gross)}:</strong>{' '}
+                    {tr(ISSUE_TEXT[i.key] ?? ISSUE_TEXT['generic'])}
+                  </li>
                 ))}
               </ul>
             ) : outcome.supported === false ? (
@@ -507,10 +523,20 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                   the whole container past the viewport at 320 px and 360 px.
                 */}
                 {/*
-                  tabIndex and role, because a scrollable region that only a
-                  mouse can scroll hides content from keyboard users — axe
-                  reports it as `scrollable-region-focusable`, and at 320 px the
-                  employee-share column is entirely inside the hidden overflow.
+                  tabIndex and role because `overflow-x: auto` is still declared
+                  on this wrapper, and a scrollable region only a mouse can
+                  scroll hides content from keyboard users — axe reports it as
+                  `scrollable-region-focusable`.
+
+                  STATED ACCURATELY, because the earlier version of this comment
+                  described the overflow as a present fact: since the reflow
+                  below 480 px, this container does NOT scroll at any width from
+                  280 to 1440, so the tab stop is currently inert. The wrapper is
+                  kept as a safety net — a future translation longer than the
+                  ones measured would overflow rather than push the page
+                  sideways — and the focusability has to be declared statically,
+                  because making it conditional would mean measuring the node,
+                  which this component is structurally forbidden from doing.
                 */}
                 <div className="ecc__table-wrap" tabIndex={0} role="region" aria-label={tr(SECTION.insurance)}>
                 <table className="ecc__table">
@@ -557,7 +583,7 @@ export default function DeEmployerCostCalculator({ locale }: DeEmployerCostCalcu
                 </table>
                 </div>
 
-                <div className="ecc__table-wrap" tabIndex={0} role="region" aria-label={tr(RESULT.deductions)}>
+                <div className="ecc__table-wrap" tabIndex={0} role="region" aria-label={tr(RESULT.breakdown)}>
                 <table className="ecc__table ecc__table--metrics">
                   <tbody>
                     <tr>

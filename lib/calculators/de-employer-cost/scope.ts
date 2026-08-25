@@ -34,10 +34,17 @@ export type ScopeResult =
 
 /**
  * The Übergangsbereich runs from ABOVE the Geringfügigkeitsgrenze up to and
- * including 2 000 EUR. § 20 Absatz 2 SGB IV: "mehr als die
- * Geringfügigkeitsgrenze … und 2 000 Euro monatlich nicht übersteigt". So
- * exactly 2 000,00 EUR is inside it, and 2 000,01 EUR is ordinary employment —
- * a one-cent boundary that a `<` in the wrong place gets backwards.
+ * including 2 000 EUR. § 20 Absatz 2 Satz 1 SGB IV, verbatim: "Der
+ * Übergangsbereich im Sinne dieses Gesetzbuches umfasst Arbeitsentgelte aus
+ * mehr als geringfügigen Beschäftigungen nach § 8 Absatz 1 Nummer 1, die
+ * regelmäßig 2 000 Euro im Monat nicht übersteigen". So exactly 2 000,00 EUR is
+ * inside it, and 2 000,01 EUR is ordinary employment — a one-cent boundary that
+ * a `<` in the wrong place gets backwards.
+ *
+ * The lower edge comes from the cross-reference rather than from this sentence:
+ * § 8 Absatz 1 Nummer 1 SGB IV is the Minijob definition, so "more than
+ * geringfügig" means above the Geringfügigkeitsgrenze. An earlier version of
+ * this comment put that phrase inside the quotation marks, where it is not.
  */
 export function checkScope(input: ScopeInput): ScopeResult {
   // EVERY declared id is validated before any is acted on. The loop used to
