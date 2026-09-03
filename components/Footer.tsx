@@ -90,6 +90,7 @@ export default function Footer({ locale }: FooterProps = {}) {
               <div className="footer__col-title" data-i18n={locale ? undefined : 'footer.colTrust'}>{t['colTrust']}</div>
               {link('navAbout')}
               {link('navEditorial')}
+              {link('navMedia')}
               {link('navContact')}
             </div>
             <div className="footer__col">

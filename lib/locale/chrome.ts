@@ -37,6 +37,7 @@ export type NavKey =
   | 'calcCostDe'
   | 'calcCostCz'
   | 'article'
+  | 'media'
   | 'submitAgency'
   | 'postOffer'
   | 'contact'
@@ -54,6 +55,7 @@ export const CHROME_NAV: Readonly<Record<Locale, Readonly<Record<NavKey, string>
     calcCostDe: 'Náklady zaměstnavatele — Německo',
     calcCostCz: 'Náklady zaměstnavatele — Česko',
     article: 'Průvodce',
+    media: 'Média',
     submitAgency: 'Registrovat agenturu',
     postOffer: 'Zadat poptávku',
     contact: 'Kontakt',
@@ -69,6 +71,7 @@ export const CHROME_NAV: Readonly<Record<Locale, Readonly<Record<NavKey, string>
     calcCostDe: 'Employer costs — Germany',
     calcCostCz: 'Employer costs — Czechia',
     article: 'Guide',
+    media: 'Media',
     submitAgency: 'List your agency',
     postOffer: 'Post a request',
     contact: 'Contact',
@@ -84,6 +87,7 @@ export const CHROME_NAV: Readonly<Record<Locale, Readonly<Record<NavKey, string>
     calcCostDe: 'Arbeitgeberkosten — Deutschland',
     calcCostCz: 'Arbeitgeberkosten — Tschechien',
     article: 'Ratgeber',
+    media: 'Media',
     submitAgency: 'Agentur eintragen',
     postOffer: 'Anfrage stellen',
     contact: 'Kontakt',
@@ -106,6 +110,19 @@ export interface LinkTarget {
   readonly czechHref: string
   readonly conceptId?: string
   readonly activePage?: string
+  /**
+   * Explicit per-locale destinations, for a target whose localized URLs are
+   * real but are not Next routes.
+   *
+   * The Media section is served from a separate Astro deployment through a
+   * Netlify proxy, so it has no page file and no LOCALE_CONCEPTS entry — and
+   * it must not have one, because validate-l1-publication requires a route
+   * file for every published locale. Without this field resolveNavHref would
+   * find no concept and send English and German readers to /media stamped
+   * hreflang="cs", which is precisely the defect the concept lookup exists to
+   * prevent.
+   */
+  readonly localizedHrefs?: Partial<Record<Locale, string>>
 }
 
 export interface NavTarget extends LinkTarget {
@@ -120,6 +137,14 @@ export const NAV_TARGETS: readonly NavTarget[] = [
   // stays in this list because everything else — the mobile menu, the active
   // state, the label mirror — is keyed off it.
   { key: 'calc', czechHref: '/kalkulacka-mzdy-agenturniho-zamestnance', activePage: 'calculator' },
+  // Served by the Astro publication through a Netlify proxy, not by a Next
+  // route — hence localizedHrefs rather than a conceptId. See LinkTarget.
+  {
+    key: 'media',
+    czechHref: '/media',
+    activePage: 'media',
+    localizedHrefs: { en: '/en/media', de: '/de/media' },
+  },
   { key: 'article', czechHref: '/socialni-zdravotni-dane-2026', activePage: 'article' },
   { key: 'submitAgency', czechHref: '/submit-agency', activePage: 'submit-agency' },
   { key: 'postOffer', czechHref: '/submit-offer', activePage: 'submit-offer' },
@@ -174,6 +199,12 @@ export function resolveNavHref(
 ): { href: string; hreflang?: string } {
   if (locale === 'cs') return { href: target.czechHref }
 
+  // An explicit localized URL wins over the concept lookup, and carries no
+  // hreflang: the destination is in the reader's own language, which is the
+  // condition this function already documents for omitting the attribute.
+  const explicit = target.localizedHrefs?.[locale]
+  if (explicit) return { href: explicit }
+
   // A declared conceptId wins. Where none is declared, the concept is DERIVED
   // from the Czech URL, because the alternative failed in exactly the way you
   // would predict: localization happened only when someone remembered to add an
@@ -220,6 +251,7 @@ export type FooterKey =
   | 'colTrust'
   | 'navAbout'
   | 'navEditorial'
+  | 'navMedia'
   | 'navContact'
   | 'colGuides'
   | 'guide1'
@@ -254,6 +286,7 @@ export const CHROME_FOOTER: Readonly<Record<Locale, Readonly<Record<FooterKey, s
     'colTrust': 'Důvěra a transparentnost',
     'navAbout': 'O nás a ověření agentury',
     'navEditorial': 'Redakční zásady a zdroje',
+    'navMedia': 'TalentPartnerID Media',
     'navContact': 'Kontakt',
     'colGuides': 'Průvodci',
     'guide1': 'Zaměstnávání cizinců',
@@ -287,6 +320,7 @@ export const CHROME_FOOTER: Readonly<Record<Locale, Readonly<Record<FooterKey, s
     'colTrust': 'Trust & transparency',
     'navAbout': 'About & agency verification',
     'navEditorial': 'Editorial standards & sources',
+    'navMedia': 'TalentPartnerID Media',
     'navContact': 'Contact',
     'colGuides': 'Guides',
     'guide1': 'Employing foreigners',
@@ -320,6 +354,7 @@ export const CHROME_FOOTER: Readonly<Record<Locale, Readonly<Record<FooterKey, s
     'colTrust': 'Vertrauen & Transparenz',
     'navAbout': 'Über uns & Agenturprüfung',
     'navEditorial': 'Redaktionsrichtlinien & Quellen',
+    'navMedia': 'TalentPartnerID Media',
     'navContact': 'Kontakt',
     'colGuides': 'Ratgeber',
     'guide1': 'Ausländer beschäftigen',
@@ -361,6 +396,7 @@ export const FOOTER_TARGETS: readonly FooterTarget[] = [
   { key: 'navBlog', czechHref: '/blog/agenturni-pracovnici-vs-interni-zamestnanci.html' },
   { key: 'navAbout', czechHref: '/o-nas', conceptId: 'about-us' },
   { key: 'navEditorial', czechHref: '/redakcni-zasady' },
+  { key: 'navMedia', czechHref: '/media', localizedHrefs: { en: '/en/media', de: '/de/media' } },
   { key: 'navContact', czechHref: '/contact', conceptId: 'contact' },
   { key: 'guide1', czechHref: '/zamestnavani-cizincu' },
   { key: 'guide2', czechHref: '/pracovni-povoleni-cr' },

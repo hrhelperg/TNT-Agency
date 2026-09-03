@@ -80,6 +80,75 @@
   status = 301
   force  = true
 
+# ──────────────────────────────────────────────
+# TalentPartnerID Media — proxied from its own deployment.
+#
+# The publication is a separate Astro site with its own repository and its own
+# Netlify build (hrhelperg/talentpartnerid-media), so publishing an article
+# does not rebuild this one. These six rules put it on this domain without
+# merging the two codebases.
+#
+# ORDER IS LOAD-BEARING. These rules are host-agnostic and first-match-wins, so
+# they MUST stay below all seven host-canonicalization 301s above. Placed above
+# them, /media/* would capture every legacy hostname — manpower-tnt.agency,
+# manpowertnt.agency, tntgency.org, their www variants and www.talentpartnerid
+# .com — and serve the publication with 200 on six hosts that exist only to
+# redirect away. One misplaced block, six duplicate origins.
+#
+# Three exact-match rules and three splat rules, one pair per locale prefix.
+# The exact rules are not redundant: Netlify normalizes trailing slashes before
+# matching, but declaring both costs nothing and removes a dependency on
+# behaviour that cannot be tested locally.
+#
+# The path is identical on both sides, which is why :splat is a straight
+# pass-through and the origin's asset URLs are already correct. Netlify does
+# not rewrite response bodies, so a root-mounted origin would need a <base>
+# tag and would be strictly worse.
+#
+# NOT a Netlify Function: scripts/security-check.js asserts netlify/functions
+# and pages/api do not exist, and the backend-free posture is deliberate.
+#
+# force = true matches the house style above and, more importantly, means these
+# three prefixes are now permanently reserved — a future Next page under
+# /media, /en/media or /de/media would be shadowed silently. See
+# scripts/validate-media-proxy.mjs, which fails the build if that happens.
+# ──────────────────────────────────────────────
+[[redirects]]
+  from   = "/media"
+  to     = "https://talentpartnerid-media.netlify.app/media"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/media/*"
+  to     = "https://talentpartnerid-media.netlify.app/media/:splat"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/en/media"
+  to     = "https://talentpartnerid-media.netlify.app/en/media"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/en/media/*"
+  to     = "https://talentpartnerid-media.netlify.app/en/media/:splat"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/de/media"
+  to     = "https://talentpartnerid-media.netlify.app/de/media"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/de/media/*"
+  to     = "https://talentpartnerid-media.netlify.app/de/media/:splat"
+  status = 200
+  force  = true
+
 [[headers]]
   for = "/*"
     [headers.values]
