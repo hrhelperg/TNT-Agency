@@ -3,3 +3,7 @@ Allow: /
 Disallow: /assets/private/
 
 Sitemap: https://talentpartnerid.com/sitemap.xml
+
+# The Media section is a separate deployment proxied onto this domain; it
+# publishes its own sitemap at a URL on this host.
+Sitemap: https://talentpartnerid.com/media/sitemap.xml

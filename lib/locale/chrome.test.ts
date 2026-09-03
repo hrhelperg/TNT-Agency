@@ -130,6 +130,21 @@ const conceptForTarget = (t: { conceptId?: string; czechHref: string }) =>
   ALL_CONCEPTS.find((c) => c.csPrimary === t.czechHref)
 
 describe('header links from a locale page', () => {
+  it('uses localizedHrefs only for the proxied Media section', () => {
+    // The field bypasses the registry, so it needs a boundary. Every target
+    // that declares it must point at the three Media prefixes and nothing
+    // else; anything else belongs in LOCALE_CONCEPTS, where the publication
+    // gates can see it.
+    const declaring = [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS].filter(
+      (t) => t.localizedHrefs,
+    )
+    expect(declaring.length, 'unexpected target bypassing the registry').toBe(2)
+    for (const t of declaring) {
+      expect(t.czechHref).toBe('/media')
+      expect(t.localizedHrefs).toEqual({ en: '/en/media', de: '/de/media' })
+    }
+  })
+
   it('never invents a localized URL for a page that has none', () => {
     // A localized destination is NOT identifiable by a /en or /de prefix. The
     // legal cluster predates the prefix scheme and keeps flat filenames, so
@@ -141,7 +156,17 @@ describe('header links from a locale page', () => {
       for (const t of [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS]) {
         const { href } = resolveNavHref(t, locale)
         const concept = conceptForTarget(t)
-        if (concept && concept.published.includes(locale)) {
+        // A third source of truth, narrower than the registry and deliberate:
+        // a target whose localized pages are real but are not Next routes
+        // declares them outright. The Media section is served from a separate
+        // deployment through a proxy, so it has no page file and cannot have a
+        // concept — validate-l1-publication would demand one. The rule this
+        // test pins is unchanged: a localized URL must be DECLARED somewhere,
+        // never inferred from a prefix.
+        const explicit = t.localizedHrefs?.[locale]
+        if (explicit) {
+          expect(href, `${t.key} in ${locale} declares an explicit URL`).toBe(explicit)
+        } else if (concept && concept.published.includes(locale)) {
           expect(href, `${t.key} in ${locale}`).toBe(urlFor(concept, locale))
         } else {
           expect(href, `${t.key} in ${locale} has no translation`).toBe(t.czechHref)
@@ -160,7 +185,9 @@ describe('header links from a locale page', () => {
       for (const t of [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS]) {
         const { href, hreflang } = resolveNavHref(t, locale)
         const concept = conceptForTarget(t)
-        const servedInPageLocale = Boolean(concept && concept.published.includes(locale))
+        const servedInPageLocale =
+          Boolean(t.localizedHrefs?.[locale]) ||
+          Boolean(concept && concept.published.includes(locale))
         expect(hreflang, `${locale} ${t.key} -> ${href}`).toBe(servedInPageLocale ? undefined : 'cs')
       }
     }

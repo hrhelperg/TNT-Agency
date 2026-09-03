@@ -54,7 +54,9 @@
     "test:mutate-locale-registry": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-registry.mjs",
     "test:mutate-locale-corrective": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-corrective.mjs",
     "validate:route-collisions": "node scripts/validate-route-collisions.mjs",
+    "validate:media-proxy": "node scripts/validate-media-proxy.mjs",
     "test:mutate-route-collisions": "node scripts/mutate-route-collisions.mjs",
+    "test:mutate-media-proxy": "node scripts/mutate-media-proxy.mjs",
     "validate:l1-publication": "node --import ./scripts/ts-resolve.mjs scripts/validate-l1-publication.mjs",
     "validate:l1-plan": "node --import ./scripts/ts-resolve.mjs scripts/validate-l1-plan.mjs",
     "validate:locale-duplicates": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-duplicates.mjs",
@@ -64,7 +66,8 @@
     "validate:locale-jurisdiction": "node --import ./scripts/ts-resolve.mjs scripts/validate-locale-jurisdiction.mjs",
     "test:mutate-locale-jurisdiction": "node --import ./scripts/ts-resolve.mjs scripts/mutate-locale-jurisdiction.mjs",
     "locale:source-inventory": "node --import ./scripts/ts-resolve.mjs scripts/locale-source-inventory.mjs",
-    "test:mutate-de-employer-cost": "node scripts/mutate-de-employer-cost.mjs"
+    "test:mutate-de-employer-cost": "node scripts/mutate-de-employer-cost.mjs",
+    "verify:media-proxy-live": "node scripts/verify-media-proxy-live.mjs"
   },
   "dependencies": {
     "next": "14.2.3",
