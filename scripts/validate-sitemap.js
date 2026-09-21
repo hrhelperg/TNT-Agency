@@ -51,7 +51,16 @@ function buildRouteInventory(root = ROOT) {
   // this gate and the sitemap-equality gate will disagree too, which is how the
   // mistake surfaces. Two gates reading the same source would simply agree with
   // each other about it.
-  for (const localeDir of ['en', 'de']) {
+  // Locale directories are ENUMERATED from the filesystem, not listed here and
+  // not read from the registry. Listing them meant a new locale was invisible to
+  // this gate until someone remembered to add it; reading the registry would
+  // make this gate and the sitemap-equality gate share a source and therefore
+  // agree with each other about any mistake. Enumerating keeps them independent.
+  const localeDirs = fs
+    .readdirSync(pagesDir, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && e.name !== 'api')
+    .map((e) => e.name);
+  for (const localeDir of localeDirs) {
     const dir = path.join(pagesDir, localeDir);
     if (!fs.existsSync(dir)) continue;
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {

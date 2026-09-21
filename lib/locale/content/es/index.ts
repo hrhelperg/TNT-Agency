@@ -10,5 +10,20 @@
  */
 import type { LocaleCorpus } from '../types'
 import { mergeCorpora } from '../merge'
+import { ES_JOURNEY } from './journey'
+import { ES_FAQ } from './faq'
+import { ES_IMMIGRATION } from './immigration'
+import { ES_PROFESSIONS } from './professions'
+import { ES_PREPARE } from './prepare'
+import { ES_APPLY } from './apply'
+import { ES_TRUST } from './trust'
 
-export const ES_CONTENT: LocaleCorpus = mergeCorpora('es', [])
+export const ES_CONTENT: LocaleCorpus = mergeCorpora('es', [
+  ['journey', ES_JOURNEY],
+  ['faq', ES_FAQ],
+  ['immigration', ES_IMMIGRATION],
+  ['professions', ES_PROFESSIONS],
+  ['prepare', ES_PREPARE],
+  ['apply', ES_APPLY],
+  ['trust', ES_TRUST],
+])

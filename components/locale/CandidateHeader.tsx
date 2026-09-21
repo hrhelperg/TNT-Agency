@@ -93,7 +93,7 @@ export default function CandidateHeader({
         unavailable; the checkbox toggle is CSS-only for the same reason.
       */}
       <input className="mobile-nav__toggle" type="checkbox" id="candidate-mnav" />
-      <label className="mobile-nav__button" htmlFor="candidate-mnav">
+      <label className="mobile-nav__button" htmlFor="candidate-mnav" aria-label={aria.openMenu}>
         {aria.openMenu}
       </label>
       <nav className="mobile-nav" aria-label={aria.mobileNav}>

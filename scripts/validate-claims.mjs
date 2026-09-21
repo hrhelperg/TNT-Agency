@@ -172,6 +172,30 @@ const LOCALE_CLAIM_ALLOWLIST = new Set(
     'We do not use formulations such as "verified by the Ministry of Labour and Social Affairs", "state-licensed" or "state-approved". A claim like that would have to correspond exactly to an official record.',
     'We do not promise "guaranteed" workers or an "immediate start". Recruitment and its timing depend on circumstances and on the applicable regulations.',
     'Wir nennen keine erfundenen Statistiken, keine Zahlen zu Mitarbeitenden oder Arbeitgebern, keine Löhne, Erfolgsquoten, Einsparungen und keine Reaktionszeiten.',
+
+    // ── PT-BR / ES candidate corpus ────────────────────────────────────────
+    // Each of these was read in full before approval. Every one either NEGATES
+    // a guarantee (no guaranteed deadline, nobody can guarantee the duration,
+    // two years is a ceiling and not a guarantee) or warns the reader AGAINST
+    // someone offering a guarantee for money — which is the opposite of making
+    // the claim, and content a candidate audience specifically needs.
+    //
+    // Approved as whole literals rather than by widening NEGATION to Portuguese
+    // and Spanish. Negation scoping would let any future sentence containing
+    // "não" carry a guarantee term unreviewed; the allowlist fails closed on
+    // even a one-word edit to an approved sentence, which is the stronger
+    // property and the one this gate was built for.
+    'Compruebe si la afirmación indica fuente y fecha. Desconfíe de cifras redondas sin origen, de plazos presentados como garantizados y de cualquier promesa de resultado.',
+    'Dicho de otro modo: dos años es un techo legal, no una promesa. Nadie — ni TalentPartnerID ni un empleador — puede garantizar de antemano la duración que se concederá, porque quien decide es la autoridad checa.',
+    'Dito de outra forma: dois anos é um teto legal, não uma promessa. Ninguém — nem a TalentPartnerID, nem um empregador — pode garantir de antemão a duração que será concedida, porque quem decide é a autoridade tcheca.',
+    'No expedimos visados ni permisos de residencia, no resolvemos solicitudes, no influimos en los plazos y no garantizamos resultados. No cobramos al candidato.',
+    'No hay atajo, no hay vía acelerada y no hay plazo garantizado. Sin un puesto registrado no existe solicitud que presentar: por ahí empieza el proceso, no por el consulado.',
+    'Não cobramos do candidato para se candidatar, para ser apresentado a um empregador ou para receber informação. Se alguém disser que representa a TalentPartnerID e pedir dinheiro para garantir uma vaga, um visto ou uma posição na fila, não é a TalentPartnerID — e vale nos avisar.',
+    'Não emitimos vistos nem autorizações de residência, não decidimos pedidos, não influenciamos prazos e não garantimos resultados. Não cobramos do candidato.',
+    'Não há atalho, não há via acelerada e não há prazo garantido. Sem um posto registrado não existe pedido a apresentar — é por aí que o processo começa, e não pelo consulado.',
+    'O que existe é um limite legal: o cartão de empregado é emitido pelo período do contrato de trabalho e por no máximo dois anos de cada vez, podendo ser prorrogado. Dois anos é um teto, não uma garantia, e a duração concedida depende do contrato e da decisão da autoridade.',
+    'Se alguém oferecer agendamento garantido ou prioridade mediante pagamento, não é a TalentPartnerID e não é legítimo.',
+    'Verifique se a afirmação indica a fonte e a data. Desconfie de números redondos sem origem, de prazos apresentados como garantidos e de qualquer promessa de resultado.',
   ].map((x) => x.replace(/\s+/g, ' ').trim()),
 )
 

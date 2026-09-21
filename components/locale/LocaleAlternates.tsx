@@ -1,4 +1,10 @@
-import { LOCALE_HREFLANG, X_DEFAULT_ROUTE, alternatesFor } from '../../lib/locale/registry'
+import {
+  LOCALE_HREFLANG,
+  X_DEFAULT_ROUTE,
+  alternatesFor,
+  conceptForRoute,
+  hasXDefault,
+} from '../../lib/locale/registry'
 
 const ORIGIN = 'https://talentpartnerid.com'
 
@@ -24,12 +30,28 @@ const ORIGIN = 'https://talentpartnerid.com'
 export default function LocaleAlternates({ route }: { route: string }) {
   const alternates = alternatesFor(route)
   if (alternates.length < 2) return null
+
+  /**
+   * x-default only where a truthful default exists.
+   *
+   * It points at the Czech root, which is the right destination for an
+   * unmatched visitor to a Czech company's page and the wrong one for an
+   * unmatched Brazilian candidate: the Czech root is an EMPLOYER homepage, in a
+   * language they did not ask for, about a service they did not come for.
+   * Locale-native candidate clusters therefore declare no default rather than
+   * declare a false one — see hasXDefault in the registry.
+   */
+  const concept = conceptForRoute(route)
+  const xDefault = concept ? hasXDefault(concept) : false
+
   return (
     <>
       {alternates.map((a) => (
         <link key={a.locale} rel="alternate" {...{ hreflang: LOCALE_HREFLANG[a.locale] }} href={`${ORIGIN}${a.url}`} />
       ))}
-      <link rel="alternate" {...{ hreflang: 'x-default' }} href={`${ORIGIN}${X_DEFAULT_ROUTE}`} />
+      {xDefault && (
+        <link rel="alternate" {...{ hreflang: 'x-default' }} href={`${ORIGIN}${X_DEFAULT_ROUTE}`} />
+      )}
     </>
   )
 }

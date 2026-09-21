@@ -4021,3 +4021,9 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
   color: var(--text-2);
   font-size: 0.95rem;
 }
+
+/* Verification stamp on candidate pages — the reader's evidence, not metadata. */
+.locale-verified { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid rgba(0, 0, 0, .12); font-size: .92em; }
+.locale-verified p { margin: 0 0 .4rem; font-weight: 500; }
+.locale-verified ul { margin: 0; padding-left: 1.1rem; }
+.locale-verified li { margin-bottom: .2rem; opacity: .85; }

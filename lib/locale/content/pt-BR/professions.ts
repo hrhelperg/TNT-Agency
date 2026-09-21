@@ -1,0 +1,297 @@
+/**
+ * PT-BR — profession pages.
+ *
+ * Order here is the order of actual legal accessibility established in P1, not
+ * the order of recruitment volume. Program vysoce kvalifikovaný zaměstnanec
+ * "není teritoriálně omezen" and covers CZ-ISCO 1-3, so engineers and
+ * specialists have a genuinely open programme route; Brazil is absent from the
+ * qualified-worker programme covering CZ-ISCO 4-8, so manufacturing and
+ * logistics have none. Leading with volume manufacturing would be the single
+ * most misleading thing this corpus could do.
+ *
+ * No page names a vacancy, a salary, an employer or a count. There is no
+ * vacancy source of truth, so nothing here may imply one exists.
+ */
+import type { LocaleCorpus } from '../types'
+import { LATAM_SRC } from '../sources-latam'
+import { freshness } from '../freshness'
+
+export const PTBR_PROFESSIONS: LocaleCorpus = {
+  'work-for-engineers': {
+    'pt-BR': {
+      title: 'Trabalho para engenheiros na República Tcheca | TalentPartnerID',
+      description:
+        'Engenheiros e especialistas técnicos são o perfil com o caminho legal mais aberto na República Tcheca: o programa de trabalhador altamente qualificado não tem limitação territorial. O que isso significa na prática.',
+      h1: 'Trabalho para engenheiros',
+      intro:
+        'Para engenheiros e especialistas técnicos existe um caminho que não existe para outros perfis. O Programa de trabalhador altamente qualificado não tem limitação de país de origem, o que o torna acessível a candidatos brasileiros e latino-americanos — desde que a função concreta e o empregador cumpram as condições.',
+      breadcrumb: 'Trabalho para engenheiros',
+      sections: [
+        {
+          heading: 'Por que este perfil tem um caminho diferente',
+          body: [
+            'O Program vysoce kvalifikovaný zaměstnanec aplica-se a trabalhadores de todos os países terceiros, sem limitação territorial, e abrange atividades das classes principais 1 a 3 da classificação tcheca de ocupações CZ-ISCO.',
+            'É uma diferença estrutural, não uma vantagem comercial que possamos conceder: o outro programa governamental, que cobre as classes 4 a 8, aplica-se a uma lista fechada de países na qual o Brasil não está.',
+          ],
+          freshness: 'procedural',
+        },
+        {
+          heading: 'O que "onde as condições forem cumpridas" significa',
+          body: [
+            'O programa não se aplica automaticamente a quem tem diploma de engenharia. A classificação da função concreta, o empregador e as demais condições do programa é que determinam a aplicabilidade.',
+            'Na prática, é a função oferecida — e como ela é classificada — que decide, não o título do diploma. Uma função de engenharia classificada fora das classes 1 a 3 não entra no programa.',
+          ],
+        },
+        {
+          heading: 'Áreas em que recrutamos este perfil',
+          body: [
+            'Recrutamos para necessidades reais de empregadores tchecos. As áreas abaixo são as que aparecem com mais frequência; não são uma lista de posições abertas, e não publicamos posições neste site.',
+          ],
+          list: {
+            items: [
+              'Engenharia de processo e de produção',
+              'Engenharia de projeto e desenvolvimento',
+              'Automação e sistemas de controle',
+              'Qualidade e engenharia de qualidade',
+              'Manutenção de nível técnico superior',
+            ],
+          },
+        },
+        {
+          heading: 'O que ainda depende do processo normal',
+          body: [
+            'Participar do programa afeta a tramitação, não o conjunto de requisitos. Continua sendo necessário um empregador, um contrato, um posto de trabalho registrado, os documentos e a decisão da autoridade tcheca.',
+            'Também continua valendo o limite de validade: o cartão de empregado é emitido pelo período do contrato e por no máximo dois anos de cada vez.',
+          ],
+        },
+      ],
+      cta: { label: 'Candidatar-se', targetConceptId: 'candidate-apply' },
+      freshness: freshness(
+        'conceptual',
+        [LATAM_SRC.programHighlyQualified, LATAM_SRC.employeeCardMzv, LATAM_SRC.residenceAct],
+        'LATAM',
+      ),
+    },
+  },
+
+  'technical-professions': {
+    'pt-BR': {
+      title: 'Profissões técnicas na República Tcheca | TalentPartnerID',
+      description:
+        'Manutenção, automação, eletricistas, soldadores e operadores CNC: onde passa a fronteira legal entre profissões técnicas com programa disponível e as que dependem do cartão de empregado padrão.',
+      h1: 'Profissões técnicas',
+      intro:
+        'As profissões técnicas ficam exatamente em cima da fronteira que separa os dois programas governamentais. Algumas alcançam a faixa em que o programa sem limitação territorial se aplica; outras não. Esta página explica onde está essa linha, porque ela muda o caminho na prática.',
+      breadcrumb: 'Profissões técnicas',
+      sections: [
+        {
+          heading: 'A fronteira, em termos concretos',
+          body: [
+            'O programa de trabalhador altamente qualificado abrange as classes CZ-ISCO 1 a 3. Funções técnicas de nível médio — incluindo parte das funções de manutenção e de automação — podem alcançar a classe 3.',
+            'Ofícios como soldadura e usinagem CNC classificam-se normalmente nas classes 7 e 8. Essas classes pertencem ao outro programa, do qual o Brasil não faz parte, e portanto não têm via de programa disponível para candidatos brasileiros.',
+          ],
+          freshness: 'procedural',
+        },
+        {
+          heading: 'O que isso significa se você é soldador ou operador CNC',
+          body: [
+            'Significa que o caminho é o cartão de empregado padrão: um empregador tcheco com necessidade real, um posto de trabalho registrado, contrato e o pedido no posto consular competente.',
+            'É um caminho legal e usado. Não é um caminho acelerado, e não prometemos que seja — quem disser o contrário está descrevendo um programa que não se aplica ao seu caso.',
+          ],
+        },
+        {
+          heading: 'Habilitações técnicas são um obstáculo separado',
+          body: [
+            'Independentemente da imigração, atividades como soldadura e trabalhos elétricos exigem habilitações específicas segundo as normas tchecas. Um certificado obtido no Brasil pode não ser suficiente para a tarefa concreta.',
+            'Isso não se resolve com o pedido de residência: é uma exigência técnica própria, e vale esclarecê-la com o empregador antes de contar com ela.',
+          ],
+        },
+        {
+          heading: 'Perfis que recrutamos nesta área',
+          body: [
+            'As funções abaixo aparecem com frequência entre as necessidades dos empregadores com quem trabalhamos. Não são posições abertas: não publicamos vagas neste site.',
+          ],
+          list: {
+            items: [
+              'Técnicos de manutenção industrial',
+              'Técnicos de automação',
+              'Eletricistas industriais',
+              'Soldadores',
+              'Operadores e programadores CNC',
+              'Mecânicos industriais',
+            ],
+          },
+        },
+      ],
+      cta: { label: 'Candidatar-se', targetConceptId: 'candidate-apply' },
+      freshness: freshness(
+        'conceptual',
+        [LATAM_SRC.programHighlyQualified, LATAM_SRC.programQualified, LATAM_SRC.employeeCardMzv],
+        'LATAM',
+      ),
+    },
+  },
+
+  'work-in-manufacturing': {
+    'pt-BR': {
+      title: 'Trabalho na indústria na República Tcheca | TalentPartnerID',
+      description:
+        'Produção, montagem e operação de máquinas na República Tcheca: por que o programa de trabalhador qualificado não está disponível a candidatos brasileiros e qual é o caminho legal que resta.',
+      h1: 'Trabalho na indústria',
+      intro:
+        'A indústria tcheca emprega muitos trabalhadores estrangeiros, e é provavelmente a área sobre a qual circula mais informação enganosa dirigida a brasileiros. Esta página explica, sem rodeios, qual é o caminho legal disponível — e qual não é.',
+      breadcrumb: 'Trabalho na indústria',
+      sections: [
+        {
+          heading: 'O programa de trabalhador qualificado não se aplica a candidatos brasileiros',
+          body: [
+            'O Program kvalifikovaný zaměstnanec cobre as classes CZ-ISCO 4 a 8, que é onde se classifica a maior parte das funções industriais. Ele se aplica a uma lista fechada de países, e o Brasil não está nela — nem qualquer país da América Latina.',
+            'Se um anúncio sugere que existe um programa que facilita a vinda de brasileiros para trabalhar na produção tcheca, ele está descrevendo algo que não existe.',
+          ],
+          freshness: 'procedural',
+        },
+        {
+          heading: 'O caminho que existe',
+          body: [
+            'Resta o cartão de empregado (zaměstnanecká karta) padrão. Ele exige um empregador tcheco com uma necessidade concreta, um posto de trabalho registrado, um contrato ou promessa de emprego, os documentos exigidos e a decisão da autoridade tcheca.',
+            'Não há atalho, não há via acelerada e não há prazo garantido. Sem um posto registrado não existe pedido a apresentar — é por aí que o processo começa, e não pelo consulado.',
+          ],
+        },
+        {
+          heading: 'Seja realista quanto às chances',
+          body: [
+            'Como não há via de programa, esses processos dependem inteiramente de um empregador disposto a percorrer o procedimento padrão. Isso acontece, e acontece menos do que a procura.',
+            'Preferimos dizer isso agora do que deixar alguém organizar uma mudança de vida em torno de uma expectativa que não se sustenta.',
+          ],
+        },
+        {
+          heading: 'Funções desta área',
+          body: [
+            'As funções abaixo indicam o tipo de perfil que empregadores da indústria costumam procurar. Não são posições abertas, e não publicamos lista de vagas.',
+          ],
+          list: {
+            items: [
+              'Operadores de produção',
+              'Montadores de linha',
+              'Operadores de máquinas',
+              'Controle e inspeção de qualidade',
+              'Produção automotiva',
+              'Produção alimentar',
+            ],
+          },
+        },
+      ],
+      cta: { label: 'Como funciona o recrutamento', targetConceptId: 'how-recruitment-works' },
+      freshness: freshness(
+        'conceptual',
+        [LATAM_SRC.programQualified, LATAM_SRC.employeeCardMzv, LATAM_SRC.labourOffice],
+        'LATAM',
+      ),
+    },
+  },
+
+  'work-in-logistics': {
+    'pt-BR': {
+      title: 'Trabalho em logística na República Tcheca | TalentPartnerID',
+      description:
+        'Armazém e distribuição na República Tcheca: por que este é o perfil com o caminho legal mais estreito para candidatos brasileiros, e o que isso significa antes de planejar qualquer mudança.',
+      h1: 'Trabalho em logística',
+      intro:
+        'Esta é a área com a base legal mais estreita de toda esta seção, e seria desonesto apresentá-la de outra forma. Há procura real por trabalhadores de armazém e distribuição na República Tcheca, e ao mesmo tempo é o perfil para o qual um candidato brasileiro tem menos caminhos disponíveis.',
+      breadcrumb: 'Trabalho em logística',
+      sections: [
+        {
+          heading: 'Nenhum programa governamental cobre este caso',
+          body: [
+            'Boa parte das funções de armazém e distribuição classifica-se nas classes CZ-ISCO 8 e 9. O programa de trabalhador qualificado cobre as classes 4 a 8 — a classe 9 fica de fora dele por definição — e, além disso, esse programa aplica-se a uma lista de países que não inclui o Brasil.',
+            'O programa de trabalhador altamente qualificado cobre as classes 1 a 3 e não alcança estas funções. Ou seja: não há via de programa por nenhum dos dois lados.',
+          ],
+          freshness: 'procedural',
+        },
+        {
+          heading: 'O que resta, e o que isso exige',
+          body: [
+            'Resta o cartão de empregado padrão, com todas as suas condições: empregador, posto de trabalho registrado, contrato, documentos e decisão da autoridade. As exigências de qualificação e as condições do posto costumam ser precisamente o ponto mais difícil de cumprir nesta faixa.',
+            'Publicamos esta página porque a procura é real e porque quem procura merece a informação completa — não para convidar candidaturas em escala.',
+          ],
+        },
+        {
+          heading: 'Antes de planejar qualquer coisa',
+          body: [
+            'Se a logística é o seu único perfil e você está avaliando uma mudança para a Europa, considere seriamente que este caminho pode não se concretizar. Planeje em função disso.',
+            'Se você tem também experiência técnica — manutenção, empilhadeira com habilitação, operação de equipamentos, qualidade — vale indicá-la na candidatura: ela pode abrir um enquadramento diferente.',
+          ],
+        },
+      ],
+      cta: { label: 'Profissões técnicas', targetConceptId: 'technical-professions' },
+      freshness: freshness(
+        'conceptual',
+        [LATAM_SRC.programQualified, LATAM_SRC.programHighlyQualified, LATAM_SRC.employeeCardMzv],
+        'LATAM',
+      ),
+    },
+  },
+
+  'healthcare-regulated-professions': {
+    'pt-BR': {
+      title: 'Profissões de saúde regulamentadas na República Tcheca | TalentPartnerID',
+      description:
+        'Médicos, enfermeiros e outras profissões de saúde na República Tcheca: reconhecimento de qualificação, prova de aptidão (aprobační zkouška), exigência de tcheco e o que uma agência de recrutamento não pode fazer.',
+      h1: 'Profissões de saúde regulamentadas',
+      intro:
+        'Profissões de saúde não seguem o mesmo caminho das demais. O obstáculo principal não é a imigração — é a autorização para exercer a profissão, que tem procedimento próprio, exame e exigência de idioma. Esta página explica esse percurso e diz claramente o que está fora do nosso alcance.',
+      breadcrumb: 'Profissões de saúde',
+      sections: [
+        {
+          heading: 'A autorização de exercício é o obstáculo, não o visto',
+          body: [
+            'Para a maior parte dos perfis de saúde, a classificação da profissão fica nas faixas alcançadas pelo programa de trabalhador altamente qualificado, o que torna a parte migratória comparativamente mais acessível.',
+            'Isso não ajuda enquanto não houver autorização para exercer. Exercer medicina, odontologia, farmácia ou enfermagem na República Tcheca sem o reconhecimento exigido não é possível, independentemente da autorização de residência.',
+          ],
+        },
+        {
+          heading: 'Médicos, dentistas e farmacêuticos',
+          body: [
+            'Quem obteve a formação fora da União Europeia deve, nos termos do § 34 da Lei n.º 95/2004 Sb., comprovar aptidão para o exercício, idoneidade e ser aprovado na prova de aptidão — a aprobační zkouška.',
+            'A prova verifica conhecimentos teóricos, conhecimento do sistema de saúde tcheco e a capacidade de comunicar profissionalmente em tcheco. É pré-requisito comprovar o reconhecimento do diploma estrangeiro como equivalente a um programa de mestrado acreditado na área da saúde.',
+            'O Ministério da Saúde decide sobre o reconhecimento em até 240 dias a contar da entrega completa dos documentos exigidos.',
+          ],
+          freshness: 'procedural',
+        },
+        {
+          heading: 'Enfermeiros e demais profissões não médicas',
+          body: [
+            'As profissões de saúde não médicas, incluindo enfermagem, regem-se pela Lei n.º 96/2004 Sb., alterada com efeitos a partir de 1 de janeiro de 2026.',
+            'Para quem obteve a qualificação fora da União Europeia, do Espaço Económico Europeu e da Suíça, o reconhecimento está igualmente condicionado à aprovação na prova de aptidão.',
+          ],
+          freshness: 'procedural',
+        },
+        {
+          heading: 'O tcheco não é opcional aqui',
+          body: [
+            'Em muitas funções técnicas o idioma é uma vantagem. Nas profissões de saúde ele é um requisito legal do reconhecimento, verificado em prova.',
+            'Um projeto realista nesta área começa pelo idioma e pelo reconhecimento, com anos — não meses — de horizonte.',
+          ],
+        },
+        {
+          heading: 'O que a TalentPartnerID pode e não pode fazer',
+          body: [
+            'Podemos explicar o percurso, indicar as fontes oficiais e, quando houver uma necessidade concreta de um empregador e a sua situação de reconhecimento permitir, apresentar o seu perfil.',
+            'Não podemos abreviar, dispensar ou acelerar o reconhecimento; não aplicamos nem influenciamos a prova de aptidão; e não colocamos profissionais de saúde a exercer sem autorização. Um médico brasileiro não é recrutado pelo mesmo caminho de um operador CNC, e apresentar as duas coisas como equivalentes seria enganoso.',
+          ],
+        },
+      ],
+      cta: { label: 'Reconhecimento de qualificações', targetConceptId: 'qualification-recognition' },
+      freshness: freshness(
+        'procedural',
+        [
+          LATAM_SRC.healthProfessionsAct,
+          LATAM_SRC.nonMedicalHealthAct,
+          LATAM_SRC.approbationExam,
+          LATAM_SRC.programHighlyQualified,
+        ],
+        'LATAM',
+      ),
+    },
+  },
+}

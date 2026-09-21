@@ -15,7 +15,7 @@
 import { describe, it, expect } from 'vitest'
 import fs from 'fs'
 import path from 'path'
-import { LOCALE_CONCEPTS, alternatesFor , primaryUrl, collapsedOf} from './registry'
+import { LOCALE_PREFIX, LOCALE_CONCEPTS, alternatesFor , primaryUrl, collapsedOf} from './registry'
 
 const ROOT = path.join(__dirname, '../..')
 const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8')
@@ -44,12 +44,17 @@ describe('ArticleLanguageNotice truthfulness', () => {
     expect(published.length).toBeGreaterThan(0)
 
     for (const concept of published) {
+      // A single-locale concept has no cluster and correctly resolves to no
+      // alternates — brazil-consular-route is pt-BR only by design.
+      if (concept.published.length < 2) continue
       const alts = alternatesFor(primaryUrl(concept))
       for (const locale of concept.published) {
         if (locale === 'cs') continue
         const hit = alts.find((a) => a.locale === locale)
         expect(hit, `${primaryUrl(concept)} is published in ${locale} but alternatesFor() offers no ${locale} target`).toBeTruthy()
-        expect(hit!.url.startsWith(`/${locale}`)).toBe(true)
+        // LOCALE_PREFIX, not `/${locale}`: the pt-BR id is mixed-case and its
+        // prefix is lowercase, so composing would assert /pt-BR against /pt-br.
+        expect(hit!.url.startsWith(LOCALE_PREFIX[locale])).toBe(true)
       }
     }
   })

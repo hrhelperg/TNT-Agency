@@ -139,11 +139,21 @@ describe('rule 3 — exactly one Czech primary joins each cluster', () => {
     for (const c of LOCALE_CONCEPTS) {
       const alts = alternatesFor(primaryUrl(c))
       const publishedNonCs = LOCALIZED_LOCALES.filter((l) => c.published.includes(l))
-      if (!publishedNonCs.length) {
-        // Nothing to point at yet: a cluster of one is not a cluster.
+      if (c.published.length < 2) {
+        // A cluster of one is not a cluster, whichever locale that one is.
+        // Czech-derived concepts reach this while awaiting translation;
+        // brazil-consular-route reaches it permanently and by design, because
+        // Czech consular procedure for Brazil must never be generalised to the
+        // rest of Latin America (§32). Emitting a lone self-referencing
+        // alternate would advertise a cluster that does not exist.
+        expect(alts, `${c.id} publishes a single locale`).toEqual([])
+      } else if (!publishedNonCs.length) {
         expect(alts, `${c.id} publishes only cs`).toEqual([])
       } else {
-        expect(alts.map((a) => a.locale)).toContain('cs')
+        // Only a Czech-derived concept has a Czech member to include. A
+        // locale-native cluster is pt-BR ↔ es and correctly has none.
+        if (c.kind === 'czech-derived') expect(alts.map((a) => a.locale)).toContain('cs')
+        else expect(alts.map((a) => a.locale)).not.toContain('cs')
         for (const l of publishedNonCs) expect(alts.map((a) => a.locale)).toContain(l)
       }
     }

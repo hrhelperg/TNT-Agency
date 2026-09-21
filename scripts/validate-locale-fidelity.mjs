@@ -63,6 +63,20 @@ const MAP_FILE = path.join(ROOT, 'docs/locale-source-map.json')
 const R = await import('../lib/locale/registry.ts')
 const EN = (await import('../lib/locale/content/en/index.ts')).EN_CONTENT
 const DE = (await import('../lib/locale/content/de/index.ts')).DE_CONTENT
+const PTBR = (await import('../lib/locale/content/pt-BR/index.ts')).PTBR_CONTENT
+const ES = (await import('../lib/locale/content/es/index.ts')).ES_CONTENT
+
+/**
+ * Every localized corpus, keyed by locale.
+ *
+ * Three places in this file iterated the literal pair [['en', …], ['de', …]] and
+ * one resolved a corpus with `l === 'en' ? en : de`. That ternary is the reason
+ * the candidate corpus reported "classified but the pt-BR page does not exist"
+ * while the page existed: it answered DE for every locale that was not 'en', so
+ * the lookup missed in the German corpus and the gate concluded the page was
+ * absent. Keyed lookup instead of a ternary, in one place.
+ */
+const CORPORA = { en: EN, de: DE, 'pt-BR': PTBR, es: ES }
 const { L1_CONCEPTS } = await import('../lib/locale/l1-concepts.ts')
 
 const L1_IDS = new Set(L1_CONCEPTS.map((c) => c.id))
@@ -96,7 +110,64 @@ const countListItems = (entry) =>
 
 const countLi = (relPath) => (fs.readFileSync(path.join(ROOT, relPath), 'utf8').match(/<li>/g) || []).length
 
+/**
+ * The exemption every locale-native concept earns, and how it is re-earned.
+ *
+ * A locale-native concept has no Czech source page BY CONSTRUCTION — that is
+ * what `kind: 'locale-native'` means in the registry — so there is no Czech
+ * inventory for it to be measured against. Source fidelity is the wrong
+ * instrument here; what governs these pages instead is
+ * docs/latam-worker-legal-source-audit-2026.md, where every material claim
+ * traces to a primary source.
+ *
+ * The verify callback re-earns the exemption on every run by asserting the
+ * concept is STILL locale-native. If someone later gives it a Czech primary,
+ * the concept acquires a source, the exemption becomes false, and this gate
+ * says so instead of silently continuing to excuse it.
+ */
+const localeNativeExemption = (conceptId) => [
+  conceptId,
+  {
+    reason:
+      `Locale-native concept: it has no Czech source page by construction, so there is no Czech inventory to ` +
+      `carry across. Its claims are governed by docs/latam-worker-legal-source-audit-2026.md, which maps every ` +
+      `material immigration or employment statement to a primary source, and by the freshness gate.`,
+    verify: () => {
+      const concept = R.ALL_CONCEPTS.find((c) => c.id === conceptId)
+      if (!concept) return `${conceptId} is no longer in the registry`
+      if (concept.kind !== 'locale-native') {
+        return (
+          `${conceptId} is now kind="${concept.kind}" with csPrimary "${R.csPrimaryOf(concept)}" — it has a Czech ` +
+          `source, so it needs a source-fidelity map rather than this exemption`
+        )
+      }
+      return null
+    },
+  },
+]
+
 const NO_INVENTORY_SOURCE = new Map([
+  // The PT-BR / ES candidate tier. Each is locale-native; see above.
+  ...[
+    'candidate-home',
+    'work-in-czechia',
+    'employee-card',
+    'documents-required',
+    'qualification-recognition',
+    'how-recruitment-works',
+    'before-you-travel',
+    'after-arrival',
+    'life-and-work',
+    'candidate-faq',
+    'candidate-apply',
+    'candidate-data-notice',
+    'work-for-engineers',
+    'technical-professions',
+    'work-in-manufacturing',
+    'work-in-logistics',
+    'healthcare-regulated-professions',
+    'brazil-consular-route',
+  ].map(localeNativeExemption),
   [
     'home',
     {
@@ -408,7 +479,7 @@ const readRouteHtml = (route) => {
  */
 const buildDescribesTree = ({ corpora }) => {
   const mismatches = []
-  for (const [locale, corpus] of [['en', corpora.en], ['de', corpora.de]]) {
+  for (const [locale, corpus] of Object.entries(corpora)) {
     for (const concept of R.LOCALE_CONCEPTS) {
       if (!concept.published.includes(locale)) continue
       const entry = corpus[concept.id]?.[locale]
@@ -472,6 +543,21 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
   const l0Debt = []
   const en = corpora?.en ?? EN
   const de = corpora?.de ?? DE
+  /**
+   * Corpora for THIS run, honouring an injected override.
+   *
+   * Must not read the module-level CORPORA constant: the mutation harness
+   * proves this gate works by passing a damaged corpus, and a lookup that
+   * ignored the injection would examine the pristine corpus, find nothing
+   * wrong, and report PASS on a mutation it was supposed to catch — a gate
+   * that cannot fail.
+   */
+  const active = {
+    en,
+    de,
+    'pt-BR': corpora?.['pt-BR'] ?? PTBR,
+    es: corpora?.es ?? ES,
+  }
 
   // 1. The inventory, derived independently of the map.
   const inv = buildInventory()
@@ -492,7 +578,7 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
   const usingRealBuild = readPage === readRouteHtml && corpora === undefined
   const haveBuild = fs.existsSync(BUILD) && fs.existsSync(path.join(ROOT, '.next/BUILD_ID'))
   if (usingRealBuild && haveBuild) {
-    const stale = buildDescribesTree({ corpora: { en, de } })
+    const stale = buildDescribesTree({ corpora: active })
     if (stale.length) {
       errors.push(
         `the production build at .next does not describe this tree — ${stale.join('; ')}. ` +
@@ -591,7 +677,7 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
         }
       }
 
-      const entry = (l === 'en' ? en : de)[item.conceptId]?.[l]
+      const entry = active[l]?.[item.conceptId]?.[l]
       if (!entry) { errors.push(`${item.id} [${l}]: classified but the ${l} page does not exist`); continue }
 
       const listTexts = entry.sections.flatMap((s) => (s.list ? [s.list.intro ?? '', ...s.list.items] : []))
@@ -681,7 +767,7 @@ export function auditFidelity({ corpora, readPage = readRouteHtml, map } = {}) {
   }
 
   // 4. Structural sanity on declared lists, independent of the map.
-  for (const [locale, corpus] of [['en', en], ['de', de]]) {
+  for (const [locale, corpus] of Object.entries(active)) {
     for (const concept of R.LOCALE_CONCEPTS) {
       const entry = corpus[concept.id]?.[locale]
       if (!entry || !concept.published.includes(locale)) continue

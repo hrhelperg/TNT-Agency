@@ -84,18 +84,35 @@ export default function CandidateFooter({ locale }: { locale: CandidateLocale })
           <span className="footer__operator">
             {OPERATOR_LEGAL_NAME} · <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a>
           </span>
-          <ul className="footer__legal">
+          {/*
+            The legal row.
+
+            The candidate data notice comes FIRST and is the only item here in
+            the reader's own language — it is also the document that actually
+            governs what happens to their application. Terms, Privacy and
+            Cookies exist as static documents in cs/en/de only, so they are
+            linked in English and SAY SO with hreflang="en". Serving the Czech
+            versions silently would be worse, and claiming the English ones are
+            Portuguese would be worse still.
+          */}
+          <div className="footer__legal">
             {link('dataNotice')}
             <li>
-              <a href="/privacy-policy">{t.priv}</a>
+              <a href="/privacy-policy" {...{ hreflang: 'en' }}>
+                {t.priv} <span lang="en">(EN)</span>
+              </a>
             </li>
             <li>
-              <a href="/terms.html">{t.terms}</a>
+              <a href="/terms.html" {...{ hreflang: 'en' }}>
+                {t.terms} <span lang="en">(EN)</span>
+              </a>
             </li>
             <li>
-              <a href="/cookies.html">{t.cook}</a>
+              <a href="/cookies.html" {...{ hreflang: 'en' }}>
+                {t.cook} <span lang="en">(EN)</span>
+              </a>
             </li>
-          </ul>
+          </div>
           {/*
             Discovery, the other direction. A plain navigational link: the
             employer site is not a translation of this page, and nothing here
@@ -103,7 +120,7 @@ export default function CandidateFooter({ locale }: { locale: CandidateLocale })
           */}
           <p className="footer__discovery">
             <span className="footer__discovery-label">{DISCOVERY_LABEL[locale]}</span>{' '}
-            <a href={EMPLOYER_SITE_HREF} hrefLang="en">
+            <a href={EMPLOYER_SITE_HREF} {...{ hreflang: 'en' }}>
               {t.forEmployers}
             </a>
           </p>

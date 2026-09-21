@@ -149,7 +149,7 @@ export default function Footer({ locale }: FooterProps = {}) {
             {DISCOVERY_TARGETS.map((target, i) => (
               <span key={target.locale}>
                 {i > 0 ? ' · ' : ''}
-                <a href={LOCALE_PREFIX[target.locale]} hrefLang={LOCALE_HREFLANG[target.locale]}>
+                <a href={LOCALE_PREFIX[target.locale]} {...{ hreflang: LOCALE_HREFLANG[target.locale] }}>
                   {target.label}
                 </a>
               </span>

@@ -100,6 +100,20 @@ export default function LocalePage({
   // a branch rather than a prop on the employer header.
   const candidate = isCandidateLocale(locale)
 
+  /**
+   * "Verified on" in the reader's language.
+   *
+   * Only the two candidate locales carry freshness metadata today, so only they
+   * need the label; a locale added later without one renders the neutral form
+   * rather than an English string on a non-English page.
+   */
+  const verifiedLabel =
+    locale === 'pt-BR'
+      ? 'Verificado em'
+      : locale === 'es'
+        ? 'Verificado el'
+        : 'Verified'
+
   return (
     <>
       <Head>
@@ -145,6 +159,38 @@ export default function LocalePage({
           ))}
 
           {afterContent}
+
+          {/*
+            Verification stamp.
+
+            Rendered in the page, not only held as metadata, because the reader
+            deciding whether to act on immigration information is the one who
+            needs to know when it was last checked and against what. A date in a
+            data structure nobody sees would satisfy the gate and help no one.
+          */}
+          {content.freshness && (
+            <aside className="locale-verified" aria-label={verifiedLabel}>
+              <p>
+                {verifiedLabel}{' '}
+                {/* Lowercase attribute, matching the convention LocaleAlternates
+                    uses for hreflang: HTML parses either, tooling that compares
+                    literally should see one form. */}
+                <time {...{ datetime: content.freshness.lastVerifiedAt }}>
+                  {content.freshness.lastVerifiedAt}
+                </time>
+              </p>
+              <ul>
+                {content.freshness.officialSources.map((src) => (
+                  <li key={src.id}>
+                    <a href={src.url} rel="nofollow noopener" target="_blank">
+                      {src.name}
+                    </a>{' '}
+                    — <span>{src.publisher}</span>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
 
           {ctaHref && (
             <p className="locale-cta">
