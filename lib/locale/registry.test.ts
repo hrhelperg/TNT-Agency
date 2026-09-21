@@ -6,7 +6,8 @@ import {
   CZECH_ROUTES, LOCALE_CONCEPTS, LEGAL_CONCEPTS, ALL_CONCEPTS,
   COLLAPSED_CZECH_ROUTES, LOCALIZED_ROUTES, PUBLISHED_LOCALIZED_ROUTES, isPublished,
   urlFor, conceptForRoute, localeForRoute, alternatesFor,
-} from './registry'
+  asCzechDerived, primaryUrl, csPrimaryOf,
+  collapsedOf} from './registry'
 import { L1_CONCEPTS } from './l1-concepts'
 import { CALCULATOR_CONCEPTS } from './l2-calculators'
 
@@ -50,7 +51,7 @@ describe('rule 1 — the Czech spine is immutable', () => {
 
   it('every concept primary is a real Czech canonical', () => {
     for (const c of LOCALE_CONCEPTS) {
-      expect(CZECH_ROUTES, `${c.id} primary`).toContain(c.csPrimary)
+      expect(CZECH_ROUTES, `${c.id} primary`).toContain(primaryUrl(c))
     }
   })
 })
@@ -72,7 +73,7 @@ describe('rule 2 — localized URLs are explicit, never inferred', () => {
         if ((COINCIDENTAL[c.id] ?? []).includes(locale)) continue
         const url = c.urls[locale]
         if (!url) continue
-        const mechanical = `${LOCALE_PREFIX[locale]}${c.csPrimary}`
+        const mechanical = `${LOCALE_PREFIX[locale]}${primaryUrl(c)}`
         expect(url, `${c.id}/${locale} looks mechanically derived`).not.toBe(mechanical)
       }
     }
@@ -101,7 +102,7 @@ describe('rule 2 — localized URLs are explicit, never inferred', () => {
 
 describe('rule 3 — exactly one Czech primary joins each cluster', () => {
   it('collapsed variants are real Czech routes, and never a primary', () => {
-    const primaries = LOCALE_CONCEPTS.map((c) => c.csPrimary)
+    const primaries = LOCALE_CONCEPTS.map((c) => primaryUrl(c))
     for (const v of COLLAPSED_CZECH_ROUTES) {
       expect(CZECH_ROUTES, v).toContain(v)
       expect(primaries, `${v} is both collapsed and a primary`).not.toContain(v)
@@ -122,7 +123,7 @@ describe('rule 3 — exactly one Czech primary joins each cluster', () => {
 
   it('a primary has alternates exactly for its PUBLISHED locales', () => {
     for (const c of LOCALE_CONCEPTS) {
-      const alts = alternatesFor(c.csPrimary)
+      const alts = alternatesFor(primaryUrl(c))
       const publishedNonCs = (['en', 'de'] as const).filter((l) => c.published.includes(l))
       if (!publishedNonCs.length) {
         // Nothing to point at yet: a cluster of one is not a cluster.
@@ -137,7 +138,7 @@ describe('rule 3 — exactly one Czech primary joins each cluster', () => {
 
 describe('rule 4 — a missing translation stays missing', () => {
   it('urlFor returns undefined rather than a synthesized route', () => {
-    const partial = { id: 'x', csPrimary: '/', urls: { en: '/en/x' }, published: ['cs', 'en'] as const, pageType: 'test', notes: '' }
+    const partial = asCzechDerived({ id: 'x', csPrimary: '/', urls: { en: '/en/x' }, published: ['cs', 'en'] as const, pageType: 'test', notes: '' })
     expect(urlFor(partial, 'de')).toBeUndefined()
     expect(urlFor(partial, 'en')).toBe('/en/x')
     expect(urlFor(partial, 'cs')).toBe('/')
@@ -146,7 +147,7 @@ describe('rule 4 — a missing translation stays missing', () => {
   it('alternates never invent a locale home as a fallback', () => {
     // The switcher must show nothing rather than redirect to /en/ or /de/.
     for (const c of LOCALE_CONCEPTS) {
-      const urls = alternatesFor(c.csPrimary).map((a) => a.url)
+      const urls = alternatesFor(primaryUrl(c)).map((a) => a.url)
       for (const l of ['en', 'de'] as const) {
         if (c.published.includes(l)) continue
         expect(urls, `${c.id}: ${l} unpublished but a locale home appeared`).not.toContain(`/${l}`)
@@ -164,7 +165,7 @@ describe('rule 5 — legal pages are mapped read-only', () => {
   it('maps to URLs that already exist in the sitemap', () => {
     const locs = sitemapLocs()
     for (const c of LEGAL_CONCEPTS) {
-      expect(locs, `${c.id} cs`).toContain(c.csPrimary)
+      expect(locs, `${c.id} cs`).toContain(primaryUrl(c))
       for (const locale of ['en', 'de'] as const) {
         const url = c.urls[locale]
         if (url) expect(locs, `${c.id} ${locale}`).toContain(url)
@@ -175,7 +176,7 @@ describe('rule 5 — legal pages are mapped read-only', () => {
   it('introduces no new legal URL', () => {
     const locs = new Set(sitemapLocs())
     for (const c of LEGAL_CONCEPTS) {
-      for (const u of [c.csPrimary, c.urls.en, c.urls.de]) {
+      for (const u of [primaryUrl(c), c.urls.en, c.urls.de]) {
         if (u) expect(locs.has(u), `${u} would be a NEW legal URL`).toBe(true)
       }
     }
@@ -249,7 +250,7 @@ describe('declared is not published', () => {
     // Declaring a URL and serving it are different facts. Conflating them is
     // how a sitemap advertises a 404 and how hreflang points at nothing.
     for (const c of LOCALE_CONCEPTS) {
-      const alts = alternatesFor(c.csPrimary).map((a) => a.locale)
+      const alts = alternatesFor(primaryUrl(c)).map((a) => a.locale)
       for (const locale of ['en', 'de'] as const) {
         if (!c.published.includes(locale)) {
           expect(alts, `${c.id}: ${locale} declared but unpublished`).not.toContain(locale)

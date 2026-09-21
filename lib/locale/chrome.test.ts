@@ -14,7 +14,7 @@ import {
   type NavKey,
   type FooterKey,
 } from './chrome'
-import { ALL_CONCEPTS, urlFor, LOCALE_CONCEPTS } from './registry'
+import { ALL_CONCEPTS, urlFor, LOCALE_CONCEPTS , csPrimaryOf} from './registry'
 
 /**
  * chrome.ts duplicates strings that already exist in public/script.js. A second
@@ -127,7 +127,7 @@ describe('the server chrome copy cannot drift from the client dictionary', () =>
  */
 const conceptForTarget = (t: { conceptId?: string; czechHref: string }) =>
   (t.conceptId ? ALL_CONCEPTS.find((c) => c.id === t.conceptId) : undefined) ??
-  ALL_CONCEPTS.find((c) => c.csPrimary === t.czechHref)
+  ALL_CONCEPTS.find((c) => csPrimaryOf(c) === t.czechHref)
 
 describe('header links from a locale page', () => {
   it('uses localizedHrefs only for the proxied Media section', () => {

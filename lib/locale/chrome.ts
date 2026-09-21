@@ -21,6 +21,7 @@
  */
 import {
   ALL_CONCEPTS,
+  csPrimaryOf,
   urlFor,
   type Locale,
 } from './registry'
@@ -214,7 +215,7 @@ export function resolveNavHref(
   // this asks it rather than trusting a second, hand-kept copy of the mapping.
   const concept = target.conceptId
     ? ALL_CONCEPTS.find((c) => c.id === target.conceptId)
-    : ALL_CONCEPTS.find((c) => c.csPrimary === target.czechHref)
+    : ALL_CONCEPTS.find((c) => csPrimaryOf(c) === target.czechHref)
 
   if (target.conceptId && !concept) {
     throw new Error(`NAV_TARGETS references unknown concept "${target.conceptId}"`)

@@ -15,7 +15,7 @@
 import { describe, it, expect } from 'vitest'
 import fs from 'fs'
 import path from 'path'
-import { LOCALE_CONCEPTS, alternatesFor } from './registry'
+import { LOCALE_CONCEPTS, alternatesFor , primaryUrl, collapsedOf} from './registry'
 
 const ROOT = path.join(__dirname, '../..')
 const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8')
@@ -44,11 +44,11 @@ describe('ArticleLanguageNotice truthfulness', () => {
     expect(published.length).toBeGreaterThan(0)
 
     for (const concept of published) {
-      const alts = alternatesFor(concept.csPrimary)
+      const alts = alternatesFor(primaryUrl(concept))
       for (const locale of concept.published) {
         if (locale === 'cs') continue
         const hit = alts.find((a) => a.locale === locale)
-        expect(hit, `${concept.csPrimary} is published in ${locale} but alternatesFor() offers no ${locale} target`).toBeTruthy()
+        expect(hit, `${primaryUrl(concept)} is published in ${locale} but alternatesFor() offers no ${locale} target`).toBeTruthy()
         expect(hit!.url.startsWith(`/${locale}`)).toBe(true)
       }
     }
@@ -57,8 +57,8 @@ describe('ArticleLanguageNotice truthfulness', () => {
   it('offers nothing for a collapsed Czech variant', () => {
     // The mirror case: a collapsed variant must NOT advertise a translation,
     // or the notice would link somewhere the page does not correspond to.
-    const withCollapsed = LOCALE_CONCEPTS.find((c) => (c.csCollapsed?.length ?? 0) > 0)
+    const withCollapsed = LOCALE_CONCEPTS.find((c) => collapsedOf(c).length > 0)
     expect(withCollapsed).toBeTruthy()
-    expect(alternatesFor(withCollapsed!.csCollapsed![0])).toHaveLength(0)
+    expect(alternatesFor(collapsedOf(withCollapsed!)[0])).toHaveLength(0)
   })
 })

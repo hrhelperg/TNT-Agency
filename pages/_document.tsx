@@ -14,11 +14,11 @@ import { OPERATOR_EMAIL, OPERATOR_PHONE } from '../lib/content/trust-data'
 // ordinary Czech routes — that is the visitor's own switcher choice — but on a
 // locked page the URL is the authority, or a first-time visitor to /en/… would
 // have the server's English chrome replaced with Czech the moment JS ran.
-import { ALL_CONCEPTS, LOCALE_LANG, type Locale } from '../lib/locale/registry'
+import { ALL_CONCEPTS, LOCALE_LANG, type Locale, LOCALIZED_LOCALES } from '../lib/locale/registry'
 
 const localeByRoute: Record<string, Locale> = {}
 for (const concept of ALL_CONCEPTS) {
-  for (const locale of ['en', 'de'] as const) {
+  for (const locale of LOCALIZED_LOCALES) {
     const url = concept.urls[locale]
     // Declared, not necessarily published: an unpublished page does not exist,
     // so no route can resolve to it and the entry is harmless. Once published

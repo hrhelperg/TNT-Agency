@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Header from '../Header'
 import Footer from '../Footer'
 import LocaleAlternates from './LocaleAlternates'
-import { ALL_CONCEPTS, urlFor, type Locale } from '../../lib/locale/registry'
+import { ALL_CONCEPTS, primaryUrl, urlFor, type Locale } from '../../lib/locale/registry'
 import { CHROME_ARIA, HOME_LABEL } from '../../lib/locale/chrome'
 import type { LocaleList, LocalePageContent } from '../../lib/locale/content/types'
 
@@ -96,7 +96,7 @@ export default function LocalePage({
         <title>{content.title}</title>
         <meta name="description" content={content.description} />
         <link rel="canonical" href={`${ORIGIN}${selfUrl}`} />
-        <LocaleAlternates route={concept.csPrimary} />
+        <LocaleAlternates route={primaryUrl(concept)} />
       </Head>
 
       <Header activePage={undefined} locale={locale} />

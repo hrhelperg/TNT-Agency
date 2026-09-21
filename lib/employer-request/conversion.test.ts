@@ -5,7 +5,7 @@ import { CTA_COPY, buildCtaHref, REQUEST_PATH } from './cta'
 import { CTA_SOURCES } from '../attribution'
 import { REQUEST_FIELDS } from './schema'
 import { REQUEST_WORKERS, resolveNavHref } from '../locale/chrome'
-import { ALL_CONCEPTS, urlFor } from '../locale/registry'
+import { ALL_CONCEPTS, urlFor , csPrimaryOf} from '../locale/registry'
 
 const ROOT = process.cwd()
 const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8')
@@ -227,7 +227,7 @@ describe('Phase C — SEO, schema and routing', () => {
     // cites this test as what pins the destination — in every locale, not just
     // Czech. The citation is only honest if all three are actually asserted.
     const concept = ALL_CONCEPTS.find((c) => c.id === REQUEST_WORKERS.conceptId)!
-    expect(concept.csPrimary).toBe('/poptavka-pracovniku')
+    expect(csPrimaryOf(concept)).toBe('/poptavka-pracovniku')
     for (const locale of ['en', 'de'] as const) {
       expect(concept.published).toContain(locale)
       expect(resolveNavHref(REQUEST_WORKERS, locale)).toEqual({ href: urlFor(concept, locale) })
