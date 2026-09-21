@@ -4027,3 +4027,112 @@ a.eco-node__link:hover { color: var(--text-inv); background: rgba(255, 255, 255,
 .locale-verified p { margin: 0 0 .4rem; font-weight: 500; }
 .locale-verified ul { margin: 0; padding-left: 1.1rem; }
 .locale-verified li { margin-bottom: .2rem; opacity: .85; }
+.caf__noscript { border-left: 4px solid #666; background: rgba(0, 0, 0, .05); padding: .75rem 1rem; margin: 0 0 1.25rem; }
+
+/* ── Candidate header at narrow widths ──────────────────────────────────── */
+/*
+   At 280px the header row (logo + nav + CTA + switcher) laid out wider than the
+   viewport: .header__actions measured right=436 against a 280px window, so the
+   CTA and the switcher sat off-screen with the page scrolling sideways. Caught
+   by a bounding-box assertion, not by scrollWidth, which reported nothing.
+
+   The fix is to let the row wrap and the CTA shrink rather than forcing a single
+   line. 280px is a real width — it is the narrowest the brief lists, and it is
+   roughly a Galaxy Fold closed.
+*/
+.header [data-candidate-chrome] .header__inner,
+header[data-candidate-chrome="true"] .header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem .75rem;
+  max-width: 100%;
+}
+header[data-candidate-chrome="true"] .header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  min-width: 0;
+  max-width: 100%;
+}
+header[data-candidate-chrome="true"] .header__cta {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+header[data-candidate-chrome="true"] .header__nav ul,
+footer[data-candidate-chrome="true"] .footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+header[data-candidate-chrome="true"] *,
+footer[data-candidate-chrome="true"] * {
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  header[data-candidate-chrome="true"] .header__inner { flex-direction: column; align-items: stretch; }
+  header[data-candidate-chrome="true"] .header__actions { justify-content: space-between; }
+  header[data-candidate-chrome="true"] .header__cta { text-align: center; }
+}
+
+/* Long unbroken terms (URLs, zaměstnanecká karta in a narrow column) must wrap
+   rather than push the column wider than the viewport. */
+.locale-page, .locale-page p, .locale-page li, .caf, .caf * { overflow-wrap: anywhere; }
+.locale-verified li { overflow-wrap: anywhere; }
+
+/*
+   Long unbreakable strings in the candidate footer.
+
+   The operator email and the Czech legal term have no break opportunity, so at
+   280px they pushed the footer past the viewport edge even after the header was
+   made to wrap. `anywhere` rather than `break-word`: the point is that the
+   string must break somewhere, and at this width there is no good place.
+*/
+footer[data-candidate-chrome="true"],
+footer[data-candidate-chrome="true"] * {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+footer[data-candidate-chrome="true"] .footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  align-items: baseline;
+}
+footer[data-candidate-chrome="true"] .footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .9rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/*
+   The form at 280px.
+
+   `fieldset` carries a UA default of min-inline-size: min-content, so it refuses
+   to shrink below its widest child — and the widest child here is a <select>
+   whose intrinsic width comes from its longest option ("Profissões técnicas
+   (manutenção, automação, soldadura, CNC)"). The fieldset measured 495px inside
+   a 280px viewport. Resetting min-inline-size is the actual fix; width:100% on
+   the control alone cannot override an ancestor that will not shrink.
+*/
+.caf__group {
+  min-inline-size: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.caf__field,
+.caf__field input,
+.caf__field select,
+.caf__field textarea {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+}
+.caf__fallback textarea { box-sizing: border-box; max-width: 100%; }
+.caf__summary { box-sizing: border-box; max-width: 100%; }

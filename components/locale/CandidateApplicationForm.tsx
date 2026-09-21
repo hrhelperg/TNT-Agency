@@ -184,6 +184,16 @@ export default function CandidateApplicationForm({ locale }: { locale: Candidate
         <strong>{copy.attachWarning}</strong>
       </p>
 
+      {/*
+        With JavaScript unavailable the submit button cannot open a mail client,
+        and a button that silently does nothing is worse than no button. The
+        fallback address is already in the document — this says so, rather than
+        leaving the reader to work out why nothing happened.
+      */}
+      <noscript>
+        <p className="caf__noscript">{copy.noscript}</p>
+      </noscript>
+
       <form onSubmit={onSubmit} noValidate>
         {status === 'error' && orderedErrorNames(errors).length > 0 && (
           <div className="caf__summary" role="alert" tabIndex={-1} ref={summaryRef}>

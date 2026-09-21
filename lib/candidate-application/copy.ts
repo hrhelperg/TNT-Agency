@@ -28,6 +28,8 @@ export interface ApplicationCopy {
   readonly subject: string
   readonly required: string
   readonly optional: string
+  /** Shown only when JavaScript is unavailable. */
+  readonly noscript: string
 }
 
 export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>> = {
@@ -94,6 +96,8 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
     subject: 'Candidatura',
     required: 'obrigatório',
     optional: 'opcional',
+    noscript:
+      'O seu navegador está com o JavaScript desativado, então o botão abaixo não vai abrir o seu programa de e-mail. Escreva diretamente para o endereço indicado em “Se nada abriu”, informando os dados pedidos no formulário e anexando o seu currículo.',
   },
   es: {
     groupTitles: { about: 'Sobre usted', work: 'Experiencia y disponibilidad', contact: 'Contacto' },
@@ -158,5 +162,7 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
     subject: 'Postulación',
     required: 'obligatorio',
     optional: 'opcional',
+    noscript:
+      'Su navegador tiene JavaScript desactivado, por lo que el botón de abajo no abrirá su programa de correo. Escriba directamente a la dirección indicada en «Si no se abrió nada», incluyendo los datos que pide el formulario y adjuntando su CV.',
   },
 }

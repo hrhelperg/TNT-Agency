@@ -282,3 +282,61 @@ route was added or removed. The five MODIFY verdicts in §3 change content
 models, not the route matrix, and are recorded there rather than as amendments.
 
 Further amendments are appended here as they arise.
+
+---
+
+## 7. Implementation outcomes (P3–P7)
+
+Recorded here rather than in a separate file, so the legal findings and what was
+built from them stay in one place.
+
+### 7.1 No §16.1 amendment was needed
+
+No concept was cut, added, renamed or re-scoped after P2. The frozen matrix
+shipped exactly: **22 pt-BR, 21 es, 43 routes, sitemap 287 → 330**, with the old
+sitemap a byte-exact prefix of the new one.
+
+### 7.2 Where each verified proposition ended up
+
+| Proposition | Where it is stated to the reader |
+|---|---|
+| A — Brazil absent from *Program kvalifikovaný zaměstnanec* | `work-in-czechia`, `work-in-manufacturing`, `work-in-logistics`, `candidate-faq` — both locales |
+| B — *vysoce kvalifikovaný* territorially open, CZ-ISCO 1–3 | `work-for-engineers` (flagship), `technical-professions`, `work-in-czechia` |
+| C — standard Employee Card route available | `employee-card`, `how-recruitment-works` |
+| D — >3 months, tied to a registered vacancy | `employee-card`, `work-in-manufacturing` |
+| E — max two years per issuance, extendable | `employee-card`, `work-in-czechia`, `candidate-faq` |
+| F — visa-free ≠ work authorisation | `work-in-czechia`, `candidate-faq` |
+| G — EU–Mercosur creates no work right | `work-in-czechia` (legal-pathway section) + `candidate-faq` (direct question), both locales, **no route of its own** |
+| H — healthcare is a regulated profession | `healthcare-regulated-professions`, `qualification-recognition` |
+
+### 7.3 Facts deliberately NOT published
+
+- **Consular appointment windows, per-day slot counts, fees and processing
+  times.** Volatile by nature; the pages describe the mechanism and link the
+  official Portuguese source with a verification date (§12).
+- **The amendment number for the 1. 7. 2026 quota schedule.** MZV cites
+  nv 520/2025 Sb.; a secondary source cites nv 109/2026 Sb. Unreconciled, so
+  neither number appears in candidate content. The *substance* — that no maximum
+  is set for Brasília or São Paulo — is published, without the word "unlimited".
+- **Salary ranges and minimum-wage figures.** They vary by role, region, employer
+  and year; a stale number would be worse than none. Pages point at the
+  institutions that publish current values.
+- **IČO and the MPSV agency-permit number.** Gated as unverified in
+  `trust-data.ts`; `about-us` says plainly that the gap exists and why.
+
+### 7.4 What the gates now prevent permanently
+
+`validate:worker-claims` with 12 negative controls, and
+`validate:candidate-freshness` with 7. Two findings from writing those controls
+were defects in the gates themselves rather than in content, and both would have
+made a release gate vacuous:
+
+1. A bare `no` in the negation pattern. In Portuguese `no` is a contraction of
+   *em + o*, so "no Program kvalifikovaný" read as a denial and every assertive
+   sentence naming a programme exempted itself. The gate passed while asserting
+   Brazil is in the qualified-worker programme. Negation is now language-scoped.
+2. The CTA-ownership check read module constants instead of the injected corpus,
+   so it could not fail on a mutation at all.
+
+Both are recorded because the review exit condition treats a finding that makes
+a gate vacuous as material, wherever it lives.

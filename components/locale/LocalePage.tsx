@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Header from '../Header'
 import Footer from '../Footer'
-import LocaleAlternates from './LocaleAlternates'
+import { localeAlternateTags } from './LocaleAlternates'
 import { ALL_CONCEPTS, primaryUrl, urlFor, type Locale } from '../../lib/locale/registry'
 import { LOCALE_PREFIX, isCandidateLocale } from '../../lib/locale/locales'
 import CandidateHeader from './CandidateHeader'
@@ -116,11 +116,23 @@ export default function LocalePage({
 
   return (
     <>
+      {/*
+        Every tag carries a `key`.
+
+        next/head deduplicates by key, and a keyless tag sitting beside a NESTED
+        component's tags is not reliably deduplicated — a documented limitation
+        of nested components inside Head. It went unnoticed while every cluster
+        had at most three members: about-us and contact are the first concepts
+        published in five locales, and at that size the canonical and the
+        description stopped being deduplicated and appeared TWICE in the live
+        DOM. Server HTML was correct in both cases, so only a browser-level
+        assertion could see it.
+      */}
       <Head>
-        <title>{content.title}</title>
-        <meta name="description" content={content.description} />
-        <link rel="canonical" href={`${ORIGIN}${selfUrl}`} />
-        <LocaleAlternates route={primaryUrl(concept)} />
+        <title key="title">{content.title}</title>
+        <meta key="description" name="description" content={content.description} />
+        <link key="canonical" rel="canonical" href={`${ORIGIN}${selfUrl}`} />
+        {localeAlternateTags({ route: primaryUrl(concept) })}
       </Head>
 
       {candidate ? (

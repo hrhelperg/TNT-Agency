@@ -27,9 +27,24 @@ const ORIGIN = 'https://talentpartnerid.com'
  * `hrefLang` would parse identically, but consistency costs nothing and some
  * tooling compares literally.
  */
-export default function LocaleAlternates({ route }: { route: string }) {
+/**
+ * Returns an ARRAY of <link> elements, not a component.
+ *
+ * next/head does not support nested components: it counts the tags it manages
+ * into <meta name="next-head-count">, and a child COMPONENT's tags are not in
+ * that count. On hydration the manager then reconciles against the wrong
+ * number and both deletes and duplicates tags — measured on /en/about-us as
+ * next-head-count="4" with the canonical and description present twice and
+ * every hreflang alternate missing from the live DOM entirely. The server HTML
+ * was correct throughout, so nothing short of a browser assertion could see it.
+ *
+ * An array of elements IS a valid direct child: React flattens it and next/head
+ * counts each tag. So this is a function called inside <Head>, never a
+ * component rendered inside it.
+ */
+export function localeAlternateTags({ route }: { route: string }) {
   const alternates = alternatesFor(route)
-  if (alternates.length < 2) return null
+  if (alternates.length < 2) return []
 
   /**
    * x-default only where a truthful default exists.
@@ -44,14 +59,27 @@ export default function LocaleAlternates({ route }: { route: string }) {
   const concept = conceptForRoute(route)
   const xDefault = concept ? hasXDefault(concept) : false
 
-  return (
-    <>
-      {alternates.map((a) => (
-        <link key={a.locale} rel="alternate" {...{ hreflang: LOCALE_HREFLANG[a.locale] }} href={`${ORIGIN}${a.url}`} />
-      ))}
-      {xDefault && (
-        <link rel="alternate" {...{ hreflang: 'x-default' }} href={`${ORIGIN}${X_DEFAULT_ROUTE}`} />
-      )}
-    </>
-  )
+  const tags = [
+    ...alternates.map((a) => (
+        <link
+          key={`alternate-${a.locale}`}
+          rel="alternate"
+          {...{ hreflang: LOCALE_HREFLANG[a.locale] }}
+          href={`${ORIGIN}${a.url}`}
+        />
+    )),
+  ]
+  if (xDefault) {
+    tags.push(
+      <link
+        key="alternate-x-default"
+        rel="alternate"
+        {...{ hreflang: 'x-default' }}
+        href={`${ORIGIN}${X_DEFAULT_ROUTE}`}
+      />,
+    )
+  }
+  return tags
 }
+
+export default localeAlternateTags
