@@ -1,7 +1,8 @@
 import { ALL_CONCEPTS, LOCALE_LANG, alternatesFor, conceptForRoute, localeForRoute, type Locale } from '../../lib/locale/registry'
-import { CHROME_ARIA, CHROME_NAV } from '../../lib/locale/chrome'
+import { CHROME_ARIA } from '../../lib/locale/chrome'
+import { languageLabelFor } from '../../lib/locale/candidate-chrome'
 
-const LABEL: Record<string, string> = { cs: 'Čeština', en: 'English', de: 'Deutsch' }
+const LABEL: Record<string, string> = { cs: 'Čeština', en: 'English', de: 'Deutsch', 'pt-BR': 'Português', es: 'Español' }
 
 /**
  * Header form of the same labels.
@@ -15,7 +16,7 @@ const LABEL: Record<string, string> = { cs: 'Čeština', en: 'English', de: 'Deu
  * endonym remains the accessible name, so a screen reader still hears
  * "Deutsch", not "D E".
  */
-const SHORT: Record<string, string> = { cs: 'CS', en: 'EN', de: 'DE' }
+const SHORT: Record<string, string> = { cs: 'CS', en: 'EN', de: 'DE', 'pt-BR': 'PT', es: 'ES' }
 
 /** Storage key the client dictionary in public/script.js reads on unlocked pages. */
 export const LANG_STORAGE_KEY = 'tnt-lang'
@@ -55,7 +56,7 @@ export default function LanguageSwitcher({ route, className }: { route: string; 
   const text = (locale: string) => (compact ? SHORT[locale] : LABEL[locale])
 
   return (
-    <nav className={className ? `locale-switcher ${className}` : 'locale-switcher'} aria-label={CHROME_NAV[uiLocale].language}>
+    <nav className={className ? `locale-switcher ${className}` : 'locale-switcher'} aria-label={languageLabelFor(uiLocale)}>
       <ul>
         {alternates.map((a) => (
           <li key={a.locale}>

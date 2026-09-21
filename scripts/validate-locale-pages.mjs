@@ -51,7 +51,7 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
   }
 
   for (const concept of concepts) {
-    for (const locale of ['en', 'de']) {
+    for (const locale of R.LOCALIZED_LOCALES) {
       if (!concept.published.includes(locale)) continue
       const route = concept.urls[locale]
       const html = read(pageFile(route))
@@ -100,7 +100,7 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
       }
 
       // LINKS — a locale page must not link into another locale's corpus.
-      for (const other of ['en', 'de']) {
+      for (const other of R.LOCALIZED_LOCALES) {
         if (other === locale) continue
         const foreign = R.LOCALE_CONCEPTS
           .map((x) => x.urls[other])
@@ -224,7 +224,7 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
     for (const target of [...C.NAV_TARGETS, ...C.FOOTER_TARGETS]) {
       const concept =
         (target.conceptId && R.ALL_CONCEPTS.find((c) => c.id === target.conceptId)) ||
-        R.ALL_CONCEPTS.find((c) => c.csPrimary === target.czechHref)
+        R.ALL_CONCEPTS.find((c) => R.csPrimaryOf(c) === target.czechHref)
       if (!concept || !concept.published.includes(locale)) continue
       const localized = R.urlFor(concept, locale)
       if (!localized) continue

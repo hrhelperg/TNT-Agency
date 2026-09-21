@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import fs from 'node:fs'
 import path from 'node:path'
 import {
-  LOCALES, LOCALE_PREFIX, LOCALE_HREFLANG, LOCALE_LANG, X_DEFAULT_ROUTE,
+  LOCALES, LOCALIZED_LOCALES, LOCALE_PREFIX, LOCALE_HREFLANG, LOCALE_LANG, X_DEFAULT_ROUTE,
   CZECH_ROUTES, LOCALE_CONCEPTS, LEGAL_CONCEPTS, ALL_CONCEPTS,
   COLLAPSED_CZECH_ROUTES, LOCALIZED_ROUTES, PUBLISHED_LOCALIZED_ROUTES, isPublished,
   urlFor, conceptForRoute, localeForRoute, alternatesFor,
@@ -10,6 +10,7 @@ import {
   collapsedOf} from './registry'
 import { L1_CONCEPTS } from './l1-concepts'
 import { CALCULATOR_CONCEPTS } from './l2-calculators'
+import { CANDIDATE_CZECH_DERIVED_CONCEPTS, CANDIDATE_NATIVE_CONCEPTS } from './l3-candidate'
 
 /** The ten concepts L0 shipped. Frozen: L1 adds to the registry, never edits these. */
 const L0_IDS = [
@@ -49,9 +50,22 @@ describe('rule 1 — the Czech spine is immutable', () => {
     for (const r of CZECH_ROUTES) expect(r.startsWith('/cs/'), r).toBe(false)
   })
 
-  it('every concept primary is a real Czech canonical', () => {
+  it('every Czech-derived concept primary is a real Czech canonical', () => {
+    // Scoped to Czech-derived concepts. A locale-native concept has no Czech
+    // page by design, so asserting its primary is a Czech canonical would be
+    // asserting the candidate corpus is something it deliberately is not. The
+    // locale-native invariants are covered in candidate-chrome.test.ts.
     for (const c of LOCALE_CONCEPTS) {
+      if (c.kind !== 'czech-derived') continue
       expect(CZECH_ROUTES, `${c.id} primary`).toContain(primaryUrl(c))
+    }
+  })
+
+  it('every locale-native primary is one of its own declared URLs', () => {
+    for (const c of LOCALE_CONCEPTS) {
+      if (c.kind !== 'locale-native') continue
+      expect(Object.values(c.urls), `${c.id} primary`).toContain(primaryUrl(c))
+      expect(CZECH_ROUTES, `${c.id} must not claim a Czech canonical`).not.toContain(primaryUrl(c))
     }
   })
 })
@@ -69,7 +83,7 @@ describe('rule 2 — localized URLs are explicit, never inferred', () => {
       contact: ['en'],
     }
     for (const c of LOCALE_CONCEPTS) {
-      for (const locale of ['en', 'de'] as const) {
+      for (const locale of LOCALIZED_LOCALES) {
         if ((COINCIDENTAL[c.id] ?? []).includes(locale)) continue
         const url = c.urls[locale]
         if (!url) continue
@@ -81,7 +95,7 @@ describe('rule 2 — localized URLs are explicit, never inferred', () => {
 
   it('every localized URL carries its locale prefix', () => {
     for (const c of LOCALE_CONCEPTS) {
-      for (const locale of ['en', 'de'] as const) {
+      for (const locale of LOCALIZED_LOCALES) {
         const url = c.urls[locale]
         if (!url) continue
         // The locale ROOT is the prefix itself; everything else sits under it.
@@ -124,7 +138,7 @@ describe('rule 3 — exactly one Czech primary joins each cluster', () => {
   it('a primary has alternates exactly for its PUBLISHED locales', () => {
     for (const c of LOCALE_CONCEPTS) {
       const alts = alternatesFor(primaryUrl(c))
-      const publishedNonCs = (['en', 'de'] as const).filter((l) => c.published.includes(l))
+      const publishedNonCs = LOCALIZED_LOCALES.filter((l) => c.published.includes(l))
       if (!publishedNonCs.length) {
         // Nothing to point at yet: a cluster of one is not a cluster.
         expect(alts, `${c.id} publishes only cs`).toEqual([])
@@ -148,7 +162,7 @@ describe('rule 4 — a missing translation stays missing', () => {
     // The switcher must show nothing rather than redirect to /en/ or /de/.
     for (const c of LOCALE_CONCEPTS) {
       const urls = alternatesFor(primaryUrl(c)).map((a) => a.url)
-      for (const l of ['en', 'de'] as const) {
+      for (const l of LOCALIZED_LOCALES) {
         if (c.published.includes(l)) continue
         expect(urls, `${c.id}: ${l} unpublished but a locale home appeared`).not.toContain(`/${l}`)
       }
@@ -166,7 +180,7 @@ describe('rule 5 — legal pages are mapped read-only', () => {
     const locs = sitemapLocs()
     for (const c of LEGAL_CONCEPTS) {
       expect(locs, `${c.id} cs`).toContain(primaryUrl(c))
-      for (const locale of ['en', 'de'] as const) {
+      for (const locale of LOCALIZED_LOCALES) {
         const url = c.urls[locale]
         if (url) expect(locs, `${c.id} ${locale}`).toContain(url)
       }
@@ -215,10 +229,16 @@ describe('resolution helpers', () => {
     // Three declared sources now: L0, the frozen L1 manifest, and the
     // calculator tier. L1's freeze is untouched — the calculator deliberately
     // did NOT join it, so "the frozen L1 set" still means exactly what it did.
+    // Four declared sources now: L0, the frozen L1 manifest, the calculator
+    // tier and the candidate tier. L1's freeze remains untouched — neither the
+    // calculator nor the candidate tier joined it — so "the frozen L1 set"
+    // still means exactly what it did.
     const declared = [
       ...L0_IDS,
       ...L1_CONCEPTS.map((c) => c.id),
       ...CALCULATOR_CONCEPTS.map((c) => c.id),
+      ...CANDIDATE_CZECH_DERIVED_CONCEPTS.map((c) => c.id),
+      ...CANDIDATE_NATIVE_CONCEPTS.map((c) => c.id),
     ].sort()
     expect(LOCALE_CONCEPTS.map((c) => c.id).sort()).toEqual(declared)
     expect(new Set(declared).size, 'a concept id is declared twice').toBe(declared.length)
@@ -239,10 +259,26 @@ describe('resolution helpers', () => {
 })
 
 describe('declared is not published', () => {
-  it('every L0 concept declares EN and DE urls', () => {
+  it('every employer-corpus concept declares EN and DE urls', () => {
+    // The candidate tier is excluded, not exempted: its concepts serve pt-BR
+    // and es and have no English or German counterpart, which is the whole
+    // reason they are a separate tier. Asserting EN/DE here would force
+    // phantom URLs into the registry to satisfy a test.
+    const candidateIds = new Set([
+      ...CANDIDATE_CZECH_DERIVED_CONCEPTS.map((c) => c.id),
+      ...CANDIDATE_NATIVE_CONCEPTS.map((c) => c.id),
+    ])
     for (const c of LOCALE_CONCEPTS) {
+      if (candidateIds.has(c.id)) continue
       expect(c.urls.en, `${c.id} en`).toBeTruthy()
       expect(c.urls.de, `${c.id} de`).toBeTruthy()
+    }
+  })
+
+  it('every candidate-tier concept declares at least one candidate URL', () => {
+    for (const c of [...CANDIDATE_CZECH_DERIVED_CONCEPTS, ...CANDIDATE_NATIVE_CONCEPTS]) {
+      const declared = (['pt-BR', 'es'] as const).filter((l) => c.urls[l])
+      expect(declared.length, `${c.id} declares no candidate URL`).toBeGreaterThan(0)
     }
   })
 
@@ -251,7 +287,7 @@ describe('declared is not published', () => {
     // how a sitemap advertises a 404 and how hreflang points at nothing.
     for (const c of LOCALE_CONCEPTS) {
       const alts = alternatesFor(primaryUrl(c)).map((a) => a.locale)
-      for (const locale of ['en', 'de'] as const) {
+      for (const locale of LOCALIZED_LOCALES) {
         if (!c.published.includes(locale)) {
           expect(alts, `${c.id}: ${locale} declared but unpublished`).not.toContain(locale)
         }
@@ -269,8 +305,9 @@ describe('declared is not published', () => {
 
   it('isPublished agrees with the published list', () => {
     for (const c of LOCALE_CONCEPTS) {
-      expect(isPublished(c, 'cs')).toBe(true)
-      for (const locale of ['en', 'de'] as const) {
+      // Only a Czech-derived concept has a Czech page to publish.
+      expect(isPublished(c, 'cs')).toBe(c.kind === 'czech-derived')
+      for (const locale of LOCALIZED_LOCALES) {
         expect(isPublished(c, locale)).toBe(c.published.includes(locale))
       }
     }

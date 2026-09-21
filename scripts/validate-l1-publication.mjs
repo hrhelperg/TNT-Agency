@@ -127,7 +127,7 @@ export function auditPublication() {
   let declaredOnly = 0
 
   for (const concept of reg.LOCALE_CONCEPTS) {
-    for (const locale of ['en', 'de']) {
+    for (const locale of reg.LOCALIZED_LOCALES) {
       const url = concept.urls?.[locale]
       if (!url) continue
       const isPublished = concept.published.includes(locale)
@@ -170,8 +170,11 @@ export function auditPublication() {
     }
     return out
   }
-  for (const locale of ['en', 'de']) {
-    for (const file of walk(path.join(ROOT, 'pages', locale))) {
+  // Directory name is the URL PREFIX, not the locale id: pt-BR lives at
+  // pages/pt-br. Deriving it keeps the two from drifting apart.
+  for (const locale of reg.LOCALIZED_LOCALES) {
+    const dir = reg.LOCALE_PREFIX[locale].slice(1)
+    for (const file of walk(path.join(ROOT, 'pages', dir))) {
       if (!known.has(file)) {
         errors.push(`${file} is a locale route file that no published concept claims — stale slug, or a page nothing points at`)
       }

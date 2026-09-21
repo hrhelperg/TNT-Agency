@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLang } from '../lib/i18n/react'
+import { useLang, type Lang } from '../lib/i18n/react'
 import { useRouteLocale } from '../lib/locale/route-locale'
 import { REQUEST_COPY } from '../lib/employer-request/copy'
 import {
@@ -43,7 +43,14 @@ export default function EmployerRequestForm() {
   // spine nothing changes — useLang() still decides.
   const routeLocale = useRouteLocale()
   const chosenLang = useLang()
-  const lang = routeLocale ?? chosenLang
+  // The employer request form is never served in a candidate locale: pt-BR and
+  // es publish no employer concepts, and the CTA-ownership gate forbids any
+  // candidate page linking here. Narrow rather than widen — REQUEST_COPY is
+  // authored for the employer locales, and admitting a candidate locale here
+  // would hand a Brazilian reader an English form with no indication why.
+  const routeLang: Lang | null =
+    routeLocale === 'en' || routeLocale === 'de' ? routeLocale : null
+  const lang = routeLang ?? chosenLang
   const copy = REQUEST_COPY[lang]
 
   const [values, setValues] = useState<RequestValues>({})

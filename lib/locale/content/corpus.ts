@@ -15,10 +15,14 @@
 import type { LocalizedLocale } from '../locales'
 import { EN_CONTENT } from './en'
 import { DE_CONTENT } from './de'
+import { PTBR_CONTENT } from './pt-BR'
+import { ES_CONTENT } from './es'
 
 export const CORPUS: Readonly<Record<LocalizedLocale, Record<string, unknown>>> = {
   en: EN_CONTENT as Record<string, unknown>,
   de: DE_CONTENT as Record<string, unknown>,
+  'pt-BR': PTBR_CONTENT as Record<string, unknown>,
+  es: ES_CONTENT as Record<string, unknown>,
 }
 
 /**

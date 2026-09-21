@@ -14,7 +14,19 @@ import {
   type NavKey,
   type FooterKey,
 } from './chrome'
-import { ALL_CONCEPTS, urlFor, LOCALE_CONCEPTS , csPrimaryOf} from './registry'
+import { LOCALIZED_LOCALES, LOCALE_AUDIENCE, ALL_CONCEPTS, urlFor, LOCALE_CONCEPTS, csPrimaryOf } from './registry'
+
+/**
+ * The prefixed locales the EMPLOYER chrome serves.
+ *
+ * NAV_TARGETS, FOOTER_TARGETS, CALCULATOR_TARGETS and REQUEST_WORKERS are all
+ * employer surfaces, and the candidate locales publish none of those concepts —
+ * so asserting "resolves to its own locale, not to Czech" over every localized
+ * locale asks pt-BR for a German payroll calculator it correctly does not have.
+ * Derived from LOCALE_AUDIENCE rather than written out, so it follows the
+ * registry if a locale's audience ever changes.
+ */
+const EMPLOYER_LOCKED = LOCALIZED_LOCALES.filter((l) => LOCALE_AUDIENCE[l] === 'employer')
 
 /**
  * chrome.ts duplicates strings that already exist in public/script.js. A second
@@ -152,7 +164,7 @@ describe('header links from a locale page', () => {
     // Testing the prefix would have called both of those "not localized".
     // The real rule is the registry: resolve to the concept's URL for this
     // locale when it publishes one, and to the Czech URL otherwise.
-    for (const locale of ['en', 'de'] as const) {
+    for (const locale of EMPLOYER_LOCKED) {
       for (const t of [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS]) {
         const { href } = resolveNavHref(t, locale)
         const concept = conceptForTarget(t)
@@ -181,7 +193,7 @@ describe('header links from a locale page', () => {
     // pins: the legal links resolved to /terms.html — the ENGLISH page — while
     // being stamped hreflang="cs", so a German page announced an English
     // document as Czech.
-    for (const locale of ['en', 'de'] as const) {
+    for (const locale of EMPLOYER_LOCKED) {
       for (const t of [...NAV_TARGETS, REQUEST_WORKERS, ...FOOTER_TARGETS]) {
         const { href, hreflang } = resolveNavHref(t, locale)
         const concept = conceptForTarget(t)
@@ -269,7 +281,7 @@ describe('the calculators are reachable from the chrome', () => {
     // The point of putting them in the chrome is that a German reader reaches
     // the GERMAN page. Falling back to the Czech URL would be worse than no
     // link, because it looks like navigation and lands somewhere else.
-    for (const locale of ['en', 'de'] as const) {
+    for (const locale of EMPLOYER_LOCKED) {
       for (const key of ['calcCostDe', 'calcCostCz'] as const) {
         const target = CALCULATOR_TARGETS.find((t) => t.key === key)!
         const { href, hreflang } = resolveNavHref(target, locale)

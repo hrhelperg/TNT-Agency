@@ -3,6 +3,10 @@ import Header from '../Header'
 import Footer from '../Footer'
 import LocaleAlternates from './LocaleAlternates'
 import { ALL_CONCEPTS, primaryUrl, urlFor, type Locale } from '../../lib/locale/registry'
+import { LOCALE_PREFIX, isCandidateLocale } from '../../lib/locale/locales'
+import CandidateHeader from './CandidateHeader'
+import CandidateFooter from './CandidateFooter'
+import type { CandidateLocale, EmployerLocaleLocked } from '../../lib/locale/chrome'
 import { CHROME_ARIA, HOME_LABEL } from '../../lib/locale/chrome'
 import type { LocaleList, LocalePageContent } from '../../lib/locale/content/types'
 
@@ -88,7 +92,13 @@ export default function LocalePage({
     throw new Error(`locale CTA references unknown concept "${content.cta.targetConceptId}"`)
   }
   const ctaHref = ctaConcept ? urlFor(ctaConcept, locale) ?? urlFor(ctaConcept, 'cs') : undefined
-  const localeHome = locale === 'en' ? '/en' : '/de'
+  // Was `locale === 'en' ? '/en' : '/de'` — a two-locale ternary that would
+  // have sent every Brazilian and Spanish reader's breadcrumb to /de.
+  const localeHome = LOCALE_PREFIX[locale]
+
+  // Candidate locales get their own chrome. See CandidateHeader for why this is
+  // a branch rather than a prop on the employer header.
+  const candidate = isCandidateLocale(locale)
 
   return (
     <>
@@ -99,7 +109,15 @@ export default function LocalePage({
         <LocaleAlternates route={primaryUrl(concept)} />
       </Head>
 
-      <Header activePage={undefined} locale={locale} />
+      {candidate ? (
+        <CandidateHeader
+          locale={locale as CandidateLocale}
+          route={selfUrl}
+          activeConceptId={concept.id}
+        />
+      ) : (
+        <Header activePage={undefined} locale={locale as EmployerLocaleLocked} />
+      )}
 
       <main className="section locale-page" lang={locale}>
         <div className="container">
@@ -137,7 +155,11 @@ export default function LocalePage({
         </div>
       </main>
 
-      <Footer locale={locale} />
+      {candidate ? (
+        <CandidateFooter locale={locale as CandidateLocale} />
+      ) : (
+        <Footer locale={locale as EmployerLocaleLocked} />
+      )}
     </>
   )
 }

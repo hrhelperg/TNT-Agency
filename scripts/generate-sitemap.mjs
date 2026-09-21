@@ -46,7 +46,7 @@ export function indexableUrls({ concepts = R.LOCALE_CONCEPTS, czechRoutes = R.CZ
   // previous one's block, so a diff of the artifact shows movement that is not
   // a real change. Grouping makes every locale launch a pure APPEND: the proof
   // that nothing moved is then just "the old list is a prefix of the new one".
-  for (const locale of ['en', 'de']) {
+  for (const locale of R.LOCALIZED_LOCALES) {
     for (const c of concepts) {
       const url = c.urls[locale]
       // PUBLISHED only. A declared-but-unbuilt URL in the sitemap would be

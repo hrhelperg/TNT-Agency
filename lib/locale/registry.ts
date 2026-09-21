@@ -30,6 +30,11 @@
  */
 import { L1_REGISTRY_CONCEPTS } from './l1-published'
 import { CALCULATOR_CONCEPTS } from './l2-calculators'
+import {
+  CANDIDATE_NATIVE_CONCEPTS,
+  CANDIDATE_CZECH_DERIVED_CONCEPTS,
+} from './l3-candidate'
+import { hasLocaleContent } from './content/corpus'
 
 // The locale list lives in a leaf module so that l1-published.ts and
 // l2-calculators.ts — which the registry imports — can read it without a cycle.
@@ -43,6 +48,9 @@ export {
   LOCALE_PREFIX,
   LOCALE_HREFLANG,
   LOCALE_LANG,
+  LOCALE_AUDIENCE,
+  CANDIDATE_LOCALES,
+  isCandidateLocale,
   X_DEFAULT_ROUTE,
 } from './locales'
 export type { Locale, LocalizedLocale, Audience } from './locales'
@@ -393,7 +401,13 @@ const L0_DECLARED: readonly CzechDerivedInput[] = [
   {
     id: 'about-us',
     csPrimary: '/o-nas',
-    urls: { en: '/en/about-us', de: '/de/ueber-uns' },
+    audience: 'shared',
+    urls: {
+      en: '/en/about-us',
+      de: '/de/ueber-uns',
+      'pt-BR': '/pt-br/sobre-nos',
+      es: '/es/sobre-nosotros',
+    },
     published: ['cs', 'en', 'de'],
     pageType: 'utility',
     notes: 'Trust surface. Company facts must translate without gaining strength.',
@@ -401,7 +415,13 @@ const L0_DECLARED: readonly CzechDerivedInput[] = [
   {
     id: 'contact',
     csPrimary: '/contact',
-    urls: { en: '/en/contact', de: '/de/kontakt' },
+    audience: 'shared',
+    urls: {
+      en: '/en/contact',
+      de: '/de/kontakt',
+      'pt-BR': '/pt-br/contato',
+      es: '/es/contacto',
+    },
     published: ['cs', 'en', 'de'],
     pageType: 'utility',
     notes: 'Trust surface. An EN/DE visitor needs a contact route in their own language or the locale corpus dead-ends.',
@@ -489,7 +509,25 @@ const LEGAL_DECLARED: readonly CzechDerivedInput[] = [
  * Only PUBLISHED locales are ever emitted, so a concept can be frozen and
  * slugged here long before its pages exist without advertising a phantom URL.
  */
-const L0_CONCEPTS: readonly CzechDerivedConcept[] = L0_DECLARED.map(asCzechDerived)
+/**
+ * Adds candidate locales to a hand-declared concept when its content exists.
+ *
+ * L0's `published` lists are written by hand and frozen for cs/en/de. Rather
+ * than convert them — which would churn ten concepts and weaken the L0 freeze —
+ * candidate locales are appended by the same derived rule the other tiers use:
+ * a URL plus authored content. about-us and contact are the only L0 concepts
+ * with candidate URLs, so nothing else moves.
+ */
+const withCandidateLocales = (c: CzechDerivedConcept): CzechDerivedConcept => {
+  const extra = LOCALIZED_LOCALES.filter(
+    (l) => !c.published.includes(l) && c.urls[l] && hasLocaleContent(c.id, l),
+  )
+  return extra.length ? { ...c, published: [...c.published, ...extra] } : c
+}
+
+const L0_CONCEPTS: readonly CzechDerivedConcept[] = L0_DECLARED.map(asCzechDerived).map(
+  withCandidateLocales,
+)
 
 /**
  * Legal pages, mapped READ-ONLY to URLs that already exist as static .html.
@@ -503,6 +541,8 @@ export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
   ...L0_CONCEPTS,
   ...L1_REGISTRY_CONCEPTS.map(asCzechDerived),
   ...CALCULATOR_CONCEPTS.map(asCzechDerived),
+  ...CANDIDATE_CZECH_DERIVED_CONCEPTS.map((c) => asCzechDerived({ audience: 'shared', ...c })),
+  ...CANDIDATE_NATIVE_CONCEPTS.map(asLocaleNative),
 ]
 
 export const ALL_CONCEPTS: readonly LocaleConcept[] = [...LOCALE_CONCEPTS, ...LEGAL_CONCEPTS]
