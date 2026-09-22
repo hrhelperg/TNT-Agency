@@ -107,7 +107,21 @@ export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), r
         errors.push(`${locale}/${concept.id}: cites no official source — a claim with no source cannot be re-verified`)
         continue
       }
-      for (const src of f.officialSources) {
+      // Normalise once, before any loop reads a property off an entry.
+      // A hole in the array — `[a, , b]` — yields undefined, type-checks clean,
+      // and used to crash with a TypeError rather than report anything. Doing
+      // this per-loop was not enough: a real edit produced the hole, the first
+      // loop was guarded, and the revision loop below still crashed on it.
+      const holes = f.officialSources.filter((x) => !x || typeof x !== 'object').length
+      if (holes) {
+        errors.push(
+          `${locale}/${concept.id}: officialSources contains ${holes} hole(s) or non-object entr(ies) — a sparse ` +
+            `array literal type-checks clean and silently drops a source from every check below`,
+        )
+      }
+      const sources = f.officialSources.filter((x) => x && typeof x === 'object')
+
+      for (const src of sources) {
         if (!src.id || !src.url || !isIsoDate(src.accessedAt)) {
           errors.push(`${locale}/${concept.id}: source "${src.name ?? src.id}" is missing an id, url or accessedAt`)
           continue
@@ -181,7 +195,7 @@ export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), r
       }
 
       // Source revision, which overrides the calendar in the strict direction.
-      for (const src of f.officialSources) {
+      for (const src of sources) {
         const revised = revision(src.id)
         if (revised && Date.parse(revised) >= Date.parse(f.lastVerifiedAt)) {
           errors.push(

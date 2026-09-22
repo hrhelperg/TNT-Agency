@@ -104,9 +104,17 @@ const CONTROLS = [
     }),
   },
   {
+    // Spreads then explicitly clears validForYear, and replaces the sections.
+    // Inheriting them from live content made this control vacuous the moment
+    // worker-rights legitimately gained a validForYear of its own.
     id: '12. statutory-annual page that declares no validForYear',
     corpora: clone('worker-rights', {
-      freshness: { ...base('worker-rights').freshness, freshness: 'statutory-annual' },
+      freshness: {
+        ...base('worker-rights').freshness,
+        freshness: 'statutory-annual',
+        validForYear: undefined,
+      },
+      sections: [{ heading: 'Jornada', body: ['Texto.'] }],
     }),
   },
   {
@@ -122,9 +130,17 @@ const CONTROLS = [
     now: Date.parse('2027-01-02'),
   },
   {
+    // Sections are replaced so the page's effective tier is genuinely
+    // conceptual. Left as shipped, life-and-work now carries a statutory-annual
+    // section, which raised the effective tier and silenced this control.
     id: '14. validForYear on a conceptual page, where it gates nothing',
     corpora: clone('life-and-work', {
-      freshness: { ...base('life-and-work').freshness, validForYear: 2026 },
+      freshness: {
+        ...base('life-and-work').freshness,
+        freshness: 'conceptual',
+        validForYear: 2026,
+      },
+      sections: [{ heading: 'Moradia', body: ['Texto.'] }],
     }),
   },
   {
@@ -147,6 +163,15 @@ const CONTROLS = [
         freshness: 'statutory-annual',
         validForYear: 2026,
         lastVerifiedAt: '2026-09-20',
+      },
+    }),
+  },
+  {
+    id: '17. A hole in officialSources (sparse array, type-checks clean)',
+    corpora: clone('worker-rights', {
+      freshness: {
+        ...base('worker-rights').freshness,
+        officialSources: [base('worker-rights').freshness.officialSources[0], undefined],
       },
     }),
   },

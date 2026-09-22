@@ -4,6 +4,7 @@
  */
 import type { LocaleCorpus } from '../types'
 import { LATAM_SRC } from '../sources-latam'
+import { LABOUR_SRC } from '../sources-labour'
 import { freshness } from '../freshness'
 
 export const ES_PROFESSIONS: LocaleCorpus = {
@@ -62,17 +63,22 @@ export const ES_PROFESSIONS: LocaleCorpus = {
             'También sigue vigente el límite de validez: la tarjeta de empleado se expide por el período del contrato y como máximo por dos años cada vez.',
           ],
         },
+        {
+          heading: 'Jornada y horas extras',
+          body: [
+            'Las funciones de ingeniería suelen tener una jornada semanal legal de 40 horas, sin el régimen de turnos que reduce esa jornada en producción.',
+            'La hora extra sigue siendo excepcional por ley: un máximo de 8 horas semanales y 150 horas por año calendario cuando la ordena el empleador, y por encima de eso solo con su acuerdo. El pago es el salario correspondiente más un recargo de al menos el 25% del salario promedio, salvo que se acuerde tiempo libre compensatorio.',
+          ],
+        },
       ],
       cta: { label: 'Postularme', targetConceptId: 'candidate-apply' },
       freshness: freshness(
         'conceptual',
-        [
-          LATAM_SRC.programHighlyQualified,
+        [LATAM_SRC.programHighlyQualified,
           LATAM_SRC.programKeyPersonnel,
           LATAM_SRC.blueCard,
           LATAM_SRC.employeeCardMzv,
-          LATAM_SRC.residenceAct,
-        ],
+          LATAM_SRC.residenceAct, LABOUR_SRC.labourCode],
         'LATAM',
       ),
     },
@@ -126,11 +132,18 @@ export const ES_PROFESSIONS: LocaleCorpus = {
             ],
           },
         },
+        {
+          heading: 'Turnos y jornada, cuando la función es en producción',
+          body: [
+            'Los soldadores y operadores CNC trabajan con frecuencia en régimen de turnos, y eso cambia la jornada semanal legal: 38,75 horas en dos turnos, 37,5 horas en turnos múltiples o régimen ininterrumpido, en lugar de 40.',
+            'El turno máximo es de 12 horas y el descanso entre turnos, de al menos 11 horas. La hora extra es excepcional por ley: un máximo de 8 horas semanales y 150 horas anuales cuando la ordena el empleador, con un recargo de al menos el 25%.',
+          ],
+        },
       ],
       cta: { label: 'Postularme', targetConceptId: 'candidate-apply' },
       freshness: freshness(
         'conceptual',
-        [LATAM_SRC.programHighlyQualified, LATAM_SRC.programQualified, LATAM_SRC.employeeCardMzv],
+        [LATAM_SRC.programHighlyQualified, LATAM_SRC.programQualified, LATAM_SRC.employeeCardMzv, LABOUR_SRC.labourCode],
         'LATAM',
       ),
     },
@@ -184,11 +197,19 @@ export const ES_PROFESSIONS: LocaleCorpus = {
             ],
           },
         },
+        {
+          heading: 'La jornada legal en esta área, en cifras',
+          body: [
+            'La producción suele funcionar por turnos, y el régimen de turnos cambia la jornada legal. En régimen de dos turnos, la jornada semanal legal es de 38,75 horas; en régimen de turnos múltiples — tres o más turnos que se relevan en 24 horas — o ininterrumpido, es de 37,5 horas, y no de 40.',
+            'No es un detalle: el salario mínimo por hora sube proporcionalmente cuando la jornada semanal es menor, y el tiempo por encima de la jornada legal de su régimen cuenta como hora extra.',
+            'Un turno no puede superar las 12 horas. Quien trabaja de noche tiene el turno limitado a 8 horas en 24 horas, recargo nocturno y examen médico ocupacional pagado por el empleador.',
+          ],
+        },
       ],
       cta: { label: 'Cómo funciona el reclutamiento', targetConceptId: 'how-recruitment-works' },
       freshness: freshness(
         'conceptual',
-        [LATAM_SRC.programQualified, LATAM_SRC.employeeCardMzv, LATAM_SRC.labourOffice],
+        [LATAM_SRC.programQualified, LATAM_SRC.employeeCardMzv, LATAM_SRC.labourOffice, LABOUR_SRC.labourCode],
         'LATAM',
       ),
     },
@@ -226,11 +247,19 @@ export const ES_PROFESSIONS: LocaleCorpus = {
             'Si además tiene experiencia técnica — mantenimiento, manejo de montacargas con habilitación, operación de equipos, calidad — conviene indicarlo en la postulación: puede abrir una clasificación distinta.',
           ],
         },
+        {
+          heading: 'La jornada legal en esta área, en cifras',
+          body: [
+            'Los almacenes y centros de distribución operan con frecuencia por turnos y en fines de semana, y la ley trata ambos casos de forma específica.',
+            'En régimen de dos turnos la jornada semanal legal es de 38,75 horas; en régimen de turnos múltiples o ininterrumpido, 37,5 horas. Un turno no supera las 12 horas, y entre turnos hay derecho a al menos 11 horas de descanso.',
+            'El trabajo nocturno y el trabajo en sábado y domingo tienen un recargo de al menos el 10% del salario promedio — con la salvedad, que hace la propia ley, de que puede acordarse un mínimo distinto. Esos recargos se suman al salario mínimo y no pueden usarse para alcanzarlo.',
+          ],
+        },
       ],
       cta: { label: 'Profesiones técnicas', targetConceptId: 'technical-professions' },
       freshness: freshness(
         'conceptual',
-        [LATAM_SRC.programQualified, LATAM_SRC.programHighlyQualified, LATAM_SRC.employeeCardMzv],
+        [LATAM_SRC.programQualified, LATAM_SRC.programHighlyQualified, LATAM_SRC.employeeCardMzv, LABOUR_SRC.labourCode],
         'LATAM',
       ),
     },
@@ -284,16 +313,21 @@ export const ES_PROFESSIONS: LocaleCorpus = {
             'No podemos abreviar, dispensar ni acelerar el reconocimiento; no administramos ni influimos en la prueba de aptitud; y no colocamos profesionales de la salud a ejercer sin habilitación. Un médico latinoamericano no se recluta por el mismo camino que un operador CNC, y presentar ambas cosas como equivalentes sería engañoso.',
           ],
         },
+        {
+          heading: 'La jornada en salud tiene una excepción que no existe en ninguna otra área',
+          body: [
+            'La regla general checa es que un turno no puede superar las 12 horas. La salud es la única excepción prevista por ley: en operación ininterrumpida de un prestador de cuidados hospitalarios o de un servicio de emergencias, la jornada de médicos, dentistas, farmacéuticos y profesionales no médicos puede llegar a 24 horas dentro de 26 horas consecutivas.',
+            'Esa excepción no es automática. Solo rige si está acordada en convenio colectivo o prevista en una norma interna del empleador. Conviene consultar qué régimen se aplica al puesto antes de aceptar una oferta.',
+          ],
+        },
       ],
       cta: { label: 'Reconocimiento de títulos', targetConceptId: 'qualification-recognition' },
       freshness: freshness(
         'procedural',
-        [
-          LATAM_SRC.healthProfessionsAct,
+        [LATAM_SRC.healthProfessionsAct,
           LATAM_SRC.nonMedicalHealthAct,
           LATAM_SRC.approbationExam,
-          LATAM_SRC.programHighlyQualified,
-        ],
+          LATAM_SRC.programHighlyQualified, LABOUR_SRC.labourCode],
         'LATAM',
       ),
     },
