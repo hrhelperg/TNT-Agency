@@ -220,7 +220,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
             'La ley trata la hora extra como excepción, no como rutina: solo puede realizarse excepcionalmente. El empleador puede ordenarla por motivos operativos serios, dentro de límites — un máximo de 8 horas por semana y 150 horas por año calendario. Por encima de eso, solo con su acuerdo, y el total no puede superar el promedio de 8 horas semanales en un período de como máximo 26 semanas.',
             'La hora extra se paga con el salario correspondiente más un recargo de al menos el 25% del salario promedio, salvo que acuerden tiempo libre compensatorio en lugar del recargo. Si ese tiempo libre no se concede dentro de tres meses, el recargo pasa a ser exigible.',
             'El trabajo nocturno y el trabajo en sábado y domingo tienen un recargo de al menos el 10% del salario promedio. Aquí corresponde una salvedad que hace la propia ley: puede acordarse un mínimo distinto y otra forma de cálculo, así que revise lo que establecen su contrato o el convenio colectivo.',
-            'El turno de quien trabaja de noche no puede superar las 8 horas en 24 horas. El empleador está obligado a garantizar el examen médico ocupacional del trabajador nocturno, y asume ese costo.',
+            'El turno de quien trabaja de noche no puede superar las 8 horas en 24 horas. El trabajador nocturno debe ser examinado por un servicio de medicina del trabajo, y el costo lo asume el empleador.',
             'En día festivo la regla es salario más tiempo libre compensatorio, concedido hasta el final del tercer mes siguiente; por acuerdo, el recargo puede sustituir ese tiempo libre.',
           ],
         },
@@ -234,8 +234,8 @@ export const ES_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Si usted trabaja a través de una agencia',
           body: [
-            'La ley impone dos garantías específicas a quien es cedido por una agencia de empleo, y ambas rigen para TalentPartnerID igual que para cualquier otra.',
-            'La primera: la agencia y la empresa usuaria están obligadas a asegurar que las condiciones laborales y salariales del trabajador cedido no sean peores de lo que son — o de lo que serían — las de un trabajador comparable. Ese "o serían" importa: la garantía no desaparece cuando la empresa usuaria no tiene un empleado propio en la misma función. Si las condiciones son peores, la agencia debe restablecer la igualdad, a pedido suyo o por iniciativa propia al constatarlo, y usted puede reclamarle los derechos que de ahí surjan.',
+            'La ley impone dos protecciones específicas a quien es cedido por una agencia de empleo, y ambas rigen para TalentPartnerID igual que para cualquier otra.',
+            'La primera: la agencia y la empresa usuaria están obligadas a asegurar que las condiciones laborales y salariales del trabajador cedido no sean peores de lo que son — o de lo que serían — las de un trabajador comparable. Ese "o serían" importa: la protección no desaparece cuando la empresa usuaria no tiene un empleado propio en la misma función. Si las condiciones son peores, la agencia debe restablecer la igualdad, a pedido suyo o por iniciativa propia al constatarlo, y usted puede reclamarle los derechos que de ahí surjan.',
             'La segunda: una agencia no puede ceder al mismo trabajador a la misma empresa usuaria por más de 12 meses calendario consecutivos. Hay excepciones — pedido del propio trabajador, o reemplazo de alguien en licencia por maternidad, paternidad o parental.',
           ],
         },

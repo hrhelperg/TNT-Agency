@@ -237,7 +237,7 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
             'A lei trata hora extra como exceção, não como rotina: "a hora extra só pode ser realizada excepcionalmente". O empregador pode determiná-la por motivos operacionais sérios, dentro de limites — no máximo 8 horas por semana e 150 horas por ano civil. Acima disso, só com a sua concordância, e o total não pode ultrapassar a média de 8 horas semanais em um período de no máximo 26 semanas.',
             'A hora extra é paga com o salário correspondente mais adicional de pelo menos 25% do salário médio, salvo se vocês acordarem folga compensatória em vez do adicional. Se a folga não for concedida em três meses, o adicional passa a ser devido.',
             'Trabalho noturno e trabalho em sábado e domingo têm adicional de pelo menos 10% do salário médio. Aqui cabe uma ressalva que a própria lei faz: é possível acordar um mínimo diferente e outra forma de cálculo, então confira o que o seu contrato ou a convenção coletiva estabelece.',
-            'O turno de quem trabalha à noite não pode passar de 8 horas em 24 horas. O empregador é obrigado a garantir exame médico ocupacional ao trabalhador noturno, e arca com esse custo.',
+            'O turno de quem trabalha à noite não pode passar de 8 horas em 24 horas. O trabalhador noturno deve ser examinado por um serviço de medicina do trabalho, e o custo é do empregador.',
             'Em feriado, a regra é salário mais folga compensatória, concedida até o fim do terceiro mês seguinte; por acordo, o adicional pode substituir a folga.',
           ],
         },
@@ -251,8 +251,8 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Se você trabalha por meio de uma agência',
           body: [
-            'A lei impõe duas garantias específicas a quem é cedido por uma agência de trabalho, e ambas valem para a TalentPartnerID como para qualquer outra.',
-            'A primeira: a agência e a empresa usuária são obrigadas a assegurar que as condições de trabalho e salariais do trabalhador cedido não sejam piores do que são — ou do que seriam — as de um trabalhador comparável. O "ou seriam" importa: a garantia não desaparece quando a empresa usuária não tem um empregado próprio na mesma função. Se as condições forem piores, a agência é obrigada a restabelecer a igualdade, a pedido seu ou por iniciativa própria ao constatar o fato, e você pode exigir dela os direitos daí decorrentes.',
+            'A lei impõe duas proteções específicas a quem é cedido por uma agência de trabalho, e ambas valem para a TalentPartnerID como para qualquer outra.',
+            'A primeira: a agência e a empresa usuária são obrigadas a assegurar que as condições de trabalho e salariais do trabalhador cedido não sejam piores do que são — ou do que seriam — as de um trabalhador comparável. O "ou seriam" importa: a proteção não desaparece quando a empresa usuária não tem um empregado próprio na mesma função. Se as condições forem piores, a agência é obrigada a restabelecer a igualdade, a pedido seu ou por iniciativa própria ao constatar o fato, e você pode exigir dela os direitos daí decorrentes.',
             'A segunda: uma agência não pode ceder o mesmo trabalhador à mesma empresa usuária por mais de 12 meses civis consecutivos. Há exceções — pedido do próprio trabalhador, ou substituição de alguém em licença-maternidade, paternidade ou parental.',
           ],
         },
