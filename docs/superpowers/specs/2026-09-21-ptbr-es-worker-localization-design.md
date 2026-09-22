@@ -754,6 +754,33 @@ review matrix · remaining bounded gaps.
    status, until a real source of truth exists.
 4. **Pre-existing chrome a11y debt** — `docs/followup-accent-contrast.md`;
    untouched here, and not added to.
+5. **No OG image.** The only image asset is `public/assets/og.svg`, and
+   Facebook, WhatsApp, LinkedIn and X all reject SVG for `og:image`. The tag is
+   therefore omitted rather than declared and broken. Needs a 1200×630 PNG.
+6. **x-default points at the site root, not at the cluster's own primary.**
+   Site-wide L0 policy, affecting 51 existing employer clusters. Correct to
+   change, and changing it here would be an SEO change to the employer corpus
+   made sideways.
+7. **`hreflang="pt-BR"` claims Brazil only.** Deliberate — the corpus is
+   Brazilian Portuguese and a bare `pt` would offer it to Portugal, where its
+   vocabulary reads wrong. The cost, priced and accepted: Portuguese speakers in
+   Angola and Mozambique are not claimed by the annotation, and the
+   locale-native clusters carry no x-default to catch them.
+8. **No `BreadcrumbList` or `dateModified` structured data** on the candidate
+   pages, though both render visibly. `inLanguage` was corrected; these were
+   not, and are worth a follow-up.
+9. **`/contact` indexes an English title on a Czech page.** Pre-existing; the
+   cluster it anchors grew from three members to five in this wave, so the
+   defect is now more visible without being newly introduced.
+10. **The mailto body can still exceed ~2,048 characters** at the top of the
+    allowed input. Field order was changed so contact details and the consent
+    record lead the message and the free-text tail is what truncates; the free
+    text was capped at 600 characters. Not eliminated, bounded.
+11. **The legal set is English-only for candidate locales.** Terms, Privacy and
+    Cookies exist as cs/en/de static documents; candidate pages link the English
+    ones and declare `hreflang="en"` so the destination language is stated
+    rather than implied. The candidate data notice itself is in-language and
+    self-sufficient per §7.4.
 
 ---
 
