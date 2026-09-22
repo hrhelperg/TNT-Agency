@@ -13,7 +13,8 @@
  */
 import type { LocaleCorpus } from '../types'
 import { LATAM_SRC } from '../sources-latam'
-import { freshness } from '../freshness'
+import { LABOUR_SRC } from '../sources-labour'
+import { freshness, STATUTORY_YEAR } from '../freshness'
 
 export const ES_JOURNEY: LocaleCorpus = {
   'candidate-home': {
@@ -216,7 +217,9 @@ export const ES_JOURNEY: LocaleCorpus = {
           heading: 'Contrato y jornada',
           body: [
             'La relación laboral se rige por el Código del Trabajo checo, que se aplica igualmente a trabajadores extranjeros con autorización vigente. Contrato por escrito, jornada definida, horas extras remuneradas, vacaciones y descansos son derechos legales, no beneficios concedidos.',
-            'Conviene leer el contrato antes de firmarlo y pedir explicación de lo que no quede claro. Un contrato en checo puede acompañarse de traducción, y usted puede pedir tiempo para leerlo.',
+            'En cifras: la jornada semanal legal es de 40 horas, y baja a 37,5 horas en régimen de turnos múltiples o ininterrumpido y a 38,75 horas en régimen de dos turnos. Un turno no supera las 12 horas. Entre turnos usted tiene derecho a al menos 11 horas de descanso. Las vacaciones mínimas son de 4 semanas al año.',
+            'La hora extra es excepcional por ley, limitada a 8 horas semanales y 150 horas anuales cuando la ordena el empleador, y se paga con un recargo de al menos el 25% — o se compensa con tiempo libre, si así se acuerda.',
+            'Conviene leer el contrato antes de firmarlo y pedir explicación de lo que no quede claro. Un contrato en checo puede acompañarse de traducción, y usted puede pedir tiempo para leerlo. La página de derechos del trabajador detalla cada uno de esos límites.',
           ],
         },
         {
@@ -224,7 +227,9 @@ export const ES_JOURNEY: LocaleCorpus = {
           body: [
             'Comparar salarios entre países por el tipo de cambio lleva a conclusiones equivocadas. Lo que importa es lo que queda después de vivienda, transporte, alimentación, contribuciones sociales e impuesto sobre la renta.',
             'No publicamos rangos salariales en esta página porque varían por función, región, empresa y año, y una cifra desactualizada aquí sería peor que ninguna. Los valores concretos aparecen en la oferta de un empleador, y es allí donde deben evaluarse.',
+            'Hay, sin embargo, una cifra que no es estimación y conviene conocer: el piso legal. Para la jornada de 40 horas, el salario mínimo vigente para 2026 es de 22 400 Kč al mes o 134,40 Kč por hora. No es lo que cabe esperar ganar: es aquello por debajo de lo cual ninguna oferta puede quedar.',
           ],
+          freshness: 'statutory-annual',
         },
         {
           heading: 'Vivienda',
@@ -250,7 +255,13 @@ export const ES_JOURNEY: LocaleCorpus = {
         },
       ],
       cta: { label: 'Trabajar en Chequia', targetConceptId: 'work-in-czechia' },
-      freshness: freshness('conceptual', [LATAM_SRC.labourOffice], 'LATAM'),
+      freshness: freshness(
+        'conceptual',
+        [LATAM_SRC.labourOffice, LABOUR_SRC.labourCode, LABOUR_SRC.minimumWage, LABOUR_SRC.minimumWageNotice],
+        'LATAM',
+        undefined,
+        STATUTORY_YEAR,
+      ),
     },
   },
 }

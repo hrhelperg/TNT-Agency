@@ -9166,11 +9166,11 @@
         "cs": "Srovnatelné podmínky u agenturního zaměstnávání",
         "pt-BR": {
           "state": "PRESERVED_IN_LIST",
-          "carriedBy": "Condições comparáveis no trabalho temporário por agência — um trabalhador cedido por uma agência tem direito a condições salariais e de trabalho comparáveis às de um empregado próprio do tomador que exerça a mesma função"
+          "carriedBy": "Condições comparáveis no trabalho temporário por agência"
         },
         "es": {
           "state": "PRESERVED_IN_LIST",
-          "carriedBy": "Condiciones comparables en el trabajo temporal por agencia — un trabajador cedido por una agencia tiene derecho a condiciones salariales y de trabajo comparables a las de un empleado propio de la empresa usuaria que desempeñe la misma función"
+          "carriedBy": "Condiciones comparables en el trabajo temporal por agencia"
         }
       },
       "worker-rights|SEO_PAGES|f0|adb45973": {
@@ -9202,11 +9202,11 @@
         "cs": "Kam se obrátit při problému s podmínkami práce?",
         "pt-BR": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "A Inspeção do Trabalho fiscaliza o cumprimento da legislação laboral. O Ministério do Interior responde pelas questões de residência"
+          "carriedBy": "cabe ao Státní úřad inspekce práce"
         },
         "es": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "La Inspección de Trabajo vigila el cumplimiento de la legislación laboral. El Ministerio del Interior responde por las cuestiones de residencia"
+          "carriedBy": "corresponde al Státní úřad inspekce práce"
         }
       }
     }

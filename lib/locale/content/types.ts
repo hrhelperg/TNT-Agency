@@ -43,20 +43,40 @@ export interface LocaleList {
 /**
  * How fast a claim goes stale.
  *
- * Two tiers rather than one calendar ceiling, because the risks are not alike.
+ * Three tiers rather than one calendar ceiling, because the risks are not alike.
  * A consular appointment procedure or a document list can change without notice
  * and a stale one costs a candidate a flight; the definition of an Employee Card
  * changes when the statute changes. Treating both as 180-day content would let
  * procedure rot for half a year, and treating both as 90-day content would
  * churn stable explainers for nothing.
+ *
+ * `statutory-annual` exists because a rolling day-count cannot express a known
+ * expiry date. The 2026 minimum wage is 22 400 Kč from 1 January to 31 December
+ * 2026 and is simply false on 1 January 2027 — no number of elapsed days says
+ * so. Content on this tier declares the year it is valid for, and the gate fails
+ * when the calendar passes it, independently of the day ceiling.
  */
-export type FreshnessTier = 'procedural' | 'conceptual'
+export type FreshnessTier = 'procedural' | 'conceptual' | 'statutory-annual'
 
-/** Days a tier may go unverified before the build fails. */
+/**
+ * Days a tier may go unverified before the build fails.
+ *
+ * statutory-annual shares the procedural ceiling: the hard stop is the year
+ * check, but a figure this consequential should still be reopened quarterly
+ * rather than trusted for six months on the strength of its expiry date alone.
+ */
 export const FRESHNESS_DAYS: Readonly<Record<FreshnessTier, number>> = {
   procedural: 90,
   conceptual: 180,
+  'statutory-annual': 90,
 }
+
+/**
+ * Tightest first. Used to pick the governing tier when a section overrides the
+ * page — a statutory figure inside an otherwise conceptual page must not be
+ * governed by the conceptual ceiling.
+ */
+export const TIER_PRECEDENCE: readonly FreshnessTier[] = ['statutory-annual', 'procedural', 'conceptual']
 
 /** A primary source a claim rests on. */
 export interface LocaleSource {
@@ -83,6 +103,15 @@ export interface LocaleFreshness {
   readonly lastVerifiedAt: string
   /** Where a rule has a known start date. */
   readonly effectiveFrom?: string
+  /**
+   * Calendar year a statutory figure on this page is valid for.
+   *
+   * Required when the page or any of its sections is `statutory-annual`, and
+   * meaningless otherwise. The gate fails once the current year passes it, so a
+   * 2026 wage figure cannot quietly serve 2027 readers while still inside its
+   * 90-day window.
+   */
+  readonly validForYear?: number
   readonly officialSources: readonly LocaleSource[]
   readonly freshness: FreshnessTier
   readonly timeSensitive: true

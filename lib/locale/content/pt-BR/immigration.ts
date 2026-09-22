@@ -10,7 +10,8 @@
  */
 import type { LocaleCorpus } from '../types'
 import { LATAM_SRC } from '../sources-latam'
-import { freshness } from '../freshness'
+import { LABOUR_SRC } from '../sources-labour'
+import { freshness, STATUTORY_YEAR } from '../freshness'
 
 export const PTBR_IMMIGRATION: LocaleCorpus = {
   'employee-card': {
@@ -198,11 +199,62 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
             intro: 'Quatro direitos que vale conhecer pelo nome:',
             items: [
               'Salário no mínimo no valor do salário mínimo legal',
-              'Igualdade de tratamento e proibição de discriminação',
+              'Igualdade de tratamento e proibição de discriminação — a lei proíbe expressamente a discriminação por origem racial ou étnica, nacionalidade e cidadania',
               'Segurança e proteção da saúde no trabalho',
-              'Condições comparáveis no trabalho temporário por agência — um trabalhador cedido por uma agência tem direito a condições salariais e de trabalho comparáveis às de um empregado próprio do tomador que exerça a mesma função',
+              'Condições comparáveis no trabalho temporário por agência',
             ],
           },
+        },
+        {
+          heading: 'Quanto é o salário mínimo, e o que não pode ser contado nele',
+          body: [
+            'Para a jornada semanal legal de 40 horas, o salário mínimo válido para 2026 é de 22 400 Kč por mês ou 134,40 Kč por hora. O valor é fixado por comunicação do Ministério do Trabalho e Assuntos Sociais e muda todo 1º de janeiro.',
+            'A parte que mais importa conhecer é o que a lei manda deixar de fora desse cálculo. Não entram no valor considerado para atingir o mínimo: o pagamento de horas extras, o adicional de trabalho em feriado, o adicional noturno, o adicional por ambiente de trabalho penoso, o adicional por sobrecarga na área da saúde e o adicional de sábado e domingo.',
+            'Isso significa que esses adicionais se somam ao mínimo e não o compõem. Um empregador não pode alcançar o salário mínimo somando o seu adicional noturno. Se a remuneração do mês ficar abaixo do mínimo, ele é obrigado a pagar a diferença.',
+            'O mínimo é proporcional à jornada: quem tem jornada contratada menor recebe a parte correspondente.',
+          ],
+          freshness: 'statutory-annual',
+        },
+        {
+          heading: 'Jornada, turnos e descanso',
+          body: [
+            'A jornada semanal legal é de 40 horas, mas ela é menor em regimes de turno. Em regime de turnos múltiplos — três ou mais turnos que se revezam em 24 horas — ou em regime ininterrupto, são 37,5 horas por semana. Em regime de dois turnos, 38,75 horas.',
+            'Isso tem duas consequências concretas. O salário mínimo por hora sobe proporcionalmente quando a jornada semanal é reduzida, e o tempo trabalhado além da jornada semanal legal do seu regime é hora extra.',
+            'Um turno não pode passar de 12 horas. A única exceção está na saúde, em operação ininterrupta e sob condições próprias.',
+          ],
+          list: {
+            intro: 'Descanso a que você tem direito:',
+            items: [
+              'Descanso diário ininterrupto de pelo menos 11 horas a cada 24 horas. Pode ser reduzido a 8 horas em situações definidas em lei, e nesse caso o descanso seguinte tem de ser prolongado pelo tempo que foi cortado',
+              'Descanso semanal ininterrupto de pelo menos 24 horas somadas ao descanso diário, de forma contínua',
+              'Quando a operação permite, o empregador concede esse descanso semanal a todos no mesmo dia, de modo que inclua o domingo',
+            ],
+          },
+        },
+        {
+          heading: 'Horas extras, noite, fim de semana e feriado',
+          body: [
+            'A lei trata hora extra como exceção, não como rotina: "a hora extra só pode ser realizada excepcionalmente". O empregador pode determiná-la por motivos operacionais sérios, dentro de limites — no máximo 8 horas por semana e 150 horas por ano civil. Acima disso, só com a sua concordância, e o total não pode ultrapassar a média de 8 horas semanais em um período de no máximo 26 semanas.',
+            'A hora extra é paga com o salário correspondente mais adicional de pelo menos 25% do salário médio, salvo se vocês acordarem folga compensatória em vez do adicional. Se a folga não for concedida em três meses, o adicional passa a ser devido.',
+            'Trabalho noturno e trabalho em sábado e domingo têm adicional de pelo menos 10% do salário médio. Aqui cabe uma ressalva que a própria lei faz: é possível acordar um mínimo diferente e outra forma de cálculo, então confira o que o seu contrato ou a convenção coletiva estabelece.',
+            'O turno de quem trabalha à noite não pode passar de 8 horas em 24 horas. O trabalhador noturno deve ser examinado por um serviço de medicina do trabalho, e o custo é do empregador.',
+            'Em feriado, a regra é salário mais folga compensatória, concedida até o fim do terceiro mês seguinte; por acordo, o adicional pode substituir a folga.',
+          ],
+        },
+        {
+          heading: 'Férias e prazo de pagamento',
+          body: [
+            'A duração mínima das férias é de 4 semanas por ano civil. Cinco semanas valem para empregadores do setor público, não para uma empresa privada.',
+            'O salário é devido depois de prestado o trabalho, no mais tardar no mês civil seguinte àquele em que o direito surgiu. A data regular de pagamento tem de ser acordada dentro desse período. Antes de você sair de férias, o empregador é obrigado a pagar o salário já vencido.',
+          ],
+        },
+        {
+          heading: 'Se você trabalha por meio de uma agência',
+          body: [
+            'A lei impõe duas proteções específicas a quem é cedido por uma agência de trabalho, e ambas valem para a TalentPartnerID como para qualquer outra.',
+            'A primeira: a agência e a empresa usuária são obrigadas a assegurar que as condições de trabalho e salariais do trabalhador cedido não sejam piores do que são — ou do que seriam — as de um trabalhador comparável. O "ou seriam" importa: a proteção não desaparece quando a empresa usuária não tem um empregado próprio na mesma função. Se as condições forem piores, a agência é obrigada a restabelecer a igualdade, a pedido seu ou por iniciativa própria ao constatar o fato, e você pode exigir dela os direitos daí decorrentes.',
+            'A segunda: uma agência não pode ceder o mesmo trabalhador à mesma empresa usuária por mais de 12 meses civis consecutivos. Há exceções — pedido do próprio trabalhador, ou substituição de alguém em licença-maternidade, paternidade ou parental.',
+          ],
         },
         {
           heading: 'Obrigações ligadas à residência e ao trabalho',
@@ -215,13 +267,20 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Onde procurar ajuda',
           body: [
-            'A Inspeção do Trabalho fiscaliza o cumprimento da legislação laboral. O Ministério do Interior responde pelas questões de residência. Existem ainda organizações de apoio a estrangeiros que prestam aconselhamento gratuito.',
+            'A fiscalização do cumprimento da legislação laboral, inclusive em matéria de remuneração, cabe ao Státní úřad inspekce práce — o Órgão Estatal de Inspeção do Trabalho — e aos inspetorados regionais competentes pelo local onde o trabalho é prestado. É a essa instância que se leva uma questão de salário abaixo do mínimo, de adicionais não pagos ou de condições piores que as de um trabalhador comparável.',
+            'O Ministério do Interior responde pelas questões de residência. Existem ainda organizações de apoio a estrangeiros que prestam aconselhamento gratuito.',
             'A TalentPartnerID não substitui nenhuma dessas instâncias e não presta aconselhamento jurídico. Se a sua situação envolver direitos laborais ou residência, procure a autoridade competente.',
           ],
         },
       ],
       cta: { label: 'Onde verificar informações oficiais', targetConceptId: 'verify-official-info' },
-      freshness: freshness('conceptual', [LATAM_SRC.labourOffice], 'LATAM'),
+      freshness: freshness(
+        'conceptual',
+        [LATAM_SRC.labourOffice, LABOUR_SRC.labourCode, LABOUR_SRC.minimumWage, LABOUR_SRC.minimumWageNotice, LABOUR_SRC.labourInspection],
+        'LATAM',
+        undefined,
+        STATUTORY_YEAR,
+      ),
     },
   },
 

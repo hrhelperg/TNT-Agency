@@ -1,7 +1,8 @@
 /** ES — permit cluster. "Tarjeta de empleado" is a descriptive gloss; zaměstnanecká karta appears alongside it. */
 import type { LocaleCorpus } from '../types'
 import { LATAM_SRC } from '../sources-latam'
-import { freshness } from '../freshness'
+import { LABOUR_SRC } from '../sources-labour'
+import { freshness, STATUTORY_YEAR } from '../freshness'
 
 export const ES_IMMIGRATION: LocaleCorpus = {
   'employee-card': {
@@ -181,11 +182,62 @@ export const ES_IMMIGRATION: LocaleCorpus = {
             intro: 'Cuatro derechos que conviene conocer por su nombre:',
             items: [
               'Salario no inferior al salario mínimo legal',
-              'Igualdad de trato y prohibición de discriminación',
+              'Igualdad de trato y prohibición de discriminación — la ley prohíbe expresamente la discriminación por origen racial o étnico, nacionalidad y ciudadanía',
               'Seguridad y protección de la salud en el trabajo',
-              'Condiciones comparables en el trabajo temporal por agencia — un trabajador cedido por una agencia tiene derecho a condiciones salariales y de trabajo comparables a las de un empleado propio de la empresa usuaria que desempeñe la misma función',
+              'Condiciones comparables en el trabajo temporal por agencia',
             ],
           },
+        },
+        {
+          heading: 'Cuánto es el salario mínimo, y qué no puede contarse dentro de él',
+          body: [
+            'Para la jornada semanal legal de 40 horas, el salario mínimo vigente para 2026 es de 22 400 Kč al mes o 134,40 Kč por hora. El monto lo fija una comunicación del Ministerio de Trabajo y Asuntos Sociales y cambia cada 1 de enero.',
+            'Lo más importante de conocer es qué manda la ley dejar fuera de ese cálculo. No se computan, para alcanzar el mínimo: el pago de horas extras, el recargo por trabajo en día festivo, el recargo nocturno, el recargo por ambiente de trabajo penoso, el recargo por mayor carga en el área de la salud y el recargo de sábado y domingo.',
+            'Es decir: esos recargos se suman al mínimo y no lo integran. Un empleador no puede llegar al salario mínimo sumando su recargo nocturno. Si la remuneración del mes queda por debajo del mínimo, está obligado a pagar la diferencia.',
+            'El mínimo es proporcional a la jornada: quien tiene una jornada contratada menor recibe la parte correspondiente.',
+          ],
+          freshness: 'statutory-annual',
+        },
+        {
+          heading: 'Jornada, turnos y descanso',
+          body: [
+            'La jornada semanal legal es de 40 horas, pero es menor en los regímenes de turnos. En régimen de turnos múltiples — tres o más turnos que se relevan en 24 horas — o en régimen ininterrumpido, son 37,5 horas semanales. En régimen de dos turnos, 38,75 horas.',
+            'Esto tiene dos consecuencias concretas. El salario mínimo por hora sube proporcionalmente cuando la jornada semanal se reduce, y el tiempo trabajado por encima de la jornada semanal legal de su régimen es hora extra.',
+            'Un turno no puede superar las 12 horas. La única excepción está en el área de la salud, en operación ininterrumpida y bajo condiciones propias.',
+          ],
+          list: {
+            intro: 'Descanso al que usted tiene derecho:',
+            items: [
+              'Descanso diario ininterrumpido de al menos 11 horas cada 24 horas. Puede reducirse a 8 horas en supuestos definidos por la ley, y en ese caso el descanso siguiente debe prolongarse por el tiempo recortado',
+              'Descanso semanal ininterrumpido de al menos 24 horas sumadas al descanso diario, de forma continua',
+              'Cuando la operación lo permite, el empleador concede ese descanso semanal a todos el mismo día, de modo que incluya el domingo',
+            ],
+          },
+        },
+        {
+          heading: 'Horas extras, noche, fin de semana y días festivos',
+          body: [
+            'La ley trata la hora extra como excepción, no como rutina: solo puede realizarse excepcionalmente. El empleador puede ordenarla por motivos operativos serios, dentro de límites — un máximo de 8 horas por semana y 150 horas por año calendario. Por encima de eso, solo con su acuerdo, y el total no puede superar el promedio de 8 horas semanales en un período de como máximo 26 semanas.',
+            'La hora extra se paga con el salario correspondiente más un recargo de al menos el 25% del salario promedio, salvo que acuerden tiempo libre compensatorio en lugar del recargo. Si ese tiempo libre no se concede dentro de tres meses, el recargo pasa a ser exigible.',
+            'El trabajo nocturno y el trabajo en sábado y domingo tienen un recargo de al menos el 10% del salario promedio. Aquí corresponde una salvedad que hace la propia ley: puede acordarse un mínimo distinto y otra forma de cálculo, así que revise lo que establecen su contrato o el convenio colectivo.',
+            'El turno de quien trabaja de noche no puede superar las 8 horas en 24 horas. El trabajador nocturno debe ser examinado por un servicio de medicina del trabajo, y el costo lo asume el empleador.',
+            'En día festivo la regla es salario más tiempo libre compensatorio, concedido hasta el final del tercer mes siguiente; por acuerdo, el recargo puede sustituir ese tiempo libre.',
+          ],
+        },
+        {
+          heading: 'Vacaciones y plazo de pago',
+          body: [
+            'La duración mínima de las vacaciones es de 4 semanas por año calendario. Las cinco semanas rigen para empleadores del sector público, no para una empresa privada.',
+            'El salario se debe una vez prestado el trabajo, a más tardar en el mes calendario siguiente a aquel en que nació el derecho. La fecha regular de pago debe acordarse dentro de ese período. Antes de que usted salga de vacaciones, el empleador está obligado a pagarle el salario ya devengado.',
+          ],
+        },
+        {
+          heading: 'Si usted trabaja a través de una agencia',
+          body: [
+            'La ley impone dos protecciones específicas a quien es cedido por una agencia de empleo, y ambas rigen para TalentPartnerID igual que para cualquier otra.',
+            'La primera: la agencia y la empresa usuaria están obligadas a asegurar que las condiciones laborales y salariales del trabajador cedido no sean peores de lo que son — o de lo que serían — las de un trabajador comparable. Ese "o serían" importa: la protección no desaparece cuando la empresa usuaria no tiene un empleado propio en la misma función. Si las condiciones son peores, la agencia debe restablecer la igualdad, a pedido suyo o por iniciativa propia al constatarlo, y usted puede reclamarle los derechos que de ahí surjan.',
+            'La segunda: una agencia no puede ceder al mismo trabajador a la misma empresa usuaria por más de 12 meses calendario consecutivos. Hay excepciones — pedido del propio trabajador, o reemplazo de alguien en licencia por maternidad, paternidad o parental.',
+          ],
         },
         {
           heading: 'Obligaciones ligadas a la residencia y al trabajo',
@@ -198,13 +250,20 @@ export const ES_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Dónde buscar ayuda',
           body: [
-            'La Inspección de Trabajo vigila el cumplimiento de la legislación laboral. El Ministerio del Interior responde por las cuestiones de residencia. Existen además organizaciones de apoyo a extranjeros que ofrecen asesoría gratuito.',
-            'TalentPartnerID no sustituye a ninguna de esas instancias y no presta asesoría jurídico. Si su situación afecta derechos laborales o a la residencia, acuda a la autoridad competente.',
+            'La vigilancia del cumplimiento de la legislación laboral, incluida la materia salarial, corresponde al Státní úřad inspekce práce — el Órgano Estatal de Inspección del Trabajo — y a los inspectorados regionales competentes según el lugar donde se presta el trabajo. Es a esa instancia a la que se lleva un caso de salario por debajo del mínimo, de recargos no pagados o de condiciones peores que las de un trabajador comparable.',
+            'El Ministerio del Interior responde por las cuestiones de residencia. Existen además organizaciones de apoyo a extranjeros que ofrecen asesoría gratuita.',
+            'TalentPartnerID no sustituye a ninguna de esas instancias y no presta asesoría jurídica. Si su situación afecta derechos laborales o a la residencia, acuda a la autoridad competente.',
           ],
         },
       ],
       cta: { label: 'Dónde verificar información oficial', targetConceptId: 'verify-official-info' },
-      freshness: freshness('conceptual', [LATAM_SRC.labourOffice], 'LATAM'),
+      freshness: freshness(
+        'conceptual',
+        [LATAM_SRC.labourOffice, LABOUR_SRC.labourCode, LABOUR_SRC.minimumWage, LABOUR_SRC.minimumWageNotice, LABOUR_SRC.labourInspection],
+        'LATAM',
+        undefined,
+        STATUTORY_YEAR,
+      ),
     },
   },
 
