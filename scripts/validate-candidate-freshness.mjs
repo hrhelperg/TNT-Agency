@@ -34,10 +34,17 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const R = await import('../lib/locale/registry.ts')
-const { FRESHNESS_DAYS } = await import('../lib/locale/content/types.ts')
+const { FRESHNESS_DAYS, TIER_PRECEDENCE } = await import('../lib/locale/content/types.ts')
 const { revisionFor, SOURCE_REVISIONS } = await import('../lib/locale/content/source-revisions.ts')
 const { LATAM_SRC } = await import('../lib/locale/content/sources-latam.ts')
-const KNOWN_SOURCE_IDS = new Set(Object.values(LATAM_SRC).map((x) => x.id))
+const { LABOUR_SRC } = await import('../lib/locale/content/sources-labour.ts')
+// Both registries, or every labour citation would be rejected as an unknown id.
+// The set is deliberately built from the registries rather than from the ids
+// actually cited: an id nobody cites yet must still be recognised, and an id
+// that exists nowhere must still fail.
+const KNOWN_SOURCE_IDS = new Set(
+  [...Object.values(LATAM_SRC), ...Object.values(LABOUR_SRC)].map((x) => x.id),
+)
 const PTBR = (await import('../lib/locale/content/pt-BR/index.ts')).PTBR_CONTENT
 const ES = (await import('../lib/locale/content/es/index.ts')).ES_CONTENT
 
@@ -47,10 +54,17 @@ const DAY = 86_400_000
 const isIsoDate = (s) => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(s))
 const daysBetween = (a, b) => Math.floor((a - Date.parse(b)) / DAY)
 
-/** The stricter of the page tier and any section override. */
+/**
+ * The strictest of the page tier and any section override.
+ *
+ * Driven by TIER_PRECEDENCE rather than a chain of includes() checks, so adding
+ * a fourth tier cannot silently fall through to the loosest ceiling — which is
+ * exactly what the previous `includes('procedural') ? ... : 'conceptual'` form
+ * would have done to statutory-annual.
+ */
 const effectiveTier = (entry) => {
   const tiers = [entry.freshness.freshness, ...entry.sections.map((s) => s.freshness).filter(Boolean)]
-  return tiers.includes('procedural') ? 'procedural' : 'conceptual'
+  return TIER_PRECEDENCE.find((t) => tiers.includes(t)) ?? 'conceptual'
 }
 
 export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), revisions = null } = {}) {
@@ -58,7 +72,7 @@ export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), r
   const notes = []
   const revision = revisions ? (id) => revisions[id] ?? null : revisionFor
   let checked = 0
-  const perTier = { procedural: 0, conceptual: 0 }
+  const perTier = { procedural: 0, conceptual: 0, 'statutory-annual': 0 }
 
   for (const [locale, corpus] of Object.entries(corpora)) {
     for (const concept of R.ALL_CONCEPTS) {
@@ -139,6 +153,33 @@ export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), r
         )
       }
 
+      // A statutory figure expires on a date, not after a number of days. The
+      // 2026 minimum wage is false on 1 January 2027 while still comfortably
+      // inside its 90-day window, so the day ceiling cannot be what catches it.
+      if (tier === 'statutory-annual') {
+        if (!Number.isInteger(f.validForYear)) {
+          errors.push(
+            `${locale}/${concept.id}: is statutory-annual but declares no validForYear — a figure with a known ` +
+              `expiry date cannot be governed by a rolling day count alone`,
+          )
+        } else {
+          const currentYear = new Date(now).getUTCFullYear()
+          if (currentYear > f.validForYear) {
+            errors.push(
+              `${locale}/${concept.id}: carries statutory figures declared for ${f.validForYear}, but the year is ` +
+                `${currentYear} — re-read the amounts from the MPSV notice for ${currentYear} and update the copy, ` +
+                `not just the metadata`,
+            )
+          }
+        }
+      } else if (f.validForYear !== undefined) {
+        // Otherwise a page could carry a reassuring year that gates nothing.
+        errors.push(
+          `${locale}/${concept.id}: declares validForYear ${f.validForYear} on a ${tier} page — the year is only ` +
+            `enforced on statutory-annual content, so this would gate nothing`,
+        )
+      }
+
       // Source revision, which overrides the calendar in the strict direction.
       for (const src of f.officialSources) {
         const revised = revision(src.id)
@@ -153,7 +194,10 @@ export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), r
   }
 
   notes.push(`${checked} candidate page(s) carry freshness metadata`)
-  notes.push(`${perTier.procedural} procedural (${FRESHNESS_DAYS.procedural}d) · ${perTier.conceptual} conceptual (${FRESHNESS_DAYS.conceptual}d)`)
+  notes.push(
+    `${perTier.procedural} procedural (${FRESHNESS_DAYS.procedural}d) · ${perTier.conceptual} conceptual ` +
+      `(${FRESHNESS_DAYS.conceptual}d) · ${perTier['statutory-annual']} statutory-annual (${FRESHNESS_DAYS['statutory-annual']}d + year gate)`,
+  )
   notes.push(`${SOURCE_REVISIONS.length} recorded source revision(s) checked against every citation`)
   return { errors, notes }
 }

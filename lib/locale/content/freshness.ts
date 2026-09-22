@@ -22,12 +22,24 @@ export const freshness = (
   sources: readonly LocaleSource[],
   market: 'BR' | 'LATAM',
   effectiveFrom?: string,
+  validForYear?: number,
 ): LocaleFreshness => ({
   jurisdiction: 'CZ',
   audienceMarket: market,
   lastVerifiedAt: CORPUS_VERIFIED_AT,
   ...(effectiveFrom ? { effectiveFrom } : {}),
+  ...(validForYear ? { validForYear } : {}),
   officialSources: sources,
   freshness: tier,
   timeSensitive: true,
 })
+
+/**
+ * The calendar year the statutory figures in this corpus are declared for.
+ *
+ * Named once so the wage figures, the copy that prints the year to the reader
+ * and the gate cannot drift apart. Changing this is not a metadata edit: the
+ * amounts in the content must be re-read from the MPSV notice for the new year
+ * in the same commit, and MPSV publishes the following year's by 30 September.
+ */
+export const STATUTORY_YEAR = 2026

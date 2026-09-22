@@ -103,6 +103,53 @@ const CONTROLS = [
       freshness: { ...base('employee-card').freshness, timeSensitive: false },
     }),
   },
+  {
+    id: '12. statutory-annual page that declares no validForYear',
+    corpora: clone('worker-rights', {
+      freshness: { ...base('worker-rights').freshness, freshness: 'statutory-annual' },
+    }),
+  },
+  {
+    id: '13. statutory figures declared for 2026, read in 2027',
+    corpora: clone('worker-rights', {
+      freshness: {
+        ...base('worker-rights').freshness,
+        freshness: 'statutory-annual',
+        validForYear: 2026,
+        lastVerifiedAt: '2026-12-20',
+      },
+    }),
+    now: Date.parse('2027-01-02'),
+  },
+  {
+    id: '14. validForYear on a conceptual page, where it gates nothing',
+    corpora: clone('life-and-work', {
+      freshness: { ...base('life-and-work').freshness, validForYear: 2026 },
+    }),
+  },
+  {
+    id: '15. statutory-annual section hiding inside a conceptual page, past 90 days',
+    corpora: clone('life-and-work', {
+      freshness: {
+        ...base('life-and-work').freshness,
+        lastVerifiedAt: '2026-05-01',
+        validForYear: 2026,
+      },
+      sections: [{ heading: 'Salário mínimo', body: ['Texto.'], freshness: 'statutory-annual' }],
+    }),
+  },
+  {
+    id: '16. POSITIVE CONTROL — a correct statutory-annual page inside its year',
+    expectClean: true,
+    corpora: clone('worker-rights', {
+      freshness: {
+        ...base('worker-rights').freshness,
+        freshness: 'statutory-annual',
+        validForYear: 2026,
+        lastVerifiedAt: '2026-09-20',
+      },
+    }),
+  },
 ]
 
 let failures = 0
@@ -110,10 +157,24 @@ console.log('Candidate freshness negative controls\n')
 for (const c of CONTROLS) {
   const { errors } = auditCandidateFreshness({
     corpora: c.corpora,
-    now: Date.parse('2026-09-21'),
+    // Per-control, because a year-expiry control cannot be expressed by mutating
+    // content alone — the thing that changes is the calendar, not the page.
+    now: c.now ?? Date.parse('2026-09-21'),
     // `null` means "use the shipped revisionFor"; an object stubs it.
     revisions: c.useRealLedger ? null : (c.revisions ?? {}),
   })
+  // A harness where every control must fail is satisfied by a validator that
+  // rejects everything. The positive control is what makes the other fifteen
+  // mean something.
+  if (c.expectClean) {
+    if (errors.length === 0) {
+      console.log(`  ✓ ${c.id} — passed clean, as it must`)
+    } else {
+      console.log(`  ✗ ${c.id} — WRONGLY REJECTED: ${errors[0]}`)
+      failures++
+    }
+    continue
+  }
   if (errors.length) {
     console.log(`  ✓ ${c.id} — caught (${errors.length})`)
   } else {
@@ -126,4 +187,8 @@ if (failures) {
   console.log(`Candidate freshness negative controls: FAIL (${failures} uncaught)`)
   process.exit(1)
 }
-console.log(`Candidate freshness negative controls: PASS (${CONTROLS.length}/${CONTROLS.length} caught)`)
+const positives = CONTROLS.filter((c) => c.expectClean).length
+console.log(
+  `Candidate freshness negative controls: PASS (${CONTROLS.length - positives} caught, ${positives} positive ` +
+    `control(s) passed clean)`,
+)
