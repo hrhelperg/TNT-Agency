@@ -1,6 +1,6 @@
-import type { Locale, LocaleConcept } from './registry'
-import { EN_CONTENT } from './content/en'
-import { DE_CONTENT } from './content/de'
+import type { CzechDerivedInput } from './registry'
+import { LOCALIZED_LOCALES, type Locale } from './locales'
+import { hasLocaleContent } from './content/corpus'
 
 /**
  * Calculator concepts — a tier of their own, deliberately.
@@ -39,14 +39,8 @@ import { DE_CONTENT } from './content/de'
  * registry exists to prevent — and would bury a calculator inside an essay.
  */
 
-const hasContent = (id: string, locale: Exclude<Locale, 'cs'>): boolean => {
-  const corpus = locale === 'en' ? EN_CONTENT : DE_CONTENT
-  const entry = corpus[id] as Record<string, unknown> | undefined
-  return Boolean(entry && entry[locale])
-}
-
 /** Declared identity. `published` is computed below and never written by hand. */
-const CALCULATOR_CONCEPTS_DECLARED: readonly Omit<LocaleConcept, 'published'>[] = [
+const CALCULATOR_CONCEPTS_DECLARED: readonly Omit<CzechDerivedInput, 'published'>[] = [
   {
     id: 'germany-employer-cost-calculator',
     csPrimary: '/kalkulacka-nakladu-zamestnavatele-nemecko',
@@ -71,11 +65,11 @@ const CALCULATOR_CONCEPTS_DECLARED: readonly Omit<LocaleConcept, 'published'>[] 
   },
 ]
 
-export const CALCULATOR_CONCEPTS: readonly LocaleConcept[] = CALCULATOR_CONCEPTS_DECLARED.map(
+export const CALCULATOR_CONCEPTS: readonly CzechDerivedInput[] = CALCULATOR_CONCEPTS_DECLARED.map(
   (concept) => {
     const published: Locale[] = ['cs']
-    for (const locale of ['en', 'de'] as const) {
-      if (concept.urls[locale] && hasContent(concept.id, locale)) published.push(locale)
+    for (const locale of LOCALIZED_LOCALES) {
+      if (concept.urls[locale] && hasLocaleContent(concept.id, locale)) published.push(locale)
     }
     return { ...concept, published }
   },

@@ -16,17 +16,26 @@
  * "unknown" and fall back to Czech, which is the failure being fixed.
  */
 import { useRouter } from 'next/router'
-import type { Locale } from './registry'
+import { LOCALE_PREFIX, LOCALIZED_LOCALES, type LocalizedLocale } from './locales'
 
-export type LockedLocale = Exclude<Locale, 'cs'>
+export type LockedLocale = LocalizedLocale
 
-const LOCKED: readonly LockedLocale[] = ['en', 'de']
-
-/** The locale a pathname belongs to, or null for the unprefixed Czech spine. */
+/**
+ * The locale a pathname belongs to, or null for the unprefixed Czech spine.
+ *
+ * Matches on LOCALE_PREFIX rather than composing `/${locale}`. The two happened
+ * to be identical while every locale id was a bare two-letter code, which is
+ * exactly why the shortcut looked safe; pt-BR breaks it, since the id is
+ * BCP 47 mixed-case and the URL prefix is lowercase `/pt-br`. Composing the
+ * prefix would have looked for `/pt-BR` and quietly found nothing — every
+ * Brazilian page falling back to the Czech default, which is the precise
+ * hydration flash this module exists to remove.
+ */
 export function localeFromPathname(pathname: string | null | undefined): LockedLocale | null {
   if (!pathname) return null
-  for (const locale of LOCKED) {
-    if (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)) return locale
+  for (const locale of LOCALIZED_LOCALES) {
+    const prefix = LOCALE_PREFIX[locale]
+    if (pathname === prefix || pathname.startsWith(`${prefix}/`)) return locale
   }
   return null
 }

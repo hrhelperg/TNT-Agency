@@ -30,40 +30,71 @@
  */
 import { L1_REGISTRY_CONCEPTS } from './l1-published'
 import { CALCULATOR_CONCEPTS } from './l2-calculators'
+import {
+  CANDIDATE_NATIVE_CONCEPTS,
+  CANDIDATE_CZECH_DERIVED_CONCEPTS,
+} from './l3-candidate'
+import { hasLocaleContent } from './content/corpus'
 
-export const LOCALES = ['cs', 'en', 'de'] as const
-export type Locale = (typeof LOCALES)[number]
+// The locale list lives in a leaf module so that l1-published.ts and
+// l2-calculators.ts — which the registry imports — can read it without a cycle.
+// Re-exported here so every existing `from './registry'` import is unaffected.
+import { LOCALES, LOCALIZED_LOCALES } from './locales'
+import type { Locale, LocalizedLocale, Audience } from './locales'
 
-/** URL prefix per locale. Czech is never prefixed — its URLs are unchanged. */
-export const LOCALE_PREFIX: Readonly<Record<Locale, string>> = {
-  cs: '',
-  en: '/en',
-  de: '/de',
-}
+export {
+  LOCALES,
+  LOCALIZED_LOCALES,
+  LOCALE_PREFIX,
+  LOCALE_HREFLANG,
+  LOCALE_LANG,
+  LOCALE_OG,
+  LOCALE_AUDIENCE,
+  CANDIDATE_LOCALES,
+  isCandidateLocale,
+  X_DEFAULT_ROUTE,
+} from './locales'
+export type { Locale, LocalizedLocale, Audience } from './locales'
 
-/** hreflang attribute value per locale. */
-export const LOCALE_HREFLANG: Readonly<Record<Locale, string>> = {
-  cs: 'cs-CZ',
-  en: 'en',
-  de: 'de',
-}
 
-/** html lang attribute per locale. */
-export const LOCALE_LANG: Readonly<Record<Locale, string>> = {
-  cs: 'cs',
-  en: 'en',
-  de: 'de',
+interface ConceptBase {
+  /** Stable, locale-free identity. Never changes once shipped. */
+  readonly id: string
+  /** Who the page is for. Drives CTA ownership and cluster legality. */
+  readonly audience: Audience
+  /**
+   * Explicit localized URLs. An absent locale means the translation does not
+   * exist — never a synthesized route.
+   */
+  readonly urls: Readonly<Partial<Record<LocalizedLocale, string>>>
+  /**
+   * Locales whose page is actually BUILT AND SERVED.
+   *
+   * Declaring a URL and publishing it are different facts, and conflating them
+   * is how a sitemap ends up advertising a 404. A locale appears here only once
+   * its page exists; until then the URL is a reserved identity, absent from the
+   * sitemap, absent from hreflang, and not offered by the switcher.
+   *
+   * Typed `Locale[]` on BOTH variants rather than narrowing the locale-native
+   * case to exclude 'cs'. A narrower type would be marginally stronger and would
+   * force edits to a dozen consumers that legitimately ask
+   * `published.includes(locale)` without caring which kind they hold — churn
+   * that buys nothing, since a locale-native concept publishing 'cs' is caught
+   * by scripts/validate-locale-registry.mjs and by registry.test.ts.
+   */
+  readonly published: readonly Locale[]
+  readonly pageType: string
+  /** Why this concept is localized, and anything a reviewer should know. */
+  readonly notes: string
 }
 
 /**
- * x-default points at the Czech root: this is a Czech company serving the Czech
- * market, and an unmatched visitor belongs there rather than on a translation.
+ * A concept whose identity originates in an existing Czech canonical.
+ *
+ * Every concept was this shape until the candidate corpus arrived.
  */
-export const X_DEFAULT_ROUTE = '/'
-
-export interface LocaleConcept {
-  /** Stable, locale-free identity. Never changes once shipped. */
-  readonly id: string
+export interface CzechDerivedConcept extends ConceptBase {
+  readonly kind: 'czech-derived'
   /**
    * The single Czech page that joins this concept's hreflang cluster.
    * Must be one of CZECH_ROUTES.
@@ -74,24 +105,55 @@ export interface LocaleConcept {
    * self-canonical, and receive NO locale alternates.
    */
   readonly csCollapsed?: readonly string[]
-  /**
-   * Explicit localized URLs. An absent locale means the translation does not
-   * exist — never a synthesized route.
-   */
-  readonly urls: Readonly<Partial<Record<Exclude<Locale, 'cs'>, string>>>
-  /**
-   * Locales whose page is actually BUILT AND SERVED.
-   *
-   * Declaring a URL and publishing it are different facts, and conflating them
-   * is how a sitemap ends up advertising a 404. A locale appears here only once
-   * its page exists; until then the URL is a reserved identity, absent from the
-   * sitemap, absent from hreflang, and not offered by the switcher.
-   */
-  readonly published: readonly Locale[]
-  readonly pageType: string
-  /** Why this concept is localized, and anything a reviewer should know. */
-  readonly notes: string
 }
+
+/**
+ * A concept with no Czech source page at all.
+ *
+ * The PT-BR/ES candidate corpus is mostly this. Forcing a Czech primary would
+ * have meant authoring a dozen Czech pages no Czech employer searches for, and
+ * mutating the production CS spine for an architectural convenience; making
+ * `csPrimary` merely optional would have weakened the assertion for the 48
+ * concepts that genuinely have one. So the absence is modelled explicitly and
+ * the type system makes every consumer acknowledge it.
+ */
+export interface LocaleNativeConcept extends ConceptBase {
+  readonly kind: 'locale-native'
+  /** The locale owning this concept's identity. Must appear in `urls`. */
+  readonly primaryLocale: LocalizedLocale
+}
+
+export type LocaleConcept = CzechDerivedConcept | LocaleNativeConcept
+
+/** Declaration shape for a Czech-derived concept; `kind` is stamped centrally. */
+export type CzechDerivedInput = Omit<CzechDerivedConcept, 'kind' | 'audience'> & {
+  readonly audience?: Audience
+}
+
+/** Declaration shape for a locale-native concept; `kind` is stamped centrally. */
+export type LocaleNativeInput = Omit<LocaleNativeConcept, 'kind' | 'audience'> & {
+  readonly audience?: Audience
+}
+
+/**
+ * Stamps `kind` and the default audience.
+ *
+ * Done here rather than on 48 object literals on purpose: the P3 generalization
+ * has to be provably inert for cs/en/de, and a 48-site diff is far harder to
+ * read than one function. `...c` follows the default so an explicit audience on
+ * a concept wins.
+ */
+export const asCzechDerived = (c: CzechDerivedInput): CzechDerivedConcept => ({
+  audience: 'employer',
+  ...c,
+  kind: 'czech-derived',
+})
+
+export const asLocaleNative = (c: LocaleNativeInput): LocaleNativeConcept => ({
+  audience: 'candidate',
+  ...c,
+  kind: 'locale-native',
+})
 
 /**
  * Every Czech canonical URL, in the exact order of the hand-maintained
@@ -299,7 +361,7 @@ export const CZECH_ROUTES: readonly string[] = [
  * wage and tax content) is gated behind source and freshness review, because a
  * translated statutory claim inherits every accuracy obligation of the original.
  */
-const L0_CONCEPTS: readonly LocaleConcept[] = [
+const L0_DECLARED: readonly CzechDerivedInput[] = [
   {
     id: 'home',
     csPrimary: '/',
@@ -340,7 +402,13 @@ const L0_CONCEPTS: readonly LocaleConcept[] = [
   {
     id: 'about-us',
     csPrimary: '/o-nas',
-    urls: { en: '/en/about-us', de: '/de/ueber-uns' },
+    audience: 'shared',
+    urls: {
+      en: '/en/about-us',
+      de: '/de/ueber-uns',
+      'pt-BR': '/pt-br/sobre-nos',
+      es: '/es/sobre-nosotros',
+    },
     published: ['cs', 'en', 'de'],
     pageType: 'utility',
     notes: 'Trust surface. Company facts must translate without gaining strength.',
@@ -348,7 +416,13 @@ const L0_CONCEPTS: readonly LocaleConcept[] = [
   {
     id: 'contact',
     csPrimary: '/contact',
-    urls: { en: '/en/contact', de: '/de/kontakt' },
+    audience: 'shared',
+    urls: {
+      en: '/en/contact',
+      de: '/de/kontakt',
+      'pt-BR': '/pt-br/contato',
+      es: '/es/contacto',
+    },
     published: ['cs', 'en', 'de'],
     pageType: 'utility',
     notes: 'Trust surface. An EN/DE visitor needs a contact route in their own language or the locale corpus dead-ends.',
@@ -398,7 +472,7 @@ const L0_CONCEPTS: readonly LocaleConcept[] = [
  * Legal pages, mapped READ-ONLY to URLs that already exist as static .html.
  * Listed so the switcher and hreflang can resolve them; never rewritten.
  */
-export const LEGAL_CONCEPTS: readonly LocaleConcept[] = [
+const LEGAL_DECLARED: readonly CzechDerivedInput[] = [
   {
     id: 'privacy-policy',
     csPrimary: '/privacy-cs.html',
@@ -436,26 +510,117 @@ export const LEGAL_CONCEPTS: readonly LocaleConcept[] = [
  * Only PUBLISHED locales are ever emitted, so a concept can be frozen and
  * slugged here long before its pages exist without advertising a phantom URL.
  */
+/**
+ * Adds candidate locales to a hand-declared concept when its content exists.
+ *
+ * L0's `published` lists are written by hand and frozen for cs/en/de. Rather
+ * than convert them — which would churn ten concepts and weaken the L0 freeze —
+ * candidate locales are appended by the same derived rule the other tiers use:
+ * a URL plus authored content. about-us and contact are the only L0 concepts
+ * with candidate URLs, so nothing else moves.
+ */
+const withCandidateLocales = (c: CzechDerivedConcept): CzechDerivedConcept => {
+  const extra = LOCALIZED_LOCALES.filter(
+    (l) => !c.published.includes(l) && c.urls[l] && hasLocaleContent(c.id, l),
+  )
+  return extra.length ? { ...c, published: [...c.published, ...extra] } : c
+}
+
+const L0_CONCEPTS: readonly CzechDerivedConcept[] = L0_DECLARED.map(asCzechDerived).map(
+  withCandidateLocales,
+)
+
+/**
+ * Legal pages, mapped READ-ONLY to URLs that already exist as static .html.
+ * Shared audience: a privacy policy is not written for one side of the market.
+ */
+export const LEGAL_CONCEPTS: readonly CzechDerivedConcept[] = LEGAL_DECLARED.map((c) =>
+  asCzechDerived({ audience: 'shared', ...c }),
+)
+
 export const LOCALE_CONCEPTS: readonly LocaleConcept[] = [
   ...L0_CONCEPTS,
-  ...L1_REGISTRY_CONCEPTS,
-  ...CALCULATOR_CONCEPTS,
+  ...L1_REGISTRY_CONCEPTS.map(asCzechDerived),
+  ...CALCULATOR_CONCEPTS.map(asCzechDerived),
+  ...CANDIDATE_CZECH_DERIVED_CONCEPTS.map((c) => asCzechDerived({ audience: 'shared', ...c })),
+  ...CANDIDATE_NATIVE_CONCEPTS.map(asLocaleNative),
 ]
 
 export const ALL_CONCEPTS: readonly LocaleConcept[] = [...LOCALE_CONCEPTS, ...LEGAL_CONCEPTS]
 
+/**
+ * The URL that owns a concept's identity.
+ *
+ * The Czech canonical for a Czech-derived concept; the primary locale's URL for
+ * a locale-native one. Anything that used to reach for `.csPrimary` because
+ * every concept had one should ask for this instead.
+ */
+export function primaryUrl(concept: LocaleConcept): string {
+  if (concept.kind === 'czech-derived') return concept.csPrimary
+  const url = concept.urls[concept.primaryLocale]
+  /* istanbul ignore next — validator guarantees this; the throw documents it. */
+  if (!url) throw new Error(`${concept.id}: primaryLocale ${concept.primaryLocale} has no URL`)
+  return url
+}
+
+/** The Czech canonical, or undefined for a concept that has no Czech source. */
+export function csPrimaryOf(concept: LocaleConcept): string | undefined {
+  return concept.kind === 'czech-derived' ? concept.csPrimary : undefined
+}
+
+/** Collapsed Czech variants; always empty for a locale-native concept. */
+export function collapsedOf(concept: LocaleConcept): readonly string[] {
+  return concept.kind === 'czech-derived' ? concept.csCollapsed ?? [] : []
+}
+
+/** Locales this concept actually serves today. */
+export function publishedLocales(concept: LocaleConcept): readonly Locale[] {
+  return concept.published
+}
+
+/**
+ * Whether this concept's hreflang cluster carries x-default.
+ *
+ * Czech-derived clusters do: x-default points at the Czech root, which is where
+ * an unmatched visitor to a Czech company's page belongs. Locale-native
+ * candidate clusters do NOT — the Czech root is an employer homepage, and
+ * sending an unmatched Brazilian candidate there would be a worse answer than
+ * sending them nowhere. No truthful default destination exists, so none is
+ * claimed.
+ */
+export function hasXDefault(concept: LocaleConcept): boolean {
+  return concept.kind === 'czech-derived'
+}
+
+/*
+ * Reviewed and deliberately left as `kind`.
+ *
+ * Adversarial review argued this should key on cluster composition, on the
+ * grounds that worker-rights and verify-official-info "have zero employer-locale
+ * members" and so send unmatched candidates to the Czech employer homepage. The
+ * premise does not hold: both are Czech-derived, both publish 'cs', and cs is an
+ * employer locale — every Czech-derived cluster contains one by construction, so
+ * the proposed test is a no-op that reads as though it does something.
+ *
+ * The substantive half of that finding is real but is not this wave's: site-wide,
+ * x-default points at X_DEFAULT_ROUTE rather than at the cluster's own primary,
+ * so it is not a member of the set it annotates. That is the L0 policy, it
+ * affects 51 existing employer clusters, and changing it here would be an SEO
+ * change to the employer corpus made sideways. Recorded as a bounded gap.
+ */
+
 /** The URL for a concept in a locale, or undefined when it does not exist. */
 export function urlFor(concept: LocaleConcept, locale: Locale): string | undefined {
-  return locale === 'cs' ? concept.csPrimary : concept.urls[locale]
+  if (locale === 'cs') return csPrimaryOf(concept)
+  return concept.urls[locale]
 }
 
 /** Find the concept that owns a route, in any locale. Undefined if none does. */
 export function conceptForRoute(route: string): LocaleConcept | undefined {
   return ALL_CONCEPTS.find(
     (c) =>
-      c.csPrimary === route ||
-      c.urls.en === route ||
-      c.urls.de === route,
+      csPrimaryOf(c) === route ||
+      LOCALIZED_LOCALES.some((l) => c.urls[l] === route),
   )
 }
 
@@ -463,10 +628,8 @@ export function conceptForRoute(route: string): LocaleConcept | undefined {
 export function localeForRoute(route: string): Locale | undefined {
   const c = conceptForRoute(route)
   if (!c) return CZECH_ROUTES.indexOf(route) !== -1 ? 'cs' : undefined
-  if (c.csPrimary === route) return 'cs'
-  if (c.urls.en === route) return 'en'
-  if (c.urls.de === route) return 'de'
-  return undefined
+  if (csPrimaryOf(c) === route) return 'cs'
+  return LOCALIZED_LOCALES.find((l) => c.urls[l] === route)
 }
 
 /**
@@ -480,8 +643,9 @@ export function alternatesFor(route: string): ReadonlyArray<{ locale: Locale; ur
   const concept = conceptForRoute(route)
   if (!concept) return []
   const out: Array<{ locale: Locale; url: string }> = []
-  if (concept.published.includes('cs')) out.push({ locale: 'cs', url: concept.csPrimary })
-  for (const locale of ['en', 'de'] as const) {
+  const cs = csPrimaryOf(concept)
+  if (cs && concept.published.includes('cs')) out.push({ locale: 'cs', url: cs })
+  for (const locale of LOCALIZED_LOCALES) {
     const url = concept.urls[locale]
     // PUBLISHED, not merely declared: hreflang must never point at a page that
     // does not exist yet.
@@ -491,19 +655,16 @@ export function alternatesFor(route: string): ReadonlyArray<{ locale: Locale; ur
 }
 
 /** Czech routes that are collapsed variants — Czech-only, no alternates. */
-export const COLLAPSED_CZECH_ROUTES: readonly string[] = LOCALE_CONCEPTS.flatMap(
-  (c) => c.csCollapsed ?? [],
-)
+export const COLLAPSED_CZECH_ROUTES: readonly string[] = LOCALE_CONCEPTS.flatMap(collapsedOf)
 
 /** Every localized (non-Czech) route the registry DECLARES, published or not. */
 export const LOCALIZED_ROUTES: readonly string[] = LOCALE_CONCEPTS.flatMap((c) =>
-  (['en', 'de'] as const).map((l) => c.urls[l]).filter((u): u is string => Boolean(u)),
+  LOCALIZED_LOCALES.map((l) => c.urls[l]).filter((u): u is string => Boolean(u)),
 )
 
 /** Localized routes that are actually built and served — what the sitemap carries. */
 export const PUBLISHED_LOCALIZED_ROUTES: readonly string[] = LOCALE_CONCEPTS.flatMap((c) =>
-  (['en', 'de'] as const)
-    .filter((l) => c.published.includes(l))
+  LOCALIZED_LOCALES.filter((l) => c.published.includes(l))
     .map((l) => c.urls[l])
     .filter((u): u is string => Boolean(u)),
 )

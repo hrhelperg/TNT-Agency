@@ -21,11 +21,26 @@
  */
 import {
   ALL_CONCEPTS,
+  csPrimaryOf,
   urlFor,
   type Locale,
 } from './registry'
 
 export type LocaleLocked = Exclude<Locale, 'cs'>
+
+/**
+ * The locales the EMPLOYER chrome serves.
+ *
+ * Written out rather than derived because TypeScript cannot narrow a union from
+ * a runtime record, and because this is a frozen fact about the employer corpus
+ * the same way L1_MANIFEST_LOCALES is about L1. The tie to LOCALE_AUDIENCE is
+ * not left to trust: chrome.test.ts asserts these two lists agree, so adding an
+ * employer locale fails the suite with a message telling you to extend the
+ * chrome rather than silently rendering a half-translated header.
+ */
+export type EmployerLocale = Extract<Locale, 'cs' | 'en' | 'de'>
+export type EmployerLocaleLocked = Exclude<EmployerLocale, 'cs'>
+export type CandidateLocale = Extract<Locale, 'pt-BR' | 'es'>
 
 /** Keys used by the header and mobile nav. `mnav.*` resolves to `nav.*`. */
 export type NavKey =
@@ -45,7 +60,7 @@ export type NavKey =
   | 'language'
 
 /** Mirror of `T[lang].nav` in public/script.js. Verified by chrome.test.ts. */
-export const CHROME_NAV: Readonly<Record<Locale, Readonly<Record<NavKey, string>>>> = {
+export const CHROME_NAV: Readonly<Record<EmployerLocale, Readonly<Record<NavKey, string>>>> = {
   cs: {
     home: 'Úvod',
     agencies: 'Agentury',
@@ -214,7 +229,7 @@ export function resolveNavHref(
   // this asks it rather than trusting a second, hand-kept copy of the mapping.
   const concept = target.conceptId
     ? ALL_CONCEPTS.find((c) => c.id === target.conceptId)
-    : ALL_CONCEPTS.find((c) => c.csPrimary === target.czechHref)
+    : ALL_CONCEPTS.find((c) => csPrimaryOf(c) === target.czechHref)
 
   if (target.conceptId && !concept) {
     throw new Error(`NAV_TARGETS references unknown concept "${target.conceptId}"`)
@@ -265,7 +280,7 @@ export type FooterKey =
   | 'priv'
   | 'cook'
 
-export const CHROME_FOOTER: Readonly<Record<Locale, Readonly<Record<FooterKey, string>>>> = {
+export const CHROME_FOOTER: Readonly<Record<EmployerLocale, Readonly<Record<FooterKey, string>>>> = {
   cs: {
     'tagline': 'Váš spolehlivý partner v oblasti zaměstnávání. Spojujeme správné lidi se správnými firmami od prvního dne.',
     'colServices': 'Naše služby',
@@ -462,6 +477,24 @@ export const CHROME_ARIA: Readonly<Record<Locale, Readonly<Record<AriaKey, strin
     footerNav: 'Footer navigation',
     breadcrumb: 'Breadcrumb',
   },
+  'pt-BR': {
+    mainNav: 'Navegação principal',
+    mobileNav: 'Navegação móvel',
+    openMenu: 'Abrir menu',
+    languageSelector: 'Seletor de idioma',
+    websiteLanguage: 'Idioma do site',
+    footerNav: 'Navegação do rodapé',
+    breadcrumb: 'Trilha de navegação',
+  },
+  es: {
+    mainNav: 'Navegación principal',
+    mobileNav: 'Navegación móvil',
+    openMenu: 'Abrir menú',
+    languageSelector: 'Selector de idioma',
+    websiteLanguage: 'Idioma del sitio',
+    footerNav: 'Navegación del pie de página',
+    breadcrumb: 'Ruta de navegación',
+  },
   de: {
     mainNav: 'Hauptnavigation',
     mobileNav: 'Mobile Navigation',
@@ -478,4 +511,6 @@ export const HOME_LABEL: Readonly<Record<Locale, string>> = {
   cs: 'Úvod',
   en: 'Home',
   de: 'Startseite',
+  'pt-BR': 'Início',
+  es: 'Inicio',
 } as const

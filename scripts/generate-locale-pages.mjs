@@ -18,9 +18,22 @@ import { fileURLToPath, pathToFileURL } from 'url'
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const reg = await import('../lib/locale/registry.ts')
 
+/**
+ * The exported corpus constant per locale.
+ *
+ * Keyed by locale rather than derived from it: 'pt-BR' would mangle into
+ * PT-BR_CONTENT, which is not an identifier.
+ */
+const CORPUS_EXPORT = {
+  en: 'EN_CONTENT',
+  de: 'DE_CONTENT',
+  'pt-BR': 'PTBR_CONTENT',
+  es: 'ES_CONTENT',
+}
+
 const componentName = (id, locale) =>
   id.split(/[^a-zA-Z0-9]/).filter(Boolean).map((s) => s[0].toUpperCase() + s.slice(1)).join('') +
-  locale[0].toUpperCase() + locale.slice(1) + 'Page'
+  locale.split('-').map((s) => s[0].toUpperCase() + s.slice(1)).join('') + 'Page'
 
 export function generate({ write = true } = {}) {
   const written = []
@@ -35,9 +48,18 @@ export function generate({ write = true } = {}) {
       // Next resolves silently and arbitrarily.
       const rel = url.replace(/^\//, '')
       const file = path.join(ROOT, 'pages', rel.includes('/') ? rel + '.tsx' : path.join(rel, 'index.tsx'))
-      const corpus = locale === 'en' ? 'EN_CONTENT' : 'DE_CONTENT'
+      // Export name and directory per locale. The ternary this replaces answered
+      // DE_CONTENT for everything that was not 'en', so a third locale would have
+      // generated pages importing the German corpus under a Portuguese route.
+      const corpus = CORPUS_EXPORT[locale]
+      if (!corpus) throw new Error(`no corpus export name registered for locale "${locale}"`)
       const depth = path.relative(path.dirname(file), path.join(ROOT)).split(path.sep).length
       const up = '../'.repeat(depth)
+      // Dot access where the locale id is a valid identifier, bracket where it
+      // is not ('pt-BR'). Conditional rather than bracket-always so the 100
+      // existing en/de route files are left byte-identical — a cosmetic codegen
+      // change across every localized page would bury the real diff.
+      const accessor = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(locale) ? `.${locale}` : `['${locale}']`
       const body = `import LocalePage from '${up}components/locale/LocalePage'
 import { ${corpus} } from '${up}lib/locale/content/${locale}'
 
@@ -45,7 +67,7 @@ import { ${corpus} } from '${up}lib/locale/content/${locale}'
 // Route identity, canonical, hreflang and content all resolve through the
 // locale registry; this wrapper exists so the route is statically enumerable.
 export default function ${componentName(concept.id, locale)}() {
-  return <LocalePage conceptId="${concept.id}" locale="${locale}" content={${corpus}['${concept.id}'].${locale}!} />
+  return <LocalePage conceptId="${concept.id}" locale="${locale}" content={${corpus}['${concept.id}']${accessor}!} />
 }
 `
       const existing = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : null

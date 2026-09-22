@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import { useLang, type Lang } from '../lib/i18n/react'
+import { useLang } from '../lib/i18n/react'
+import { useRouteLocale } from '../lib/locale/route-locale'
+import type { Locale } from '../lib/locale/locales'
 import { CONSENT_KEY, readConsent, writeConsent } from '../lib/consent'
 import { clearWebmasterIdStorage } from '../lib/analytics/webmasterid'
 
@@ -26,7 +28,17 @@ function publishBannerHeight(el: HTMLElement | null) {
 
 // Localized chrome only — consent semantics (gtag consent mode + the stored
 // choice) are unchanged. Preference storage is the consent flag, not personal data.
-const COOKIE_COPY: Record<Lang, {
+/**
+ * Consent copy per locale — keyed by Locale, not Lang.
+ *
+ * Lang is cs/en/de, and useLang() falls back to 'cs' for anything else, so the
+ * GDPR consent dialog rendered in CZECH on all 43 pt-BR and es pages: Czech
+ * body text, Czech buttons, aria-label "Souhlas s cookies", on a document
+ * declaring lang="pt-BR". No automated check saw it — the Czech string is
+ * correctly marked as Czech, so it satisfies WCAG 3.1.2 while being consent
+ * obtained in a language the reader does not have.
+ */
+const COOKIE_COPY: Record<Locale, {
   text: string; privacy: string; tail: string; reject: string; accept: string; label: string
 }> = {
   cs: {
@@ -44,6 +56,22 @@ const COOKIE_COPY: Record<Lang, {
     reject: 'Reject non-essential',
     accept: 'Accept all',
     label: 'Cookie consent',
+  },
+  'pt-BR': {
+    text: 'Usamos cookies para melhorar a sua experiência e tratamos dados de acordo com a nossa',
+    privacy: 'Política de Privacidade',
+    tail: 'Você pode aceitar todos os cookies ou recusar os não essenciais. A sua escolha fica salva e esta faixa não aparece de novo.',
+    reject: 'Recusar não essenciais',
+    accept: 'Aceitar todos',
+    label: 'Consentimento de cookies',
+  },
+  es: {
+    text: 'Usamos cookies para mejorar su experiencia y tratamos los datos conforme a nuestra',
+    privacy: 'Política de Privacidad',
+    tail: 'Puede aceptar todas las cookies o rechazar las no esenciales. Su elección queda guardada y esta franja no vuelve a aparecer.',
+    reject: 'Rechazar no esenciales',
+    accept: 'Aceptar todas',
+    label: 'Consentimiento de cookies',
   },
   de: {
     text: 'Wir verwenden Cookies, um Ihr Erlebnis zu verbessern, und verarbeiten Daten gemäß unserer',
@@ -70,7 +98,11 @@ function updateGtag(status: 'granted' | 'denied') {
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false)
-  const lang = useLang()
+  // The URL is the authority on a locale-locked page, exactly as it is for the
+  // chrome and the ecosystem ribbon; useLang() only answers for the Czech spine.
+  const routeLocale = useRouteLocale()
+  const chosenLang = useLang()
+  const lang: Locale = routeLocale ?? chosenLang
   const c = COOKIE_COPY[lang]
   const rootRef = useRef<HTMLDivElement>(null)
 

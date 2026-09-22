@@ -4,6 +4,7 @@ import {
   urlFor,
   alternatesFor,
   type Locale,
+  collapsedOf,
 } from '../../lib/locale/registry'
 import { CHROME_ARIA, footerTarget, resolveNavHref } from '../../lib/locale/chrome'
 
@@ -131,7 +132,7 @@ test.describe('switcher: page-to-equivalent-page in all six directions', () => {
 
   test('collapsed Czech variants offer no switcher at all', async ({ page }) => {
     for (const concept of LOCALE_CONCEPTS) {
-      for (const variant of concept.csCollapsed ?? []) {
+      for (const variant of collapsedOf(concept)) {
         await page.goto(variant, { waitUntil: 'domcontentloaded' })
         await expect(page.locator('.locale-switcher'), variant).toHaveCount(0)
       }

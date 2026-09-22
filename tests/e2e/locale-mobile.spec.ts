@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
-import { LOCALE_CONCEPTS, urlFor } from '../../lib/locale/registry'
+import { LOCALE_CONCEPTS, isCandidateLocale, urlFor, type Locale } from '../../lib/locale/registry'
 
 /**
  * Locale L0 — narrow-viewport acceptance.
@@ -54,6 +54,7 @@ const settled = async (page: Page) => {
 test.describe('narrow viewports: content fits and the mobile menu works', () => {
   for (const [route, locale] of [...LOCALIZED, ...CZECH]) {
     test(`${route} (${locale}) fits and opens at every mobile width`, async ({ page }) => {
+      const isCandidate = isCandidateLocale(locale as Locale)
       await answerConsent(page)
       const problems: string[] = []
 
@@ -77,10 +78,31 @@ test.describe('narrow viewports: content fits and the mobile menu works', () => 
             barWidth: bar ? Math.round(bar.getBoundingClientRect().width) : null,
             brandShown: shown('.eco-bar__brand'),
             ctaShown: shown('.eco-bar__cta'),
+            navLinks: document.querySelectorAll('header .header__nav a[href^="/"]').length,
           }
         })
 
         if (m.overflow > 1) problems.push(`${width}px: horizontal overflow ${m.overflow}px (ribbon ${m.barWidth}px)`)
+
+        // The candidate locales have NEITHER a hamburger NOR the HELPERG ribbon,
+        // and both absences are deliberate. The ribbon is employer B2B with no
+        // pt-BR/es copy. The disclosure was removed because it shipped with no
+        // CSS at all: the raw checkbox painted at the viewport edge, the menu
+        // could never open, and seven links sat in the tab order at opacity 0 —
+        // the defect docs/followup-accent-contrast.md already records once.
+        // Their nav wraps and renders every destination at every width instead.
+        //
+        // So the expectation is two-sided rather than universal: on an employer
+        // locale the ABSENCE of these is the defect, and on a candidate locale
+        // their PRESENCE is. Asserting only one direction is how a deliberate
+        // removal and a regression become indistinguishable.
+        if (isCandidate) {
+          if (m.burger) problems.push(`${width}px: candidate page renders a hamburger`)
+          if (m.barWidth !== null) problems.push(`${width}px: candidate page renders the HELPERG ribbon`)
+          if (!m.navLinks) problems.push(`${width}px: candidate nav renders no destinations`)
+          continue
+        }
+
         if (!m.burger) problems.push(`${width}px: no hamburger`)
         else if (m.burger.right > m.vw + 1 || m.burger.left < -1) {
           problems.push(`${width}px: hamburger outside viewport (${m.burger.left}..${m.burger.right} of ${m.vw})`)

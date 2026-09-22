@@ -1390,7 +1390,24 @@ sections.forEach(sec => navObserver.observe(sec));
 // says English. On ordinary Czech routes storage remains the authority,
 // because there the switcher choice is the only signal there is.
 const localeLocked = document.documentElement.getAttribute('data-locale-locked') === 'true';
-const initLang = localeLocked
-  ? (document.documentElement.lang || 'cs')
-  : (localStorage.getItem('tnt-lang') || 'cs');
-setLang(initLang, { persist: !localeLocked });
+const documentLang = document.documentElement.lang || 'cs';
+
+// A locale this dictionary does not carry is LEFT ALONE.
+//
+// T holds cs/en/de. The candidate locales (pt-BR, es) are served fully rendered
+// from the server with their own chrome components, and none of their markup
+// carries a [data-i18n] hook — so there is nothing here for this script to
+// translate, and everything for it to damage. setLang begins `if (!T[lang])
+// lang = 'en'`, which on /pt-br/… rewrote <html lang> from "pt-BR" to "en"
+// after hydration: a Brazilian page announcing itself as English to every
+// screen reader and crawler that reads the live DOM. Nothing visible changed,
+// which is why only a browser-level assertion caught it.
+//
+// Returning early is correct rather than defensive: on these pages the server
+// output is already complete and already right.
+if (localeLocked && !T[documentLang]) {
+  // Nothing to do. The server-rendered locale chrome is authoritative.
+} else {
+  const initLang = localeLocked ? documentLang : (localStorage.getItem('tnt-lang') || 'cs');
+  setLang(initLang, { persist: !localeLocked });
+}

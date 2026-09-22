@@ -1,4 +1,6 @@
 import { SITE } from '../lib/content/rules'
+import { LOCALE_PREFIX, LOCALE_HREFLANG } from '../lib/locale/locales'
+import { DISCOVERY_LABEL, DISCOVERY_TARGETS } from '../lib/locale/candidate-chrome'
 import { OPERATOR_EMAIL, OPERATOR_PHONE, OPERATOR_SEAT } from '../lib/content/trust-data'
 import {
   CHROME_ARIA,
@@ -6,7 +8,7 @@ import {
   footerTarget,
   resolveNavHref,
   type FooterKey,
-  type LocaleLocked,
+  type EmployerLocaleLocked,
 } from '../lib/locale/chrome'
 
 interface FooterProps {
@@ -16,7 +18,17 @@ interface FooterProps {
    * are dropped, so the footer of an /en or /de page is correct before any
    * script runs. Without it the Czech markup is emitted exactly as before.
    */
-  locale?: LocaleLocked
+  /**
+   * Employer locales only.
+   *
+   * Narrowed from LocaleLocked when the candidate locales arrived. tsconfig sets
+   * "strict": false, so CHROME_NAV['pt-BR'] would NOT have been a type error —
+   * it would have evaluated to undefined and rendered a header with no labels,
+   * with a green typecheck. Assignability of a prop IS checked without strict,
+   * so narrowing here turns that silent runtime failure into a build failure.
+   * Candidate locales render CandidateHeader/CandidateFooter instead.
+   */
+  locale?: EmployerLocaleLocked
 }
 
 /** Human label for a social profile URL (e.g. "linkedin.com/company/x" → "LinkedIn"). */
@@ -50,7 +62,7 @@ export default function Footer({ locale }: FooterProps = {}) {
         <div className="footer__inner">
 
           <div className="footer__brand">
-            <a href={locale ? `/${locale}` : '/'} className="logo logo--light" aria-label="TalentPartnerID">
+            <a href={locale ? LOCALE_PREFIX[locale] : '/'} className="logo logo--light" aria-label="TalentPartnerID">
               <svg className="logo__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="40" height="40" rx="10" fill="#ffffff" />
                 <text x="19.5" y="24.5" fontFamily="Inter, Arial, sans-serif" fontSize="19.5" fontWeight="800" fill="#0d1e3d" textAnchor="middle" letterSpacing="-1.3">TP</text>
@@ -115,6 +127,34 @@ export default function Footer({ locale }: FooterProps = {}) {
               <a href={`tel:${OPERATOR_PHONE.replace(/\s/g, '')}`}>{OPERATOR_PHONE}</a>
             </div>
           </nav>
+
+          {/*
+            Discovery entry into the candidate layer.
+            
+            A NAVIGATIONAL link, deliberately not an hreflang alternate and
+            deliberately not a CHROME_FOOTER key. The Czech employer homepage and
+            /pt-br are not translations of each other — one sells staffing to
+            Czech firms, the other explains lawful work to Brazilian candidates —
+            so a cluster would tell a search engine something false, and the
+            language switcher must keep offering only real equivalents. It is
+            also kept out of CHROME_FOOTER because chrome.test.ts asserts that
+            map mirrors T[lang].footer in public/script.js, and a key with no
+            counterpart there would break a mirror that is doing real work.
+            
+            Labelled as a different audience, not as a translation, so nobody
+            reads "Português" here as "this page in Portuguese".
+          */}
+          <p className="footer__discovery">
+            <span className="footer__discovery-label">{DISCOVERY_LABEL[locale ?? 'cs']}</span>{' '}
+            {DISCOVERY_TARGETS.map((target, i) => (
+              <span key={target.locale}>
+                {i > 0 ? ' · ' : ''}
+                <a href={LOCALE_PREFIX[target.locale]} {...{ hreflang: LOCALE_HREFLANG[target.locale] }}>
+                  {target.label}
+                </a>
+              </span>
+            ))}
+          </p>
 
         </div>
 

@@ -138,11 +138,37 @@ export const POST_L1_ADDITIONS = {
   prerenderedPages: 6,
 } as const
 
+/**
+ * The PT-BR + ES candidate wave.
+ *
+ * 22 pt-BR concepts and 21 es concepts, 43 routes, declared here rather than by
+ * moving L1's numbers — the whole point of this file is that L1's totals keep
+ * meaning what they meant the day they were frozen.
+ *
+ * czechRoutes is ZERO, and that is the load-bearing number. The candidate corpus
+ * is overwhelmingly locale-native, and the three Czech pages that looked like
+ * sources turned out to be employer-framed in their own words, so not a single
+ * Czech route was added, removed or altered by this wave.
+ *
+ * See docs/locale-ptbr-es-route-matrix.md for the frozen route set.
+ */
+export const PTBR_ES_ADDITIONS = {
+  /** No Czech page was created, changed or removed. */
+  czechRoutes: 0,
+  /** 22 pt-BR + 21 es. */
+  localizedRoutes: 43,
+  sitemapUrls: 43,
+  staticRoutes: 43,
+  prerenderedPages: 43,
+} as const
+
 /** Site-wide totals: the frozen L1 baseline plus everything declared since. */
 export const SITE_EXPECTED = {
-  czechRoutes: L1_EXPECTED.czechRoutes + POST_L1_ADDITIONS.czechRoutes,
-  localizedRoutes: L1_EXPECTED.localizedRoutes + POST_L1_ADDITIONS.localizedRoutes,
-  sitemapUrls: L1_EXPECTED.sitemapUrls + POST_L1_ADDITIONS.sitemapUrls,
-  staticRoutes: L1_EXPECTED.staticRoutes + POST_L1_ADDITIONS.staticRoutes,
-  prerenderedPages: L1_EXPECTED.prerenderedPages + POST_L1_ADDITIONS.prerenderedPages,
+  czechRoutes: L1_EXPECTED.czechRoutes + POST_L1_ADDITIONS.czechRoutes + PTBR_ES_ADDITIONS.czechRoutes,
+  localizedRoutes:
+    L1_EXPECTED.localizedRoutes + POST_L1_ADDITIONS.localizedRoutes + PTBR_ES_ADDITIONS.localizedRoutes,
+  sitemapUrls: L1_EXPECTED.sitemapUrls + POST_L1_ADDITIONS.sitemapUrls + PTBR_ES_ADDITIONS.sitemapUrls,
+  staticRoutes: L1_EXPECTED.staticRoutes + POST_L1_ADDITIONS.staticRoutes + PTBR_ES_ADDITIONS.staticRoutes,
+  prerenderedPages:
+    L1_EXPECTED.prerenderedPages + POST_L1_ADDITIONS.prerenderedPages + PTBR_ES_ADDITIONS.prerenderedPages,
 } as const

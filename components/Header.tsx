@@ -9,7 +9,7 @@ import {
   NAV_TARGETS,
   REQUEST_WORKERS,
   resolveNavHref,
-  type LocaleLocked,
+  type EmployerLocaleLocked,
   type NavTarget,
 } from '../lib/locale/chrome'
 
@@ -23,7 +23,17 @@ interface HeaderProps {
    * locale and the `data-i18n` hooks are omitted, so nothing can rewrite a
    * page whose language is fixed by its URL.
    */
-  locale?: LocaleLocked
+  /**
+   * Employer locales only.
+   *
+   * Narrowed from LocaleLocked when the candidate locales arrived. tsconfig sets
+   * "strict": false, so CHROME_NAV['pt-BR'] would NOT have been a type error —
+   * it would have evaluated to undefined and rendered a header with no labels,
+   * with a green typecheck. Assignability of a prop IS checked without strict,
+   * so narrowing here turns that silent runtime failure into a build failure.
+   * Candidate locales render CandidateHeader/CandidateFooter instead.
+   */
+  locale?: EmployerLocaleLocked
   /**
    * Set to false by a Czech-spine page whose CONTENT is locale-fixed.
    *

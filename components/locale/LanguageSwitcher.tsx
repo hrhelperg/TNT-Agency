@@ -1,7 +1,8 @@
 import { ALL_CONCEPTS, LOCALE_LANG, alternatesFor, conceptForRoute, localeForRoute, type Locale } from '../../lib/locale/registry'
-import { CHROME_ARIA, CHROME_NAV } from '../../lib/locale/chrome'
+import { CHROME_ARIA } from '../../lib/locale/chrome'
+import { languageLabelFor } from '../../lib/locale/candidate-chrome'
 
-const LABEL: Record<string, string> = { cs: 'Čeština', en: 'English', de: 'Deutsch' }
+const LABEL: Record<string, string> = { cs: 'Čeština', en: 'English', de: 'Deutsch', 'pt-BR': 'Português', es: 'Español' }
 
 /**
  * Header form of the same labels.
@@ -15,7 +16,7 @@ const LABEL: Record<string, string> = { cs: 'Čeština', en: 'English', de: 'Deu
  * endonym remains the accessible name, so a screen reader still hears
  * "Deutsch", not "D E".
  */
-const SHORT: Record<string, string> = { cs: 'CS', en: 'EN', de: 'DE' }
+const SHORT: Record<string, string> = { cs: 'CS', en: 'EN', de: 'DE', 'pt-BR': 'PT', es: 'ES' }
 
 /** Storage key the client dictionary in public/script.js reads on unlocked pages. */
 export const LANG_STORAGE_KEY = 'tnt-lang'
@@ -55,7 +56,7 @@ export default function LanguageSwitcher({ route, className }: { route: string; 
   const text = (locale: string) => (compact ? SHORT[locale] : LABEL[locale])
 
   return (
-    <nav className={className ? `locale-switcher ${className}` : 'locale-switcher'} aria-label={CHROME_NAV[uiLocale].language}>
+    <nav className={className ? `locale-switcher ${className}` : 'locale-switcher'} aria-label={languageLabelFor(uiLocale)}>
       <ul>
         {alternates.map((a) => (
           <li key={a.locale}>
@@ -86,7 +87,15 @@ export default function LanguageSwitcher({ route, className }: { route: string; 
                 {...{ hreflang: LOCALE_LANG[a.locale] }}
                 lang={LOCALE_LANG[a.locale]}
                 data-locale-choice={a.locale}
-                {...(compact ? { 'aria-label': LABEL[a.locale], title: LABEL[a.locale] } : {})}
+                // The accessible name STARTS with the visible text. WCAG 2.5.3
+                // requires the visible label to be contained in the accessible
+                // name so speech input can match it: "PT" is not a substring of
+                // "Português", so "click PT" matched nothing. The other codes
+                // passed only by luck — EN/English, ES/Español and DE/Deutsch
+                // all happen to share a prefix.
+                {...(compact
+                  ? { 'aria-label': `${SHORT[a.locale]} — ${LABEL[a.locale]}`, title: LABEL[a.locale] }
+                  : {})}
                 onClick={() => {
                   try {
                     window.localStorage.setItem(LANG_STORAGE_KEY, a.locale)

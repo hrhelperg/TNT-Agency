@@ -14,11 +14,11 @@ import { OPERATOR_EMAIL, OPERATOR_PHONE } from '../lib/content/trust-data'
 // ordinary Czech routes — that is the visitor's own switcher choice — but on a
 // locked page the URL is the authority, or a first-time visitor to /en/… would
 // have the server's English chrome replaced with Czech the moment JS ran.
-import { ALL_CONCEPTS, LOCALE_LANG, type Locale } from '../lib/locale/registry'
+import { ALL_CONCEPTS, LOCALE_LANG, type Locale, LOCALIZED_LOCALES } from '../lib/locale/registry'
 
 const localeByRoute: Record<string, Locale> = {}
 for (const concept of ALL_CONCEPTS) {
-  for (const locale of ['en', 'de'] as const) {
+  for (const locale of LOCALIZED_LOCALES) {
     const url = concept.urls[locale]
     // Declared, not necessarily published: an unpublished page does not exist,
     // so no route can resolve to it and the entry is harmless. Once published
@@ -60,12 +60,16 @@ const organizationSchema = JSON.stringify({
   ...(SITE.social.length ? { sameAs: SITE.social } : {}),
 })
 
-const websiteSchema = JSON.stringify({
+const websiteSchemaFor = (lang: string) => JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: SITE.brand,
   url: SITE.baseUrl,
-  inLanguage: 'cs-CZ',
+  // The page's own language, not the site's origin language. This was hardcoded
+  // 'cs-CZ' and shipped on all 43 pt-BR/es pages and all 100 en/de pages, so a
+  // document declaring <html lang="pt-BR"> simultaneously declared in JSON-LD
+  // that it was Czech. §38 asks for truthful structured data; that was not.
+  inLanguage: lang,
 })
 
 export default function Document({ lang = DEFAULT_LANG, localeLocked = false }: { lang?: string; localeLocked?: boolean }) {
@@ -78,7 +82,7 @@ export default function Document({ lang = DEFAULT_LANG, localeLocked = false }: 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationSchema }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteSchema }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteSchemaFor(lang) }} />
       </Head>
       <body>
         <Main />

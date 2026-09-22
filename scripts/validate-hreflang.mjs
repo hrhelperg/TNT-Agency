@@ -36,7 +36,9 @@ const NEXT_PAGES = path.join(ROOT, '.next/server/pages')
 const PUBLIC = path.join(ROOT, 'public')
 
 /** Language codes this site is allowed to declare. */
-export const ALLOWED = new Set(['en', 'cs-CZ', 'de'])
+export const ALLOWED = new Set(
+  Object.values((await import('../lib/locale/locales.ts')).LOCALE_HREFLANG),
+)
 
 /**
  * A hreflang code and an <html lang> need not be byte-equal: cs-CZ is a regional
@@ -66,8 +68,14 @@ const { SITE_EXPECTED } = await import('../lib/locale/l1-manifest.ts')
 export const XDEFAULT_ALLOWED = Object.fromEntries(
   LOCALE_REGISTRY.LOCALE_CONCEPTS.flatMap((c) => {
     const reason = `locale cluster "${c.id}"; x-default is ${LOCALE_REGISTRY.X_DEFAULT_ROUTE}, declared in the locale registry`
-    const routes = [c.csPrimary]
-    for (const locale of ['en', 'de']) {
+    // Locale-native candidate clusters are EXCLUDED. x-default points at the
+    // Czech root, which is an employer homepage: it is the right answer for an
+    // unmatched visitor to a Czech company's page and the wrong one for an
+    // unmatched Brazilian candidate. No truthful default exists, so none is
+    // permitted — and a locale-native page emitting one now fails this gate.
+    if (!LOCALE_REGISTRY.hasXDefault(c)) return []
+    const routes = [LOCALE_REGISTRY.csPrimaryOf(c)]
+    for (const locale of LOCALE_REGISTRY.LOCALIZED_LOCALES) {
       if (c.published.includes(locale) && c.urls[locale]) routes.push(c.urls[locale])
     }
     return routes.length > 1 ? routes.map((r) => [r, reason]) : []

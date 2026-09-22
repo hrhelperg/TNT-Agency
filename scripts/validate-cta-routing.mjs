@@ -166,6 +166,9 @@ export const CTA_INTENTS = [
   'GENERAL_CONTACT',
   'REGULATORY_CONTACT',
   'CANDIDATE_CONTACT',
+  // Resolved through the locale registry at render time; the audience is a
+  // property of the concept the content names, not of the component.
+  'REGISTRY_RESOLVED',
   'MARKETPLACE',
   'KNOWLEDGE',
   'OTHER',
@@ -181,6 +184,7 @@ export const SCANNED_SURFACES = [
   // Locale pages render one CTA each, resolved through the locale registry
   // rather than from a hardcoded href — see BESPOKE_CTAS below.
   'components/locale/LocalePage.tsx',
+  'components/locale/CandidateHeader.tsx',
   'pages/index.tsx',
   'pages/kalkulacka-mzdy-agenturniho-zamestnance.tsx',
   'pages/agencies.tsx',
@@ -213,8 +217,10 @@ export const SCANNED_SURFACES = [
  * cannot disappear unnoticed, but their destination is not string-compared.
  */
 export const BESPOKE_CTAS = [
-  { file: 'components/locale/LocalePage.tsx', label: '{content.cta.label}', intent: 'EMPLOYER_STAFFING_REQUEST', dest: null,
-    reason: 'href={ctaHref}, resolved from the locale registry by concept id — it can only be a registry route, and the locale page gate asserts no cross-locale linking outside the switcher.' },
+  { file: 'components/locale/LocalePage.tsx', label: '{content.cta.label}', intent: 'REGISTRY_RESOLVED', dest: null,
+    reason: 'href={ctaHref}, resolved from the locale registry by concept id — it can only be a registry route, and the locale page gate asserts no cross-locale linking outside the switcher. Audience-neutral by construction: the same component renders employer pages (cs/en/de), whose content declares an employer CTA concept, and candidate pages (pt-BR/es), whose content declares a candidate one. It was declared EMPLOYER_STAFFING_REQUEST while only employer locales existed; that label became untrue the moment the component started rendering candidate pages, so it names the mechanism instead. Audience ownership is enforced per concept by the audience field in the registry.' },
+  { file: 'components/locale/CandidateHeader.tsx', label: '{t.apply}', intent: 'CANDIDATE_CONTACT', dest: null,
+    reason: 'The candidate primary CTA. href resolves CANDIDATE_CTA (concept id "candidate-apply") through the registry in the reader\'s own locale, and renders nothing at all when that concept is unpublished — there is deliberately no Czech fallback, because a candidate page linking to a Czech employer route is the defect rather than a degraded state. candidate-chrome.test.ts asserts no candidate chrome target can resolve to /poptavka-pracovniku, /en/request-staff, /offers or any other employer destination.' },
   // ── homepage ──
   { file: 'pages/index.tsx', label: 'Hledám pracovníky', intent: 'EMPLOYER_STAFFING_REQUEST', dest: '/poptavka-pracovniku' },
   { file: 'pages/index.tsx', label: 'Hledám práci', intent: 'CANDIDATE_CONTACT', dest: '/offers' },

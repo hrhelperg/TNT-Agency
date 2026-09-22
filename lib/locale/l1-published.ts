@@ -1,7 +1,6 @@
-import type { Locale } from './registry'
+import { LOCALIZED_LOCALES, type Locale } from './locales'
 import { L1_CONCEPTS, type L1Concept } from './l1-concepts'
-import { EN_CONTENT } from './content/en'
-import { DE_CONTENT } from './content/de'
+import { hasLocaleContent } from './content/corpus'
 
 /**
  * L1 concepts with `published` DERIVED, never declared.
@@ -22,17 +21,11 @@ import { DE_CONTENT } from './content/de'
  * filesystem. Two independent conditions, deliberately not derived from each
  * other — if they disagree, one of them is wrong and the gate says so.
  */
-const hasContent = (id: string, locale: Exclude<Locale, 'cs'>): boolean => {
-  const corpus = locale === 'en' ? EN_CONTENT : DE_CONTENT
-  const entry = corpus[id] as Record<string, unknown> | undefined
-  return Boolean(entry && entry[locale])
-}
-
 export const L1_REGISTRY_CONCEPTS: readonly (L1Concept & { published: readonly Locale[] })[] =
   L1_CONCEPTS.map((concept) => {
     const published: Locale[] = ['cs']
-    for (const locale of ['en', 'de'] as const) {
-      if (concept.urls[locale] && hasContent(concept.id, locale)) published.push(locale)
+    for (const locale of LOCALIZED_LOCALES) {
+      if (concept.urls[locale] && hasLocaleContent(concept.id, locale)) published.push(locale)
     }
     return { ...concept, published }
   })

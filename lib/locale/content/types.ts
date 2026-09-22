@@ -40,12 +40,69 @@ export interface LocaleList {
   readonly items: readonly string[]
 }
 
+/**
+ * How fast a claim goes stale.
+ *
+ * Two tiers rather than one calendar ceiling, because the risks are not alike.
+ * A consular appointment procedure or a document list can change without notice
+ * and a stale one costs a candidate a flight; the definition of an Employee Card
+ * changes when the statute changes. Treating both as 180-day content would let
+ * procedure rot for half a year, and treating both as 90-day content would
+ * churn stable explainers for nothing.
+ */
+export type FreshnessTier = 'procedural' | 'conceptual'
+
+/** Days a tier may go unverified before the build fails. */
+export const FRESHNESS_DAYS: Readonly<Record<FreshnessTier, number>> = {
+  procedural: 90,
+  conceptual: 180,
+}
+
+/** A primary source a claim rests on. */
+export interface LocaleSource {
+  /** Key into SOURCE_REVISIONS — how a source change invalidates content. */
+  readonly id: string
+  readonly name: string
+  readonly publisher: string
+  readonly url: string
+  /** ISO date the URL was last opened and the claim re-read. */
+  readonly accessedAt: string
+}
+
+/**
+ * Freshness metadata for time-sensitive candidate content.
+ *
+ * Optional on LocalePageContent so the en/de employer corpus is untouched;
+ * required by scripts/validate-candidate-freshness.mjs for every concept in the
+ * candidate tier, which is where the risk actually lives.
+ */
+export interface LocaleFreshness {
+  readonly jurisdiction: 'CZ'
+  readonly audienceMarket: 'BR' | 'LATAM'
+  /** ISO date the page's claims were last checked against their sources. */
+  readonly lastVerifiedAt: string
+  /** Where a rule has a known start date. */
+  readonly effectiveFrom?: string
+  readonly officialSources: readonly LocaleSource[]
+  readonly freshness: FreshnessTier
+  readonly timeSensitive: true
+}
+
 export interface LocaleSection {
   readonly heading: string
   /** Paragraphs. Plain strings — no markup, so nothing can inject structure. */
   readonly body: readonly string[]
   /** Rendered after the body paragraphs, mirroring the Czech `bullets` field. */
   readonly list?: LocaleList
+  /**
+   * Tightens this section's tier above the page's own.
+   *
+   * A page can be conceptual while one of its sections is not: the Employee
+   * Card explainer is stable, but the paragraph naming processing times and
+   * appointment mechanics inside it is procedural. The stricter tier always
+   * wins, so a 90-day block cannot hide inside a 180-day page.
+   */
+  readonly freshness?: FreshnessTier
 }
 
 export interface LocalePageContent {
@@ -65,6 +122,8 @@ export interface LocalePageContent {
     readonly targetConceptId: string
     readonly note?: string
   }
+  /** Required for the candidate tier; absent on the en/de employer corpus. */
+  readonly freshness?: LocaleFreshness
 }
 
 /** Content for one concept, per non-Czech locale. */

@@ -32,12 +32,12 @@ All 187 Czech routes are accounted for.
 
 | Classification | Routes |
 |---|---|
-| L0 | 18 |
+| L0 | 20 |
 | L1_primary | 38 |
 | L1_collapsed | 18 |
 | LEGAL | 9 |
 | CZECH_ONLY | 57 |
-| L2 | 41 |
+| L2 | 39 |
 | OUT_OF_SCOPE | 6 |
 | UNCLASSIFIED | 0 |
 | **total** | **187** |

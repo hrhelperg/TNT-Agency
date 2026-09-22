@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { useLang } from '../../lib/i18n/react'
+import { useLang, type Lang } from '../../lib/i18n/react'
 import { useRouteLocale } from '../../lib/locale/route-locale'
 import { ECOSYSTEM_COPY } from '../../lib/ecosystem/copy'
 import { currentProduct, timelineProducts } from '../../lib/ecosystem/registry'
@@ -33,13 +33,36 @@ import EcosystemDirectory from './EcosystemDirectory'
 export default function EcosystemBanner() {
   const routeLocale = useRouteLocale()
   const chosenLang = useLang()
-  const lang = routeLocale ?? chosenLang
-  const c = ECOSYSTEM_COPY[lang]
+
+  /**
+   * Not rendered on the candidate locales.
+   *
+   * This ribbon is HELPERG ecosystem navigation — B2B, addressed to employers,
+   * and authored only in cs/en/de. Two independent reasons to omit it on a
+   * candidate page: there is no Portuguese or Spanish copy, and a Brazilian
+   * candidate reading about work permits has no use for a business-ecosystem
+   * bar above the header.
+   *
+   * It is also the bug this guard replaces. `routeLocale ?? chosenLang` fed
+   * ECOSYSTEM_COPY, which is keyed by the three-locale content type, so on a
+   * pt-BR route the lookup returned undefined and the build died with
+   * "Cannot read properties of undefined (reading 'ariaLabel')". tsconfig sets
+   * "strict": false, so indexing a Record with a key outside its type is not a
+   * type error — the failure surfaced only at prerender.
+   */
+  const lang: Lang | null =
+    routeLocale === null ? chosenLang : routeLocale === 'en' || routeLocale === 'de' ? routeLocale : null
+
   const [open, setOpen] = useState(false)
   const triggerRef = useRef<HTMLButtonElement | null>(null)
 
   const current = currentProduct()
   const timeline = timelineProducts(6)
+
+  // After the hooks: React requires an unconditional hook order, so the guard
+  // cannot precede them.
+  if (lang === null) return null
+  const c = ECOSYSTEM_COPY[lang]
 
   return (
     <>

@@ -9121,5 +9121,243 @@
         }
       }
     }
+  },
+  "worker-rights": {
+    "csPrimary": "/prava-a-povinnosti-cizincu",
+    "items": {
+      "worker-rights|SEO_PAGES|s0.b0|a2c38664": {
+        "ref": "s0.b0",
+        "cs": "Mzda nejméně ve výši minimální mzdy",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Salário no mínimo no valor do salário mínimo legal"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Salario no inferior al salario mínimo legal"
+        }
+      },
+      "worker-rights|SEO_PAGES|s0.b1|541ca6c6": {
+        "ref": "s0.b1",
+        "cs": "Rovné zacházení a zákaz diskriminace",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Igualdade de tratamento e proibição de discriminação"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Igualdad de trato y prohibición de discriminación"
+        }
+      },
+      "worker-rights|SEO_PAGES|s0.b2|33aa6b0b": {
+        "ref": "s0.b2",
+        "cs": "Bezpečnost a ochrana zdraví při práci",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Segurança e proteção da saúde no trabalho"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Seguridad y protección de la salud en el trabajo"
+        }
+      },
+      "worker-rights|SEO_PAGES|s0.b3|254ffe94": {
+        "ref": "s0.b3",
+        "cs": "Srovnatelné podmínky u agenturního zaměstnávání",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Condições comparáveis no trabalho temporário por agência — um trabalhador cedido por uma agência tem direito a condições salariais e de trabalho comparáveis às de um empregado próprio do tomador que exerça a mesma função"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Condiciones comparables en el trabajo temporal por agencia — un trabajador cedido por una agencia tiene derecho a condiciones salariales y de trabajo comparables a las de un empleado propio de la empresa usuaria que desempeñe la misma función"
+        }
+      },
+      "worker-rights|SEO_PAGES|f0|adb45973": {
+        "ref": "f0",
+        "cs": "Má cizinec stejná pracovní práva jako Čech?",
+        "pt-BR": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "O Código do Trabalho tcheco se aplica independentemente da nacionalidade"
+        },
+        "es": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "El Código del Trabajo checo se aplica con independencia de la nacionalidad"
+        }
+      },
+      "worker-rights|SEO_PAGES|f1|b0b80957": {
+        "ref": "f1",
+        "cs": "Jaké má cizinec povinnosti navíc?",
+        "pt-BR": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "comunicar mudanças relevantes às autoridades dentro dos prazos, manter a validade dos documentos e respeitar o vínculo entre a autorização e o posto de trabalho"
+        },
+        "es": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "comunicar los cambios relevantes a las autoridades dentro de los plazos, mantener vigentes los documentos y respetar el vínculo entre la autorización y el puesto de trabajo"
+        }
+      },
+      "worker-rights|SEO_PAGES|f2|5258d0f3": {
+        "ref": "f2",
+        "cs": "Kam se obrátit při problému s podmínkami práce?",
+        "pt-BR": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "A Inspeção do Trabalho fiscaliza o cumprimento da legislação laboral. O Ministério do Interior responde pelas questões de residência"
+        },
+        "es": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "La Inspección de Trabajo vigila el cumplimiento de la legislación laboral. El Ministerio del Interior responde por las cuestiones de residencia"
+        }
+      }
+    }
+  },
+  "verify-official-info": {
+    "csPrimary": "/kde-overit-informace-pro-cizince",
+    "items": {
+      "verify-official-info|SEO_PAGES|s0.b0|d739e807": {
+        "ref": "s0.b0",
+        "cs": "Pobyt a pobytová oprávnění – MV ČR (OAMP)",
+        "pt-BR": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "O Ministério do Interior da República Tcheca decide sobre autorizações de residência"
+        },
+        "es": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "El Ministerio del Interior de la República Checa resuelve las autorizaciones de residencia"
+        }
+      },
+      "verify-official-info|SEO_PAGES|s0.b1|b928003e": {
+        "ref": "s0.b1",
+        "cs": "Víza a konzulární náležitosti – MZV ČR a zastupitelské úřady",
+        "pt-BR": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "O Ministério das Relações Exteriores publica informação sobre vistos e residência"
+        },
+        "es": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "El Ministerio de Asuntos Exteriores publica información sobre visas y residencia"
+        }
+      },
+      "verify-official-info|SEO_PAGES|s1.b0|3645fa0d": {
+        "ref": "s1.b0",
+        "cs": "Povolení a oznamovací povinnosti – Úřad práce ČR, MPSV",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Permissões e obrigações de comunicação — Úřad práce ČR (Escritório de Trabalho) e, em termos metodológicos, o MPSV"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Permisos y obligaciones de comunicación — Úřad práce ČR (Oficina de Trabajo) y, en lo metodológico, el MPSV"
+        }
+      },
+      "verify-official-info|SEO_PAGES|s1.b1|a09f63ab": {
+        "ref": "s1.b1",
+        "cs": "Dohled a kontroly – Státní úřad inspekce práce (SÚIP)",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Fiscalização e inspeções — Státní úřad inspekce práce (SÚIP)"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Vigilancia e inspecciones — Státní úřad inspekce práce (SÚIP)"
+        }
+      },
+      "verify-official-info|SEO_PAGES|s1.b2|1bf8d519": {
+        "ref": "s1.b2",
+        "cs": "Pracovní mobilita v EU – EURES",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Mobilidade laboral na União Europeia — rede EURES"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Movilidad laboral en la Unión Europea — red EURES"
+        }
+      },
+      "verify-official-info|SEO_PAGES|s1.b3|20c90aca": {
+        "ref": "s1.b3",
+        "cs": "Statistiky trhu práce – ČSÚ",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Estatísticas do mercado de trabalho — Český statistický úřad (ČSÚ)"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Estadísticas del mercado laboral — Český statistický úřad (ČSÚ)"
+        }
+      },
+      "verify-official-info|SEO_PAGES|s2.b0|758fa94f": {
+        "ref": "s2.b0",
+        "cs": "Sociální pojištění a koordinace – ČSSZ",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Seguro social e sua coordenação — Česká správa sociálního zabezpečení (ČSSZ)"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Seguridad social y su coordinación — Česká správa sociálního zabezpečení (ČSSZ)"
+        }
+      },
+      "verify-official-info|SEO_PAGES|s2.b1|af0b561b": {
+        "ref": "s2.b1",
+        "cs": "Zdravotní pojištění – zdravotní pojišťovny (např. VZP)",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Seguro de saúde — as seguradoras de saúde tchecas, por exemplo a VZP"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Seguro de salud — las aseguradoras de salud checas, por ejemplo la VZP"
+        }
+      },
+      "verify-official-info|SEO_PAGES|s2.b2|73ca3d06": {
+        "ref": "s2.b2",
+        "cs": "Daně z příjmů – finanční správa",
+        "pt-BR": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Imposto de renda — Finanční správa, a administração fiscal tcheca"
+        },
+        "es": {
+          "state": "PRESERVED_IN_LIST",
+          "carriedBy": "Impuesto sobre la renta — Finanční správa, la administración tributaria checa"
+        }
+      },
+      "verify-official-info|SEO_PAGES|f0|23deabd6": {
+        "ref": "f0",
+        "cs": "Kam se obrátit ohledně zaměstnanecké nebo modré karty?",
+        "pt-BR": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "ao Ministério do Interior, Departamento de Política de Asilo e Migração (OAMP), que decide sobre as autorizações de residência e publica as condições vigentes"
+        },
+        "es": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "al Ministerio del Interior, Departamento de Política de Asilo y Migración (OAMP), que resuelve las autorizaciones de residencia y publica las condiciones vigentes"
+        }
+      },
+      "verify-official-info|SEO_PAGES|f1|74913326": {
+        "ref": "f1",
+        "cs": "Kde ověřit povinnosti a oznamování u zaměstnávání cizinců?",
+        "pt-BR": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "junto ao Úřad práce ČR, com orientação metodológica do MPSV. A fiscalização cabe à Inspeção Estatal do Trabalho (SÚIP)"
+        },
+        "es": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "ante la Úřad práce ČR, con orientación metodológica del MPSV. La vigilancia corresponde a la Inspección Estatal de Trabajo (SÚIP)"
+        }
+      },
+      "verify-official-info|SEO_PAGES|f2|b7d65ae9": {
+        "ref": "f2",
+        "cs": "Kde zjistím aktuální sazby pojistného a daní?",
+        "pt-BR": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "as do seguro social junto à ČSSZ, as do seguro de saúde junto às seguradoras de saúde e as questões fiscais junto à administração fiscal"
+        },
+        "es": {
+          "state": "PRESERVED_IN_PROSE",
+          "carriedBy": "los de la seguridad social ante la ČSSZ, los del seguro de salud ante las aseguradoras de salud y las cuestiones tributarias ante la administración tributaria"
+        }
+      }
+    }
   }
 }

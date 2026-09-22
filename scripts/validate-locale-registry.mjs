@@ -59,19 +59,36 @@ export function auditLocaleRegistry({
     if (ids.has(c.id)) errors.push(`duplicate concept id "${c.id}"`)
     ids.add(c.id)
 
-    if (!czechRoutes.includes(c.csPrimary)) {
-      errors.push(`${c.id}: csPrimary "${c.csPrimary}" is not an existing Czech canonical`)
+    // Czech-primary rules apply to Czech-derived concepts ONLY. A locale-native
+    // concept has no Czech source by design, and asserting one would be asking
+    // the candidate corpus to be something it is not.
+    const cs = R.csPrimaryOf(c)
+    if (c.kind === 'czech-derived') {
+      if (!czechRoutes.includes(cs)) {
+        errors.push(`${c.id}: csPrimary "${cs}" is not an existing Czech canonical`)
+      }
+      if (primaries.has(cs)) {
+        errors.push(`${c.id}: "${cs}" is already another concept's primary — a Czech page belongs to exactly one cluster`)
+      }
+      primaries.add(cs)
+    } else {
+      // Locale-native invariants, each of which would otherwise be a phantom.
+      if (!c.urls[c.primaryLocale]) {
+        errors.push(`${c.id}: primaryLocale "${c.primaryLocale}" has no URL — a locale-native concept must own the locale it claims`)
+      }
+      if (c.published.includes('cs')) {
+        errors.push(`${c.id}: locale-native concepts have no Czech page and must never publish 'cs'`)
+      }
+      if (!Object.keys(c.urls).length) {
+        errors.push(`${c.id}: locale-native concept declares no URLs at all`)
+      }
     }
-    if (primaries.has(c.csPrimary)) {
-      errors.push(`${c.id}: "${c.csPrimary}" is already another concept's primary — a Czech page belongs to exactly one cluster`)
-    }
-    primaries.add(c.csPrimary)
 
     if (!c.notes || c.notes.length < 20) {
       errors.push(`${c.id}: needs a note explaining why it is localized — a registry entry without a reason is undocumented scope`)
     }
 
-    for (const locale of ['en', 'de']) {
+    for (const locale of R.LOCALIZED_LOCALES) {
       const url = c.urls[locale]
       if (!url) continue
       const prefix = R.LOCALE_PREFIX[locale]
@@ -103,7 +120,7 @@ export function auditLocaleRegistry({
   // engines discard wholesale — and nothing in a browser would show it.
   const collapsedSeen = new Map()
   for (const c of concepts) {
-    for (const v of c.csCollapsed ?? []) {
+    for (const v of R.collapsedOf(c)) {
       if (!czechRoutes.includes(v)) errors.push(`${c.id}: collapsed variant "${v}" is not an existing Czech canonical`)
       if (primaries.has(v)) errors.push(`${c.id}: "${v}" is collapsed here but is a concept primary elsewhere`)
       if (collapsedSeen.has(v)) errors.push(`"${v}" is collapsed under both ${collapsedSeen.get(v)} and ${c.id}`)
@@ -117,7 +134,7 @@ export function auditLocaleRegistry({
 
   // 5. Legal concepts are read-only mappings onto URLs that already exist.
   for (const c of legal) {
-    for (const [locale, url] of [['cs', c.csPrimary], ['en', c.urls.en], ['de', c.urls.de]]) {
+    for (const [locale, url] of R.LOCALES.map((l) => [l, R.urlFor(c, l)])) {
       if (!url) continue
       if (!locs.includes(url)) {
         errors.push(`legal ${c.id}/${locale}: "${url}" is not an existing URL — legal pages are mapped read-only, never created`)
@@ -132,7 +149,7 @@ export function auditLocaleRegistry({
 
   // 7. Every primary genuinely resolves to a cluster; every alternate resolves back.
   for (const c of concepts) {
-    for (const alt of R.alternatesFor(c.csPrimary)) {
+    for (const alt of R.alternatesFor(R.primaryUrl(c))) {
       const back = R.conceptForRoute(alt.url)
       if (!back || back.id !== c.id) {
         errors.push(`${c.id}: alternate "${alt.url}" does not resolve back to the same concept`)

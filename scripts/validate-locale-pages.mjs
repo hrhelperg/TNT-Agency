@@ -26,7 +26,14 @@ const ORIGIN = 'https://talentpartnerid.com'
 const R = await import('../lib/locale/registry.ts')
 const EN = await import('../lib/locale/content/en/index.ts')
 const DE = await import('../lib/locale/content/de/index.ts')
-const CONTENT = { en: EN.EN_CONTENT, de: DE.DE_CONTENT }
+const PTBR = await import('../lib/locale/content/pt-BR/index.ts')
+const ES = await import('../lib/locale/content/es/index.ts')
+const CONTENT = {
+  en: EN.EN_CONTENT,
+  de: DE.DE_CONTENT,
+  'pt-BR': PTBR.PTBR_CONTENT,
+  es: ES.ES_CONTENT,
+}
 
 const pageFile = (route) => {
   if (route === '/') return path.join(BUILD, 'index.html')
@@ -40,7 +47,13 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
   // readPage lets the mutation harness substitute damaged HTML for a route, so
   // every gate below can be proven to fail on the defect it exists to catch.
   // Nothing else overrides it; production runs read the real build.
-  const readRoute = (route) => (readPage ? readPage(route) : read(pageFile(route)))
+  //
+  // A falsy route reads as "no page", uniformly. Locale-native concepts have no
+  // Czech primary, so R.urlFor(c, 'cs') is undefined for them, and every call
+  // site that did not expect that crashed in path.join rather than reporting a
+  // finding. Handling it here rather than at each call site means a future one
+  // cannot reintroduce the crash.
+  const readRoute = (route) => (route ? (readPage ? readPage(route) : read(pageFile(route))) : null)
   const errors = []
   const notes = []
   let checked = 0
@@ -51,7 +64,7 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
   }
 
   for (const concept of concepts) {
-    for (const locale of ['en', 'de']) {
+    for (const locale of R.LOCALIZED_LOCALES) {
       if (!concept.published.includes(locale)) continue
       const route = concept.urls[locale]
       const html = read(pageFile(route))
@@ -100,7 +113,7 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
       }
 
       // LINKS — a locale page must not link into another locale's corpus.
-      for (const other of ['en', 'de']) {
+      for (const other of R.LOCALIZED_LOCALES) {
         if (other === locale) continue
         const foreign = R.LOCALE_CONCEPTS
           .map((x) => x.urls[other])
@@ -128,10 +141,26 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
 
   // 1. The ecosystem ribbon was server-rendered in Czech on every /en and /de
   //    page and swapped after hydration.
+  //
+  //    The expectation is now two-sided rather than universal. The ribbon is
+  //    HELPERG ecosystem navigation: B2B, addressed to employers, authored only
+  //    in cs/en/de. On an employer locale its ABSENCE is the defect this check
+  //    was written for. On a candidate locale its PRESENCE is the defect — an
+  //    untranslated business-ecosystem bar above a Brazilian candidate's page,
+  //    in a language they did not ask for, about a service they did not come
+  //    for. Asserting both directions means neither can regress silently.
   for (const [route, locale] of localeRoutes(concepts)) {
     const html = readRoute(route)
     if (!html) continue
     const bar = html.match(/<div class="eco-bar"[^>]*lang="([^"]+)"/)
+    if (R.isCandidateLocale(locale)) {
+      if (bar) {
+        errors.push(
+          `${route}: ecosystem ribbon rendered on a candidate locale as lang="${bar[1]}" — it is employer B2B navigation with no ${locale} copy`,
+        )
+      }
+      continue
+    }
     if (!bar) { errors.push(`${route}: no ecosystem ribbon found — did it stop rendering?`); continue }
     if (bar[1] !== locale) {
       errors.push(`${route}: ecosystem ribbon server-rendered as lang="${bar[1]}", expected "${locale}" (Czech flash)`)
@@ -153,6 +182,9 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
   //    not also expose the legacy text-swapping widget beside it.
   for (const concept of concepts) {
     const cs = R.urlFor(concept, 'cs')
+    // Locale-native concepts have no Czech primary to check. Their switcher is
+    // covered by the localized-route pass above, like any other locale page.
+    if (!cs) continue
     if (R.alternatesFor(cs).length < 2) continue
     const html = readRoute(cs)
     if (!html) { errors.push(`${cs}: Czech concept primary has no built page`); continue }
@@ -175,16 +207,55 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
   for (const [route, locale] of localeRoutes(concepts)) {
     const html = readRoute(route)
     if (!html) continue
-    for (const key of ['mainNav', 'mobileNav', 'openMenu', 'footerNav']) {
+    // mobileNav/openMenu name a mobile DISCLOSURE. The candidate chrome ships
+    // none — its nav wraps and renders every destination at every width — so
+    // requiring those labels there would demand an aria-label for a control
+    // that must not exist. Landmarks are required everywhere; the disclosure
+    // labels are required only where a disclosure is rendered.
+    const hasDisclosure = /class="mobile-nav__button"|class="hamburger"/.test(html)
+    const ariaKeys = hasDisclosure
+      ? ['mainNav', 'mobileNav', 'openMenu', 'footerNav']
+      : ['mainNav', 'footerNav']
+    for (const key of ariaKeys) {
       const expected = C.CHROME_ARIA[locale][key]
       if (!html.includes(`aria-label="${escapeHtml(expected)}"`)) {
         errors.push(`${route}: missing localized aria-label ${key}="${expected}"`)
       }
     }
-    const legal = html.match(/<div class="footer__legal">([\s\S]*?)<\/div>/)
+    // Either element. Matching only <div> is what made a correct <ul> fail and
+    // pushed the markup into <li> children of a <div>, which is invalid HTML and
+    // loses list semantics for assistive technology.
+    const legal =
+      html.match(/<ul class="footer__legal">([\s\S]*?)<\/ul>/) ||
+      html.match(/<div class="footer__legal">([\s\S]*?)<\/div>/)
     if (!legal) { errors.push(`${route}: no legal footer block`); continue }
+    // The legal set (Terms, Privacy, Cookies) exists as static documents in
+    // cs/en/de only. A locale without them cannot have an in-language legal
+    // link, and there are exactly two wrong answers: silently serving the CZECH
+    // document — which the hreflang="cs" check below already forbids — or
+    // serving the ENGLISH one while saying nothing, so the reader clicks
+    // "Privacidade" and lands on English with no warning.
+    //
+    // So for such a locale the requirement is TIGHTER, not waived: the link must
+    // point at the English document AND declare hreflang="en", stating the
+    // destination language rather than implying the reader's own. Recorded as a
+    // bounded gap; translating the legal set is its own piece of work and §21
+    // forbids doing it mechanically.
+    const legalConcept = R.ALL_CONCEPTS.find((c) => c.id === 'privacy-policy')
+    const localeHasLegalDocs = Boolean(legalConcept && legalConcept.published.includes(locale))
     for (const key of ['terms', 'priv', 'cook']) {
       const target = C.footerTarget(key)
+      if (!localeHasLegalDocs) {
+        const enHref = C.resolveNavHref(target, 'en').href
+        if (!legal[1].includes(`href="${enHref}"`)) {
+          errors.push(`${route}: legal link ${key} must point at the English document ${enHref} — no ${locale} legal document exists`)
+        }
+        const declared = new RegExp(`href="${enHref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*hreflang="en"|hreflang="en"[^>]*href="${enHref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`)
+        if (!declared.test(legal[1])) {
+          errors.push(`${route}: legal link ${key} points at an English document without declaring hreflang="en"`)
+        }
+        continue
+      }
       const { href, hreflang } = C.resolveNavHref(target, locale)
       if (!legal[1].includes(`href="${href}"`)) {
         errors.push(`${route}: legal link ${key} does not point at ${href}`)
@@ -224,7 +295,7 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
     for (const target of [...C.NAV_TARGETS, ...C.FOOTER_TARGETS]) {
       const concept =
         (target.conceptId && R.ALL_CONCEPTS.find((c) => c.id === target.conceptId)) ||
-        R.ALL_CONCEPTS.find((c) => c.csPrimary === target.czechHref)
+        R.ALL_CONCEPTS.find((c) => R.csPrimaryOf(c) === target.czechHref)
       if (!concept || !concept.published.includes(locale)) continue
       const localized = R.urlFor(concept, locale)
       if (!localized) continue
@@ -286,7 +357,13 @@ function localeRoutes(concepts) {
 /** Every route this gate inspects: localized pages plus the Czech primaries. */
 function allCheckedRoutes(concepts) {
   const out = localeRoutes(concepts)
-  for (const c of concepts) out.push([R.urlFor(c, 'cs'), 'cs'])
+  // A locale-native concept has no Czech page, so urlFor(c, 'cs') is undefined
+  // and pushing it produced path.join(BUILD, undefined) — a crash rather than a
+  // finding. Filtered rather than defaulted: there is no Czech route to check.
+  for (const c of concepts) {
+    const cs = R.urlFor(c, 'cs')
+    if (cs) out.push([cs, 'cs'])
+  }
   return out
 }
 
