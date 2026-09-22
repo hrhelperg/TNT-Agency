@@ -29,18 +29,18 @@ export const PTBR_FAQ: LocaleCorpus = {
           freshness: 'procedural',
         },
         {
-          heading: 'Posso entrar como turista e procurar trabalho por 90 dias?',
+          heading: 'Posso entrar como turista e procurar trabalho?',
           body: [
-            'Entrar, sim. Trabalhar, não. Cidadãos brasileiros estão isentos de visto para estadas de até 90 dias no espaço Schengen desde que a finalidade da viagem não seja atividade remunerada.',
-            'Procurar trabalho não é a mesma coisa que trabalhar, mas começar a trabalhar durante uma estada de turismo é trabalho não autorizado — com consequências tanto para o trabalhador quanto para o empregador.',
+            'Não com essa finalidade. A isenção de visto para cidadãos brasileiros vale para permanências de no máximo três meses dentro de um período de seis meses, e a fonte oficial descreve a finalidade admitida como turismo ou negócios. Procurar trabalho não está entre elas, e por isso não apresentamos a entrada como turista como um caminho para buscar emprego.',
+            'E começar a trabalhar durante uma permanência de turismo é trabalho não autorizado, com consequências tanto para o trabalhador quanto para o empregador. O caminho legal começa por um empregador tcheco e por um pedido apresentado no posto consular competente.',
           ],
           freshness: 'procedural',
         },
         {
           heading: 'O Brasil participa do Programa de trabalhador qualificado?',
           body: [
-            'Não. O Program kvalifikovaný zaměstnanec, que abrange as classes CZ-ISCO 4 a 8, aplica-se a uma lista fechada de países e o Brasil não está nela — nem qualquer país da América Latina.',
-            'O Program vysoce kvalifikovaný zaměstnanec é diferente: não tem limitação territorial, aplica-se a trabalhadores de todos os países terceiros e abrange as classes CZ-ISCO 1 a 3. Um candidato brasileiro pode participar quando a função concreta, o empregador e as condições forem cumpridos.',
+            'Não. O Program kvalifikovaný zaměstnanec, que abrange as classes CZ-ISCO 4 a 8, se aplica a uma lista fechada de países e o Brasil não está nela — nem qualquer país da América Latina.',
+            'O Program vysoce kvalifikovaný zaměstnanec é diferente: não tem limitação territorial, se aplica a trabalhadores de todos os países terceiros e abrange as classes CZ-ISCO 1 a 3. Um candidato brasileiro pode participar quando a função concreta, o empregador e as condições forem cumpridos.',
           ],
           freshness: 'procedural',
         },
@@ -89,14 +89,14 @@ export const PTBR_FAQ: LocaleCorpus = {
           freshness: 'procedural',
         },
         {
-          heading: 'Alguém me pediu dinheiro dizendo representar vocês. É legítimo?',
+          heading: 'Alguém me pediu dinheiro dizendo que representa vocês. É legítimo?',
           body: [
             'Não. Não cobramos do candidato e não temos intermediários que cobrem em nosso nome para garantir vaga, visto ou prioridade na fila.',
             'Se isso acontecer, não pague e nos avise pelo endereço de contato publicado neste site.',
           ],
         },
       ],
-      cta: { label: 'Candidatar-se', targetConceptId: 'candidate-apply' },
+      cta: { label: 'Candidate-se', targetConceptId: 'candidate-apply' },
       freshness: freshness(
         'conceptual',
         [

@@ -61,7 +61,10 @@ export const APPLICATION_FIELDS: readonly ApplicationField[] = [
   { name: 'experience', group: 'work', kind: 'select', required: true, options: EXPERIENCE_BANDS },
   { name: 'languages', group: 'work', kind: 'text', required: false, maxLength: 160 },
   { name: 'availability', group: 'work', kind: 'select', required: true, options: AVAILABILITY },
-  { name: 'message', group: 'work', kind: 'textarea', required: false, maxLength: 1200 },
+    // 600, not 1200. Measured: the encoded mailto href crosses 2,000 characters
+  // at roughly 480 characters of accented Portuguese, and mail handlers
+  // truncate near 2,048. A limit the transport cannot carry is not a limit.
+  { name: 'message', group: 'work', kind: 'textarea', required: false, maxLength: 600 },
 
   { name: 'email', group: 'contact', kind: 'email', required: true, autoComplete: 'email', maxLength: 160 },
   { name: 'phone', group: 'contact', kind: 'tel', required: false, autoComplete: 'tel', maxLength: 40 },

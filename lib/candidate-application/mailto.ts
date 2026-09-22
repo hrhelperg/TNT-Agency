@@ -13,9 +13,9 @@ import { OPERATOR_EMAIL } from '../content/trust-data'
 import type { CandidateLocale } from '../locale/chrome'
 import { APPLICATION_COPY } from './copy'
 import {
-  APPLICATION_GROUPS,
   fieldByName,
   fieldsInGroup,
+  type ApplicationGroup,
   type ApplicationValues,
 } from './schema'
 
@@ -58,7 +58,19 @@ export function buildApplicationBody(values: ApplicationValues, locale: Candidat
   const copy = APPLICATION_COPY[locale]
   const blocks: string[] = []
 
-  for (const group of APPLICATION_GROUPS) {
+  // Contact FIRST, then identity, then the long free-text work section.
+  //
+  // The body followed form order — about, work, contact — so the tail of the
+  // message was email, phone, consent, attachment reminder, immediately after a
+  // field that allows a long free-text answer. Mail handlers truncate mailto
+  // around 2,048 characters, and encodeURIComponent expands each accented
+  // character to six bytes, so accented Portuguese crosses that inside the
+  // allowed input. What a truncated application loses, in order, is exactly the
+  // candidate's email address and phone number — making it unanswerable — then
+  // the consent record, which is the only evidence of the legal basis the data
+  // notice relies on.
+  const ORDER: readonly ApplicationGroup[] = ['contact', 'about', 'work']
+  for (const group of ORDER) {
     const lines = fieldsInGroup(group)
       .map((f) => renderValue(f.name, values[f.name], locale))
       .filter((l): l is string => Boolean(l))

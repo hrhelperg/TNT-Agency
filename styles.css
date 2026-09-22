@@ -4136,3 +4136,120 @@ footer[data-candidate-chrome="true"] .footer__legal {
 }
 .caf__fallback textarea { box-sizing: border-box; max-width: 100%; }
 .caf__summary { box-sizing: border-box; max-width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CANDIDATE LAYER — chrome, form and verification stamp.
+
+   This block was written once and lost before it reached a build (most likely
+   clobbered by a concurrently-running mutation harness restoring the file), and
+   the loss was invisible: every gate stayed green, the E2E overflow assertions
+   stayed green, and axe reported only four nodes. What actually shipped was a
+   navy footer whose disclaimer heading rendered at 1.00:1 against its own
+   background, a form whose error messages were byte-identical to its hints, and
+   a focus ring at 1.64:1.
+
+   The lesson, recorded because it will recur: an overflow assertion proves the
+   box fits, not that anyone can read what is in it.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Footer: the global `p { color: var(--text-2) }` is a direct type match and
+      beats inherited white, which is how the disclaimer went invisible on a
+      dark ground. Same failure class the cookie banner already fixed once. ── */
+footer[data-candidate-chrome="true"] { color: var(--text-inv); }
+footer[data-candidate-chrome="true"] .logo--light { color: #fff; }
+footer[data-candidate-chrome="true"] .footer__top p,
+footer[data-candidate-chrome="true"] .footer__notice p,
+footer[data-candidate-chrome="true"] .footer__discovery,
+footer[data-candidate-chrome="true"] .footer__discovery-label,
+footer[data-candidate-chrome="true"] .footer__operator,
+footer[data-candidate-chrome="true"] .footer__bottom span { color: var(--text-inv-2); }
+footer[data-candidate-chrome="true"] .footer__notice-title { color: #fff; font-size: 1rem; margin: 0 0 .5rem; }
+footer[data-candidate-chrome="true"] a { color: #fff; }
+footer[data-candidate-chrome="true"] .footer__col-title { color: #fff; font-weight: 600; margin-bottom: .5rem; }
+footer[data-candidate-chrome="true"] .footer__nav { display: flex; flex-wrap: wrap; gap: 1.5rem 2rem; }
+footer[data-candidate-chrome="true"] .footer__col ul { list-style: none; padding: 0; margin: 0; }
+footer[data-candidate-chrome="true"] .footer__col li { margin-bottom: .3rem; }
+footer[data-candidate-chrome="true"] .footer__notice {
+  margin: 1.5rem 0; padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, .28); border-radius: 8px;
+}
+
+/* ── Header: labels ran together with no separator, and the fixed header
+      covered the breadcrumb and the whole H1 at every width <= 1024px. ── */
+header[data-candidate-chrome="true"] .header__nav ul {
+  display: flex; flex-wrap: wrap; gap: .35rem 1.25rem; list-style: none; padding: 0; margin: 0;
+}
+header[data-candidate-chrome="true"] .header__inner { padding: .6rem 0; gap: .5rem 1rem; }
+header[data-candidate-chrome="true"] .header__nav a { padding: .2rem 0; display: inline-block; }
+
+/* ── Form: errors were byte-identical to hints — same colour, size and weight,
+      distinguishable only by position. ── */
+.caf__field label { display: block; font-weight: 500; margin-bottom: .25rem; }
+.caf__req { font-weight: 400; color: var(--text-3, #6b7a90); font-size: .8em; }
+.caf__hint { margin: 0 0 .35rem; font-size: .88em; color: var(--text-2); }
+.caf__error {
+  color: var(--accent-dark, #a4121f); font-weight: 600; font-size: .92em;
+  margin: .35rem 0 0; padding-left: .6rem; border-left: 3px solid var(--accent-dark, #a4121f);
+}
+.caf__field input, .caf__field select, .caf__field textarea {
+  width: 100%; max-width: 34rem; padding: .55rem .65rem; font: inherit;
+  border: 1px solid rgba(13, 30, 61, .35); border-radius: 6px; background: #fff;
+}
+.caf__field [aria-invalid="true"] { border-color: var(--accent-dark, #a4121f); border-width: 2px; }
+.caf__group { border: 1px solid rgba(13, 30, 61, .15); border-radius: 8px; padding: 1rem 1.25rem; margin: 0 0 1.25rem; }
+.caf__group legend { font-weight: 600; padding: 0 .4rem; }
+.caf__field { margin-bottom: 1rem; }
+.caf__field--check { display: grid; grid-template-columns: auto 1fr; gap: .6rem; align-items: start; }
+.caf__field--check input { width: auto; margin-top: .3rem; }
+.caf__field--check label { font-weight: 400; }
+.caf__attach-warning {
+  border-left: 4px solid var(--accent-dark, #a4121f); background: rgba(164, 18, 31, .06);
+  padding: .75rem 1rem; margin: 1rem 0 1.5rem;
+}
+.caf__summary {
+  border: 2px solid var(--accent-dark, #a4121f); border-radius: 8px;
+  padding: .9rem 1.1rem; margin-bottom: 1.25rem;
+}
+/* :focus, not :focus-visible — Chrome does not apply :focus-visible to a
+   programmatically focused non-input, so the summary took focus unmarked. */
+.caf__summary:focus { outline: 3px solid var(--accent-dark, #a4121f); outline-offset: 2px; }
+.caf__fallback { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid rgba(13, 30, 61, .15); }
+.caf__success { margin-top: 1.5rem; padding: 1rem 1.25rem; border: 1px solid rgba(13, 30, 61, .2); border-radius: 8px; }
+
+/* ── Focus: the site-wide ring measures 1.64:1 and the same PR already scoped
+      --accent-dark for other new controls. These are new too. ── */
+.caf :is(a, button, input, select, textarea, [tabindex]):focus-visible,
+[data-candidate-chrome="true"] :is(a, button, input):focus-visible {
+  outline: 3px solid var(--accent-dark, #a4121f);
+  outline-offset: 2px;
+}
+
+/* ── The page intro used .page-hero__sub, which is white — designed for the
+      dark hero band, rendered here on white `main`. Measured 1:1 on every
+      LocalePage route, en and de included. ── */
+.locale-page .page-hero__sub { color: var(--text-2); }
+
+/* A nowrap button cannot reflow; below ~278px it is what pins the page width. */
+.caf .btn, .locale-cta .btn { white-space: normal; }
+
+/*
+   The candidate header does not float.
+
+   .header is position:fixed and the page reserves room for a 73px employer
+   header. The candidate header never collapses — the nav-hiding media query
+   targets .nav, not .header__nav — so it grew to 273px at 280px wide and
+   273/248/222/197/171px at 280/320/390/768/1024, covering the breadcrumb and
+   the ENTIRE h1 on every one of those widths. The first heading a visitor saw
+   on a phone was an h2. WCAG 1.4.10: content lost to overlap at 320px.
+
+   Two ways out: teach the candidate nav to collapse behind a disclosure, or
+   stop floating. The disclosure is what was just removed for being unopenable
+   and inaccessible, and a static header costs a fixed nav on scroll — which
+   this corpus does not need, since its pages are read top to bottom and the
+   primary action is repeated in the body. So it stops floating.
+*/
+header[data-candidate-chrome="true"] {
+  position: static;
+  border-bottom: 1px solid var(--border);
+}
+.locale-page--candidate { padding-top: var(--s6, 2rem); }

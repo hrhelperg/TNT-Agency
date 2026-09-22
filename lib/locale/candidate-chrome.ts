@@ -48,7 +48,7 @@ export const CANDIDATE_NAV: Readonly<
     professions: 'Áreas de atuação',
     faq: 'Perguntas frequentes',
     contact: 'Contato',
-    apply: 'Candidatar-se',
+    apply: 'Candidate-se',
     language: 'Idioma',
   },
   es: {
@@ -83,6 +83,13 @@ export type CandidateFooterKey =
   | 'linkBeforeTravel'
   | 'linkAfterArrival'
   | 'linkLifeAndWork'
+  /**
+   * PT-BR only. §32 forbids generalising Czech consular procedure for Brazil to
+   * the rest of Latin America, so `brazil-consular-route` is not published in
+   * es. The Record below is therefore Partial: es simply has no such label.
+   * Carrying an unused Spanish string naming the Brazilian mission would be a
+   * trap — one guard change away from routing a Peruvian candidate to São Paulo.
+   */
   | 'linkConsular'
   | 'colTrust'
   | 'linkAbout'
@@ -100,7 +107,7 @@ export type CandidateFooterKey =
   | 'cook'
 
 export const CANDIDATE_FOOTER: Readonly<
-  Record<CandidateLocale, Readonly<Record<CandidateFooterKey, string>>>
+  Record<CandidateLocale, Readonly<Partial<Record<CandidateFooterKey, string>>>>
 > = {
   'pt-BR': {
     tagline:
@@ -121,14 +128,14 @@ export const CANDIDATE_FOOTER: Readonly<
     linkBeforeTravel: 'Antes de viajar',
     linkAfterArrival: 'Depois de chegar',
     linkLifeAndWork: 'Vida e trabalho na República Tcheca',
-    linkConsular: 'Embaixada e consulado tchecos no Brasil',
+    linkConsular: 'Embaixada e Consulado-Geral tchecos no Brasil',
     colTrust: 'Transparência',
     linkAbout: 'Sobre nós',
     linkRights: 'Direitos do trabalhador',
     linkVerify: 'Onde verificar informações oficiais',
     linkFaq: 'Perguntas frequentes',
     linkContact: 'Contato',
-    officialNoticeTitle: 'Informação oficial',
+    officialNoticeTitle: 'Informações oficiais',
     officialNotice:
       'A TalentPartnerID não é um órgão do governo tcheco, uma embaixada nem uma autoridade de imigração, e não emite vistos nem autorizações de residência. As decisões sobre pedidos cabem exclusivamente às autoridades tchecas. Confirme sempre prazos, taxas e documentos nas fontes oficiais que indicamos.',
     forEmployers: 'É empregador? Acesse o site para empresas',
@@ -157,7 +164,6 @@ export const CANDIDATE_FOOTER: Readonly<
     linkBeforeTravel: 'Antes de viajar',
     linkAfterArrival: 'Después de llegar',
     linkLifeAndWork: 'Vida y trabajo en Chequia',
-    linkConsular: 'Embajada y consulado checos en Brasil',
     colTrust: 'Transparencia',
     linkAbout: 'Sobre nosotros',
     linkRights: 'Derechos del trabajador',
@@ -166,7 +172,7 @@ export const CANDIDATE_FOOTER: Readonly<
     linkContact: 'Contacto',
     officialNoticeTitle: 'Información oficial',
     officialNotice:
-      'TalentPartnerID no es un organismo del Estado checo, una embajada ni una autoridad migratoria, y no expide visados ni permisos de residencia. Las decisiones sobre las solicitudes corresponden únicamente a las autoridades checas. Confirme siempre plazos, tasas y documentos en las fuentes oficiales que indicamos.',
+      'TalentPartnerID no es un organismo del Estado checo, una embajada ni una autoridad migratoria, y no expide visas ni permisos de residencia. Las decisiones sobre las solicitudes corresponden únicamente a las autoridades checas. Confirme siempre plazos, tasas y documentos en las fuentes oficiales que indicamos.',
     forEmployers: '¿Es empleador? Visite el sitio para empresas',
     copy: '© 2026 TNT agency s.r.o. Todos los derechos reservados.',
     terms: 'Términos',

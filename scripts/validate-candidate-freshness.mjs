@@ -36,6 +36,8 @@ const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const R = await import('../lib/locale/registry.ts')
 const { FRESHNESS_DAYS } = await import('../lib/locale/content/types.ts')
 const { revisionFor, SOURCE_REVISIONS } = await import('../lib/locale/content/source-revisions.ts')
+const { LATAM_SRC } = await import('../lib/locale/content/sources-latam.ts')
+const KNOWN_SOURCE_IDS = new Set(Object.values(LATAM_SRC).map((x) => x.id))
 const PTBR = (await import('../lib/locale/content/pt-BR/index.ts')).PTBR_CONTENT
 const ES = (await import('../lib/locale/content/es/index.ts')).ES_CONTENT
 
@@ -94,6 +96,27 @@ export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), r
       for (const src of f.officialSources) {
         if (!src.id || !src.url || !isIsoDate(src.accessedAt)) {
           errors.push(`${locale}/${concept.id}: source "${src.name ?? src.id}" is missing an id, url or accessedAt`)
+          continue
+        }
+        // An id not in LATAM_SRC silently disables the revision override for
+        // that source forever — revisionFor returns null and says nothing. The
+        // corpus cites both zakon-95-2004 and zakon-96-2004, so a one-digit
+        // slip between two real ids is a realistic way to lose the check.
+        if (!KNOWN_SOURCE_IDS.has(src.id)) {
+          errors.push(
+            `${locale}/${concept.id}: cites unknown source id "${src.id}" — it is not in LATAM_SRC, so no ` +
+              `revision of it can ever invalidate this page`,
+          )
+        }
+        // accessedAt is evidence that the source was actually reopened. Never
+        // age-checking it let "last verified today" rest on a source last
+        // opened years ago.
+        const accessAge = daysBetween(now, src.accessedAt)
+        if (accessAge > FRESHNESS_DAYS.conceptual) {
+          errors.push(
+            `${locale}/${concept.id}: source "${src.id}" was last accessed ${accessAge} days ago — ` +
+              `a verification date cannot rest on evidence older than the conceptual ceiling`,
+          )
         }
       }
 
@@ -101,6 +124,13 @@ export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), r
       const tier = effectiveTier(entry)
       perTier[tier]++
       const age = daysBetween(now, f.lastVerifiedAt)
+      // A future date passes every ceiling, permanently.
+      if (age < 0) {
+        errors.push(
+          `${locale}/${concept.id}: lastVerifiedAt ${f.lastVerifiedAt} is in the future, which would satisfy ` +
+            `every ceiling forever`,
+        )
+      }
       const ceiling = FRESHNESS_DAYS[tier]
       if (age > ceiling) {
         errors.push(
@@ -112,7 +142,7 @@ export function auditCandidateFreshness({ corpora = CORPORA, now = Date.now(), r
       // Source revision, which overrides the calendar in the strict direction.
       for (const src of f.officialSources) {
         const revised = revision(src.id)
-        if (revised && Date.parse(revised) > Date.parse(f.lastVerifiedAt)) {
+        if (revised && Date.parse(revised) >= Date.parse(f.lastVerifiedAt)) {
           errors.push(
             `${locale}/${concept.id}: cites "${src.id}", revised ${revised}, but was last verified ` +
               `${f.lastVerifiedAt} — a known source change makes the page stale immediately, ahead of any ceiling`,

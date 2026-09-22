@@ -29,6 +29,20 @@ export const LATAM_SRC = {
     url: 'https://mpo.gov.cz/cz/zahranicni-obchod/ekonomicka-migrace/program-vysoce-kvalifikovany-zamestnanec--248246/',
     accessedAt: ACCESSED,
   },
+  programKeyPersonnel: {
+    id: 'mpo-program-klicovy-a-vedecky-personal',
+    name: 'Program klíčový a vědecký personál',
+    publisher: 'Ministerstvo průmyslu a obchodu ČR',
+    url: 'https://mpo.gov.cz/cz/zahranicni-obchod/ekonomicka-migrace/program-klicovy-a-vedecky-personal--248245/',
+    accessedAt: ACCESSED,
+  },
+  blueCard: {
+    id: 'mzv-modra-karta',
+    name: 'Modrá karta',
+    publisher: 'Ministerstvo zahraničních věcí ČR',
+    url: 'https://mzv.gov.cz/jnp/cz/informace_pro_cizince/pobytova_opravneni_k_pobytu_nad_90_dnu/modre_karty.mobi',
+    accessedAt: ACCESSED,
+  },
   employeeCardMzv: {
     id: 'mzv-zamestnanecka-karta',
     name: 'Zaměstnanecká karta',
@@ -38,7 +52,12 @@ export const LATAM_SRC = {
   },
   residenceAct: {
     id: 'zakon-326-1999',
-    name: 'Zákon č. 326/1999 Sb., o pobytu cizinců na území ČR, § 42g',
+    // Three provisions, not one. The two-year ceiling is § 44 odst. 6 and the
+    // repeat-extension rule is § 44a odst. 9; § 42g governs who the card is for
+    // and what it authorises. This label is RENDERED to the reader under
+    // "Fontes oficiais", so a reader following it to check the two-year claim
+    // must land on the section that actually contains it.
+    name: 'Zákon č. 326/1999 Sb., o pobytu cizinců na území ČR — § 42g, § 44 odst. 6, § 44a odst. 9',
     publisher: 'Sbírka zákonů ČR',
     url: 'https://www.zakonyprolidi.cz/cs/1999-326',
     accessedAt: ACCESSED,
@@ -55,6 +74,20 @@ export const LATAM_SRC = {
     name: 'Embaixada da República Tcheca em Brasília — informações de vistos',
     publisher: 'Ministério dos Negócios Estrangeiros da República Tcheca',
     url: 'https://mzv.gov.cz/brasilia/pt/informacoes_vistos/index.html',
+    accessedAt: ACCESSED,
+  },
+  consulateSaoPauloPt: {
+    id: 'mzv-saopaulo-pt',
+    name: 'Consulado-Geral da República Tcheca em São Paulo — informações consulares',
+    publisher: 'Ministério dos Negócios Estrangeiros da República Tcheca',
+    url: 'https://mzv.gov.cz/saopaulo/pt/index.html',
+    accessedAt: ACCESSED,
+  },
+  consulateSaoPauloScope: {
+    id: 'mzv-saopaulo-pusobnost',
+    name: 'Konzulární působnost — Generální konzulát ČR v São Paulu',
+    publisher: 'Ministerstvo zahraničních věcí ČR',
+    url: 'https://mzv.gov.cz/saopaulo/cz/rozdeleni_pusobnosti/index.html',
     accessedAt: ACCESSED,
   },
   quotaRegulation: {

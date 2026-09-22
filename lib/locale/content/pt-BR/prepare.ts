@@ -18,7 +18,7 @@ export const PTBR_PREPARE: LocaleCorpus = {
     'pt-BR': {
       title: 'Antes de viajar para a República Tcheca | TalentPartnerID',
       description:
-        'O que resolver antes de viajar depois de aprovada a autorização: documentos, seguro, moradia, dinheiro para as primeiras semanas e o que levar na bagagem de mão.',
+        'O que resolver antes de viajar depois que a autorização for aprovada: documentos, seguro, moradia, dinheiro para as primeiras semanas e o que levar na bagagem de mão.',
       h1: 'Antes de viajar',
       intro:
         'Esta página parte do ponto em que a autorização já foi concedida. O que vem a seguir é logística — e é onde as coisas costumam dar errado por falta de preparo, não por falta de documento.',
@@ -41,8 +41,8 @@ export const PTBR_PREPARE: LocaleCorpus = {
         {
           heading: 'Moradia e seguro',
           body: [
-            'Confirme por escrito o que o empregador oferece: alojamento, ajuda para encontrar, ou nada. Confirme também quem paga o quê e a partir de quando.',
-            'Verifique a cobertura de saúde aplicável desde o dia da chegada e o que é exigido no seu caso. Essas exigências mudam; confirme na fonte oficial em vez de assumir.',
+            'Confirme por escrito o que o empregador oferece: moradia, ajuda para encontrar, ou nada. Confirme também quem paga o quê e a partir de quando.',
+            'Verifique a cobertura de saúde aplicável desde o dia da chegada e o que é exigido no seu caso. Essas exigências mudam; confirme na fonte oficial em vez de supor.',
           ],
           freshness: 'procedural',
         },
@@ -81,7 +81,7 @@ export const PTBR_PREPARE: LocaleCorpus = {
         {
           heading: 'Trabalho: quando pode começar',
           body: [
-            'O trabalho só pode começar depois de a autorização produzir efeitos. Começar antes pode ser tratado como trabalho não autorizado, com consequências para você e para o empregador.',
+            'O trabalho só pode começar depois que a autorização começar a valer. Começar antes pode ser tratado como trabalho não autorizado, com consequências para você e para o empregador.',
             'Se o empregador pedir que comece antes, isso é um sinal de alerta sobre o empregador.',
           ],
         },
@@ -101,9 +101,9 @@ export const PTBR_PREPARE: LocaleCorpus = {
           ],
         },
         {
-          heading: 'Se algo correr mal',
+          heading: 'Se algo der errado',
           body: [
-            'Se o trabalho não corresponder ao contrato, se houver descontos não previstos ou se pedirem os seus documentos pessoais para ficar retidos, procure a autoridade competente.',
+            'Se o trabalho não corresponder ao contrato, se houver descontos não previstos ou se pedirem para ficar com os seus documentos pessoais, procure a autoridade competente.',
             'A página sobre direitos do trabalhador indica onde procurar ajuda.',
           ],
         },
@@ -115,13 +115,13 @@ export const PTBR_PREPARE: LocaleCorpus = {
 
   'brazil-consular-route': {
     'pt-BR': {
-      title: 'Embaixada e consulado tchecos no Brasil | TalentPartnerID',
+      title: 'Embaixada e Consulado-Geral tchecos no Brasil | TalentPartnerID',
       description:
         'Onde apresentar o pedido no Brasil: a Embaixada da República Tcheca em Brasília e o Consulado-Geral em São Paulo atendem estados diferentes. Como funciona o agendamento e onde está a informação oficial em português.',
-      h1: 'Embaixada e consulado tchecos no Brasil',
+      h1: 'Embaixada e Consulado-Geral tchecos no Brasil',
       intro:
         'A República Tcheca tem duas representações no Brasil que recebem pedidos, e cada uma atende estados diferentes. Apresentar o pedido na representação errada é um erro caro — e evitável em dois minutos de leitura.',
-      breadcrumb: 'Embaixada e consulado no Brasil',
+      breadcrumb: 'Embaixada e Consulado-Geral no Brasil',
       sections: [
         {
           heading: 'Duas representações, competências diferentes',
@@ -135,8 +135,8 @@ export const PTBR_PREPARE: LocaleCorpus = {
         {
           heading: 'Como funciona o agendamento',
           body: [
-            'O atendimento para pedidos de longa duração é por agendamento prévio, solicitado por e-mail à representação competente. Os pedidos de horário são atendidos pela ordem de chegada das mensagens.',
-            'Não publicamos aqui dias, horários, número de vagas de atendimento, taxas ou prazos. Essas informações mudam, e publicá-las como se fossem fixas faria alguém organizar uma viagem em torno de um dado desatualizado. Consulte-as diretamente na página oficial da representação competente.',
+            'O atendimento para pedidos de longa duração é por agendamento prévio, solicitado por e-mail à representação competente. Os pedidos de agendamento são atendidos por ordem de chegada das mensagens.',
+            'Não publicamos aqui dias, horários, número de horários de atendimento, taxas ou prazos. Essas informações mudam, e publicá-las como se fossem fixas faria alguém organizar uma viagem em torno de um dado desatualizado. Consulte-as diretamente na página oficial da representação competente.',
           ],
           freshness: 'procedural',
         },
@@ -151,7 +151,7 @@ export const PTBR_PREPARE: LocaleCorpus = {
         {
           heading: 'A informação oficial existe em português',
           body: [
-            'A Embaixada em Brasília publica informação consular em português. Sempre que houver divergência entre esta página e a página oficial, é a oficial que vale.',
+            'As duas representações publicam informação consular em português: a Embaixada em Brasília e o Consulado-Geral em São Paulo, cada uma no seu próprio site. Consulte a da representação competente para o seu estado — não a outra. Sempre que houver divergência entre esta página e a página oficial, é a oficial que vale.',
             'Preferimos indicar a fonte oficial a reescrever procedimento: um texto nosso desatualizado seria pior do que nenhum texto.',
           ],
         },
@@ -166,7 +166,13 @@ export const PTBR_PREPARE: LocaleCorpus = {
       cta: { label: 'Documentos necessários', targetConceptId: 'documents-required' },
       freshness: freshness(
         'procedural',
-        [LATAM_SRC.embassyBrasilia, LATAM_SRC.embassyBrasiliaPt, LATAM_SRC.quotaRegulation],
+        [
+          LATAM_SRC.embassyBrasilia,
+          LATAM_SRC.embassyBrasiliaPt,
+          LATAM_SRC.consulateSaoPauloPt,
+          LATAM_SRC.consulateSaoPauloScope,
+          LATAM_SRC.quotaRegulation,
+        ],
         'BR',
       ),
     },

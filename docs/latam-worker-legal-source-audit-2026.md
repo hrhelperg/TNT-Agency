@@ -82,11 +82,26 @@ with appointments booked by email to `brasilia.consulate@mzv.gov.cz`.
 ### E — Maximum two years per issuance, repeatedly extendable ✅ CONFIRMED
 
 > "Zaměstnanecká karta se vydává na dobu, na kterou byla uzavřena pracovní
-> smlouva nebo dohoda o pracovní činnosti, **nejdéle však na dobu 2 let**."
-> "…platnost zaměstnanecké karty lze **opakovaně prodloužit** … vždy však
-> nejdéle na dobu 2 let."
+> smlouva nebo dohoda o pracovní činnosti **nebo na dobu stanovenou v rozhodnutí
+> uznávacího orgánu o povolení k výkonu povolání nebo k výkonu odborné praxe**,
+> nejdéle však na dobu 2 let; v případě cizince uvedeného v § 42g odst. 3 se
+> zaměstnanecká karta vydává na dobu platnosti odpovídající době uvedené
+> v povolení k zaměstnání." — **§ 44 odst. 6**
+> "Platnost zaměstnanecké karty lze … opakovaně prodloužit … vždy však nejdéle
+> na dobu 2 let." — **§ 44a odst. 9**
 
-- **Source:** Zákon č. 326/1999 Sb., o pobytu cizinců na území ČR, **§ 42g**
+> ⚠️ **Corrected after review.** Both sentences were originally attributed to
+> **§ 42g** and the first was quoted with the recognition-body clause silently
+> removed and no ellipsis — in a document whose opening premise is that nothing
+> is written from memory. § 42g governs who the card is for and what it
+> authorises; the two-year ceiling is § 44 odst. 6 and the repeat-extension rule
+> is § 44a odst. 9. The wrong citation had propagated into
+> `lib/locale/content/sources-latam.ts`, whose `name` string is **rendered to
+> the reader** under "Fontes oficiais" — so a reader following the citation to
+> check the two-year claim landed on the wrong section. Fixed there too.
+
+- **Source:** Zákon č. 326/1999 Sb., o pobytu cizinců na území ČR — **§ 42g,
+  § 44 odst. 6, § 44a odst. 9**
 - **Supports:** negative control #5. The card follows the **contract**, capped at
   two years — it is not "issued for two years". Permitted wording only:
   *an Employee Card can be issued for up to two years, depending on the contract
@@ -180,14 +195,27 @@ Nařízení vlády č. 220/2019 Sb. caps Employee Card applications per mission.
 annex names 43 missions. **Brasília and São Paulo are not among them.** The only
 Latin American missions with quotas are:
 
-| Mission | Highly qualified | Qualified | Investment |
+| Mission | Annual maximum | Highly qualified / key and scientific personnel | Qualified |
 |---|---|---|---|
-| Bogotá | 280 | 80 | 0 |
-| Havana | 130 | 80 | 0 |
+| Bogotá | 280 | 80 | **0** |
+| Havana | 130 | 80 | **0** |
+
+> ⚠️ **Corrected after review.** These columns were originally labelled
+> "Highly qualified / Qualified / Investment", which read as *Bogotá holds an
+> annual quota of 80 under the Qualified programme* — asserting that Colombia
+> participates in the very programme proposition A proves contains no Latin
+> American country. The leading column is the overall employee-card maximum;
+> the Qualified column is **0** for both missions, which corroborates A rather
+> than contradicting it. "Investment" is not a column of this annex.
 
 - **Source:** MZV — Nařízení vlády o maximálním počtu žádostí
   (https://mzv.gov.cz/jnp/cz/informace_pro_cizince/legislativa/narizeni_vlady_o_maximalnim_poctu.html)
-- **Stated as:** amended by nařízení vlády č. 520/2025 Sb., figures **platí od 1. 7. 2026**.
+- **Stated as:** amended by nařízení vlády č. 520/2025 Sb. The page's footnote
+  reads "Počty uvedené **tučně** platí od 1.7.2026" — only the **bolded**
+  figures change on that date, not the whole table. The annex also carries two
+  further tables (long-term business visas; employee cards for citizens of
+  states with no accredited mission), so "43 missions" counts the employee-card
+  table alone.
 - **Wording constraint:** state that *no maximum is set in the annex for Brasília
   or São Paulo* — **never** "unlimited". Practical appointment capacity, not the
   regulation, is the real constraint.
@@ -340,3 +368,34 @@ made a release gate vacuous:
 
 Both are recorded because the review exit condition treats a finding that makes
 a gate vacuous as material, wherever it lives.
+
+
+---
+
+## 8. Corrections made after independent review (P9)
+
+Recorded rather than silently applied, because an audit that edits itself
+without saying so is not evidence.
+
+| # | What was wrong | Where it had propagated |
+|---|---|---|
+| 1 | Two-year rule attributed to § 42g | audit ×4, route matrix, `sources-latam.ts` (**reader-visible**), `validate-worker-claims.mjs` |
+| 2 | Quota table columns mislabelled, implying Colombia is in the Qualified programme | audit §2.3 |
+| 3 | "figures apply from 1.7.2026" overstated the footnote | audit §2.3, `source-revisions.ts` |
+| 4 | São Paulo Consulate-General never cited or linked, though the page routes the majority of Brazil's population there | `sources-latam.ts`, `prepare.ts`, `immigration.ts` |
+| 5 | Only two economic-migration programmes described; **Program klíčový a vědecký personál** also territorially open, also CZ-ISCO 1–3, with a lighter employer test | both `journey.ts`, both `professions.ts` |
+| 6 | Programmes described as speeding up processing. They guarantee the ability to **lodge** at the mission, with immediate family, plus simplified filing — not a shorter decision | both `journey.ts`, both `professions.ts` |
+| 7 | Highly-qualified employer conditions never stated, while the flagship page turned on them. ≥2 years operating, settled obligations, ≥3 employees for 3 consecutive months within the preceding 2 years — **not** the ≥6 of the qualified programme | both `professions.ts` |
+| 8 | EU Blue Card never offered as a route, though it is territorially unrestricted and fits the flagship audience exactly | both `professions.ts` |
+| 9 | CNC work placed wholly in classes 7–8. **Programming** NC machines is CZ-ISCO main class 3 — inside the open programme's band | both `professions.ts` |
+| 10 | Logistics band given as 8–9; it spans 4, 8 and 9 | both `professions.ts` |
+| 11 | "90 days" published with no reference period, and the FAQ affirmed job-seeking as a permitted entry purpose | both `journey.ts`, both `faq.ts` |
+| 12 | Brasília's queue rule generalised to both missions | `prepare.ts` |
+| 13 | Title, H1 and breadcrumb called the Consulate-General a "consulado" — the page's own subject | `prepare.ts` |
+| 14 | Data notice claimed no transfer outside the EEA, while every application lands in a Gmail mailbox and the site's own English policy says the opposite | both `apply.ts` |
+| 15 | Retention promised automatic deletion at 12 months with no mechanism behind it | both `apply.ts` |
+
+Items 5–10 are all in the **pessimistic** direction — they understated what is
+open to this audience. That is the less obvious failure mode and the one a
+truth-gate cannot catch, because a gate built to stop overclaiming is blind to
+underclaiming.

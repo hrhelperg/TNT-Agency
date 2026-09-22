@@ -33,8 +33,8 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Destina-se a emprego superior a três meses',
           body: [
-            'Segundo o Ministério dos Negócios Estrangeiros tcheco, o cartão de empregado destina-se a cidadãos de países terceiros que serão empregados na República Tcheca por mais de três meses.',
-            'Para permanências curtas com outra finalidade existem outros regimes — e nenhum deles autoriza trabalho remunerado pelo simples facto de a entrada ser permitida.',
+            'Segundo o Ministério das Relações Exteriores tcheco, o cartão de empregado se destina a cidadãos de países terceiros que serão empregados na República Tcheca por mais de três meses.',
+            'Para permanências curtas com outra finalidade existem outros regimes — e nenhum deles autoriza trabalho remunerado só porque a entrada é permitida.',
           ],
         },
         {
@@ -97,7 +97,7 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
               'Documento de viagem válido',
               'Contrato de trabalho, acordo de atividade laboral ou promessa de emprego',
               'Comprovante de qualificação exigida para a função',
-              'Comprovante de alojamento assegurado',
+              'Comprovante de moradia assegurada',
               'Fotografias conforme especificação',
               'Comprovante de pagamento da taxa administrativa',
             ],
@@ -107,7 +107,7 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Traduções e legalização',
           body: [
-            'Documentos emitidos no Brasil costumam precisar de tradução oficial para o tcheco e, conforme o caso, de legalização — normalmente apostila, por ser o Brasil parte da Convenção de Haia.',
+            'Documentos emitidos no Brasil costumam precisar de tradução oficial para o tcheco e, conforme o caso, de legalização — normalmente apostila, já que o Brasil é parte da Convenção de Haia.',
             'Essa etapa é feita no Brasil, antes do pedido, e costuma ser a que mais atrasa processos. Confirme quais documentos exigem qual formalidade antes de encomendar traduções, porque traduzir o documento errado custa tempo e dinheiro.',
           ],
           freshness: 'procedural',
@@ -123,7 +123,7 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
       cta: { label: 'Reconhecimento de qualificações', targetConceptId: 'qualification-recognition' },
       freshness: freshness(
         'procedural',
-        [LATAM_SRC.employeeCardMzv, LATAM_SRC.embassyBrasiliaPt],
+        [LATAM_SRC.employeeCardMzv, LATAM_SRC.embassyBrasiliaPt, LATAM_SRC.consulateSaoPauloPt],
         'BR',
       ),
     },
@@ -158,7 +158,7 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
           heading: 'Quando nenhum dos dois é exigido',
           body: [
             'Para muitas funções não regulamentadas, o empregador avalia a experiência diretamente e não há procedimento formal de reconhecimento a cumprir.',
-            'Isso não significa que qualquer certificado estrangeiro seja aceito para qualquer tarefa: atividades como soldadura e trabalhos elétricos exigem habilitações específicas segundo as normas tchecas, e um certificado obtido no exterior pode não ser suficiente para a tarefa concreta.',
+            'Isso não significa que qualquer certificado estrangeiro seja aceito para qualquer tarefa: atividades como soldagem e trabalhos elétricos exigem certificações específicas segundo as normas tchecas, e um certificado obtido no exterior pode não ser suficiente para a tarefa concreta.',
           ],
         },
         {
@@ -185,13 +185,13 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
         'Quais direitos um trabalhador estrangeiro tem na relação de trabalho tcheca, quais obrigações acompanham a residência e o trabalho, e onde procurar ajuda.',
       h1: 'Direitos do trabalhador estrangeiro',
       intro:
-        'Um trabalhador estrangeiro com autorização válida tem os mesmos direitos laborais que um trabalhador tcheco. Esta página resume esses direitos, as obrigações ligadas à residência e onde procurar ajuda quando algo corre mal.',
+        'Um trabalhador estrangeiro com autorização válida tem os mesmos direitos laborais que um trabalhador tcheco. Esta página resume esses direitos, as obrigações ligadas à residência e onde procurar ajuda quando algo dá errado.',
       breadcrumb: 'Direitos do trabalhador',
       sections: [
         {
           heading: 'Direitos na relação de trabalho',
           body: [
-            'O Código do Trabalho tcheco aplica-se independentemente da nacionalidade. Contrato por escrito, limites de jornada, remuneração de horas extraordinárias, descanso e férias são direitos legais, e valem igualmente para um trabalhador estrangeiro com autorização válida.',
+            'O Código do Trabalho tcheco se aplica independentemente da nacionalidade. Contrato por escrito, limites de jornada, pagamento de horas extras, descanso e férias são direitos legais, e valem igualmente para um trabalhador estrangeiro com autorização válida.',
             'Descontos não previstos em lei ou em contrato não são legítimos, e reter documentos pessoais de um trabalhador não é legítimo em circunstância alguma.',
           ],
           list: {
@@ -239,13 +239,13 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
           heading: 'Residência e autorizações',
           body: [
             'O Ministério do Interior da República Tcheca decide sobre autorizações de residência, incluindo o cartão de empregado, e publica requisitos, anexos e prazos.',
-            'O Ministério dos Negócios Estrangeiros publica informação sobre vistos e residência e mantém as páginas dos postos consulares.',
+            'O Ministério das Relações Exteriores publica informação sobre vistos e residência e mantém as páginas dos postos consulares.',
           ],
         },
         {
           heading: 'Trabalho, permissões e mercado de trabalho',
           body: [
-            'O Ministério da Indústria e Comércio publica os textos dos programas de migração económica, incluindo quais países cada programa abrange e quais classes CZ-ISCO cobre.',
+            'O Ministério da Indústria e Comércio publica os textos dos programas de migração econômica, incluindo quais países cada programa abrange e quais classes CZ-ISCO cobre.',
           ],
           list: {
             items: [
@@ -265,7 +265,7 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
             items: [
               'Seguro social e sua coordenação — Česká správa sociálního zabezpečení (ČSSZ)',
               'Seguro de saúde — as seguradoras de saúde tchecas, por exemplo a VZP',
-              'Imposto sobre o rendimento — Finanční správa, a administração fiscal tcheca',
+              'Imposto de renda — Finanční správa, a administração fiscal tcheca',
             ],
           },
           freshness: 'procedural',
@@ -289,7 +289,7 @@ export const PTBR_IMMIGRATION: LocaleCorpus = {
           heading: 'Como conferir o que leu, aqui ou em qualquer lugar',
           body: [
             'Verifique se a afirmação indica a fonte e a data. Desconfie de números redondos sem origem, de prazos apresentados como garantidos e de qualquer promessa de resultado.',
-            'Cada página desta seção indica quando foi verificada pela última vez e contra quais fontes. Se encontrar divergência entre o que dizemos e a fonte oficial, a fonte oficial prevalece — e avise-nos.',
+            'Cada página desta seção indica quando foi verificada pela última vez e com base em quais fontes. Se encontrar divergência entre o que dizemos e a fonte oficial, a fonte oficial prevalece — e avise-nos.',
           ],
         },
       ],

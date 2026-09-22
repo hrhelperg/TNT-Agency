@@ -43,7 +43,7 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
       currentRole: 'Função atual ou mais recente',
       experience: 'Anos de experiência',
       languages: 'Idiomas',
-      availability: 'Disponibilidade para mudança',
+      availability: 'Disponibilidade para se mudar de país',
       message: 'Algo que devemos saber',
       email: 'E-mail',
       phone: 'Telefone',
@@ -52,12 +52,12 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
     hints: {
       languages: 'Por exemplo: português nativo, inglês intermediário',
       currentRole: 'Por exemplo: soldador MIG/MAG, engenheiro de processo',
-      message: 'Habilitações técnicas, certificados, restrições de data. Opcional.',
+      message: 'Certificações técnicas, cursos, restrições de data. Opcional.',
       phone: 'Com código do país. Opcional.',
     },
     options: {
       'fieldOfWork.engineering': 'Engenharia e especialidades técnicas',
-      'fieldOfWork.technical': 'Profissões técnicas (manutenção, automação, soldadura, CNC)',
+      'fieldOfWork.technical': 'Profissões técnicas (manutenção, automação, soldagem, CNC)',
       'fieldOfWork.manufacturing': 'Indústria e produção',
       'fieldOfWork.logistics': 'Logística e armazém',
       'fieldOfWork.healthcare': 'Profissões de saúde',
@@ -80,13 +80,13 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
     },
     errorSummaryTitle: 'Corrija os campos abaixo antes de enviar',
     consentLabel:
-      'Concordo que a TalentPartnerID trate os meus dados e o meu currículo para avaliar esta candidatura e, havendo correspondência, apresentá-los a um empregador tcheco.',
+      'Concordo que a TalentPartnerID trate meus dados e meu currículo para avaliar esta candidatura e, havendo correspondência, apresentá-los a um empregador tcheco.',
     submit: 'Abrir e-mail com a candidatura',
-    attachWarning: 'Anexe o seu currículo antes de enviar — isso não acontece automaticamente.',
-    successTitle: 'O seu programa de e-mail deve ter aberto',
+    attachWarning: 'Anexe seu currículo antes de enviar — isso não acontece automaticamente.',
+    successTitle: 'O seu aplicativo de e-mail deve ter aberto',
     successBody:
       'A mensagem foi montada com os dados que você preencheu. Ela ainda NÃO foi enviada: só chega até nós quando você a enviar do seu e-mail.',
-    successAttach: 'Antes de enviar: anexe o seu currículo à mensagem.',
+    successAttach: 'Antes de enviar: anexe seu currículo à mensagem.',
     fallbackTitle: 'Se nada abriu',
     fallbackBody:
       'Escreva para o endereço abaixo a partir do e-mail que você usa normalmente, cole o texto e anexe o currículo.',
@@ -97,7 +97,7 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
     required: 'obrigatório',
     optional: 'opcional',
     noscript:
-      'O seu navegador está com o JavaScript desativado, então o botão abaixo não vai abrir o seu programa de e-mail. Escreva diretamente para o endereço indicado em “Se nada abriu”, informando os dados pedidos no formulário e anexando o seu currículo.',
+      'O seu navegador está com o JavaScript desativado, então o botão abaixo não vai abrir o seu aplicativo de e-mail. Escreva diretamente para o endereço indicado em “Se nada abriu”, informando os dados pedidos no formulário e anexando o seu currículo.',
   },
   es: {
     groupTitles: { about: 'Sobre usted', work: 'Experiencia y disponibilidad', contact: 'Contacto' },
@@ -125,7 +125,7 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
       'fieldOfWork.engineering': 'Ingeniería y especialidades técnicas',
       'fieldOfWork.technical': 'Profesiones técnicas (mantenimiento, automatización, soldadura, CNC)',
       'fieldOfWork.manufacturing': 'Industria y producción',
-      'fieldOfWork.logistics': 'Logística y almacén',
+      'fieldOfWork.logistics': 'Logística y depósito',
       'fieldOfWork.healthcare': 'Profesiones de la salud',
       'fieldOfWork.other': 'Otra',
       'experience.lt1': 'Menos de 1 año',
@@ -151,7 +151,7 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
     attachWarning: 'Adjunte su CV antes de enviar — esto no ocurre automáticamente.',
     successTitle: 'Su programa de correo debería haberse abierto',
     successBody:
-      'El mensaje se ha compuesto con los datos que usted completó. Todavía NO se ha enviado: solo nos llega cuando usted lo envía desde su correo.',
+      'El mensaje se compuso con los datos que usted completó. Todavía NO se envió: solo nos llega cuando usted lo envía desde su correo.',
     successAttach: 'Antes de enviar: adjunte su CV al mensaje.',
     fallbackTitle: 'Si no se abrió nada',
     fallbackBody:
@@ -163,6 +163,6 @@ export const APPLICATION_COPY: Readonly<Record<CandidateLocale, ApplicationCopy>
     required: 'obligatorio',
     optional: 'opcional',
     noscript:
-      'Su navegador tiene JavaScript desactivado, por lo que el botón de abajo no abrirá su programa de correo. Escriba directamente a la dirección indicada en «Si no se abrió nada», incluyendo los datos que pide el formulario y adjuntando su CV.',
+      'Su navegador tiene JavaScript desactivado, por lo que el botón de abajo no abrirá su programa de correo. Escriba directamente a la dirección indicada en “Si no se abrió nada”, incluyendo los datos que pide el formulario y adjuntando su CV.',
   },
 }

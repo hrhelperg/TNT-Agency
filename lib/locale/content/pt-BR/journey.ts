@@ -59,9 +59,9 @@ export const PTBR_JOURNEY: LocaleCorpus = {
         },
       ],
       cta: {
-        label: 'Candidatar-se',
+        label: 'Candidate-se',
         targetConceptId: 'candidate-apply',
-        note: 'Leva alguns minutos. Você anexa o seu currículo no seu próprio e-mail.',
+        note: 'Leva alguns minutos. Você anexa o currículo à mensagem, no seu próprio e-mail.',
       },
       freshness: freshness('conceptual', [LATAM_SRC.programHighlyQualified, LATAM_SRC.programQualified], 'LATAM'),
     },
@@ -80,16 +80,16 @@ export const PTBR_JOURNEY: LocaleCorpus = {
         {
           heading: 'O ponto de partida: é preciso uma autorização que una residência e trabalho',
           body: [
-            'Cidadãos de países fora da União Europeia, do Espaço Económico Europeu e da Suíça precisam de uma autorização específica para trabalhar na República Tcheca. A mais comum para emprego de longa duração é o cartão de empregado, cujo nome legal em tcheco é zaměstnanecká karta.',
+            'Cidadãos de países fora da União Europeia, do Espaço Econômico Europeu e da Suíça precisam de uma autorização específica para trabalhar na República Tcheca. A mais comum para emprego de longa duração é o cartão de empregado, cujo nome legal em tcheco é zaměstnanecká karta.',
             'Trata-se de um documento duplo: autoriza ao mesmo tempo a residência no território e o exercício de um trabalho concreto, para um empregador concreto. Ele não é genérico — está ligado a um posto de trabalho específico.',
           ],
         },
         {
           heading: 'Os dois programas governamentais, e por que a diferença importa',
           body: [
-            'O Estado tcheco mantém programas que aceleram a tramitação de determinados perfis. Existem dois relevantes aqui, e eles tratam candidatos brasileiros de maneira diferente.',
-            'O Program vysoce kvalifikovaný zaměstnanec (Programa de trabalhador altamente qualificado) não tem limitação territorial: aplica-se a trabalhadores de todos os países terceiros. Abrange atividades das classes principais 1 a 3 da classificação tcheca de ocupações CZ-ISCO — direção, profissões intelectuais e científicas e profissões técnicas de nível médio. Um candidato brasileiro pode participar quando a função concreta, o empregador e as condições do programa forem cumpridos. Isso não significa que todo engenheiro brasileiro se qualifique.',
-            'O Program kvalifikovaný zaměstnanec (Programa de trabalhador qualificado), que cobre as classes CZ-ISCO 4 a 8, aplica-se a uma lista fechada de países. O Brasil não está nessa lista, e nenhum país da América Latina está. Para esses perfis, portanto, o programa não é uma opção, e o caminho é o cartão de empregado padrão.',
+            'O Estado tcheco mantém programas de migração económica para determinados perfis. É importante saber o que eles garantem: a possibilidade de apresentar o pedido no posto consular tcheco, inclusive com os familiares mais próximos, e a simplificação da parte administrativa. Eles não encurtam o prazo de decisão da autoridade. Existem três, e eles tratam candidatos brasileiros de maneira diferente.',
+            'O Program vysoce kvalifikovaný zaměstnanec (Programa de trabalhador altamente qualificado) não tem limitação territorial: se aplica a trabalhadores de todos os países terceiros. Abrange atividades dos grandes grupos 1 a 3 da classificação tcheca de ocupações CZ-ISCO — direção, profissões intelectuais e científicas e profissões técnicas de nível médio. Um candidato brasileiro pode participar quando a função concreta, o empregador cumprirem as condições do programa. Isso não significa que todo engenheiro brasileiro se qualifique.',
+            'O Program klíčový a vědecký personál (Programa de pessoal-chave e científico) também não tem limitação territorial e também cobre os grandes grupos 1 a 3, mas destina-se a empregadores de outro tipo — investidores, organizações de pesquisa, empresas de tecnologia e start-ups. Não exige desse empregador os dois anos de atividade nem o número mínimo de empregados que o programa anterior exige.\n\nO Program kvalifikovaný zaměstnanec (Programa de trabalhador qualificado), que cobre os grandes grupos 4 a 8, se aplica a uma lista fechada de países. O Brasil não está nessa lista, e nenhum país da América Latina está. Para esses perfis, portanto, o programa não é uma opção, e o caminho é o cartão de empregado padrão.',
           ],
           freshness: 'procedural',
         },
@@ -105,7 +105,7 @@ export const PTBR_JOURNEY: LocaleCorpus = {
         {
           heading: 'A isenção de visto de curta duração não autoriza trabalhar',
           body: [
-            'Cidadãos brasileiros não precisam de visto para estadas curtas de até 90 dias na República Tcheca e no espaço Schengen — mas essa isenção vale desde que a finalidade da viagem não seja atividade remunerada.',
+            'Cidadãos brasileiros não precisam de visto para permanências curtas na República Tcheca e no espaço Schengen — no máximo três meses dentro de um período de seis meses — mas essa isenção vale desde que a finalidade da viagem não seja atividade remunerada.',
             'Entrar como visitante e começar a trabalhar não é uma alternativa mais rápida ao processo: é trabalho não autorizado, com consequências para o trabalhador e para o empregador.',
           ],
           freshness: 'procedural',
@@ -175,7 +175,7 @@ export const PTBR_JOURNEY: LocaleCorpus = {
         {
           heading: 'O que depende de quem',
           body: [
-            'Boa parte da frustração em processos assim vem de esperar de uma parte algo que pertence a outra.',
+            'Boa parte da frustração nesses processos vem de cobrar de uma parte algo que é responsabilidade de outra.',
           ],
           list: {
             items: [
@@ -202,7 +202,7 @@ export const PTBR_JOURNEY: LocaleCorpus = {
           ],
         },
       ],
-      cta: { label: 'Candidatar-se', targetConceptId: 'candidate-apply' },
+      cta: { label: 'Candidate-se', targetConceptId: 'candidate-apply' },
       freshness: freshness('conceptual', [LATAM_SRC.employeeCardMzv, LATAM_SRC.labourOffice], 'LATAM'),
     },
   },
@@ -214,13 +214,13 @@ export const PTBR_JOURNEY: LocaleCorpus = {
         'Como é trabalhar e viver na República Tcheca: jornada, contrato, salário no contexto do custo de vida, moradia, idioma e o que esperar nos primeiros meses.',
       h1: 'Vida e trabalho na República Tcheca',
       intro:
-        'Uma decisão de mudar de país se toma com informação sobre o cotidiano, não só sobre documentos. Esta página reúne o que costuma surpreender quem chega — nos dois sentidos.',
+        'Quem decide mudar de país precisa de informações sobre o dia a dia, não só sobre documentos. Esta página reúne o que costuma surpreender quem chega — nos dois sentidos.',
       breadcrumb: 'Vida e trabalho',
       sections: [
         {
           heading: 'Contrato e jornada',
           body: [
-            'A relação de trabalho é regida pelo Código do Trabalho tcheco, que se aplica igualmente a trabalhadores estrangeiros com autorização válida. Contrato por escrito, jornada definida, horas extraordinárias remuneradas, férias e períodos de descanso são direitos legais, não benefícios concedidos.',
+            'A relação de trabalho é regida pelo Código do Trabalho tcheco, que se aplica igualmente a trabalhadores estrangeiros com autorização válida. Contrato por escrito, jornada definida, horas extras remuneradas, férias e períodos de descanso são direitos legais, não benefícios concedidos.',
             'Vale ler o contrato antes de assinar, e pedir explicação do que não estiver claro. Um contrato em tcheco pode ser acompanhado de tradução, e você pode pedir tempo para lê-lo.',
           ],
         },
@@ -234,8 +234,8 @@ export const PTBR_JOURNEY: LocaleCorpus = {
         {
           heading: 'Moradia',
           body: [
-            'Alguns empregadores oferecem alojamento ou ajudam a encontrá-lo; outros não. Isso deve constar explicitamente da proposta — se não constar, pergunte.',
-            'Em determinados procedimentos de residência é exigido comprovante de alojamento assegurado. Confirme quais exigências se aplicam ao seu caso junto à fonte oficial antes de contar com uma suposição.',
+            'Alguns empregadores oferecem moradia ou ajudam a encontrá-la; outros não. Isso deve constar explicitamente da proposta — se não constar, pergunte.',
+            'Em determinados procedimentos de residência é exigido comprovante de moradia assegurada. Confirme quais exigências se aplicam ao seu caso junto à fonte oficial antes de contar com uma suposição.',
           ],
           freshness: 'procedural',
         },

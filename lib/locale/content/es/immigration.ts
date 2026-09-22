@@ -47,7 +47,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
           heading: 'Qué puede y qué no puede hacer TalentPartnerID aquí',
           body: [
             'Podemos explicar el proceso, indicar las fuentes oficiales y acompañar las etapas que corresponden al reclutamiento y al empleador.',
-            'No expedimos la tarjeta, no influimos en la resolución y no podemos acelerar la tramitación. Esta página es información general y no sustituye asesoramiento sobre su caso individual.',
+            'No expedimos la tarjeta, no influimos en la resolución y no podemos acelerar la tramitación. Esta página es información general y no sustituye asesoría sobre su caso individual.',
           ],
         },
       ],
@@ -63,7 +63,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
         'Qué categorías de documentos suelen exigirse en la solicitud de tarjeta de empleado checa, qué suele requerir traducción o legalización, y dónde consultar la lista oficial vigente.',
       h1: 'Documentos necesarios',
       intro:
-        'La lista exacta de anexos la fija la autoridad checa y cambia. Esta página explica las categorías que suelen exigirse y lo que suele dar más trabajo, para que usted se prepare con antelación y confirme la lista vigente en la fuente oficial.',
+        'La lista exacta de anexos la fija la autoridad checa y cambia. Esta página explica las categorías que suelen exigirse y lo que suele dar más trabajo, para que usted se prepare con anticipación y confirme la lista vigente en la fuente oficial.',
       breadcrumb: 'Documentos necesarios',
       sections: [
         {
@@ -83,7 +83,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
             items: [
               'Documento de viaje vigente',
               'Contrato de trabajo, acuerdo de actividad laboral o promesa de empleo',
-              'Comprobante de la cualificación exigida para la función',
+              'Comprobante de la calificación exigida para la función',
               'Comprobante de alojamiento asegurado',
               'Fotografías según especificación',
               'Comprobante de pago de la tasa administrativa',
@@ -100,7 +100,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
           freshness: 'procedural',
         },
         {
-          heading: 'Comprobante de cualificación',
+          heading: 'Comprobante de calificación',
           body: [
             'Para funciones no reguladas suele bastar con acreditar la formación o la experiencia que el puesto exige.',
             'Para profesiones reguladas — salud, algunas actividades técnicas — existe un procedimiento propio de reconocimiento, anterior e independiente de la solicitud de residencia. La página sobre reconocimiento de títulos explica la diferencia.',
@@ -114,12 +114,12 @@ export const ES_IMMIGRATION: LocaleCorpus = {
 
   'qualification-recognition': {
     es: {
-      title: 'Reconocimiento de títulos y cualificaciones en Chequia | TalentPartnerID',
+      title: 'Reconocimiento de títulos y calificaciones en Chequia | TalentPartnerID',
       description:
-        'La diferencia entre el reconocimiento de un título y el reconocimiento de la cualificación profesional para una actividad regulada en Chequia, y cuándo no hace falta ninguno de los dos.',
+        'La diferencia entre el reconocimiento de un título y el reconocimiento de la calificación profesional para una actividad regulada en Chequia, y cuándo no hace falta ninguno de los dos.',
       h1: 'Reconocimiento de títulos',
       intro:
-        'Dos procedimientos distintos suelen confundirse: reconocer un título extranjero y reconocer la cualificación para ejercer una actividad regulada. Son procesos diferentes, con autoridades y finalidades diferentes, y hay casos en los que no se exige ninguno.',
+        'Dos procedimientos distintos suelen confundirse: reconocer un título extranjero y reconocer la calificación para ejercer una actividad regulada. Son procesos diferentes, con autoridades y finalidades diferentes, y hay casos en los que no se exige ninguno.',
       breadcrumb: 'Reconocimiento de títulos',
       sections: [
         {
@@ -130,7 +130,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
           ],
         },
         {
-          heading: 'Reconocimiento de la cualificación profesional',
+          heading: 'Reconocimiento de la calificación profesional',
           body: [
             'Es el procedimiento exigido para ejercer una actividad regulada. Aquí no se evalúa solo el título, sino la aptitud para ejercer esa profesión concreta en Chequia, lo que puede incluir exámenes y requisitos de idioma.',
             'Es el caso de las profesiones de la salud, entre otras. Este procedimiento es anterior e independiente de la solicitud de residencia: tener autorización de residencia no habilita a ejercer una profesión regulada sin el reconocimiento.',
@@ -147,7 +147,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Cómo prepararse',
           body: [
-            'Reúna títulos, certificados analíticos y constancias con antelación, verifique si requieren traducción oficial y legalización, y confirme con el empleador qué acreditación exige la función.',
+            'Reúna títulos, certificados de estudios y constancias con anticipación, verifique si requieren traducción oficial y legalización, y confirme con el empleador qué acreditación exige la función.',
             'Si su profesión es regulada, trate el reconocimiento como la primera etapa del proyecto, no como un trámite posterior.',
           ],
         },
@@ -174,7 +174,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Derechos en la relación laboral',
           body: [
-            'El Código del Trabajo checo se aplica con independencia de la nacionalidad. Contrato por escrito, límites de jornada, remuneración de horas extraordinarias, descanso y vacaciones son derechos legales, y rigen igualmente para un trabajador extranjero con autorización vigente.',
+            'El Código del Trabajo checo se aplica con independencia de la nacionalidad. Contrato por escrito, límites de jornada, remuneración de horas extras, descanso y vacaciones son derechos legales, y rigen igualmente para un trabajador extranjero con autorización vigente.',
             'Los descuentos no previstos en la ley o en el contrato no son legítimos, y retener los documentos personales de un trabajador no lo es en ninguna circunstancia.',
           ],
           list: {
@@ -191,15 +191,15 @@ export const ES_IMMIGRATION: LocaleCorpus = {
           heading: 'Obligaciones ligadas a la residencia y al trabajo',
           body: [
             'La autorización trae deberes: comunicar los cambios relevantes a las autoridades dentro de los plazos, mantener vigentes los documentos y respetar el vínculo entre la autorización y el puesto de trabajo.',
-            'Los plazos aquí son reales. Perder un plazo de comunicación puede afectar a la autorización, y regularizarlo después suele ser más difícil que cumplirlo a tiempo.',
+            'Los plazos aquí son reales. Perder un plazo de comunicación puede afectar la autorización, y regularizarlo después suele ser más difícil que cumplirlo a tiempo.',
           ],
           freshness: 'procedural',
         },
         {
           heading: 'Dónde buscar ayuda',
           body: [
-            'La Inspección de Trabajo vigila el cumplimiento de la legislación laboral. El Ministerio del Interior responde por las cuestiones de residencia. Existen además organizaciones de apoyo a extranjeros que ofrecen asesoramiento gratuito.',
-            'TalentPartnerID no sustituye a ninguna de esas instancias y no presta asesoramiento jurídico. Si su situación afecta a derechos laborales o a la residencia, acuda a la autoridad competente.',
+            'La Inspección de Trabajo vigila el cumplimiento de la legislación laboral. El Ministerio del Interior responde por las cuestiones de residencia. Existen además organizaciones de apoyo a extranjeros que ofrecen asesoría gratuito.',
+            'TalentPartnerID no sustituye a ninguna de esas instancias y no presta asesoría jurídico. Si su situación afecta derechos laborales o a la residencia, acuda a la autoridad competente.',
           ],
         },
       ],
@@ -212,7 +212,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
     es: {
       title: 'Dónde verificar información oficial | TalentPartnerID',
       description:
-        'Las instituciones checas que publican información oficial sobre residencia, trabajo, reconocimiento profesional y procedimiento consular, y cómo usarlas para contrastar lo que ha leído.',
+        'Las instituciones checas que publican información oficial sobre residencia, trabajo, reconocimiento profesional y procedimiento consular, y cómo usarlas para contrastar lo que leyó.',
       h1: 'Dónde verificar información oficial',
       intro:
         'Ninguna agencia de reclutamiento — tampoco esta — es fuente oficial en materia migratoria. Esta página reúne las instituciones que sí lo son, para que pueda contrastar cualquier afirmación, incluidas las nuestras.',
@@ -222,7 +222,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
           heading: 'Residencia y autorizaciones',
           body: [
             'El Ministerio del Interior de la República Checa resuelve las autorizaciones de residencia, incluida la tarjeta de empleado, y publica requisitos, anexos y plazos.',
-            'El Ministerio de Asuntos Exteriores publica información sobre visados y residencia y mantiene las páginas de las representaciones consulares.',
+            'El Ministerio de Asuntos Exteriores publica información sobre visas y residencia y mantiene las páginas de las representaciones consulares.',
           ],
         },
         {
@@ -242,7 +242,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Seguros e impuestos',
           body: [
-            'Esta página no indica importes de cotizaciones ni tipos impositivos: cambian, y una cifra desactualizada aquí sería peor que ninguna. Las instituciones siguientes publican los valores vigentes.',
+            'Esta página no indica montos de aportes ni tasas de impuesto: cambian, y una cifra desactualizada aquí sería peor que ninguna. Las instituciones siguientes publican los valores vigentes.',
           ],
           list: {
             items: [
@@ -256,7 +256,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
         {
           heading: 'Profesiones reguladas',
           body: [
-            'El Ministerio de Sanidad de la República Checa responde por el reconocimiento de cualificaciones en las profesiones de la salud y por la prueba de aptitud.',
+            'El Ministerio de Salud de la República Checa responde por el reconocimiento de calificaciones en las profesiones de la salud y por la prueba de aptitud.',
           ],
         },
         {
@@ -264,7 +264,7 @@ export const ES_IMMIGRATION: LocaleCorpus = {
           body: [
             'A quién dirigirse sobre la tarjeta de empleado o la tarjeta azul: al Ministerio del Interior, Departamento de Política de Asilo y Migración (OAMP), que resuelve las autorizaciones de residencia y publica las condiciones vigentes.',
             'Dónde verificar obligaciones y comunicaciones en el empleo de extranjeros: ante la Úřad práce ČR, con orientación metodológica del MPSV. La vigilancia corresponde a la Inspección Estatal de Trabajo (SÚIP).',
-            'Dónde consultar los tipos actuales de cotizaciones e impuestos: los de la seguridad social ante la ČSSZ, los del seguro de salud ante las aseguradoras de salud y las cuestiones tributarias ante la administración tributaria.',
+            'Dónde consultar las tasas actuales de aportes e impuestos: los de la seguridad social ante la ČSSZ, los del seguro de salud ante las aseguradoras de salud y las cuestiones tributarias ante la administración tributaria.',
           ],
           freshness: 'procedural',
         },

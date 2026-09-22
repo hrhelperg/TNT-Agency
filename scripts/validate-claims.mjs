@@ -173,6 +173,14 @@ const LOCALE_CLAIM_ALLOWLIST = new Set(
     'We do not promise "guaranteed" workers or an "immediate start". Recruitment and its timing depend on circumstances and on the applicable regulations.',
     'Wir nennen keine erfundenen Statistiken, keine Zahlen zu Mitarbeitenden oder Arbeitgebern, keine Löhne, Erfolgsquoten, Einsparungen und keine Reaktionszeiten.',
 
+    // ── Re-approved after the P9 review rewrote these sentences ────────────
+    // 1 states what the programmes actually guarantee — the ability to lodge at
+    // the mission, with immediate family, plus simplified filing — and then
+    // denies outright that they shorten the authority's decision. That denial
+    // is the correction review asked for. 2 is a refusal.
+    'El Estado checo mantiene programas de migración económica para determinados perfiles. Conviene saber qué garantizan: la posibilidad de presentar la solicitud en la representación checa, incluso junto a los familiares más cercanos, y la simplificación de la parte administrativa. No acortan el plazo de resolución de la autoridad. Hay tres, y tratan a los candidatos latinoamericanos de manera distinta.',
+    'No expedimos visas ni permisos de residencia, no resolvemos solicitudes, no influimos en los plazos y no garantizamos resultados. No cobramos al candidato.',
+
     // ── PT-BR / ES candidate corpus ────────────────────────────────────────
     // Each of these was read in full before approval. Every one either NEGATES
     // a guarantee (no guaranteed deadline, nobody can guarantee the duration,

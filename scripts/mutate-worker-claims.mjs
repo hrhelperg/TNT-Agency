@@ -45,6 +45,25 @@ const withSentence = (conceptId, sentence) => {
 
 const TMP = path.join(ROOT, '.mutate-worker-claims.tmp.tsx')
 
+/**
+ * A synthetic file inside a REAL scanned directory.
+ *
+ * Controls 1-6 pass sourceFiles:[] and so only exercise the injected-corpus
+ * branch. The production run instead walks CANDIDATE_DIRS and reads files from
+ * disk — the path where the em+o contraction bug lived, and the path where the
+ * scan directory was misconfigured for the whole wave. Controls that never
+ * touch it cannot report on it, so these do.
+ */
+const scanFile = (name, body) => {
+  const f = path.join(ROOT, 'lib/candidate-application', name)
+  fs.writeFileSync(f, body)
+  try {
+    return auditWorkerClaims({ readBuild: false, sourceFiles: [f] })
+  } finally {
+    fs.unlinkSync(f)
+  }
+}
+
 const CONTROLS = [
   {
     id: '1. Brazil is in Program kvalifikovaný zaměstnanec',
@@ -130,6 +149,64 @@ const CONTROLS = [
       },
       readBuild: false, sourceFiles: [],
     }),
+  },
+  // ── Evasions found by adversarial review. Each asserted the falsehood while
+  //    the previous negation/question exemption let it through. ──────────────
+  {
+    id: '13. Falsehood plus an unrelated negation clause (the universal bypass)',
+    run: () => auditWorkerClaims({
+      corpora: withSentence('work-in-manufacturing',
+        'O Brasil está incluído no Program kvalifikovaný zaměstnanec desde este ano, e não cobramos nada do candidato por isso.'),
+      readBuild: false, sourceFiles: [],
+    }),
+  },
+  {
+    id: '14. Spanish falsehood carrying the bare token "no"',
+    run: () => auditWorkerClaims({
+      corpora: {
+        es: {
+          'work-in-czechia': {
+            es: {
+              ...PTBR['work-in-czechia']['pt-BR'],
+              sections: [{ heading: 'Mutación', body: ['El acuerdo UE–Mercosur permite trabajar en Chequia, no importa el país de origen.'] }],
+            },
+          },
+        },
+      },
+      readBuild: false, sourceFiles: [],
+    }),
+  },
+  {
+    id: '15. Portuguese falsehood sitting in an es/ file (the em+o contraction bug)',
+    run: () => scanFile('zz-mutation-probe.ts',
+      "export const X = 'O cartão de empregado no contrato é sempre emitido por dois anos.'\n"),
+  },
+  {
+    id: '16. Two sentences on one source line, negation in the first',
+    run: () => scanFile('zz-mutation-probe.ts',
+      "export const X = ['Não cobramos do candidato.', 'O cartão de empregado é sempre emitido por dois anos.']\n"),
+  },
+  {
+    id: '17. A Spanish vacancy route (/es/vacantes)',
+    run: () => auditWorkerClaims({
+      routes: [...R.LOCALIZED_ROUTES, '/es/vacantes'],
+      readBuild: false, sourceFiles: [],
+    }),
+  },
+  {
+    id: '18. A misconfigured scan path must be loud, not silently empty',
+    run: () => {
+      // Injects a path that does not exist, which is exactly the state the
+      // gate shipped in: CANDIDATE_DIRS named lib/locale/candidate-application
+      // while the directory is lib/candidate-application, so the whole form
+      // copy layer was scanned by nothing and the gate reported success.
+      try {
+        auditWorkerClaims({ readBuild: false, dirs: ['lib/locale/candidate-application'] })
+        return { errors: [] }
+      } catch (e) {
+        return { errors: [String(e.message)] }
+      }
+    },
   },
   {
     // The Czech employer homepage claiming /pt-br as its translation — the exact

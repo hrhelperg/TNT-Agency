@@ -60,12 +60,16 @@ const organizationSchema = JSON.stringify({
   ...(SITE.social.length ? { sameAs: SITE.social } : {}),
 })
 
-const websiteSchema = JSON.stringify({
+const websiteSchemaFor = (lang: string) => JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: SITE.brand,
   url: SITE.baseUrl,
-  inLanguage: 'cs-CZ',
+  // The page's own language, not the site's origin language. This was hardcoded
+  // 'cs-CZ' and shipped on all 43 pt-BR/es pages and all 100 en/de pages, so a
+  // document declaring <html lang="pt-BR"> simultaneously declared in JSON-LD
+  // that it was Czech. §38 asks for truthful structured data; that was not.
+  inLanguage: lang,
 })
 
 export default function Document({ lang = DEFAULT_LANG, localeLocked = false }: { lang?: string; localeLocked?: boolean }) {
@@ -78,7 +82,7 @@ export default function Document({ lang = DEFAULT_LANG, localeLocked = false }: 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationSchema }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteSchema }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteSchemaFor(lang) }} />
       </Head>
       <body>
         <Main />

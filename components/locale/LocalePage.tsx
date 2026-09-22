@@ -2,7 +2,14 @@ import Head from 'next/head'
 import Header from '../Header'
 import Footer from '../Footer'
 import { localeAlternateTags } from './LocaleAlternates'
-import { ALL_CONCEPTS, primaryUrl, urlFor, type Locale } from '../../lib/locale/registry'
+import {
+  ALL_CONCEPTS,
+  LOCALE_OG,
+  alternatesFor,
+  primaryUrl,
+  urlFor,
+  type Locale,
+} from '../../lib/locale/registry'
 import { LOCALE_PREFIX, isCandidateLocale } from '../../lib/locale/locales'
 import CandidateHeader from './CandidateHeader'
 import CandidateFooter from './CandidateFooter'
@@ -91,14 +98,23 @@ export default function LocalePage({
   if (!ctaConcept) {
     throw new Error(`locale CTA references unknown concept "${content.cta.targetConceptId}"`)
   }
-  const ctaHref = ctaConcept ? urlFor(ctaConcept, locale) ?? urlFor(ctaConcept, 'cs') : undefined
+  // The Czech fallback applies to employer locales only. On a candidate page it
+  // would emit a Czech EMPLOYER url, which candidate-chrome.ts forbids in as
+  // many words and which CandidateHeader/CandidateFooter already refuse by
+  // returning null. It is not firing today — every candidate CTA resolves in
+  // its own locale — but one content edit pointing an es CTA at a pt-BR-only
+  // concept would have made it fire silently.
+  const isCandidate = isCandidateLocale(locale)
+  const ctaHref = ctaConcept
+    ? urlFor(ctaConcept, locale) ?? (isCandidate ? undefined : urlFor(ctaConcept, 'cs'))
+    : undefined
   // Was `locale === 'en' ? '/en' : '/de'` — a two-locale ternary that would
   // have sent every Brazilian and Spanish reader's breadcrumb to /de.
   const localeHome = LOCALE_PREFIX[locale]
 
   // Candidate locales get their own chrome. See CandidateHeader for why this is
   // a branch rather than a prop on the employer header.
-  const candidate = isCandidateLocale(locale)
+  const candidate = isCandidate
 
   /**
    * "Verified on" in the reader's language.
@@ -132,6 +148,41 @@ export default function LocalePage({
         <title key="title">{content.title}</title>
         <meta key="description" name="description" content={content.description} />
         <link key="canonical" rel="canonical" href={`${ORIGIN}${selfUrl}`} />
+        {/*
+          Social metadata.
+
+          Absent from this component until adversarial review counted it: all 43
+          candidate pages and all 100 en/de pages shipped with no og:* or
+          twitter:* at all, while 177 Czech pages had them. §39 requires a
+          localized title, description, OG pair, locale and canonical URL on
+          every localized page, and this corpus needs them more than most — a
+          pt-BR/es candidate audience shares pages on WhatsApp and Telegram, and
+          every one of those shares rendered as a bare link.
+
+          og:image is deliberately omitted rather than pointed at
+          /assets/og.svg: Facebook, WhatsApp, LinkedIn and X all reject SVG, so
+          declaring it would produce an imageless card AND a broken declaration
+          instead of just an imageless card. Recorded as a bounded gap pending a
+          1200x630 PNG.
+        */}
+        <meta key="og:type" property="og:type" content="article" />
+        <meta key="og:site_name" property="og:site_name" content="TalentPartnerID" />
+        <meta key="og:url" property="og:url" content={`${ORIGIN}${selfUrl}`} />
+        <meta key="og:title" property="og:title" content={content.title} />
+        <meta key="og:description" property="og:description" content={content.description} />
+        <meta key="og:locale" property="og:locale" content={LOCALE_OG[locale]} />
+        {alternatesFor(primaryUrl(concept))
+          .filter((a) => a.locale !== locale)
+          .map((a) => (
+            <meta
+              key={`og:locale:alternate:${a.locale}`}
+              property="og:locale:alternate"
+              content={LOCALE_OG[a.locale]}
+            />
+          ))}
+        <meta key="twitter:card" name="twitter:card" content="summary" />
+        <meta key="twitter:title" name="twitter:title" content={content.title} />
+        <meta key="twitter:description" name="twitter:description" content={content.description} />
         {localeAlternateTags({ route: primaryUrl(concept) })}
       </Head>
 
@@ -145,7 +196,10 @@ export default function LocalePage({
         <Header activePage={undefined} locale={locale as EmployerLocaleLocked} />
       )}
 
-      <main className="section locale-page" lang={locale}>
+      <main
+        className={`section locale-page${candidate ? ' locale-page--candidate' : ''}`}
+        lang={locale}
+      >
         <div className="container">
           {selfUrl !== localeHome && (
             <nav className="breadcrumbs" aria-label={CHROME_ARIA[locale].breadcrumb}>
@@ -181,7 +235,7 @@ export default function LocalePage({
             data structure nobody sees would satisfy the gate and help no one.
           */}
           {content.freshness && (
-            <aside className="locale-verified" aria-label={verifiedLabel}>
+            <aside className="locale-verified">
               <p>
                 {verifiedLabel}{' '}
                 {/* Lowercase attribute, matching the convention LocaleAlternates

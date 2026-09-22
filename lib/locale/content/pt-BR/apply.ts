@@ -22,31 +22,31 @@ export const PTBR_APPLY: LocaleCorpus = {
     'pt-BR': {
       title: 'Candidatar-se | TalentPartnerID',
       description:
-        'Envie a sua candidatura para trabalhar na República Tcheca. O formulário abre o seu programa de e-mail com a mensagem pronta — você anexa o currículo e envia.',
+        'Envie a sua candidatura para trabalhar na República Tcheca. O formulário abre o seu aplicativo de e-mail com a mensagem pronta — você anexa o currículo e envia.',
       h1: 'Candidatar-se',
       intro:
-        'A candidatura é enviada a partir do seu próprio e-mail. Você preenche o formulário, o seu programa de e-mail abre com a mensagem já montada, você anexa o currículo e envia. Assim nenhum currículo fica armazenado neste site.',
+        'A candidatura é enviada a partir do seu próprio e-mail. Você preenche o formulário, o seu aplicativo de e-mail abre com a mensagem já montada, você anexa o currículo e envia. Assim nenhum currículo fica armazenado neste site.',
       breadcrumb: 'Candidatar-se',
       sections: [
         {
           heading: 'Como funciona, em quatro passos',
           body: [
-            'Leia os quatro passos antes de começar. O terceiro é o que as pessoas esquecem.',
+            'Leia os quatro passos antes de começar. O terceiro é o passo mais fácil de esquecer.',
           ],
           list: {
             ordered: true,
             items: [
               'Preencha o formulário abaixo.',
-              'Ao enviar, o seu programa de e-mail abre com a mensagem já preenchida.',
-              'Anexe o seu currículo à mensagem — isso não acontece automaticamente.',
+              'Ao enviar, o seu aplicativo de e-mail abre com a mensagem já preenchida.',
+              'Anexe seu currículo à mensagem — isso não acontece automaticamente.',
               'Envie a mensagem. A candidatura só chega até nós depois deste passo.',
             ],
           },
         },
         {
-          heading: 'Se o seu programa de e-mail não abrir',
+          heading: 'Se o seu aplicativo de e-mail não abrir',
           body: [
-            `Nem todo dispositivo tem um programa de e-mail configurado. Se nada abrir, escreva diretamente para ${OPERATOR_EMAIL} a partir do e-mail que você usa normalmente, anexando o currículo.`,
+            `Nem todo dispositivo tem um aplicativo de e-mail configurado. Se nada abrir, escreva diretamente para ${OPERATOR_EMAIL} a partir do e-mail que você usa normalmente, anexando o currículo.`,
             'O texto da mensagem também fica disponível na página para você copiar e colar. Nada se perde se o passo automático falhar.',
           ],
         },
@@ -54,7 +54,7 @@ export const PTBR_APPLY: LocaleCorpus = {
           heading: 'O que incluir no currículo',
           body: [
             'Experiência com datas, funções e empregadores; formação e certificados relevantes; idiomas; e disponibilidade para mudança.',
-            'Se você tiver habilitações técnicas — soldadura, eletricidade, operação de equipamentos, qualidade — indique-as explicitamente. São elas que costumam mudar o enquadramento de uma candidatura.',
+            'Se você tiver certificações técnicas — soldagem, eletricidade, operação de equipamentos, qualidade — indique-as explicitamente. São elas que costumam mudar o enquadramento de uma candidatura.',
           ],
         },
         {
@@ -91,7 +91,7 @@ export const PTBR_APPLY: LocaleCorpus = {
           heading: 'Quem opera este site',
           body: [
             `A TalentPartnerID é operada pela ${OPERATOR_LEGAL_NAME}, sociedade constituída na República Tcheca, com sede em ${OPERATOR_SEAT}.`,
-            'Publicamos aqui apenas os dados da empresa que estão verificados. O número de identificação da pessoa coletiva e o número de licença de agência de emprego não são apresentados enquanto não estiverem verificados contra o registro oficial — preferimos não afirmar do que afirmar sem confirmação. A empresa pode ser consultada de forma independente no registro público tcheco de entidades económicas.',
+            'Publicamos aqui apenas os dados da empresa que estão verificados. O número de identificação da pessoa jurídica e o número de licença de agência de emprego não são apresentados enquanto não estiverem conferidos junto ao registro oficial — entre afirmar sem confirmação e não afirmar, preferimos não afirmar. A empresa pode ser consultada de forma independente no registro público tcheco de entidades econômicas.',
           ],
         },
         {
@@ -104,14 +104,14 @@ export const PTBR_APPLY: LocaleCorpus = {
         {
           heading: 'Com que finalidade',
           body: [
-            'Avaliar a candidatura, responder-lhe e, havendo correspondência com uma necessidade concreta, apresentar o seu perfil a um empregador para efeitos de eventual contratação.',
+            'Avaliar a candidatura, responder-lhe e, havendo correspondência com uma necessidade concreta, apresentar o seu perfil a um empregador para fins de uma eventual contratação.',
             'Não usamos os dados para publicidade, não os vendemos e não os cedemos a quem não esteja envolvido num processo de recrutamento concreto.',
           ],
         },
         {
           heading: 'Como os dados chegam até nós',
           body: [
-            'A candidatura é enviada por e-mail a partir do seu próprio programa de e-mail. Os valores do formulário compõem a mensagem no seu dispositivo; eles não são publicados no endereço da página, não ficam no histórico do navegador, não são gravados no armazenamento do navegador e não são enviados a ferramentas de análise.',
+            'A candidatura é enviada por e-mail a partir do seu próprio aplicativo de e-mail. Os valores do formulário compõem a mensagem no seu dispositivo; eles não são publicados no endereço da página, não ficam no histórico do navegador, não são gravados no armazenamento do navegador e não são enviados a ferramentas de análise.',
             'O currículo é anexado por você, na sua própria mensagem. Ele não passa por este site e não é carregado aqui.',
           ],
         },
@@ -119,42 +119,43 @@ export const PTBR_APPLY: LocaleCorpus = {
           heading: 'O papel do seu provedor de e-mail',
           body: [
             'Como a mensagem parte da sua conta, ela passa pelo seu provedor de e-mail e fica também na sua caixa de enviados. Esse provedor é escolhido por você e está fora do nosso controle.',
-            'Isso vale para qualquer envio por e-mail, e é uma consequência do desenho que evita armazenar currículos aqui. Se preferir não usar e-mail, os dados de contato telefônico estão na página de contato.',
+            'Do nosso lado existe um segundo provedor, que escolhemos nós: a caixa que recebe as candidaturas é operada pelo Google. A seção sobre transferência internacional explica o que isso significa.',
           ],
         },
         {
           heading: 'Quem pode receber os dados',
           body: [
             'Internamente, as pessoas envolvidas no recrutamento.',
-            'Externamente, um empregador tcheco concreto — e apenas quando houver correspondência real com uma necessidade e para efeitos de avaliar a sua candidatura a essa posição. Não enviamos perfis em massa a listas de empresas.',
+            'Externamente, um empregador tcheco concreto — e apenas quando houver correspondência real com uma necessidade e para fins de avaliar sua candidatura a essa posição. Não enviamos perfis em massa a listas de empresas.',
           ],
         },
         {
           heading: 'Base legal',
           body: [
-            'O tratamento fundamenta-se no seu consentimento, dado ao enviar a candidatura, e nas diligências prévias à celebração de um contrato realizadas a seu pedido.',
+            'O tratamento se fundamenta no seu consentimento, dado ao enviar a candidatura, e nas diligências prévias à celebração de um contrato realizadas a seu pedido.',
             'O consentimento pode ser retirado a qualquer momento, sem afetar a licitude do tratamento anterior.',
           ],
         },
         {
           heading: 'Por quanto tempo',
           body: [
-            'Conservamos a candidatura enquanto o processo estiver em curso e, depois disso, por até 12 meses, para podermos voltar a contactá-lo se surgir algo adequado ao seu perfil.',
-            'Pode pedir a eliminação antes desse prazo, e nesse caso apagamos a mensagem e o currículo dos nossos meios. Findo o prazo, a eliminação ocorre sem necessidade de pedido.',
+            'Conservamos a candidatura enquanto o processo estiver em curso e, depois disso, por até 12 meses, para podermos voltar a entrar em contato com você se surgir algo adequado ao seu perfil.',
+            'Você pode pedir a exclusão antes desse prazo, e nesse caso apagamos a mensagem e o currículo dos nossos sistemas. Findo o prazo, a eliminação ocorre sem necessidade de pedido.',
           ],
         },
         {
-          heading: 'Transferência para fora do Espaço Económico Europeu',
+          heading: 'Provedores de e-mail e transferência internacional',
           body: [
-            'Não transferimos candidaturas para fora do Espaço Económico Europeu. Os destinatários possíveis são a operadora do site, estabelecida na República Tcheca, e empregadores tchecos.',
-            'A sua candidatura parte, naturalmente, do país onde você está — mas o tratamento do nosso lado ocorre no Espaço Económico Europeu.',
+            'A sua candidatura chega a uma caixa de e-mail operada pelo Google (Gmail). Isso significa que o Google atua como destinatário e processa a mensagem e o currículo em nosso nome, e que os dados podem ser tratados fora do Espaço Econômico Europeu, nos termos das salvaguardas aplicáveis descritas na Política de Privacidade do site.',
+            'Dizemos isso de forma explícita porque é a escolha de ferramenta que fizemos, e não uma consequência do seu provedor. Os demais destinatários são a empresa que opera o site, estabelecida na República Tcheca, e o empregador tcheco concreto a quem o seu perfil venha a ser apresentado.',
+            'Se preferir não enviar os seus dados por um serviço do Google, use o telefone indicado na página de contato para combinar outra forma de envio.',
           ],
         },
         {
           heading: 'Os seus direitos',
           body: [
-            'Tem direito a saber que dados seus são tratados e a obter cópia deles, a pedir a correção de dados inexatos, a pedir a eliminação, a pedir a limitação do tratamento, a opor-se ao tratamento e a retirar o consentimento.',
-            'Tem igualmente o direito de apresentar reclamação à autoridade de proteção de dados competente.',
+            'Você tem direito de saber quais dados seus são tratados e a obter cópia deles, a pedir a correção de dados inexatos, a pedir a eliminação, a pedir a limitação do tratamento, a opor-se ao tratamento e a retirar o consentimento.',
+            'Você também tem o direito de apresentar reclamação à autoridade de proteção de dados competente.',
           ],
         },
         {
@@ -172,7 +173,7 @@ export const PTBR_APPLY: LocaleCorpus = {
           ],
         },
       ],
-      cta: { label: 'Candidatar-se', targetConceptId: 'candidate-apply' },
+      cta: { label: 'Candidate-se', targetConceptId: 'candidate-apply' },
       freshness: freshness('conceptual', [LATAM_SRC.labourOffice], 'LATAM'),
     },
   },

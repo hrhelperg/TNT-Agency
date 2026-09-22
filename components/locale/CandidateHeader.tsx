@@ -88,20 +88,21 @@ export default function CandidateHeader({
       </div>
 
       {/*
-        Mobile navigation is the SAME list, rendered as a disclosure. It is in
-        the document rather than injected on open, so it works with JavaScript
-        unavailable; the checkbox toggle is CSS-only for the same reason.
+        There is deliberately no second, "mobile" navigation here.
+
+        The first attempt was a CSS-only checkbox disclosure. It shipped with no
+        CSS at all, so the raw 13x13 checkbox painted at the viewport edge, the
+        label rendered as literal body text, and the menu could never open —
+        only public/script.js adds the `.open` class, and it does so from a
+        `.hamburger` handler this header does not render. Worse, it repeated the
+        defect recorded in docs/followup-accent-contrast.md: seven links at
+        opacity 0 with visibility:visible, still focusable and still exposed to
+        the accessibility tree, so a keyboard user crossed seven invisible stops
+        before reaching anything real.
+
+        The nav above wraps and renders every destination at every width, so a
+        disclosure buys nothing here. Not shipping one is the fix.
       */}
-      <input className="mobile-nav__toggle" type="checkbox" id="candidate-mnav" />
-      <label className="mobile-nav__button" htmlFor="candidate-mnav" aria-label={aria.openMenu}>
-        {aria.openMenu}
-      </label>
-      <nav className="mobile-nav" aria-label={aria.mobileNav}>
-        <ul>
-          {CANDIDATE_NAV_TARGETS.map((target) => link(target.conceptId, t[target.key]))}
-          {link(CANDIDATE_CTA.conceptId, t.apply)}
-        </ul>
-      </nav>
     </header>
   )
 }

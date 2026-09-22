@@ -207,13 +207,27 @@ export async function auditLocalePages({ concepts = R.LOCALE_CONCEPTS, content =
   for (const [route, locale] of localeRoutes(concepts)) {
     const html = readRoute(route)
     if (!html) continue
-    for (const key of ['mainNav', 'mobileNav', 'openMenu', 'footerNav']) {
+    // mobileNav/openMenu name a mobile DISCLOSURE. The candidate chrome ships
+    // none — its nav wraps and renders every destination at every width — so
+    // requiring those labels there would demand an aria-label for a control
+    // that must not exist. Landmarks are required everywhere; the disclosure
+    // labels are required only where a disclosure is rendered.
+    const hasDisclosure = /class="mobile-nav__button"|class="hamburger"/.test(html)
+    const ariaKeys = hasDisclosure
+      ? ['mainNav', 'mobileNav', 'openMenu', 'footerNav']
+      : ['mainNav', 'footerNav']
+    for (const key of ariaKeys) {
       const expected = C.CHROME_ARIA[locale][key]
       if (!html.includes(`aria-label="${escapeHtml(expected)}"`)) {
         errors.push(`${route}: missing localized aria-label ${key}="${expected}"`)
       }
     }
-    const legal = html.match(/<div class="footer__legal">([\s\S]*?)<\/div>/)
+    // Either element. Matching only <div> is what made a correct <ul> fail and
+    // pushed the markup into <li> children of a <div>, which is invalid HTML and
+    // loses list semantics for assistive technology.
+    const legal =
+      html.match(/<ul class="footer__legal">([\s\S]*?)<\/ul>/) ||
+      html.match(/<div class="footer__legal">([\s\S]*?)<\/div>/)
     if (!legal) { errors.push(`${route}: no legal footer block`); continue }
     // The legal set (Terms, Privacy, Cookies) exists as static documents in
     // cs/en/de only. A locale without them cannot have an in-language legal

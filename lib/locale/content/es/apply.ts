@@ -17,7 +17,7 @@ export const ES_APPLY: LocaleCorpus = {
       sections: [
         {
           heading: 'Cómo funciona, en cuatro pasos',
-          body: ['Lea los cuatro pasos antes de empezar. El tercero es el que la gente olvida.'],
+          body: ['Lea los cuatro pasos antes de empezar. El tercer paso es el que más se olvida.'],
           list: {
             ordered: true,
             items: [
@@ -39,13 +39,13 @@ export const ES_APPLY: LocaleCorpus = {
           heading: 'Qué incluir en el CV',
           body: [
             'Experiencia con fechas, funciones y empleadores; formación y certificados relevantes; idiomas; y disponibilidad para mudarse.',
-            'Si tiene habilitaciones técnicas — soldadura, electricidad, operación de equipos, calidad — indíquelas explícitamente. Suelen ser las que cambian el encuadre de una postulación.',
+            'Si tiene habilitaciones técnicas — soldadura, electricidad, operación de equipos, calidad — indíquelas explícitamente. Suelen ser las que cambian cómo se clasifica una postulación.',
           ],
         },
         {
           heading: 'Qué ocurre después',
           body: [
-            'Leemos la postulación y evaluamos experiencia, cualificación y elegibilidad legal para el tipo de función. Le contactamos cuando haya correspondencia con una necesidad concreta de un empleador.',
+            'Leemos la postulación y evaluamos experiencia, calificación y elegibilidad legal para el tipo de función. Nos comunicamos con usted cuando haya correspondencia con una necesidad concreta de un empleador.',
             'La mayoría de las postulaciones no termina en contratación, como en cualquier proceso de selección. No cobramos nada en ninguna etapa.',
           ],
         },
@@ -82,7 +82,7 @@ export const ES_APPLY: LocaleCorpus = {
         {
           heading: 'Qué datos se tratan',
           body: [
-            'Los datos que usted incluye en la postulación: nombre, datos de contacto, país y ciudad, profesión o área pretendida, experiencia, cualificaciones, idiomas y disponibilidad.',
+            'Los datos que usted incluye en la postulación: nombre, datos de contacto, país y ciudad, profesión o área de interés, experiencia, calificaciones, idiomas y disponibilidad.',
             'Y el contenido del CV que usted adjunta. Un CV puede contener más información de la necesaria — fecha de nacimiento, estado civil, fotografía, nacionalidad. Nada de eso lo exigimos, y usted puede retirar de la versión que envía lo que no considere necesario.',
           ],
         },
@@ -104,35 +104,36 @@ export const ES_APPLY: LocaleCorpus = {
           heading: 'El papel de su proveedor de correo',
           body: [
             'Como el mensaje sale de su cuenta, pasa por su proveedor de correo y queda también en su carpeta de enviados. Ese proveedor lo elige usted y está fuera de nuestro control.',
-            'Esto vale para cualquier envío por correo, y es una consecuencia del diseño que evita almacenar CV aquí. Si prefiere no usar correo, los datos de contacto telefónico están en la página de contacto.',
+            'De nuestro lado hay un segundo proveedor, que elegimos nosotros: el buzón que recibe las postulaciones lo opera Google. La sección sobre transferencia internacional explica qué significa eso.',
           ],
         },
         {
           heading: 'Quién puede recibir los datos',
           body: [
             'Internamente, las personas involucradas en el reclutamiento.',
-            'Externamente, un empleador checo concreto, y solo cuando haya correspondencia real con una necesidad y a efectos de evaluar su postulación a esa posición. No enviamos perfiles de forma masiva a listas de empresas.',
+            'Externamente, un empleador checo concreto, y solo cuando haya correspondencia real con una necesidad y a efectos de evaluar su postulación a ese puesto. No enviamos perfiles de forma masiva a listas de empresas.',
           ],
         },
         {
           heading: 'Base legal',
           body: [
             'El tratamiento se basa en su consentimiento, otorgado al enviar la postulación, y en las gestiones previas a la celebración de un contrato realizadas a petición suya.',
-            'El consentimiento puede retirarse en cualquier momento, sin que ello afecte a la licitud del tratamiento anterior.',
+            'El consentimiento puede retirarse en cualquier momento, sin que ello afecte la licitud del tratamiento anterior.',
           ],
         },
         {
           heading: 'Durante cuánto tiempo',
           body: [
-            'Conservamos la postulación mientras el proceso esté en curso y, después, hasta 12 meses, para poder volver a contactarle si surge algo adecuado a su perfil.',
-            'Puede pedir la eliminación antes de ese plazo, y en ese caso borramos el mensaje y el CV de nuestros medios. Cumplido el plazo, la eliminación se produce sin necesidad de solicitud.',
+            'Conservamos la postulación mientras el proceso esté en curso y, después, hasta 12 meses, para poder volver a contactarlo si surge algo adecuado a su perfil.',
+            'Puede pedir la eliminación en cualquier momento, y en ese caso borramos el mensaje y el CV de nuestro buzón, incluida la papelera. La revisión del plazo de 12 meses la hace manualmente nuestro equipo, no un sistema automático — así que, si quiere que sus datos salgan antes, lo más rápido y seguro es pedirlo.',
           ],
         },
         {
-          heading: 'Transferencia fuera del Espacio Económico Europeo',
+          heading: 'Proveedores de correo y transferencia internacional',
           body: [
-            'No transferimos postulaciones fuera del Espacio Económico Europeo. Los destinatarios posibles son la operadora del sitio, establecida en la República Checa, y empleadores checos.',
-            'Su postulación parte, naturalmente, del país donde usted se encuentra, pero el tratamiento por nuestra parte ocurre en el Espacio Económico Europeo.',
+            'Su postulación llega a un buzón operado por Google (Gmail). Eso significa que Google actúa como destinatario y procesa el mensaje y el CV por nuestra cuenta, y que los datos pueden tratarse fuera del Espacio Económico Europeo, conforme a las salvaguardas aplicables descritas en la Política de Privacidad del sitio.',
+            'Lo decimos de forma explícita porque es la herramienta que elegimos nosotros, no una consecuencia de su proveedor. Los demás destinatarios son la empresa que opera el sitio, establecida en la República Checa, y el empleador checo concreto a quien se presente su perfil.',
+            'Si prefiere no enviar sus datos a través de un servicio de Google, use el teléfono indicado en la página de contacto para acordar otra forma de envío.',
           ],
         },
         {
@@ -145,7 +146,7 @@ export const ES_APPLY: LocaleCorpus = {
         {
           heading: 'Cómo ejercer sus derechos',
           body: [
-            `Escriba a ${OPERATOR_EMAIL} desde la dirección con la que envió la postulación, indicando qué solicita. Si escribe desde otra dirección, podremos pedir información adicional para confirmar que la postulación es suya — lo que también le protege a usted.`,
+            `Escriba a ${OPERATOR_EMAIL} desde la dirección con la que envió la postulación, indicando qué solicita. Si escribe desde otra dirección, podremos pedir información adicional para confirmar que la postulación es suya — lo que también lo protege a usted.`,
             'Respondemos sin dilación indebida.',
           ],
         },

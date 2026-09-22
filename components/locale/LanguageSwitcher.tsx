@@ -87,7 +87,15 @@ export default function LanguageSwitcher({ route, className }: { route: string; 
                 {...{ hreflang: LOCALE_LANG[a.locale] }}
                 lang={LOCALE_LANG[a.locale]}
                 data-locale-choice={a.locale}
-                {...(compact ? { 'aria-label': LABEL[a.locale], title: LABEL[a.locale] } : {})}
+                // The accessible name STARTS with the visible text. WCAG 2.5.3
+                // requires the visible label to be contained in the accessible
+                // name so speech input can match it: "PT" is not a substring of
+                // "Português", so "click PT" matched nothing. The other codes
+                // passed only by luck — EN/English, ES/Español and DE/Deutsch
+                // all happen to share a prefix.
+                {...(compact
+                  ? { 'aria-label': `${SHORT[a.locale]} — ${LABEL[a.locale]}`, title: LABEL[a.locale] }
+                  : {})}
                 onClick={() => {
                   try {
                     window.localStorage.setItem(LANG_STORAGE_KEY, a.locale)

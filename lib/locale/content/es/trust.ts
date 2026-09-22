@@ -45,7 +45,7 @@ export const ES_TRUST: LocaleCorpus = {
           heading: 'Qué no hacemos',
           body: [
             'No somos un organismo del Estado checo, una embajada, una autoridad migratoria ni una institución de la Unión Europea, y no tenemos relación institucional alguna con esas entidades.',
-            'No expedimos visados ni permisos de residencia, no resolvemos solicitudes, no influimos en los plazos y no garantizamos resultados. No cobramos al candidato.',
+            'No expedimos visas ni permisos de residencia, no resolvemos solicitudes, no influimos en los plazos y no garantizamos resultados. No cobramos al candidato.',
           ],
         },
         {
@@ -88,7 +88,7 @@ export const ES_TRUST: LocaleCorpus = {
         {
           heading: 'Qué no podemos responder',
           body: [
-            'No damos asesoramiento jurídico ni migratorio sobre casos individuales, y no podemos consultar el estado de una solicitud presentada ante las autoridades checas — no tenemos acceso a eso.',
+            'No damos asesoría jurídico ni migratorio sobre casos individuales, y no podemos consultar el estado de una solicitud presentada ante las autoridades checas — no tenemos acceso a eso.',
             'Para el estado de una solicitud, diríjase a la representación donde la presentó o a la autoridad competente.',
           ],
         },

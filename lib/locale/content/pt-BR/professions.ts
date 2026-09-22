@@ -30,16 +30,24 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
         {
           heading: 'Por que este perfil tem um caminho diferente',
           body: [
-            'O Program vysoce kvalifikovaný zaměstnanec aplica-se a trabalhadores de todos os países terceiros, sem limitação territorial, e abrange atividades das classes principais 1 a 3 da classificação tcheca de ocupações CZ-ISCO.',
-            'É uma diferença estrutural, não uma vantagem comercial que possamos conceder: o outro programa governamental, que cobre as classes 4 a 8, aplica-se a uma lista fechada de países na qual o Brasil não está.',
+            'O Program vysoce kvalifikovaný zaměstnanec se aplica a trabalhadores de todos os países terceiros, sem limitação territorial, e abrange atividades dos grandes grupos 1 a 3 da classificação tcheca de ocupações CZ-ISCO.',
+            'É uma diferença estrutural, não uma vantagem comercial que possamos conceder: o outro programa governamental, que cobre as classes 4 a 8, se aplica a uma lista fechada de países na qual o Brasil não está.',
           ],
           freshness: 'procedural',
         },
         {
           heading: 'O que "onde as condições forem cumpridas" significa',
           body: [
-            'O programa não se aplica automaticamente a quem tem diploma de engenharia. A classificação da função concreta, o empregador e as demais condições do programa é que determinam a aplicabilidade.',
+            'O programa não se aplica automaticamente a quem tem diploma de engenharia. Quem determina a aplicabilidade é a classificação da função concreta e o empregador. Do lado do empregador, o programa de trabalhador altamente qualificado exige uma empresa que atue há pelo menos dois anos na República Tcheca, esteja em dia com as obrigações perante o Estado e tenha empregado pelo menos três pessoas por pelo menos três meses consecutivos nos dois anos anteriores ao pedido. Um empregador que não cumpra isso pode ainda assim se enquadrar no programa de pessoal-chave e científico, que não impõe esses requisitos.',
             'Na prática, é a função oferecida — e como ela é classificada — que decide, não o título do diploma. Uma função de engenharia classificada fora das classes 1 a 3 não entra no programa.',
+          ],
+        },
+        {
+          heading: 'Existe também a modrá karta, e ela não é um programa',
+          body: [
+            'Além dos programas, existe uma autorização própria para funções que exigem alta qualificação: a modrá karta, o Cartão Azul da UE. Ela não tem limitação de país de origem.',
+            'Segundo o Ministério dos Negócios Estrangeiros tcheco, destina-se a cidadãos de países terceiros que serão empregados na República Tcheca por mais de três meses em um emprego que exija alta qualificação. Exige contrato de pelo menos um ano na jornada semanal prevista em lei e salário correspondente a pelo menos 1,5 vez o salário bruto anual médio.',
+            'Para um engenheiro com formação concluída e uma proposta acima desse patamar, é um caminho a considerar ao lado do cartão de empregado. Quem decide continua sendo a autoridade tcheca.',
           ],
         },
         {
@@ -60,15 +68,21 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
         {
           heading: 'O que ainda depende do processo normal',
           body: [
-            'Participar do programa afeta a tramitação, não o conjunto de requisitos. Continua sendo necessário um empregador, um contrato, um posto de trabalho registrado, os documentos e a decisão da autoridade tcheca.',
+            'Participar do programa não muda o conjunto de requisitos e não encurta o prazo de decisão. O que ele garante é a possibilidade de apresentar o pedido no posto consular — inclusive junto com os familiares mais próximos — e a simplificação da parte administrativa. Continua sendo necessário um empregador, um contrato, um posto de trabalho registrado, os documentos e a decisão da autoridade tcheca. A inclusão no programa vale por um ano.',
             'Também continua valendo o limite de validade: o cartão de empregado é emitido pelo período do contrato e por no máximo dois anos de cada vez.',
           ],
         },
       ],
-      cta: { label: 'Candidatar-se', targetConceptId: 'candidate-apply' },
+      cta: { label: 'Candidate-se', targetConceptId: 'candidate-apply' },
       freshness: freshness(
         'conceptual',
-        [LATAM_SRC.programHighlyQualified, LATAM_SRC.employeeCardMzv, LATAM_SRC.residenceAct],
+        [
+          LATAM_SRC.programHighlyQualified,
+          LATAM_SRC.programKeyPersonnel,
+          LATAM_SRC.blueCard,
+          LATAM_SRC.employeeCardMzv,
+          LATAM_SRC.residenceAct,
+        ],
         'LATAM',
       ),
     },
@@ -88,7 +102,7 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
           heading: 'A fronteira, em termos concretos',
           body: [
             'O programa de trabalhador altamente qualificado abrange as classes CZ-ISCO 1 a 3. Funções técnicas de nível médio — incluindo parte das funções de manutenção e de automação — podem alcançar a classe 3.',
-            'Ofícios como soldadura e usinagem CNC classificam-se normalmente nas classes 7 e 8. Essas classes pertencem ao outro programa, do qual o Brasil não faz parte, e portanto não têm via de programa disponível para candidatos brasileiros.',
+            'Ofícios como soldagem e a operação de máquinas CNC classificam-se normalmente no grande grupo 7. Esse grupo pertence ao outro programa, do qual o Brasil não faz parte, e portanto não tem via de programa disponível para candidatos brasileiros.\n\nUma distinção que vale conhecer: a PROGRAMAÇÃO de máquinas CNC é classificada de forma diferente da operação. A classificação tcheca de ocupações coloca o programador de máquinas de comando numérico no grande grupo 3, que é o grupo alcançado pelo programa sem limitação territorial. Se a sua experiência inclui programação, e não apenas operação e preparação, diga isso explicitamente na candidatura.',
           ],
           freshness: 'procedural',
         },
@@ -100,9 +114,9 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
           ],
         },
         {
-          heading: 'Habilitações técnicas são um obstáculo separado',
+          heading: 'Certificações técnicas são um obstáculo separado',
           body: [
-            'Independentemente da imigração, atividades como soldadura e trabalhos elétricos exigem habilitações específicas segundo as normas tchecas. Um certificado obtido no Brasil pode não ser suficiente para a tarefa concreta.',
+            'Independentemente da imigração, atividades como soldagem e trabalhos elétricos exigem certificações específicas segundo as normas tchecas. Um certificado obtido no Brasil pode não ser suficiente para a tarefa concreta.',
             'Isso não se resolve com o pedido de residência: é uma exigência técnica própria, e vale esclarecê-la com o empregador antes de contar com ela.',
           ],
         },
@@ -123,7 +137,7 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
           },
         },
       ],
-      cta: { label: 'Candidatar-se', targetConceptId: 'candidate-apply' },
+      cta: { label: 'Candidate-se', targetConceptId: 'candidate-apply' },
       freshness: freshness(
         'conceptual',
         [LATAM_SRC.programHighlyQualified, LATAM_SRC.programQualified, LATAM_SRC.employeeCardMzv],
@@ -160,8 +174,8 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
         {
           heading: 'Seja realista quanto às chances',
           body: [
-            'Como não há via de programa, esses processos dependem inteiramente de um empregador disposto a percorrer o procedimento padrão. Isso acontece, e acontece menos do que a procura.',
-            'Preferimos dizer isso agora do que deixar alguém organizar uma mudança de vida em torno de uma expectativa que não se sustenta.',
+            'Como não há via de programa, esses processos dependem inteiramente de um empregador disposto a percorrer o procedimento padrão. Isso acontece, mas com muito menos frequência do que a demanda sugere.',
+            'Preferimos dizer isso agora a deixar alguém organizar uma mudança de vida em torno de uma expectativa que não se sustenta.',
           ],
         },
         {
@@ -176,7 +190,7 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
               'Operadores de máquinas',
               'Controle e inspeção de qualidade',
               'Produção automotiva',
-              'Produção alimentar',
+              'Indústria de alimentos',
             ],
           },
         },
@@ -197,13 +211,13 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
         'Armazém e distribuição na República Tcheca: por que este é o perfil com o caminho legal mais estreito para candidatos brasileiros, e o que isso significa antes de planejar qualquer mudança.',
       h1: 'Trabalho em logística',
       intro:
-        'Esta é a área com a base legal mais estreita de toda esta seção, e seria desonesto apresentá-la de outra forma. Há procura real por trabalhadores de armazém e distribuição na República Tcheca, e ao mesmo tempo é o perfil para o qual um candidato brasileiro tem menos caminhos disponíveis.',
+        'Esta é a área com a base legal mais estreita de toda esta seção, e seria desonesto apresentá-la de outra forma. Há demanda real por trabalhadores de armazém e distribuição na República Tcheca, e ao mesmo tempo é o perfil para o qual um candidato brasileiro tem menos caminhos disponíveis.',
       breadcrumb: 'Trabalho em logística',
       sections: [
         {
           heading: 'Nenhum programa governamental cobre este caso',
           body: [
-            'Boa parte das funções de armazém e distribuição classifica-se nas classes CZ-ISCO 8 e 9. O programa de trabalhador qualificado cobre as classes 4 a 8 — a classe 9 fica de fora dele por definição — e, além disso, esse programa aplica-se a uma lista de países que não inclui o Brasil.',
+            'As funções de armazém e distribuição se espalham por vários grandes grupos da classificação tcheca: parte do trabalho administrativo de logística fica no grupo 4, a operação de empilhadeiras e o trabalho de armazenista no grupo 8, e as funções auxiliares no grupo 9. O programa de trabalhador qualificado cobre os grupos 4 a 8 — o grupo 9 fica de fora dele por definição — e, além disso, esse programa se aplica a uma lista de países que não inclui o Brasil.',
             'O programa de trabalhador altamente qualificado cobre as classes 1 a 3 e não alcança estas funções. Ou seja: não há via de programa por nenhum dos dois lados.',
           ],
           freshness: 'procedural',
@@ -212,14 +226,14 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
           heading: 'O que resta, e o que isso exige',
           body: [
             'Resta o cartão de empregado padrão, com todas as suas condições: empregador, posto de trabalho registrado, contrato, documentos e decisão da autoridade. As exigências de qualificação e as condições do posto costumam ser precisamente o ponto mais difícil de cumprir nesta faixa.',
-            'Publicamos esta página porque a procura é real e porque quem procura merece a informação completa — não para convidar candidaturas em escala.',
+            'Publicamos esta página porque a demanda é real e porque quem procura merece a informação completa — não para convidar candidaturas em escala.',
           ],
         },
         {
           heading: 'Antes de planejar qualquer coisa',
           body: [
-            'Se a logística é o seu único perfil e você está avaliando uma mudança para a Europa, considere seriamente que este caminho pode não se concretizar. Planeje em função disso.',
-            'Se você tem também experiência técnica — manutenção, empilhadeira com habilitação, operação de equipamentos, qualidade — vale indicá-la na candidatura: ela pode abrir um enquadramento diferente.',
+            'Se a logística é o seu único perfil e você está avaliando uma mudança para a Europa, vale planejar contando com a possibilidade de que este caminho não se concretize.',
+            'Se você tem também experiência técnica — manutenção, operação de empilhadeira com certificação, operação de equipamentos, qualidade — vale indicá-la na candidatura: ela pode abrir um enquadramento diferente.',
           ],
         },
       ],
@@ -261,8 +275,8 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
         {
           heading: 'Enfermeiros e demais profissões não médicas',
           body: [
-            'As profissões de saúde não médicas, incluindo enfermagem, regem-se pela Lei n.º 96/2004 Sb., alterada com efeitos a partir de 1 de janeiro de 2026.',
-            'Para quem obteve a qualificação fora da União Europeia, do Espaço Económico Europeu e da Suíça, o reconhecimento está igualmente condicionado à aprovação na prova de aptidão.',
+            'As profissões de saúde não médicas, incluindo enfermagem, se regem pela Lei n.º 96/2004 Sb., alterada com efeitos a partir de 1 de janeiro de 2026.',
+            'Para quem obteve a qualificação fora da União Europeia, do Espaço Econômico Europeu e da Suíça, o reconhecimento está igualmente condicionado à aprovação na prova de aptidão.',
           ],
           freshness: 'procedural',
         },
@@ -277,7 +291,7 @@ export const PTBR_PROFESSIONS: LocaleCorpus = {
           heading: 'O que a TalentPartnerID pode e não pode fazer',
           body: [
             'Podemos explicar o percurso, indicar as fontes oficiais e, quando houver uma necessidade concreta de um empregador e a sua situação de reconhecimento permitir, apresentar o seu perfil.',
-            'Não podemos abreviar, dispensar ou acelerar o reconhecimento; não aplicamos nem influenciamos a prova de aptidão; e não colocamos profissionais de saúde a exercer sem autorização. Um médico brasileiro não é recrutado pelo mesmo caminho de um operador CNC, e apresentar as duas coisas como equivalentes seria enganoso.',
+            'Não podemos abreviar, dispensar ou acelerar o reconhecimento; não aplicamos nem influenciamos a prova de aptidão; e não colocamos profissionais de saúde para exercer sem autorização. Um médico brasileiro não é recrutado pelo mesmo caminho de um operador CNC, e apresentar as duas coisas como equivalentes seria enganoso.',
           ],
         },
       ],

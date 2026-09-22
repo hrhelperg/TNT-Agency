@@ -40,11 +40,15 @@ export default function CandidateFooter({ locale }: { locale: CandidateLocale })
   }
 
   const link = (key: keyof typeof t) => {
+    // A locale may legitimately have no label for a key: es has no
+    // `linkConsular`, because the Brazil consular page is pt-BR only by §32.
+    const label = t[key]
+    if (!label) return null
     const url = href(key as string)
     if (!url) return null
     return (
       <li key={key as string}>
-        <a href={url}>{t[key]}</a>
+        <a href={url}>{label}</a>
       </li>
     )
   }
@@ -74,8 +78,10 @@ export default function CandidateFooter({ locale }: { locale: CandidateLocale })
           the one who arrived on a job page from a search engine and has not
           visited anything else.
         */}
-        <section className="footer__notice" aria-label={t.officialNoticeTitle}>
-          <h2 className="footer__notice-title">{t.officialNoticeTitle}</h2>
+        <section className="footer__notice" aria-labelledby="candidate-official-notice">
+          <h2 className="footer__notice-title" id="candidate-official-notice">
+            {t.officialNoticeTitle}
+          </h2>
           <p>{t.officialNotice}</p>
         </section>
 
@@ -95,7 +101,7 @@ export default function CandidateFooter({ locale }: { locale: CandidateLocale })
             versions silently would be worse, and claiming the English ones are
             Portuguese would be worse still.
           */}
-          <div className="footer__legal">
+          <ul className="footer__legal">
             {link('dataNotice')}
             <li>
               <a href="/privacy-policy" {...{ hreflang: 'en' }}>
@@ -112,7 +118,7 @@ export default function CandidateFooter({ locale }: { locale: CandidateLocale })
                 {t.cook} <span lang="en">(EN)</span>
               </a>
             </li>
-          </div>
+          </ul>
           {/*
             Discovery, the other direction. A plain navigational link: the
             employer site is not a translation of this page, and nothing here

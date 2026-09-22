@@ -48,6 +48,7 @@ export {
   LOCALE_PREFIX,
   LOCALE_HREFLANG,
   LOCALE_LANG,
+  LOCALE_OG,
   LOCALE_AUDIENCE,
   CANDIDATE_LOCALES,
   isCandidateLocale,
@@ -590,6 +591,23 @@ export function publishedLocales(concept: LocaleConcept): readonly Locale[] {
 export function hasXDefault(concept: LocaleConcept): boolean {
   return concept.kind === 'czech-derived'
 }
+
+/*
+ * Reviewed and deliberately left as `kind`.
+ *
+ * Adversarial review argued this should key on cluster composition, on the
+ * grounds that worker-rights and verify-official-info "have zero employer-locale
+ * members" and so send unmatched candidates to the Czech employer homepage. The
+ * premise does not hold: both are Czech-derived, both publish 'cs', and cs is an
+ * employer locale — every Czech-derived cluster contains one by construction, so
+ * the proposed test is a no-op that reads as though it does something.
+ *
+ * The substantive half of that finding is real but is not this wave's: site-wide,
+ * x-default points at X_DEFAULT_ROUTE rather than at the cluster's own primary,
+ * so it is not a member of the set it annotates. That is the L0 policy, it
+ * affects 51 existing employer clusters, and changing it here would be an SEO
+ * change to the employer corpus made sideways. Recorded as a bounded gap.
+ */
 
 /** The URL for a concept in a locale, or undefined when it does not exist. */
 export function urlFor(concept: LocaleConcept, locale: Locale): string | undefined {

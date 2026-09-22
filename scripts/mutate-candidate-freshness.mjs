@@ -58,6 +58,46 @@ const CONTROLS = [
     }),
   },
   {
+    id: '7b. A typo in a cited source id (revision override silently dead)',
+    corpora: clone('work-in-czechia', {
+      freshness: {
+        ...base('work-in-czechia').freshness,
+        officialSources: [
+          { ...base('work-in-czechia').freshness.officialSources[0], id: 'mpo-program-vysoce-kvalifikovany-TYPO' },
+        ],
+      },
+    }),
+  },
+  {
+    id: '7c. lastVerifiedAt in the future (passes every ceiling forever)',
+    corpora: clone('employee-card', {
+      freshness: { ...base('employee-card').freshness, lastVerifiedAt: '2030-01-01' },
+    }),
+  },
+  {
+    id: '7d. Verified today against a source last opened years ago',
+    corpora: clone('employee-card', {
+      freshness: {
+        ...base('employee-card').freshness,
+        officialSources: base('employee-card').freshness.officialSources.map((x) => ({
+          ...x,
+          accessedAt: '2019-01-01',
+        })),
+      },
+    }),
+  },
+  {
+    // Exercises the SHIPPED ledger. Every other control passes an injected
+    // `revisions` object, and `{}` is truthy, so revisionFor and
+    // SOURCE_REVISIONS were never called by the suite at all — the check billed
+    // as "the one that matters most" was proven only against a stub.
+    id: '7e. Real SOURCE_REVISIONS ledger invalidates a page verified before a recorded revision',
+    corpora: clone('work-in-czechia', {
+      freshness: { ...base('work-in-czechia').freshness, lastVerifiedAt: '2026-05-31' },
+    }),
+    useRealLedger: true,
+  },
+  {
     id: '7. timeSensitive quietly flipped to false',
     corpora: clone('employee-card', {
       freshness: { ...base('employee-card').freshness, timeSensitive: false },
@@ -71,7 +111,8 @@ for (const c of CONTROLS) {
   const { errors } = auditCandidateFreshness({
     corpora: c.corpora,
     now: Date.parse('2026-09-21'),
-    revisions: c.revisions ?? {},
+    // `null` means "use the shipped revisionFor"; an object stubs it.
+    revisions: c.useRealLedger ? null : (c.revisions ?? {}),
   })
   if (errors.length) {
     console.log(`  ✓ ${c.id} — caught (${errors.length})`)

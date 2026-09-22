@@ -129,12 +129,26 @@ describe('candidate chrome cannot route to the employer funnel', () => {
     expect(CANDIDATE_CTA.conceptId).toBe('candidate-apply')
   })
 
-  it('every footer column key has a label in both candidate locales', () => {
+  it('a footer label exists exactly where its concept is published', () => {
+    // Two-way, which the previous one-way assertion was not. A label with no
+    // published concept is a dead string — es carried "Embajada y consulado
+    // checos en Brasil" for a page §32 keeps pt-BR only, and one change to the
+    // footer's publication guard would have routed a Peruvian candidate to the
+    // Brazilian mission. A published concept with no label is the mirror bug: a
+    // link that renders blank.
     for (const locale of LOCALES.filter(isCandidateLocale)) {
       for (const column of CANDIDATE_FOOTER_COLUMNS) {
-        expect(CANDIDATE_FOOTER[locale][column.title]).toBeTruthy()
+        expect(CANDIDATE_FOOTER[locale][column.title], `${locale} column ${column.title}`).toBeTruthy()
         for (const key of column.keys) {
-          expect(CANDIDATE_FOOTER[locale][key], `${locale} footer key ${key}`).toBeTruthy()
+          const target = CANDIDATE_FOOTER_TARGETS.find((x) => x.key === key)
+          const concept = target && ALL_CONCEPTS.find((c) => c.id === target.conceptId)
+          const published = Boolean(concept && concept.published.includes(locale))
+          const label = CANDIDATE_FOOTER[locale][key]
+          if (published) {
+            expect(label, `${locale} publishes ${target!.conceptId} but has no footer label`).toBeTruthy()
+          } else {
+            expect(label, `${locale} has a footer label for unpublished ${target?.conceptId}`).toBeFalsy()
+          }
         }
       }
     }

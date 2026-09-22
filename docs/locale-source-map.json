@@ -9178,7 +9178,7 @@
         "cs": "Má cizinec stejná pracovní práva jako Čech?",
         "pt-BR": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "O Código do Trabalho tcheco aplica-se independentemente da nacionalidade"
+          "carriedBy": "O Código do Trabalho tcheco se aplica independentemente da nacionalidade"
         },
         "es": {
           "state": "PRESERVED_IN_PROSE",
@@ -9231,11 +9231,11 @@
         "cs": "Víza a konzulární náležitosti – MZV ČR a zastupitelské úřady",
         "pt-BR": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "O Ministério dos Negócios Estrangeiros publica informação sobre vistos e residência e mantém as páginas dos postos consulares"
+          "carriedBy": "O Ministério das Relações Exteriores publica informação sobre vistos e residência"
         },
         "es": {
           "state": "PRESERVED_IN_PROSE",
-          "carriedBy": "El Ministerio de Asuntos Exteriores publica información sobre visados y residencia y mantiene las páginas de las representaciones consulares"
+          "carriedBy": "El Ministerio de Asuntos Exteriores publica información sobre visas y residencia"
         }
       },
       "verify-official-info|SEO_PAGES|s1.b0|3645fa0d": {
@@ -9315,7 +9315,7 @@
         "cs": "Daně z příjmů – finanční správa",
         "pt-BR": {
           "state": "PRESERVED_IN_LIST",
-          "carriedBy": "Imposto sobre o rendimento — Finanční správa, a administração fiscal tcheca"
+          "carriedBy": "Imposto de renda — Finanční správa, a administração fiscal tcheca"
         },
         "es": {
           "state": "PRESERVED_IN_LIST",

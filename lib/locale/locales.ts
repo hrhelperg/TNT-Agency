@@ -104,3 +104,19 @@ export const isCandidateLocale = (locale: Locale): boolean =>
 
 /** Candidate locales, in registry order. */
 export const CANDIDATE_LOCALES: readonly Locale[] = LOCALES.filter(isCandidateLocale)
+
+/**
+ * Open Graph locale codes.
+ *
+ * OG uses `language_TERRITORY` with an underscore, not a BCP 47 tag, so the
+ * hreflang value cannot be reused directly: `pt-BR` must be written `pt_BR`.
+ * `es_LA` is the OG convention for Latin-American Spanish and matches what the
+ * corpus actually is — neutral LATAM Spanish, not Peninsular.
+ */
+export const LOCALE_OG: Readonly<Record<Locale, string>> = {
+  cs: 'cs_CZ',
+  en: 'en_US',
+  de: 'de_DE',
+  'pt-BR': 'pt_BR',
+  es: 'es_LA',
+}

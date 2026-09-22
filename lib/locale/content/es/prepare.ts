@@ -15,16 +15,16 @@ export const ES_PREPARE: LocaleCorpus = {
       breadcrumb: 'Antes de viajar',
       sections: [
         {
-          heading: 'Documentos que viajan con usted, no en la maleta despachada',
+          heading: 'Documentos que viajan con usted, no en la equipaje despachado',
           body: [
-            'Documento de viaje, la autorización concedida, el contrato de trabajo y los comprobantes de cualificación deben ir en el equipaje de mano, junto con copias digitales guardadas en algún lugar accesible.',
+            'Documento de viaje, la autorización concedida, el contrato de trabajo y los comprobantes de calificación deben ir en el equipaje de mano, junto con copias digitales guardadas en algún lugar accesible.',
             'Lleve también copias en papel. No siempre hay conexión disponible en el momento en que alguien le pide un documento.',
           ],
         },
         {
           heading: 'Dinero para las primeras semanas',
           body: [
-            'El primer salario suele llegar semanas después de la llegada. Hasta entonces hay costos: transporte, alimentación, depósito de vivienda, teléfono y tasas administrativas.',
+            'El primer salario suele llegar semanas después de la llegada. Hasta entonces hay costos: transporte, alimentación, depósito de garantía de la vivienda, teléfono y tasas administrativas.',
             'Planifique con holgura. Llegar sin reserva financiera es la causa más común de dificultades en los primeros meses, y es el factor más fácil de prever.',
           ],
         },
@@ -32,7 +32,7 @@ export const ES_PREPARE: LocaleCorpus = {
           heading: 'Vivienda y seguro',
           body: [
             'Confirme por escrito qué ofrece el empleador: alojamiento, ayuda para encontrarlo, o nada. Confirme también quién paga qué y desde cuándo.',
-            'Verifique la cobertura sanitaria aplicable desde el día de la llegada y qué se exige en su caso. Estas exigencias cambian; confírmelas en la fuente oficial en vez de darlas por supuestas.',
+            'Verifique la cobertura de salud aplicable desde el día de la llegada y qué se exige en su caso. Estas exigencias cambian; confírmelas en la fuente oficial en vez de darlas por supuestas.',
           ],
           freshness: 'procedural',
         },
@@ -78,7 +78,7 @@ export const ES_PREPARE: LocaleCorpus = {
         {
           heading: 'Seguro de salud',
           body: [
-            'La cobertura sanitaria cambia de régimen cuando empieza el empleo. Confirme con el empleador desde qué fecha está cubierto y qué debe hacer.',
+            'La cobertura de salud cambia de régimen cuando empieza el empleo. Confirme con el empleador desde qué fecha está cubierto y qué debe hacer.',
             'Un intervalo sin cobertura es un riesgo concreto, y es evitable si se atiende en la primera semana.',
           ],
           freshness: 'procedural',
@@ -86,7 +86,7 @@ export const ES_PREPARE: LocaleCorpus = {
         {
           heading: 'Lo que puede esperar',
           body: [
-            'Cuenta bancaria, plan de teléfono, abono de transporte y curso de checo no tienen plazo legal, pero facilitan todo lo que viene después.',
+            'Cuenta bancaria, plan de teléfono, pase de transporte público y curso de checo no tienen plazo legal, pero facilitan todo lo que viene después.',
             'Un curso de checo en los primeros meses es la inversión con mejor retorno en esta etapa.',
           ],
         },

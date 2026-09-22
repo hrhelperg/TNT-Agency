@@ -191,10 +191,39 @@ export default function CandidateApplicationForm({ locale }: { locale: Candidate
         leaving the reader to work out why nothing happened.
       */}
       <noscript>
+        {/*
+          Hide the submit control outright without scripting.
+
+          Saying the button "will not open your mail client" understated it: the
+          form POSTs, the static host answers 200, and the page reloads with
+          every field wiped and no message. Offering a control that silently
+          destroys what someone typed is worse than not offering one. The
+          fallback address below remains, and is the whole path in this state.
+        */}
+        <style dangerouslySetInnerHTML={{ __html: '.caf form button[type="submit"]{display:none}' }} />
         <p className="caf__noscript">{copy.noscript}</p>
       </noscript>
 
-      <form onSubmit={onSubmit} noValidate>
+      {/*
+        method="post" is load-bearing, not decoration.
+
+        A <form> with no method defaults to GET, and a GET submits every field
+        into the query string of the current URL. With JavaScript unavailable,
+        failed, blocked, or simply not hydrated yet, preventDefault never runs
+        and pressing submit — or Enter in any text field — would navigate to
+        /pt-br/candidatar-se?fullName=…&email=…&phone=…&consent=on, putting a
+        candidate's name, address and phone into the address bar, the session
+        history, autocomplete and anything they bookmark or share. url-guard
+        cannot help: it is client-side, so with JS off it never runs, and by
+        then the request has already reached the origin.
+
+        POST to a static host fails visibly instead, which is the correct
+        degraded behaviour and matches what the <noscript> above already tells
+        the reader to do. The employer form is covered by the same assertion in
+        lib/employer-request/conversion.test.ts; this one now is too, in
+        lib/candidate-application/no-native-submit.test.ts.
+      */}
+      <form onSubmit={onSubmit} method="post" noValidate>
         {status === 'error' && orderedErrorNames(errors).length > 0 && (
           <div className="caf__summary" role="alert" tabIndex={-1} ref={summaryRef}>
             <p>{copy.errorSummaryTitle}</p>
@@ -255,16 +284,23 @@ export default function CandidateApplicationForm({ locale }: { locale: Candidate
         )}
       </section>
 
-      {status === 'prepared' && (
-        <div className="caf__success" role="status">
-          <h3>{copy.successTitle}</h3>
-          <p>{copy.successBody}</p>
-          {/* The same instruction again, at the moment it matters most. */}
-          <p className="caf__attach-warning">
-            <strong>{copy.successAttach}</strong>
-          </p>
-        </div>
-      )}
+      {/*
+        The live region is rendered from the start and filled on submit.
+        A role="status" container inserted at the same instant as its content is
+        announced unreliably by NVDA and JAWS; one that already exists is not.
+      */}
+      <div className="caf__success" role="status" hidden={status !== 'prepared'}>
+        {status === 'prepared' && (
+          <>
+            <h3>{copy.successTitle}</h3>
+            <p>{copy.successBody}</p>
+            {/* The same instruction again, at the moment it matters most. */}
+            <p className="caf__attach-warning" role="note">
+              <strong>{copy.successAttach}</strong>
+            </p>
+          </>
+        )}
+      </div>
     </section>
   )
 }

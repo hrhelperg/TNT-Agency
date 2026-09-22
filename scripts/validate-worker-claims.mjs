@@ -26,7 +26,7 @@ const ES = (await import('../lib/locale/content/es/index.ts')).ES_CONTENT
 const CANDIDATE_DIRS = [
   'lib/locale/content/pt-BR',
   'lib/locale/content/es',
-  'lib/locale/candidate-application',
+  'lib/candidate-application',
   'lib/locale/candidate-chrome.ts',
   'components/locale/CandidateApplicationForm.tsx',
   'components/locale/CandidateHeader.tsx',
@@ -75,7 +75,7 @@ const FORBIDDEN = [
   },
   {
     id: 'card-always-two-years',
-    why: 'The card is issued for the contract duration, at most two years per issuance (§42g of Act 326/1999 Sb.).',
+    why: 'The card is issued for the contract duration, at most two years per issuance (§ 44 odst. 6 of Act 326/1999 Sb.; repeat extension § 44a odst. 9).',
     re: /\b(cart[ãa]o de empregado|tarjeta de empleado|employee card|zam[ěe]stnaneck[áa] karta)\b[^.!?]{0,60}\b(sempre|siempre|always)\b[^.!?]{0,40}\b(dois anos|dos años|two years)\b/iu,
   },
   {
@@ -85,8 +85,24 @@ const FORBIDDEN = [
   },
 ]
 
+/**
+ * Walks a configured path, and REFUSES to walk one that is not there.
+ *
+ * This returned [] silently, and the configured path was wrong —
+ * 'lib/locale/candidate-application' does not exist; the directory is
+ * 'lib/candidate-application'. So the entire candidate form-copy layer (the
+ * consent label, the attachment warning, every success and fallback string)
+ * was scanned by nothing, while the gate printed "20 candidate source file(s)
+ * scanned" and exited 0. A gate that cannot see its subject is worse than no
+ * gate, because it produces a passing report.
+ */
 const walk = (dir, out = []) => {
-  if (!fs.existsSync(dir)) return out
+  if (!fs.existsSync(dir)) {
+    throw new Error(
+      `validate-worker-claims: configured scan path does not exist: ${path.relative(ROOT, dir)}. ` +
+        `Fix CANDIDATE_DIRS — a missing path silently scans nothing.`,
+    )
+  }
   if (fs.statSync(dir).isFile()) return [dir]
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, e.name)
@@ -100,83 +116,106 @@ const stripComments = (s) =>
   s.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/^\s*\/\/.*$/gm, ' ')
 
 /**
- * Negation and interrogation, in the three languages the corpus uses.
+ * Sentences approved to name a forbidden claim, verbatim.
  *
- * The corpus is REQUIRED to name every one of these falsehoods — the FAQ asks
- * "O acordo UE–Mercosul permite trabalhar na República Tcheca sem autorização?"
- * precisely so it can answer "Não", and the trust pages say in as many words
- * that TalentPartnerID does not issue residence permits. A gate that could not
- * tell asserting a claim from asking about it or denying it would force the
- * corpus to go silent on exactly the misconceptions it exists to correct, which
- * would make candidates less safe rather than more.
+ * WHY AN ALLOWLIST AND NOT NEGATION SCOPING
+ * ─────────────────────────────────────────
+ * The corpus MUST be able to name each of these falsehoods in order to correct
+ * them — the FAQ asks "O acordo UE-Mercosul permite trabalhar na República
+ * Tcheca sem autorização?" precisely so it can answer "Não". The first attempt
+ * at that allowance exempted any sentence containing a negation or a question
+ * mark. That was a universal bypass: the negation was never tied to the claim,
+ * so ONE unrelated clause disabled the check. Appending the corpus's own house
+ * phrase — "e não cobramos nada do candidato por isso", itself an approved
+ * literal elsewhere in this repo — made every one of the six controls pass
+ * while asserting the falsehood outright. Roughly a quarter of the shipped
+ * corpus was exempt on that rule, 129 Spanish sentences on the bare token `no`
+ * alone.
  *
- * So matching is per SENTENCE, and a sentence is exempt when it is a question or
- * carries a negation. Negation scoping is safe here — unlike in
- * validate-claims.mjs, where a bare term like "garantia" needed an allowlist —
- * because every pattern below already requires a full assertion shape (subject,
- * verb and object together), which a negation reliably inverts.
+ * Language scoping was a patch on the same hole and had its own: language was
+ * decided by FILE PATH, so a single Portuguese sentence inside content/es/
+ * brought back the em+o contraction bug the scoping existed to fix.
+ *
+ * So the exemption is now the mechanism this repo already uses for exactly this
+ * problem (LOCALE_CLAIM_ALLOWLIST in validate-claims.mjs): approve whole
+ * sentences, verbatim, and fail closed on everything else. A one-word edit to
+ * an approved sentence re-triggers review, and a new sentence cannot exempt
+ * itself by containing the word "não".
  */
 /**
- * Negation is LANGUAGE-SCOPED, and that is not fussiness.
+ * Split into sentences.
  *
- * A single pattern containing a bare `no` hollowed this gate out completely.
- * In Portuguese `no` is a contraction of em+o — "no Program kvalifikovaný"
- * means "in the Program" — so every assertive sentence naming a programme
- * exempted itself as if it were a denial. Negative control 1 passed the gate
- * while stating outright that Brazil is in the qualified-worker programme, and
- * control 3 while stating that the visa exemption permits work.
- *
- * Portuguese negation is `não`. Spanish negation is `no`. They cannot share a
- * pattern, so they do not.
- *
- * Where the language is unknown — chrome and form modules hold both — the
- * STRICT set applies: bare `no` does not exempt. That risks a false positive
- * and never a false exemption, which is the correct direction for a gate whose
- * failure mode is publishing something untrue.
+ * Also splits on the string-literal boundaries a TS source puts between
+ * sentences ("', '" and "',\n"), because the previous splitter only broke on
+ * terminator-plus-whitespace: two sentences sitting on ONE source line became a
+ * single unit, and a negation in the first could exempt a claim in the second.
+ * That made correctness depend on where a formatter happened to wrap, and this
+ * repo has no formatter config.
  */
-const NEGATION_PT = /\b(n[ãa]o|nem|nunca|jamais|nenhum\w*|ningu[ée]m)\b/iu
-const NEGATION_ES = /\b(no|ni|nunca|jam[áa]s|ning[úu]n\w*|ninguna\w*|nadie|tampoco)\b/iu
-const NEGATION_STRICT = /\b(n[ãa]o|nem|nunca|jamais|nenhum\w*|ningu[ée]m|ni|jam[áa]s|ning[úu]n\w*|nadie|tampoco|not|never|neither|nor)\b/iu
+/**
+ * One normaliser, applied to BOTH the scanned text and the approvals.
+ *
+ * Two normalisers that drift apart is how an approved sentence stops matching
+ * itself. Strips the TS key prefix, surrounding quote/bracket scaffolding and
+ * any trailing terminator, then collapses whitespace.
+ */
+const normalise = (x) =>
+  x
+    .replace(/^\s*[A-Za-z_$][\w$]*\s*:\s*/, '')
+    .replace(/^['"`\s]+/, '')
+    .replace(/['"`,;\]}.\s]+$/, '')
+    .replace(/\s+/g, ' ')
+    .trim()
 
-const negationFor = (lang) =>
-  lang === 'pt' ? NEGATION_PT : lang === 'es' ? NEGATION_ES : NEGATION_STRICT
-
-/** Which negation set a file's sentences are judged by. */
-const langOf = (file) =>
-  /content[\/\\]pt-BR[\/\\]/.test(file) ? 'pt' : /content[\/\\]es[\/\\]/.test(file) ? 'es' : 'any'
-
-/** Split into sentences, keeping the terminator so questions stay identifiable. */
 const sentences = (text) =>
   text
-    .split(/(?<=[.!?])\s+|\n+/)
-    .map((x) => x.replace(/\s+/g, ' ').trim())
+    .replace(/',\s*'/g, "'. '")
+    .split(/(?<=[.!?])[\s'"`,)\]]*\s+|\n+/)
+    // Strip the TS scaffolding around a literal so an approved entry is the
+    // prose a reader sees, not `heading: 'prose',`.
+    .map(normalise)
     .filter(Boolean)
 
-/**
- * Interrogative, tolerating source-literal punctuation.
- *
- * A FAQ heading reaches this as `heading: 'Isto é verdade?',` — the '?' is
- * followed by a quote and a comma, so a bare endsWith('?') misses every one of
- * them. Trailing quotes, commas and brackets are stripped before the test, and
- * a leading '¿' counts on its own, because Spanish opens the question there.
- */
-const isQuestion = (sentence) => /[?]\s*['"`,);\]]*$/.test(sentence) || /¿/.test(sentence)
+const APPROVED = new Set(
+  [
+    // — FAQ questions that pose a falsehood in order to refute it —
+    'O acordo UE–Mercosul permite trabalhar na República Tcheca sem autorização?',
+    '¿El acuerdo UE–Mercosur permite trabajar en Chequia sin autorización?',
+    'O Brasil participa do Programa de trabalhador qualificado?',
+    '¿Los países latinoamericanos participan en el Programa de trabajador cualificado?',
+    '¿Los países latinoamericanos participan en el Programa de trabajador calificado?',
+    'A TalentPartnerID garante um visto de dois anos?',
+    '¿TalentPartnerID garantiza una visa de dos años?',
+    'Posso entrar como turista e procurar trabalho?',
+    '¿Puedo entrar como turista y buscar trabajo?',
+    // — Statements that DENY the claim, in the corpus's own words —
+    'A TalentPartnerID não emite vistos nem autorizações de residência — quem decide é a autoridade tcheca.',
+    'TalentPartnerID no expide visas ni permisos de residencia — quien decide es la autoridad checa.',
+    'A isenção de visto de curta duração não autoriza trabalhar',
+  ].map(normalise),
+)
 
-const isExempt = (sentence, lang) => isQuestion(sentence) || negationFor(lang).test(sentence)
+/** Sentences carrying an approved refutation are exempt; nothing else is. */
+const isExempt = (sentence) => APPROVED.has(normalise(sentence))
 
-export function auditWorkerClaims({ corpora = null, sourceFiles = null, readBuild = true, routes = null } = {}) {
+export function auditWorkerClaims({
+  corpora = null,
+  sourceFiles = null,
+  readBuild = true,
+  routes = null,
+  dirs = null,
+} = {}) {
   const errors = []
   const notes = []
 
   // 1-6. Forbidden claims, in the authored corpus.
-  const files = sourceFiles ?? CANDIDATE_DIRS.flatMap((d) => walk(path.join(ROOT, d)))
+  const files = sourceFiles ?? (dirs ?? CANDIDATE_DIRS).flatMap((d) => walk(path.join(ROOT, d)))
   let scanned = 0
   for (const file of files) {
     const text = stripComments(fs.readFileSync(file, 'utf8'))
     scanned++
-    const lang = langOf(file)
     for (const sentence of sentences(text)) {
-      if (isExempt(sentence, lang)) continue
+      if (isExempt(sentence)) continue
       for (const claim of FORBIDDEN) {
         const m = sentence.match(claim.re)
         if (m) {
@@ -197,9 +236,8 @@ export function auditWorkerClaims({ corpora = null, sourceFiles = null, readBuil
           page.title, page.description, page.h1, page.intro,
           ...page.sections.flatMap((s) => [s.heading, ...s.body, ...(s.list ? [s.list.intro ?? '', ...s.list.items] : [])]),
         ].join(' \n ')
-        const lang = locale === 'pt-BR' ? 'pt' : locale === 'es' ? 'es' : 'any'
         for (const sentence of sentences(text)) {
-          if (isExempt(sentence, lang)) continue
+          if (isExempt(sentence)) continue
           for (const claim of FORBIDDEN) {
             const m = sentence.match(claim.re)
             if (m) errors.push(`${locale}/${conceptId}: forbidden claim [${claim.id}] — "${m[0].slice(0, 120)}" in: "${sentence.slice(0, 140)}"`)
@@ -210,7 +248,8 @@ export function auditWorkerClaims({ corpora = null, sourceFiles = null, readBuil
   }
 
   // 7. No vacancy route may exist while there is no vacancy source of truth.
-  const VACANCY_ROUTE = /\/(vagas|empleos|empregos|available-jobs|job-listings|ofertas-de-emprego|ofertas-de-empleo)\b/i
+  const VACANCY_ROUTE =
+    /\/(vagas|vacantes|empleos|empregos|available-jobs|job-listings|ofertas-de-emprego|ofertas-de-empleo|oportunidades|puestos-disponibles|bolsa-de-empleo|trabalhos-disponiveis|oportunidades-de-trabalho)\b/i
   const allRoutes = routes ?? [...R.LOCALIZED_ROUTES, ...R.CZECH_ROUTES]
   for (const route of allRoutes) {
     if (VACANCY_ROUTE.test(route)) {
@@ -320,7 +359,18 @@ export function auditWorkerClaims({ corpora = null, sourceFiles = null, readBuil
 
   notes.push(`${scanned} candidate source file(s) scanned for ${FORBIDDEN.length} forbidden claim shapes`)
   notes.push(`${allRoutes.length} route(s) checked for vacancy promises`)
-  notes.push('build checked for JobPosting, x-default on locale-native clusters, and employer links')
+  if (readBuild && !fs.existsSync(BUILD)) {
+    errors.push(
+      'no production build at .next/server/pages — the JobPosting, x-default and employer-link checks ' +
+        'examine rendered HTML and cannot run. Run `npx next build` first. This is an error rather than a ' +
+        'note because the gate previously printed "build checked …" having checked nothing.',
+    )
+  }
+  notes.push(
+    readBuild && fs.existsSync(BUILD)
+      ? 'build checked for JobPosting, x-default on locale-native clusters, and employer links'
+      : 'build checks SKIPPED (no build present)',
+  )
   return { errors, notes }
 }
 

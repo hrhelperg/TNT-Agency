@@ -28,21 +28,21 @@ export const PTBR_TRUST: LocaleCorpus = {
         'Quem opera a TalentPartnerID, o que fazemos, o que não fazemos e como verificar de forma independente o que dizemos sobre nós.',
       h1: 'Sobre nós',
       intro:
-        'Você está avaliando informação de uma empresa que não conhece, sobre uma decisão que pode mudar a sua vida. Esta página existe para que possa verificar quem somos em vez de acreditar.',
+        'Você está avaliando informação de uma empresa que não conhece, sobre uma decisão que pode mudar a sua vida. Esta página existe para que você possa verificar quem somos em vez de acreditar.',
       breadcrumb: 'Sobre nós',
       sections: [
         {
           heading: 'Quem opera este site',
           body: [
             `A TalentPartnerID é operada pela ${OPERATOR_LEGAL_NAME}, sociedade constituída na República Tcheca, com sede em ${OPERATOR_SEAT}.`,
-            'A existência e os dados de registro da empresa podem ser consultados de forma independente no registro público tcheco de entidades económicas, sem depender do que dizemos aqui.',
+            'A existência e os dados de registro da empresa podem ser consultados de forma independente no registro público tcheco de entidades econômicas, sem depender do que dizemos aqui.',
           ],
         },
         {
           heading: 'O que publicamos e o que não publicamos sobre nós',
           body: [
-            'Publicamos apenas os dados da empresa que estão verificados contra o registro oficial: a denominação social e a sede.',
-            'Não publicamos o número de identificação da pessoa coletiva nem o número de licença de agência de emprego, porque ainda não estão verificados contra a evidência oficial. Preferimos deixar essa lacuna visível a preenchê-la com algo não confirmado — e ela será preenchida quando a verificação estiver feita.',
+            'Publicamos apenas os dados da empresa que estão conferidos junto ao registro oficial: a denominação social e a sede.',
+            'Não publicamos o número de identificação da pessoa jurídica nem o número de licença de agência de emprego, porque ainda não estão confirmados no registro oficial. Preferimos deixar essa lacuna visível a preenchê-la com algo não confirmado — e ela será preenchida quando a verificação estiver feita.',
           ],
         },
         {
@@ -93,14 +93,14 @@ export const PTBR_TRUST: LocaleCorpus = {
         {
           heading: 'Escreva em português',
           body: [
-            'Pode escrever em português ou em espanhol. Responder na sua língua é mais seguro do que uma tradução aproximada de ambos os lados.',
+            'Você pode escrever em português ou em espanhol. Responder no seu idioma é mais seguro do que depender de tradução aproximada dos dois lados.',
           ],
         },
         {
           heading: 'O que não podemos responder',
           body: [
-            'Não damos aconselhamento jurídico nem migratório sobre casos individuais, e não podemos consultar o estado de um pedido apresentado às autoridades tchecas — não temos acesso a isso.',
-            'Para o estado de um pedido, dirija-se à representação onde o apresentou ou à autoridade competente.',
+            'Não damos aconselhamento jurídico nem migratório sobre casos individuais, e não podemos consultar o andamento de um pedido apresentado às autoridades tchecas — não temos acesso a isso.',
+            'Para saber o andamento de um pedido, procure a representação onde você apresentou o pedido ou à autoridade competente.',
           ],
         },
         {
@@ -111,7 +111,7 @@ export const PTBR_TRUST: LocaleCorpus = {
           ],
         },
       ],
-      cta: { label: 'Candidatar-se', targetConceptId: 'candidate-apply' },
+      cta: { label: 'Candidate-se', targetConceptId: 'candidate-apply' },
       freshness: freshness('conceptual', [LATAM_SRC.labourOffice], 'LATAM'),
     },
   },
