@@ -4253,3 +4253,28 @@ header[data-candidate-chrome="true"] {
   border-bottom: 1px solid var(--border);
 }
 .locale-page--candidate { padding-top: var(--s6, 2rem); }
+
+/*
+   The candidate header keeps its language switcher at every width.
+
+   `@media (max-width: 900px) { .locale-switcher--header { display: none } }`
+   is correct for the employer chrome, where the mobile nav carries a second
+   switcher (.locale-switcher--mobile). The candidate chrome has no mobile nav —
+   it was removed for being unopenable — so that rule left a Brazilian candidate
+   on a phone with the switcher in the DOM, hidden, and no other way to reach
+   the Spanish page. The switcher is the ONLY route between pt-BR and es.
+
+   Found by the mobile E2E project; the desktop project cannot see it, because
+   at desktop widths the rule does not apply.
+*/
+header[data-candidate-chrome="true"] .locale-switcher--header {
+  display: block;
+}
+header[data-candidate-chrome="true"] .locale-switcher--header ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
